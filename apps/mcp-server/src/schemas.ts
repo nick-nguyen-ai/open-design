@@ -1,14 +1,14 @@
 /**
  * Tool input/output schemas — adapter-independent.
  *
- * Two layers, deliberately:
- *  - The ADVERTISED input shapes (passed to the SDK's `registerTool`) describe
- *    every field with `.describe()` and pin its type, so the model sees a tight,
- *    self-documenting schema in `tools/list`.
- *  - The DOMAIN input schemas add the semantic rules (non-empty id, `limit`
- *    bounds, defaults). Handlers validate against these so a rule violation is
- *    returned as a structured `INVALID_INPUT` {@link McpError} tool result
- *    rather than surfacing as an opaque transport-level rejection.
+ * Each tool has ONE tight input schema, used for BOTH the advertised
+ * `tools/list` JSON Schema (bounds + defaults + per-field `.describe()`) AND
+ * validation. The SDK validates arguments against it and applies defaults;
+ * the domain handlers re-validate against the same schema so they stay
+ * correct when called directly. Any validation failure becomes a structured
+ * `INVALID_INPUT` {@link McpError} — by the domain handler when it owns the
+ * parse, and by the adapter's error wrapper when the SDK rejects arguments
+ * before the handler runs (see `server.ts`).
  *
  * Outputs reuse the contracts schemas directly, so a tool response is checked
  * against the same shape the rest of the system trusts.
@@ -55,40 +55,34 @@ void _facetFilterMatches;
 
 // ---- get_component ---------------------------------------------------------
 
-/** Advertised input shape for `get_component` (SDK `registerTool`). */
-export const getComponentInputShape = {
-  componentId: z.string().describe("Exact component id, e.g. 'comp.trend-chart'."),
-};
-
-/** Domain schema: an id must be a non-empty string. */
+/** Tight input schema for `get_component` (advertised AND validated). */
 export const GetComponentInput = z.object({
-  componentId: z.string().min(1),
+  componentId: z.string().min(1).describe("Exact component id, e.g. 'comp.trend-chart'."),
 });
 export type GetComponentInput = z.infer<typeof GetComponentInput>;
 
 // ---- search_components ------------------------------------------------------
 
-/** Advertised input shape for `search_components` (SDK `registerTool`). */
-export const searchComponentsInputShape = {
+/** Tight input schema for `search_components` (advertised AND validated); defaults are applied by the SDK and re-applied by the handler. */
+export const SearchComponentsInput = z.object({
   query: z
     .string()
-    .describe("Natural-language intent or keywords, e.g. 'time series line chart'. Empty returns the catalogue in browse order."),
+    .min(1)
+    .describe("Natural-language intent or keywords, e.g. 'time series line chart'."),
   filters: FacetFilterSchema.optional().describe(
     'Optional hard facet filters (surface, audiences, category, density, corporateSuitability, motionLevel, approval, renderingCost, themeModes, usesCanvas, usesWebGL). A component must satisfy every provided facet to appear.',
   ),
   entityTypes: z
     .array(EntityType)
-    .optional()
+    .default(['component'])
     .describe('Entity types to search. Defaults to components; may include experience, grammar, or motion.'),
-  limit: z.number().int().optional().describe('Maximum results to return, 1-50. Defaults to 10.'),
-};
-
-/** Domain schema: bounds + defaults the advertised shape leaves to the handler. */
-export const SearchComponentsInput = z.object({
-  query: z.string(),
-  filters: FacetFilterSchema.optional(),
-  entityTypes: z.array(EntityType).default(['component']),
-  limit: z.number().int().min(1).max(50).default(10),
+  limit: z
+    .number()
+    .int()
+    .min(1)
+    .max(50)
+    .default(10)
+    .describe('Maximum results to return, between 1 and 50. Defaults to 10.'),
 });
 export type SearchComponentsInput = z.infer<typeof SearchComponentsInput>;
 

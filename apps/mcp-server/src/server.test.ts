@@ -97,12 +97,6 @@ describe('mcp-server tools', () => {
     expect(error.requestId).toBeTruthy();
   });
 
-  it('get_component with an empty id returns a structured INVALID_INPUT error', async () => {
-    const result = (await h.client.callTool({ name: 'get_component', arguments: { componentId: '' } })) as CallToolResult;
-    expect(result.isError).toBe(true);
-    expect(McpError.parse(textPayload(result)).code).toBe('INVALID_INPUT');
-  });
-
   it('search_components ranks comp.trend-chart for a time-series query', async () => {
     const result = (await h.client.callTool({ name: 'search_components', arguments: { query: 'time series line chart' } })) as CallToolResult;
     expect(result.isError).not.toBe(true);
@@ -120,11 +114,11 @@ describe('mcp-server tools', () => {
   });
 
   it('search_components truncates to limit and reports the true total', async () => {
-    const result = (await h.client.callTool({ name: 'search_components', arguments: { query: '', limit: 2 } })) as CallToolResult;
+    const result = (await h.client.callTool({ name: 'search_components', arguments: { query: 'time series line chart', limit: 2 } })) as CallToolResult;
     const out = SearchComponentsOutput.parse(result.structuredContent);
     expect(out.results).toHaveLength(2);
-    expect(out.totalMatched).toBe(registry.components.length);
-    expect(out.note).toMatch(/Showing 2 of/);
+    expect(out.totalMatched).toBeGreaterThan(2);
+    expect(out.note).toMatch(/Showing 2 of \d+/);
   });
 
   it('search_components with no match returns empty results and a note, not an error', async () => {
@@ -136,18 +130,30 @@ describe('mcp-server tools', () => {
     expect(out.note).toBeTruthy();
   });
 
-  it('search_components with an out-of-range limit returns a structured INVALID_INPUT error', async () => {
-    const result = (await h.client.callTool({ name: 'search_components', arguments: { query: 'chart', limit: 0 } })) as CallToolResult;
+  // The error-contract invariant: EVERY invalid input returns isError with a
+  // parseable, structured McpError(INVALID_INPUT) — whether the SDK rejects the
+  // arguments before the handler (type violations) or the domain layer does
+  // (bounds). No path leaks a bare, non-JSON string.
+  it.each([
+    ['get_component wrong-typed id', 'get_component', { componentId: 123 }],
+    ['get_component empty id', 'get_component', { componentId: '' }],
+    ['search_components out-of-range limit', 'search_components', { query: 'chart', limit: 0 }],
+    ['search_components wrong-typed limit', 'search_components', { query: 'chart', limit: '10' }],
+    ['search_components empty query', 'search_components', { query: '' }],
+  ])('invalid input (%s) returns a parseable structured INVALID_INPUT', async (_label, name, args) => {
+    const result = (await h.client.callTool({ name, arguments: args })) as CallToolResult;
     expect(result.isError).toBe(true);
-    expect(McpError.parse(textPayload(result)).code).toBe('INVALID_INPUT');
+    // A client doing JSON.parse(content[0].text) must get a valid McpError.
+    const error = McpError.parse(textPayload(result));
+    expect(error.code).toBe('INVALID_INPUT');
+    expect(error.requestId).toBeTruthy();
   });
 
-  it('stays responsive after malformed requests (unknown tool + wrong-typed arg)', async () => {
-    // Unknown tool.
-    await h.client.callTool({ name: 'no_such_tool', arguments: {} }).catch(() => undefined);
-    // Wrong-typed argument (SDK rejects before the handler; server must not crash).
-    await h.client.callTool({ name: 'get_component', arguments: { componentId: 123 } }).catch(() => undefined);
-    // Server is still alive and correct.
+  it('every isError result (including unknown tool) carries a parseable McpError, and the server stays responsive', async () => {
+    const unknown = (await h.client.callTool({ name: 'no_such_tool', arguments: {} })) as CallToolResult;
+    expect(unknown.isError).toBe(true);
+    expect(() => McpError.parse(textPayload(unknown))).not.toThrow();
+    // Server is still alive and correct after the malformed traffic above.
     const ok = (await h.client.callTool({ name: 'get_component', arguments: { componentId: 'comp.kpi-tile' } })) as CallToolResult;
     expect(ComponentManifest.parse(ok.structuredContent).id).toBe('comp.kpi-tile');
   });

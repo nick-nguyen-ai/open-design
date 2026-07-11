@@ -86,6 +86,17 @@ async function main(): Promise<void> {
     check('get_component(bogus) isError', bogus.isError === true);
     check('get_component(bogus) structured UNKNOWN_COMPONENT', bogusErr.success && bogusErr.data.code === 'UNKNOWN_COMPONENT' && bogusErr.data.remediation.length > 0, bogusErr.success ? bogusErr.data.code : bogusErr.error.message);
 
+    // 2c. A wrong-typed argument (SDK rejects it before our handler) must STILL
+    // return a parseable, structured INVALID_INPUT — not a bare string.
+    const typeViolation = (await client.callTool({ name: 'get_component', arguments: { componentId: 123 } })) as CallToolResult;
+    const typeErr = McpError.safeParse(textPayload(typeViolation));
+    check('get_component(wrong-typed id) structured INVALID_INPUT', typeViolation.isError === true && typeErr.success && typeErr.data.code === 'INVALID_INPUT', typeErr.success ? typeErr.data.code : String(typeErr.error?.message));
+
+    // 2d. An out-of-range bound (rejected by the advertised schema) → structured INVALID_INPUT.
+    const boundViolation = (await client.callTool({ name: 'search_components', arguments: { query: 'chart', limit: 0 } })) as CallToolResult;
+    const boundErr = McpError.safeParse(textPayload(boundViolation));
+    check('search_components(limit=0) structured INVALID_INPUT', boundViolation.isError === true && boundErr.success && boundErr.data.code === 'INVALID_INPUT', boundErr.success ? boundErr.data.code : String(boundErr.error?.message));
+
     // 3a. search "time series line chart" → comp.trend-chart is ranked.
     const search = (await client.callTool({ name: 'search_components', arguments: { query: 'time series line chart' } })) as CallToolResult;
     const searchOut = search.structuredContent as { results: { id: string }[]; totalMatched: number } | undefined;
@@ -98,7 +109,7 @@ async function main(): Promise<void> {
     check('search(filter category=chart) only returns chart components', (filteredOut?.results.length ?? 0) > 0 && allChart, (filteredOut?.results ?? []).map((r) => `${r.id}:${r.facets.category}`).join(', '));
 
     // 3c. limit truncation + true total.
-    const limited = (await client.callTool({ name: 'search_components', arguments: { query: '', limit: 2 } })) as CallToolResult;
+    const limited = (await client.callTool({ name: 'search_components', arguments: { query: 'time series line chart', limit: 2 } })) as CallToolResult;
     const limitedOut = limited.structuredContent as { results: unknown[]; totalMatched: number; note?: string } | undefined;
     check('search(limit=2) truncates to 2 with true total', (limitedOut?.results.length ?? 0) === 2 && (limitedOut?.totalMatched ?? 0) > 2 && !!limitedOut?.note?.includes('Showing 2 of'), JSON.stringify({ n: limitedOut?.results.length, total: limitedOut?.totalMatched, note: limitedOut?.note }));
 
