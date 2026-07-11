@@ -1,0 +1,13 @@
+node_modules/
+dist/
+build/
+coverage/
+.turbo/
+.vite/
+*.tsbuildinfo
+.DS_Store
+storybook-static/
+playwright-report/
+test-results/
+.superpowers/
+packages/registry/generated/
