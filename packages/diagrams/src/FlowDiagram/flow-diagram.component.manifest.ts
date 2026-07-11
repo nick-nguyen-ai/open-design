@@ -60,6 +60,7 @@ const flowDiagramManifest: ComponentManifest = {
     knownLimitations: [
       'The reveal animates node-by-node once on mount; hover/selection-triggered re-illumination of a traversal path is not yet implemented.',
       'Edge routing is straight-line, not orthogonal — acceptable for the small (~20 node) diagrams this component targets.',
+      'Nodes in a cycle or otherwise unreachable from any root collapse to rank 0; the layout stays deterministic and never throws, but such nodes may visually overlap root nodes in the same column. Intended for acyclic (DAG) flows.',
     ],
   },
   performance: {
