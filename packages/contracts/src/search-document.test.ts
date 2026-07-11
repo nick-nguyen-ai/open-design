@@ -10,9 +10,9 @@ const validSearchDocument = {
   tags: ['kpi', 'metric'],
   facets: {
     category: 'content',
-    density: 'medium',
+    density: ['medium'],
     motionLevel: 1,
-    corporateSuitability: 'standard',
+    corporateSuitability: ['standard'],
     renderingCost: 'low',
     usesCanvas: false,
     usesWebGL: false,
@@ -54,6 +54,28 @@ describe('SearchDocument', () => {
     if (!result.success) {
       expect(result.error.issues.some((issue) => issue.path.includes('text'))).toBe(true);
     }
+  });
+
+  it('round-trips multi-value density and corporateSuitability facets', () => {
+    const multi = {
+      ...validSearchDocument,
+      facets: {
+        ...validSearchDocument.facets,
+        density: ['low', 'medium'],
+        corporateSuitability: ['standard', 'expressive'],
+      },
+    };
+    const parsed = SearchDocument.parse(multi);
+    expect(parsed.facets.density).toEqual(['low', 'medium']);
+    expect(parsed.facets.corporateSuitability).toEqual(['standard', 'expressive']);
+  });
+
+  it('rejects a single (non-array) density facet', () => {
+    const result = SearchDocument.safeParse({
+      ...validSearchDocument,
+      facets: { ...validSearchDocument.facets, density: 'medium' },
+    });
+    expect(result.success).toBe(false);
   });
 
   it('rejects a facets.motionLevel value outside 0-3', () => {

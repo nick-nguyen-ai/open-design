@@ -70,6 +70,17 @@ describe('compatibility graph', () => {
     expect(graph.has('comp.unknown')).toBe(false);
     expect(graph.conflictsFor('comp.unknown')).toEqual([]);
   });
+
+  it('allows asymmetric worksWellWith without any diagnostic', async () => {
+    const result = await compileRegistry({ cwd: VALID_ROOT });
+    const graph = new CompatibilityGraph(result.compatibility);
+    // comp.trend-chart works well with comp.filter-bar, which does not reciprocate.
+    expect(graph.worksWellWith('comp.trend-chart')).toContain('comp.filter-bar');
+    expect(graph.worksWellWith('comp.filter-bar')).not.toContain('comp.trend-chart');
+    // Only conflictsWith is symmetry-checked, so this stays completely clean.
+    expect(result.diagnostics).toEqual([]);
+    expect(result.ok).toBe(true);
+  });
 });
 
 describe('search document generation', () => {
@@ -87,13 +98,14 @@ describe('search document generation', () => {
       motionLevel: 2,
       renderingCost: 'medium',
       usesCanvas: true,
-      density: 'medium',
-      corporateSuitability: 'standard',
       approval: 'approved',
     });
+    // Components emit the full array of every density / suitability they support.
+    expect(doc?.facets.density).toEqual(['low', 'medium']);
+    expect(doc?.facets.corporateSuitability).toEqual(['standard', 'expressive']);
   });
 
-  it('builds an experience document with surface + grammar facets', async () => {
+  it('builds an experience document with surface + grammar facets (single values wrapped as arrays)', async () => {
     const result = await compileRegistry({ cwd: VALID_ROOT });
     const doc = result.searchDocuments.find((d) => d.id === 'exp.risk-dashboard');
     expect(doc?.entityType).toBe('experience');
@@ -101,9 +113,9 @@ describe('search document generation', () => {
     expect(doc?.facets).toMatchObject({
       surface: 'dashboard',
       grammarId: 'precision-grid',
-      density: 'high',
-      corporateSuitability: 'standard',
     });
+    expect(doc?.facets.density).toEqual(['high']);
+    expect(doc?.facets.corporateSuitability).toEqual(['standard']);
   });
 
   it('builds grammar and motion documents with non-empty text', async () => {

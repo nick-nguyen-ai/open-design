@@ -29,20 +29,20 @@ export function buildSearchDocuments(input: {
 }
 
 function componentDocument(component: ComponentManifest): SearchDocument {
+  // Components carry array-valued density/corporateSuitability; emit the full
+  // arrays so the component is discoverable under every value it supports (a
+  // `['low','medium']` component must match both a low and a medium filter).
   const facets: SearchFacets = {
     category: component.category,
+    density: component.density,
     motionLevel: component.motionLevel,
+    corporateSuitability: component.corporateSuitability,
     renderingCost: component.performance.renderingCost,
     usesCanvas: component.performance.usesCanvas,
     usesWebGL: component.performance.usesWebGL,
     approval: component.approval.state,
     themeModes: component.themeModes,
   };
-  // Component facets narrow multi-valued fields to their primary value.
-  if (component.density[0] !== undefined) facets.density = component.density[0];
-  if (component.corporateSuitability[0] !== undefined) {
-    facets.corporateSuitability = component.corporateSuitability[0];
-  }
   if (component.audiences.length > 0) facets.audiences = component.audiences;
 
   return {
@@ -67,13 +67,15 @@ function componentDocument(component: ComponentManifest): SearchDocument {
 }
 
 function experienceDocument(experience: ExperienceManifest): SearchDocument {
+  // Experiences carry single density/corporateSuitability values; wrap them as
+  // one-element arrays so the facet shape is uniform with components.
   const facets: SearchFacets = {
     surface: experience.surface,
     audiences: experience.audiences,
     grammarId: experience.grammarId,
-    density: experience.density,
+    density: [experience.density],
     motionLevel: experience.motionLevel,
-    corporateSuitability: experience.corporateSuitability,
+    corporateSuitability: [experience.corporateSuitability],
     approval: experience.approval.state,
     themeModes: experience.themeModes,
   };
