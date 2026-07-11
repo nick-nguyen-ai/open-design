@@ -6,6 +6,9 @@
     { "path": "packages/motion" },
     { "path": "packages/themes" },
     { "path": "packages/primitives" },
-    { "path": "packages/registry" }
+    { "path": "packages/registry" },
+    { "path": "packages/data-viz" },
+    { "path": "packages/content-components" },
+    { "path": "packages/diagrams" }
   ]
 }
