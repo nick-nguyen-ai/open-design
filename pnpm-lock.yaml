@@ -45,6 +45,14 @@ importers:
         specifier: ^4.4.3
         version: 4.4.3
 
+  packages/design-tokens: {}
+
+  packages/themes:
+    dependencies:
+      '@enterprise-design/design-tokens':
+        specifier: workspace:*
+        version: link:../design-tokens
+
 packages:
 
   '@babel/code-frame@7.29.7':

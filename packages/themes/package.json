@@ -1,0 +1,21 @@
+{
+  "name": "@enterprise-design/themes",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./enterprise-neutral-light.css": "./enterprise-neutral-light.css",
+    "./enterprise-neutral-dark.css": "./enterprise-neutral-dark.css"
+  },
+  "scripts": {
+    "generate:css": "node scripts/generate-css.ts",
+    "test": "vitest run --root ../.. packages/themes"
+  },
+  "dependencies": {
+    "@enterprise-design/design-tokens": "workspace:*"
+  }
+}
