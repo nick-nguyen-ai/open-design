@@ -116,10 +116,36 @@ describe('determinism', () => {
     expect(second).toEqual(first);
   });
 
-  it('rebuilding the index from the same documents yields the same query results', () => {
-    const indexA = createSearchIndex(FIXTURE_DOCUMENTS);
-    const indexB = createSearchIndex([...FIXTURE_DOCUMENTS]);
-    expect(search(indexA, 'trend chart')).toEqual(search(indexB, 'trend chart'));
-    expect(search(indexA, '')).toEqual(search(indexB, ''));
+  it('rebuilding the index from a REVERSED copy of the documents yields identical ordered results', () => {
+    // Reversing the input order proves the query path is order-independent
+    // (deterministic ranking + tie-breaks), not merely that repeated calls on
+    // one index agree.
+    const indexForward = createSearchIndex(FIXTURE_DOCUMENTS);
+    const indexReversed = createSearchIndex([...FIXTURE_DOCUMENTS].reverse());
+    for (const query of ['trend chart', 'monitoring dashboard model', 'grid', 'kpi', '']) {
+      expect(search(indexReversed, query)).toEqual(search(indexForward, query));
+    }
+  });
+});
+
+describe('empty / degenerate corpora', () => {
+  it('createSearchIndex([]) + a non-empty query returns no results and does not throw', () => {
+    const index = createSearchIndex([]);
+    expect(search(index, 'anything at all')).toEqual([]);
+  });
+
+  it('createSearchIndex([]) + an empty query returns no results and does not throw', () => {
+    const index = createSearchIndex([]);
+    expect(search(index, '')).toEqual([]);
+  });
+
+  it('a filter value present in no document yields graceful empty results', () => {
+    const index = createSearchIndex(FIXTURE_DOCUMENTS);
+    // No fixture document has surface 'slide-deck'.
+    expect(search(index, '', { filters: { surface: 'slide-deck' } })).toEqual([]);
+    // ...nor with a text query in play.
+    expect(search(index, 'chart', { filters: { surface: 'slide-deck' } })).toEqual([]);
+    // An entityType absent from the (text) result set is likewise empty, not a throw.
+    expect(search(index, 'kpi', { entityTypes: ['motion'] })).toEqual([]);
   });
 });

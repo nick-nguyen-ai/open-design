@@ -1,3 +1,5 @@
+import { processTerm } from './stopwords.js';
+
 /**
  * Curated business-intent synonym / taxonomy map (plan §15.4).
  *
@@ -40,14 +42,20 @@ export const SYNONYM_GROUPS: readonly (readonly string[])[] = [
 const WORD_SPLIT = /[\s-]+/;
 const QUERY_TOKEN_SPLIT = /[^a-z0-9]+/;
 
-/** Build a word -> related-words lookup from {@link SYNONYM_GROUPS}, expanding hyphenated phrases into their component words. */
+/**
+ * Build a word -> related-words lookup from {@link SYNONYM_GROUPS}, expanding
+ * hyphenated phrases into their component words. Stop-words and single-char
+ * fragments are excluded so a phrase like "go-to-market" contributes only
+ * "go"/"market" and NOT the stopword "to" — otherwise every query containing
+ * "to" would spuriously expand with that group's terms.
+ */
 function buildSynonymIndex(groups: readonly (readonly string[])[]): Map<string, Set<string>> {
   const index = new Map<string, Set<string>>();
   for (const group of groups) {
     const words = new Set<string>();
     for (const phrase of group) {
       for (const word of phrase.toLowerCase().split(WORD_SPLIT)) {
-        if (word.length > 0) words.add(word);
+        if (processTerm(word) !== null) words.add(word);
       }
     }
     for (const word of words) {

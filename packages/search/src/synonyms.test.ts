@@ -22,6 +22,13 @@ describe('expandQuerySynonyms', () => {
     expect(expandQuerySynonyms('xylophone quokka')).toBe('xylophone quokka');
   });
 
+  it('does not treat a stop-word fragment of a hyphenated synonym as an expansion trigger', () => {
+    // Regression: "go-to-market" splits to go/to/market; the stop-word "to"
+    // must NOT become a synonym key, or every query containing "to" would
+    // spuriously expand with launch/go/market and derail ranking.
+    expect(expandQuerySynonyms('move workloads to the cloud')).toBe('move workloads to the cloud');
+  });
+
   it('is deterministic across repeated calls', () => {
     expect(expandQuerySynonyms('genai llm strategy')).toBe(expandQuerySynonyms('genai llm strategy'));
   });

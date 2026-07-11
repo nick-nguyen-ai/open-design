@@ -1,6 +1,7 @@
 import MiniSearch from 'minisearch';
 import type { SearchDocument } from '@enterprise-design/contracts';
 import type { SearchIndex } from './types.js';
+import { MIN_PREFIX_FUZZY_LENGTH, processTerm } from './stopwords.js';
 
 const FIELDS = ['title', 'summary', 'text', 'tags'] as const;
 
@@ -45,10 +46,15 @@ export function createSearchIndex(documents: SearchDocument[]): SearchIndex {
     idField: 'id',
     fields: [...FIELDS],
     extractField,
+    // Drop stop-words / single-char tokens from both index and query.
+    processTerm,
     searchOptions: {
       boost: FIELD_BOOST,
-      prefix: true,
-      fuzzy: 0.2,
+      // Prefix and fuzzy matching only for terms long enough to be meaningful:
+      // this stops short tokens ("ai", "kpi") from prefix-exploding across the
+      // corpus while still matching them exactly.
+      prefix: (term) => term.length >= MIN_PREFIX_FUZZY_LENGTH,
+      fuzzy: (term) => (term.length >= MIN_PREFIX_FUZZY_LENGTH ? 0.2 : false),
       combineWith: 'OR',
     },
   });
