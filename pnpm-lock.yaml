@@ -121,6 +121,18 @@ importers:
         specifier: ^19.2.7
         version: 19.2.7(react@19.2.7)
 
+  packages/registry:
+    dependencies:
+      '@enterprise-design/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+      tinyglobby:
+        specifier: ^0.2.17
+        version: 0.2.17
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
+
   packages/themes:
     dependencies:
       '@enterprise-design/design-tokens':

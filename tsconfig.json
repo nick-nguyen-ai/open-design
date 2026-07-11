@@ -5,6 +5,7 @@
     { "path": "packages/design-tokens" },
     { "path": "packages/motion" },
     { "path": "packages/themes" },
-    { "path": "packages/primitives" }
+    { "path": "packages/primitives" },
+    { "path": "packages/registry" }
   ]
 }

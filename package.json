@@ -7,7 +7,9 @@
     "lint": "eslint .",
     "typecheck": "tsc -b && corepack pnpm -r --if-present run typecheck",
     "test": "vitest run --passWithNoTests && corepack pnpm -r --if-present run test",
-    "build": "corepack pnpm -r --if-present run build"
+    "build": "corepack pnpm -r --if-present run build",
+    "registry:build": "corepack pnpm exec tsx packages/registry/src/cli.ts build",
+    "registry:validate": "corepack pnpm exec tsx packages/registry/src/cli.ts validate"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",
