@@ -20,7 +20,8 @@ export const lightValues = {
   'text-secondary': '#3d4753',
   'text-muted': '#556170',
   'text-on-accent': '#ffffff',
-  // Borders.
+  // Borders — decorative dividers only. `border-strong` is ~1.6:1 on
+  // surface-base, below WCAG 1.4.11 (3:1); not for component-state boundaries.
   'border-subtle': '#dbe0e7',
   'border-strong': '#c1c9d3',
   // Focus — the accent, for a high-visibility ring.

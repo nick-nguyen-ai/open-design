@@ -19,7 +19,11 @@ export const themedTokenNames = [
   'text-secondary',
   'text-muted',
   'text-on-accent',
-  // Borders.
+  // Borders — DECORATIVE dividers only. Both are intentionally low-contrast
+  // (`border-strong` is ~1.6:1 light / ~1.9:1 dark on surface-base — BELOW the
+  // WCAG 1.4.11 3:1 non-text minimum). Do NOT use them to outline an input or
+  // mark a selected/active state where the boundary carries meaning; use the
+  // `focus-ring` (AA non-text) or an accent/status colour for those.
   'border-subtle',
   'border-strong',
   // Focus.

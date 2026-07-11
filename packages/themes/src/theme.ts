@@ -18,8 +18,10 @@ export const enterpriseNeutralLight: ThemeDefinition = {
   id: 'enterprise-neutral-light',
   label: 'Enterprise Neutral — Light',
   colorScheme: 'light',
-  // `satisfies` here is the compile-time completeness gate: this fails to build
-  // if `light.values.ts` is missing a token or has a stray one.
+  // `satisfies` is a compile-time gate for MISSING tokens (the value map is not
+  // assignable to ThemeValueMap if a name is absent). It does NOT catch a stray
+  // EXTRA token — excess-property checks don't fire on a non-literal identifier —
+  // so the runtime completeness test is what enforces "no extras".
   values: lightValues satisfies ThemeValueMap,
 };
 

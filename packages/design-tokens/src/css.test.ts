@@ -67,7 +67,7 @@ describe('buildTokensCss', () => {
     expect(buildTokensCss(nonThemedTokens)).toBe(css);
   });
 
-  it('sets tabular figures on the numeric family token', () => {
+  it('exposes tabular figures via the --numeric-figures token', () => {
     expect(css).toContain('--numeric-figures: tabular-nums;');
   });
 });

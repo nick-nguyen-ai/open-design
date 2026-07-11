@@ -1,36 +1,18 @@
 /**
  * Emits the committed per-theme CSS files from the theme value maps.
  *
- * Run with Node's native TypeScript support: `node scripts/generate-css.ts`
- * (wired as `pnpm --filter @enterprise-design/themes generate:css`).
- *
- * Excluded from the package tsconfig; uses `.ts` import specifiers (resolved by
- * Node type-stripping) and reaches into design-tokens' PURE `css.ts` by relative
- * path — the shipped library instead imports it via the package entry. Outputs
- * are committed; `css.test.ts` fails if they drift from `buildThemeCss()`.
+ * Run under `tsx` (workspace dev dependency): `tsx scripts/generate-css.ts`,
+ * wired as `pnpm --filter @enterprise-design/themes generate:css`. `tsx` resolves
+ * the workspace `.js`-specifier graph (including the `@enterprise-design/design-
+ * tokens` package entry), so this script imports the REAL `buildThemeCss` — no
+ * duplicated selector/branching logic. `css.test.ts` asserts each committed file
+ * byte-equals `buildThemeCss(theme)`.
  */
 import { writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { renderBlock, GENERATED_BANNER } from '../../design-tokens/src/css.ts';
-import { lightValues } from '../src/light.values.ts';
-import { darkValues } from '../src/dark.values.ts';
-
-// Mirror of buildThemeCss() from ../src/css.ts, using the pure renderer above.
-// (The shipped buildThemeCss imports from the package entry, which Node's
-// type-stripping cannot resolve through the `.js`-specifier graph; the drift
-// test asserts this output equals buildThemeCss for both themes.)
-function lightCss(): string {
-  const header = `${GENERATED_BANNER}\n/* Theme: Enterprise Neutral — Light (enterprise-neutral-light) */`;
-  return `${header}\n${renderBlock([':root', ":root[data-theme='light']"], lightValues)}\n`;
-}
-
-function darkCss(): string {
-  const header = `${GENERATED_BANNER}\n/* Theme: Enterprise Neutral — Dark (enterprise-neutral-dark) */`;
-  const explicit = renderBlock(":root[data-theme='dark']", darkValues);
-  const preferred = renderBlock(":root:not([data-theme='light'])", darkValues, '  ');
-  return `${header}\n${explicit}\n@media (prefers-color-scheme: dark) {\n${preferred}\n}\n`;
-}
+import { buildThemeCss } from '../src/css.js';
+import { enterpriseNeutralLight, enterpriseNeutralDark } from '../src/theme.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const write = (file: string, content: string) => {
@@ -39,5 +21,5 @@ const write = (file: string, content: string) => {
   console.log(`Wrote ${out}`);
 };
 
-write('enterprise-neutral-light.css', lightCss());
-write('enterprise-neutral-dark.css', darkCss());
+write('enterprise-neutral-light.css', buildThemeCss(enterpriseNeutralLight));
+write('enterprise-neutral-dark.css', buildThemeCss(enterpriseNeutralDark));

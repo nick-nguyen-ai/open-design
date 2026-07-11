@@ -11,7 +11,7 @@
     "./tokens.css": "./tokens.css"
   },
   "scripts": {
-    "generate:css": "node scripts/generate-css.ts",
+    "generate:css": "tsx scripts/generate-css.ts",
     "test": "vitest run --root ../.. packages/design-tokens"
   }
 }

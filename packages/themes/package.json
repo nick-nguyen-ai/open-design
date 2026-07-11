@@ -12,7 +12,7 @@
     "./enterprise-neutral-dark.css": "./enterprise-neutral-dark.css"
   },
   "scripts": {
-    "generate:css": "node scripts/generate-css.ts",
+    "generate:css": "tsx scripts/generate-css.ts",
     "test": "vitest run --root ../.. packages/themes"
   },
   "dependencies": {

@@ -20,7 +20,8 @@ export const darkValues = {
   'text-secondary': '#c1c9d3',
   'text-muted': '#9aa5b3',
   'text-on-accent': '#ffffff',
-  // Borders.
+  // Borders — decorative dividers only. `border-strong` is ~1.9:1 on
+  // surface-base, below WCAG 1.4.11 (3:1); not for component-state boundaries.
   'border-subtle': '#2a323c',
   'border-strong': '#3d4753',
   // Focus — a brighter accent step for visibility on dark surfaces.
