@@ -87,7 +87,8 @@ export function QuickPreviewDrawer({ result, onClose }: QuickPreviewDrawerProps)
       {result && (
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-2">
-            <span className="rounded-sm px-2 py-0.5 text-xs font-weight-medium uppercase tracking-wide text-text-on-accent" style={{ backgroundColor: accent }}>
+            <span className="inline-flex items-center gap-1.5 rounded-sm border border-border-subtle px-2 py-0.5 text-xs font-medium uppercase tracking-wide text-text-secondary">
+              <span aria-hidden className="h-2 w-2 rounded-full" style={{ backgroundColor: accent }} />
               {ENTITY_LABEL[result.entityType]}
             </span>
             {result.facets.approval && <Badge tone="info">{APPROVAL_LABEL[result.facets.approval]}</Badge>}
@@ -137,14 +138,14 @@ export function QuickPreviewDrawer({ result, onClose }: QuickPreviewDrawerProps)
             <RouterLink
               to={detailRoute(result.entityType, result.id)}
               onClick={onClose}
-              className="inline-flex h-10 items-center justify-center gap-2 rounded-md bg-accent px-4 text-md font-weight-medium text-text-on-accent no-underline transition-colors duration-feedback ease-settle hover:bg-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
+              className="inline-flex h-10 items-center justify-center gap-2 rounded-md bg-accent px-4 text-md font-medium text-text-on-accent no-underline transition-colors duration-feedback ease-settle hover:bg-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
             >
               View full detail <ArrowRightIcon />
             </RouterLink>
             <RouterLink
               to={`/blueprint-lab?focus=${encodeURIComponent(result.id)}`}
               onClick={onClose}
-              className="inline-flex h-10 items-center justify-center rounded-md border border-border-strong bg-surface-raised px-4 text-md font-weight-medium text-text-primary no-underline transition-colors duration-feedback ease-settle hover:bg-surface-sunken focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
+              className="inline-flex h-10 items-center justify-center rounded-md border border-border-strong bg-surface-raised px-4 text-md font-medium text-text-primary no-underline transition-colors duration-feedback ease-settle hover:bg-surface-sunken focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
             >
               Use in Blueprint Lab
             </RouterLink>

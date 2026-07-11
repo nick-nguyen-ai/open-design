@@ -24,7 +24,7 @@ export function ResultGrid({ results, onOpen, onClearFilters }: ResultGridProps)
           <button
             type="button"
             onClick={onClearFilters}
-            className="rounded-md bg-accent px-4 py-2 text-md font-weight-medium text-text-on-accent transition-colors duration-feedback ease-settle hover:bg-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
+            className="rounded-md bg-accent px-4 py-2 text-md font-medium text-text-on-accent transition-colors duration-feedback ease-settle hover:bg-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
           >
             Clear filters
           </button>

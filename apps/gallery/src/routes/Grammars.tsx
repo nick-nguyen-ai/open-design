@@ -25,9 +25,9 @@ export default function Grammars() {
               className="absolute inset-y-0 left-0 w-[3px]"
               style={{ backgroundColor: grammarAccent(grammar.id) }}
             />
-            <h2 className="font-heading text-md font-weight-semibold text-text-primary">{grammar.name}</h2>
+            <h2 className="font-heading text-md font-semibold text-text-primary">{grammar.name}</h2>
             <p className="line-clamp-4 text-sm leading-normal text-text-secondary">{grammar.intent}</p>
-            <span className="mt-auto inline-flex items-center gap-1 text-xs font-weight-medium text-accent">
+            <span className="mt-auto inline-flex items-center gap-1 text-xs font-medium text-accent">
               Explore grammar <ArrowRightIcon />
             </span>
           </Card>

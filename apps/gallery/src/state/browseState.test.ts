@@ -55,6 +55,7 @@ describe('URL round-trip', () => {
     const state: BrowseState = {
       query: 'model risk',
       mode: 'templates',
+      sort: 'name',
       filters: {
         surface: 'dashboard',
         grammarId: 'calm-command',

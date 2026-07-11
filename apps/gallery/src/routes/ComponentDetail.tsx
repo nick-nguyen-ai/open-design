@@ -55,7 +55,7 @@ export default function ComponentDetail() {
           )}
           <p className="text-xs text-text-muted">
             Rendered live with frozen sample data. Supported states:{' '}
-            <span className="font-weight-medium text-text-secondary">{supportedStates.join(', ')}</span>.
+            <span className="font-medium text-text-secondary">{supportedStates.join(', ')}</span>.
           </p>
         </Section>
 

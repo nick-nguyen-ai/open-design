@@ -31,7 +31,7 @@ function FacetGroup({ legend, children }: FacetGroupProps) {
   if (!children) return null;
   return (
     <fieldset className="flex flex-col gap-2 border-0 p-0">
-      <legend className="mb-1 text-xs font-weight-semibold uppercase tracking-wide text-text-muted">
+      <legend className="mb-1 text-xs font-semibold uppercase tracking-wide text-text-muted">
         {legend}
       </legend>
       <div className="flex flex-wrap gap-1.5">{children}</div>

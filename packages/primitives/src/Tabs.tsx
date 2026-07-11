@@ -100,7 +100,7 @@ function Tab({ value, children, className }: TabProps) {
       onClick={() => ctx.onChange(value)}
       onKeyDown={handleKeyDown}
       className={cx(
-        'px-3 py-2 text-sm font-weight-medium text-text-secondary transition-colors duration-feedback ease-settle',
+        'px-3 py-2 text-sm font-medium text-text-secondary transition-colors duration-feedback ease-settle',
         'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring',
         selected && 'border-b-2 border-accent text-text-primary',
         className,

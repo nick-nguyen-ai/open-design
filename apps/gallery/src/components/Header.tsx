@@ -40,7 +40,7 @@ export function Header() {
     <header className="sticky top-0 z-sticky border-b border-border-subtle bg-surface-base/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 w-full max-w-[80rem] items-center gap-4 px-6">
         <NavLink to="/" className="group flex items-baseline gap-2 no-underline">
-          <span className="font-heading text-lg font-weight-semibold tracking-tight text-text-primary">
+          <span className="font-heading text-lg font-semibold tracking-tight text-text-primary">
             Enterprise Design Intelligence
           </span>
           <span className="hidden text-sm text-text-muted sm:inline">Gallery</span>
@@ -53,7 +53,7 @@ export function Header() {
               to={item.to}
               end={item.end}
               className={({ isActive }) =>
-                'rounded-md px-3 py-2 text-sm font-weight-medium no-underline transition-colors duration-feedback ease-settle ' +
+                'rounded-md px-3 py-2 text-sm font-medium no-underline transition-colors duration-feedback ease-settle ' +
                 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring ' +
                 (isActive
                   ? 'text-text-primary'

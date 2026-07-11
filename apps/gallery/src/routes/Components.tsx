@@ -16,8 +16,8 @@ export default function Components() {
         {components.map((comp) => (
           <Card key={comp.id} href={`/components/${comp.id}`} className="group flex h-full flex-col gap-3 no-underline">
             <div className="flex items-start justify-between gap-3">
-              <h2 className="font-heading text-md font-weight-semibold text-text-primary">{comp.name}</h2>
-              <span className="shrink-0 rounded-sm border border-border-subtle px-1.5 py-0.5 text-xs font-weight-medium capitalize text-text-muted">
+              <h2 className="font-heading text-md font-semibold text-text-primary">{comp.name}</h2>
+              <span className="shrink-0 rounded-sm border border-border-subtle px-1.5 py-0.5 text-xs font-medium capitalize text-text-muted">
                 {comp.category}
               </span>
             </div>
@@ -27,7 +27,7 @@ export default function Components() {
               <span aria-hidden>·</span>
               <span>{comp.performance.renderingCost} cost</span>
             </div>
-            <span className="inline-flex items-center gap-1 text-xs font-weight-medium text-accent">
+            <span className="inline-flex items-center gap-1 text-xs font-medium text-accent">
               View component <ArrowRightIcon />
             </span>
           </Card>

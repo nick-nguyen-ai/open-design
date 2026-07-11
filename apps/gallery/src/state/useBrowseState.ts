@@ -16,6 +16,7 @@ import {
   type BrowseMode,
   type BrowseState,
   type FilterState,
+  type SortOption,
 } from './browseState.js';
 
 const QUERY_DEBOUNCE_MS = 220;
@@ -26,6 +27,7 @@ export interface UseBrowseState {
   queryInput: string;
   setQueryInput: (value: string) => void;
   setMode: (mode: BrowseMode) => void;
+  setSort: (sort: SortOption) => void;
   setFilters: (next: FilterState) => void;
   clearFilters: () => void;
   /** Apply a full state atomically (query + mode + filters), e.g. a collection preset. */
@@ -81,6 +83,11 @@ export function useBrowseState(): UseBrowseState {
     [commit, state],
   );
 
+  const setSort = useCallback(
+    (sort: SortOption) => commit({ ...state, query: queryInputRef.current, sort }),
+    [commit, state],
+  );
+
   const setFilters = useCallback(
     (next: FilterState) => commit({ ...state, query: queryInputRef.current, filters: next }),
     [commit, state],
@@ -104,5 +111,15 @@ export function useBrowseState(): UseBrowseState {
     commit(emptyBrowseState('all'));
   }, [commit]);
 
-  return { state, queryInput, setQueryInput, setMode, setFilters, clearFilters, apply, clearAll };
+  return {
+    state,
+    queryInput,
+    setQueryInput,
+    setMode,
+    setSort,
+    setFilters,
+    clearFilters,
+    apply,
+    clearAll,
+  };
 }

@@ -102,6 +102,25 @@ describe('Landing', () => {
     expect(screen.getAllByRole('button', { name: /^Component:/ })).toHaveLength(5);
   });
 
+  it('applies a sort, reflects it in the URL, and rehydrates it', async () => {
+    const user = userEvent.setup();
+    const { unmount } = renderLanding();
+
+    await user.selectOptions(screen.getByLabelText('Sort'), 'name');
+    await waitFor(() => expect(screen.getByTestId('location-search')).toHaveTextContent('sort=name'));
+
+    // Name (A–Z): the first template card is alphabetically first.
+    const titles = templateCards().map((c) => c.querySelector('h3')?.textContent ?? '');
+    const sorted = [...titles].sort((a, b) => a.localeCompare(b));
+    expect(titles).toEqual(sorted);
+
+    unmount();
+
+    // Rehydrate from the URL.
+    renderLanding(['/browse?sort=name']);
+    expect(screen.getByLabelText('Sort')).toHaveValue('name');
+  });
+
   it('opens a quick preview, then closes on Escape and restores focus', async () => {
     const user = userEvent.setup();
     renderLanding();

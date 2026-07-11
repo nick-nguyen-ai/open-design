@@ -74,7 +74,7 @@ export default function TemplateDetail() {
                 key={route.path}
                 className="flex flex-col gap-0.5 rounded-md border border-border-subtle bg-surface-raised p-3"
               >
-                <span className="font-weight-medium text-text-primary">{route.title}</span>
+                <span className="font-medium text-text-primary">{route.title}</span>
                 <span className="font-mono text-xs text-text-muted">{route.path}</span>
                 <span className="text-sm text-text-secondary">{route.purpose}</span>
               </li>

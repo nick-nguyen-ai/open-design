@@ -14,7 +14,7 @@ export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement
 }
 
 const BASE =
-  'inline-flex items-center justify-center gap-2 rounded-md font-body font-weight-medium ' +
+  'inline-flex items-center justify-center gap-2 rounded-md font-body font-medium ' +
   'transition-colors duration-feedback ease-settle ' +
   'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring ' +
   'disabled:cursor-not-allowed disabled:opacity-50';

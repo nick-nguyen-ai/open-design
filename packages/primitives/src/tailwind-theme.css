@@ -174,10 +174,14 @@
   --ease-trace: var(--ease-trace);
   --ease-shift: var(--ease-shift);
 
-  --duration-feedback: var(--dur-feedback);
-  --duration-state: var(--dur-state);
-  --duration-structure: var(--dur-structure);
-  --duration-narrative: var(--dur-narrative);
+  /* Tailwind v4 generates the `duration-*` (transition-duration) utilities from
+     the `--transition-duration-*` theme namespace — NOT `--duration-*` (which
+     emits nothing). Keyed here so `duration-feedback ease-settle` resolves to
+     the motion duration tokens. */
+  --transition-duration-feedback: var(--dur-feedback);
+  --transition-duration-state: var(--dur-state);
+  --transition-duration-structure: var(--dur-structure);
+  --transition-duration-narrative: var(--dur-narrative);
 
   /* ---- Stacking — packages/design-tokens/src/layout.ts `zIndex` (Dialog/
      Drawer overlay + surface ordering) ---- */
@@ -212,5 +216,5 @@
 }
 
 .animate-skeleton-shimmer {
-  animation: skeleton-shimmer calc(var(--duration-structure) * 2) var(--ease-shift) infinite;
+  animation: skeleton-shimmer calc(var(--dur-structure) * 2) var(--ease-shift) infinite;
 }

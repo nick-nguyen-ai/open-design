@@ -18,7 +18,7 @@ export function Page({ title, eyebrow, description, backTo, backLabel, actions, 
       {backTo && (
         <RouterLink
           to={backTo}
-          className="mb-6 inline-flex items-center gap-1 text-sm font-weight-medium text-text-secondary no-underline transition-colors duration-feedback ease-settle hover:text-text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
+          className="mb-6 inline-flex items-center gap-1 text-sm font-medium text-text-secondary no-underline transition-colors duration-feedback ease-settle hover:text-text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
         >
           <span aria-hidden>←</span> {backLabel ?? 'Back'}
         </RouterLink>
@@ -26,11 +26,11 @@ export function Page({ title, eyebrow, description, backTo, backLabel, actions, 
       <header className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div className="max-w-3xl">
           {eyebrow && (
-            <p className="mb-2 text-sm font-weight-medium uppercase tracking-wider text-accent">
+            <p className="mb-2 text-sm font-medium uppercase tracking-wider text-accent">
               {eyebrow}
             </p>
           )}
-          <h1 className="font-display text-3xl font-weight-semibold leading-tight tracking-tight text-text-primary">
+          <h1 className="font-display text-3xl font-semibold leading-tight tracking-tight text-text-primary">
             {title}
           </h1>
           {description && (
@@ -48,7 +48,7 @@ export function Page({ title, eyebrow, description, backTo, backLabel, actions, 
 export function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section className="flex flex-col gap-3">
-      <h2 className="font-heading text-lg font-weight-semibold text-text-primary">{title}</h2>
+      <h2 className="font-heading text-lg font-semibold text-text-primary">{title}</h2>
       {children}
     </section>
   );
@@ -60,7 +60,7 @@ export function MetaGrid({ rows }: { rows: Array<{ label: string; value: ReactNo
     <dl className="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-2">
       {rows.map((row) => (
         <div key={row.label} className="flex flex-col gap-0.5 border-t border-border-subtle pt-2">
-          <dt className="text-xs font-weight-medium uppercase tracking-wide text-text-muted">
+          <dt className="text-xs font-medium uppercase tracking-wide text-text-muted">
             {row.label}
           </dt>
           <dd className="text-sm text-text-primary">{row.value}</dd>

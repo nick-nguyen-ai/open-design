@@ -13,7 +13,7 @@ export function RootLayout() {
       </main>
       <footer className="border-t border-border-subtle">
         <div className="mx-auto flex w-full max-w-[80rem] flex-col gap-1 px-6 py-8 text-sm text-text-muted">
-          <p className="font-weight-medium text-text-secondary">Enterprise Design Intelligence</p>
+          <p className="font-medium text-text-secondary">Enterprise Design Intelligence</p>
           <p>
             A catalogue of bank-credible experience templates, live components, and design grammars.
             Metadata is compiled from the design registry — no experience rendering leaves this

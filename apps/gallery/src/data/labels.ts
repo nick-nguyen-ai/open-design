@@ -83,25 +83,44 @@ export function grammarName(grammarId: string | undefined): string {
 }
 
 /**
- * A stable accent hue per grammar, expressed as an HSL hue angle. Cards tint a
- * hairline rail with `hsl(<hue> 45% 45%)` so each grammar family is
- * recognisable at a glance without inventing off-palette fills — the accent is
- * a thin, disciplined edge, not a decorative wash.
+ * A stable accent per grammar, expressed as one of the themed categorical
+ * chart tokens (`--chart-cat-1..8`). Using tokens rather than static HSL means
+ * the accents adapt between light and dark themes and stay on-palette; cards
+ * tint a thin hairline rail with it so each grammar family is recognisable at a
+ * glance without a decorative wash. Decorative use only (rails/bars) — never
+ * relied on as a text colour, so no per-token contrast obligation.
  */
-const GRAMMAR_HUE: Record<string, number> = {
-  'calm-command': 210,
-  'technical-blueprint': 200,
-  'signal-glass': 260,
-  'spatial-canvas': 175,
-  'research-notebook': 40,
-  'living-system': 150,
-  'precision-grid': 220,
-  'executive-editorial': 25,
-  'kinetic-intelligence': 285,
-  'monumental-type': 350,
+const GRAMMAR_ACCENT_CAT: Record<string, number> = {
+  'calm-command': 1,
+  'technical-blueprint': 2,
+  'signal-glass': 3,
+  'spatial-canvas': 4,
+  'research-notebook': 5,
+  'living-system': 6,
+  'precision-grid': 7,
+  'executive-editorial': 8,
+  'kinetic-intelligence': 3,
+  'monumental-type': 6,
 };
 
+/** Distinct themed accent per surface, so the 5 shortcut cards read apart. */
+const SURFACE_ACCENT_CAT: Record<SurfaceType, number> = {
+  dashboard: 1,
+  'project-page': 2,
+  'slide-deck': 3,
+  'personal-page': 4,
+  'technical-explainer': 5,
+};
+
+function catVar(index: number): string {
+  return `var(--chart-cat-${index})`;
+}
+
 export function grammarAccent(grammarId: string | undefined): string {
-  const hue = (grammarId && GRAMMAR_HUE[grammarId]) ?? 215;
-  return `hsl(${hue} 42% 46%)`;
+  const index = grammarId ? GRAMMAR_ACCENT_CAT[grammarId] : undefined;
+  return catVar(index ?? 1);
+}
+
+export function surfaceAccent(surface: SurfaceType): string {
+  return catVar(SURFACE_ACCENT_CAT[surface]);
 }

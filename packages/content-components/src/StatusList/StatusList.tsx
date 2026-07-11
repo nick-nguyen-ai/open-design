@@ -75,7 +75,7 @@ function StatusListRow({ item }: { item: StatusListItemDatum }) {
       </span>
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="font-weight-medium text-text-primary">{item.label}</span>
+          <span className="font-medium text-text-primary">{item.label}</span>
           <Badge tone={STATUS_TONE[item.status]}>{STATUS_LABEL[item.status]}</Badge>
         </div>
         {item.description ? <span className="text-sm text-text-secondary">{item.description}</span> : null}

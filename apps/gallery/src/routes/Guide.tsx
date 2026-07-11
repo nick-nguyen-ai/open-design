@@ -14,9 +14,9 @@ export default function Guide() {
       <div className="flex flex-col gap-10">
         <Section title="Template vs. Experience">
           <p className="max-w-2xl text-sm leading-relaxed text-text-secondary">
-            A <strong className="font-weight-medium text-text-primary">Template</strong> is the
+            A <strong className="font-medium text-text-primary">Template</strong> is the
             reusable, catalogued shape of an{' '}
-            <strong className="font-weight-medium text-text-primary">Experience</strong> — the
+            <strong className="font-medium text-text-primary">Experience</strong> — the
             concrete surface a team ships. In this gallery you browse templates as metadata: their
             thesis, grammar, audiences, and the components they use. The experiences themselves are
             rendered elsewhere; nothing here reaches a live product surface.

@@ -83,7 +83,7 @@ function KpiTileCard({ metric }: { metric: KpiTileDatum }) {
         </Badge>
       </div>
 
-      <span className="font-numeric text-3xl font-weight-semibold text-text-primary" data-testid="kpi-tile-value">
+      <span className="font-numeric text-3xl font-semibold text-text-primary" data-testid="kpi-tile-value">
         {formatKpiValue(metric.value, metric.unit)}
       </span>
 

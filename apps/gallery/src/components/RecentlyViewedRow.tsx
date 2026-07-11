@@ -13,14 +13,14 @@ export function RecentlyViewedRow() {
       <div className="flex items-center justify-between gap-3">
         <h2
           id="recent-heading"
-          className="inline-flex items-center gap-2 font-heading text-lg font-weight-semibold text-text-primary"
+          className="inline-flex items-center gap-2 font-heading text-lg font-semibold text-text-primary"
         >
           <ClockIcon aria-hidden /> Recently viewed
         </h2>
         <button
           type="button"
           onClick={clear}
-          className="rounded-md px-2 py-1 text-xs font-weight-medium text-accent underline-offset-2 transition-colors duration-feedback ease-settle hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
+          className="rounded-md px-2 py-1 text-xs font-medium text-accent underline-offset-2 transition-colors duration-feedback ease-settle hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
         >
           Clear
         </button>

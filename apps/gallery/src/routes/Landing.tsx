@@ -15,7 +15,10 @@ import { ArrowRightIcon, GridIcon } from '../components/icons.js';
 import {
   activeFilterCount,
   browseStateToParams,
+  SORT_LABEL,
+  SORT_OPTIONS,
   type BrowseMode,
+  type SortOption,
 } from '../state/browseState.js';
 import { useBrowseState } from '../state/useBrowseState.js';
 import { useBrowseResults } from '../state/useBrowseResults.js';
@@ -28,7 +31,7 @@ const MODE_LABELS: Record<BrowseMode, string> = {
 };
 
 export function Landing() {
-  const { state, queryInput, setQueryInput, setMode, setFilters, clearFilters, apply } =
+  const { state, queryInput, setQueryInput, setMode, setSort, setFilters, clearFilters, apply } =
     useBrowseState();
   const { results, countsByMode } = useBrowseResults(state);
 
@@ -42,10 +45,10 @@ export function Landing() {
 
   const applyPreset = useCallback(
     (preset: CollectionPreset) => {
-      apply({ query: preset.query, mode: preset.mode, filters: preset.filters });
+      apply({ query: preset.query, mode: preset.mode, filters: preset.filters, sort: state.sort });
       scrollToResults();
     },
-    [apply, scrollToResults],
+    [apply, scrollToResults, state.sort],
   );
 
   const selectSurface = useCallback(
@@ -95,7 +98,7 @@ export function Landing() {
             <div className="flex flex-wrap items-center justify-between gap-4">
               <h2
                 id="results-heading"
-                className="font-heading text-xl font-weight-semibold text-text-primary"
+                className="font-heading text-xl font-semibold text-text-primary"
               >
                 Browse the catalogue
               </h2>
@@ -111,13 +114,30 @@ export function Landing() {
               <p role="status" aria-live="polite" className="text-sm text-text-secondary">
                 {results.length} {results.length === 1 ? 'result' : 'results'}
               </p>
-              <button
-                type="button"
-                onClick={() => setMobileFiltersOpen(true)}
-                className="inline-flex items-center gap-2 rounded-md border border-border-strong bg-surface-raised px-3 py-2 text-sm font-weight-medium text-text-primary transition-colors duration-feedback ease-settle hover:bg-surface-sunken focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring lg:hidden"
+              <div className="flex items-center gap-2">
+                <label htmlFor="sort-select" className="text-sm text-text-muted">
+                  Sort
+                </label>
+                <select
+                  id="sort-select"
+                  value={state.sort}
+                  onChange={(e) => setSort(e.currentTarget.value as SortOption)}
+                  className="h-9 rounded-md border border-border-strong bg-surface-raised px-2 text-sm text-text-primary transition-colors duration-feedback ease-settle focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
+                >
+                  {SORT_OPTIONS.map((option) => (
+                    <option key={option} value={option}>
+                      {SORT_LABEL[option]}
+                    </option>
+                  ))}
+                </select>
+                <button
+                  type="button"
+                  onClick={() => setMobileFiltersOpen(true)}
+                className="inline-flex items-center gap-2 rounded-md border border-border-strong bg-surface-raised px-3 py-2 text-sm font-medium text-text-primary transition-colors duration-feedback ease-settle hover:bg-surface-sunken focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring lg:hidden"
               >
                 <GridIcon aria-hidden /> Filters{filterCount > 0 ? ` (${filterCount})` : ''}
-              </button>
+                </button>
+              </div>
             </div>
 
             <ActiveFilters
@@ -138,7 +158,7 @@ export function Landing() {
 
                 <div className="flex flex-col gap-4 rounded-lg border border-border-subtle bg-surface-raised p-6 sm:flex-row sm:items-center sm:justify-between">
                   <div>
-                    <h3 className="font-heading text-md font-weight-semibold text-text-primary">
+                    <h3 className="font-heading text-md font-semibold text-text-primary">
                       Ready to compose a blueprint?
                     </h3>
                     <p className="mt-1 text-sm text-text-secondary">
@@ -147,7 +167,7 @@ export function Landing() {
                   </div>
                   <RouterLink
                     to={`/blueprint-lab${blueprintParams ? `?${blueprintParams}` : ''}`}
-                    className="inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-md bg-accent px-4 text-md font-weight-medium text-text-on-accent no-underline transition-colors duration-feedback ease-settle hover:bg-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
+                    className="inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-md bg-accent px-4 text-md font-medium text-text-on-accent no-underline transition-colors duration-feedback ease-settle hover:bg-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
                   >
                     Open Blueprint Lab <ArrowRightIcon />
                   </RouterLink>
@@ -172,14 +192,14 @@ export function Landing() {
               onClick={() => {
                 clearFilters();
               }}
-              className="flex-1 rounded-md border border-border-strong bg-surface-raised px-4 py-2 text-md font-weight-medium text-text-primary transition-colors duration-feedback ease-settle hover:bg-surface-sunken focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
+              className="flex-1 rounded-md border border-border-strong bg-surface-raised px-4 py-2 text-md font-medium text-text-primary transition-colors duration-feedback ease-settle hover:bg-surface-sunken focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
             >
               Clear
             </button>
             <button
               type="button"
               onClick={() => setMobileFiltersOpen(false)}
-              className="flex-1 rounded-md bg-accent px-4 py-2 text-md font-weight-medium text-text-on-accent transition-colors duration-feedback ease-settle hover:bg-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
+              className="flex-1 rounded-md bg-accent px-4 py-2 text-md font-medium text-text-on-accent transition-colors duration-feedback ease-settle hover:bg-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
             >
               Apply
             </button>

@@ -8,7 +8,7 @@ export interface ChipProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const CHIP_BASE =
-  'inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-weight-medium ' +
+  'inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-medium ' +
   'transition-colors duration-feedback ease-settle ' +
   'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring';
 

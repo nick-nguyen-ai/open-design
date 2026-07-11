@@ -58,7 +58,7 @@ export function Dialog({ open, onClose, title, 'aria-label': ariaLabel, children
         transition={{ duration: durations.state, ease: easings.lift }}
       >
         {title ? (
-          <h2 id={titleId} className="mb-4 text-lg font-weight-semibold text-text-primary">
+          <h2 id={titleId} className="mb-4 text-lg font-semibold text-text-primary">
             {title}
           </h2>
         ) : null}

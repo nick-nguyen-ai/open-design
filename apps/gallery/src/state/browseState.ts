@@ -19,6 +19,17 @@ export type BrowseMode = 'all' | 'templates' | 'components' | 'grammars';
 
 export const BROWSE_MODES: BrowseMode[] = ['all', 'templates', 'components', 'grammars'];
 
+/** Result ordering. `relevance` keeps the search package's ranked order. */
+export type SortOption = 'relevance' | 'name' | 'motion';
+
+export const SORT_OPTIONS: SortOption[] = ['relevance', 'name', 'motion'];
+
+export const SORT_LABEL: Record<SortOption, string> = {
+  relevance: 'Relevance',
+  name: 'Name (A–Z)',
+  motion: 'Lowest motion',
+};
+
 /** Scalar facets are single-select; array facets match on ANY intersection. */
 export interface FilterState {
   surface?: SurfaceType;
@@ -36,6 +47,7 @@ export interface BrowseState {
   query: string;
   mode: BrowseMode;
   filters: FilterState;
+  sort: SortOption;
 }
 
 export const EMPTY_FILTERS: FilterState = {
@@ -45,7 +57,7 @@ export const EMPTY_FILTERS: FilterState = {
 };
 
 export function emptyBrowseState(mode: BrowseMode = 'all'): BrowseState {
-  return { query: '', mode, filters: { ...EMPTY_FILTERS } };
+  return { query: '', mode, filters: { ...EMPTY_FILTERS }, sort: 'relevance' };
 }
 
 /** Entity types eligible in each mode. `all` spans templates, components, grammars. */
@@ -125,7 +137,12 @@ export function browseStateFromParams(params: URLSearchParams): BrowseState {
     corporateSuitability: readList(params.get('suitability')) as CorporateSuitability[],
   };
 
-  return { query: params.get('q') ?? '', mode, filters };
+  const sortParam = params.get('sort');
+  const sort: SortOption = SORT_OPTIONS.includes(sortParam as SortOption)
+    ? (sortParam as SortOption)
+    : 'relevance';
+
+  return { query: params.get('q') ?? '', mode, filters, sort };
 }
 
 /**
@@ -136,6 +153,7 @@ export function browseStateToParams(state: BrowseState): URLSearchParams {
   const params = new URLSearchParams();
   if (state.query.trim()) params.set('q', state.query);
   if (state.mode !== 'all') params.set('mode', state.mode);
+  if (state.sort !== 'relevance') params.set('sort', state.sort);
 
   const f = state.filters;
   if (f.surface) params.set('surface', f.surface);

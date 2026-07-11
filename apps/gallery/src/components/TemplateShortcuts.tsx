@@ -1,6 +1,6 @@
 import type { SurfaceType } from '@enterprise-design/contracts';
 import { templateCountsBySurface } from '../data/registry.js';
-import { SURFACE_LABEL, SURFACE_USE_CASE, grammarAccent } from '../data/labels.js';
+import { SURFACE_LABEL, SURFACE_USE_CASE, surfaceAccent } from '../data/labels.js';
 import { ArrowRightIcon } from './icons.js';
 
 const SURFACE_ORDER: SurfaceType[] = [
@@ -20,7 +20,7 @@ export interface TemplateShortcutsProps {
 export function TemplateShortcuts({ activeSurface, onSelect }: TemplateShortcutsProps) {
   return (
     <section aria-labelledby="shortcuts-heading" className="flex flex-col gap-4">
-      <h2 id="shortcuts-heading" className="font-heading text-lg font-weight-semibold text-text-primary">
+      <h2 id="shortcuts-heading" className="font-heading text-lg font-semibold text-text-primary">
         Browse by template type
       </h2>
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-5">
@@ -44,10 +44,10 @@ export function TemplateShortcuts({ activeSurface, onSelect }: TemplateShortcuts
               <span
                 aria-hidden
                 className="absolute inset-x-0 top-0 h-[3px]"
-                style={{ backgroundColor: grammarAccent(surface) }}
+                style={{ backgroundColor: surfaceAccent(surface) }}
               />
               <span className="flex items-baseline justify-between gap-2">
-                <span className="font-heading text-md font-weight-semibold text-text-primary">
+                <span className="font-heading text-md font-semibold text-text-primary">
                   {SURFACE_LABEL[surface]}
                 </span>
                 <span className="font-numeric text-sm text-text-muted">{count}</span>
@@ -55,7 +55,7 @@ export function TemplateShortcuts({ activeSurface, onSelect }: TemplateShortcuts
               <span className="text-xs leading-normal text-text-secondary">
                 {SURFACE_USE_CASE[surface]}
               </span>
-              <span className="mt-auto inline-flex items-center gap-1 pt-1 text-xs font-weight-medium text-accent opacity-0 transition-opacity duration-feedback ease-settle group-hover:opacity-100">
+              <span className="mt-auto inline-flex items-center gap-1 pt-1 text-xs font-medium text-accent opacity-0 transition-opacity duration-feedback ease-settle group-hover:opacity-100">
                 {isActive ? 'Filtering' : 'Filter'} <ArrowRightIcon />
               </span>
             </button>

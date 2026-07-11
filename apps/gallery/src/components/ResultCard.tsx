@@ -44,7 +44,7 @@ function CardFooter({ result }: { result: SearchResult }) {
     const isDeck = surface === 'slide-deck';
     return (
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-text-secondary">
-        <span className="font-weight-medium">{componentCount} components</span>
+        <span className="font-medium">{componentCount} components</span>
         <Dot />
         <span>
           {routeCount} {isDeck ? (routeCount === 1 ? 'section' : 'sections') : routeCount === 1 ? 'route' : 'routes'}
@@ -60,7 +60,7 @@ function CardFooter({ result }: { result: SearchResult }) {
     const cost = result.facets.renderingCost;
     return (
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-text-secondary">
-        {result.facets.category && <span className="font-weight-medium capitalize">{result.facets.category}</span>}
+        {result.facets.category && <span className="font-medium capitalize">{result.facets.category}</span>}
         <Dot />
         <span>{surfaces} surfaces</span>
         {shapes.length > 0 && (
@@ -82,7 +82,7 @@ function CardFooter({ result }: { result: SearchResult }) {
   // grammar
   return (
     <div className="text-xs text-text-secondary">
-      <span className="font-weight-medium">Design grammar</span>
+      <span className="font-medium">Design grammar</span>
     </div>
   );
 }
@@ -116,10 +116,10 @@ export function ResultCard({ result, onOpen }: ResultCardProps) {
       />
       <div className="flex h-full flex-col gap-3 p-5 pl-6">
         <div className="flex items-start justify-between gap-3">
-          <h3 className="font-heading text-md font-weight-semibold leading-snug tracking-tight text-text-primary">
+          <h3 className="font-heading text-md font-semibold leading-snug tracking-tight text-text-primary">
             {result.title}
           </h3>
-          <span className="shrink-0 rounded-sm border border-border-subtle px-1.5 py-0.5 text-xs font-weight-medium uppercase tracking-wide text-text-muted">
+          <span className="shrink-0 rounded-sm border border-border-subtle px-1.5 py-0.5 text-xs font-medium uppercase tracking-wide text-text-muted">
             {ENTITY_LABEL[result.entityType]}
           </span>
         </div>
@@ -129,7 +129,8 @@ export function ResultCard({ result, onOpen }: ResultCardProps) {
         <div className="mt-auto flex flex-col gap-2.5 pt-1">
           <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
             {facets.grammarId && (
-              <span className="text-xs font-weight-medium" style={{ color: accent }}>
+              <span className="inline-flex items-center gap-1.5 text-xs font-medium text-text-secondary">
+                <span aria-hidden className="h-2 w-2 rounded-full" style={{ backgroundColor: accent }} />
                 {grammarName(facets.grammarId)}
               </span>
             )}

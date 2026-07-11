@@ -30,10 +30,10 @@ export function Hero({
 }: HeroProps) {
   const headline = (
     <div key="headline" className="max-w-3xl">
-      <p className="mb-3 text-sm font-weight-medium uppercase tracking-wider text-accent">
+      <p className="mb-3 text-sm font-medium uppercase tracking-wider text-accent">
         Enterprise Design Intelligence
       </p>
-      <h1 className="font-display text-4xl font-weight-semibold leading-tight tracking-tight text-text-primary sm:text-5xl">
+      <h1 className="font-display text-4xl font-semibold leading-tight tracking-tight text-text-primary sm:text-5xl">
         {TEMPLATE_COUNT} bank-credible templates, one considered system.
       </h1>
       <p className="mt-4 max-w-2xl text-lg leading-relaxed text-text-secondary">
@@ -62,7 +62,7 @@ export function Hero({
             key={q}
             type="button"
             onClick={() => onSuggested(q)}
-            className="rounded-full border border-border-subtle bg-surface-raised px-3 py-1 text-xs font-weight-medium text-text-secondary transition-colors duration-feedback ease-settle hover:bg-surface-sunken hover:text-text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
+            className="rounded-full border border-border-subtle bg-surface-raised px-3 py-1 text-xs font-medium text-text-secondary transition-colors duration-feedback ease-settle hover:bg-surface-sunken hover:text-text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
           >
             {q}
           </button>

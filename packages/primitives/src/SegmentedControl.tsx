@@ -83,7 +83,7 @@ export function SegmentedControl({ options, value, onChange, className, ...rest 
             onClick={() => focusAndSelect(option.value)}
             onKeyDown={(event) => handleKeyDown(event, index)}
             className={cx(
-              'rounded-sm px-3 py-1.5 text-sm font-weight-medium transition-colors duration-feedback ease-settle',
+              'rounded-sm px-3 py-1.5 text-sm font-medium transition-colors duration-feedback ease-settle',
               'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring',
               selected
                 ? 'bg-surface-raised text-text-primary shadow-sm'

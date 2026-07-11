@@ -90,7 +90,7 @@ export function ActiveFilters({ filters, onChange, onClear }: ActiveFiltersProps
 
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <span className="text-xs font-weight-medium text-text-muted">Active filters:</span>
+      <span className="text-xs font-medium text-text-muted">Active filters:</span>
       {chips.map((chip) => (
         <RemovableChip key={chip.key} removeLabel={`Remove ${chip.label} filter`} onRemove={chip.remove}>
           {chip.label}
@@ -99,7 +99,7 @@ export function ActiveFilters({ filters, onChange, onClear }: ActiveFiltersProps
       <button
         type="button"
         onClick={onClear}
-        className="rounded-md px-2 py-1 text-xs font-weight-medium text-accent underline-offset-2 transition-colors duration-feedback ease-settle hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
+        className="rounded-md px-2 py-1 text-xs font-medium text-accent underline-offset-2 transition-colors duration-feedback ease-settle hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
       >
         Clear all
       </button>

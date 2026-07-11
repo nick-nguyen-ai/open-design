@@ -24,7 +24,7 @@ export function ErrorState({
 }: ErrorStateProps) {
   return (
     <div role="alert" className={cx('flex flex-col items-center gap-2 p-8 text-center', className)}>
-      <p className="font-weight-semibold text-danger-fg">{title}</p>
+      <p className="font-semibold text-danger-fg">{title}</p>
       {description ? <p className="text-sm text-text-secondary">{description}</p> : null}
       {onRetry ? (
         <Button variant="secondary" size="sm" onClick={onRetry} className="mt-2">
