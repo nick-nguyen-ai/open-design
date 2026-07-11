@@ -6,6 +6,7 @@
   "scripts": {
     "lint": "eslint .",
     "typecheck": "tsc -b && corepack pnpm -r --if-present run typecheck",
+    "pretest": "corepack pnpm run registry:build",
     "test": "vitest run --passWithNoTests && corepack pnpm -r --if-present run test",
     "build": "corepack pnpm -r --if-present run build",
     "registry:build": "corepack pnpm exec tsx packages/registry/src/cli.ts build",

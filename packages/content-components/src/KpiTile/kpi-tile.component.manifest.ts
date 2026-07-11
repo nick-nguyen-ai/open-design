@@ -15,7 +15,7 @@ const kpiTileManifest: ComponentManifest = {
   subcategory: 'kpi',
   sourcePath: 'packages/content-components/src/KpiTile/KpiTile.tsx',
   exportName: 'KpiTile',
-  previewRoute: '/preview/comp.kpi-tile',
+  previewRoute: '/components/comp.kpi-tile',
   designGrammars: ['precision-grid'],
   compatibleSurfaces: ['dashboard', 'project-page', 'slide-deck'],
   businessIntents: ['communicate-status', 'communicate-performance'],

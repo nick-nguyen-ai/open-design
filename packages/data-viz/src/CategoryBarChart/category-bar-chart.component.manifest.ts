@@ -16,7 +16,7 @@ const categoryBarChartManifest: ComponentManifest = {
   subcategory: 'categorical',
   sourcePath: 'packages/data-viz/src/CategoryBarChart/CategoryBarChart.tsx',
   exportName: 'CategoryBarChart',
-  previewRoute: '/preview/comp.category-bar-chart',
+  previewRoute: '/components/comp.category-bar-chart',
   designGrammars: ['precision-grid'],
   compatibleSurfaces: ['dashboard', 'project-page', 'technical-explainer'],
   businessIntents: ['communicate-comparison', 'communicate-performance'],

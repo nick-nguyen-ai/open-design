@@ -16,7 +16,7 @@ const flowDiagramManifest: ComponentManifest = {
   subcategory: 'flow',
   sourcePath: 'packages/diagrams/src/FlowDiagram/FlowDiagram.tsx',
   exportName: 'FlowDiagram',
-  previewRoute: '/preview/comp.flow-diagram',
+  previewRoute: '/components/comp.flow-diagram',
   designGrammars: ['precision-grid'],
   compatibleSurfaces: ['dashboard', 'project-page', 'technical-explainer', 'slide-deck'],
   businessIntents: ['communicate-process', 'communicate-architecture'],

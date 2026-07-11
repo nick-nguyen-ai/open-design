@@ -10,6 +10,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
+    "pretest": "corepack pnpm -w run registry:build",
     "test": "vitest run --root ../.. apps/gallery",
     "e2e": "playwright test"
   },

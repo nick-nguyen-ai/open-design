@@ -16,7 +16,7 @@ const trendChartManifest: ComponentManifest = {
   subcategory: 'timeseries',
   sourcePath: 'packages/data-viz/src/TrendChart/TrendChart.tsx',
   exportName: 'TrendChart',
-  previewRoute: '/preview/comp.trend-chart',
+  previewRoute: '/components/comp.trend-chart',
   designGrammars: ['precision-grid'],
   compatibleSurfaces: ['dashboard', 'project-page', 'technical-explainer'],
   businessIntents: ['communicate-trend', 'communicate-performance'],

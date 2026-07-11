@@ -15,7 +15,7 @@ const statusListManifest: ComponentManifest = {
   subcategory: 'list',
   sourcePath: 'packages/content-components/src/StatusList/StatusList.tsx',
   exportName: 'StatusList',
-  previewRoute: '/preview/comp.status-list',
+  previewRoute: '/components/comp.status-list',
   designGrammars: ['precision-grid'],
   compatibleSurfaces: ['dashboard', 'project-page', 'technical-explainer'],
   businessIntents: ['communicate-status', 'communicate-risk'],
