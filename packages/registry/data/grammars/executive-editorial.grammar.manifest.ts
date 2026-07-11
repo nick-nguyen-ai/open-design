@@ -56,7 +56,6 @@ const executiveEditorial: DesignGrammar = {
   exampleExperienceIds: [
     'db-portfolio-performance-explorer',
     'proj-enterprise-transformation-programme',
-    'proj-operating-model-redesign',
     'deck-ai-strategy',
     'deck-executive-decision-proposal',
     'home-technical-leadership-portfolio',

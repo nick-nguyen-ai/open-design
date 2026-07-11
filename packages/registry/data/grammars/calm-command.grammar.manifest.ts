@@ -56,6 +56,7 @@ const calmCommand: DesignGrammar = {
   exampleExperienceIds: [
     'db-ai-risk-command-centre',
     'home-mentoring-tutorial-hub',
+    'proj-operating-model-redesign',
     'proj-regulatory-remediation-programme',
   ],
 };
