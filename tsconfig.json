@@ -9,6 +9,7 @@
     { "path": "packages/registry" },
     { "path": "packages/data-viz" },
     { "path": "packages/content-components" },
-    { "path": "packages/diagrams" }
+    { "path": "packages/diagrams" },
+    { "path": "experiences" }
   ]
 }

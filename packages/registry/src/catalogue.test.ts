@@ -1,0 +1,161 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { describe, expect, it } from 'vitest';
+import { compileRegistry } from './compile.js';
+
+const here = path.dirname(fileURLToPath(import.meta.url));
+// packages/registry/src -> repo root
+const REPO_ROOT = path.resolve(here, '..', '..', '..');
+
+/**
+ * Catalogue integrity test (task 8): `compileRegistry` over the REAL
+ * workspace (not a fixture) must discover exactly the 50 experiences, 10
+ * grammars, 3 motion sequences, and 5 components authored across tasks 1-8,
+ * with zero diagnostics, and every cross-manifest reference must resolve.
+ */
+describe('catalogue integrity — compileRegistry over the real workspace', () => {
+  it('discovers exactly 50 experiences, 10 grammars, 3 motion sequences, 5 components, 0 errors', async () => {
+    const result = await compileRegistry({ cwd: REPO_ROOT });
+
+    expect(result.diagnostics).toEqual([]);
+    expect(result.errorCount).toBe(0);
+    expect(result.warningCount).toBe(0);
+    expect(result.ok).toBe(true);
+
+    expect(result.components).toHaveLength(5);
+    expect(result.grammars).toHaveLength(10);
+    expect(result.motionSequences).toHaveLength(3);
+    expect(result.experiences).toHaveLength(50);
+  });
+
+  it('discovers the 5 real component ids', async () => {
+    const result = await compileRegistry({ cwd: REPO_ROOT });
+    expect(result.components.map((c) => c.id).sort()).toEqual([
+      'comp.category-bar-chart',
+      'comp.flow-diagram',
+      'comp.kpi-tile',
+      'comp.status-list',
+      'comp.trend-chart',
+    ]);
+  });
+
+  it('discovers the 3 real motion sequence ids', async () => {
+    const result = await compileRegistry({ cwd: REPO_ROOT });
+    expect(result.motionSequences.map((m) => m.sequenceId).sort()).toEqual([
+      'data-ink-draw',
+      'horizon-sweep',
+      'ledger-reveal',
+    ]);
+  });
+
+  it('discovers all 10 grammar ids', async () => {
+    const result = await compileRegistry({ cwd: REPO_ROOT });
+    expect(result.grammars.map((g) => g.id).sort()).toEqual([
+      'calm-command',
+      'executive-editorial',
+      'kinetic-intelligence',
+      'living-system',
+      'monumental-type',
+      'precision-grid',
+      'research-notebook',
+      'signal-glass',
+      'spatial-canvas',
+      'technical-blueprint',
+    ]);
+  });
+
+  it('every experience id carries its category-stable prefix', async () => {
+    const result = await compileRegistry({ cwd: REPO_ROOT });
+    const bySurface = new Map<string, string[]>();
+    for (const experience of result.experiences) {
+      const list = bySurface.get(experience.surface) ?? [];
+      list.push(experience.id);
+      bySurface.set(experience.surface, list);
+    }
+    expect(bySurface.get('dashboard')?.every((id) => id.startsWith('db-'))).toBe(true);
+    expect(bySurface.get('dashboard')).toHaveLength(10);
+    expect(bySurface.get('project-page')?.every((id) => id.startsWith('proj-'))).toBe(true);
+    expect(bySurface.get('project-page')).toHaveLength(10);
+    expect(bySurface.get('slide-deck')?.every((id) => id.startsWith('deck-'))).toBe(true);
+    expect(bySurface.get('slide-deck')).toHaveLength(10);
+    expect(bySurface.get('personal-page')?.every((id) => id.startsWith('home-'))).toBe(true);
+    expect(bySurface.get('personal-page')).toHaveLength(10);
+    expect(bySurface.get('technical-explainer')?.every((id) => id.startsWith('exp-'))).toBe(true);
+    expect(bySurface.get('technical-explainer')).toHaveLength(10);
+  });
+
+  it('spot-checks the two approved anchor experiences', async () => {
+    const result = await compileRegistry({ cwd: REPO_ROOT });
+    const byId = new Map(result.experiences.map((e) => [e.id, e]));
+
+    const cockpit = byId.get('db-model-monitoring-cockpit');
+    expect(cockpit).toBeDefined();
+    expect(cockpit?.grammarId).toBe('precision-grid');
+    expect(cockpit?.surface).toBe('dashboard');
+    expect(cockpit?.approval.state).toBe('approved');
+    expect(cockpit?.componentsUsed).toEqual(
+      expect.arrayContaining(['comp.trend-chart', 'comp.category-bar-chart', 'comp.status-list']),
+    );
+
+    const architecture = byId.get('exp-system-architecture');
+    expect(architecture).toBeDefined();
+    expect(architecture?.grammarId).toBe('technical-blueprint');
+    expect(architecture?.surface).toBe('technical-explainer');
+    expect(architecture?.approval.state).toBe('approved');
+    expect(architecture?.componentsUsed).toEqual(expect.arrayContaining(['comp.flow-diagram']));
+
+    // Exactly these two experiences are approved anchors — everything else is reviewed/experimental.
+    const approvedIds = result.experiences.filter((e) => e.approval.state === 'approved').map((e) => e.id);
+    expect(approvedIds.sort()).toEqual(['db-model-monitoring-cockpit', 'exp-system-architecture']);
+  });
+
+  it('every experience uses at least one real component id and a real signature sequence', async () => {
+    const result = await compileRegistry({ cwd: REPO_ROOT });
+    const componentIds = new Set(result.components.map((c) => c.id));
+    const motionIds = new Set(result.motionSequences.map((m) => m.sequenceId));
+    const grammarIds = new Set(result.grammars.map((g) => g.id));
+
+    for (const experience of result.experiences) {
+      expect(experience.componentsUsed.length).toBeGreaterThan(0);
+      for (const componentId of experience.componentsUsed) {
+        expect(componentIds.has(componentId)).toBe(true);
+      }
+      expect(motionIds.has(experience.signatureSequence)).toBe(true);
+      expect(grammarIds.has(experience.grammarId)).toBe(true);
+    }
+  });
+
+  it('every experience respects the §4.2 motion-level cap for its surface', async () => {
+    const result = await compileRegistry({ cwd: REPO_ROOT });
+    const caps: Record<string, number> = {
+      dashboard: 2,
+      'project-page': 2,
+      'slide-deck': 3,
+      'personal-page': 3,
+      'technical-explainer': 3,
+    };
+    for (const experience of result.experiences) {
+      expect(experience.motionLevel).toBeLessThanOrEqual(caps[experience.surface] ?? 3);
+    }
+  });
+
+  it('every grammar signatureSequences entry resolves to a real motion sequence', async () => {
+    const result = await compileRegistry({ cwd: REPO_ROOT });
+    const motionIds = new Set(result.motionSequences.map((m) => m.sequenceId));
+    for (const grammar of result.grammars) {
+      expect(grammar.signatureSequences.length).toBeGreaterThan(0);
+      for (const sequenceId of grammar.signatureSequences) {
+        expect(motionIds.has(sequenceId)).toBe(true);
+      }
+    }
+  });
+
+  it('produces byte-identical artefacts across re-runs (deterministic)', async () => {
+    const first = await compileRegistry({ cwd: REPO_ROOT });
+    const second = await compileRegistry({ cwd: REPO_ROOT });
+    expect(JSON.stringify(second.experiences)).toBe(JSON.stringify(first.experiences));
+    expect(JSON.stringify(second.grammars)).toBe(JSON.stringify(first.grammars));
+    expect(JSON.stringify(second.motionSequences)).toBe(JSON.stringify(first.motionSequences));
+    expect(JSON.stringify(second.components)).toBe(JSON.stringify(first.components));
+  });
+});

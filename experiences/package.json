@@ -1,0 +1,10 @@
+{
+  "name": "@enterprise-design/experiences",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "The 50 reference experience manifests (catalogue metadata) discovered by packages/registry via the experiences/**/*.experience.manifest.ts glob.",
+  "dependencies": {
+    "@enterprise-design/contracts": "workspace:*"
+  }
+}

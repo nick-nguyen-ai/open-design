@@ -13,6 +13,7 @@
     "test": "vitest run --root ../.. packages/motion"
   },
   "dependencies": {
+    "@enterprise-design/contracts": "workspace:*",
     "@enterprise-design/design-tokens": "workspace:*",
     "motion": "^12.42.2"
   },
