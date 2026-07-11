@@ -1,0 +1,10 @@
+# Build output
+dist/
+
+# Playwright generated evidence + run artifacts (regenerable via `pnpm e2e`)
+e2e/screenshots/
+e2e/.artifacts/
+.last-run.json
+
+# TS build info
+node_modules/.tmp/

@@ -1,0 +1,49 @@
+/*
+ * Gallery entry stylesheet.
+ *
+ * Import order is load-bearing (see packages/primitives/src/tailwind-theme.css):
+ *   1. Tailwind itself.
+ *   2. The raw token custom properties (`--surface-base`, `--space-4`, …).
+ *   3. Both theme layers — light is the default `:root`, dark activates under
+ *      `[data-theme="dark"]`; the theme controller toggles that attribute.
+ *   4. The token→utility bridge that teaches Tailwind the utility NAMES
+ *      (bg-surface-base, text-text-primary, rounded-md, …) used by the
+ *      primitives and components.
+ */
+@import 'tailwindcss';
+@import '@enterprise-design/design-tokens/tokens.css';
+@import '@enterprise-design/themes/enterprise-neutral-light.css';
+@import '@enterprise-design/themes/enterprise-neutral-dark.css';
+@import '@enterprise-design/primitives/tailwind-theme.css';
+
+/*
+ * Tailwind scans these globs for the class names it must generate. The app's
+ * own source AND every workspace package whose components render here must be
+ * listed, or their utility classes are tree-shaken out and the page renders
+ * unstyled.
+ */
+@source './';
+@source '../../../packages/primitives/src';
+@source '../../../packages/data-viz/src';
+@source '../../../packages/content-components/src';
+@source '../../../packages/diagrams/src';
+@source '../../../packages/motion/src';
+
+:root {
+  color-scheme: light dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--surface-base);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
