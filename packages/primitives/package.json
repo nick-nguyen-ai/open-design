@@ -1,0 +1,37 @@
+{
+  "name": "@enterprise-design/primitives",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./tailwind-theme.css": "./src/tailwind-theme.css"
+  },
+  "scripts": {
+    "test": "vitest run --root ../.. packages/primitives"
+  },
+  "dependencies": {
+    "@enterprise-design/design-tokens": "workspace:*",
+    "@enterprise-design/motion": "workspace:*",
+    "motion": "^12.42.2"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "jest-axe": "^10.0.0",
+    "@types/jest-axe": "^3.5.9",
+    "jsdom": "^29.1.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  }
+}

@@ -4,6 +4,7 @@
     { "path": "packages/contracts" },
     { "path": "packages/design-tokens" },
     { "path": "packages/motion" },
-    { "path": "packages/themes" }
+    { "path": "packages/themes" },
+    { "path": "packages/primitives" }
   ]
 }
