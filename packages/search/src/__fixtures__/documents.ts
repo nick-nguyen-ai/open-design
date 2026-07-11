@@ -1,0 +1,106 @@
+import type { SearchDocument } from '@enterprise-design/contracts';
+
+/**
+ * A small, hand-authored fixture set for unit tests — deliberately NOT the
+ * real catalogue (that's what the retrieval spike uses `compileRegistry`
+ * for). Shapes mirror what `buildSearchDocuments` actually emits: array
+ * facets for density/corporateSuitability/audiences/themeModes.
+ */
+export const FIXTURE_DOCUMENTS: SearchDocument[] = [
+  {
+    id: 'comp.kpi-tile',
+    entityType: 'component',
+    title: 'KPI Tile',
+    summary: 'A set of headline metric tiles with label, value, delta, and status.',
+    text: 'kpi tile a set of headline metric tiles with label, value, delta, and status. kpi metric summary status',
+    tags: ['kpi', 'metric', 'summary', 'status'],
+    facets: {
+      category: 'content',
+      density: ['low', 'medium'],
+      corporateSuitability: ['restricted', 'standard'],
+      motionLevel: 1,
+      renderingCost: 'low',
+      usesCanvas: false,
+      usesWebGL: false,
+      approval: 'approved',
+      themeModes: ['light', 'dark'],
+    },
+    route: '/preview/comp.kpi-tile',
+  },
+  {
+    id: 'comp.trend-chart',
+    entityType: 'component',
+    title: 'Trend Chart',
+    summary: 'A time-series line/area chart with per-series average reference lines.',
+    text: 'trend chart a time-series line area chart with per-series average reference lines. chart trend timeseries line area',
+    tags: ['chart', 'trend', 'timeseries', 'line', 'area'],
+    facets: {
+      category: 'chart',
+      density: ['medium', 'high'],
+      corporateSuitability: ['standard', 'expressive'],
+      motionLevel: 2,
+      renderingCost: 'medium',
+      usesCanvas: true,
+      usesWebGL: false,
+      approval: 'approved',
+      themeModes: ['light', 'dark', 'adaptive'],
+    },
+    route: '/preview/comp.trend-chart',
+  },
+  {
+    id: 'db-model-monitoring-cockpit',
+    entityType: 'experience',
+    title: 'Model Monitoring Cockpit',
+    summary: "Dense time-series monitoring of every production model's drift, latency, and data-quality signals.",
+    text: 'model monitoring cockpit dense time-series monitoring of every production model drift latency data-quality signals monitoring mlops model-risk dashboard',
+    tags: ['monitoring', 'mlops', 'model-risk', 'dashboard'],
+    facets: {
+      surface: 'dashboard',
+      audiences: ['technical', 'risk-and-governance'],
+      grammarId: 'precision-grid',
+      density: ['high'],
+      motionLevel: 2,
+      corporateSuitability: ['standard'],
+      approval: 'reviewed',
+      themeModes: ['light', 'dark', 'adaptive'],
+    },
+    route: '/preview/db-model-monitoring-cockpit',
+  },
+  {
+    id: 'exp-system-architecture',
+    entityType: 'experience',
+    title: 'System Architecture',
+    summary: "Explains the platform's system architecture — components, data flow, and trust boundaries.",
+    text: 'system architecture explains the platform system architecture components data flow trust boundaries architecture explainer engineering',
+    tags: ['architecture', 'explainer', 'engineering'],
+    facets: {
+      surface: 'technical-explainer',
+      audiences: ['technical'],
+      grammarId: 'technical-blueprint',
+      density: ['medium'],
+      motionLevel: 1,
+      corporateSuitability: ['standard'],
+      approval: 'approved',
+      themeModes: ['light', 'dark'],
+    },
+    route: '/preview/exp-system-architecture',
+  },
+  {
+    id: 'precision-grid',
+    entityType: 'grammar',
+    title: 'Precision Grid',
+    summary: 'A systems-of-record grammar for surfaces where every cell of a strict grid must earn its place.',
+    text: 'precision grid a systems-of-record grammar for surfaces where every cell of a strict grid must earn its place and numbers must be scannable at a glance',
+    tags: [],
+    facets: { grammarId: 'precision-grid' },
+  },
+  {
+    id: 'ledger-reveal',
+    entityType: 'motion',
+    title: 'Ledger Reveal',
+    summary: 'Numeric and tabular content resolves from a neutral placeholder to its final value in reading order.',
+    text: 'ledger reveal numeric and tabular content resolves from a neutral placeholder to its final value in reading order with a single settle',
+    tags: [],
+    facets: {},
+  },
+];
