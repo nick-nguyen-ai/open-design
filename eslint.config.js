@@ -37,7 +37,10 @@ export default tseslint.config(
       },
     },
     settings: {
-      react: { version: 'detect' },
+      // Pinned (not 'detect') so linting the workspace root — where `react`
+      // isn't installed as a root dependency — doesn't emit the noisy
+      // "React version was set to detect ... react not installed" warning.
+      react: { version: '19' },
     },
     rules: {
       ...react.configs.flat.recommended.rules,

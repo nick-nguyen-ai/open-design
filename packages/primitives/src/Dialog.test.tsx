@@ -1,4 +1,15 @@
 // @vitest-environment jsdom
+//
+// NOTE ON THE `inert` GAP: jsdom does NOT enforce the `inert` attribute — a
+// `.focus()` call on a node inside an `inert` subtree succeeds here, whereas
+// real browsers (Chrome/Firefox/Safari) treat it as a no-op. So the
+// "focus restored to trigger on close" assertions below CANNOT, on their own,
+// prove the a11y contract holds in a real browser: if inert were still on the
+// background when focus is restored, jsdom would pass but a real browser would
+// drop focus to <body>. The dedicated ordering-contract test asserts the real
+// invariant jsdom can see — that inert/aria-hidden are removed BEFORE
+// trigger.focus() runs on close. True end-to-end coverage of inert's
+// focus-blocking is the later gallery e2e smoke test in a real browser.
 import { useState } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, render, screen } from '@testing-library/react';
@@ -129,6 +140,36 @@ describe('Dialog', () => {
     expect(triggerButton.closest('[inert]')).not.toBeNull();
     await user.keyboard('{Escape}');
     expect(triggerButton.closest('[inert]')).toBeNull();
+  });
+
+  it('on close, removes inert/aria-hidden from the background BEFORE restoring focus to the trigger', async () => {
+    // Regression guard for the ordering bug that jsdom cannot catch via a focus
+    // assertion (it doesn't enforce inert). We spy on the trigger's focus() and
+    // record, AT CALL TIME, whether the background is still inert/aria-hidden.
+    // The contract: by the time focus is restored, the background must already
+    // be un-inerted — otherwise a real browser would no-op the focus() and drop
+    // focus to <body>.
+    stubMatchMedia();
+    const user = userEvent.setup();
+    render(<TriggerAndDialog />);
+    const trigger = screen.getByRole('button', { name: 'Open dialog' });
+    await user.click(trigger);
+    // Precondition: the background IS inert/aria-hidden while open.
+    expect(trigger.closest('[inert]')).not.toBeNull();
+    expect(trigger.closest('[aria-hidden="true"]')).not.toBeNull();
+
+    let inertAncestorAtFocus: boolean | null = null;
+    let ariaHiddenAncestorAtFocus: boolean | null = null;
+    const focusSpy = vi.spyOn(trigger, 'focus').mockImplementation(() => {
+      inertAncestorAtFocus = trigger.closest('[inert]') !== null;
+      ariaHiddenAncestorAtFocus = trigger.closest('[aria-hidden="true"]') !== null;
+    });
+
+    await user.keyboard('{Escape}');
+
+    expect(focusSpy).toHaveBeenCalledTimes(1);
+    expect(inertAncestorAtFocus).toBe(false);
+    expect(ariaHiddenAncestorAtFocus).toBe(false);
   });
 
   it('has no axe violations when open', async () => {

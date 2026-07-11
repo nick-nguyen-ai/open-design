@@ -63,7 +63,10 @@ export function Drawer({
         aria-label={title ? undefined : ariaLabel}
         tabIndex={-1}
         className={cx(
-          'absolute inset-y-0 flex w-full max-w-sm flex-col bg-surface-overlay p-6 shadow-xl focus:outline-none',
+          'absolute inset-y-0 flex w-full max-w-sm flex-col bg-surface-overlay p-6 shadow-xl',
+          // Visible ring for the container-fallback focus target (see Dialog):
+          // a drawer with no focusable descendants focuses the container itself.
+          'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring',
           SIDE_POSITION[side],
           className,
         )}

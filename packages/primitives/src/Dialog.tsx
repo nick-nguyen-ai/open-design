@@ -46,7 +46,11 @@ export function Dialog({ open, onClose, title, 'aria-label': ariaLabel, children
         aria-label={title ? undefined : ariaLabel}
         tabIndex={-1}
         className={cx(
-          'relative z-modal max-w-lg rounded-lg bg-surface-overlay p-6 shadow-xl focus:outline-none',
+          'relative z-modal max-w-lg rounded-lg bg-surface-overlay p-6 shadow-xl',
+          // Visible ring for the container-fallback focus target: when the
+          // dialog has no focusable descendants, focus lands on the container
+          // itself (tabIndex={-1}) and a keyboard user must still see it.
+          'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring',
           className,
         )}
         initial={reduced ? { opacity: 0 } : { opacity: 0, scale: 0.96, y: 8 }}

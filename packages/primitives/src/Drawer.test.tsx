@@ -1,4 +1,10 @@
 // @vitest-environment jsdom
+//
+// NOTE ON THE `inert` GAP: jsdom does not enforce `inert`, so a `.focus()`
+// inside an inert subtree succeeds here but is a no-op in real browsers. The
+// "focus restored on close" assertions can't prove the a11y contract alone;
+// the ordering-contract test below asserts the invariant jsdom CAN see (inert
+// removed before focus restore). Real-browser coverage is the gallery e2e.
 import { useState } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, render, screen } from '@testing-library/react';
@@ -70,6 +76,32 @@ describe('Drawer', () => {
     render(<TriggerAndDrawer side="left" />);
     await user.click(screen.getByRole('button', { name: 'Open filters' }));
     expect(screen.getByRole('dialog').className).toContain('left-0');
+  });
+
+  it('on close, removes inert/aria-hidden from the background BEFORE restoring focus to the trigger', async () => {
+    // Same ordering-contract regression guard as Dialog (see the file header
+    // note on the jsdom inert gap): prove inert/aria-hidden are gone at the
+    // moment trigger.focus() runs on close.
+    stubMatchMedia();
+    const user = userEvent.setup();
+    render(<TriggerAndDrawer />);
+    const trigger = screen.getByRole('button', { name: 'Open filters' });
+    await user.click(trigger);
+    expect(trigger.closest('[inert]')).not.toBeNull();
+    expect(trigger.closest('[aria-hidden="true"]')).not.toBeNull();
+
+    let inertAncestorAtFocus: boolean | null = null;
+    let ariaHiddenAncestorAtFocus: boolean | null = null;
+    const focusSpy = vi.spyOn(trigger, 'focus').mockImplementation(() => {
+      inertAncestorAtFocus = trigger.closest('[inert]') !== null;
+      ariaHiddenAncestorAtFocus = trigger.closest('[aria-hidden="true"]') !== null;
+    });
+
+    await user.keyboard('{Escape}');
+
+    expect(focusSpy).toHaveBeenCalledTimes(1);
+    expect(inertAncestorAtFocus).toBe(false);
+    expect(ariaHiddenAncestorAtFocus).toBe(false);
   });
 
   it('has no axe violations when open', async () => {
