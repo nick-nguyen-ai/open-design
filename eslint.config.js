@@ -54,5 +54,31 @@ export default tseslint.config(
     files: ['**/*.js', '**/*.mjs', '**/*.cjs'],
     ...tseslint.configs.disableTypeChecked,
   },
+  {
+    // MOTION-003 (minimal form): literal cubic-bezier(...) easing values are
+    // banned outside the motion identity's own packages, so every animation
+    // shares one source of truth (packages/design-tokens) via the
+    // packages/motion adapter instead of ad-hoc curves.
+    files: ['**/*.{ts,tsx,js,jsx,mjs,cjs}'],
+    // eslint.config.js itself is exempt: the guard's own rule definitions below
+    // necessarily contain the string "cubic-bezier(" (as a regex source and in
+    // the error message), which would otherwise self-trigger.
+    ignores: ['packages/motion/**', 'packages/design-tokens/**', 'eslint.config.js'],
+    rules: {
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'Literal[value=/cubic-bezier\\(/]',
+          message:
+            'Literal cubic-bezier(...) values are banned outside packages/motion and packages/design-tokens (MOTION-003). Import easings from @enterprise-design/motion instead.',
+        },
+        {
+          selector: 'TemplateElement[value.raw=/cubic-bezier\\(/]',
+          message:
+            'Literal cubic-bezier(...) values are banned outside packages/motion and packages/design-tokens (MOTION-003). Import easings from @enterprise-design/motion instead.',
+        },
+      ],
+    },
+  },
   prettierConfig,
 );

@@ -3,6 +3,7 @@
   "references": [
     { "path": "packages/contracts" },
     { "path": "packages/design-tokens" },
+    { "path": "packages/motion" },
     { "path": "packages/themes" }
   ]
 }
