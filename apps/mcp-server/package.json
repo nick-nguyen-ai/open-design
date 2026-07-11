@@ -1,0 +1,22 @@
+{
+  "name": "mcp-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prestart": "corepack pnpm -w run registry:build",
+    "start": "corepack pnpm exec tsx src/index.ts",
+    "predemo": "corepack pnpm -w run registry:build",
+    "demo": "corepack pnpm exec tsx src/demo-client.ts",
+    "pretest": "corepack pnpm -w run registry:build",
+    "test": "vitest run --root ../.. apps/mcp-server",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@enterprise-design/contracts": "workspace:*",
+    "@enterprise-design/registry": "workspace:*",
+    "@enterprise-design/search": "workspace:*",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^4.4.3"
+  }
+}
