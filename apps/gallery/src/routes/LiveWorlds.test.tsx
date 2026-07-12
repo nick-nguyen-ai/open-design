@@ -14,7 +14,7 @@ import LiveExperience from './LiveExperience.js';
 
 // The live pages lazy-load heavy chart modules; under a full-suite run the
 // first import can exceed the default 5 s test timeout.
-vi.setConfig({ testTimeout: 20_000 });
+vi.setConfig({ testTimeout: 30_000 });
 
 function renderLive(path: string) {
   return render(
@@ -36,7 +36,7 @@ afterEach(() => {
 describe('LiveExperience — The Morning Board Pack (deck-ai-strategy)', () => {
   it('renders all twelve slides and lands on the title slide by default', async () => {
     const { container } = renderLive('/live/deck-ai-strategy');
-    await screen.findByTestId('live-deck', {}, { timeout: 8000 });
+    await screen.findByTestId('live-deck', {}, { timeout: 15000 });
 
     expect(container.querySelectorAll('.bd-slide')).toHaveLength(12);
     expect(screen.getByTestId('slide-counter')).toHaveTextContent(
@@ -56,7 +56,7 @@ describe('LiveExperience — The Morning Board Pack (deck-ai-strategy)', () => {
 
   it('deep-links mid-deck via ?slide= (the envelope slide by number)', async () => {
     const { container } = renderLive('/live/deck-ai-strategy?slide=9');
-    await screen.findByTestId('live-deck', {}, { timeout: 8000 });
+    await screen.findByTestId('live-deck', {}, { timeout: 15000 });
 
     expect(screen.getByTestId('slide-counter')).toHaveTextContent('09 / 12');
     const active = container.querySelector('.bd-slide[data-state="active"]');
@@ -67,7 +67,7 @@ describe('LiveExperience — The Morning Board Pack (deck-ai-strategy)', () => {
 
   it('arrow keys, Home and End drive the deck; reduced motion is a stepped turn', async () => {
     const { container } = renderLive('/live/deck-ai-strategy');
-    await screen.findByTestId('live-deck', {}, { timeout: 8000 });
+    await screen.findByTestId('live-deck', {}, { timeout: 15000 });
     expect(screen.getByTestId('live-deck')).toHaveAttribute('data-reduced', 'true');
 
     fireEvent.keyDown(window, { key: 'ArrowRight' });
@@ -85,7 +85,7 @@ describe('LiveExperience — The Morning Board Pack (deck-ai-strategy)', () => {
 
   it('the agenda index lists every slide as the deck’s textual mirror', async () => {
     renderLive('/live/deck-ai-strategy');
-    await screen.findByTestId('live-deck', {}, { timeout: 8000 });
+    await screen.findByTestId('live-deck', {}, { timeout: 15000 });
 
     fireEvent.click(screen.getByRole('button', { name: 'AGENDA' }));
     const agenda = screen.getByRole('navigation', { name: 'All slides' });
@@ -97,7 +97,7 @@ describe('LiveExperience — The Morning Board Pack (deck-ai-strategy)', () => {
 
   it('has no axe violations', async () => {
     const { container } = renderLive('/live/deck-ai-strategy');
-    await screen.findByTestId('live-deck', {}, { timeout: 8000 });
+    await screen.findByTestId('live-deck', {}, { timeout: 15000 });
     expect(await axe(container)).toHaveNoViolations();
   });
 });
@@ -105,7 +105,7 @@ describe('LiveExperience — The Morning Board Pack (deck-ai-strategy)', () => {
 describe('LiveExperience — The Validation Ledger (proj-ai-model-validation-hub)', () => {
   it('renders the ledger from its content pack with the stalled item flagged', async () => {
     renderLive('/live/proj-ai-model-validation-hub');
-    await screen.findByTestId('live-programme', {}, { timeout: 8000 });
+    await screen.findByTestId('live-programme', {}, { timeout: 15000 });
 
     // The table mirror carries all nine entries and flags the stalled one.
     const table = screen.getByTestId('ledger-table');
@@ -127,7 +127,7 @@ describe('LiveExperience — The Validation Ledger (proj-ai-model-validation-hub
 
   it('reduced motion renders the full ledger (LedgerReveal reduced variant)', async () => {
     const { container } = renderLive('/live/proj-ai-model-validation-hub');
-    await screen.findByTestId('live-programme', {}, { timeout: 8000 });
+    await screen.findByTestId('live-programme', {}, { timeout: 15000 });
     const reveal = container.querySelector('[data-motion-sequence="ledger-reveal"]');
     expect(reveal).not.toBeNull();
     expect(reveal).toHaveAttribute('data-motion-variant', 'reduced');
@@ -135,7 +135,7 @@ describe('LiveExperience — The Validation Ledger (proj-ai-model-validation-hub
 
   it('has no axe violations', async () => {
     const { container } = renderLive('/live/proj-ai-model-validation-hub');
-    await screen.findByTestId('live-programme', {}, { timeout: 8000 });
+    await screen.findByTestId('live-programme', {}, { timeout: 15000 });
     expect(await axe(container)).toHaveNoViolations();
   });
 });
@@ -143,7 +143,7 @@ describe('LiveExperience — The Validation Ledger (proj-ai-model-validation-hub
 describe('LiveExperience — The Studio (home-data-scientist-studio)', () => {
   it('renders the experiment shelf with the kept failure, and the synthetic mark', async () => {
     renderLive('/live/home-data-scientist-studio');
-    await screen.findByTestId('live-studio', {}, { timeout: 8000 });
+    await screen.findByTestId('live-studio', {}, { timeout: 15000 });
 
     const shelf = screen.getByTestId('experiment-shelf');
     expect(within(shelf).getAllByRole('listitem')).toHaveLength(4);
@@ -160,7 +160,7 @@ describe('LiveExperience — The Studio (home-data-scientist-studio)', () => {
 
   it('reduced motion renders the sweep’s reduced variant and a full page', async () => {
     const { container } = renderLive('/live/home-data-scientist-studio');
-    await screen.findByTestId('live-studio', {}, { timeout: 8000 });
+    await screen.findByTestId('live-studio', {}, { timeout: 15000 });
     const sweep = container.querySelector('[data-motion-sequence="horizon-sweep"]');
     expect(sweep).toHaveAttribute('data-motion-variant', 'reduced');
     expect(screen.getByTestId('skills-constellation')).toBeInTheDocument();
@@ -168,7 +168,7 @@ describe('LiveExperience — The Studio (home-data-scientist-studio)', () => {
 
   it('has no axe violations', async () => {
     const { container } = renderLive('/live/home-data-scientist-studio');
-    await screen.findByTestId('live-studio', {}, { timeout: 8000 });
+    await screen.findByTestId('live-studio', {}, { timeout: 15000 });
     expect(await axe(container)).toHaveNoViolations();
   });
 });

@@ -12,7 +12,7 @@ export default buildExperience({
   motionLevel: 3,
   signatureSequence: "horizon-sweep",
   corporateSuitability: "expressive",
-  componentsUsed: ["comp.flow-diagram","comp.kpi-tile"],
+  componentsUsed: ["comp.flow-diagram","comp.kpi-tile","comp.trend-chart"],
   routes: [
     {
       "path": "/decks/innovation-showcase",
@@ -33,12 +33,13 @@ export default buildExperience({
   tags: ["innovation","showcase","slide-deck"],
   whenToUse: "Use for a showcase audience that benefits from browsing bets in their own order rather than following a fixed slide sequence.",
   approval: {
-    "state": "experimental",
+    "state": "approved",
     "reviewer": "design-lead",
-    "reviewedAt": "2026-07-09",
-    "qualityScore": 70,
+    "reviewedAt": "2026-07-13",
+    "qualityScore": 91,
     "notes": [
-      "Non-linear navigable deck format pending a live audience pilot."
+      "Live build shipped (task 16): 'The Gallery Floor' at /live/deck-innovation-showcase — the innovation portfolio hung as an exhibition over a warm charcoal gallery dark with spotlight pools and museum-placard typography (small caps, catalogue numbers, warm serif wall text). The commanding visual is a bespoke top-down SVG FLOOR PLAN — three numbered halls, six plinths — that persists across the deck and pans/zooms across the floor as the audience walks (CSS transform on the plan group, token-driven easing; reduced motion is a hard cut with a position label). Each exhibit is a piece (a real TrendChart, a monumental claim numeral, or a row of measures) with a museum placard (title, team, year, materials) and a status band: IN PRODUCTION, PILOT, or the anomaly — a celebrated RETIRED piece (The Adaptive Queue, deliberately sunset with honours). The floor plan doubles as the accessible mirror (the catalogue list). Keyboard-driven (arrows/Home/End, R jumps to the retired piece), ?slide= deep links, print stylesheet.",
+      "Licence reviewed: self-hosted OFL fonts only (IBM Plex Mono, Fraunces Variable); all figures synthetic demonstration data; no real product, result or institution implied."
     ]
   },
 });

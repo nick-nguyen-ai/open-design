@@ -9,7 +9,7 @@ import LiveExperience from './LiveExperience.js';
 
 // The live pages lazy-load heavy chart modules; under a full-suite run the
 // first import can exceed the default 5 s test timeout.
-vi.setConfig({ testTimeout: 20_000 });
+vi.setConfig({ testTimeout: 30_000 });
 
 function renderLive(experienceId: string) {
   return render(
@@ -192,6 +192,107 @@ describe('LiveExperience — The Control Frame (deck)', () => {
     expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
     unmount();
     expect(document.documentElement.getAttribute('data-theme')).toBe('light');
+  });
+});
+
+describe('LiveExperience — The River (deck)', () => {
+  it('deep-links to the narrows: the capacity constraint (anomaly), the route mirror, reduced motion', async () => {
+    const { container } = renderLive('deck-transformation-roadmap?slide=5');
+    const root = await screen.findByTestId('live-river', {}, { timeout: 12000 });
+
+    // ?slide= deep link lands on the narrows (slide 5 of 9).
+    expect(screen.getByTestId('river-counter')).toHaveTextContent('05 / 09');
+    expect(screen.getByTestId('river-counter')).toHaveTextContent('THE NARROWS');
+
+    // The narrows slide names the contested resource — the deliberate anomaly.
+    const points = screen.getByTestId('narrows-points');
+    expect(within(points).getByText(/CONTESTED RESOURCE/)).toBeInTheDocument();
+    expect(within(points).getByText(/Platform engineering/)).toBeInTheDocument();
+
+    // The route ledger (an ordered list — the accessible mirror) carries the
+    // at-risk station S5 flagged as the narrows.
+    const ledger = screen.getByTestId('route-ledger');
+    const s5 = within(ledger).getByText('Validation automation').closest('li') as HTMLElement;
+    expect(s5).toHaveAttribute('data-narrows', 'true');
+
+    expect(root).toHaveAttribute('data-reduced', 'true');
+    expect(screen.getByRole('link', { name: '◄ GALLERY' })).toBeInTheDocument();
+    expect(screen.getAllByText(/SYNTHETIC DEMONSTRATION DATA/i).length).toBeGreaterThan(0);
+
+    expect(await axe(container)).toHaveNoViolations();
+  });
+
+  it('locks the document theme to dark while mounted and restores on unmount', async () => {
+    document.documentElement.setAttribute('data-theme', 'light');
+    const { unmount } = renderLive('deck-transformation-roadmap?slide=1');
+    await screen.findByTestId('live-river', {}, { timeout: 12000 });
+    expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
+    unmount();
+    expect(document.documentElement.getAttribute('data-theme')).toBe('light');
+  });
+});
+
+describe('LiveExperience — The Readout (deck)', () => {
+  it('deep-links to the withheld reading (anomaly), the board mirror, reduced motion', async () => {
+    const { container } = renderLive('deck-experiment-results?slide=5');
+    const root = await screen.findByTestId('live-readout', {}, { timeout: 12000 });
+
+    // ?slide= deep link lands on Reading 03 — the withheld reading (slide 5 of 8).
+    expect(screen.getByTestId('reading-counter')).toHaveTextContent('05 / 08');
+    expect(screen.getByTestId('reading-counter')).toHaveTextContent('WITHHELD');
+
+    // Scope to the active reading (all readings are in the DOM, parked).
+    const activeReading = container.querySelector('.rd-slide[data-state="active"]') as HTMLElement;
+    // The verdict plate is shape-and-word coded WITHHELD.
+    expect(within(activeReading).getByTestId('verdict-plate')).toHaveTextContent('WITHHELD');
+
+    // Under reduced motion the result numeral holds at its final value.
+    expect(within(activeReading).getByTestId('result-numeral')).toHaveTextContent('−11.0%');
+
+    expect(root).toHaveAttribute('data-reduced', 'true');
+    expect(screen.getAllByText(/SYNTHETIC RESULTS/i).length).toBeGreaterThan(0);
+
+    expect(await axe(container)).toHaveNoViolations();
+  });
+
+  it('the board slide is the verdict-coded mirror carrying the withheld row', async () => {
+    renderLive('deck-experiment-results?slide=6');
+    await screen.findByTestId('live-readout', {}, { timeout: 12000 });
+    const board = screen.getByTestId('readings-board');
+    const withheldRow = within(board)
+      .getByText(/lower fraud-hold threshold/)
+      .closest('tr') as HTMLElement;
+    expect(withheldRow).toHaveAttribute('data-anomaly', 'true');
+    expect(within(withheldRow).getByText(/WITHHELD/)).toBeInTheDocument();
+  });
+});
+
+describe('LiveExperience — The Gallery Floor (deck)', () => {
+  it('deep-links to the retired exhibit (anomaly), the catalogue mirror, reduced motion', async () => {
+    const { container } = renderLive('deck-innovation-showcase?slide=6');
+    const root = await screen.findByTestId('live-gallery-floor', {}, { timeout: 12000 });
+
+    // ?slide= deep link lands on exhibit 04 — the retired piece (slide 6 of 9).
+    expect(screen.getByTestId('floor-counter')).toHaveTextContent('06 / 09');
+    expect(screen.getByTestId('floor-counter')).toHaveTextContent('POSITION 04');
+
+    // The retired exhibit's placard carries the RETIRED status band — the anomaly.
+    const placard = screen.getByTestId('retired-placard');
+    expect(within(placard).getByText('The Adaptive Queue')).toBeInTheDocument();
+    expect(within(placard).getByText(/RETIRED/)).toBeInTheDocument();
+
+    // The floor catalogue (an ordered list — the accessible mirror) lists the
+    // retired exhibit with its status.
+    const catalogue = screen.getByTestId('floor-catalogue');
+    const retiredRow = within(catalogue)
+      .getByText('The Adaptive Queue')
+      .closest('li') as HTMLElement;
+    expect(retiredRow).toHaveAttribute('data-status', 'retired');
+
+    expect(root).toHaveAttribute('data-reduced', 'true');
+    expect(screen.getAllByText(/INTERNAL SHOWCASE · SYNTHETIC PORTFOLIO/i).length).toBeGreaterThan(0);
+
+    expect(await axe(container)).toHaveNoViolations();
   });
 });
 

@@ -46,6 +46,17 @@ const ControlFramePage = lazy(
     import('../../../../experiences/slide-decks/deck-ai-governance-and-controls/ControlFramePage.js'),
 );
 
+const RiverDeckPage = lazy(
+  () =>
+    import('../../../../experiences/slide-decks/deck-transformation-roadmap/RiverDeckPage.js'),
+);
+const ReadoutDeckPage = lazy(
+  () => import('../../../../experiences/slide-decks/deck-experiment-results/ReadoutDeckPage.js'),
+);
+const GalleryFloorPage = lazy(
+  () => import('../../../../experiences/slide-decks/deck-innovation-showcase/GalleryFloorPage.js'),
+);
+
 const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: ComponentType }> = {
   'db-model-monitoring-cockpit': { mood: 'dark', Component: CockpitPage },
   'exp-system-architecture': { mood: 'light', Component: DrawingOfficePage },
@@ -55,6 +66,9 @@ const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: 
   'deck-executive-decision-proposal': { mood: 'light', Component: CommitteePaperPage },
   'deck-genai-model-validation-report': { mood: 'light', Component: LabReportPage },
   'deck-ai-governance-and-controls': { mood: 'dark', Component: ControlFramePage },
+  'deck-transformation-roadmap': { mood: 'dark', Component: RiverDeckPage },
+  'deck-experiment-results': { mood: 'dark', Component: ReadoutDeckPage },
+  'deck-innovation-showcase': { mood: 'dark', Component: GalleryFloorPage },
 };
 
 /**
@@ -94,10 +108,10 @@ export default function LiveExperience() {
           No live experience here
         </h1>
         <p className="text-text-secondary">
-          “{experienceId}” has no live rendering yet. Eight worlds are live: the Model
+          “{experienceId}” has no live rendering yet. Eleven worlds are live: the Model
           Monitoring Cockpit, the System Architecture explainer, the AI Strategy board deck, the
-          Model Validation Hub, the Data Scientist Studio, and three deck worlds — the Committee
-          Paper, the Lab Report, and the Control Frame.
+          Model Validation Hub, the Data Scientist Studio, and six deck worlds — the Committee
+          Paper, the Lab Report, the Control Frame, the River, the Readout, and the Gallery Floor.
         </p>
         <RouterLink to="/browse" className="text-accent hover:underline">
           ◄ Back to the gallery

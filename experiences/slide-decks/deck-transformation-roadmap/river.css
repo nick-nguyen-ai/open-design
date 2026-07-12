@@ -1,0 +1,1152 @@
+/*
+ * THE RIVER — experience-local art layer.
+ *
+ * Task-16 art-direction licence: raw colour values are permitted in THIS
+ * stylesheet only. Easings and durations come from the platform motion tokens
+ * (var(--ease-*), var(--dur-*)) — never ad-hoc curves.
+ *
+ * Mood: a deep teal-green nocturne. A single luminous route spine — a bespoke
+ * SVG river — persists across every slide and PANS as the deck advances. Mono
+ * workhorse type for stations and chrome; one editorial serif for the thesis
+ * and reach standfirsts. Print drops to white paper, one slide per page.
+ */
+
+.rv-root {
+  --rv-deep: #04181c;
+  --rv-deep-2: #06232a;
+  --rv-abyss: #030f12;
+  --rv-water: #0c3540;
+  --rv-water-2: #12525f;
+  --rv-glow: #3fd9c4;
+  --rv-glow-soft: #6ff0dd;
+  --rv-reed: #9fb9ad;
+  --rv-ink: #e8f5f0;
+  --rv-ink-soft: #bcd6ce;
+  --rv-muted: #7fa298;
+  --rv-faint: #5c7d75;
+  --rv-warn: #e6a15a;
+  --rv-warn-soft: #f2c48f;
+  --rv-rule: rgba(159, 210, 195, 0.16);
+  --rv-rule-faint: rgba(159, 210, 195, 0.09);
+  --rv-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+  --rv-serif: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
+
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+  color: var(--rv-ink-soft);
+  font-family: var(--rv-mono);
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  background:
+    radial-gradient(140vmin 90vmin at 22% -20%, rgba(18, 82, 95, 0.5), transparent 60%),
+    radial-gradient(120vmin 80vmin at 88% 120%, rgba(12, 53, 64, 0.6), transparent 62%),
+    linear-gradient(160deg, var(--rv-deep-2) 0%, var(--rv-deep) 42%, var(--rv-abyss) 100%);
+}
+
+/* Fine current-lines texture, drifting almost imperceptibly. */
+.rv-root::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: repeating-linear-gradient(
+    118deg,
+    transparent 0 26px,
+    rgba(63, 217, 196, 0.035) 26px 27px
+  );
+  animation: rv-drift 26s linear infinite;
+}
+
+@keyframes rv-drift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 240px 0;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Chrome                                                              */
+/* ------------------------------------------------------------------ */
+
+.rv-chrome {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 2rem;
+  padding: 1.1rem 1.6rem 0.9rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: var(--rv-muted);
+  background: linear-gradient(to bottom, rgba(4, 24, 28, 0.92) 40%, rgba(4, 24, 28, 0));
+}
+
+.rv-chrome-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  white-space: nowrap;
+}
+
+.rv-chrome-rule {
+  width: 1px;
+  height: 0.85em;
+  align-self: center;
+  background: var(--rv-rule);
+}
+
+.rv-back {
+  color: var(--rv-ink);
+  text-decoration: none;
+  letter-spacing: 0.12em;
+}
+
+.rv-back:hover {
+  color: var(--rv-glow);
+}
+
+.rv-back:focus-visible,
+.rv-index-toggle:focus-visible,
+.rv-nav-btn:focus-visible,
+.rv-index-list button:focus-visible {
+  outline: 2px solid var(--rv-glow);
+  outline-offset: 3px;
+}
+
+.rv-index-toggle {
+  border: 1px solid var(--rv-rule);
+  background: transparent;
+  color: var(--rv-muted);
+  font: inherit;
+  letter-spacing: 0.12em;
+  padding: 0.25rem 0.7rem;
+  cursor: pointer;
+  transition:
+    color var(--dur-feedback) var(--ease-settle),
+    border-color var(--dur-feedback) var(--ease-settle);
+}
+
+.rv-index-toggle:hover,
+.rv-index-toggle[aria-expanded='true'] {
+  color: var(--rv-ink);
+  border-color: var(--rv-glow);
+}
+
+/* Chrome mini-map: the whole spine as a hairline with the current position lit. */
+.rv-chrome-map {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rv-chrome-map svg {
+  display: block;
+  width: 128px;
+  height: 20px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Slide index                                                         */
+/* ------------------------------------------------------------------ */
+
+.rv-index {
+  position: absolute;
+  top: 3.4rem;
+  right: 1.6rem;
+  z-index: 50;
+  width: min(30rem, calc(100vw - 3.2rem));
+  max-height: calc(100svh - 8rem);
+  overflow-y: auto;
+  padding: 1.1rem 1.2rem 1.2rem;
+  background: rgba(6, 35, 42, 0.97);
+  border: 1px solid var(--rv-rule);
+  box-shadow: 0 26px 60px -30px rgba(0, 0, 0, 0.7);
+  animation: rv-fade var(--dur-state) var(--ease-settle) both;
+}
+
+.rv-index-heading {
+  margin: 0 0 0.8rem;
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  color: var(--rv-glow);
+}
+
+.rv-index-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rv-index-list button {
+  display: flex;
+  gap: 0.8rem;
+  width: 100%;
+  padding: 0.45rem 0.4rem;
+  border: 0;
+  border-top: 1px solid var(--rv-rule-faint);
+  background: transparent;
+  color: var(--rv-ink-soft);
+  font: inherit;
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--dur-feedback) var(--ease-settle);
+}
+
+.rv-index-list button:hover {
+  background: rgba(63, 217, 196, 0.08);
+}
+
+.rv-index-list button[aria-current='true'],
+.rv-index-list button[aria-current='true'] .rv-index-no {
+  color: var(--rv-glow);
+}
+
+.rv-index-no {
+  color: var(--rv-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes rv-fade {
+  from {
+    opacity: 0;
+    transform: translateY(-0.4rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* The persistent river band                                          */
+/* ------------------------------------------------------------------ */
+
+.rv-main {
+  position: relative;
+  height: 100%;
+}
+
+/* The river lives as a luminous HERO BAND across the lower viewport, always
+   fully visible and never occluded by content — it owns this stage. */
+.rv-river-viewport {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 46%;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+}
+
+.rv-river-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* The panning group: translated/scaled per slide so the active reach centres. */
+.rv-pan {
+  transform: var(--rv-pan, translate(0, 0) scale(1));
+  transform-origin: 0 0;
+  transform-box: view-box;
+  transition: transform var(--dur-narrative) var(--ease-shift);
+}
+
+.rv-ribbon {
+  fill: url(#rv-water-grad);
+  opacity: 1;
+}
+
+.rv-bank {
+  fill: none;
+  stroke: rgba(63, 217, 196, 0.28);
+  stroke-width: 1.2;
+}
+
+.rv-centre {
+  fill: none;
+  stroke: url(#rv-centre-grad);
+  stroke-width: 3.4;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 10px rgba(63, 217, 196, 0.75));
+}
+
+/* Draw-in: the thalweg strokes on from source to sea (data-ink-draw). */
+.rv-root:not([data-reduced]) .rv-centre[data-draw='true'] {
+  stroke-dasharray: var(--rv-centre-len);
+  stroke-dashoffset: var(--rv-centre-len);
+  animation: rv-draw var(--dur-narrative) var(--ease-trace) forwards;
+}
+
+@keyframes rv-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.rv-trib {
+  fill: none;
+  stroke: rgba(111, 240, 221, 0.4);
+  stroke-width: 1.4;
+  stroke-dasharray: 3 4;
+}
+
+.rv-station-dot {
+  fill: var(--rv-deep);
+  stroke: var(--rv-glow);
+  stroke-width: 2;
+}
+
+.rv-station-dot[data-status='complete'] {
+  fill: var(--rv-glow);
+}
+
+.rv-station-dot[data-status='at-risk'] {
+  stroke: var(--rv-warn);
+  fill: var(--rv-deep);
+}
+
+.rv-station-dot[data-focus='true'] {
+  filter: drop-shadow(0 0 7px rgba(63, 217, 196, 0.8));
+}
+
+.rv-station-ring {
+  fill: none;
+  stroke: var(--rv-glow);
+  stroke-width: 1;
+  opacity: 0.4;
+}
+
+.rv-narrows-flag line {
+  stroke: var(--rv-warn);
+  stroke-width: 1.2;
+  stroke-dasharray: 2 3;
+}
+
+.rv-svg-label {
+  font-family: var(--rv-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  fill: var(--rv-ink-soft);
+}
+
+.rv-svg-label-ref {
+  font-family: var(--rv-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  fill: var(--rv-glow);
+}
+
+.rv-svg-label-warn {
+  fill: var(--rv-warn-soft);
+}
+
+.rv-svg-date {
+  font-family: var(--rv-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  fill: var(--rv-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Slides (content that rides over the river)                          */
+/* ------------------------------------------------------------------ */
+
+.rv-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.rv-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  padding: 4.6rem clamp(2.5rem, 7vw, 7.5rem) 5.8rem;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.rv-slide[data-state='active'] {
+  visibility: visible;
+  pointer-events: auto;
+  z-index: 2;
+  animation: rv-slide-in var(--dur-structure) var(--ease-settle) both;
+}
+
+.rv-slide[data-state='leaving'] {
+  visibility: visible;
+  z-index: 3;
+  pointer-events: none;
+  animation: rv-slide-out var(--dur-structure) var(--ease-shift) both;
+}
+
+@keyframes rv-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.6rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rv-slide-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-1.2rem);
+  }
+}
+
+.rv-slide[data-state='active'] .rv-build {
+  animation: rv-rise var(--dur-structure) var(--ease-settle) both;
+  animation-delay: calc(var(--rv-i, 0) * var(--dur-feedback));
+}
+
+@keyframes rv-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reduced-motion parity */
+.rv-root[data-reduced] .rv-slide[data-state='active'],
+.rv-root[data-reduced] .rv-slide[data-state='active'] .rv-build,
+.rv-root[data-reduced] .rv-index,
+.rv-root[data-reduced] .rv-pan {
+  animation: none;
+  transition: none;
+}
+
+.rv-root[data-reduced] .rv-slide[data-state='leaving'] {
+  visibility: hidden;
+  animation: none;
+}
+
+.rv-root[data-reduced] .rv-root::before {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rv-slide[data-state='active'],
+  .rv-slide[data-state='active'] .rv-build,
+  .rv-index,
+  .rv-pan {
+    animation: none;
+    transition: none;
+  }
+  .rv-slide[data-state='leaving'] {
+    visibility: hidden;
+    animation: none;
+  }
+  .rv-root::before,
+  .rv-centre[data-draw='true'] {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Slide typography                                                   */
+/* ------------------------------------------------------------------ */
+
+.rv-body {
+  position: relative;
+  width: 100%;
+  max-width: 70rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}
+
+/* A dark scrim behind text so it stays AA over the luminous water. */
+.rv-panel {
+  position: relative;
+  padding: 2rem 2.2rem;
+  background: linear-gradient(150deg, rgba(3, 15, 18, 0.9), rgba(4, 24, 28, 0.82));
+  border: 1px solid var(--rv-rule);
+  box-shadow: 0 30px 70px -40px rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(2px);
+}
+
+.rv-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.rv-eyebrow,
+.rv-kicker {
+  margin: 0;
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  color: var(--rv-glow);
+}
+
+.rv-kicker-warn {
+  color: var(--rv-warn-soft);
+}
+
+.rv-display {
+  margin: 0;
+  font-family: var(--rv-serif);
+  font-optical-sizing: auto;
+  font-weight: 540;
+  font-size: clamp(2.4rem, 5.4vw, 4.6rem);
+  line-height: 1.04;
+  letter-spacing: -0.016em;
+  color: var(--rv-ink);
+  text-wrap: balance;
+}
+
+.rv-line {
+  display: block;
+}
+
+.rv-thesis {
+  margin: 0;
+  max-width: 47rem;
+  font-family: var(--rv-serif);
+  font-weight: 400;
+  font-size: 1.16rem;
+  line-height: 1.6;
+  color: var(--rv-ink-soft);
+}
+
+.rv-heading {
+  margin: 0;
+  font-family: var(--rv-serif);
+  font-weight: 500;
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--rv-ink);
+}
+
+.rv-standfirst {
+  margin: 0;
+  max-width: 52rem;
+  font-family: var(--rv-serif);
+  font-weight: 400;
+  font-size: 1.1rem;
+  line-height: 1.58;
+  color: var(--rv-ink-soft);
+}
+
+.rv-front-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.4rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rv-rule);
+  max-width: 44rem;
+}
+
+.rv-front-meta p {
+  margin: 0;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  color: var(--rv-muted);
+}
+
+/* Overview: the route ledger (accessible mirror) */
+.rv-overview-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: 2.4rem;
+  align-items: start;
+  width: 100%;
+  max-width: 74rem;
+  margin: 0 auto;
+}
+
+.rv-ledger {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.rv-ledger-row {
+  display: grid;
+  grid-template-columns: 2.4rem 1fr auto;
+  gap: 0.9rem;
+  align-items: baseline;
+  padding: 0.6rem 0;
+  border-top: 1px solid var(--rv-rule-faint);
+}
+
+.rv-ledger-row[data-narrows='true'] {
+  box-shadow: inset 3px 0 0 0 var(--rv-warn);
+  padding-left: 0.7rem;
+}
+
+.rv-ledger-ref {
+  font-family: var(--rv-mono);
+  font-weight: 600;
+  color: var(--rv-glow);
+  font-variant-numeric: tabular-nums;
+}
+
+.rv-ledger-row[data-narrows='true'] .rv-ledger-ref {
+  color: var(--rv-warn);
+}
+
+.rv-ledger-name {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.rv-ledger-name b {
+  font-family: var(--rv-mono);
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--rv-ink);
+  letter-spacing: 0.01em;
+}
+
+.rv-ledger-conf {
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  color: var(--rv-glow-soft);
+}
+
+.rv-ledger-row[data-narrows='true'] .rv-ledger-conf {
+  color: var(--rv-warn-soft);
+}
+
+.rv-ledger-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.15rem;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.rv-ledger-date {
+  font-size: 0.72rem;
+  color: var(--rv-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.rv-ledger-status {
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  color: var(--rv-ink-soft);
+}
+
+.rv-glyph-atrisk {
+  color: var(--rv-warn);
+}
+
+/* Reach slide */
+.rv-reach-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.4rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--rv-rule);
+}
+
+.rv-reach-label {
+  font-family: var(--rv-mono);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.18em;
+  color: var(--rv-glow);
+}
+
+.rv-reach-horizon {
+  font-family: var(--rv-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--rv-muted);
+}
+
+.rv-reach-theme {
+  font-family: var(--rv-serif);
+  font-weight: 500;
+  font-size: 1.7rem;
+  color: var(--rv-ink);
+  letter-spacing: -0.01em;
+}
+
+.rv-stations {
+  margin: 0.4rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.4rem;
+}
+
+.rv-station {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--rv-rule-faint);
+}
+
+.rv-station[data-narrows='true'] {
+  border-top-color: var(--rv-warn);
+}
+
+.rv-station-top {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.rv-station-ref {
+  font-family: var(--rv-mono);
+  font-weight: 700;
+  color: var(--rv-glow);
+}
+
+.rv-station[data-narrows='true'] .rv-station-ref {
+  color: var(--rv-warn);
+}
+
+.rv-station-date {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--rv-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.rv-station-status {
+  margin-left: auto;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: var(--rv-ink-soft);
+}
+
+.rv-station-name {
+  font-family: var(--rv-mono);
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--rv-ink);
+}
+
+.rv-station-conf {
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  color: var(--rv-glow-soft);
+}
+
+.rv-station-note {
+  font-family: var(--rv-serif);
+  font-size: 0.94rem;
+  line-height: 1.5;
+  color: var(--rv-ink-soft);
+}
+
+.rv-station[data-narrows='true'] .rv-station-note {
+  color: var(--rv-warn-soft);
+}
+
+/* Narrows slide */
+.rv-narrows-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 2.6rem;
+  margin: 0.6rem 0 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--rv-rule);
+}
+
+.rv-narrows-point {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.rv-narrows-point dt {
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  color: var(--rv-warn-soft);
+}
+
+.rv-narrows-point dd {
+  margin: 0;
+  font-family: var(--rv-mono);
+  font-size: 0.94rem;
+  color: var(--rv-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.rv-resolution {
+  margin: 1.1rem 0 0;
+  padding: 1rem 1.2rem;
+  border-left: 3px solid var(--rv-warn);
+  background: rgba(230, 161, 90, 0.08);
+  font-family: var(--rv-serif);
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--rv-warn-soft);
+}
+
+/* Confluence slide */
+.rv-joins {
+  margin: 0.4rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.rv-join {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr);
+  gap: 0.4rem 1.6rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--rv-rule);
+}
+
+.rv-join-ws {
+  font-family: var(--rv-mono);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  color: var(--rv-glow);
+}
+
+.rv-join-at {
+  font-family: var(--rv-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--rv-muted);
+}
+
+.rv-join-brings {
+  grid-column: 2;
+  font-family: var(--rv-serif);
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: var(--rv-ink-soft);
+}
+
+/* Benefits slide */
+.rv-benefits-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: 2.6rem;
+  align-items: center;
+  width: 100%;
+  max-width: 74rem;
+  margin: 0 auto;
+}
+
+.rv-benefits-side {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.rv-reading {
+  margin: 0;
+  font-family: var(--rv-serif);
+  font-size: 1.06rem;
+  line-height: 1.55;
+  color: var(--rv-ink-soft);
+}
+
+.rv-crossover {
+  margin: 0;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--rv-rule);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--rv-glow);
+}
+
+.rv-chart {
+  position: relative;
+  margin: 0;
+  padding: 1.2rem 1.4rem 1rem;
+  background: rgba(3, 15, 18, 0.7);
+  border: 1px solid var(--rv-rule);
+}
+
+.rv-chart figcaption {
+  margin-top: 0.7rem;
+  font-family: var(--rv-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.03em;
+  color: var(--rv-muted);
+}
+
+/* Commitments slide */
+.rv-commitments {
+  margin: 0.4rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 2.6rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--rv-rule);
+}
+
+.rv-commitment {
+  display: flex;
+  gap: 1rem;
+}
+
+.rv-commitment-ref {
+  flex: 0 0 1.8rem;
+  font-family: var(--rv-mono);
+  font-weight: 700;
+  color: var(--rv-glow);
+}
+
+.rv-commitment-text {
+  font-family: var(--rv-mono);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--rv-ink-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+.rv-footer {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.9rem 1.6rem 1.1rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: var(--rv-muted);
+  background: linear-gradient(to top, rgba(4, 24, 28, 0.92) 40%, rgba(4, 24, 28, 0));
+}
+
+.rv-footer-section {
+  color: var(--rv-glow);
+  white-space: nowrap;
+}
+
+.rv-footer-notice {
+  white-space: nowrap;
+}
+
+.rv-footer-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  white-space: nowrap;
+}
+
+.rv-hint {
+  margin-right: 0.8rem;
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+}
+
+.rv-nav-btn {
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 1px solid var(--rv-rule);
+  background: transparent;
+  color: var(--rv-ink);
+  font: inherit;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition:
+    color var(--dur-feedback) var(--ease-settle),
+    border-color var(--dur-feedback) var(--ease-settle);
+}
+
+.rv-nav-btn:hover:not(:disabled) {
+  color: var(--rv-glow);
+  border-color: var(--rv-glow);
+}
+
+.rv-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.rv-print-foot {
+  display: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Narrow viewports                                                   */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 60rem) {
+  .rv-root {
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+  }
+
+  .rv-river-viewport {
+    position: fixed;
+    inset: auto 0 3.4rem 0;
+    height: 30vh;
+  }
+
+  .rv-stage {
+    position: relative;
+    inset: auto;
+  }
+
+  .rv-slide {
+    position: relative;
+    inset: auto;
+    padding: 5.4rem 1.4rem 5.8rem;
+    min-height: 100svh;
+  }
+
+  .rv-slide:not([data-state='active']) {
+    display: none;
+  }
+
+  .rv-overview-grid,
+  .rv-benefits-grid,
+  .rv-stations,
+  .rv-narrows-grid,
+  .rv-commitments {
+    grid-template-columns: 1fr;
+    gap: 1.4rem;
+  }
+
+  .rv-footer-notice,
+  .rv-hint {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Print: one slide per page on white paper                           */
+/* ------------------------------------------------------------------ */
+
+@media print {
+  .rv-root {
+    height: auto;
+    overflow: visible;
+    background: #fff;
+    color: #0c3540;
+  }
+
+  .rv-root::before,
+  .rv-chrome,
+  .rv-footer,
+  .rv-index,
+  .rv-river-viewport {
+    display: none;
+  }
+
+  .rv-stage {
+    position: static;
+  }
+
+  .rv-slide {
+    position: static;
+    visibility: visible !important;
+    display: block;
+    height: auto;
+    min-height: 92vh;
+    padding: 3rem 2.5rem;
+    break-after: page;
+    animation: none !important;
+  }
+
+  .rv-panel {
+    background: none;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+
+  .rv-slide .rv-build {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .rv-display,
+  .rv-heading,
+  .rv-reach-theme,
+  .rv-station-name,
+  .rv-ledger-name b {
+    color: #06232a;
+  }
+
+  .rv-thesis,
+  .rv-standfirst,
+  .rv-station-note,
+  .rv-reading,
+  .rv-join-brings {
+    color: #123;
+  }
+
+  .rv-chart [data-testid='chart-mount'] {
+    display: none;
+  }
+
+  .rv-chart .sr-only,
+  .rv-sr {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    clip: auto !important;
+    clip-path: none !important;
+    white-space: normal !important;
+  }
+
+  .rv-print-foot {
+    display: block;
+    margin-top: 2rem;
+    padding-top: 0.8rem;
+    border-top: 1pt solid rgba(0, 0, 0, 0.25);
+    font-size: 7.5pt;
+    letter-spacing: 0.12em;
+    color: #5c5c5c;
+  }
+}
