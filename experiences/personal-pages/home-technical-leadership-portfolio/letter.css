@@ -1,0 +1,677 @@
+/*
+ * THE ANNUAL LETTER — experience-local art layer.
+ *
+ * Art-direction licence: raw colour values are permitted in THIS stylesheet
+ * only. Easings/durations come from the platform motion tokens via the
+ * LedgerReveal sequence; this file adds no bespoke keyframes.
+ *
+ * Mood: an ivory letterpress page. Warm rag paper, one ink, one oxblood
+ * accent reserved for the correction. Fraunces set as a serious book/display
+ * serif; IBM Plex Mono for the marginalia and instrument chrome. Restraint is
+ * the whole design — nothing decorative that does not carry meaning.
+ */
+
+.al-root {
+  --al-paper: #f4efe4;
+  --al-paper-deep: #ece5d6;
+  --al-ink: #211d16;
+  --al-ink-soft: #4a4335;
+  --al-ink-faint: #6f6656;
+  --al-rule: #cbc0aa;
+  --al-rule-fine: #d8cfbc;
+  --al-oxblood: #7c2b22;
+  --al-oxblood-soft: rgba(124, 43, 34, 0.14);
+  --al-gilt: #8a6a2f;
+  --al-serif: 'Fraunces Variable', 'Iowan Old Style', 'Hoefler Text', Georgia, serif;
+  --al-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+
+  position: relative;
+  min-height: 100svh;
+  background: var(--al-paper);
+  color: var(--al-ink);
+  font-family: var(--al-serif);
+  font-optical-sizing: auto;
+  font-size: 1rem;
+  line-height: 1.6;
+  isolation: isolate;
+}
+
+/* The paper — a warm rag field with the faintest press-grain and vignette. */
+.al-paper {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(120vmin 90vmin at 12% -8%, rgba(255, 252, 244, 0.7), transparent 60%),
+    radial-gradient(120vmin 90vmin at 100% 108%, rgba(214, 203, 178, 0.5), transparent 62%),
+    linear-gradient(180deg, #f6f1e7 0%, #f2ecdf 52%, #efe8d8 100%);
+}
+
+.al-paper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(33, 29, 22, 0.014) 0,
+    rgba(33, 29, 22, 0.014) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: multiply;
+  opacity: 0.6;
+}
+
+/* ------------------------------------------------------------------ */
+/* Chrome                                                              */
+/* ------------------------------------------------------------------ */
+
+.al-chrome {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 2rem;
+  padding: 0.85rem 1.6rem 0.8rem;
+  font-family: var(--al-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  color: var(--al-ink-faint);
+  background: rgba(244, 239, 228, 0.9);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--al-rule);
+}
+
+.al-chrome-cell {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  white-space: nowrap;
+}
+
+.al-chrome-rule {
+  width: 1px;
+  height: 0.8em;
+  align-self: center;
+  background: var(--al-rule);
+}
+
+.al-back {
+  color: var(--al-ink);
+  text-decoration: none;
+  letter-spacing: 0.16em;
+}
+
+.al-back:hover {
+  color: var(--al-oxblood);
+}
+
+.al-back:focus-visible {
+  outline: 2px solid var(--al-oxblood);
+  outline-offset: 3px;
+}
+
+.al-synthetic {
+  padding: 0.18rem 0.5rem;
+  border: 1px solid var(--al-rule);
+  color: var(--al-ink-faint);
+  letter-spacing: 0.14em;
+}
+
+/* ------------------------------------------------------------------ */
+/* Layout                                                              */
+/* ------------------------------------------------------------------ */
+
+.al-main {
+  max-width: 74rem;
+  margin: 0 auto;
+  padding: 0 clamp(1.4rem, 5vw, 4rem) 5rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Masthead                                                            */
+/* ------------------------------------------------------------------ */
+
+.al-masthead {
+  padding: clamp(3rem, 8vw, 6rem) 0 2.4rem;
+  border-bottom: 3px double var(--al-rule);
+}
+
+.al-kicker {
+  margin: 0 0 1.4rem;
+  font-family: var(--al-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.42em;
+  color: var(--al-oxblood);
+  text-indent: 0.42em;
+}
+
+.al-name {
+  margin: 0;
+  font-weight: 340;
+  font-size: clamp(3.4rem, 12vw, 9.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: var(--al-ink);
+}
+
+.al-name-line {
+  display: block;
+}
+
+.al-role {
+  margin: 1.6rem 0 0;
+  font-family: var(--al-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.24em;
+  color: var(--al-ink-soft);
+}
+
+.al-standfirst {
+  margin: 2rem 0 0;
+  max-width: 46rem;
+  font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+  font-weight: 380;
+  line-height: 1.5;
+  font-style: italic;
+  color: var(--al-ink-soft);
+  text-wrap: pretty;
+}
+
+.al-filed {
+  margin: 1.8rem 0 0;
+  font-family: var(--al-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.24em;
+  color: var(--al-ink-faint);
+}
+
+/* ------------------------------------------------------------------ */
+/* Reveal spacing                                                      */
+/* ------------------------------------------------------------------ */
+
+.al-reveal {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ------------------------------------------------------------------ */
+/* The tenure engraving — commanding visual                            */
+/* ------------------------------------------------------------------ */
+
+.al-engraving {
+  padding: 3.4rem 0 2.6rem;
+}
+
+.al-engraving-heading,
+.al-section-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.9rem;
+  margin: 0 0 1.4rem;
+  font-family: var(--al-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  color: var(--al-ink-faint);
+}
+
+.al-engraving-sub {
+  font-weight: 400;
+  font-size: 0.5625rem;
+  letter-spacing: 0.2em;
+  color: var(--al-ink-faint);
+}
+
+.al-engraving-frame {
+  padding: 1.6rem clamp(0.5rem, 2vw, 1.8rem) 1.4rem;
+  border-top: 2px solid var(--al-ink);
+  border-bottom: 2px solid var(--al-ink);
+  background: linear-gradient(180deg, rgba(255, 253, 247, 0.55), rgba(236, 229, 214, 0.32));
+}
+
+.al-engraving-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.al-datum-heavy {
+  stroke: var(--al-ink);
+  stroke-width: 2.4;
+}
+
+.al-datum-fine {
+  stroke: var(--al-ink-faint);
+  stroke-width: 0.6;
+}
+
+.al-tick {
+  stroke: var(--al-ink-soft);
+  stroke-width: 1;
+}
+
+.al-tick-major {
+  stroke: var(--al-ink);
+  stroke-width: 1.4;
+}
+
+.al-year {
+  fill: var(--al-ink-soft);
+  font-family: var(--al-mono);
+  font-size: 15px;
+  letter-spacing: 0.08em;
+}
+
+.al-endcap {
+  fill: var(--al-ink-soft);
+  font-family: var(--al-mono);
+  font-size: 13px;
+  letter-spacing: 0.24em;
+}
+
+.al-endcap-now {
+  fill: var(--al-oxblood);
+}
+
+.al-stem {
+  stroke: var(--al-ink-soft);
+  stroke-width: 1.3;
+}
+
+.al-node {
+  fill: var(--al-paper);
+  stroke: var(--al-ink);
+  stroke-width: 1.4;
+}
+
+.al-stem-group.al-stem-runs .al-node {
+  fill: var(--al-ink);
+}
+
+.al-stem-group.al-stem-handed .al-stem,
+.al-stem-group.al-stem-retired .al-stem {
+  stroke-dasharray: 2 2.4;
+}
+
+.al-cut {
+  stroke: var(--al-oxblood);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+}
+
+.al-cut-halo {
+  fill: var(--al-oxblood);
+  opacity: 0.1;
+}
+
+.al-stem-group.al-stem-sunset .al-stem {
+  stroke: var(--al-oxblood);
+  stroke-dasharray: 3 3;
+  stroke-width: 1.6;
+}
+
+.al-stem-label {
+  fill: var(--al-ink);
+  font-family: var(--al-serif);
+  font-weight: 480;
+  font-size: 18.5px;
+}
+
+.al-stem-group.al-stem-sunset .al-stem-label {
+  fill: var(--al-oxblood);
+  font-style: italic;
+  font-weight: 500;
+}
+
+.al-stem-sub {
+  fill: var(--al-ink-faint);
+  font-family: var(--al-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+
+.al-stem-group.al-stem-sunset .al-stem-sub {
+  fill: var(--al-oxblood);
+}
+
+/* ------------------------------------------------------------------ */
+/* The letter sections                                                 */
+/* ------------------------------------------------------------------ */
+
+.al-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 13rem;
+  gap: clamp(1.5rem, 4vw, 3.6rem);
+  padding: 2.6rem 0;
+  border-top: 1px solid var(--al-rule-fine);
+}
+
+.al-section-flagged {
+  border-top: 1px solid var(--al-oxblood);
+}
+
+.al-section-body {
+  max-width: 42rem;
+}
+
+.al-section-heading {
+  color: var(--al-ink);
+  font-family: var(--al-serif);
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 420;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+
+.al-numeral {
+  font-family: var(--al-serif);
+  font-style: italic;
+  font-weight: 380;
+  font-size: 1.4rem;
+  color: var(--al-oxblood);
+  line-height: 1;
+  transform: translateY(-0.1em);
+}
+
+.al-flag-tag {
+  margin: 0 0 1rem;
+  display: inline-block;
+  padding: 0.24rem 0.6rem;
+  background: var(--al-oxblood-soft);
+  font-family: var(--al-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.18em;
+  color: var(--al-oxblood);
+}
+
+.al-prose {
+  margin: 0 0 1.15rem;
+  font-size: 1.1875rem;
+  line-height: 1.66;
+  color: var(--al-ink);
+  text-wrap: pretty;
+}
+
+.al-section-body .al-prose:first-of-type::first-letter {
+  float: left;
+  font-size: 3.7rem;
+  line-height: 0.78;
+  padding: 0.2rem 0.7rem 0 0;
+  font-weight: 380;
+  color: var(--al-ink);
+}
+
+.al-section-flagged .al-section-body .al-prose:first-of-type::first-letter {
+  color: var(--al-oxblood);
+}
+
+.al-margin {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 0.7rem;
+  border-left: 1px solid var(--al-rule);
+  padding-left: 1.2rem;
+  font-family: var(--al-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  line-height: 1.5;
+  color: var(--al-ink-faint);
+}
+
+.al-margin-line {
+  display: block;
+}
+
+.al-section-flagged .al-margin {
+  border-left-color: var(--al-oxblood);
+}
+
+/* ------------------------------------------------------------------ */
+/* Principles — pull quotes                                            */
+/* ------------------------------------------------------------------ */
+
+.al-principles {
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+  padding: 3.4rem clamp(0, 4vw, 3rem);
+  margin: 1rem 0;
+  border-top: 3px double var(--al-rule);
+  border-bottom: 3px double var(--al-rule);
+}
+
+.al-principle {
+  margin: 0;
+  max-width: 52rem;
+}
+
+.al-principle p {
+  margin: 0;
+  font-size: clamp(1.6rem, 3.4vw, 2.6rem);
+  font-weight: 360;
+  font-style: italic;
+  line-height: 1.28;
+  letter-spacing: -0.015em;
+  color: var(--al-ink);
+  text-wrap: balance;
+}
+
+.al-principle::before {
+  content: '';
+  display: block;
+  width: 2.4rem;
+  height: 2px;
+  margin-bottom: 1.1rem;
+  background: var(--al-oxblood);
+}
+
+/* ------------------------------------------------------------------ */
+/* The record table                                                    */
+/* ------------------------------------------------------------------ */
+
+.al-record-section {
+  padding: 2.8rem 0 0;
+}
+
+.al-record-heading {
+  color: var(--al-ink);
+  font-family: var(--al-serif);
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 420;
+  text-transform: none;
+  letter-spacing: -0.01em;
+}
+
+.al-record {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.4rem;
+  font-size: 0.9375rem;
+}
+
+.al-record-caption {
+  text-align: left;
+  margin-bottom: 1.2rem;
+  max-width: 40rem;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--al-ink-soft);
+}
+
+.al-record thead th {
+  text-align: left;
+  padding: 0.5rem 1rem 0.5rem 0;
+  border-bottom: 1.5px solid var(--al-ink);
+  font-family: var(--al-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--al-ink-faint);
+}
+
+.al-record tbody th,
+.al-record tbody td {
+  padding: 0.8rem 1rem 0.8rem 0;
+  border-bottom: 1px solid var(--al-rule-fine);
+  vertical-align: baseline;
+  text-align: left;
+}
+
+.al-record tbody th {
+  font-weight: 480;
+  font-size: 1.0625rem;
+  color: var(--al-ink);
+}
+
+.al-record tbody td {
+  color: var(--al-ink-soft);
+  font-size: 0.9375rem;
+}
+
+.al-record tr[data-sunset='true'] th {
+  color: var(--al-oxblood);
+  font-style: italic;
+}
+
+.al-standing {
+  font-family: var(--al-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  color: var(--al-ink-soft);
+}
+
+.al-standing[data-status='runs'] {
+  color: var(--al-gilt);
+}
+
+.al-standing[data-status='sunset'] {
+  color: var(--al-oxblood);
+}
+
+/* ------------------------------------------------------------------ */
+/* Signature                                                           */
+/* ------------------------------------------------------------------ */
+
+.al-signature {
+  padding: 3.4rem 0 1rem;
+  margin-top: 1.4rem;
+  border-top: 1px solid var(--al-rule-fine);
+}
+
+.al-valediction {
+  margin: 0 0 1.6rem;
+  font-size: 1.1875rem;
+  font-style: italic;
+  color: var(--al-ink-soft);
+}
+
+.al-sign-name {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 360;
+  letter-spacing: -0.01em;
+  color: var(--al-ink);
+}
+
+.al-sign-role {
+  margin: 0.7rem 0 0;
+  font-family: var(--al-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  color: var(--al-ink-soft);
+}
+
+.al-sign-place {
+  margin: 0.3rem 0 0;
+  font-family: var(--al-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  color: var(--al-ink-faint);
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+.al-footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  max-width: 74rem;
+  margin: 0 auto;
+  padding: 1.4rem clamp(1.4rem, 5vw, 4rem) 2rem;
+  border-top: 1px solid var(--al-rule);
+  font-family: var(--al-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.16em;
+  color: var(--al-ink-faint);
+}
+
+/* ------------------------------------------------------------------ */
+/* Narrow viewports                                                    */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 60rem) {
+  .al-section {
+    grid-template-columns: 1fr;
+    gap: 1.4rem;
+  }
+
+  .al-margin {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.4rem;
+    border-left: 0;
+    border-top: 1px solid var(--al-rule);
+    padding-left: 0;
+    padding-top: 1rem;
+  }
+
+  .al-chrome {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 40rem) {
+  .al-record thead {
+    display: none;
+  }
+
+  .al-record tbody th,
+  .al-record tbody td {
+    display: block;
+    padding: 0.15rem 0;
+    border: 0;
+  }
+
+  .al-record tbody tr {
+    display: block;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--al-rule-fine);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Print — the letter as it would be filed                             */
+/* ------------------------------------------------------------------ */
+
+@media print {
+  .al-root {
+    background: #fff;
+    color: #000;
+  }
+
+  .al-paper,
+  .al-chrome,
+  .al-footer {
+    display: none;
+  }
+}

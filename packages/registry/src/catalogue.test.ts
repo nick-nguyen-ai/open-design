@@ -126,12 +126,14 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
       expect.arrayContaining(['comp.status-list', 'comp.trend-chart']),
     );
 
-    // Exactly these fourteen experiences are approved: the original five live
+    // Exactly these seventeen experiences are approved: the original five live
     // worlds (one per surface), the three slide-deck worlds from the task-15
     // deck batch, the three from the task-16 deck batch (The River, The
-    // Readout, The Gallery Floor), and the three from the task-17 deck batch
-    // that complete all ten decks (The Manifesto, The Sectional, The Field
-    // Manual). Everything else remains reviewed/experimental.
+    // Readout, The Gallery Floor), the three from the task-17 deck batch that
+    // complete all ten decks (The Manifesto, The Sectional, The Field Manual),
+    // and the three personal pages from the task-18 batch (The Annual Letter,
+    // The Bench Journal, The Greenhouse). Everything else remains
+    // reviewed/experimental.
     const approvedIds = result.experiences.filter((e) => e.approval.state === 'approved').map((e) => e.id);
     expect(approvedIds.sort()).toEqual([
       'db-model-monitoring-cockpit',
@@ -146,7 +148,10 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
       'deck-technical-training',
       'deck-transformation-roadmap',
       'exp-system-architecture',
+      'home-ai-experiment-notebook',
       'home-data-scientist-studio',
+      'home-internal-ai-tool-laboratory',
+      'home-technical-leadership-portfolio',
       'proj-ai-model-validation-hub',
     ]);
   });

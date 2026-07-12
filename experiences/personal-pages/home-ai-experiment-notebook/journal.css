@@ -1,0 +1,688 @@
+/*
+ * THE BENCH JOURNAL — experience-local art layer.
+ *
+ * Art-direction licence: raw colour values are permitted in THIS stylesheet
+ * only. Easings/durations come from the platform motion tokens via the
+ * LedgerReveal sequence; this file adds no bespoke keyframes.
+ *
+ * Mood: a warm grid-paper lab notebook, kept in ink. Two ink colours only —
+ * a blue-black for the record and a red reserved for corrections and refuted
+ * results. Fraunces for titles and prose, IBM Plex Mono for the instrument
+ * furniture: entry numbers, field labels, verdict stamps.
+ */
+
+.bj-root {
+  --bj-paper: #f7f2e4;
+  --bj-paper-2: #f3ecda;
+  --bj-navy: #20345c;
+  --bj-navy-soft: #3d4a68;
+  --bj-ink-faint: #6b7183;
+  --bj-red: #a3312a;
+  --bj-red-soft: rgba(163, 49, 42, 0.1);
+  --bj-grid: rgba(32, 52, 92, 0.11);
+  --bj-grid-major: rgba(32, 52, 92, 0.2);
+  --bj-rule: rgba(32, 52, 92, 0.18);
+  --bj-serif: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
+  --bj-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+
+  position: relative;
+  min-height: 100svh;
+  background: var(--bj-paper);
+  color: var(--bj-navy);
+  font-family: var(--bj-serif);
+  font-optical-sizing: auto;
+  font-size: 1rem;
+  line-height: 1.6;
+  isolation: isolate;
+}
+
+/* The grid-paper field — 22px minor grid, 110px major, warm vignette. */
+.bj-paper {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--bj-paper);
+  background-image:
+    radial-gradient(120vmin 90vmin at 100% 0%, rgba(255, 251, 240, 0.65), transparent 58%),
+    radial-gradient(120vmin 90vmin at 0% 100%, rgba(226, 216, 192, 0.5), transparent 60%),
+    linear-gradient(0deg, var(--bj-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bj-grid) 1px, transparent 1px),
+    linear-gradient(0deg, var(--bj-grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bj-grid-major) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    100% 100%,
+    22px 22px,
+    22px 22px,
+    110px 110px,
+    110px 110px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Chrome                                                              */
+/* ------------------------------------------------------------------ */
+
+.bj-chrome {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 2rem;
+  padding: 0.8rem 1.6rem 0.75rem;
+  font-family: var(--bj-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.15em;
+  color: var(--bj-ink-faint);
+  background: rgba(247, 242, 228, 0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: 1.5px solid var(--bj-navy);
+}
+
+.bj-chrome-cell {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  white-space: nowrap;
+}
+
+.bj-chrome-rule {
+  width: 1px;
+  height: 0.8em;
+  align-self: center;
+  background: var(--bj-rule);
+}
+
+.bj-chrome-open {
+  color: var(--bj-red);
+  font-weight: 600;
+}
+
+.bj-back {
+  color: var(--bj-navy);
+  text-decoration: none;
+  letter-spacing: 0.15em;
+}
+
+.bj-back:hover {
+  color: var(--bj-red);
+}
+
+.bj-back:focus-visible {
+  outline: 2px solid var(--bj-red);
+  outline-offset: 3px;
+}
+
+.bj-synthetic {
+  padding: 0.16rem 0.5rem;
+  border: 1px solid var(--bj-rule);
+  color: var(--bj-ink-faint);
+  letter-spacing: 0.13em;
+}
+
+/* ------------------------------------------------------------------ */
+/* Layout                                                              */
+/* ------------------------------------------------------------------ */
+
+.bj-main {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 clamp(1.2rem, 4vw, 3.4rem) 4.5rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Journal head                                                        */
+/* ------------------------------------------------------------------ */
+
+.bj-head {
+  padding: clamp(2.6rem, 6vw, 4.6rem) 0 2.2rem;
+  border-bottom: 2px solid var(--bj-navy);
+}
+
+.bj-kicker {
+  margin: 0 0 1.2rem;
+  font-family: var(--bj-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.28em;
+  color: var(--bj-red);
+}
+
+.bj-name {
+  margin: 0;
+  font-weight: 420;
+  font-size: clamp(2.8rem, 8vw, 6rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  color: var(--bj-navy);
+}
+
+.bj-discipline {
+  margin: 1rem 0 0;
+  font-family: var(--bj-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.24em;
+  color: var(--bj-navy-soft);
+}
+
+.bj-standfirst {
+  margin: 1.8rem 0 0;
+  max-width: 44rem;
+  font-size: clamp(1.15rem, 2.1vw, 1.45rem);
+  font-weight: 380;
+  font-style: italic;
+  line-height: 1.55;
+  color: var(--bj-navy-soft);
+  text-wrap: pretty;
+}
+
+/* ------------------------------------------------------------------ */
+/* Reveal + run head                                                   */
+/* ------------------------------------------------------------------ */
+
+.bj-reveal {
+  display: flex;
+  flex-direction: column;
+}
+
+.bj-run-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.8rem;
+  padding: 2.4rem 0 0.4rem;
+}
+
+.bj-run-title,
+.bj-section-heading {
+  margin: 0;
+  font-family: var(--bj-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  color: var(--bj-navy);
+}
+
+.bj-run-sub,
+.bj-section-sub {
+  font-family: var(--bj-mono);
+  font-size: 0.5625rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  color: var(--bj-ink-faint);
+}
+
+.bj-section-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.8rem;
+  margin: 0 0 1.4rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Entry                                                               */
+/* ------------------------------------------------------------------ */
+
+.bj-entry {
+  position: relative;
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 1.4rem;
+  padding: 1.7rem 0;
+  border-bottom: 1px solid var(--bj-rule);
+}
+
+.bj-entry-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding-top: 0.2rem;
+  text-align: right;
+  border-right: 1px solid var(--bj-rule);
+  padding-right: 1.2rem;
+}
+
+.bj-entry-no {
+  font-family: var(--bj-mono);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--bj-navy);
+}
+
+.bj-entry-date {
+  font-family: var(--bj-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.14em;
+  color: var(--bj-ink-faint);
+}
+
+.bj-entry-body {
+  min-width: 0;
+}
+
+.bj-entry-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem 1.4rem;
+  margin-bottom: 0.9rem;
+}
+
+.bj-entry-no-inline {
+  display: none;
+  font-family: var(--bj-mono);
+  font-size: 0.8em;
+  color: var(--bj-ink-faint);
+}
+
+.bj-entry-title {
+  margin: 0;
+  font-family: var(--bj-serif);
+  font-weight: 500;
+  font-size: 1.4rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--bj-navy);
+}
+
+/* Verdict stamps — the word carries the meaning; colour only reinforces. */
+.bj-stamp {
+  flex-shrink: 0;
+  padding: 0.34rem 0.7rem;
+  font-family: var(--bj-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  border: 2px solid var(--bj-navy);
+  color: var(--bj-navy);
+  border-radius: 3px;
+  transform: rotate(-2.5deg);
+}
+
+.bj-stamp-confirmed {
+  border-color: var(--bj-navy);
+  color: var(--bj-navy);
+}
+
+.bj-stamp-refuted {
+  border-color: var(--bj-red);
+  color: var(--bj-red);
+}
+
+.bj-stamp-inconclusive {
+  border-style: dashed;
+  border-color: var(--bj-navy-soft);
+  color: var(--bj-navy-soft);
+}
+
+.bj-entry-fields {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.bj-field {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.bj-field dt {
+  font-family: var(--bj-mono);
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--bj-ink-faint);
+  padding-top: 0.2rem;
+}
+
+.bj-field dd {
+  margin: 0;
+  font-size: 1.0125rem;
+  line-height: 1.55;
+  color: var(--bj-navy);
+}
+
+.bj-field-result dd {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1.1rem;
+}
+
+.bj-result-text {
+  font-family: var(--bj-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.01em;
+  color: var(--bj-navy);
+}
+
+.bj-spark {
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+.bj-spark-line {
+  fill: none;
+  stroke: var(--bj-navy);
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.bj-spark[data-good='false'] .bj-spark-line {
+  stroke: var(--bj-red);
+}
+
+.bj-spark-dot {
+  fill: var(--bj-navy);
+}
+
+.bj-spark[data-good='false'] .bj-spark-dot {
+  fill: var(--bj-red);
+}
+
+.bj-entry-margin {
+  margin: 0.9rem 0 0;
+  font-family: var(--bj-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  color: var(--bj-ink-faint);
+}
+
+.bj-entry-margin-red {
+  color: var(--bj-red);
+  font-weight: 600;
+}
+
+/* The struck entry — a single ruled line drawn through the whole block, the
+ * text left fully legible beneath it. A correction made in the open. */
+.bj-entry-struck {
+  opacity: 0.96;
+}
+
+.bj-entry-struck .bj-entry-title,
+.bj-entry-struck .bj-field dt,
+.bj-entry-struck .bj-field dd,
+.bj-entry-struck .bj-result-text {
+  color: var(--bj-navy-soft);
+}
+
+.bj-strike {
+  position: absolute;
+  left: 6.5rem;
+  right: 0;
+  top: 55%;
+  height: 1.6px;
+  background: var(--bj-red);
+  transform: rotate(-0.5deg);
+  transform-origin: left center;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* a second, fainter rule so it plainly reads as a cancellation, not underline */
+.bj-strike::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -7px;
+  height: 1px;
+  background: var(--bj-red);
+  opacity: 0.55;
+}
+
+.bj-entry-struck .bj-stamp {
+  opacity: 0.55;
+}
+
+/* ------------------------------------------------------------------ */
+/* Figure plates — "taped in"                                          */
+/* ------------------------------------------------------------------ */
+
+.bj-plates {
+  padding: 3rem 0 1rem;
+}
+
+.bj-plate-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.4rem;
+}
+
+.bj-plate {
+  --bj-tilt: 0deg;
+  position: relative;
+  margin: 0;
+  padding: 1.4rem 1.4rem 1.2rem;
+  background: #fbf7ec;
+  border: 1px solid var(--bj-rule);
+  box-shadow: 0 10px 26px rgba(32, 52, 92, 0.14);
+  transform: rotate(var(--bj-tilt));
+}
+
+.bj-tape {
+  position: absolute;
+  width: 3.4rem;
+  height: 1.2rem;
+  background: rgba(190, 174, 120, 0.4);
+  border: 1px solid rgba(150, 132, 78, 0.28);
+}
+
+.bj-tape-tl {
+  top: -0.6rem;
+  left: -0.8rem;
+  transform: rotate(-38deg);
+}
+
+.bj-tape-br {
+  bottom: -0.6rem;
+  right: -0.8rem;
+  transform: rotate(-38deg);
+}
+
+.bj-plate-chart {
+  margin: 0;
+}
+
+.bj-plate-chart figcaption {
+  font-family: var(--bj-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.04em;
+  color: var(--bj-ink-faint);
+  margin-top: 0.5rem;
+}
+
+.bj-plate-caption {
+  margin: 0.7rem 0 0;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--bj-rule);
+  font-size: 0.8125rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--bj-navy-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* Index card                                                          */
+/* ------------------------------------------------------------------ */
+
+.bj-index {
+  padding: 3rem 0 1rem;
+}
+
+.bj-index-list {
+  margin: 0;
+  border-top: 1px solid var(--bj-navy);
+}
+
+.bj-index-row {
+  display: grid;
+  grid-template-columns: 12rem minmax(0, 1fr);
+  gap: 1.4rem;
+  padding: 0.95rem 0;
+  border-bottom: 1px solid var(--bj-rule);
+}
+
+.bj-index-row dt {
+  font-family: var(--bj-serif);
+  font-weight: 520;
+  font-size: 1.0625rem;
+  color: var(--bj-navy);
+}
+
+.bj-index-row dd {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.bj-index-entries {
+  font-family: var(--bj-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--bj-red);
+}
+
+.bj-index-note {
+  font-size: 0.9375rem;
+  font-style: italic;
+  color: var(--bj-navy-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* Current question                                                    */
+/* ------------------------------------------------------------------ */
+
+.bj-question {
+  margin: 3rem 0 0;
+  padding: 2rem 2.2rem;
+  background: var(--bj-red-soft);
+  border: 1.5px solid var(--bj-red);
+  border-radius: 4px;
+}
+
+.bj-question-heading {
+  margin: 0 0 1rem;
+  font-family: var(--bj-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  color: var(--bj-red);
+}
+
+.bj-question-body {
+  margin: 0;
+  max-width: 46rem;
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  font-weight: 380;
+  line-height: 1.5;
+  color: var(--bj-navy);
+  text-wrap: pretty;
+}
+
+.bj-question-ask {
+  margin: 1.4rem 0 0;
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  border: 2px solid var(--bj-red);
+  border-radius: 3px;
+  font-family: var(--bj-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--bj-red);
+  transform: rotate(-1.5deg);
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+.bj-footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 1.4rem clamp(1.2rem, 4vw, 3.4rem) 2rem;
+  border-top: 1.5px solid var(--bj-navy);
+  font-family: var(--bj-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.15em;
+  color: var(--bj-ink-faint);
+}
+
+/* ------------------------------------------------------------------ */
+/* Narrow viewports                                                    */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 60rem) {
+  .bj-plate-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bj-entry {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+
+  .bj-entry-rail {
+    flex-direction: row;
+    gap: 0.9rem;
+    text-align: left;
+    border-right: 0;
+    border-bottom: 1px solid var(--bj-rule);
+    padding-right: 0;
+    padding-bottom: 0.5rem;
+  }
+
+  .bj-strike {
+    left: 0;
+  }
+
+  .bj-field {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+
+  .bj-index-row {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+
+  .bj-chrome {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Print                                                               */
+/* ------------------------------------------------------------------ */
+
+@media print {
+  .bj-root {
+    background: #fff;
+    color: #000;
+  }
+
+  .bj-paper,
+  .bj-chrome,
+  .bj-footer {
+    display: none;
+  }
+
+  .bj-plate {
+    transform: none;
+    box-shadow: none;
+  }
+}
