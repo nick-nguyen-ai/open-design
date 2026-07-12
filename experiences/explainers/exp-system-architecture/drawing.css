@@ -1,0 +1,696 @@
+/*
+ * THE DRAWING OFFICE — experience-local art layer.
+ *
+ * Task-12 art-direction licence: raw colour values are permitted in THIS
+ * stylesheet only. Mood: pale drafting paper — one committed field, ink
+ * lines, a single drafting-red accent reserved for section cuts and the
+ * NOTE-3 constraint. Print drops the field to white.
+ */
+
+.dw-root {
+  --dw-paper: #f5f1e6;
+  --dw-paper-deep: #ede8d8;
+  --dw-ink: #22303c;
+  --dw-ink-soft: #43535f;
+  --dw-muted: #5a6b76;
+  --dw-blue: #2c5a78;
+  --dw-red: #b5442a;
+  --dw-line: rgba(34, 48, 60, 0.28);
+  --dw-line-faint: rgba(34, 48, 60, 0.12);
+  --dw-grid-line: rgba(44, 90, 120, 0.1);
+  --dw-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+  --dw-serif: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
+
+  min-height: 100svh;
+  background:
+    radial-gradient(140vmin 90vmin at 50% -10%, rgba(255, 255, 252, 0.55), transparent 60%),
+    #ece6d4;
+  color: var(--dw-ink);
+  font-family: var(--dw-mono);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+/* ------------------------------------------------------------------ */
+/* Chrome                                                              */
+/* ------------------------------------------------------------------ */
+
+.dw-chrome {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1.1rem 1.6rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  color: var(--dw-muted);
+  border-bottom: 1px solid var(--dw-line-faint);
+}
+
+.dw-chrome-cell {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  white-space: nowrap;
+}
+
+.dw-chrome-rule {
+  width: 1px;
+  height: 0.85em;
+  align-self: center;
+  background: var(--dw-line);
+}
+
+.dw-back {
+  color: var(--dw-ink);
+  text-decoration: none;
+  letter-spacing: 0.16em;
+}
+
+.dw-back:hover,
+.dw-back:focus-visible {
+  color: var(--dw-red);
+}
+
+.dw-back:focus-visible {
+  outline: 2px solid var(--dw-blue);
+  outline-offset: 3px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Masthead                                                            */
+/* ------------------------------------------------------------------ */
+
+.dw-masthead {
+  max-width: 82rem;
+  margin: 0 auto;
+  padding: 4.2rem 3rem 2.6rem;
+}
+
+.dw-kicker {
+  margin: 0 0 1.4rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  color: var(--dw-red);
+}
+
+.dw-display {
+  margin: 0;
+  font-family: var(--dw-serif);
+  font-weight: 430;
+  font-variation-settings: 'opsz' 80;
+  font-size: clamp(2rem, 3.4vw, 3.2rem);
+  line-height: 1.16;
+  letter-spacing: -0.014em;
+  color: var(--dw-ink);
+  max-width: 46ch;
+}
+
+.dw-lede {
+  margin: 1.6rem 0 0;
+  max-width: 62ch;
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  color: var(--dw-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* The sheet                                                           */
+/* ------------------------------------------------------------------ */
+
+.dw-sheet-section {
+  max-width: 100rem;
+  margin: 0 auto;
+  padding: 0 2.2rem;
+}
+
+.dw-sheet {
+  position: relative;
+  margin: 0;
+  background: linear-gradient(to bottom, #faf8f0, #f1ecdd);
+  box-shadow:
+    0 1px 0 rgba(34, 48, 60, 0.16),
+    0 24px 56px -30px rgba(34, 48, 60, 0.5);
+}
+
+.dw-sheet-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* SVG classes */
+
+.dw-frame-outer {
+  fill: none;
+  stroke: var(--dw-ink);
+  stroke-width: 2;
+}
+
+.dw-frame-inner {
+  fill: none;
+  stroke: var(--dw-ink);
+  stroke-width: 1;
+}
+
+.dw-frame-coord {
+  fill: var(--dw-muted);
+  font-family: var(--dw-mono);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+}
+
+.dw-frame-tick {
+  stroke: var(--dw-line);
+  stroke-width: 1;
+}
+
+.dw-grid {
+  stroke: var(--dw-grid-line);
+  stroke-width: 1;
+}
+
+.dw-zone {
+  fill: none;
+  stroke: var(--dw-ink-soft);
+  stroke-width: 1;
+  stroke-dasharray: 8 6;
+}
+
+.dw-zone-core {
+  stroke-width: 1.4;
+}
+
+.dw-zone-label {
+  fill: var(--dw-muted);
+  font-family: var(--dw-mono);
+  font-size: 14px;
+  letter-spacing: 0.2em;
+}
+
+.dw-part {
+  fill: #faf7ee;
+  stroke: var(--dw-ink);
+  stroke-width: 1.8;
+}
+
+.dw-part-inner {
+  fill: none;
+  stroke: var(--dw-ink);
+  stroke-width: 0.75;
+}
+
+.dw-part-label {
+  fill: var(--dw-ink);
+  font-family: var(--dw-mono);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.dw-part-kind {
+  fill: var(--dw-muted);
+  font-family: var(--dw-mono);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+}
+
+.dw-mark {
+  fill: var(--dw-paper);
+  stroke: var(--dw-ink);
+  stroke-width: 1.4;
+}
+
+.dw-mark-text {
+  fill: var(--dw-ink);
+  font-family: var(--dw-mono);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.dw-hatch-line {
+  stroke: rgba(181, 68, 42, 0.5);
+  stroke-width: 1.6;
+}
+
+.dw-note-flag {
+  fill: var(--dw-red);
+}
+
+.dw-note-flag-text {
+  fill: var(--dw-red);
+  font-family: var(--dw-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+
+.dw-edge {
+  fill: none;
+  stroke: var(--dw-blue);
+  stroke-width: 1.6;
+}
+
+.dw-arrowhead {
+  fill: var(--dw-blue);
+}
+
+.dw-edge-label {
+  fill: var(--dw-blue);
+  font-family: var(--dw-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+}
+
+.dw-dim-line {
+  stroke: var(--dw-ink-soft);
+  stroke-width: 1;
+}
+
+.dw-dim-arrow {
+  fill: var(--dw-ink-soft);
+}
+
+.dw-dim-label {
+  fill: var(--dw-ink-soft);
+  font-family: var(--dw-mono);
+  font-size: 13px;
+  letter-spacing: 0.18em;
+}
+
+.dw-section-line {
+  stroke: var(--dw-red);
+  stroke-width: 1.2;
+  stroke-dasharray: 18 6 3 6;
+}
+
+.dw-section-bubble {
+  fill: var(--dw-paper);
+  stroke: var(--dw-red);
+  stroke-width: 1.6;
+}
+
+.dw-section-text {
+  fill: var(--dw-red);
+  font-family: var(--dw-mono);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.dw-stamp-ring {
+  fill: none;
+  stroke: var(--dw-ink-soft);
+  stroke-width: 1.2;
+}
+
+.dw-stamp-line {
+  stroke: var(--dw-ink-soft);
+  stroke-width: 1;
+}
+
+.dw-stamp-text {
+  fill: var(--dw-muted);
+  font-family: var(--dw-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.14em;
+}
+
+/* Title block */
+
+.dw-titleblock {
+  position: absolute;
+  right: 2.8%;
+  bottom: 3.2%;
+  width: clamp(16rem, 24vw, 22.5rem);
+  border: 1.5px solid var(--dw-ink);
+  background: rgba(248, 245, 236, 0.97);
+  padding: 0.45rem 0.75rem 0.5rem;
+  font-size: 0.5938rem;
+  letter-spacing: 0.09em;
+  box-shadow: 0 0 0 4px rgba(248, 245, 236, 0.6);
+}
+
+.dw-tb-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.dw-tb-head {
+  border-bottom: 1px solid var(--dw-line);
+  padding-bottom: 0.3rem;
+  margin-bottom: 0.35rem;
+}
+
+.dw-tb-project {
+  font-weight: 600;
+  color: var(--dw-ink);
+}
+
+.dw-tb-class {
+  color: var(--dw-red);
+  font-weight: 600;
+}
+
+.dw-tb-title {
+  margin: 0 0 0.35rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--dw-ink);
+}
+
+.dw-tb-rev {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 0.55rem;
+}
+
+.dw-tb-rev th,
+.dw-tb-rev td {
+  border: 1px solid var(--dw-line);
+  padding: 0.12rem 0.35rem;
+  text-align: left;
+  font-weight: 400;
+  color: var(--dw-ink-soft);
+}
+
+.dw-tb-rev thead th {
+  color: var(--dw-muted);
+  font-size: 0.5625rem;
+  letter-spacing: 0.16em;
+}
+
+.dw-tb-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.35rem 1rem;
+  margin: 0;
+}
+
+.dw-tb-grid dt {
+  font-size: 0.5625rem;
+  color: var(--dw-muted);
+  letter-spacing: 0.16em;
+}
+
+.dw-tb-grid dd {
+  margin: 0;
+  color: var(--dw-ink);
+}
+
+/* Under-sheet panels */
+
+.dw-under-sheet {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 1.4rem;
+  padding: 1.4rem 0 0;
+}
+
+.dw-panel-heading {
+  margin: 0 0 0.8rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--dw-ink);
+  border-bottom: 1px solid var(--dw-line);
+  padding-bottom: 0.5rem;
+}
+
+.dw-panel-subheading {
+  margin: 1.1rem 0 0.5rem;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--dw-muted);
+}
+
+.dw-schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.6875rem;
+}
+
+.dw-schedule-table th,
+.dw-schedule-table td {
+  padding: 0.3rem 0.6rem;
+  text-align: left;
+  border-bottom: 1px solid var(--dw-line-faint);
+}
+
+.dw-schedule-table thead th {
+  font-size: 0.5625rem;
+  letter-spacing: 0.18em;
+  color: var(--dw-muted);
+  font-weight: 500;
+}
+
+.dw-schedule-table tbody th {
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+.dw-schedule-table tbody td {
+  color: var(--dw-muted);
+}
+
+.dw-schedule-table tr[data-constrained] th,
+.dw-schedule-table tr[data-constrained] td {
+  color: var(--dw-red);
+}
+
+.dw-num {
+  font-variant-numeric: tabular-nums;
+}
+
+.dw-connections {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  columns: 2;
+  column-gap: 1.4rem;
+  font-size: 0.65rem;
+  color: var(--dw-muted);
+  letter-spacing: 0.04em;
+}
+
+.dw-connections li {
+  padding: 0.16rem 0;
+  break-inside: avoid;
+}
+
+.dw-notes-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.6875rem;
+  color: var(--dw-ink-soft);
+}
+
+.dw-notes-list li {
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--dw-line-faint);
+  letter-spacing: 0.05em;
+}
+
+.dw-notes-list li[data-critical] {
+  color: var(--dw-red);
+  font-weight: 500;
+}
+
+.dw-note-no {
+  color: var(--dw-muted);
+  margin-right: 0.4rem;
+}
+
+.dw-notes-list li[data-critical] .dw-note-no {
+  color: var(--dw-red);
+}
+
+.dw-legend {
+  margin: 1.1rem 0 0;
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  color: var(--dw-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Narrative body                                                      */
+/* ------------------------------------------------------------------ */
+
+.dw-body {
+  max-width: 82rem;
+  margin: 0 auto;
+  padding: 3.6rem 3rem 3rem;
+}
+
+.dw-section {
+  display: grid;
+  grid-template-columns: 13rem minmax(0, 46rem);
+  gap: 2.4rem;
+  padding: 2.2rem 0;
+  border-top: 1px solid var(--dw-line-faint);
+}
+
+.dw-margin-note {
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  color: var(--dw-muted);
+  padding-top: 0.55rem;
+  text-align: right;
+}
+
+.dw-section-heading {
+  margin: 0 0 1rem;
+  font-family: var(--dw-serif);
+  font-weight: 520;
+  font-variation-settings: 'opsz' 40;
+  font-size: 1.5rem;
+  letter-spacing: -0.008em;
+  color: var(--dw-ink);
+}
+
+.dw-section-no {
+  font-family: var(--dw-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--dw-red);
+  margin-right: 0.6rem;
+  vertical-align: 0.35em;
+}
+
+.dw-section-text p {
+  margin: 0 0 1rem;
+  font-family: var(--dw-serif);
+  font-weight: 400;
+  font-variation-settings: 'opsz' 14;
+  font-size: 1.0313rem;
+  line-height: 1.72;
+  color: #2c3a45;
+  max-width: 66ch;
+}
+
+.dw-section-text p:last-child {
+  margin-bottom: 0;
+}
+
+/* FIG 4.1 */
+
+.dw-figure {
+  margin: 1.8rem 0 0.4rem;
+  border: 1px solid var(--dw-line);
+  background: #faf7ee;
+  padding: 1rem 1.2rem 1.1rem;
+}
+
+.dw-figure-head {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--dw-ink);
+  border-bottom: 1px solid var(--dw-line-faint);
+  padding-bottom: 0.6rem;
+  margin-bottom: 0.4rem;
+}
+
+.dw-figure-no {
+  color: var(--dw-red);
+}
+
+.dw-figure-floor {
+  margin-left: auto;
+  color: var(--dw-muted);
+  font-weight: 400;
+}
+
+.dw-figure-caption {
+  margin-top: 0.7rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: var(--dw-muted);
+  max-width: 70ch;
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+.dw-footer {
+  max-width: 100rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1.2rem 2.2rem 1.5rem;
+  border-top: 1px solid var(--dw-line);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  color: var(--dw-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Print: the field drops to white                                     */
+/* ------------------------------------------------------------------ */
+
+@media print {
+  .dw-root {
+    background: #fff;
+  }
+
+  .dw-sheet {
+    background: #fff;
+    box-shadow: none;
+  }
+
+  .dw-chrome,
+  .dw-back {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Responsive                                                          */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 1100px) {
+  .dw-under-sheet {
+    grid-template-columns: 1fr;
+  }
+
+  .dw-section {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .dw-margin-note {
+    text-align: left;
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .dw-masthead,
+  .dw-body {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .dw-sheet-section,
+  .dw-footer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .dw-titleblock {
+    position: static;
+    width: auto;
+    margin: 0.8rem;
+  }
+
+  .dw-connections {
+    columns: 1;
+  }
+}

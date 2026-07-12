@@ -1,8 +1,10 @@
 import type { ReactNode } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import type { ApprovalState } from '@enterprise-design/contracts';
 import type { SearchResult } from '@enterprise-design/search';
 import { Badge, Card, type BadgeTone } from '@enterprise-design/primitives';
 import { componentById, experienceById } from '../data/registry.js';
+import { liveRoute } from '../data/live.js';
 import {
   APPROVAL_LABEL,
   AUDIENCE_LABEL,
@@ -102,20 +104,22 @@ export function ResultCard({ result, onOpen }: ResultCardProps) {
   const accent = grammarAccent(facets.grammarId);
   const primaryAudience = facets.audiences?.[0];
   const density = facets.density?.[0];
+  const liveHref = result.entityType === 'experience' ? liveRoute(result.id) : null;
 
   return (
-    <Card
-      onClick={() => onOpen(result)}
-      aria-label={`${ENTITY_LABEL[result.entityType]}: ${result.title}. Open quick preview.`}
-      className="group relative h-full overflow-hidden !p-0 text-left"
-    >
+    <div className="relative h-full">
+      <Card
+        onClick={() => onOpen(result)}
+        aria-label={`${ENTITY_LABEL[result.entityType]}: ${result.title}. Open quick preview.`}
+        className="group relative h-full overflow-hidden !p-0 text-left"
+      >
       <span
         aria-hidden
         className="absolute inset-y-0 left-0 w-[3px]"
         style={{ backgroundColor: accent }}
       />
       <div className="flex h-full flex-col gap-3 p-5 pl-6">
-        <div className="flex items-start justify-between gap-3">
+        <div className={`flex items-start justify-between gap-3 ${liveHref ? 'pr-16' : ''}`}>
           <h3 className="font-heading text-md font-semibold leading-snug tracking-tight text-text-primary">
             {result.title}
           </h3>
@@ -168,6 +172,16 @@ export function ResultCard({ result, onOpen }: ResultCardProps) {
           </div>
         </div>
       </div>
-    </Card>
+      </Card>
+      {liveHref && (
+        <RouterLink
+          to={liveHref}
+          aria-label={`Open live template: ${result.title}`}
+          className="absolute right-4 top-4 z-10 inline-flex items-center gap-1.5 rounded-sm border border-accent/40 bg-surface-raised px-1.5 py-0.5 font-mono text-xs font-medium uppercase tracking-wide text-accent no-underline transition-colors duration-feedback ease-settle hover:bg-accent hover:text-text-on-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
+        >
+          <span aria-hidden className="text-[0.6rem] leading-none">●</span> Live
+        </RouterLink>
+      )}
+    </div>
   );
 }

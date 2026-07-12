@@ -3,8 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "The 50 reference experience manifests (catalogue metadata) discovered by packages/registry via the experiences/**/*.experience.manifest.ts glob.",
+  "description": "The 50 reference experience manifests (catalogue metadata) discovered by packages/registry via the experiences/**/*.experience.manifest.ts glob, plus the live source (content packs + page components) for the rendered anchor experiences.",
   "dependencies": {
-    "@enterprise-design/contracts": "workspace:*"
+    "@enterprise-design/content-components": "workspace:*",
+    "@enterprise-design/contracts": "workspace:*",
+    "@enterprise-design/data-viz": "workspace:*",
+    "@enterprise-design/diagrams": "workspace:*",
+    "@enterprise-design/motion": "workspace:*",
+    "@enterprise-design/primitives": "workspace:*",
+    "@fontsource-variable/fraunces": "^5.2.9",
+    "@fontsource/ibm-plex-mono": "^5.2.7",
+    "react": "^19.2.0",
+    "react-router-dom": "^7.9.6"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.17"
   }
 }

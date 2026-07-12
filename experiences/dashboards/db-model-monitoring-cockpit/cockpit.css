@@ -1,0 +1,840 @@
+/*
+ * THE MODEL RISK CONTROL ROOM, 02:47 — experience-local art layer.
+ *
+ * Task-12 art-direction licence: raw colour values are permitted in THIS
+ * stylesheet only (experience sample content, not the design system). All
+ * text pairs clear WCAG AA against the room's near-black field. Easings and
+ * durations still come from the platform tokens (var(--ease-*), var(--dur-*)).
+ *
+ * Mood: a dark room lit by one instrument. Near-black with a deep marine
+ * hue; phosphor green-cyan for healthy signal; ONE warm amber accent that
+ * belongs to the breach and nothing else.
+ */
+
+.ck-root {
+  --ck-bg: #04080d;
+  --ck-bg-raise: #0a1219;
+  --ck-panel: #0b141b;
+  --ck-line: rgba(158, 197, 210, 0.24);
+  --ck-line-faint: rgba(158, 197, 210, 0.13);
+  --ck-text: #c7d3d9;
+  --ck-muted: #8fa1ab;
+  --ck-display: #ece5d4;
+  --ck-phosphor: #6fc7ae;
+  --ck-phosphor-dim: rgba(111, 199, 174, 0.55);
+  --ck-amber: #f0a052;
+  --ck-amber-dim: rgba(240, 160, 82, 0.32);
+  --ck-glass-core: rgba(111, 199, 174, 0.085);
+  --ck-glass-mid: rgba(111, 199, 174, 0.03);
+  --ck-glass-rim: rgba(4, 8, 13, 0);
+  --ck-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+  --ck-display-font: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
+
+  min-height: 100svh;
+  background:
+    radial-gradient(120vmin 120vmin at 68% 30%, rgba(31, 61, 66, 0.35), transparent 60%),
+    radial-gradient(90vmin 70vmin at 12% 88%, rgba(24, 39, 54, 0.5), transparent 65%),
+    var(--ck-bg);
+  color: var(--ck-text);
+  font-family: var(--ck-mono);
+  font-size: 0.8125rem;
+  line-height: 1.55;
+}
+
+/* ------------------------------------------------------------------ */
+/* Instrument chrome                                                   */
+/* ------------------------------------------------------------------ */
+
+.ck-chrome {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1.1rem 1.4rem 0.9rem;
+  pointer-events: none;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  color: var(--ck-muted);
+  background: linear-gradient(to bottom, rgba(4, 8, 13, 0.92) 30%, rgba(4, 8, 13, 0));
+  animation: ck-register var(--dur-state) var(--ease-settle) both;
+}
+
+.ck-chrome-cell {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  white-space: nowrap;
+}
+
+.ck-chrome-rule {
+  width: 1px;
+  height: 0.85em;
+  align-self: center;
+  background: var(--ck-line);
+}
+
+.ck-back {
+  pointer-events: auto;
+  color: var(--ck-text);
+  text-decoration: none;
+  letter-spacing: 0.14em;
+}
+
+.ck-back:hover,
+.ck-back:focus-visible {
+  color: var(--ck-amber);
+}
+
+.ck-back:focus-visible,
+.ck-pause:focus-visible {
+  outline: 2px solid var(--ck-amber);
+  outline-offset: 3px;
+}
+
+.ck-clock {
+  color: var(--ck-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.ck-live-flag {
+  color: var(--ck-phosphor);
+}
+
+.ck-live-flag-held {
+  color: var(--ck-muted);
+}
+
+.ck-pause {
+  pointer-events: auto;
+  border: 1px solid var(--ck-line);
+  background: transparent;
+  color: var(--ck-muted);
+  font: inherit;
+  letter-spacing: 0.14em;
+  padding: 0.25rem 0.7rem;
+  cursor: pointer;
+  transition: color var(--dur-feedback) var(--ease-settle),
+    border-color var(--dur-feedback) var(--ease-settle);
+}
+
+.ck-pause:hover {
+  color: var(--ck-text);
+  border-color: var(--ck-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Hero — the scope owns the viewport                                  */
+/* ------------------------------------------------------------------ */
+
+.ck-hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: minmax(28rem, 1fr) minmax(30rem, 46rem);
+  grid-template-rows: 1fr auto;
+  align-items: center;
+  gap: 0 2rem;
+  padding: 4.5rem 3rem 1.2rem;
+  max-width: 96rem;
+  margin: 0 auto;
+}
+
+.ck-statement-block {
+  align-self: end;
+  padding-bottom: 7.5rem;
+  max-width: 36rem;
+}
+
+/* Watch readout — instrument density in the hero's upper-left. */
+
+.ck-readout {
+  position: absolute;
+  top: 5.4rem;
+  left: 3rem;
+  width: 13.5rem;
+  margin: 0;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  color: var(--ck-muted);
+  animation: ck-register var(--dur-state) var(--ease-settle) both;
+  animation-delay: var(--dur-feedback);
+}
+
+.ck-readout-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.42rem 0;
+  border-bottom: 1px solid var(--ck-line-faint);
+}
+
+.ck-readout-row dt {
+  color: var(--ck-muted);
+}
+
+.ck-readout-row dd {
+  margin: 0;
+  color: var(--ck-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.ck-readout-breach dd {
+  color: var(--ck-amber);
+  font-weight: 600;
+}
+
+.ck-kicker {
+  margin: 0 0 1.6rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  color: var(--ck-amber);
+}
+
+.ck-statement {
+  margin: 0;
+  font-family: var(--ck-display-font);
+  font-weight: 440;
+  font-variation-settings: 'opsz' 72;
+  font-size: clamp(2rem, 2.7vw, 2.9rem);
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+  color: var(--ck-display);
+}
+
+.ck-statement-line {
+  display: block;
+  text-wrap: balance;
+  animation: ck-settle var(--dur-structure) var(--ease-settle) both;
+  animation-delay: calc(560ms + var(--ck-line, 0) * 140ms);
+}
+
+.ck-statement-line:last-child {
+  color: #f3c99a;
+}
+
+.ck-subline {
+  margin: 1.6rem 0 0;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  color: var(--ck-amber);
+}
+
+.ck-scope-figure {
+  margin: 0;
+  align-self: center;
+  justify-self: center;
+  width: min(100%, 82vmin);
+  padding: 0 2.5rem;
+}
+
+.ck-scope-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.ck-hero-foot {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: var(--ck-muted);
+  animation: ck-register var(--dur-state) var(--ease-settle) both;
+  animation-delay: var(--dur-state);
+}
+
+.ck-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.6rem;
+  margin: 0;
+}
+
+.ck-legend-item {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+
+.ck-legend-item dd {
+  margin: 0;
+}
+
+.ck-legend-glyph {
+  font-size: 0.75rem;
+}
+
+.ck-legend-stable {
+  color: var(--ck-phosphor);
+}
+
+.ck-legend-watch {
+  color: var(--ck-phosphor);
+}
+
+.ck-legend-breach {
+  color: var(--ck-amber);
+}
+
+.ck-legend-note dd {
+  color: var(--ck-muted);
+}
+
+.ck-vh-dt {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.ck-hero-notice {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.ck-hero-notice .ck-chrome-rule {
+  display: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Scope internals (SVG classes)                                       */
+/* ------------------------------------------------------------------ */
+
+.ck-bezel {
+  fill: none;
+  stroke: var(--ck-line);
+  stroke-width: 1.5;
+}
+
+.ck-tick {
+  stroke: var(--ck-line-faint);
+  stroke-width: 1;
+}
+
+.ck-tick-major {
+  stroke: var(--ck-line);
+}
+
+.ck-ring {
+  fill: none;
+  stroke: var(--ck-line-faint);
+  stroke-width: 1;
+}
+
+.ck-ring-watch {
+  stroke: var(--ck-line);
+  stroke-dasharray: 2 6;
+}
+
+.ck-ring-limit {
+  stroke: rgba(240, 160, 82, 0.5);
+  stroke-width: 1.5;
+  stroke-dasharray: 7 5;
+}
+
+.ck-ring-label {
+  fill: var(--ck-muted);
+  font-family: var(--ck-mono);
+  font-size: 15px;
+  letter-spacing: 0.12em;
+}
+
+.ck-spoke {
+  stroke: var(--ck-line-faint);
+  stroke-width: 1;
+}
+
+.ck-sector-label {
+  fill: var(--ck-muted);
+  font-family: var(--ck-mono);
+  font-size: 16px;
+  letter-spacing: 0.2em;
+}
+
+.ck-hub {
+  stroke: var(--ck-muted);
+  stroke-width: 1.5;
+}
+
+.ck-contact-stable {
+  fill: var(--ck-phosphor);
+}
+
+.ck-contact-watch {
+  fill: none;
+  stroke: var(--ck-phosphor);
+  stroke-width: 2;
+}
+
+.ck-contact-label {
+  fill: var(--ck-phosphor-dim);
+  font-family: var(--ck-mono);
+  font-size: 13.5px;
+  letter-spacing: 0.05em;
+}
+
+.ck-contact-label-watch {
+  fill: var(--ck-phosphor);
+}
+
+.ck-breach-ring {
+  fill: none;
+  stroke: var(--ck-amber);
+  stroke-width: 2.5;
+}
+
+.ck-breach-core {
+  fill: var(--ck-amber);
+}
+
+.ck-breach-tick {
+  stroke: var(--ck-amber);
+  stroke-width: 2;
+}
+
+.ck-halo {
+  fill: none;
+  stroke: var(--ck-amber);
+  stroke-width: 1.5;
+  opacity: 0.3;
+}
+
+.ck-halo-outer {
+  stroke-width: 1;
+  opacity: 0.14;
+}
+
+.ck-anim-halo {
+  animation: ck-halo 4.2s var(--ease-shift) infinite alternate;
+}
+
+.ck-anim-halo-outer {
+  animation: ck-halo-outer 4.2s var(--ease-shift) infinite alternate;
+}
+
+.ck-callout-line {
+  fill: none;
+  stroke: var(--ck-amber-dim);
+  stroke-width: 1;
+}
+
+.ck-callout-name {
+  fill: var(--ck-amber);
+  font-family: var(--ck-mono);
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+
+.ck-callout-row {
+  fill: var(--ck-muted);
+  font-family: var(--ck-mono);
+  font-size: 15px;
+  letter-spacing: 0.1em;
+}
+
+.ck-sweep {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+}
+
+.ck-anim-sweep {
+  animation: ck-rotate 9s linear infinite;
+}
+
+.ck-sweep-wedge {
+  fill: var(--ck-phosphor);
+}
+
+.ck-sweep-edge {
+  stroke: var(--ck-phosphor);
+  stroke-width: 1.5;
+  opacity: 0.5;
+}
+
+/* Pause + reduced-motion parity: continuous motion halts completely. */
+.ck-root[data-paused] .ck-anim-sweep,
+.ck-root[data-paused] .ck-anim-halo,
+.ck-root[data-paused] .ck-anim-halo-outer {
+  animation-play-state: paused;
+}
+
+.ck-root[data-reduced] .ck-anim-sweep,
+.ck-root[data-reduced] .ck-anim-halo,
+.ck-root[data-reduced] .ck-anim-halo-outer,
+.ck-root[data-reduced] .ck-statement-line,
+.ck-root[data-reduced] .ck-chrome,
+.ck-root[data-reduced] .ck-hero-foot {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ck-anim-sweep,
+  .ck-anim-halo,
+  .ck-anim-halo-outer,
+  .ck-statement-line,
+  .ck-chrome,
+  .ck-hero-foot {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Detail bands                                                        */
+/* ------------------------------------------------------------------ */
+
+.ck-band {
+  max-width: 90rem;
+  margin: 0 auto;
+  padding: 3.4rem 3rem 0;
+}
+
+.ck-band:last-of-type {
+  padding-bottom: 3.5rem;
+}
+
+.ck-band-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin: 0 0 1.4rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--ck-line);
+  font-family: var(--ck-mono);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--ck-text);
+}
+
+.ck-band-index {
+  color: var(--ck-amber);
+  font-weight: 400;
+}
+
+.ck-band-sub {
+  margin-left: auto;
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  color: var(--ck-muted);
+  text-align: right;
+}
+
+/* Watchlist table */
+
+.ck-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--ck-line);
+  background: linear-gradient(to bottom, rgba(10, 18, 25, 0.75), rgba(10, 18, 25, 0.35));
+}
+
+.ck-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.ck-table th,
+.ck-table td {
+  padding: 0.55rem 1rem;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.ck-table thead th {
+  font-weight: 500;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  color: var(--ck-muted);
+  border-bottom: 1px solid var(--ck-line);
+}
+
+.ck-table tbody th {
+  font-weight: 500;
+  color: var(--ck-text);
+  letter-spacing: 0.04em;
+}
+
+.ck-table tbody td {
+  color: var(--ck-muted);
+}
+
+.ck-table tbody tr {
+  border-bottom: 1px solid var(--ck-line-faint);
+}
+
+.ck-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.ck-table .ck-num {
+  text-align: right;
+}
+
+.ck-table tbody tr[data-status='breach'] {
+  background: rgba(240, 160, 82, 0.07);
+  box-shadow: inset 3px 0 0 var(--ck-amber);
+}
+
+.ck-table tbody tr[data-status='breach'] th,
+.ck-table tbody tr[data-status='breach'] td {
+  color: var(--ck-text);
+}
+
+.ck-status {
+  letter-spacing: 0.12em;
+  font-size: 0.65rem;
+}
+
+.ck-status-stable {
+  color: var(--ck-phosphor);
+}
+
+.ck-status-watch {
+  color: var(--ck-text);
+}
+
+.ck-status-breach {
+  color: var(--ck-amber);
+  font-weight: 600;
+}
+
+/* Dossier grid */
+
+.ck-dossier-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.1rem;
+}
+
+.ck-panel {
+  border: 1px solid var(--ck-line);
+  background: linear-gradient(to bottom, rgba(10, 18, 25, 0.75), rgba(10, 18, 25, 0.35));
+  padding: 1.1rem 1.25rem 1.25rem;
+  min-width: 0;
+}
+
+.ck-panel-trend {
+  grid-column: span 7;
+}
+
+.ck-panel-features {
+  grid-column: span 5;
+}
+
+.ck-panel-facts {
+  grid-column: span 5;
+}
+
+.ck-panel-log {
+  grid-column: span 7;
+}
+
+.ck-panel-heading {
+  margin: 0 0 0.9rem;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--ck-muted);
+}
+
+.ck-facts {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.ck-fact {
+  display: grid;
+  grid-template-columns: 10rem 1fr;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--ck-line-faint);
+  font-size: 0.71875rem;
+}
+
+.ck-fact:last-child {
+  border-bottom: none;
+}
+
+.ck-fact dt {
+  color: var(--ck-muted);
+  letter-spacing: 0.14em;
+}
+
+.ck-fact dd {
+  margin: 0;
+  color: var(--ck-text);
+  letter-spacing: 0.05em;
+}
+
+.ck-kpis {
+  display: block;
+}
+
+/* Flatten the shared KPI tiles into the room's instrument register: one slim
+ * 4-across rail, hairline borders, no card chrome. (Layout-only overrides on
+ * the shared component's wrapper — the tiles' content is untouched.) */
+.ck-kpis [data-motion-sequence='ledger-reveal'] {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.1rem;
+}
+
+.ck-kpis [data-motion-sequence='ledger-reveal'] > div > div {
+  height: 100%;
+  border-radius: 0;
+  border: 1px solid var(--ck-line);
+  background: linear-gradient(to bottom, rgba(10, 18, 25, 0.75), rgba(10, 18, 25, 0.35));
+  box-shadow: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+.ck-footer {
+  max-width: 90rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1.2rem 3rem 1.4rem;
+  border-top: 1px solid var(--ck-line);
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  color: var(--ck-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Keyframes (durations/easings ride the token layer where applied)    */
+/* ------------------------------------------------------------------ */
+
+@keyframes ck-register {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ck-settle {
+  from {
+    opacity: 0;
+    transform: translateY(9px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ck-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ck-halo {
+  from {
+    opacity: 0.34;
+  }
+  to {
+    opacity: 0.12;
+  }
+}
+
+@keyframes ck-halo-outer {
+  from {
+    opacity: 0.16;
+  }
+  to {
+    opacity: 0.05;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Responsive: credible at 1024, stacked below                         */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 1180px) {
+  .ck-hero {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    padding-top: 5.5rem;
+  }
+
+  .ck-readout {
+    position: static;
+    order: 0;
+    width: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 2rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .ck-readout-row {
+    border-bottom: none;
+    gap: 0.6rem;
+  }
+
+  .ck-statement-block {
+    padding-bottom: 1.5rem;
+    order: 2;
+  }
+
+  .ck-scope-figure {
+    order: 1;
+    width: min(100%, 82vmin);
+  }
+
+  .ck-hero-foot {
+    order: 3;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ck-hero-notice {
+    text-align: left;
+  }
+
+  .ck-panel-trend,
+  .ck-panel-features,
+  .ck-panel-facts,
+  .ck-panel-log {
+    grid-column: span 12;
+  }
+}
+
+@media (max-width: 760px) {
+  .ck-hero,
+  .ck-band,
+  .ck-footer {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .ck-chrome {
+    flex-wrap: wrap;
+    gap: 0.4rem 1.2rem;
+  }
+}

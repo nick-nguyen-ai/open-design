@@ -17,6 +17,9 @@ const GrammarDetail = lazy(() => import('./routes/GrammarDetail.js'));
 const BlueprintLab = lazy(() => import('./routes/BlueprintLab.js'));
 const Guide = lazy(() => import('./routes/Guide.js'));
 const NotFound = lazy(() => import('./routes/NotFound.js'));
+// Full-bleed live anchor experiences — rendered OUTSIDE RootLayout so the
+// page owns the viewport (no gallery header/nav; task 12).
+const LiveExperience = lazy(() => import('./routes/LiveExperience.js'));
 
 export function App() {
   const preferences = usePreferences();
@@ -25,6 +28,14 @@ export function App() {
     <MotionProvider reducedMotion={preferences.reducedMotion}>
       <PreferencesProvider value={preferences}>
         <Routes>
+          <Route
+            path="live/:experienceId"
+            element={
+              <Suspense fallback={<RouteFallback />}>
+                <LiveExperience />
+              </Suspense>
+            }
+          />
           <Route element={<RootLayout />}>
             <Route index element={<Landing />} />
             <Route path="browse" element={<Landing />} />

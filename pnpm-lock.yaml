@@ -147,9 +147,40 @@ importers:
 
   experiences:
     dependencies:
+      '@enterprise-design/content-components':
+        specifier: workspace:*
+        version: link:../packages/content-components
       '@enterprise-design/contracts':
         specifier: workspace:*
         version: link:../packages/contracts
+      '@enterprise-design/data-viz':
+        specifier: workspace:*
+        version: link:../packages/data-viz
+      '@enterprise-design/diagrams':
+        specifier: workspace:*
+        version: link:../packages/diagrams
+      '@enterprise-design/motion':
+        specifier: workspace:*
+        version: link:../packages/motion
+      '@enterprise-design/primitives':
+        specifier: workspace:*
+        version: link:../packages/primitives
+      '@fontsource-variable/fraunces':
+        specifier: ^5.2.9
+        version: 5.2.9
+      '@fontsource/ibm-plex-mono':
+        specifier: ^5.2.7
+        version: 5.2.7
+      react:
+        specifier: ^19.2.0
+        version: 19.2.7
+      react-router-dom:
+        specifier: ^7.9.6
+        version: 7.18.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+    devDependencies:
+      '@types/react':
+        specifier: ^19.2.17
+        version: 19.2.17
 
   packages/content-components:
     dependencies:
@@ -763,6 +794,12 @@ packages:
     peerDependenciesMeta:
       '@noble/hashes':
         optional: true
+
+  '@fontsource-variable/fraunces@5.2.9':
+    resolution: {integrity: sha512-Y6IjunlN9Ni723np+GIgAaKzCDBrPRrqNi01TZxHs5wtHYROWFM9W6yiT+/gGwSjWIRD18oX17kD/BRWekc/Lw==}
+
+  '@fontsource/ibm-plex-mono@5.2.7':
+    resolution: {integrity: sha512-MKAb8qV+CaiMQn2B0dIi1OV3565NYzp3WN5b4oT6LTkk+F0jR6j0ZN+5BKJiIhffDC3rtBULsYZE65+0018z9w==}
 
   '@hono/node-server@1.19.14':
     resolution: {integrity: sha512-GwtvgtXxnWsucXvbQXkRgqksiH2Qed37H9xHZocE5sA3N8O8O8/8FA3uclQXxXVzc9XBZuEOMK7+r02FmSpHtw==}
@@ -3287,6 +3324,10 @@ snapshots:
       levn: 0.4.1
 
   '@exodus/bytes@1.15.1': {}
+
+  '@fontsource-variable/fraunces@5.2.9': {}
+
+  '@fontsource/ibm-plex-mono@5.2.7': {}
 
   '@hono/node-server@1.19.14(hono@4.12.29)':
     dependencies:

@@ -3,6 +3,7 @@ import { Link as RouterLink, useParams } from 'react-router-dom';
 import { Badge } from '@enterprise-design/primitives';
 import { componentById, experienceById } from '../data/registry.js';
 import { detailRoute } from '../data/routes.js';
+import { liveRoute } from '../data/live.js';
 import {
   APPROVAL_LABEL,
   AUDIENCE_LABEL,
@@ -41,7 +42,19 @@ export default function TemplateDetail() {
       description={exp.designThesis}
       backTo="/browse?mode=templates"
       backLabel="Back to templates"
-      actions={<Badge tone="info">{APPROVAL_LABEL[exp.approval.state]}</Badge>}
+      actions={
+        <div className="flex items-center gap-3">
+          {liveRoute(exp.id) && (
+            <RouterLink
+              to={liveRoute(exp.id) ?? '#'}
+              className="inline-flex h-10 items-center justify-center gap-2 rounded-md bg-accent px-4 text-md font-medium text-text-on-accent no-underline transition-colors duration-feedback ease-settle hover:bg-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
+            >
+              Open live template →
+            </RouterLink>
+          )}
+          <Badge tone="info">{APPROVAL_LABEL[exp.approval.state]}</Badge>
+        </div>
+      }
     >
       <div className="flex flex-col gap-10">
         <MetaGrid

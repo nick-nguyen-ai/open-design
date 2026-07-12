@@ -4,6 +4,7 @@ import type { SearchResult } from '@enterprise-design/search';
 import { Badge, Drawer } from '@enterprise-design/primitives';
 import { componentById, experienceById, grammarById } from '../data/registry.js';
 import { detailRoute } from '../data/routes.js';
+import { liveRoute } from '../data/live.js';
 import {
   APPROVAL_LABEL,
   AUDIENCE_LABEL,
@@ -135,10 +136,23 @@ export function QuickPreviewDrawer({ result, onClose }: QuickPreviewDrawerProps)
           </dl>
 
           <div className="mt-2 flex flex-col gap-2">
+            {result.entityType === 'experience' && liveRoute(result.id) && (
+              <RouterLink
+                to={liveRoute(result.id) ?? '#'}
+                onClick={onClose}
+                className="inline-flex h-10 items-center justify-center gap-2 rounded-md bg-accent px-4 text-md font-medium text-text-on-accent no-underline transition-colors duration-feedback ease-settle hover:bg-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
+              >
+                Open live template <ArrowRightIcon />
+              </RouterLink>
+            )}
             <RouterLink
               to={detailRoute(result.entityType, result.id)}
               onClick={onClose}
-              className="inline-flex h-10 items-center justify-center gap-2 rounded-md bg-accent px-4 text-md font-medium text-text-on-accent no-underline transition-colors duration-feedback ease-settle hover:bg-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
+              className={
+                result.entityType === 'experience' && liveRoute(result.id)
+                  ? 'inline-flex h-10 items-center justify-center gap-2 rounded-md border border-border-strong bg-surface-raised px-4 text-md font-medium text-text-primary no-underline transition-colors duration-feedback ease-settle hover:bg-surface-sunken focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring'
+                  : 'inline-flex h-10 items-center justify-center gap-2 rounded-md bg-accent px-4 text-md font-medium text-text-on-accent no-underline transition-colors duration-feedback ease-settle hover:bg-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring'
+              }
             >
               View full detail <ArrowRightIcon />
             </RouterLink>
