@@ -36,12 +36,23 @@ describe('TemplateDetail — specification framing (task 13)', () => {
     expect(link).toHaveAttribute('href', '/live/db-model-monitoring-cockpit');
   });
 
-  it('frames a non-live slide deck as a specification linking to the live board pack', () => {
-    renderDetail('deck-product-vision');
+  // All ten slide decks are live after task 17, so the non-live specification
+  // example is an explainer (its surface's live world is the Drawing Office).
+  it('frames a non-live explainer as a specification linking to the live drawing office', () => {
+    renderDetail('exp-incident-postmortem');
     expect(screen.getByTestId('spec-framing')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /see a live template/i })).toHaveAttribute(
       'href',
-      '/live/deck-ai-strategy',
+      '/live/exp-system-architecture',
+    );
+  });
+
+  it('a live deck from the task-17 batch carries the primary live action', () => {
+    renderDetail('deck-product-vision');
+    expect(screen.queryByTestId('spec-framing')).toBeNull();
+    expect(screen.getByRole('link', { name: /open live template/i })).toHaveAttribute(
+      'href',
+      '/live/deck-product-vision',
     );
   });
 

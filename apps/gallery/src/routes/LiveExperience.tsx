@@ -57,6 +57,19 @@ const GalleryFloorPage = lazy(
   () => import('../../../../experiences/slide-decks/deck-innovation-showcase/GalleryFloorPage.js'),
 );
 
+const ManifestoPage = lazy(
+  () => import('../../../../experiences/slide-decks/deck-product-vision/ManifestoPage.js'),
+);
+const SectionalPage = lazy(
+  () =>
+    import(
+      '../../../../experiences/slide-decks/deck-technical-architecture-explanation/SectionalPage.js'
+    ),
+);
+const FieldManualPage = lazy(
+  () => import('../../../../experiences/slide-decks/deck-technical-training/FieldManualPage.js'),
+);
+
 const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: ComponentType }> = {
   'db-model-monitoring-cockpit': { mood: 'dark', Component: CockpitPage },
   'exp-system-architecture': { mood: 'light', Component: DrawingOfficePage },
@@ -69,6 +82,9 @@ const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: 
   'deck-transformation-roadmap': { mood: 'dark', Component: RiverDeckPage },
   'deck-experiment-results': { mood: 'dark', Component: ReadoutDeckPage },
   'deck-innovation-showcase': { mood: 'dark', Component: GalleryFloorPage },
+  'deck-product-vision': { mood: 'light', Component: ManifestoPage },
+  'deck-technical-architecture-explanation': { mood: 'dark', Component: SectionalPage },
+  'deck-technical-training': { mood: 'light', Component: FieldManualPage },
 };
 
 /**
@@ -108,10 +124,11 @@ export default function LiveExperience() {
           No live experience here
         </h1>
         <p className="text-text-secondary">
-          “{experienceId}” has no live rendering yet. Eleven worlds are live: the Model
+          “{experienceId}” has no live rendering yet. Fourteen worlds are live: the Model
           Monitoring Cockpit, the System Architecture explainer, the AI Strategy board deck, the
-          Model Validation Hub, the Data Scientist Studio, and six deck worlds — the Committee
-          Paper, the Lab Report, the Control Frame, the River, the Readout, and the Gallery Floor.
+          Model Validation Hub, the Data Scientist Studio, and nine deck worlds — the Committee
+          Paper, the Lab Report, the Control Frame, the River, the Readout, the Gallery Floor,
+          the Manifesto, the Sectional, and the Field Manual.
         </p>
         <RouterLink to="/browse" className="text-accent hover:underline">
           ◄ Back to the gallery

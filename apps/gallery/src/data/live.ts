@@ -16,6 +16,9 @@ export const LIVE_EXPERIENCE_IDS = [
   'deck-transformation-roadmap',
   'deck-experiment-results',
   'deck-innovation-showcase',
+  'deck-product-vision',
+  'deck-technical-architecture-explanation',
+  'deck-technical-training',
 ] as const;
 
 export type LiveExperienceId = (typeof LIVE_EXPERIENCE_IDS)[number];

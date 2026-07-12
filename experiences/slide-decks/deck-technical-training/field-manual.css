@@ -1,0 +1,997 @@
+/*
+ * THE FIELD MANUAL — experience-local art layer.
+ *
+ * Task-17 art-direction licence: raw colour values are permitted in THIS
+ * stylesheet only. Easings and durations come from the platform motion tokens
+ * (var(--ease-*), var(--dur-*)) — never ad-hoc curves.
+ *
+ * Mood: an aviation ops manual on utilitarian paper — olive and graphite
+ * inks, rules and stamps, safety-orange for warnings ONLY. Zero decoration;
+ * its beauty is its discipline. The answers page prints as the flipped plate
+ * (olive ground, paper ink).
+ */
+
+.fm-root {
+  --fm-paper: #e8e4d5;
+  --fm-paper-2: #ded9c6;
+  --fm-ink: #232619;
+  --fm-olive: #4a5232;
+  --fm-olive-deep: #343b22;
+  --fm-graphite: #55584a;
+  --fm-orange: #d96b12;
+  --fm-line: rgba(35, 38, 25, 0.34);
+  --fm-line-faint: rgba(35, 38, 25, 0.16);
+  --fm-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+  --fm-sans: 'Inter Variable', 'Inter', system-ui, sans-serif;
+
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+  color: var(--fm-ink);
+  font-family: var(--fm-mono);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  background:
+    radial-gradient(120vmin 90vmin at 85% -10%, rgba(74, 82, 50, 0.09), transparent 60%),
+    linear-gradient(180deg, var(--fm-paper) 0%, var(--fm-paper-2) 100%);
+}
+
+/* ------------------------------------------------------------------ */
+/* Chrome                                                              */
+/* ------------------------------------------------------------------ */
+
+.fm-chrome {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 2rem;
+  padding: 1rem 1.6rem 0.8rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  color: var(--fm-graphite);
+  border-bottom: 2px solid var(--fm-olive);
+  background: var(--fm-paper);
+}
+
+.fm-chrome-cell {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  white-space: nowrap;
+}
+
+.fm-chrome-rule {
+  width: 1px;
+  height: 0.85em;
+  align-self: center;
+  background: var(--fm-line);
+}
+
+.fm-chrome-notice {
+  color: var(--fm-olive);
+  font-weight: 600;
+}
+
+.fm-back {
+  color: var(--fm-ink);
+  text-decoration: none;
+  letter-spacing: 0.16em;
+}
+
+.fm-back:hover {
+  color: var(--fm-olive);
+}
+
+.fm-back:focus-visible,
+.fm-nav-btn:focus-visible {
+  outline: 2px solid var(--fm-olive);
+  outline-offset: 3px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Stage & pages                                                       */
+/* ------------------------------------------------------------------ */
+
+.fm-main {
+  height: 100%;
+}
+
+.fm-stage {
+  position: absolute;
+  inset: 0;
+}
+
+.fm-page {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  padding: 4.6rem clamp(1.8rem, 6vw, 6.5rem) 4.8rem;
+  visibility: hidden;
+}
+
+/* Punched binding edge — the page is an object in a ring binder */
+.fm-page::before {
+  content: '';
+  position: absolute;
+  left: 1.05rem;
+  top: 5.2rem;
+  bottom: 5.4rem;
+  width: 14px;
+  pointer-events: none;
+  background-image: radial-gradient(circle at 50% 50%, rgba(35, 38, 25, 0.16) 5.5px, transparent 6.5px);
+  background-size: 14px 72px;
+  background-repeat: repeat-y;
+  background-position: 0 50%;
+}
+
+.fm-page[data-flip='true']::before {
+  background-image: radial-gradient(circle at 50% 50%, rgba(232, 228, 213, 0.22) 5.5px, transparent 6.5px);
+}
+
+/* Non-procedure plates sit on the page's optical centre; procedures run
+   top-down like the checklists they are. */
+.fm-page[data-kind='checkpoint'],
+.fm-page[data-kind='answers'],
+.fm-page[data-kind='tools'],
+.fm-page[data-kind='signoff'],
+.fm-page[data-kind='contents'] {
+  align-items: center;
+}
+
+.fm-page[data-state='active'] {
+  visibility: visible;
+  z-index: 2;
+}
+
+.fm-page[data-state='leaving'] {
+  visibility: visible;
+  z-index: 3;
+  animation: fm-page-out var(--dur-structure) var(--ease-shift) both;
+  pointer-events: none;
+}
+
+@keyframes fm-page-out {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-1.6rem);
+  }
+}
+
+/* The flipped answers plate */
+.fm-page[data-flip='true'] {
+  background: var(--fm-olive-deep);
+}
+
+.fm-page[data-flip='true'] .fm-body {
+  color: var(--fm-paper);
+}
+
+/* Builds */
+.fm-page[data-state='active'] .fm-build {
+  animation: fm-rise var(--dur-structure) var(--ease-settle) both;
+  animation-delay: calc(var(--fm-i, 0) * var(--dur-feedback));
+}
+
+@keyframes fm-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fm-root[data-reduced] .fm-page[data-state='active'] .fm-build {
+  animation: none;
+}
+
+.fm-root[data-reduced] .fm-page[data-state='leaving'] {
+  visibility: hidden;
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fm-page[data-state='active'] .fm-build {
+    animation: none;
+  }
+  .fm-page[data-state='leaving'] {
+    visibility: hidden;
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Bodies                                                              */
+/* ------------------------------------------------------------------ */
+
+.fm-body {
+  width: 100%;
+  max-width: 78rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+/* Cover */
+.fm-body-cover {
+  height: 100%;
+  justify-content: center;
+  gap: 1.8rem;
+}
+
+.fm-cover-plate {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  align-self: flex-start;
+  padding: 0.9rem 1.2rem;
+  border: 2px solid var(--fm-ink);
+  box-shadow: 0.35rem 0.35rem 0 rgba(35, 38, 25, 0.14);
+}
+
+.fm-cover-code {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: var(--fm-olive);
+}
+
+.fm-cover-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+}
+
+.fm-display {
+  margin: 0;
+  font-family: var(--fm-sans);
+  font-weight: 760;
+  font-size: clamp(3rem, 8.6vw, 8rem);
+  line-height: 0.98;
+  letter-spacing: -0.028em;
+  color: var(--fm-ink);
+}
+
+/* Stencil-stamped unit mark — the cover's right-hand counterweight */
+.fm-body-cover {
+  position: relative;
+}
+
+.fm-unit-stamp-wrap {
+  position: absolute;
+  right: clamp(0rem, 4vw, 4rem);
+  top: 50%;
+  margin-top: -9rem;
+  pointer-events: none;
+}
+
+.fm-unit-stamp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 1.6rem 2.2rem 1.9rem;
+  border: 3px double var(--fm-olive);
+  color: var(--fm-olive);
+  opacity: 0.85;
+  transform: rotate(-4deg);
+}
+
+.fm-unit-stamp-word {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.55em;
+  text-indent: 0.55em;
+}
+
+.fm-unit-stamp-no {
+  font-family: var(--fm-mono);
+  font-size: clamp(6rem, 13vw, 11rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: 0.04em;
+}
+
+.fm-unit-stamp-line {
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+.fm-line {
+  display: block;
+}
+
+.fm-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding-top: 1rem;
+  border-top: 2px solid var(--fm-olive);
+  max-width: 34rem;
+}
+
+.fm-meta p {
+  margin: 0;
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  color: var(--fm-graphite);
+}
+
+/* Page headings */
+.fm-page-heading {
+  margin: 0;
+  font-family: var(--fm-mono);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  letter-spacing: 0.24em;
+  color: var(--fm-ink);
+}
+
+.fm-intro {
+  margin: 0;
+  max-width: 46rem;
+  font-family: var(--fm-sans);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--fm-graphite);
+}
+
+.fm-intro-wide {
+  max-width: 56rem;
+}
+
+.fm-crossref {
+  margin: 0.6rem 0 0;
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  color: var(--fm-olive);
+}
+
+/* Contents register */
+.fm-register {
+  margin: 0.4rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  max-width: 62rem;
+}
+
+.fm-register-row {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.55rem 0.2rem;
+  border-top: 1px solid var(--fm-line-faint);
+  font-size: 0.8125rem;
+}
+
+.fm-register-no {
+  flex: 0 0 2rem;
+  font-weight: 600;
+  color: var(--fm-olive);
+}
+
+.fm-register-title {
+  white-space: nowrap;
+}
+
+.fm-register-row[data-anomaly='true'] .fm-register-title::after {
+  content: ' · IR-2214';
+  color: var(--fm-orange);
+  font-weight: 600;
+}
+
+.fm-register-dots {
+  flex: 1;
+  border-bottom: 1.5px dotted var(--fm-line);
+  transform: translateY(-0.28em);
+}
+
+.fm-register-sec {
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  color: var(--fm-graphite);
+}
+
+/* Procedure head */
+.fm-proc-head {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.fm-proc-no {
+  padding: 0.5rem 0.9rem;
+  border: 2px solid var(--fm-ink);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--fm-paper);
+  background: var(--fm-olive);
+  border-color: var(--fm-olive);
+  white-space: nowrap;
+}
+
+.fm-proc-no-flip {
+  background: var(--fm-paper);
+  color: var(--fm-olive-deep);
+  border-color: var(--fm-paper);
+}
+
+.fm-proc-title {
+  margin: 0;
+  font-family: var(--fm-mono);
+  font-weight: 700;
+  font-size: clamp(1.1rem, 2.2vw, 1.75rem);
+  letter-spacing: 0.16em;
+}
+
+.fm-objective {
+  margin: 0;
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+  max-width: 62rem;
+  font-family: var(--fm-sans);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--fm-graphite);
+}
+
+.fm-objective-tag {
+  flex: 0 0 auto;
+  font-family: var(--fm-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--fm-olive);
+  transform: translateY(-0.1em);
+}
+
+/* Two-column procedure plate */
+.fm-proc-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  gap: 2.4rem;
+  align-items: start;
+}
+
+.fm-steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  border-top: 2px solid var(--fm-ink);
+}
+
+.fm-step {
+  display: flex;
+  gap: 1.1rem;
+  padding: 1.05rem 0.2rem;
+  border-bottom: 1px solid var(--fm-line-faint);
+}
+
+.fm-step-no {
+  flex: 0 0 2.1rem;
+  height: 2.1rem;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid var(--fm-ink);
+  font-weight: 700;
+  font-size: 0.9375rem;
+}
+
+.fm-step-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.fm-step-text {
+  font-family: var(--fm-sans);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  max-width: 42rem;
+}
+
+.fm-step-tag {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--fm-olive);
+}
+
+/* The revised step — the anomaly */
+.fm-step-revised {
+  border-left: 3px solid var(--fm-orange);
+  padding-left: 0.9rem;
+  margin-left: -1.1rem;
+}
+
+.fm-revision {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-top: 0.25rem;
+}
+
+.fm-revision-stamp {
+  align-self: flex-start;
+  padding: 0.2rem 0.55rem;
+  border: 1.5px solid var(--fm-orange);
+  color: var(--fm-orange);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  transform: rotate(-1.2deg);
+}
+
+.fm-revision-note {
+  font-size: 0.6875rem;
+  line-height: 1.55;
+  letter-spacing: 0.02em;
+  color: var(--fm-graphite);
+  max-width: 36rem;
+  font-style: italic;
+}
+
+/* DO / DON'T plates */
+.fm-plates {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.fm-plate {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  border: 1.5px solid var(--fm-ink);
+  padding: 0.9rem 1rem 1rem;
+  background: rgba(35, 38, 25, 0.025);
+}
+
+.fm-plate-head {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+}
+
+.fm-plate-head[data-kind='dont'] {
+  color: var(--fm-graphite);
+}
+
+.fm-plate-svg {
+  width: min(15rem, 100%);
+}
+
+.fm-plate-block {
+  fill: none;
+  stroke: var(--fm-ink);
+  stroke-width: 2;
+}
+
+.fm-plate-link {
+  stroke: var(--fm-ink);
+  stroke-width: 2;
+}
+
+.fm-plate-pin {
+  fill: var(--fm-paper);
+  stroke: var(--fm-ink);
+  stroke-width: 2;
+}
+
+.fm-plate-strike {
+  stroke: var(--fm-graphite);
+  stroke-width: 3;
+}
+
+.fm-plate-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+.fm-plate-line {
+  font-family: var(--fm-sans);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--fm-graphite);
+}
+
+/* Warning machinery label — safety orange, warnings ONLY */
+.fm-warning {
+  margin: 0;
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+  padding: 0.85rem 1rem;
+  border: 2.5px solid var(--fm-orange);
+  color: var(--fm-ink);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: 0.08em;
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(217, 107, 18, 0.13) 0,
+      rgba(217, 107, 18, 0.13) 10px,
+      transparent 10px,
+      transparent 20px
+    );
+}
+
+.fm-warning-glyph {
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--fm-orange);
+}
+
+/* Checkpoint */
+.fm-questions,
+.fm-answers,
+.fm-competencies {
+  margin: 0.4rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  max-width: 60rem;
+}
+
+.fm-question,
+.fm-answer,
+.fm-competency {
+  display: flex;
+  gap: 1.1rem;
+  align-items: baseline;
+  padding: 0.95rem 0.2rem;
+  border-top: 1px solid var(--fm-line-faint);
+}
+
+.fm-page[data-flip='true'] .fm-answer {
+  border-top-color: rgba(232, 228, 213, 0.22);
+}
+
+.fm-check-box {
+  flex: 0 0 1.1rem;
+  height: 1.1rem;
+  border: 1.5px solid var(--fm-ink);
+  transform: translateY(0.15em);
+}
+
+.fm-question-no {
+  flex: 0 0 2.2rem;
+  font-weight: 700;
+  color: var(--fm-olive);
+}
+
+.fm-page[data-flip='true'] .fm-question-no {
+  color: #c9d1a8;
+}
+
+.fm-question-text,
+.fm-answer-text {
+  font-family: var(--fm-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.fm-overleaf {
+  margin: 0.8rem 0 0;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--fm-olive);
+}
+
+.fm-page[data-flip='true'] .fm-overleaf {
+  color: #c9d1a8;
+}
+
+/* Tools plate — kit cutout */
+.fm-kit {
+  margin: 0.6rem 0 0;
+  padding: 1.4rem;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.1rem;
+  border: 2px solid var(--fm-ink);
+  background: rgba(35, 38, 25, 0.04);
+  max-width: 66rem;
+}
+
+.fm-tool {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.9rem 1rem 1rem;
+  border: 1.5px dashed var(--fm-line);
+  background: var(--fm-paper);
+}
+
+.fm-tool-slot {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  color: var(--fm-olive);
+}
+
+.fm-tool-name {
+  font-family: var(--fm-mono);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.fm-tool-purpose {
+  font-family: var(--fm-sans);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--fm-graphite);
+}
+
+.fm-tool-approved {
+  margin-top: 0.3rem;
+  align-self: flex-start;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid var(--fm-olive);
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--fm-olive);
+}
+
+/* Sign-off */
+.fm-competency-id {
+  flex: 0 0 2.8rem;
+  font-weight: 700;
+  color: var(--fm-olive);
+}
+
+.fm-competency-text {
+  font-family: var(--fm-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.fm-signature-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+  margin-top: 1.6rem;
+  max-width: 60rem;
+}
+
+.fm-signature-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 2.4rem;
+}
+
+.fm-signature-role {
+  flex: 0 0 8rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+
+.fm-signature-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.fm-signature-rule {
+  border-bottom: 1.5px solid var(--fm-ink);
+  height: 1.6rem;
+}
+
+.fm-signature-label {
+  font-size: 0.5625rem;
+  letter-spacing: 0.22em;
+  color: var(--fm-graphite);
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+.fm-footer {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.8rem 1.6rem 1rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  color: var(--fm-graphite);
+  border-top: 2px solid var(--fm-olive);
+  background: var(--fm-paper);
+}
+
+.fm-footer-code {
+  white-space: nowrap;
+}
+
+.fm-footer-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  white-space: nowrap;
+}
+
+.fm-hint {
+  margin-right: 0.8rem;
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+}
+
+.fm-nav-btn {
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 1.5px solid var(--fm-ink);
+  background: transparent;
+  color: var(--fm-ink);
+  font: inherit;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition:
+    color var(--dur-feedback) var(--ease-settle),
+    border-color var(--dur-feedback) var(--ease-settle);
+}
+
+.fm-nav-btn:hover:not(:disabled) {
+  color: var(--fm-olive);
+  border-color: var(--fm-olive);
+}
+
+.fm-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.fm-print-foot {
+  display: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Narrow viewports                                                    */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 60rem) {
+  .fm-root {
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+  }
+
+  .fm-stage {
+    position: relative;
+    inset: auto;
+  }
+
+  .fm-page {
+    padding: 4.6rem 1.4rem 4.8rem;
+    min-height: 100svh;
+  }
+
+  .fm-page:not([data-state='active']) {
+    display: none;
+  }
+
+  .fm-proc-grid {
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
+  }
+
+  .fm-kit {
+    grid-template-columns: 1fr;
+  }
+
+  .fm-signature-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.2rem;
+  }
+
+  .fm-hint,
+  .fm-chrome-notice,
+  .fm-unit-stamp-wrap {
+    display: none;
+  }
+
+  .fm-page::before {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Print: one page per page, paper stays paper                         */
+/* ------------------------------------------------------------------ */
+
+@media print {
+  .fm-root {
+    height: auto;
+    overflow: visible;
+    background: #fff;
+  }
+
+  .fm-chrome,
+  .fm-footer {
+    display: none;
+  }
+
+  .fm-stage {
+    position: static;
+  }
+
+  .fm-page {
+    position: static;
+    visibility: visible !important;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 92vh;
+    padding: 2.5rem 2rem;
+    break-after: page;
+    animation: none !important;
+  }
+
+  .fm-page .fm-build {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* The flipped plate prints as paper with a heavy border instead of solid olive. */
+  .fm-page[data-flip='true'] {
+    background: #fff;
+    border: 4px solid #4a5232;
+  }
+
+  .fm-page[data-flip='true'] .fm-body {
+    color: #232619;
+  }
+
+  .fm-page[data-flip='true'] .fm-question-no,
+  .fm-page[data-flip='true'] .fm-overleaf {
+    color: #4a5232;
+  }
+
+  .fm-page[data-flip='true'] .fm-answer {
+    border-top-color: rgba(0, 0, 0, 0.18);
+  }
+
+  .fm-print-foot {
+    display: block;
+    margin-top: auto;
+    padding-top: 0.8rem;
+    border-top: 1pt solid rgba(0, 0, 0, 0.3);
+    font-size: 7.5pt;
+    letter-spacing: 0.16em;
+    color: #55584a;
+  }
+}

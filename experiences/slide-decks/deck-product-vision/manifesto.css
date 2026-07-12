@@ -1,0 +1,719 @@
+/*
+ * THE MANIFESTO — experience-local art layer.
+ *
+ * Task-17 art-direction licence: raw colour values are permitted in THIS
+ * stylesheet only. Easings and durations come from the platform motion tokens
+ * (var(--ease-*), var(--dur-*)) — never ad-hoc curves.
+ *
+ * Mood: a letterpress poster pulled on warm cotton stock. A near-white field,
+ * ink black, ONE electric accent (signal red). The type IS the object —
+ * monumental Inter set with extreme weight contrast, tight optical tracking
+ * and deliberate asymmetry. The chrome is the thinnest in the set: a hairline
+ * rule top and bottom, a mono folio, nothing else. Print keeps ink on white.
+ */
+
+.mf-root {
+  --mf-paper: #f2efe8;
+  --mf-paper-2: #eae6dc;
+  --mf-ink: #16130d;
+  --mf-ink-soft: #2c281f;
+  --mf-accent: #df1d0e;
+  --mf-muted: #5e574b;
+  --mf-line: rgba(22, 19, 13, 0.24);
+  --mf-line-faint: rgba(22, 19, 13, 0.12);
+  --mf-display: 'Inter Variable', 'Inter', system-ui, sans-serif;
+  --mf-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+  color: var(--mf-ink);
+  font-family: var(--mf-mono);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  background:
+    /* faint press-grain so the white is stock, not screen */
+    radial-gradient(120vmin 90vmin at 12% -8%, rgba(223, 29, 14, 0.04), transparent 60%),
+    radial-gradient(100vmin 100vmin at 108% 112%, rgba(22, 19, 13, 0.05), transparent 60%),
+    linear-gradient(180deg, var(--mf-paper) 0%, var(--mf-paper-2) 100%);
+}
+
+/* ------------------------------------------------------------------ */
+/* Chrome — the thinnest in the set: two hairlines and a folio          */
+/* ------------------------------------------------------------------ */
+
+.mf-chrome {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 2rem;
+  padding: 1.05rem 1.6rem 0.85rem;
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  color: var(--mf-muted);
+  border-bottom: 1px solid var(--mf-line-faint);
+  background: linear-gradient(to bottom, var(--mf-paper) 55%, rgba(242, 239, 232, 0));
+}
+
+.mf-chrome-right {
+  display: flex;
+  align-items: baseline;
+  gap: 1.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mf-back {
+  color: var(--mf-ink);
+  text-decoration: none;
+  letter-spacing: 0.2em;
+}
+
+.mf-back:hover {
+  color: var(--mf-accent);
+}
+
+.mf-back:focus-visible,
+.mf-index-toggle:focus-visible,
+.mf-nav-btn:focus-visible,
+.mf-index-list button:focus-visible {
+  outline: 2px solid var(--mf-accent);
+  outline-offset: 3px;
+}
+
+.mf-index-toggle {
+  border: 1px solid var(--mf-line);
+  background: transparent;
+  color: var(--mf-muted);
+  font: inherit;
+  letter-spacing: 0.2em;
+  padding: 0.2rem 0.65rem;
+  cursor: pointer;
+  transition:
+    color var(--dur-feedback) var(--ease-settle),
+    border-color var(--dur-feedback) var(--ease-settle);
+}
+
+.mf-index-toggle:hover,
+.mf-index-toggle[aria-expanded='true'] {
+  color: var(--mf-ink);
+  border-color: var(--mf-accent);
+}
+
+/* ------------------------------------------------------------------ */
+/* Index (the accessible mirror — the manifesto read as a list)         */
+/* ------------------------------------------------------------------ */
+
+.mf-index {
+  position: absolute;
+  top: 3rem;
+  right: 1.6rem;
+  z-index: 50;
+  width: min(30rem, calc(100vw - 3.2rem));
+  max-height: calc(100svh - 7rem);
+  overflow-y: auto;
+  padding: 1.1rem 1.2rem 1.2rem;
+  background: var(--mf-paper);
+  border: 1px solid var(--mf-line);
+  box-shadow: 0 24px 60px -30px rgba(22, 19, 13, 0.5);
+  animation: mf-index-in var(--dur-state) var(--ease-settle) both;
+}
+
+.mf-index-heading {
+  margin: 0 0 0.8rem;
+  font-size: 0.625rem;
+  letter-spacing: 0.26em;
+  color: var(--mf-accent);
+}
+
+.mf-index-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  counter-reset: mf-poster;
+}
+
+.mf-index-list button {
+  display: flex;
+  gap: 0.9rem;
+  width: 100%;
+  padding: 0.5rem 0.35rem;
+  border: 0;
+  border-top: 1px solid var(--mf-line-faint);
+  background: transparent;
+  color: var(--mf-ink-soft);
+  font: inherit;
+  font-size: 0.6875rem;
+  letter-spacing: 0.02em;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--dur-feedback) var(--ease-settle);
+}
+
+.mf-index-list button:hover {
+  background: rgba(22, 19, 13, 0.05);
+}
+
+.mf-index-list button[aria-current='true'] {
+  color: var(--mf-accent);
+}
+
+.mf-index-list li[data-anomaly] button {
+  color: var(--mf-accent);
+}
+
+.mf-index-no {
+  color: var(--mf-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes mf-index-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.4rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Stage & slides                                                      */
+/* ------------------------------------------------------------------ */
+
+.mf-main {
+  height: 100%;
+}
+
+.mf-stage {
+  position: absolute;
+  inset: 0;
+}
+
+.mf-slide {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  padding: 5.5rem clamp(2rem, 7vw, 8rem) 5.5rem;
+  visibility: hidden;
+}
+
+.mf-slide[data-state='active'] {
+  visibility: visible;
+  z-index: 2;
+}
+
+.mf-slide[data-state='leaving'] {
+  visibility: visible;
+  z-index: 3;
+  animation: mf-slide-out var(--dur-structure) var(--ease-shift) both;
+  pointer-events: none;
+}
+
+@keyframes mf-slide-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-1.6rem);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Registration rail — a printer's sheet mark that answers the void     */
+/* ------------------------------------------------------------------ */
+
+.mf-rail {
+  position: absolute;
+  top: 6.5rem;
+  bottom: 5.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  pointer-events: none;
+}
+
+/* Rail pins to the edge OPPOSITE the text block, so the sheet stays balanced. */
+.mf-slide[data-rail='right'] .mf-rail {
+  right: 2rem;
+}
+.mf-slide[data-rail='left'] .mf-rail {
+  left: 2rem;
+}
+
+.mf-rail-line {
+  width: 1px;
+  flex: 1 1 auto;
+  background: linear-gradient(to bottom, transparent, var(--mf-line) 18%, var(--mf-line) 82%, transparent);
+}
+
+.mf-rail-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: var(--mf-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.34em;
+  color: var(--mf-muted);
+  white-space: nowrap;
+}
+
+.mf-slide[data-rail='left'] .mf-rail-label {
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+}
+
+.mf-rail-tick {
+  width: 0.55rem;
+  height: 0.55rem;
+  border: 1px solid var(--mf-accent);
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+
+/* ------------------------------------------------------------------ */
+/* Poster placement (asymmetry is the composition)                     */
+/* ------------------------------------------------------------------ */
+
+.mf-poster {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+  max-width: min(92vw, 82rem);
+}
+
+.mf-poster[data-place='nw'] {
+  justify-self: start;
+  align-self: start;
+  text-align: left;
+}
+.mf-poster[data-place='sw'] {
+  justify-self: start;
+  align-self: end;
+  text-align: left;
+}
+.mf-poster[data-place='ne'] {
+  justify-self: end;
+  align-self: start;
+  text-align: right;
+}
+.mf-poster[data-place='se'] {
+  justify-self: end;
+  align-self: end;
+  text-align: right;
+}
+.mf-poster[data-place='w'] {
+  justify-self: start;
+  align-self: center;
+  text-align: left;
+}
+.mf-poster[data-place='center'] {
+  justify-self: center;
+  align-self: center;
+  text-align: center;
+  align-items: center;
+}
+
+.mf-poster-cover {
+  justify-self: start;
+  align-self: center;
+  text-align: left;
+  max-width: min(94vw, 88rem);
+}
+
+.mf-poster-close {
+  align-items: center;
+}
+
+/* ------------------------------------------------------------------ */
+/* Display type — monumental Inter, extreme weight contrast             */
+/* ------------------------------------------------------------------ */
+
+.mf-display {
+  /* optical hang: pull round/pointed caps a hair left of the mono margin so the
+     display and the microtype above it read off one common optical edge */
+  margin: 0 0 0 -0.045em;
+  font-family: var(--mf-display);
+  font-optical-sizing: auto;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--mf-ink);
+  text-wrap: balance;
+}
+
+.mf-poster[data-place='ne'] .mf-display,
+.mf-poster[data-place='se'] .mf-display {
+  margin: 0 -0.045em 0 0;
+}
+
+.mf-display-md {
+  font-size: clamp(2.6rem, 8.4vw, 8.2rem);
+  line-height: 0.94;
+  letter-spacing: -0.032em;
+}
+
+.mf-display-lg {
+  font-size: clamp(3rem, 11vw, 11rem);
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+}
+
+.mf-display-xl {
+  font-size: clamp(4.5rem, 21vw, 20rem);
+  line-height: 0.82;
+  letter-spacing: -0.052em;
+}
+
+.mf-line {
+  display: block;
+  /* Every line break in a poster is set deliberately in the content pack —
+     the browser never gets to re-break one (kinetic letters are inline-blocks
+     and would otherwise fracture mid-word). */
+  white-space: nowrap;
+}
+
+/* Weight steps — the full range of Inter's wght axis, so a single line can
+   swing from hairline to poster-black on adjacent words. Plain font-weight maps
+   straight onto the variable axis (more reliable than font-variation-settings
+   when a run mixes weights on one baseline). */
+.mf-w-thin {
+  font-weight: 170;
+  color: var(--mf-ink-soft);
+}
+.mf-w-reg {
+  font-weight: 400;
+}
+.mf-w-mid {
+  font-weight: 640;
+}
+.mf-w-black {
+  font-weight: 900;
+}
+
+.mf-accent {
+  color: var(--mf-accent);
+}
+
+/* Kicker / attribution / note / meta — mono microtype */
+.mf-kicker {
+  font-family: var(--mf-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.28em;
+  color: var(--mf-accent);
+}
+
+.mf-attribution {
+  font-family: var(--mf-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  color: var(--mf-muted);
+}
+
+.mf-note {
+  max-width: 40rem;
+  font-family: var(--mf-mono);
+  font-size: 0.6875rem;
+  line-height: 1.7;
+  letter-spacing: 0.13em;
+  color: var(--mf-muted);
+  padding-top: 1rem;
+  border-top: 1px solid var(--mf-line);
+}
+
+.mf-poster[data-place='ne'] .mf-note,
+.mf-poster[data-place='se'] .mf-note {
+  margin-left: auto;
+}
+
+.mf-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.8rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--mf-line);
+  max-width: 40rem;
+}
+
+.mf-meta p {
+  margin: 0;
+  font-family: var(--mf-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  color: var(--mf-muted);
+}
+
+.mf-sub {
+  margin: 0;
+  max-width: 40rem;
+  font-family: var(--mf-display);
+  font-weight: 380;
+  font-size: 1.1875rem;
+  line-height: 1.6;
+  color: var(--mf-ink-soft);
+}
+
+/* Measure slide — one monumental numeral */
+.mf-poster-measure {
+  gap: 0.8rem;
+}
+
+.mf-measure-lead,
+.mf-measure-trail {
+  margin: 0;
+  font-family: var(--mf-display);
+  font-size: clamp(1.4rem, 3.4vw, 2.6rem);
+  line-height: 1.15;
+  color: var(--mf-ink-soft);
+}
+
+.mf-measure-numeral {
+  margin: 0;
+  font-family: var(--mf-display);
+  font-weight: 900;
+  font-size: clamp(9rem, 34vw, 30rem);
+  line-height: 0.82;
+  letter-spacing: -0.05em;
+  color: var(--mf-ink);
+  font-variant-numeric: lining-nums;
+}
+
+/* ------------------------------------------------------------------ */
+/* Build entrance (non-kinetic) + kinetic letter-settle (L3)            */
+/* ------------------------------------------------------------------ */
+
+.mf-slide[data-state='active'] .mf-build {
+  animation: mf-rise var(--dur-structure) var(--ease-settle) both;
+  animation-delay: calc(var(--mf-i, 0) * var(--dur-feedback));
+}
+
+@keyframes mf-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.7rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mf-kin-letter {
+  display: inline-block;
+}
+
+.mf-slide[data-state='active'] .mf-kin-letter {
+  animation: mf-letter var(--dur-structure) var(--ease-settle) both;
+  animation-delay: var(--mf-delay, 0ms);
+}
+
+@keyframes mf-letter {
+  from {
+    opacity: 0;
+    transform: translateY(0.5em) rotate(1.5deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0);
+  }
+}
+
+/* Reduced-motion parity: everything appears set; no travel, no leaving pass. */
+.mf-root[data-reduced] .mf-slide[data-state='active'] .mf-build,
+.mf-root[data-reduced] .mf-slide[data-state='active'] .mf-kin-letter,
+.mf-root[data-reduced] .mf-index {
+  animation: none;
+}
+
+.mf-root[data-reduced] .mf-slide[data-state='leaving'] {
+  visibility: hidden;
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mf-slide[data-state='active'] .mf-build,
+  .mf-slide[data-state='active'] .mf-kin-letter,
+  .mf-index {
+    animation: none;
+  }
+  .mf-slide[data-state='leaving'] {
+    visibility: hidden;
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer — folio microtype + navigation                               */
+/* ------------------------------------------------------------------ */
+
+.mf-footer {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.85rem 1.6rem 1.05rem;
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  color: var(--mf-muted);
+  border-top: 1px solid var(--mf-line-faint);
+  background: linear-gradient(to top, var(--mf-paper) 55%, rgba(242, 239, 232, 0));
+}
+
+.mf-folio {
+  color: var(--mf-ink-soft);
+  white-space: nowrap;
+}
+
+.mf-footer-movement {
+  color: var(--mf-accent);
+  white-space: nowrap;
+}
+
+.mf-footer-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  white-space: nowrap;
+}
+
+.mf-hint {
+  margin-right: 0.8rem;
+  font-size: 0.5625rem;
+  letter-spacing: 0.2em;
+}
+
+.mf-nav-btn {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--mf-line);
+  background: transparent;
+  color: var(--mf-ink);
+  font: inherit;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition:
+    color var(--dur-feedback) var(--ease-settle),
+    border-color var(--dur-feedback) var(--ease-settle);
+}
+
+.mf-nav-btn:hover:not(:disabled) {
+  color: var(--mf-accent);
+  border-color: var(--mf-accent);
+}
+
+.mf-nav-btn:disabled {
+  opacity: 0.32;
+  cursor: default;
+}
+
+.mf-print-foot {
+  display: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Narrow viewports                                                    */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 56rem) {
+  .mf-root {
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+  }
+
+  .mf-stage {
+    position: relative;
+    inset: auto;
+  }
+
+  .mf-slide {
+    padding: 5rem 1.5rem 5rem;
+    min-height: 100svh;
+  }
+
+  .mf-slide:not([data-state='active']) {
+    display: none;
+  }
+
+  .mf-chrome-right span,
+  .mf-hint,
+  .mf-rail {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Print: one poster per page, ink on white                            */
+/* ------------------------------------------------------------------ */
+
+@media print {
+  .mf-root {
+    height: auto;
+    overflow: visible;
+    background: #fff;
+    color: #14110d;
+  }
+
+  .mf-chrome,
+  .mf-footer,
+  .mf-index,
+  .mf-rail {
+    display: none;
+  }
+
+  .mf-stage {
+    position: static;
+  }
+
+  .mf-slide {
+    position: static;
+    visibility: visible !important;
+    display: grid;
+    height: auto;
+    min-height: 92vh;
+    padding: 3rem 2.5rem;
+    break-after: page;
+    animation: none !important;
+  }
+
+  .mf-slide .mf-build,
+  .mf-slide .mf-kin-letter {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .mf-accent {
+    color: #c01606;
+  }
+
+  .mf-note,
+  .mf-meta,
+  .mf-attribution {
+    color: #4a4438;
+    border-color: rgba(0, 0, 0, 0.28);
+  }
+
+  .mf-print-foot {
+    display: block;
+    margin-top: 2rem;
+    padding-top: 0.8rem;
+    border-top: 1pt solid rgba(0, 0, 0, 0.28);
+    font-family: var(--mf-mono);
+    font-size: 7.5pt;
+    letter-spacing: 0.16em;
+    color: #5c5c5c;
+  }
+}

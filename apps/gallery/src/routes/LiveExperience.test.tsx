@@ -296,6 +296,128 @@ describe('LiveExperience — The Gallery Floor (deck)', () => {
   });
 });
 
+describe('LiveExperience — The Manifesto (deck)', () => {
+  it('deep-links to the indictment poster (anomaly), the index mirror, reduced motion', async () => {
+    const { container } = renderLive('deck-product-vision?slide=2');
+    const root = await screen.findByTestId('live-manifesto', {}, { timeout: 12000 });
+
+    // ?slide= deep link lands on the indictment (poster 2 of 9).
+    expect(screen.getByTestId('poster-counter')).toHaveTextContent('02 / 09');
+
+    // The indictment poster — the poster that indicts our own product.
+    const indictment = screen.getByTestId('indictment');
+    expect(within(indictment).getByText('fourteen')).toBeInTheDocument();
+    expect(within(indictment).getByText(/14 SEPARATE IDENTITY ASKS/)).toBeInTheDocument();
+
+    // The folio microtype carries the manifesto wording from the brief.
+    expect(screen.getByTestId('manifesto-folio')).toHaveTextContent(
+      'MANIFESTO · 02/09 · SYNTHETIC PRODUCT VISION',
+    );
+
+    // Reduced motion renders letter-settle posters already set (no kinetic
+    // delays), and the deck is stamped reduced.
+    expect(root).toHaveAttribute('data-reduced', 'true');
+    expect(screen.getByRole('link', { name: '◄ GALLERY' })).toBeInTheDocument();
+
+    expect(await axe(container)).toHaveNoViolations();
+  });
+
+  it('the index is the accessible mirror and flags the indictment row', async () => {
+    renderLive('deck-product-vision?slide=1');
+    await screen.findByTestId('live-manifesto', {}, { timeout: 12000 });
+    const index = screen.getByTestId('manifesto-index');
+    const row = within(index)
+      .getByText(/Our own systems ask her fourteen times/)
+      .closest('li') as HTMLElement;
+    expect(row).toHaveAttribute('data-anomaly', 'true');
+  });
+
+  it('locks the document theme to light while mounted and restores on unmount', async () => {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    const { unmount } = renderLive('deck-product-vision?slide=1');
+    await screen.findByTestId('live-manifesto', {}, { timeout: 12000 });
+    expect(document.documentElement.getAttribute('data-theme')).toBe('light');
+    unmount();
+    expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
+  });
+});
+
+describe('LiveExperience — The Sectional (deck)', () => {
+  it('deep-links to SHT A-301: the red-pencilled storey (anomaly), the parts mirror, reduced motion', async () => {
+    const { container } = renderLive('deck-technical-architecture-explanation?slide=5');
+    const root = await screen.findByTestId('live-sectional', {}, { timeout: 12000 });
+
+    // ?slide= deep link lands on the section (sheet 5 of 8).
+    expect(screen.getByTestId('sheet-counter')).toHaveTextContent('05 / 08');
+    expect(screen.getByTestId('sheet-counter')).toHaveTextContent('SHT A-301');
+
+    // The schedule of parts (the sheet's accessible mirror) carries the
+    // over-budget feature-store storey with its RFI.
+    const parts = screen.getByTestId('parts-section');
+    const overRow = within(parts).getByText('FEATURE STORE').closest('li') as HTMLElement;
+    expect(overRow).toHaveAttribute('data-over', 'true');
+    expect(within(overRow).getByText(/OVER BUDGET — RFI-114/)).toBeInTheDocument();
+
+    // Every sheet's title block cross-references the Drawing Office set.
+    const titleBlock = screen.getByTestId('titleblock-section');
+    expect(within(titleBlock).getByText(/EDI-ARCH-004/)).toBeInTheDocument();
+
+    expect(root).toHaveAttribute('data-reduced', 'true');
+    expect(screen.getAllByText(/SYNTHETIC DEMO/i).length).toBeGreaterThan(0);
+
+    expect(await axe(container)).toHaveNoViolations();
+  });
+
+  it('locks the document theme to dark while mounted and restores on unmount', async () => {
+    document.documentElement.setAttribute('data-theme', 'light');
+    const { unmount } = renderLive('deck-technical-architecture-explanation?slide=1');
+    await screen.findByTestId('live-sectional', {}, { timeout: 12000 });
+    expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
+    unmount();
+    expect(document.documentElement.getAttribute('data-theme')).toBe('light');
+  });
+});
+
+describe('LiveExperience — The Field Manual (deck)', () => {
+  it('deep-links to PROC 3.2: the revised step (anomaly), the warning label, reduced motion', async () => {
+    const { container } = renderLive('deck-technical-training?slide=4');
+    const root = await screen.findByTestId('live-field-manual', {}, { timeout: 12000 });
+
+    // ?slide= deep link lands on PROC 3.2 (page 4 of 9).
+    expect(screen.getByTestId('page-counter')).toHaveTextContent('04 / 09');
+    expect(screen.getByTestId('page-counter')).toHaveTextContent('PROC 3.2');
+
+    // The revised step — the manual visibly learns (the anomaly).
+    const revised = screen.getByTestId('revised-step');
+    expect(within(revised).getByText(/REVISED AFTER INCIDENT IR-2214/)).toBeInTheDocument();
+    expect(
+      within(revised).getByText(/The pin moved from checklist to build gate/),
+    ).toBeInTheDocument();
+    // The step enforces a Control Frame control id.
+    expect(screen.getByText(/ENFORCES CTRL-AI-021/)).toBeInTheDocument();
+
+    // The machinery-label warning (safety orange, warnings only).
+    expect(screen.getByTestId('warning-proc-3-2')).toHaveTextContent(
+      /NEVER RETRAIN ON PRODUCTION LABELS/,
+    );
+
+    expect(root).toHaveAttribute('data-reduced', 'true');
+    expect(screen.getAllByText(/TRAINING MATERIAL · SYNTHETIC/i).length).toBeGreaterThan(0);
+
+    expect(await axe(container)).toHaveNoViolations();
+  });
+
+  it('the contents register is the accessible mirror and flags the revised procedure', async () => {
+    renderLive('deck-technical-training?slide=2');
+    await screen.findByTestId('live-field-manual', {}, { timeout: 12000 });
+    const register = screen.getByTestId('procedure-register');
+    const row = within(register)
+      .getByText(/PROC 3.2 — Deploying a model to staging/)
+      .closest('li') as HTMLElement;
+    expect(row).toHaveAttribute('data-anomaly', 'true');
+  });
+});
+
 describe('LiveExperience — unknown id', () => {
   it('offers a way back to the gallery', () => {
     renderLive('does-not-exist');
