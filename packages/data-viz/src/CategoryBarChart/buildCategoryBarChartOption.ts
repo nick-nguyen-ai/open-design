@@ -68,7 +68,13 @@ export function buildCategoryBarChartOption(
       }
     : undefined;
 
-  const categoryAxis = { type: 'category' as const, data: categories };
+  // Small-N categorical charts must never drop labels: an unlabelled bar is
+  // an integrity failure (the reader cannot name what breached).
+  const categoryAxis = {
+    type: 'category' as const,
+    data: categories,
+    axisLabel: { interval: 0 as const },
+  };
   const valueAxis = {
     type: 'value' as const,
     name: unit,

@@ -128,7 +128,13 @@ function useHallucinationOption(reduced: boolean): ChartOption {
         borderColor: INK.grid,
         textStyle: { color: INK.ink, fontFamily: MONO, fontSize: 11 },
       },
-      xAxis: { ...(base.xAxis as Rec), ...axisInk, splitLine: { show: false } },
+      xAxis: {
+        ...(base.xAxis as Rec),
+        ...axisInk,
+        // every class stays named — the breaching bar must be nameable at a glance
+        axisLabel: { ...axisInk.axisLabel, interval: 0 },
+        splitLine: { show: false },
+      },
       yAxis: {
         ...(base.yAxis as Rec),
         ...axisInk,

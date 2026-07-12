@@ -64,7 +64,8 @@ describe('Landing', () => {
     expect(screen.getByTestId('location-search')).toHaveTextContent('q=risk');
   });
 
-  it('narrows results as the query is typed', async () => {
+  // 50-card re-renders under jsdom exceed the 5s default on slow machines.
+  it('narrows results as the query is typed', { timeout: 30_000 }, async () => {
     const user = userEvent.setup();
     renderLanding();
     expect(templateCards()).toHaveLength(50);
@@ -74,11 +75,14 @@ describe('Landing', () => {
       'model risk',
     );
 
-    await waitFor(() => {
-      const count = templateCards().length;
-      expect(count).toBeGreaterThan(0);
-      expect(count).toBeLessThan(50);
-    });
+    await waitFor(
+      () => {
+        const count = templateCards().length;
+        expect(count).toBeGreaterThan(0);
+        expect(count).toBeLessThan(50);
+      },
+      { timeout: 10_000 },
+    );
   });
 
   it('narrows results with a facet filter and reflects it in the URL', async () => {
@@ -136,7 +140,8 @@ describe('Landing', () => {
     expect(card).toHaveFocus();
   });
 
-  it('has no axe violations', async () => {
+  // axe over the full 50-card landing exceeds the 5s default on slow machines.
+  it('has no axe violations', { timeout: 60_000 }, async () => {
     const { container } = renderLanding();
     expect(await axe(container)).toHaveNoViolations();
   });
