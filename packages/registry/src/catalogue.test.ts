@@ -84,7 +84,7 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
     expect(bySurface.get('technical-explainer')).toHaveLength(10);
   });
 
-  it('spot-checks the two approved anchor experiences', async () => {
+  it('spot-checks the five approved live experiences — one per surface', async () => {
     const result = await compileRegistry({ cwd: REPO_ROOT });
     const byId = new Map(result.experiences.map((e) => [e.id, e]));
 
@@ -104,9 +104,38 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
     expect(architecture?.approval.state).toBe('approved');
     expect(architecture?.componentsUsed).toEqual(expect.arrayContaining(['comp.flow-diagram']));
 
-    // Exactly these two experiences are approved anchors — everything else is reviewed/experimental.
+    const deck = byId.get('deck-ai-strategy');
+    expect(deck).toBeDefined();
+    expect(deck?.surface).toBe('slide-deck');
+    expect(deck?.approval.state).toBe('approved');
+    expect(deck?.componentsUsed).toEqual(expect.arrayContaining(['comp.trend-chart']));
+
+    const validationHub = byId.get('proj-ai-model-validation-hub');
+    expect(validationHub).toBeDefined();
+    expect(validationHub?.surface).toBe('project-page');
+    expect(validationHub?.approval.state).toBe('approved');
+    expect(validationHub?.componentsUsed).toEqual(
+      expect.arrayContaining(['comp.status-list', 'comp.trend-chart', 'comp.flow-diagram']),
+    );
+
+    const studio = byId.get('home-data-scientist-studio');
+    expect(studio).toBeDefined();
+    expect(studio?.surface).toBe('personal-page');
+    expect(studio?.approval.state).toBe('approved');
+    expect(studio?.componentsUsed).toEqual(
+      expect.arrayContaining(['comp.status-list', 'comp.trend-chart']),
+    );
+
+    // Exactly these five experiences — one live world per surface — are
+    // approved; everything else remains reviewed/experimental.
     const approvedIds = result.experiences.filter((e) => e.approval.state === 'approved').map((e) => e.id);
-    expect(approvedIds.sort()).toEqual(['db-model-monitoring-cockpit', 'exp-system-architecture']);
+    expect(approvedIds.sort()).toEqual([
+      'db-model-monitoring-cockpit',
+      'deck-ai-strategy',
+      'exp-system-architecture',
+      'home-data-scientist-studio',
+      'proj-ai-model-validation-hub',
+    ]);
   });
 
   it('every experience uses at least one real component id and a real signature sequence', async () => {

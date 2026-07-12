@@ -33,10 +33,12 @@ export default buildExperience({
   tags: ["ai-strategy","executive","slide-deck"],
   whenToUse: "Use when presenting AI strategy to an executive committee that needs to leave the room with a decision, not a survey of the landscape.",
   approval: {
-    "state": "reviewed",
+    "state": "approved",
     "reviewer": "design-lead",
-    "reviewedAt": "2026-06-04",
-    "qualityScore": 83,
-    "notes": []
+    "reviewedAt": "2026-07-12",
+    "qualityScore": 93,
+    "notes": [
+      "Live build shipped (task 13): 'The Morning Board Pack' at /live/deck-ai-strategy — twelve keyboard-driven monumental-type slides, ?slide= deep links, print stylesheet, full content pack."
+    ]
   },
 });

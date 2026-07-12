@@ -1,0 +1,668 @@
+/*
+ * THE STUDIO — experience-local art layer.
+ *
+ * Task-13 art-direction licence: raw colour values are permitted in THIS
+ * stylesheet only. Easings and durations come from the platform motion
+ * tokens; the HorizonSweep sequence supplies the entrance choreography and
+ * its own reduced-motion parity.
+ *
+ * Mood: a bench by a west-facing window, late afternoon — deep dusk field,
+ * one warm low-sun glow, one cool monitor glow, translucent panes stacked
+ * in front. Two signal hues (amber, cyan) plus a quiet lavender for the
+ * human voice; never colour alone for meaning.
+ */
+
+.st-root {
+  --st-bg: #14162a;
+  --st-text: #e8eaf2;
+  --st-muted: #a7b0c4;
+  --st-amber: #f0b06d;
+  --st-cyan: #7fd4e0;
+  --st-lavender: #c0a8e8;
+  --st-coral: #f0947a;
+  --st-green: #8fd0a8;
+  --st-glass: rgba(232, 234, 242, 0.05);
+  --st-glass-bright: rgba(232, 234, 242, 0.075);
+  --st-glass-edge: rgba(232, 234, 242, 0.14);
+  --st-glass-highlight: rgba(255, 255, 255, 0.08);
+  --st-line-faint: rgba(232, 234, 242, 0.1);
+  --st-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+  --st-display-font: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
+  --st-sans: system-ui, 'Segoe UI', 'Helvetica Neue', sans-serif;
+
+  position: relative;
+  min-height: 100svh;
+  background: var(--st-bg);
+  color: var(--st-text);
+  font-family: var(--st-sans);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  isolation: isolate;
+}
+
+/* The dusk field — a luminous backdrop spanning the WHOLE document so the
+ * glass panes have something to blur at every scroll depth. */
+.st-field {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(85vmin 60vmin at 92% 2%, rgba(96, 170, 210, 0.14), transparent 62%),
+    radial-gradient(110vmin 80vmin at 4% 14%, rgba(240, 150, 90, 0.16), transparent 60%),
+    radial-gradient(120vmin 90vmin at 60% 42%, rgba(64, 58, 110, 0.38), transparent 68%),
+    radial-gradient(100vmin 80vmin at 90% 66%, rgba(52, 74, 112, 0.3), transparent 64%),
+    radial-gradient(110vmin 85vmin at 8% 96%, rgba(214, 128, 84, 0.14), transparent 60%),
+    linear-gradient(196deg, #171a30 0%, #14162a 46%, #1b1728 100%);
+}
+
+/* ------------------------------------------------------------------ */
+/* Chrome                                                              */
+/* ------------------------------------------------------------------ */
+
+.st-chrome {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 2rem;
+  padding: 1rem 1.6rem 0.85rem;
+  font-family: var(--st-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  color: var(--st-muted);
+  background: rgba(20, 22, 42, 0.72);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--st-line-faint);
+}
+
+.st-chrome-cell {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  white-space: nowrap;
+}
+
+.st-chrome-rule {
+  width: 1px;
+  height: 0.85em;
+  align-self: center;
+  background: var(--st-glass-edge);
+}
+
+.st-back {
+  color: var(--st-text);
+  text-decoration: none;
+  letter-spacing: 0.14em;
+}
+
+.st-back:hover {
+  color: var(--st-amber);
+}
+
+.st-back:focus-visible {
+  outline: 2px solid var(--st-amber);
+  outline-offset: 3px;
+}
+
+.st-synthetic {
+  padding: 0.2rem 0.55rem;
+  border: 1px dashed var(--st-glass-edge);
+  color: var(--st-muted);
+  letter-spacing: 0.16em;
+}
+
+/* ------------------------------------------------------------------ */
+/* Hero                                                                */
+/* ------------------------------------------------------------------ */
+
+.st-main {
+  max-width: 88rem;
+  margin: 0 auto;
+  padding: 0 clamp(1.6rem, 4vw, 3.6rem) 4rem;
+}
+
+.st-hero {
+  padding: 4.2rem 0 2.6rem;
+}
+
+.st-identity {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 1.6rem;
+  margin-bottom: 2.2rem;
+}
+
+.st-name {
+  margin: 0;
+  font-family: var(--st-display-font);
+  font-optical-sizing: auto;
+  font-weight: 560;
+  font-size: 1.9rem;
+  color: var(--st-text);
+}
+
+.st-role {
+  margin: 0;
+  font-family: var(--st-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  color: var(--st-amber);
+}
+
+.st-display {
+  margin: 0;
+  max-width: 52rem;
+  font-family: var(--st-display-font);
+  font-optical-sizing: auto;
+  font-weight: 540;
+  font-size: clamp(2.5rem, 5vw, 4.3rem);
+  line-height: 1.06;
+  letter-spacing: -0.014em;
+  color: var(--st-text);
+  text-wrap: balance;
+}
+
+.st-display-line {
+  display: block;
+}
+
+.st-subline {
+  margin: 1.5rem 0 0;
+  max-width: 44rem;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--st-muted);
+}
+
+.st-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem 3.2rem;
+  margin: 2.2rem 0 0;
+}
+
+.st-fact dt {
+  font-family: var(--st-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  color: var(--st-muted);
+}
+
+.st-fact dd {
+  margin: 0.35rem 0 0;
+  font-family: var(--st-display-font);
+  font-weight: 520;
+  font-size: 1.1875rem;
+  color: var(--st-text);
+}
+
+/* ------------------------------------------------------------------ */
+/* Sweep scaffolding                                                   */
+/* ------------------------------------------------------------------ */
+
+.st-sweep {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+.st-sweep > [data-testid='horizon-sweep-baseline'] {
+  height: 1px;
+  margin-bottom: 0.6rem;
+  background: linear-gradient(
+    90deg,
+    rgba(240, 176, 109, 0.75),
+    rgba(127, 212, 224, 0.45) 55%,
+    rgba(232, 234, 242, 0) 100%
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Glass panes                                                         */
+/* ------------------------------------------------------------------ */
+
+.st-pane {
+  background: var(--st-glass);
+  backdrop-filter: blur(18px) saturate(1.25);
+  -webkit-backdrop-filter: blur(18px) saturate(1.25);
+  border: 1px solid var(--st-glass-edge);
+  border-radius: 16px;
+  box-shadow:
+    0 22px 55px rgba(6, 8, 20, 0.42),
+    inset 0 1px 0 var(--st-glass-highlight);
+  padding: 1.5rem 1.7rem 1.6rem;
+}
+
+.st-pane-heading {
+  margin: 0 0 1.1rem;
+  font-family: var(--st-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--st-muted);
+}
+
+.st-section-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.8rem;
+  margin: 0 0 1.1rem;
+  font-family: var(--st-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--st-muted);
+}
+
+.st-section-sub {
+  font-weight: 400;
+  font-size: 0.5625rem;
+  letter-spacing: 0.18em;
+}
+
+/* Rows */
+.st-row {
+  display: grid;
+  gap: 1.8rem;
+}
+
+.st-row-bench {
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+}
+
+.st-row-constellation {
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+}
+
+/* Now working on */
+.st-pane-now {
+  background: var(--st-glass-bright);
+}
+
+.st-now-title {
+  margin: 0;
+  font-family: var(--st-display-font);
+  font-weight: 560;
+  font-size: 1.75rem;
+  color: var(--st-text);
+}
+
+.st-now-line {
+  margin: 0.7rem 0 0;
+  max-width: 36rem;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--st-muted);
+}
+
+.st-now-status {
+  margin: 1.1rem 0 0;
+}
+
+.st-chip {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  border: 1px solid var(--st-cyan);
+  border-radius: 999px;
+  font-family: var(--st-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--st-cyan);
+}
+
+.st-checkpoints {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem 2.6rem;
+  margin: 1.4rem 0 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--st-line-faint);
+}
+
+.st-checkpoint dt {
+  font-family: var(--st-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.18em;
+  color: var(--st-muted);
+}
+
+.st-checkpoint dd {
+  margin: 0.3rem 0 0;
+  font-family: var(--st-mono);
+  font-size: 0.75rem;
+  color: var(--st-text);
+}
+
+/* Drift widget */
+.st-drift-chart {
+  margin: 0;
+}
+
+.st-drift-chart figcaption {
+  font-family: var(--st-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.06em;
+  color: var(--st-muted);
+}
+
+.st-drift-caption {
+  margin: 0.8rem 0 0;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--st-line-faint);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--st-muted);
+}
+
+.st-drift-value {
+  font-family: var(--st-mono);
+  font-weight: 600;
+  color: var(--st-amber);
+}
+
+/* Experiment shelf */
+.st-shelf {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.st-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 1.2rem 1.3rem 1.3rem;
+}
+
+.st-card[data-status='failed-kept'] {
+  border-style: dashed;
+  border-color: rgba(240, 148, 122, 0.5);
+}
+
+.st-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.st-card-code {
+  font-family: var(--st-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  color: var(--st-muted);
+}
+
+.st-chip-status {
+  border-color: var(--st-cyan);
+  color: var(--st-cyan);
+}
+
+.st-chip-status[data-status='design'] {
+  border-color: var(--st-lavender);
+  color: var(--st-lavender);
+}
+
+.st-chip-status[data-status='shipped'] {
+  border-color: var(--st-green);
+  color: var(--st-green);
+}
+
+.st-chip-status[data-status='failed-kept'] {
+  border-color: var(--st-coral);
+  color: var(--st-coral);
+}
+
+.st-card-title {
+  margin: 0;
+  font-family: var(--st-display-font);
+  font-weight: 540;
+  font-size: 1.125rem;
+  line-height: 1.3;
+  color: var(--st-text);
+}
+
+.st-card-hypothesis {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--st-muted);
+  flex-grow: 1;
+}
+
+.st-card-metric {
+  margin: 0;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--st-line-faint);
+  font-family: var(--st-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: var(--st-text);
+}
+
+.st-card-lesson {
+  margin: 0;
+  padding: 0.7rem 0.8rem;
+  border-radius: 8px;
+  background: rgba(240, 148, 122, 0.09);
+  font-size: 0.75rem;
+  line-height: 1.55;
+  color: var(--st-text);
+}
+
+.st-card-lesson::before {
+  content: 'WHAT IT TAUGHT — ';
+  font-family: var(--st-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.14em;
+  color: var(--st-coral);
+}
+
+/* Constellation */
+.st-constellation {
+  display: block;
+  width: 100%;
+  max-width: 38rem;
+  margin: 0 auto;
+  height: auto;
+}
+
+.st-edge {
+  stroke: rgba(232, 234, 242, 0.16);
+  stroke-width: 0.22;
+}
+
+.st-star-halo {
+  fill: currentColor;
+  opacity: 0.14;
+}
+
+.st-star-core {
+  fill: currentColor;
+}
+
+.st-star-craft {
+  color: var(--st-amber);
+}
+
+.st-star-systems {
+  color: var(--st-cyan);
+}
+
+.st-star-voice {
+  color: var(--st-lavender);
+}
+
+.st-star-label {
+  fill: var(--st-text);
+  font-family: var(--st-sans);
+  font-size: 2.2px;
+  letter-spacing: 0.04em;
+  text-anchor: middle;
+}
+
+.st-cluster-label {
+  fill: var(--st-muted);
+  font-family: var(--st-mono);
+  font-size: 1.9px;
+  letter-spacing: 0.3em;
+}
+
+.st-const-mirror {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: 1.1rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--st-line-faint);
+}
+
+.st-const-cluster {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.st-const-cluster dt {
+  flex: 0 0 5.4rem;
+  font-family: var(--st-mono);
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--st-muted);
+}
+
+.st-const-cluster dd {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: var(--st-muted);
+}
+
+/* Talks & notes */
+.st-notes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.st-note {
+  display: flex;
+  gap: 1.1rem;
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--st-line-faint);
+}
+
+.st-note:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.st-note-kind {
+  flex: 0 0 5.8rem;
+  font-family: var(--st-mono);
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--st-lavender);
+  padding-top: 0.25rem;
+}
+
+.st-note-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.st-note-title {
+  font-family: var(--st-display-font);
+  font-weight: 520;
+  font-size: 1rem;
+  color: var(--st-text);
+}
+
+.st-note-meta {
+  font-family: var(--st-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.14em;
+  color: var(--st-muted);
+}
+
+/* Bench log */
+.st-pane-log {
+  background: rgba(232, 234, 242, 0.04);
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+.st-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 88rem;
+  margin: 0 auto;
+  padding: 1.2rem clamp(1.6rem, 4vw, 3.6rem) 1.6rem;
+  border-top: 1px solid var(--st-line-faint);
+  font-family: var(--st-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  color: var(--st-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Narrow viewports                                                    */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 72rem) {
+  .st-shelf {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 56rem) {
+  .st-row-bench,
+  .st-row-constellation,
+  .st-shelf {
+    grid-template-columns: 1fr;
+  }
+
+  .st-chrome {
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Print — the glass drops to plain paper                              */
+/* ------------------------------------------------------------------ */
+
+@media print {
+  .st-root {
+    background: #fff;
+    color: #1a1a1a;
+  }
+
+  .st-field {
+    display: none;
+  }
+
+  .st-pane {
+    background: transparent;
+    box-shadow: none;
+    border-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}

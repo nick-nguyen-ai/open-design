@@ -28,10 +28,12 @@ export default buildExperience({
   tags: ["personal","data-science","studio"],
   whenToUse: "Use when a data scientist wants colleagues to see what they are actually working on right now, sourced from one page.",
   approval: {
-    "state": "reviewed",
+    "state": "approved",
     "reviewer": "design-lead",
-    "reviewedAt": "2026-06-06",
-    "qualityScore": 76,
-    "notes": []
+    "reviewedAt": "2026-07-12",
+    "qualityScore": 91,
+    "notes": [
+      "Live build shipped (task 13): 'The Studio' at /live/home-data-scientist-studio — signal-glass panes over a dusk field, experiment shelf with a kept failure, synthetic-profile mark, full content pack."
+    ]
   },
 });

@@ -38,10 +38,12 @@ export default buildExperience({
   tags: ["model-validation","governance","project-page"],
   whenToUse: "Use when a model validation function needs one page that a validator, model owner, and committee can all point to as the case file.",
   approval: {
-    "state": "reviewed",
+    "state": "approved",
     "reviewer": "design-lead",
-    "reviewedAt": "2026-06-05",
-    "qualityScore": 82,
-    "notes": []
+    "reviewedAt": "2026-07-12",
+    "qualityScore": 92,
+    "notes": [
+      "Live build shipped (task 13): 'The Validation Ledger' at /live/proj-ai-model-validation-hub — bespoke pipeline ledger with a flagged stalled item, table mirror, decision log, full content pack."
+    ]
   },
 });

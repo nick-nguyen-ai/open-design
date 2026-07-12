@@ -19,9 +19,22 @@ const DrawingOfficePage = lazy(
   () => import('../../../../experiences/explainers/exp-system-architecture/DrawingOfficePage.js'),
 );
 
+const BoardDeckPage = lazy(
+  () => import('../../../../experiences/slide-decks/deck-ai-strategy/BoardDeckPage.js'),
+);
+const LedgerPage = lazy(
+  () => import('../../../../experiences/project-pages/proj-ai-model-validation-hub/LedgerPage.js'),
+);
+const StudioPage = lazy(
+  () => import('../../../../experiences/personal-pages/home-data-scientist-studio/StudioPage.js'),
+);
+
 const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: ComponentType }> = {
   'db-model-monitoring-cockpit': { mood: 'dark', Component: CockpitPage },
   'exp-system-architecture': { mood: 'light', Component: DrawingOfficePage },
+  'deck-ai-strategy': { mood: 'dark', Component: BoardDeckPage },
+  'proj-ai-model-validation-hub': { mood: 'light', Component: LedgerPage },
+  'home-data-scientist-studio': { mood: 'dark', Component: StudioPage },
 };
 
 /**
@@ -61,8 +74,9 @@ export default function LiveExperience() {
           No live experience here
         </h1>
         <p className="text-text-secondary">
-          “{experienceId}” has no live rendering yet. The two live anchors are the Model
-          Monitoring Cockpit and the System Architecture explainer.
+          “{experienceId}” has no live rendering yet. Five worlds are live — one per
+          surface: the Model Monitoring Cockpit, the System Architecture explainer, the AI
+          Strategy board deck, the Model Validation Hub, and the Data Scientist Studio.
         </p>
         <RouterLink to="/browse" className="text-accent hover:underline">
           ◄ Back to the gallery

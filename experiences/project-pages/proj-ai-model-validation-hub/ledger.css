@@ -1,0 +1,721 @@
+/*
+ * THE VALIDATION LEDGER — experience-local art layer.
+ *
+ * Task-13 art-direction licence: raw colour values are permitted in THIS
+ * stylesheet only. Easings and durations come from the platform motion
+ * tokens (var(--ease-*), var(--dur-*)).
+ *
+ * Mood: a programme office in daylight — cool porcelain paper, near-black
+ * ink, hairline rules, tabular numerals. One registrar's green for progress
+ * and dispositions; one dry sienna reserved for the stalled item and for
+ * nothing else. The quiet authority of a well-kept register.
+ */
+
+.lg-root {
+  --lg-paper: #f6f5f0;
+  --lg-panel: #fbfaf7;
+  --lg-ink: #1d242b;
+  --lg-muted: #5f6a72;
+  --lg-line: rgba(29, 36, 43, 0.22);
+  --lg-line-faint: rgba(29, 36, 43, 0.12);
+  --lg-green: #2e6e54;
+  --lg-green-wash: rgba(46, 110, 84, 0.12);
+  --lg-sienna: #a8442c;
+  --lg-sienna-wash: rgba(168, 68, 44, 0.08);
+  --lg-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+  --lg-display-font: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
+
+  min-height: 100svh;
+  background: var(--lg-paper);
+  color: var(--lg-ink);
+  font-family: var(--lg-mono);
+  font-size: 0.8125rem;
+  line-height: 1.55;
+}
+
+/* ------------------------------------------------------------------ */
+/* Chrome                                                              */
+/* ------------------------------------------------------------------ */
+
+.lg-chrome {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 2rem;
+  padding: 1rem 1.6rem 0.8rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  color: var(--lg-muted);
+  background: rgba(246, 245, 240, 0.96);
+  border-bottom: 1px solid var(--lg-line-faint);
+}
+
+.lg-chrome-cell {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.lg-chrome-rule {
+  width: 1px;
+  height: 0.85em;
+  align-self: center;
+  background: var(--lg-line);
+}
+
+.lg-back {
+  color: var(--lg-ink);
+  text-decoration: none;
+  letter-spacing: 0.14em;
+}
+
+.lg-back:hover {
+  color: var(--lg-green);
+}
+
+.lg-back:focus-visible,
+.lg-ref:focus-visible {
+  outline: 2px solid var(--lg-green);
+  outline-offset: 3px;
+}
+
+.lg-rag {
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--lg-ink);
+  color: var(--lg-ink);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+
+/* ------------------------------------------------------------------ */
+/* Hero                                                                */
+/* ------------------------------------------------------------------ */
+
+.lg-main {
+  max-width: 96rem;
+  margin: 0 auto;
+  padding: 0 clamp(1.6rem, 4vw, 4rem) 4rem;
+}
+
+.lg-hero {
+  padding: 4.5rem 0 3rem;
+  border-bottom: 2px solid var(--lg-ink);
+}
+
+.lg-kicker {
+  margin: 0 0 1.6rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.24em;
+  color: var(--lg-green);
+  font-weight: 600;
+}
+
+.lg-display {
+  margin: 0;
+  max-width: 56rem;
+  font-family: var(--lg-display-font);
+  font-optical-sizing: auto;
+  font-weight: 560;
+  font-size: clamp(2.4rem, 4.6vw, 4.1rem);
+  line-height: 1.08;
+  letter-spacing: -0.012em;
+  color: var(--lg-ink);
+  text-wrap: balance;
+}
+
+.lg-display-line {
+  display: block;
+}
+
+.lg-subline {
+  margin: 1.6rem 0 0;
+  max-width: 46rem;
+  font-family: var(--lg-display-font);
+  font-weight: 430;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--lg-ink);
+}
+
+.lg-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.8rem 3.4rem;
+  margin: 2.4rem 0 0;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--lg-line);
+}
+
+.lg-fact dt {
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  color: var(--lg-muted);
+}
+
+.lg-fact dd {
+  margin: 0.4rem 0 0;
+  font-family: var(--lg-display-font);
+  font-weight: 560;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--lg-ink);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* ------------------------------------------------------------------ */
+/* Band scaffolding                                                    */
+/* ------------------------------------------------------------------ */
+
+.lg-band,
+.lg-ledger-section {
+  padding-top: 3.2rem;
+}
+
+.lg-band-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 1rem;
+  margin: 0 0 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--lg-line);
+  font-family: var(--lg-mono);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--lg-ink);
+}
+
+.lg-band-index {
+  color: var(--lg-green);
+}
+
+.lg-band-sub {
+  margin-left: auto;
+  font-weight: 400;
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  color: var(--lg-muted);
+}
+
+.lg-panel-heading {
+  margin: 0 0 1rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--lg-ink);
+}
+
+/* ------------------------------------------------------------------ */
+/* The pipeline ledger (bespoke visual)                                */
+/* ------------------------------------------------------------------ */
+
+.lg-ledger {
+  border: 1px solid var(--lg-line);
+  background: var(--lg-panel);
+}
+
+.lg-stage-head {
+  display: grid;
+  grid-template-columns: 16rem repeat(4, minmax(0, 1fr)) 6.5rem;
+  border-bottom: 2px solid var(--lg-ink);
+}
+
+.lg-stage-head-lead,
+.lg-stage-head-target {
+  padding: 0.9rem 1rem;
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  color: var(--lg-muted);
+  align-self: end;
+}
+
+.lg-stage-head-target {
+  text-align: right;
+}
+
+.lg-stage-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.9rem 1rem;
+  border-left: 1px solid var(--lg-line-faint);
+}
+
+.lg-stage-no {
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  color: var(--lg-green);
+  font-weight: 600;
+}
+
+.lg-stage-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--lg-ink);
+}
+
+.lg-stage-count {
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  color: var(--lg-muted);
+}
+
+.lg-stage-rule {
+  font-size: 0.5625rem;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+  color: var(--lg-muted);
+}
+
+/* Rows */
+.lg-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 16rem repeat(4, minmax(0, 1fr)) 6.5rem;
+  align-items: stretch;
+  border-top: 1px solid var(--lg-line-faint);
+}
+
+.lg-rows > div:first-child .lg-row {
+  border-top: 0;
+}
+
+.lg-row[data-stalled] {
+  background: var(--lg-sienna-wash);
+}
+
+.lg-row-id {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  justify-content: center;
+  padding: 0.85rem 1rem;
+}
+
+.lg-row-model {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--lg-ink);
+}
+
+.lg-row-meta {
+  font-size: 0.5625rem;
+  letter-spacing: 0.1em;
+  color: var(--lg-muted);
+}
+
+.lg-track {
+  position: relative;
+  grid-column: 2 / 6;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+/* Every row runs on a faint rail — markers sit ON a track, not in a void. */
+.lg-track::before {
+  content: '';
+  position: absolute;
+  left: 0.9rem;
+  right: 0.9rem;
+  top: 50%;
+  border-top: 1px dotted var(--lg-line);
+}
+
+.lg-cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-left: 1px solid var(--lg-line-faint);
+  min-height: 3.4rem;
+}
+
+/* Trail through cleared stages */
+.lg-trail {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 4px;
+  background: var(--lg-green-wash);
+  border-top: 1px solid var(--lg-green);
+}
+
+/* Current-stage marker */
+.lg-marker {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 0.9rem;
+  padding: 0.3rem 0.6rem;
+  background: var(--lg-green);
+  color: #f6f5f0;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+}
+
+.lg-marker[data-stalled] {
+  background: var(--lg-sienna);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(246, 245, 240, 0.28) 0 4px,
+    transparent 4px 8px
+  );
+}
+
+.lg-stamp {
+  padding: 0.1rem 0.4rem;
+  border: 1px solid #f6f5f0;
+  font-size: 0.5625rem;
+  letter-spacing: 0.14em;
+}
+
+.lg-row-target {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0.85rem 1rem;
+  font-size: 0.6875rem;
+  color: var(--lg-muted);
+  font-variant-numeric: tabular-nums;
+  border-left: 1px solid var(--lg-line-faint);
+}
+
+.lg-stall-note {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 0.6rem 1rem 0.85rem;
+  font-size: 0.6875rem;
+  line-height: 1.6;
+  color: var(--lg-ink);
+  border-top: 1px dashed var(--lg-sienna);
+}
+
+.lg-stall-note-flag {
+  color: var(--lg-sienna);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+/* Stage key beneath the ledger */
+.lg-stage-key {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem 2rem;
+  margin-top: 0.9rem;
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  color: var(--lg-muted);
+}
+
+.lg-stage-key-title {
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--lg-ink);
+}
+
+.lg-stage-key ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lg-stage-key-note {
+  flex-basis: 100%;
+}
+
+/* ------------------------------------------------------------------ */
+/* Tables (mirror + outcomes)                                          */
+/* ------------------------------------------------------------------ */
+
+.lg-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--lg-line);
+  background: var(--lg-panel);
+}
+
+.lg-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.75rem;
+}
+
+.lg-table th,
+.lg-table td {
+  padding: 0.65rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--lg-line-faint);
+  white-space: nowrap;
+}
+
+.lg-table thead th {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--lg-muted);
+  border-bottom: 2px solid var(--lg-ink);
+}
+
+.lg-table tbody th[scope='row'] {
+  font-weight: 600;
+  color: var(--lg-ink);
+}
+
+.lg-table tbody tr:last-child th,
+.lg-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.lg-table .lg-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.lg-table-ver {
+  font-weight: 400;
+  color: var(--lg-muted);
+  font-size: 0.6875rem;
+}
+
+.lg-table tr[data-stalled] {
+  background: var(--lg-sienna-wash);
+}
+
+.lg-table td[data-over] {
+  color: var(--lg-sienna);
+  font-weight: 600;
+}
+
+.lg-note-cell {
+  max-width: 26rem;
+  white-space: normal !important;
+  font-size: 0.6875rem;
+  line-height: 1.5;
+  color: var(--lg-muted);
+}
+
+.lg-table tr[data-stalled] .lg-note-cell {
+  color: var(--lg-ink);
+}
+
+/* Outcomes */
+.lg-ref {
+  color: var(--lg-green);
+  text-decoration: none;
+  border-bottom: 1px solid var(--lg-green);
+}
+
+.lg-ref:hover {
+  border-bottom-width: 2px;
+}
+
+.lg-outcome {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 0.15rem 0.45rem;
+  border: 1px solid currentColor;
+}
+
+.lg-outcome[data-outcome='approved'] {
+  color: var(--lg-green);
+}
+
+.lg-outcome[data-outcome='approved-with-conditions'] {
+  color: var(--lg-ink);
+}
+
+.lg-outcome[data-outcome='rejected'] {
+  color: var(--lg-sienna);
+}
+
+/* ------------------------------------------------------------------ */
+/* Posture band                                                        */
+/* ------------------------------------------------------------------ */
+
+.lg-posture-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+/* Subordinate the shared KPI tiles to the ledger's register: a tidy 2×2. */
+.lg-kpis [data-motion-sequence='ledger-reveal'] {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+.lg-exhibit {
+  margin: 0;
+  padding: 1.2rem 1.4rem 1rem;
+  border: 1px solid var(--lg-line);
+  background: var(--lg-panel);
+}
+
+.lg-exhibit-head {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--lg-line-faint);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  color: var(--lg-muted);
+}
+
+.lg-exhibit-no {
+  font-weight: 600;
+  color: var(--lg-green);
+}
+
+.lg-exhibit-caption {
+  margin-top: 0.7rem;
+  font-size: 0.6875rem;
+  line-height: 1.6;
+  color: var(--lg-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Decision log & wire                                                 */
+/* ------------------------------------------------------------------ */
+
+.lg-decisions-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.lg-decision-log,
+.lg-wire {
+  padding: 1.2rem 1.4rem;
+  border: 1px solid var(--lg-line);
+  background: var(--lg-panel);
+}
+
+.lg-decision-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lg-decision {
+  display: flex;
+  gap: 1.4rem;
+  padding: 0.8rem 0;
+  border-top: 1px solid var(--lg-line-faint);
+}
+
+.lg-decision-date {
+  flex: 0 0 6rem;
+  font-size: 0.6875rem;
+  color: var(--lg-muted);
+  font-variant-numeric: tabular-nums;
+  padding-top: 0.1rem;
+}
+
+.lg-decision-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.lg-decision-text {
+  font-family: var(--lg-display-font);
+  font-weight: 440;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--lg-ink);
+}
+
+.lg-decision-meta {
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  color: var(--lg-muted);
+}
+
+.lg-decision-meta strong {
+  color: var(--lg-green);
+  font-weight: 600;
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+.lg-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 96rem;
+  margin: 0 auto;
+  padding: 1.2rem clamp(1.6rem, 4vw, 4rem) 1.6rem;
+  border-top: 1px solid var(--lg-line);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  color: var(--lg-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Narrow viewports                                                    */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 72rem) {
+  .lg-posture-grid,
+  .lg-decisions-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 56rem) {
+  .lg-stage-head {
+    display: none;
+  }
+
+  .lg-row {
+    grid-template-columns: 1fr;
+  }
+
+  .lg-track {
+    grid-column: 1;
+    border-top: 1px dashed var(--lg-line-faint);
+  }
+
+  .lg-row-target {
+    justify-content: flex-start;
+    border-left: 0;
+  }
+
+  .lg-chrome {
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Print — the ledger is already paper                                 */
+/* ------------------------------------------------------------------ */
+
+@media print {
+  .lg-chrome {
+    position: static;
+  }
+
+  .lg-band,
+  .lg-ledger-section {
+    break-inside: avoid;
+  }
+}

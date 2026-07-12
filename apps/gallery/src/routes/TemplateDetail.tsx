@@ -3,7 +3,7 @@ import { Link as RouterLink, useParams } from 'react-router-dom';
 import { Badge } from '@enterprise-design/primitives';
 import { componentById, experienceById } from '../data/registry.js';
 import { detailRoute } from '../data/routes.js';
-import { liveRoute } from '../data/live.js';
+import { liveRoute, nearestLiveForSurface } from '../data/live.js';
 import {
   APPROVAL_LABEL,
   AUDIENCE_LABEL,
@@ -35,6 +35,10 @@ export default function TemplateDetail() {
     );
   }
 
+  const live = liveRoute(exp.id);
+  const nearestLive = live ? null : nearestLiveForSurface(exp.surface);
+  const nearestLiveTitle = nearestLive ? experienceById.get(nearestLive.id)?.title : undefined;
+
   return (
     <Page
       eyebrow={grammarName(exp.grammarId)}
@@ -44,9 +48,9 @@ export default function TemplateDetail() {
       backLabel="Back to templates"
       actions={
         <div className="flex items-center gap-3">
-          {liveRoute(exp.id) && (
+          {live && (
             <RouterLink
-              to={liveRoute(exp.id) ?? '#'}
+              to={live}
               className="inline-flex h-10 items-center justify-center gap-2 rounded-md bg-accent px-4 text-md font-medium text-text-on-accent no-underline transition-colors duration-feedback ease-settle hover:bg-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
             >
               Open live template →
@@ -57,6 +61,22 @@ export default function TemplateDetail() {
       }
     >
       <div className="flex flex-col gap-10">
+        {!live && (
+          <aside
+            aria-label="Specification status"
+            data-testid="spec-framing"
+            className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 rounded-md border border-border-subtle bg-surface-raised px-4 py-3"
+          >
+            <p className="m-0 font-mono text-xs font-medium uppercase tracking-widest text-text-secondary">
+              Catalogue specification — live build pending
+            </p>
+            {nearestLive && (
+              <RouterLink to={nearestLive.route} className="text-sm text-accent no-underline hover:underline">
+                See a live template{nearestLiveTitle ? `: ${nearestLiveTitle}` : ''} →
+              </RouterLink>
+            )}
+          </aside>
+        )}
         <MetaGrid
           rows={[
             { label: 'Surface', value: exp.surface ? SURFACE_LABEL[exp.surface] : '—' },
