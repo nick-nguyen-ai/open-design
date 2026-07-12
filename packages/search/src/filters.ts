@@ -14,11 +14,23 @@ function arrayIntersects<T>(docValues: T[] | undefined, wanted: T | T[]): boolea
  * `density`, `corporateSuitability`, `themeModes` — use ANY-intersect
  * semantics; the rest require exact equality. Unset filter keys impose no
  * constraint.
+ *
+ * `surface` is special-cased: experiences carry a single `facets.surface`
+ * while components carry a multi-valued `facets.surfaces` (a component can be
+ * compatible with several surfaces at once). The filter matches if EITHER
+ * representation is satisfied, so a single `surface` filter chip works
+ * uniformly across both entity types.
  */
 export function passesFilters(document: SearchDocument, filters: FacetFilter): boolean {
   const facets = document.facets;
 
-  if (filters.surface !== undefined && facets.surface !== filters.surface) return false;
+  if (
+    filters.surface !== undefined &&
+    facets.surface !== filters.surface &&
+    !arrayIntersects(facets.surfaces, filters.surface)
+  ) {
+    return false;
+  }
   if (filters.audiences !== undefined && !arrayIntersects(facets.audiences, filters.audiences)) return false;
   if (filters.grammarId !== undefined && facets.grammarId !== filters.grammarId) return false;
   if (filters.category !== undefined && facets.category !== filters.category) return false;

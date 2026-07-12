@@ -70,6 +70,28 @@ describe('SearchDocument', () => {
     expect(parsed.facets.corporateSuitability).toEqual(['standard', 'expressive']);
   });
 
+  it('round-trips a component document with a multi-value surfaces facet alongside the single surface facet', () => {
+    const withSurfaces = {
+      ...validSearchDocument,
+      facets: {
+        ...validSearchDocument.facets,
+        surfaces: ['dashboard', 'project-page', 'technical-explainer'],
+      },
+    };
+    const parsed = SearchDocument.parse(withSurfaces);
+    expect(parsed.facets.surfaces).toEqual(['dashboard', 'project-page', 'technical-explainer']);
+    // The single `surface` facet is untouched — the two coexist for backward compatibility.
+    expect(parsed.facets.surface).toBeUndefined();
+  });
+
+  it('rejects a single (non-array) surfaces facet', () => {
+    const result = SearchDocument.safeParse({
+      ...validSearchDocument,
+      facets: { ...validSearchDocument.facets, surfaces: 'dashboard' },
+    });
+    expect(result.success).toBe(false);
+  });
+
   it('rejects a single (non-array) density facet', () => {
     const result = SearchDocument.safeParse({
       ...validSearchDocument,

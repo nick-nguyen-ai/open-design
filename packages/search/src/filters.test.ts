@@ -76,6 +76,42 @@ describe('facet filtering — hard removal', () => {
   });
 });
 
+describe('facet filtering — surface (single facets.surface vs array facets.surfaces)', () => {
+  it('a component doc with surfaces [dashboard, project-page] matches filter surface: dashboard', () => {
+    const index = createSearchIndex([
+      ...FIXTURE_DOCUMENTS,
+      {
+        id: 'comp.multi-surface-widget',
+        entityType: 'component',
+        title: 'Multi Surface Widget',
+        summary: 'A component compatible with several surfaces at once.',
+        text: 'multi surface widget component compatible with several surfaces at once',
+        tags: ['widget'],
+        facets: { surfaces: ['dashboard', 'project-page'] },
+      },
+    ]);
+    const results = search(index, '', { filters: { surface: 'dashboard' } });
+    expect(results.map((r) => r.id)).toContain('comp.multi-surface-widget');
+  });
+
+  it('the same component doc is removed for filter surface: slide-deck', () => {
+    const index = createSearchIndex([
+      ...FIXTURE_DOCUMENTS,
+      {
+        id: 'comp.multi-surface-widget',
+        entityType: 'component',
+        title: 'Multi Surface Widget',
+        summary: 'A component compatible with several surfaces at once.',
+        text: 'multi surface widget component compatible with several surfaces at once',
+        tags: ['widget'],
+        facets: { surfaces: ['dashboard', 'project-page'] },
+      },
+    ]);
+    const results = search(index, '', { filters: { surface: 'slide-deck' } });
+    expect(results.map((r) => r.id)).not.toContain('comp.multi-surface-widget');
+  });
+});
+
 describe('availableFacets', () => {
   it('enumerates the distinct facet values present across the given documents', () => {
     const facets = availableFacets(FIXTURE_DOCUMENTS);

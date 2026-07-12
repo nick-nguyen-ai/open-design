@@ -13,6 +13,7 @@ import {
 
 export const SearchFacets = z.object({
   surface: SurfaceType.optional(),
+  surfaces: z.array(SurfaceType).optional(),
   audiences: z.array(Audience).optional(),
   grammarId: z.string().optional(),
   category: ComponentCategory.optional(),

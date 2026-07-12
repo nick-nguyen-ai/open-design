@@ -42,6 +42,12 @@ export interface SearchIndex {
  * if its facet array shares at least one value with the filter. Pass either
  * a single value (one filter chip) or an array (several chips selected at
  * once). The remaining facets are scalar and require exact equality.
+ *
+ * `surface` is a hybrid: experiences carry a single `facets.surface` while
+ * components carry a multi-valued `facets.surfaces` (compatible with several
+ * surfaces at once). The filter matches a document if either representation
+ * contains the requested value, so one `surface` filter works across both
+ * entity types.
  */
 export interface FacetFilter {
   surface?: SurfaceType;

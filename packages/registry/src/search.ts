@@ -33,6 +33,7 @@ function componentDocument(component: ComponentManifest): SearchDocument {
   // arrays so the component is discoverable under every value it supports (a
   // `['low','medium']` component must match both a low and a medium filter).
   const facets: SearchFacets = {
+    surfaces: component.compatibleSurfaces,
     category: component.category,
     density: component.density,
     motionLevel: component.motionLevel,
@@ -71,6 +72,7 @@ function experienceDocument(experience: ExperienceManifest): SearchDocument {
   // one-element arrays so the facet shape is uniform with components.
   const facets: SearchFacets = {
     surface: experience.surface,
+    surfaces: [experience.surface],
     audiences: experience.audiences,
     grammarId: experience.grammarId,
     density: [experience.density],

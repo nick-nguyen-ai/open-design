@@ -103,6 +103,9 @@ describe('search document generation', () => {
     // Components emit the full array of every density / suitability they support.
     expect(doc?.facets.density).toEqual(['low', 'medium']);
     expect(doc?.facets.corporateSuitability).toEqual(['standard', 'expressive']);
+    // Components emit `surfaces` (array) from compatibleSurfaces — no single `surface`.
+    expect(doc?.facets.surfaces).toEqual(['dashboard']);
+    expect(doc?.facets.surface).toBeUndefined();
   });
 
   it('builds an experience document with surface + grammar facets (single values wrapped as arrays)', async () => {
@@ -116,6 +119,8 @@ describe('search document generation', () => {
     });
     expect(doc?.facets.density).toEqual(['high']);
     expect(doc?.facets.corporateSuitability).toEqual(['standard']);
+    // Experiences emit both the single `surface` (back-compat) and the array `surfaces`.
+    expect(doc?.facets.surfaces).toEqual(['dashboard']);
   });
 
   it('builds grammar and motion documents with non-empty text', async () => {
