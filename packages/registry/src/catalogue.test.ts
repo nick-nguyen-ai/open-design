@@ -126,12 +126,16 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
       expect.arrayContaining(['comp.status-list', 'comp.trend-chart']),
     );
 
-    // Exactly these five experiences — one live world per surface — are
-    // approved; everything else remains reviewed/experimental.
+    // Exactly these eight experiences are approved: the original five live
+    // worlds (one per surface) plus the three slide-deck worlds shipped in the
+    // task-15 deck batch. Everything else remains reviewed/experimental.
     const approvedIds = result.experiences.filter((e) => e.approval.state === 'approved').map((e) => e.id);
     expect(approvedIds.sort()).toEqual([
       'db-model-monitoring-cockpit',
+      'deck-ai-governance-and-controls',
       'deck-ai-strategy',
+      'deck-executive-decision-proposal',
+      'deck-genai-model-validation-report',
       'exp-system-architecture',
       'home-data-scientist-studio',
       'proj-ai-model-validation-hub',

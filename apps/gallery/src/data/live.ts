@@ -10,6 +10,9 @@ export const LIVE_EXPERIENCE_IDS = [
   'deck-ai-strategy',
   'proj-ai-model-validation-hub',
   'home-data-scientist-studio',
+  'deck-executive-decision-proposal',
+  'deck-genai-model-validation-report',
+  'deck-ai-governance-and-controls',
 ] as const;
 
 export type LiveExperienceId = (typeof LIVE_EXPERIENCE_IDS)[number];

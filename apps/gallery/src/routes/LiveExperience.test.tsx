@@ -114,6 +114,87 @@ describe('LiveExperience — The Drawing Office', () => {
   });
 });
 
+describe('LiveExperience — The Committee Paper (deck)', () => {
+  it('deep-links to clause 3: the struck Option 4 (anomaly), the mirror, reduced motion', async () => {
+    const { container } = renderLive('deck-executive-decision-proposal?slide=4');
+    const root = await screen.findByTestId('live-committee-paper', {}, { timeout: 12000 });
+
+    // ?slide= deep link lands on clause 3 (sheet 4 of 10).
+    expect(screen.getByTestId('clause-counter')).toHaveTextContent('04 / 10');
+    expect(screen.getByTestId('clause-counter')).toHaveTextContent('CLAUSE 3 OF 9');
+
+    // The options table (a real table — the accessible mirror) carries the
+    // struck option: the committee's own preference, declined by Model Risk.
+    const options = screen.getByTestId('options-table');
+    const struck = within(options).getByText(/Defer decision to FY28/);
+    expect(struck.closest('tr')).toHaveAttribute('data-struck', 'true');
+    expect(within(options).getByText('RECOMMENDED')).toBeInTheDocument();
+
+    // Reduced-motion path + instrument chrome + synthetic-data notice.
+    expect(root).toHaveAttribute('data-reduced', 'true');
+    expect(screen.getByRole('link', { name: '◄ GALLERY' })).toBeInTheDocument();
+    expect(screen.getAllByText(/SYNTHETIC DEMONSTRATION PAPER/i).length).toBeGreaterThan(0);
+
+    expect(await axe(container)).toHaveNoViolations();
+  });
+});
+
+describe('LiveExperience — The Lab Report (deck)', () => {
+  it('deep-links to plate 5: the open CRITICAL finding (anomaly), the register mirror, reduced motion', async () => {
+    const { container } = renderLive('deck-genai-model-validation-report?slide=6');
+    const root = await screen.findByTestId('live-lab-report', {}, { timeout: 12000 });
+
+    expect(screen.getByTestId('plate-counter')).toHaveTextContent('06 / 08');
+    expect(screen.getByTestId('plate-counter')).toHaveTextContent('PLATE 05 OF 7');
+    // Cross-references the Validation Ledger world by programme code.
+    expect(screen.getByTestId('plate-counter')).toHaveTextContent('llm-doc-triage-v2');
+
+    // The findings register (a real table — the accessible mirror) carries the
+    // one open CRITICAL finding.
+    const register = screen.getByTestId('findings-register');
+    const criticalRow = within(register).getByText('VF-07').closest('tr') as HTMLElement;
+    expect(criticalRow).toHaveAttribute('data-open', 'true');
+    // Scope to the row: "CRITICAL" also appears in the table caption.
+    expect(within(criticalRow).getByText(/CRITICAL/)).toBeInTheDocument();
+
+    expect(root).toHaveAttribute('data-reduced', 'true');
+    expect(screen.getAllByText(/SYNTHETIC RESULTS/i).length).toBeGreaterThan(0);
+
+    expect(await axe(container)).toHaveNoViolations();
+  });
+});
+
+describe('LiveExperience — The Control Frame (deck)', () => {
+  it('deep-links to the matrix: the acknowledged GAP (anomaly), the table mirror, reduced motion', async () => {
+    const { container } = renderLive('deck-ai-governance-and-controls?slide=3');
+    const root = await screen.findByTestId('live-control-frame', {}, { timeout: 12000 });
+
+    expect(screen.getByTestId('frame-counter')).toHaveTextContent('03 / 08');
+    expect(screen.getByTestId('frame-counter')).toHaveTextContent('1 GAP');
+
+    // The matrix is a real table (the commanding visual AND accessible mirror):
+    // it carries certified control ids and the single dashed GAP cell.
+    const matrix = screen.getByTestId('control-matrix');
+    expect(within(matrix).getByText('CTRL-AI-001')).toBeInTheDocument();
+    const gapName = within(matrix).getByText('Fairness monitoring in production');
+    expect(gapName.closest('td')).toHaveAttribute('data-gap', 'true');
+
+    expect(root).toHaveAttribute('data-reduced', 'true');
+    expect(screen.getAllByText(/POLICY FRAMEWORK · SYNTHETIC/i).length).toBeGreaterThan(0);
+
+    expect(await axe(container)).toHaveNoViolations();
+  });
+
+  it('locks the document theme to dark while mounted and restores on unmount', async () => {
+    document.documentElement.setAttribute('data-theme', 'light');
+    const { unmount } = renderLive('deck-ai-governance-and-controls?slide=1');
+    await screen.findByTestId('live-control-frame', {}, { timeout: 12000 });
+    expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
+    unmount();
+    expect(document.documentElement.getAttribute('data-theme')).toBe('light');
+  });
+});
+
 describe('LiveExperience — unknown id', () => {
   it('offers a way back to the gallery', () => {
     renderLive('does-not-exist');

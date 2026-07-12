@@ -1,0 +1,1050 @@
+/*
+ * THE CONTROL FRAME — experience-local art layer.
+ *
+ * Task-15 art-direction licence: raw colour values are permitted in THIS
+ * stylesheet only. Easings and durations come from the platform motion tokens
+ * (var(--ease-*), var(--dur-*)) — never ad-hoc curves.
+ *
+ * Mood: Swiss-precision governance. A near-black field, a hairline modular
+ * grid that IS the design surface, Inter grotesque, IBM Plex Mono for control
+ * ids. Monochrome but for a single signal amber, spent on exceptions and the
+ * one acknowledged gap. Print inverts to white policy paper.
+ */
+
+.cf-root {
+  --cf-bg: #0e1216;
+  --cf-panel: #141a20;
+  --cf-white: #eef1f4;
+  --cf-text: #c2ccd4;
+  --cf-muted: #8794a0;
+  --cf-faint: #8a95a1;
+  --cf-amber: #e6a93a;
+  --cf-amber-soft: rgba(230, 169, 58, 0.16);
+  --cf-line: rgba(233, 238, 243, 0.14);
+  --cf-line-faint: rgba(233, 238, 243, 0.08);
+  --cf-grid: rgba(233, 238, 243, 0.035);
+  --cf-grid-strong: rgba(233, 238, 243, 0.06);
+  --cf-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+  --cf-sans: 'Inter Variable', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+  color: var(--cf-text);
+  font-family: var(--cf-sans);
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  background-color: var(--cf-bg);
+  background-image:
+    linear-gradient(var(--cf-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--cf-grid) 1px, transparent 1px),
+    linear-gradient(var(--cf-grid-strong) 1px, transparent 1px),
+    linear-gradient(90deg, var(--cf-grid-strong) 1px, transparent 1px);
+  background-size:
+    32px 32px,
+    32px 32px,
+    160px 160px,
+    160px 160px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Chrome                                                              */
+/* ------------------------------------------------------------------ */
+
+.cf-chrome {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 2rem;
+  padding: 1.1rem 1.6rem 0.9rem;
+  font-family: var(--cf-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: var(--cf-muted);
+  background: linear-gradient(to bottom, rgba(14, 18, 22, 0.95) 40%, rgba(14, 18, 22, 0));
+}
+
+.cf-chrome-cell {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  white-space: nowrap;
+}
+
+.cf-chrome-rule {
+  width: 1px;
+  height: 0.85em;
+  align-self: center;
+  background: var(--cf-line);
+}
+
+.cf-back {
+  color: var(--cf-white);
+  text-decoration: none;
+  letter-spacing: 0.12em;
+}
+
+.cf-back:hover {
+  color: var(--cf-amber);
+}
+
+.cf-back:focus-visible,
+.cf-index-toggle:focus-visible,
+.cf-nav-btn:focus-visible,
+.cf-index-list button:focus-visible {
+  outline: 2px solid var(--cf-amber);
+  outline-offset: 3px;
+}
+
+.cf-index-toggle {
+  border: 1px solid var(--cf-line);
+  background: transparent;
+  color: var(--cf-muted);
+  font: inherit;
+  letter-spacing: 0.12em;
+  padding: 0.25rem 0.7rem;
+  cursor: pointer;
+  transition:
+    color var(--dur-feedback) var(--ease-settle),
+    border-color var(--dur-feedback) var(--ease-settle);
+}
+
+.cf-index-toggle:hover,
+.cf-index-toggle[aria-expanded='true'] {
+  color: var(--cf-white);
+  border-color: var(--cf-amber);
+}
+
+/* ------------------------------------------------------------------ */
+/* Frame index                                                         */
+/* ------------------------------------------------------------------ */
+
+.cf-index {
+  position: absolute;
+  top: 3.4rem;
+  right: 1.6rem;
+  z-index: 50;
+  width: min(27rem, calc(100vw - 3.2rem));
+  max-height: calc(100svh - 8rem);
+  overflow-y: auto;
+  padding: 1.1rem 1.2rem 1.2rem;
+  background: var(--cf-panel);
+  border: 1px solid var(--cf-line);
+  box-shadow: 0 26px 60px -30px rgba(0, 0, 0, 0.7);
+  animation: cf-fade var(--dur-state) var(--ease-settle) both;
+}
+
+.cf-index-heading {
+  margin: 0 0 0.8rem;
+  font-family: var(--cf-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  color: var(--cf-amber);
+}
+
+.cf-index-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cf-index-list button {
+  display: flex;
+  gap: 0.8rem;
+  width: 100%;
+  padding: 0.45rem 0.4rem;
+  border: 0;
+  border-top: 1px solid var(--cf-line-faint);
+  background: transparent;
+  color: var(--cf-text);
+  font-family: var(--cf-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--dur-feedback) var(--ease-settle);
+}
+
+.cf-index-list button:hover {
+  background: rgba(233, 238, 243, 0.05);
+}
+
+.cf-index-list button[aria-current='true'],
+.cf-index-list button[aria-current='true'] .cf-index-no {
+  color: var(--cf-amber);
+}
+
+.cf-index-no {
+  color: var(--cf-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes cf-fade {
+  from {
+    opacity: 0;
+    transform: translateY(-0.4rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Stage & frames                                                      */
+/* ------------------------------------------------------------------ */
+
+.cf-main {
+  position: relative;
+  height: 100%;
+}
+
+.cf-stage {
+  position: absolute;
+  inset: 0;
+}
+
+.cf-frame {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  padding: 5.2rem clamp(2.5rem, 6vw, 6rem) 5.6rem;
+  visibility: hidden;
+}
+
+.cf-frame[data-state='active'] {
+  visibility: visible;
+  z-index: 2;
+  animation: cf-frame-in var(--dur-structure) var(--ease-settle) both;
+}
+
+.cf-frame[data-state='leaving'] {
+  visibility: visible;
+  z-index: 3;
+  pointer-events: none;
+  animation: cf-frame-out var(--dur-structure) var(--ease-shift) both;
+}
+
+/* The matrix-region frames "settle into focus" — a slight scale, reading as a
+   reflow of the same grid the deck is navigating. */
+@keyframes cf-frame-in {
+  from {
+    opacity: 0;
+    transform: scale(1.015);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes cf-frame-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.99);
+  }
+}
+
+.cf-frame[data-state='active'] .cf-build {
+  animation: cf-rise var(--dur-structure) var(--ease-settle) both;
+  animation-delay: calc(var(--cf-i, 0) * var(--dur-feedback));
+}
+
+@keyframes cf-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reduced-motion parity */
+.cf-root[data-reduced] .cf-frame[data-state='active'],
+.cf-root[data-reduced] .cf-frame[data-state='active'] .cf-build,
+.cf-root[data-reduced] .cf-index {
+  animation: none;
+}
+
+.cf-root[data-reduced] .cf-frame[data-state='leaving'] {
+  visibility: hidden;
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cf-frame[data-state='active'],
+  .cf-frame[data-state='active'] .cf-build,
+  .cf-index {
+    animation: none;
+  }
+  .cf-frame[data-state='leaving'] {
+    visibility: hidden;
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Typography                                                          */
+/* ------------------------------------------------------------------ */
+
+.cf-body {
+  position: relative;
+  width: 100%;
+  max-width: 74rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.cf-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.cf-eyebrow,
+.cf-kicker {
+  margin: 0;
+  font-family: var(--cf-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  color: var(--cf-muted);
+}
+
+.cf-kicker-amber {
+  color: var(--cf-amber);
+}
+
+.cf-display {
+  margin: 0;
+  font-family: var(--cf-sans);
+  font-weight: 700;
+  font-size: clamp(2.9rem, 6.4vw, 5.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.028em;
+  color: var(--cf-white);
+  text-wrap: balance;
+}
+
+.cf-display-cover {
+  font-size: clamp(3rem, 7vw, 6.2rem);
+}
+
+.cf-line {
+  display: block;
+}
+
+.cf-thesis {
+  margin: 0;
+  max-width: 44rem;
+  font-family: var(--cf-sans);
+  font-weight: 400;
+  font-size: 1.16rem;
+  line-height: 1.6;
+  color: var(--cf-text);
+}
+
+.cf-front-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--cf-line);
+  max-width: 44rem;
+}
+
+.cf-front-meta p {
+  margin: 0;
+  font-family: var(--cf-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: var(--cf-muted);
+}
+
+.cf-standfirst {
+  margin: 0;
+  max-width: 52rem;
+  font-family: var(--cf-sans);
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 1.58;
+  color: var(--cf-text);
+}
+
+.cf-body-cover,
+.cf-body-closing {
+  gap: 1.8rem;
+}
+
+/* Principles */
+.cf-principles {
+  margin: 0.4rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.6rem 3.4rem;
+}
+
+.cf-principle {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 1.2rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--cf-line);
+}
+
+.cf-principle-no {
+  grid-row: 1 / span 2;
+  font-family: var(--cf-mono);
+  font-size: 0.75rem;
+  color: var(--cf-amber);
+  padding-top: 0.6rem;
+}
+
+.cf-principle-word {
+  font-family: var(--cf-sans);
+  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--cf-white);
+}
+
+.cf-principle-line {
+  grid-column: 2;
+  margin-top: 0.6rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--cf-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* The control matrix (real table)                                     */
+/* ------------------------------------------------------------------ */
+
+.cf-body-matrix {
+  max-width: 82rem;
+  gap: 1.1rem;
+}
+
+.cf-matrix-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.cf-matrix-title {
+  margin: 0;
+  font-family: var(--cf-sans);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 3.4vw, 2.8rem);
+  letter-spacing: -0.02em;
+  color: var(--cf-white);
+}
+
+.cf-matrix-head .cf-standfirst {
+  font-size: 0.95rem;
+  color: var(--cf-muted);
+}
+
+.cf-matrix-wrap {
+  margin-top: 0.2rem;
+}
+
+.cf-matrix {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-family: var(--cf-mono);
+}
+
+.cf-matrix th,
+.cf-matrix td {
+  border: 1px solid var(--cf-line);
+  vertical-align: top;
+}
+
+.cf-matrix thead th {
+  padding: 0.5rem 0.6rem;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-align: left;
+  color: var(--cf-muted);
+  background: rgba(233, 238, 243, 0.03);
+}
+
+.cf-matrix-corner {
+  border: 1px solid var(--cf-line);
+  width: 8.5rem;
+}
+
+.cf-matrix-rowhead {
+  width: 8.5rem;
+  padding: 0.6rem;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-align: left;
+  color: var(--cf-white);
+  background: rgba(233, 238, 243, 0.03);
+}
+
+.cf-cell {
+  padding: 0.55rem 0.6rem 0.6rem;
+  height: 4.3rem;
+}
+
+.cf-cell-top {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.cf-cell-glyph {
+  font-size: 0.7rem;
+  color: var(--cf-faint);
+  line-height: 1;
+}
+
+.cf-cell-id {
+  font-size: 0.62rem;
+  letter-spacing: 0.03em;
+  color: var(--cf-muted);
+}
+
+.cf-cell-name {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.64rem;
+  line-height: 1.35;
+  color: var(--cf-text);
+}
+
+.cf-cell-owner {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
+  color: var(--cf-faint);
+}
+
+.cf-cell[data-status='exception'] .cf-cell-glyph,
+.cf-cell[data-status='exception'] .cf-cell-id {
+  color: var(--cf-amber);
+}
+
+.cf-cell[data-status='in-review'] .cf-cell-glyph {
+  color: var(--cf-text);
+}
+
+/* The acknowledged gap — dashed, amber, empty of a certified control. */
+.cf-cell[data-gap] {
+  border: 1px dashed var(--cf-amber);
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0,
+      transparent 7px,
+      var(--cf-amber-soft) 7px,
+      var(--cf-amber-soft) 8px
+    );
+}
+
+.cf-cell[data-gap] .cf-cell-glyph,
+.cf-cell[data-gap] .cf-cell-id,
+.cf-cell[data-gap] .cf-cell-owner {
+  color: var(--cf-amber);
+}
+
+.cf-cell[data-gap] .cf-cell-id {
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.cf-cell[data-gap] .cf-cell-name {
+  color: var(--cf-amber);
+}
+
+.cf-matrix-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.6rem;
+  margin: 0.8rem 0 0;
+  font-family: var(--cf-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  color: var(--cf-muted);
+}
+
+.cf-legend-amber {
+  color: var(--cf-amber);
+}
+
+/* ------------------------------------------------------------------ */
+/* Zoom frames — navigating into the matrix                            */
+/* ------------------------------------------------------------------ */
+
+.cf-body-zoom {
+  max-width: 82rem;
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: 2.8rem;
+  align-items: center;
+}
+
+.cf-zoom-head {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cf-zoom-title {
+  margin: 0;
+  font-family: var(--cf-sans);
+  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  letter-spacing: -0.024em;
+  line-height: 1.03;
+  color: var(--cf-white);
+}
+
+.cf-minimap-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.cf-minimap-cap {
+  margin: 0;
+  font-family: var(--cf-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  color: var(--cf-amber);
+}
+
+/* The locator minimap: the whole matrix as dots, focused line lit amber. */
+.cf-minimap {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 0.4rem;
+  padding: 0.7rem;
+  border: 1px solid var(--cf-line);
+  background: rgba(233, 238, 243, 0.02);
+  width: max-content;
+}
+
+.cf-minimap-row {
+  display: flex;
+  gap: 4px;
+}
+
+.cf-minimap-cell {
+  width: 14px;
+  height: 10px;
+  border: 1px solid var(--cf-line-faint);
+  background: rgba(233, 238, 243, 0.05);
+}
+
+.cf-minimap-cell[data-lit] {
+  border-color: var(--cf-amber);
+  background: var(--cf-amber-soft);
+}
+
+.cf-minimap-cell[data-status='gap'] {
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent 0,
+    transparent 3px,
+    var(--cf-amber) 3px,
+    var(--cf-amber) 4px
+  );
+  border-color: var(--cf-amber);
+}
+
+.cf-zoom-line {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.cf-zoom-cell {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.35rem;
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--cf-line);
+}
+
+.cf-zoom-cell:first-child {
+  border-top: 0;
+}
+
+.cf-zoom-cell-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--cf-mono);
+}
+
+.cf-zoom-glyph {
+  font-size: 0.8rem;
+  color: var(--cf-faint);
+}
+
+.cf-zoom-glyph[data-status='exception'],
+.cf-zoom-glyph[data-status='gap'] {
+  color: var(--cf-amber);
+}
+
+.cf-zoom-cell-id {
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--cf-muted);
+}
+
+.cf-zoom-cell[data-status] {
+  /* placeholder to keep specificity predictable */
+}
+
+.cf-zoom-cell-owner {
+  margin-left: auto;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--cf-faint);
+}
+
+.cf-zoom-cell-label {
+  font-family: var(--cf-sans);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  color: var(--cf-white);
+}
+
+.cf-zoom-cell-oblig {
+  font-family: var(--cf-sans);
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--cf-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Escalation staircase                                                */
+/* ------------------------------------------------------------------ */
+
+.cf-escalation {
+  margin: 0.6rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cf-step {
+  --cf-off: calc(var(--cf-step, 0) * clamp(0.8rem, 2.4vw, 2.7rem));
+  display: grid;
+  grid-template-columns: 2.6rem 1fr auto;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--cf-line);
+  background: rgba(233, 238, 243, 0.02);
+  /* Each step climbs: the left edge steps in, the right edge holds — a
+     staircase that reads as escalation ascending. */
+  margin-left: var(--cf-off);
+  width: calc(100% - var(--cf-off));
+}
+
+.cf-step:last-child {
+  border-color: var(--cf-amber);
+  background: var(--cf-amber-soft);
+}
+
+.cf-step-index {
+  font-family: var(--cf-mono);
+  font-size: 0.8rem;
+  color: var(--cf-amber);
+}
+
+.cf-step-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.cf-step-tier {
+  font-family: var(--cf-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  color: var(--cf-muted);
+}
+
+.cf-step-owner {
+  font-family: var(--cf-sans);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--cf-white);
+}
+
+.cf-step-trigger {
+  font-size: 0.82rem;
+  color: var(--cf-muted);
+}
+
+.cf-step-clock {
+  font-family: var(--cf-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: var(--cf-amber);
+  white-space: nowrap;
+}
+
+/* Closing */
+.cf-closing-obligations {
+  margin: 0.4rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  max-width: 56rem;
+}
+
+.cf-closing-oblig {
+  padding: 0.9rem 0;
+  border-top: 1px solid var(--cf-line);
+  font-family: var(--cf-sans);
+  font-size: 1.08rem;
+  line-height: 1.5;
+  color: var(--cf-text);
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+.cf-footer {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.9rem 1.6rem 1.1rem;
+  font-family: var(--cf-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: var(--cf-muted);
+  background: linear-gradient(to top, rgba(14, 18, 22, 0.95) 40%, rgba(14, 18, 22, 0));
+}
+
+.cf-footer-section {
+  color: var(--cf-amber);
+  white-space: nowrap;
+}
+
+.cf-footer-notice {
+  white-space: nowrap;
+}
+
+.cf-footer-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  white-space: nowrap;
+}
+
+.cf-hint {
+  margin-right: 0.8rem;
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+}
+
+.cf-nav-btn {
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 1px solid var(--cf-line);
+  background: transparent;
+  color: var(--cf-white);
+  font-family: var(--cf-mono);
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition:
+    color var(--dur-feedback) var(--ease-settle),
+    border-color var(--dur-feedback) var(--ease-settle);
+}
+
+.cf-nav-btn:hover:not(:disabled) {
+  color: var(--cf-amber);
+  border-color: var(--cf-amber);
+}
+
+.cf-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.cf-print-foot {
+  display: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Narrow viewports                                                    */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 62rem) {
+  .cf-root {
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+  }
+
+  .cf-stage {
+    position: relative;
+    inset: auto;
+  }
+
+  .cf-frame {
+    padding: 5.2rem 1.4rem 5.6rem;
+    min-height: 100svh;
+  }
+
+  .cf-frame:not([data-state='active']) {
+    display: none;
+  }
+
+  .cf-principles,
+  .cf-body-zoom {
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
+  }
+
+  .cf-matrix {
+    font-size: 0.9em;
+  }
+
+  .cf-cell-name {
+    display: none;
+  }
+
+  .cf-step {
+    margin-left: 0;
+  }
+
+  .cf-footer-notice,
+  .cf-hint {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Print: one frame per page on white policy paper                     */
+/* ------------------------------------------------------------------ */
+
+@media print {
+  .cf-root {
+    height: auto;
+    overflow: visible;
+    background: #fff;
+    color: #10161c;
+  }
+
+  .cf-chrome,
+  .cf-footer,
+  .cf-index {
+    display: none;
+  }
+
+  .cf-stage {
+    position: static;
+  }
+
+  .cf-frame {
+    position: static;
+    visibility: visible !important;
+    display: block;
+    height: auto;
+    min-height: 92vh;
+    padding: 3rem 2.5rem;
+    break-after: page;
+    animation: none !important;
+  }
+
+  .cf-frame .cf-build {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .cf-display,
+  .cf-matrix-title,
+  .cf-zoom-title,
+  .cf-principle-word,
+  .cf-step-owner,
+  .cf-zoom-cell-label {
+    color: #10161c;
+  }
+
+  .cf-thesis,
+  .cf-standfirst,
+  .cf-closing-oblig {
+    color: #33404a;
+  }
+
+  .cf-matrix th,
+  .cf-matrix td,
+  .cf-step {
+    border-color: rgba(0, 0, 0, 0.28);
+  }
+
+  .cf-cell[data-gap] {
+    border: 1px dashed #b07d16;
+    background: none;
+  }
+
+  .cf-kicker-amber,
+  .cf-step-clock,
+  .cf-step-index,
+  .cf-legend-amber,
+  .cf-cell[data-gap] .cf-cell-id,
+  .cf-cell[data-status='exception'] .cf-cell-glyph {
+    color: #9a6c10;
+  }
+
+  .cf-print-foot {
+    display: block;
+    margin-top: 2rem;
+    padding-top: 0.8rem;
+    border-top: 1pt solid rgba(0, 0, 0, 0.25);
+    font-family: var(--cf-mono);
+    font-size: 7.5pt;
+    letter-spacing: 0.12em;
+    color: #5c5c5c;
+  }
+}

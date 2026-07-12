@@ -29,12 +29,32 @@ const StudioPage = lazy(
   () => import('../../../../experiences/personal-pages/home-data-scientist-studio/StudioPage.js'),
 );
 
+const CommitteePaperPage = lazy(
+  () =>
+    import(
+      '../../../../experiences/slide-decks/deck-executive-decision-proposal/CommitteePaperPage.js'
+    ),
+);
+const LabReportPage = lazy(
+  () =>
+    import(
+      '../../../../experiences/slide-decks/deck-genai-model-validation-report/LabReportPage.js'
+    ),
+);
+const ControlFramePage = lazy(
+  () =>
+    import('../../../../experiences/slide-decks/deck-ai-governance-and-controls/ControlFramePage.js'),
+);
+
 const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: ComponentType }> = {
   'db-model-monitoring-cockpit': { mood: 'dark', Component: CockpitPage },
   'exp-system-architecture': { mood: 'light', Component: DrawingOfficePage },
   'deck-ai-strategy': { mood: 'dark', Component: BoardDeckPage },
   'proj-ai-model-validation-hub': { mood: 'light', Component: LedgerPage },
   'home-data-scientist-studio': { mood: 'dark', Component: StudioPage },
+  'deck-executive-decision-proposal': { mood: 'light', Component: CommitteePaperPage },
+  'deck-genai-model-validation-report': { mood: 'light', Component: LabReportPage },
+  'deck-ai-governance-and-controls': { mood: 'dark', Component: ControlFramePage },
 };
 
 /**
@@ -74,9 +94,10 @@ export default function LiveExperience() {
           No live experience here
         </h1>
         <p className="text-text-secondary">
-          “{experienceId}” has no live rendering yet. Five worlds are live — one per
-          surface: the Model Monitoring Cockpit, the System Architecture explainer, the AI
-          Strategy board deck, the Model Validation Hub, and the Data Scientist Studio.
+          “{experienceId}” has no live rendering yet. Eight worlds are live: the Model
+          Monitoring Cockpit, the System Architecture explainer, the AI Strategy board deck, the
+          Model Validation Hub, the Data Scientist Studio, and three deck worlds — the Committee
+          Paper, the Lab Report, and the Control Frame.
         </p>
         <RouterLink to="/browse" className="text-accent hover:underline">
           ◄ Back to the gallery
