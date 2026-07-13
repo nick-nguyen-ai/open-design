@@ -1,0 +1,617 @@
+/*
+ * THE SPECIMEN BOOK — experience-local art layer.
+ *
+ * The catalogue's ONLY colourless world: near-white paper, ink black, and
+ * grades of grey — NO accent hue anywhere. Greys carry the whole exhibit;
+ * series and states are told apart by weight, rule and letterspacing, never by
+ * colour. This world lives on kerning-level type care: measure is held short,
+ * the display face is set at true optical sizes, and specimen numbers hang in
+ * the margin, optically aligned.
+ *
+ * Art-direction licence (task 20): raw colour VALUES (here, only greys) are
+ * permitted in this stylesheet. LedgerReveal supplies the settle choreography
+ * and its reduced-motion parity; no bespoke cubic-bezier values.
+ */
+
+.sb-root {
+  --sb-paper: #f4f4f2;
+  --sb-paper-2: #eaeae7;
+  --sb-ink: #16161a;
+  --sb-ink-2: #35353a;
+  --sb-grey: #66666b;
+  --sb-grey-2: #9a9a9f;
+  --sb-grey-3: #c2c2c4;
+  --sb-faint: rgba(22, 22, 26, 0.1);
+  --sb-hair: rgba(22, 22, 26, 0.16);
+  --sb-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+  --sb-serif: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
+
+  position: relative;
+  min-height: 100svh;
+  background: var(--sb-paper);
+  color: var(--sb-ink);
+  font-family: var(--sb-serif);
+  font-optical-sizing: auto;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  isolation: isolate;
+}
+
+/* faint printed-page tone — a colourless paper grain, no hue */
+.sb-root::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(60vmax 50vmax at 82% -6%, rgba(22, 22, 26, 0.035), transparent 60%),
+    radial-gradient(60vmax 60vmax at -8% 100%, rgba(22, 22, 26, 0.04), transparent 62%);
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Chrome                                                              */
+/* ------------------------------------------------------------------ */
+
+.sb-chrome {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 2rem;
+  padding: 1rem 1.6rem 0.85rem;
+  font-family: var(--sb-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  color: var(--sb-grey);
+  background: rgba(244, 244, 242, 0.82);
+  backdrop-filter: blur(12px);
+  border-bottom: 1.5px solid var(--sb-ink);
+}
+
+.sb-chrome-cell {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  white-space: nowrap;
+}
+
+.sb-chrome-rule {
+  width: 1px;
+  height: 0.85em;
+  align-self: center;
+  background: var(--sb-hair);
+}
+
+.sb-back {
+  color: var(--sb-ink);
+  text-decoration: none;
+  letter-spacing: 0.14em;
+}
+
+.sb-back:hover {
+  color: var(--sb-grey);
+}
+
+.sb-back:focus-visible {
+  outline: 2px solid var(--sb-ink);
+  outline-offset: 3px;
+}
+
+.sb-synthetic {
+  padding: 0.2rem 0.55rem;
+  border: 1px dashed var(--sb-hair);
+  color: var(--sb-grey);
+  letter-spacing: 0.16em;
+}
+
+/* ------------------------------------------------------------------ */
+/* Layout + hero                                                       */
+/* ------------------------------------------------------------------ */
+
+.sb-main {
+  max-width: 66rem;
+  margin: 0 auto;
+  padding: 0 clamp(1.4rem, 4vw, 3.4rem) 4rem;
+}
+
+.sb-hero {
+  padding: 4.6rem 0 3rem;
+  border-bottom: 1.5px solid var(--sb-ink);
+}
+
+.sb-kicker {
+  margin: 0 0 1.6rem;
+  font-family: var(--sb-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.42em;
+  color: var(--sb-ink);
+}
+
+.sb-display {
+  margin: 0;
+  max-width: 20ch;
+  font-weight: 400;
+  font-variation-settings: 'opsz' 144, 'wght' 300, 'SOFT' 0, 'WONK' 0;
+  font-size: clamp(2.8rem, 8vw, 6rem);
+  line-height: 0.98;
+  letter-spacing: -0.028em;
+  color: var(--sb-ink);
+}
+
+.sb-display-line {
+  display: block;
+}
+
+.sb-display-line:nth-child(2) {
+  font-variation-settings: 'opsz' 144, 'wght' 600, 'SOFT' 0, 'WONK' 0;
+}
+
+.sb-display-line:nth-child(3) {
+  font-variation-settings: 'opsz' 144, 'wght' 300, 'SOFT' 0, 'WONK' 1;
+  font-style: italic;
+}
+
+.sb-identity {
+  margin: 2rem 0 0;
+  font-family: var(--sb-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  color: var(--sb-grey);
+}
+
+.sb-subline {
+  margin: 1.2rem 0 0;
+  max-width: 46ch;
+  font-size: 1.0625rem;
+  line-height: 1.68;
+  color: var(--sb-ink-2);
+}
+
+/* ------------------------------------------------------------------ */
+/* Section headings — foundry register style                           */
+/* ------------------------------------------------------------------ */
+
+.sb-section-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 1.1rem;
+  margin: 0 0 1.6rem;
+  font-weight: 400;
+  font-variation-settings: 'opsz' 40, 'wght' 460, 'SOFT' 0, 'WONK' 0;
+  font-size: clamp(1.3rem, 2.6vw, 1.7rem);
+  letter-spacing: -0.01em;
+  color: var(--sb-ink);
+}
+
+.sb-section-heading-major {
+  font-variation-settings: 'opsz' 60, 'wght' 560, 'SOFT' 0, 'WONK' 0;
+  font-size: clamp(1.6rem, 3.4vw, 2.3rem);
+}
+
+.sb-heading-no {
+  flex: none;
+  align-self: center;
+  font-family: var(--sb-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--sb-grey);
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--sb-hair);
+}
+
+/* ------------------------------------------------------------------ */
+/* The specimens                                                       */
+/* ------------------------------------------------------------------ */
+
+.sb-specimens {
+  padding: 3.2rem 0 0;
+}
+
+.sb-specimen-stack {
+  display: grid;
+  gap: 0;
+}
+
+.sb-specimen {
+  position: relative;
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  column-gap: clamp(1rem, 3vw, 2.4rem);
+  padding: 2.8rem 0 3rem;
+  border-top: 1px solid var(--sb-hair);
+}
+
+.sb-specimen:first-child {
+  border-top: 0;
+}
+
+/* the heavy foundry rule that opens each specimen */
+.sb-specimen-rule {
+  grid-column: 1 / -1;
+  height: 2px;
+  margin-bottom: 1.8rem;
+  background: var(--sb-ink);
+}
+
+.sb-specimen:first-child .sb-specimen-rule {
+  margin-top: 0;
+}
+
+/* specimen number — a large foundry folio hanging in the margin */
+.sb-specimen-index {
+  grid-column: 1;
+  grid-row: 2 / 6;
+  margin: 0;
+  font-variation-settings: 'opsz' 60, 'wght' 300, 'SOFT' 0, 'WONK' 0;
+  font-size: 3.2rem;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--sb-grey-3);
+  padding-top: 0.1rem;
+}
+
+.sb-specimen-title {
+  grid-column: 2;
+  margin: 0;
+  font-weight: 400;
+  /* opsz / wght / SOFT / WONK / italic come inline from the specimen's cut */
+  font-size: clamp(2.1rem, 6vw, 4.6rem);
+  line-height: 0.98;
+  color: var(--sb-ink);
+  text-wrap: balance;
+}
+
+.sb-specimen-meta {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin: 1.5rem 0 0;
+  font-family: var(--sb-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  color: var(--sb-ink);
+}
+
+.sb-dot {
+  color: var(--sb-grey-2);
+}
+
+.sb-meta-retracted {
+  color: var(--sb-ink);
+  border: 1px solid var(--sb-ink);
+  padding: 0.06rem 0.36rem;
+  letter-spacing: 0.18em;
+}
+
+.sb-specimen-cut {
+  grid-column: 2;
+  margin: 0.55rem 0 0;
+  font-family: var(--sb-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.1em;
+  color: var(--sb-grey);
+}
+
+.sb-specimen-abstract {
+  grid-column: 2;
+  margin: 1.4rem 0 0;
+  max-width: 58ch;
+  font-size: 0.9375rem;
+  line-height: 1.66;
+  color: var(--sb-ink-2);
+}
+
+.sb-erratum {
+  grid-column: 2;
+  margin: 1.2rem 0 0;
+  max-width: 58ch;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--sb-ink);
+  border-left: 3px solid var(--sb-ink);
+  font-family: var(--sb-mono);
+  font-size: 0.75rem;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  color: var(--sb-ink);
+  background: var(--sb-paper-2);
+}
+
+.sb-survived {
+  grid-column: 2;
+  margin: 1.3rem 0 0;
+  max-width: 58ch;
+  font-size: 0.9375rem;
+  line-height: 1.62;
+  color: var(--sb-ink);
+}
+
+.sb-survived-label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-family: var(--sb-mono);
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--sb-grey);
+}
+
+/* the retracted specimen: set with the SAME care — a hairline frame, not a
+ * strikethrough. Dignity, not erasure. */
+.sb-specimen-retracted .sb-specimen-index {
+  color: var(--sb-ink);
+}
+
+.sb-specimen-retracted .sb-specimen-title {
+  color: var(--sb-ink-2);
+}
+
+/* ------------------------------------------------------------------ */
+/* Citations exhibit                                                   */
+/* ------------------------------------------------------------------ */
+
+.sb-exhibit {
+  padding: 3.4rem 0 0;
+  border-top: 1.5px solid var(--sb-ink);
+  margin-top: 3rem;
+}
+
+.sb-figure {
+  margin: 0;
+  padding: 1.6rem 1.6rem 1.4rem;
+  border: 1px solid var(--sb-hair);
+  background: var(--sb-paper-2);
+}
+
+.sb-figure-caption {
+  margin: 1rem 0 0;
+  max-width: 60ch;
+  font-family: var(--sb-mono);
+  font-size: 0.625rem;
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+  color: var(--sb-grey);
+}
+
+/* ------------------------------------------------------------------ */
+/* Colophon                                                            */
+/* ------------------------------------------------------------------ */
+
+.sb-colophon {
+  padding: 3.4rem 0 0;
+  border-top: 1px solid var(--sb-hair);
+  margin-top: 3rem;
+}
+
+.sb-colophon-name {
+  margin: 0;
+  font-variation-settings: 'opsz' 48, 'wght' 520, 'SOFT' 0, 'WONK' 0;
+  font-size: 1.9rem;
+  letter-spacing: -0.01em;
+  color: var(--sb-ink);
+}
+
+.sb-colophon-affil {
+  margin: 0.4rem 0 0;
+  font-style: italic;
+  font-size: 1.0625rem;
+  color: var(--sb-ink-2);
+}
+
+.sb-colophon-figures {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4rem 3rem;
+  margin: 1.8rem 0 0;
+}
+
+.sb-colophon-figures dt {
+  font-family: var(--sb-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.2em;
+  color: var(--sb-grey);
+}
+
+.sb-colophon-figures dd {
+  margin: 0.35rem 0 0;
+  font-family: var(--sb-mono);
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--sb-ink);
+}
+
+.sb-colophon-note {
+  margin: 1.6rem 0 0;
+  max-width: 52ch;
+  font-style: italic;
+  font-size: 0.9375rem;
+  color: var(--sb-grey);
+}
+
+/* ------------------------------------------------------------------ */
+/* Registers (service, reading list)                                   */
+/* ------------------------------------------------------------------ */
+
+.sb-service,
+.sb-reading {
+  padding: 3.4rem 0 0;
+  border-top: 1px solid var(--sb-hair);
+  margin-top: 3rem;
+}
+
+.sb-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.sb-table-caption {
+  text-align: left;
+  margin-bottom: 1rem;
+  max-width: 56ch;
+  font-style: italic;
+  font-size: 0.9375rem;
+  color: var(--sb-grey);
+}
+
+.sb-table thead th {
+  text-align: left;
+  padding: 0.55rem 0.8rem;
+  border-bottom: 1.5px solid var(--sb-ink);
+  font-family: var(--sb-mono);
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--sb-ink);
+}
+
+.sb-table tbody th,
+.sb-table tbody td {
+  padding: 0.7rem 0.8rem;
+  border-bottom: 1px solid var(--sb-hair);
+  vertical-align: top;
+  color: var(--sb-ink-2);
+}
+
+.sb-table tbody th {
+  font-family: var(--sb-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--sb-ink);
+  white-space: nowrap;
+}
+
+.sb-reading-note {
+  margin: 0 0 1.6rem;
+  max-width: 54ch;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--sb-grey);
+}
+
+.sb-reading-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: reading;
+}
+
+.sb-reading-item {
+  padding: 1.3rem 0;
+  border-top: 1px solid var(--sb-hair);
+}
+
+.sb-reading-item:first-child {
+  border-top: 0;
+}
+
+.sb-reading-cite {
+  display: grid;
+  gap: 0.15rem;
+  margin: 0;
+}
+
+.sb-reading-authors {
+  font-family: var(--sb-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sb-grey);
+}
+
+.sb-reading-title {
+  font-variation-settings: 'opsz' 36, 'wght' 500, 'SOFT' 0, 'WONK' 0;
+  font-size: 1.3rem;
+  line-height: 1.2;
+  letter-spacing: -0.008em;
+  color: var(--sb-ink);
+}
+
+.sb-reading-venue {
+  font-family: var(--sb-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  color: var(--sb-grey-2);
+}
+
+.sb-reading-why {
+  margin: 0.6rem 0 0;
+  max-width: 60ch;
+  font-style: italic;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--sb-ink-2);
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+.sb-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 66rem;
+  margin: 0 auto;
+  padding: 1.4rem clamp(1.4rem, 4vw, 3.4rem) 1.8rem;
+  border-top: 1.5px solid var(--sb-ink);
+  font-family: var(--sb-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  color: var(--sb-grey);
+}
+
+/* ------------------------------------------------------------------ */
+/* Narrow viewports                                                    */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 46rem) {
+  .sb-chrome {
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .sb-specimen {
+    grid-template-columns: 1fr;
+  }
+
+  .sb-specimen-index {
+    grid-row: auto;
+    padding-top: 0;
+    margin-bottom: 0.4rem;
+  }
+
+  .sb-specimen-title,
+  .sb-specimen-meta,
+  .sb-specimen-cut,
+  .sb-specimen-abstract,
+  .sb-erratum,
+  .sb-survived {
+    grid-column: 1;
+  }
+
+  .sb-table thead {
+    display: none;
+  }
+
+  .sb-table tbody th,
+  .sb-table tbody td {
+    display: block;
+    border: 0;
+    padding: 0.15rem 0;
+  }
+
+  .sb-table tbody tr {
+    display: block;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--sb-hair);
+  }
+}

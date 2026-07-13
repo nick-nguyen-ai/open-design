@@ -1,0 +1,835 @@
+/*
+ * THE PLAYBILL — experience-local art layer.
+ *
+ * Mood: a theatre's season playbills. Stage-black field, warm marquee white,
+ * letterpress typography — rules and ornaments used sparingly, engagements set
+ * bill-of-fare in columns. Theatrical, but held to bank restraint: one brass
+ * note, one theatrical red reserved for the cancelled bill (the anomaly).
+ *
+ * Art-direction licence (task 20): raw colour values are permitted in THIS
+ * stylesheet only. The marquee bulbs shimmer on a token easing/duration at L2
+ * and hold static under reduced motion; LedgerReveal supplies the bill
+ * choreography and its reduced-motion parity. No bespoke cubic-bezier values.
+ *
+ * Distinct from The Specimen Book (colourless foundry archive): this world is
+ * warm, lit, and theatrical rather than cool and colourless.
+ */
+
+.pb-root {
+  --pb-stage: #0b0906;
+  --pb-stage-2: #12100b;
+  --pb-cream: #efe3c3;
+  --pb-cream-dim: #b8ac8c;
+  --pb-brass: #cba24d;
+  --pb-brass-dim: #8a7238;
+  --pb-red: #c9503c;
+  --pb-red-dim: rgba(201, 80, 60, 0.5);
+  --pb-muted: #938a72;
+  --pb-faint: rgba(239, 227, 195, 0.1);
+  --pb-panel: rgba(239, 227, 195, 0.04);
+  --pb-panel-edge: rgba(203, 162, 77, 0.28);
+  --pb-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+  --pb-serif: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
+  --pb-sans: system-ui, 'Segoe UI', 'Helvetica Neue', sans-serif;
+
+  position: relative;
+  min-height: 100svh;
+  background: var(--pb-stage);
+  color: var(--pb-cream);
+  font-family: var(--pb-sans);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  isolation: isolate;
+}
+
+.pb-field {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(90vmin 60vmin at 50% -6%, rgba(203, 162, 77, 0.12), transparent 62%),
+    radial-gradient(120vmin 90vmin at 50% 108%, rgba(24, 18, 10, 0.7), transparent 70%),
+    linear-gradient(180deg, #100c07 0%, #0b0906 60%, #070502 100%);
+}
+
+/* faint stage-curtain vignette at the sides */
+.pb-field::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.4), transparent 14%, transparent 86%, rgba(0, 0, 0, 0.4));
+}
+
+/* ------------------------------------------------------------------ */
+/* Chrome                                                              */
+/* ------------------------------------------------------------------ */
+
+.pb-chrome {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 2rem;
+  padding: 1rem 1.6rem 0.85rem;
+  font-family: var(--pb-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  color: var(--pb-muted);
+  background: rgba(11, 9, 6, 0.78);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--pb-panel-edge);
+}
+
+.pb-chrome-cell {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  white-space: nowrap;
+}
+
+.pb-chrome-rule {
+  width: 1px;
+  height: 0.85em;
+  align-self: center;
+  background: var(--pb-panel-edge);
+}
+
+.pb-back {
+  color: var(--pb-cream);
+  text-decoration: none;
+  letter-spacing: 0.14em;
+}
+
+.pb-back:hover {
+  color: var(--pb-brass);
+}
+
+.pb-back:focus-visible {
+  outline: 2px solid var(--pb-brass);
+  outline-offset: 3px;
+}
+
+.pb-synthetic {
+  padding: 0.2rem 0.55rem;
+  border: 1px dashed var(--pb-panel-edge);
+  color: var(--pb-muted);
+  letter-spacing: 0.16em;
+}
+
+/* ------------------------------------------------------------------ */
+/* Layout + hero                                                       */
+/* ------------------------------------------------------------------ */
+
+.pb-main {
+  max-width: 74rem;
+  margin: 0 auto;
+  padding: 0 clamp(1.4rem, 4vw, 3.4rem) 4rem;
+}
+
+.pb-hero {
+  padding: 4.4rem 0 2rem;
+  text-align: center;
+}
+
+.pb-kicker {
+  margin: 0 0 1.4rem;
+  font-family: var(--pb-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.46em;
+  color: var(--pb-brass);
+}
+
+.pb-display {
+  margin: 0 auto;
+  max-width: 20ch;
+  font-family: var(--pb-serif);
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-size: clamp(3rem, 9vw, 6.4rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  color: var(--pb-cream);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+}
+
+.pb-display-line {
+  display: block;
+}
+
+.pb-display-line:nth-child(2) {
+  font-style: italic;
+  color: var(--pb-brass);
+}
+
+.pb-identity {
+  margin: 1.8rem 0 0;
+  font-family: var(--pb-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  color: var(--pb-brass);
+}
+
+.pb-subline {
+  margin: 1.2rem auto 0;
+  max-width: 52ch;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--pb-cream-dim);
+}
+
+/* ------------------------------------------------------------------ */
+/* NOW SHOWING — the marquee                                           */
+/* ------------------------------------------------------------------ */
+
+.pb-marquee {
+  margin: 2.6rem 0 0;
+}
+
+.pb-marquee-frame {
+  position: relative;
+  padding: clamp(1.8rem, 4vw, 3rem);
+  border-radius: 6px;
+  background:
+    radial-gradient(120% 140% at 50% 0%, rgba(203, 162, 77, 0.12), transparent 60%),
+    var(--pb-stage-2);
+  box-shadow: 0 0 60px rgba(203, 162, 77, 0.12), inset 0 0 0 1px rgba(203, 162, 77, 0.16);
+  text-align: center;
+  overflow: hidden;
+}
+
+/* the bulb-dot border — marquee lights around the frame */
+.pb-marquee-bulbs {
+  position: absolute;
+  inset: 10px;
+  border-radius: 4px;
+  padding: 0;
+  pointer-events: none;
+  --pb-bulb: rgba(255, 233, 170, 0.98);
+  background:
+    radial-gradient(circle, var(--pb-bulb) 2px, transparent 2.7px) top left / 17px 17px repeat-x,
+    radial-gradient(circle, var(--pb-bulb) 2px, transparent 2.7px) bottom left / 17px 17px repeat-x,
+    radial-gradient(circle, var(--pb-bulb) 2px, transparent 2.7px) top left / 17px 17px repeat-y,
+    radial-gradient(circle, var(--pb-bulb) 2px, transparent 2.7px) top right / 17px 17px repeat-y;
+  filter: drop-shadow(0 0 4px rgba(255, 224, 150, 0.85));
+}
+
+/* slow warm shimmer at L2 — a travelling glow over the bulbs; static reduced */
+@media (prefers-reduced-motion: no-preference) {
+  .pb-marquee-frame:not([data-reduced='true']) .pb-marquee-bulbs {
+    animation: pb-shimmer 6s var(--ease-shift) infinite alternate;
+  }
+
+  @keyframes pb-shimmer {
+    from {
+      opacity: 0.62;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+.pb-marquee-inner {
+  position: relative;
+}
+
+.pb-marquee-billing {
+  margin: 0;
+  font-family: var(--pb-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  color: var(--pb-brass);
+}
+
+.pb-marquee-title {
+  margin: 0.9rem 0 0;
+  font-family: var(--pb-serif);
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-size: clamp(1.9rem, 4.6vw, 3.2rem);
+  line-height: 1.06;
+  letter-spacing: -0.014em;
+  color: #fff4d6;
+  text-shadow: 0 0 26px rgba(247, 224, 158, 0.28);
+}
+
+.pb-marquee-line {
+  margin: 0.9rem 0 0;
+  font-family: var(--pb-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  color: var(--pb-cream);
+}
+
+.pb-marquee-blurb {
+  margin: 1rem auto 0;
+  max-width: 54ch;
+  font-family: var(--pb-serif);
+  font-style: italic;
+  font-size: 1.0625rem;
+  line-height: 1.56;
+  color: var(--pb-cream-dim);
+}
+
+/* ------------------------------------------------------------------ */
+/* Section headings                                                    */
+/* ------------------------------------------------------------------ */
+
+.pb-section-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.9rem;
+  margin: 0 0 1.8rem;
+  text-align: center;
+  font-family: var(--pb-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  color: var(--pb-brass);
+}
+
+.pb-section-heading::before,
+.pb-section-heading::after {
+  content: '✦';
+  color: var(--pb-brass-dim);
+  font-size: 0.7rem;
+  align-self: center;
+}
+
+.pb-section-sub {
+  flex-basis: 100%;
+  font-weight: 400;
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  color: var(--pb-cream-dim);
+}
+
+/* ------------------------------------------------------------------ */
+/* The season bills                                                    */
+/* ------------------------------------------------------------------ */
+
+.pb-seasons {
+  margin-top: 3.8rem;
+}
+
+.pb-season-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.6rem;
+  align-items: stretch;
+}
+
+/* each season is wrapped by a LedgerReveal motion.div — let it fill the row */
+.pb-season-grid > * {
+  display: flex;
+}
+
+.pb-season {
+  flex: 1;
+}
+
+.pb-season {
+  display: flex;
+  flex-direction: column;
+  padding: 1.4rem 1.4rem 1.4rem;
+  border: 1px solid var(--pb-panel-edge);
+  border-radius: 5px;
+  background: var(--pb-panel);
+}
+
+/* end-of-season ornament — pinned to the bottom so columns balance */
+.pb-season::after {
+  content: '✦ ✦ ✦';
+  display: block;
+  margin-top: auto;
+  padding-top: 1.4rem;
+  text-align: center;
+  font-size: 0.5rem;
+  letter-spacing: 0.3em;
+  color: var(--pb-brass-dim);
+}
+
+.pb-season-masthead {
+  text-align: center;
+  padding-bottom: 1rem;
+  border-bottom: 2px double var(--pb-panel-edge);
+  margin-bottom: 1.2rem;
+}
+
+.pb-season-label {
+  margin: 0;
+  font-family: var(--pb-mono);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--pb-brass);
+}
+
+.pb-season-rule {
+  display: block;
+  width: 2.4rem;
+  height: 1px;
+  margin: 0.6rem auto;
+  background: var(--pb-brass-dim);
+}
+
+.pb-season-note {
+  margin: 0;
+  font-family: var(--pb-serif);
+  font-style: italic;
+  font-size: 0.9375rem;
+  color: var(--pb-cream-dim);
+}
+
+.pb-season-bills {
+  display: grid;
+  gap: 1.2rem;
+}
+
+/* --- one bill --- */
+.pb-bill {
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid var(--pb-faint);
+  text-align: center;
+}
+
+.pb-bill:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.pb-bill-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-bottom: 0.6rem;
+}
+
+.pb-format {
+  font-family: var(--pb-mono);
+  font-size: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 0.16rem 0.46rem;
+  border: 1px solid var(--pb-brass-dim);
+  border-radius: 2px;
+  color: var(--pb-brass);
+}
+
+.pb-format-keynote {
+  border-color: var(--pb-brass);
+  color: #f7e09e;
+  background: rgba(203, 162, 77, 0.1);
+}
+
+.pb-bill-house {
+  font-family: var(--pb-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.14em;
+  color: var(--pb-muted);
+}
+
+.pb-bill-title {
+  margin: 0;
+  font-family: var(--pb-serif);
+  font-optical-sizing: auto;
+  font-weight: 520;
+  font-size: 1.3rem;
+  line-height: 1.16;
+  letter-spacing: -0.01em;
+  color: var(--pb-cream);
+  text-wrap: balance;
+}
+
+.pb-bill-line {
+  margin: 0.5rem 0 0;
+  font-family: var(--pb-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  color: var(--pb-brass);
+}
+
+.pb-bill-notice {
+  margin: 0.7rem 0 0;
+  font-family: var(--pb-serif);
+  font-style: italic;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--pb-cream-dim);
+}
+
+/* --- the cancelled bill (anomaly) --- */
+.pb-bill-cancelled .pb-bill-title {
+  color: var(--pb-cream-dim);
+}
+
+.pb-bill-cancelled-mark {
+  margin: 0.6rem 0 0;
+  display: inline-block;
+  padding: 0.28rem 0.6rem;
+  border: 1px solid var(--pb-red-dim);
+  border-radius: 2px;
+  font-family: var(--pb-mono);
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--pb-red);
+  background: rgba(201, 80, 60, 0.08);
+}
+
+/* ------------------------------------------------------------------ */
+/* Repertoire                                                          */
+/* ------------------------------------------------------------------ */
+
+.pb-repertoire,
+.pb-boxoffice,
+.pb-stagecraft,
+.pb-mirror {
+  margin-top: 4rem;
+}
+
+.pb-rep-list {
+  max-width: 52rem;
+  margin: 0 auto;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.pb-rep-item {
+  border: 1px solid var(--pb-panel-edge);
+  border-radius: 4px;
+  background: var(--pb-panel);
+}
+
+.pb-rep-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.9rem 1.1rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.pb-rep-summary::-webkit-details-marker {
+  display: none;
+}
+
+.pb-rep-summary:focus-visible {
+  outline: 2px solid var(--pb-brass);
+  outline-offset: 2px;
+}
+
+.pb-rep-title {
+  flex: 1;
+  font-family: var(--pb-serif);
+  font-weight: 520;
+  font-size: 1.125rem;
+  color: var(--pb-cream);
+}
+
+.pb-rep-runtime {
+  font-family: var(--pb-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  color: var(--pb-muted);
+}
+
+.pb-rep-abstract {
+  margin: 0;
+  padding: 0 1.1rem 1.1rem calc(1.1rem + 4.6rem);
+  max-width: 64ch;
+  font-size: 0.9375rem;
+  line-height: 1.62;
+  color: var(--pb-cream-dim);
+}
+
+.pb-rep-note {
+  max-width: 52rem;
+  margin: 1.4rem auto 0;
+  text-align: center;
+  font-family: var(--pb-serif);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--pb-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Box office                                                          */
+/* ------------------------------------------------------------------ */
+
+.pb-stub-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.2rem;
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+.pb-stub {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.3rem;
+  padding: 1.6rem 1.2rem;
+  border: 1px dashed var(--pb-panel-edge);
+  border-radius: 4px;
+  background: var(--pb-panel);
+  text-align: center;
+}
+
+/* box-office stub perforation edge — a torn ticket stub */
+.pb-stub-perf {
+  position: absolute;
+  left: 0.7rem;
+  right: 0.7rem;
+  top: 50%;
+  width: auto;
+  height: 0;
+  border-top: 1.5px dashed var(--pb-brass);
+  opacity: 0.7;
+}
+
+.pb-stub-perf::before,
+.pb-stub-perf::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--pb-stage);
+  border: 1px solid var(--pb-panel-edge);
+  transform: translateY(-50%);
+}
+
+.pb-stub-perf::before {
+  left: -1.4rem;
+}
+
+.pb-stub-perf::after {
+  right: -1.4rem;
+}
+
+.pb-stub-count {
+  font-family: var(--pb-serif);
+  font-weight: 560;
+  font-size: 2.4rem;
+  line-height: 1;
+  color: var(--pb-brass);
+}
+
+.pb-stub-label {
+  font-family: var(--pb-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--pb-cream);
+}
+
+.pb-stub-note {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--pb-muted);
+}
+
+.pb-box-note {
+  max-width: 52rem;
+  margin: 1.4rem auto 0;
+  text-align: center;
+  font-family: var(--pb-serif);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--pb-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Stagecraft                                                          */
+/* ------------------------------------------------------------------ */
+
+.pb-craft-note {
+  max-width: 52rem;
+  margin: 0 auto 1.6rem;
+  text-align: center;
+  font-family: var(--pb-serif);
+  font-style: italic;
+  font-size: 1.0625rem;
+  color: var(--pb-cream-dim);
+}
+
+.pb-craft-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pb-craft-item {
+  display: grid;
+  justify-items: center;
+  gap: 0.4rem;
+  padding: 1.6rem 1.4rem;
+  border-top: 2px solid var(--pb-brass-dim);
+  text-align: center;
+}
+
+.pb-craft-figure {
+  font-family: var(--pb-serif);
+  font-weight: 560;
+  font-size: 2.6rem;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--pb-brass);
+}
+
+.pb-craft-label {
+  font-family: var(--pb-mono);
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--pb-cream);
+}
+
+.pb-craft-detail {
+  margin: 0.4rem 0 0;
+  font-size: 0.875rem;
+  line-height: 1.58;
+  color: var(--pb-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* The dated bill (mirror)                                             */
+/* ------------------------------------------------------------------ */
+
+.pb-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.pb-table-caption {
+  text-align: left;
+  margin-bottom: 1rem;
+  max-width: 52rem;
+  font-size: 0.8125rem;
+  color: var(--pb-muted);
+}
+
+.pb-table thead th {
+  text-align: left;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--pb-panel-edge);
+  font-family: var(--pb-mono);
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--pb-muted);
+}
+
+.pb-table tbody th,
+.pb-table tbody td {
+  padding: 0.7rem 0.8rem;
+  border-bottom: 1px solid var(--pb-faint);
+  vertical-align: top;
+  color: var(--pb-cream-dim);
+}
+
+.pb-table tbody th {
+  font-family: var(--pb-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--pb-brass);
+  white-space: nowrap;
+}
+
+.pb-table tbody tr[data-cancelled='true'] td:nth-child(3) {
+  color: var(--pb-red);
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+.pb-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 74rem;
+  margin: 0 auto;
+  padding: 1.4rem clamp(1.4rem, 4vw, 3.4rem) 1.8rem;
+  border-top: 1px solid var(--pb-faint);
+  font-family: var(--pb-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  color: var(--pb-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Narrow viewports                                                    */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 62rem) {
+  .pb-season-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pb-stub-row,
+  .pb-craft-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 46rem) {
+  .pb-chrome {
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .pb-rep-abstract {
+    padding-left: 1.1rem;
+  }
+
+  .pb-table thead {
+    display: none;
+  }
+
+  .pb-table tbody th,
+  .pb-table tbody td {
+    display: block;
+    border: 0;
+    padding: 0.15rem 0;
+  }
+
+  .pb-table tbody tr {
+    display: block;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--pb-faint);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Print                                                               */
+/* ------------------------------------------------------------------ */
+
+@media print {
+  .pb-root {
+    background: #fff;
+    color: #14110c;
+  }
+
+  .pb-field,
+  .pb-marquee-bulbs {
+    display: none;
+  }
+}

@@ -126,15 +126,17 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
       expect.arrayContaining(['comp.status-list', 'comp.trend-chart']),
     );
 
-    // Exactly these twenty experiences are approved: the original five live
-    // worlds (one per surface), the three slide-deck worlds from the task-15
-    // deck batch, the three from the task-16 deck batch (The River, The
+    // Exactly these twenty-three experiences are approved: the original five
+    // live worlds (one per surface), the three slide-deck worlds from the
+    // task-15 deck batch, the three from the task-16 deck batch (The River, The
     // Readout, The Gallery Floor), the three from the task-17 deck batch that
     // complete all ten decks (The Manifesto, The Sectional, The Field Manual),
     // the three personal pages from the task-18 batch (The Annual Letter, The
-    // Bench Journal, The Greenhouse), and the three personal pages from the
-    // task-19 batch (The Line, The Dawn Wall, The Reading Room). Everything
-    // else remains reviewed/experimental.
+    // Bench Journal, The Greenhouse), the three personal pages from the task-19
+    // batch (The Line, The Dawn Wall, The Reading Room), and the three personal
+    // pages from the task-20 batch that complete all ten personal pages (The
+    // Atlas, The Specimen Book, The Playbill). Everything else remains
+    // reviewed/experimental.
     const approvedIds = result.experiences.filter((e) => e.approval.state === 'approved').map((e) => e.id);
     expect(approvedIds.sort()).toEqual([
       'db-model-monitoring-cockpit',
@@ -153,7 +155,10 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
       'home-career-project-timeline',
       'home-data-scientist-studio',
       'home-internal-ai-tool-laboratory',
+      'home-knowledge-atlas',
       'home-mentoring-tutorial-hub',
+      'home-research-publication-portfolio',
+      'home-talks-presentation-archive',
       'home-team-contribution-impact-page',
       'home-technical-leadership-portfolio',
       'proj-ai-model-validation-hub',

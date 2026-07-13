@@ -1,0 +1,992 @@
+/*
+ * THE ATLAS — experience-local art layer.
+ *
+ * Art-direction licence (task 13/20): raw colour values are permitted in THIS
+ * stylesheet only. Easings and durations come from the platform motion tokens
+ * (var(--ease-*), var(--dur-*)); HorizonSweep supplies the panel choreography
+ * and its own reduced-motion parity. Coastlines thread-trace via a CSS stroke
+ * draw on a token easing. No bespoke cubic-bezier values.
+ *
+ * Mood: a dark nautical chart. Deep navy sea, fine GOLD linework, cartographic
+ * typography — letterspaced small caps for territories, italic serif for the
+ * waters. The one warm coral note is reserved for the honest UNCHARTED gap.
+ * Distinct from The Line (cold aqua transit rail) and The Studio (warm dusk).
+ */
+
+.at-root {
+  --at-bg: #061523;
+  --at-bg-2: #081c2e;
+  --at-gold: #d7b878;
+  --at-gold-dim: #8f7a4e;
+  --at-gold-faint: rgba(215, 184, 120, 0.16);
+  --at-coast: #f0d79a;
+  --at-parchment: #ede3cd;
+  --at-ink: #e8ecec;
+  --at-muted: #8ba2b0;
+  --at-sea-line: rgba(215, 184, 120, 0.1);
+  --at-coral: #e08b63;
+  --at-coral-dim: rgba(224, 139, 99, 0.5);
+  --at-panel: rgba(215, 184, 120, 0.05);
+  --at-panel-edge: rgba(215, 184, 120, 0.2);
+  --at-faint: rgba(232, 236, 236, 0.09);
+  --at-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+  --at-serif: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
+  --at-sans: system-ui, 'Segoe UI', 'Helvetica Neue', sans-serif;
+
+  position: relative;
+  min-height: 100svh;
+  background: var(--at-bg);
+  color: var(--at-ink);
+  font-family: var(--at-sans);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  isolation: isolate;
+}
+
+.at-field {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(90vmin 70vmin at 78% 6%, rgba(215, 184, 120, 0.08), transparent 60%),
+    radial-gradient(120vmin 90vmin at 10% 44%, rgba(18, 49, 74, 0.5), transparent 66%),
+    linear-gradient(178deg, #071b2c 0%, #061523 54%, #04101c 100%);
+}
+
+.at-field::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--at-sea-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--at-sea-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(130vmin 120vmin at 40% 24%, #000 8%, transparent 76%);
+}
+
+/* ------------------------------------------------------------------ */
+/* Chrome                                                              */
+/* ------------------------------------------------------------------ */
+
+.at-chrome {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 2rem;
+  padding: 1rem 1.6rem 0.85rem;
+  font-family: var(--at-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  color: var(--at-muted);
+  background: rgba(6, 21, 35, 0.76);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--at-faint);
+}
+
+.at-chrome-cell {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  white-space: nowrap;
+}
+
+.at-chrome-rule {
+  width: 1px;
+  height: 0.85em;
+  align-self: center;
+  background: var(--at-panel-edge);
+}
+
+.at-back {
+  color: var(--at-ink);
+  text-decoration: none;
+  letter-spacing: 0.14em;
+}
+
+.at-back:hover {
+  color: var(--at-gold);
+}
+
+.at-back:focus-visible {
+  outline: 2px solid var(--at-gold);
+  outline-offset: 3px;
+}
+
+.at-synthetic {
+  padding: 0.2rem 0.55rem;
+  border: 1px dashed var(--at-panel-edge);
+  color: var(--at-muted);
+  letter-spacing: 0.16em;
+}
+
+/* ------------------------------------------------------------------ */
+/* Layout + hero                                                       */
+/* ------------------------------------------------------------------ */
+
+.at-main {
+  max-width: 78rem;
+  margin: 0 auto;
+  padding: 0 clamp(1.4rem, 4vw, 3.4rem) 4rem;
+}
+
+.at-hero {
+  padding: 3.4rem 0 2.2rem;
+}
+
+.at-kicker {
+  margin: 0 0 1.4rem;
+  font-family: var(--at-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.42em;
+  color: var(--at-gold);
+}
+
+.at-display {
+  margin: 0;
+  max-width: 44rem;
+  font-family: var(--at-serif);
+  font-optical-sizing: auto;
+  font-weight: 480;
+  font-size: clamp(2.6rem, 6vw, 4.8rem);
+  line-height: 1.03;
+  letter-spacing: -0.016em;
+  color: var(--at-parchment);
+}
+
+.at-display-line {
+  display: block;
+}
+
+.at-identity {
+  margin: 1.8rem 0 0;
+  font-family: var(--at-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  color: var(--at-gold);
+}
+
+.at-subline {
+  margin: 1.2rem 0 0;
+  max-width: 44rem;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--at-muted);
+}
+
+.at-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4rem 3rem;
+  margin: 2.4rem 0 0;
+}
+
+.at-fact dt {
+  font-family: var(--at-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.2em;
+  color: var(--at-muted);
+}
+
+.at-fact dd {
+  margin: 0.35rem 0 0;
+  font-family: var(--at-serif);
+  font-weight: 500;
+  font-size: 1.125rem;
+  color: var(--at-parchment);
+}
+
+/* ------------------------------------------------------------------ */
+/* Section headings                                                    */
+/* ------------------------------------------------------------------ */
+
+.at-section-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.9rem;
+  margin: 0 0 1.2rem;
+  font-family: var(--at-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  color: var(--at-muted);
+}
+
+.at-section-sub {
+  font-weight: 400;
+  font-size: 0.5625rem;
+  letter-spacing: 0.16em;
+  color: var(--at-gold-dim);
+}
+
+/* ------------------------------------------------------------------ */
+/* THE CHART                                                           */
+/* ------------------------------------------------------------------ */
+
+.at-chart-section {
+  margin-top: 1.6rem;
+}
+
+.at-chart-hint {
+  margin: 0 0 1rem;
+  font-family: var(--at-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  color: var(--at-gold-dim);
+}
+
+.at-chart-layout {
+  display: grid;
+  gap: 1.4rem;
+  align-items: start;
+}
+
+.at-chart-frame {
+  border: 1px solid var(--at-panel-edge);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 24px 70px rgba(2, 10, 18, 0.6), inset 0 0 0 6px rgba(215, 184, 120, 0.04);
+}
+
+.at-chart {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* --- rhumb lines + graticule + neat-line --- */
+.at-rhumb line {
+  stroke: rgba(215, 184, 120, 0.06);
+  stroke-width: 0.8;
+}
+
+.at-graticule line {
+  stroke: rgba(215, 184, 120, 0.11);
+  stroke-width: 0.8;
+}
+
+.at-graticule-label {
+  fill: var(--at-gold-dim);
+  font-family: var(--at-mono);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+}
+
+.at-neatline rect {
+  fill: none;
+  stroke: var(--at-gold);
+  stroke-width: 1.4;
+  opacity: 0.5;
+}
+
+.at-neatline-inner {
+  stroke-width: 0.8 !important;
+  opacity: 0.3 !important;
+}
+
+/* --- territories --- */
+.at-territory {
+  cursor: pointer;
+}
+
+.at-territory:focus {
+  outline: none;
+}
+
+.at-land {
+  fill: #0d283e;
+  stroke: none;
+}
+
+.at-land-elev {
+  fill: url(#at-land-grad);
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.at-territory-selected .at-land {
+  fill: #123853;
+}
+
+.at-territory-selected .at-land-elev {
+  opacity: 1;
+}
+
+.at-contour {
+  fill: none;
+  stroke: rgba(240, 215, 154, 0.28);
+  stroke-width: 0.9;
+  pointer-events: none;
+}
+
+.at-territory-selected .at-contour {
+  stroke: rgba(240, 215, 154, 0.42);
+}
+
+.at-coastline {
+  fill: none;
+  stroke: var(--at-coast);
+  stroke-width: 1.8;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 4px rgba(240, 215, 154, 0.3));
+}
+
+.at-territory-selected .at-coastline {
+  stroke-width: 2.6;
+  filter: drop-shadow(0 0 8px rgba(240, 215, 154, 0.55));
+}
+
+.at-territory:focus-visible .at-coastline {
+  stroke: #fff2cf;
+  stroke-width: 3;
+}
+
+/* keyboard focus ring drawn as an offset halo behind the coast */
+.at-territory:focus-visible .at-land {
+  stroke: var(--at-gold);
+  stroke-width: 2;
+  stroke-dasharray: 4 3;
+}
+
+.at-terr-name {
+  fill: #f0d79a;
+  font-family: var(--at-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  paint-order: stroke;
+  stroke: #06192a;
+  stroke-width: 3.6px;
+}
+
+.at-terr-waters {
+  fill: #d9c9a0;
+  font-family: var(--at-serif);
+  font-style: italic;
+  font-size: 13px;
+  opacity: 0.92;
+  paint-order: stroke;
+  stroke: #06192a;
+  stroke-width: 2.8px;
+}
+
+.at-territory-selected .at-terr-name {
+  fill: #ffe9b8;
+}
+
+/* --- settlements --- */
+.at-settle-mark {
+  fill: #06192a;
+  stroke: var(--at-coast);
+  stroke-width: 1.6;
+}
+
+.at-settlement-talk .at-settle-mark {
+  fill: var(--at-coast);
+}
+
+.at-settle-name {
+  fill: #f2ead6;
+  font-family: var(--at-mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  paint-order: stroke;
+  stroke: #06192a;
+  stroke-width: 3.4px;
+}
+
+.at-settle-founded {
+  fill: var(--at-gold);
+  font-family: var(--at-mono);
+  font-size: 8px;
+  letter-spacing: 0.04em;
+  paint-order: stroke;
+  stroke: #06192a;
+  stroke-width: 3.4px;
+}
+
+/* --- shipping lanes --- */
+.at-lane-path {
+  fill: none;
+  stroke: var(--at-gold);
+  stroke-width: 1.2;
+  stroke-dasharray: 2 5;
+  opacity: 0.62;
+}
+
+.at-lane-label {
+  fill: var(--at-gold);
+  font-family: var(--at-serif);
+  font-style: italic;
+  font-size: 10.5px;
+  opacity: 0.66;
+  paint-order: stroke;
+  stroke: #06192a;
+  stroke-width: 2.5px;
+}
+
+/* --- soundings --- */
+.at-sounding-depth {
+  fill: var(--at-muted);
+  font-family: var(--at-mono);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.at-sounding-label {
+  fill: var(--at-muted);
+  font-family: var(--at-serif);
+  font-style: italic;
+  font-size: 9.5px;
+  opacity: 0.7;
+}
+
+/* --- the uncharted region (anomaly) --- */
+.at-uncharted-fill {
+  fill: url(#at-hatch);
+  opacity: 0.7;
+}
+
+.at-hatch-line {
+  stroke: var(--at-coral);
+  stroke-width: 1.5;
+  opacity: 0.55;
+}
+
+.at-uncharted-edge {
+  fill: none;
+  stroke: var(--at-coral);
+  stroke-width: 2;
+  stroke-dasharray: 7 4;
+}
+
+.at-uncharted-serpent {
+  fill: none;
+  stroke: var(--at-coral);
+  stroke-width: 1.6;
+  opacity: 0.7;
+}
+
+.at-uncharted-title {
+  fill: #f2a074;
+  font-family: var(--at-mono);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  paint-order: stroke;
+  stroke: #06192a;
+  stroke-width: 4px;
+}
+
+.at-uncharted-legend {
+  fill: #f2c0a4;
+  font-family: var(--at-serif);
+  font-style: italic;
+  font-size: 14px;
+  paint-order: stroke;
+  stroke: #06192a;
+  stroke-width: 3px;
+}
+
+/* --- compass rose --- */
+.at-compass-ring {
+  fill: none;
+  stroke: var(--at-gold);
+  stroke-width: 1;
+  opacity: 0.5;
+}
+
+.at-compass-ring-2 {
+  opacity: 0.3;
+}
+
+.at-compass-point {
+  fill: var(--at-gold-dim);
+}
+
+.at-compass-point-main {
+  fill: var(--at-coast);
+}
+
+.at-compass-hub {
+  fill: #06192a;
+  stroke: var(--at-coast);
+  stroke-width: 1.4;
+}
+
+.at-compass-label {
+  fill: var(--at-gold);
+  font-family: var(--at-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+/* --- scale bar --- */
+.at-scale-rule,
+.at-scale-tick {
+  stroke: var(--at-gold);
+  stroke-width: 1;
+}
+
+.at-scale-fill {
+  fill: var(--at-gold);
+  opacity: 0.7;
+}
+
+.at-scale-label {
+  fill: var(--at-muted);
+  font-family: var(--at-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.08em;
+}
+
+/* --- cartouche --- */
+.at-cartouche-box {
+  fill: rgba(6, 25, 42, 0.72);
+  stroke: var(--at-gold);
+  stroke-width: 1;
+  opacity: 0.92;
+}
+
+.at-cartouche-text {
+  fill: var(--at-gold);
+  font-family: var(--at-mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+
+.at-cartouche-sub {
+  fill: var(--at-muted);
+  font-family: var(--at-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.1em;
+}
+
+/* --- coastline thread-trace draw --- */
+@media (prefers-reduced-motion: no-preference) {
+  .at-root:not([data-reduced='true']) .at-coastline {
+    stroke-dasharray: 100;
+    animation: at-trace var(--dur-narrative) var(--ease-trace) var(--at-coast-delay, 0ms) both;
+  }
+
+  .at-root:not([data-reduced='true']) .at-lane-path {
+    animation: at-trace var(--dur-narrative) var(--ease-trace) 900ms both;
+  }
+
+  @keyframes at-trace {
+    from {
+      stroke-dashoffset: 100;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Gazetteer side panel                                                */
+/* ------------------------------------------------------------------ */
+
+.at-gazetteer {
+  display: grid;
+  grid-template-columns: 18rem minmax(0, 1fr) 20rem;
+  gap: 1.6rem 2rem;
+  padding: 1.6rem 1.8rem;
+  border: 1px solid var(--at-panel-edge);
+  border-left: 3px solid var(--at-gold);
+  border-radius: 0 12px 12px 0;
+  background: var(--at-panel);
+}
+
+.at-gaz-eyebrow {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-family: var(--at-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.2em;
+  color: var(--at-gold-dim);
+}
+
+.at-gaz-name {
+  grid-column: 1;
+  margin: 0;
+  font-family: var(--at-serif);
+  font-weight: 520;
+  font-size: 1.9rem;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--at-parchment);
+}
+
+.at-gaz-waters {
+  grid-column: 1;
+  margin: 0.2rem 0 0;
+  font-family: var(--at-serif);
+  font-style: italic;
+  font-size: 1.0625rem;
+  color: var(--at-gold);
+}
+
+.at-gaz-facts {
+  grid-column: 1;
+  display: flex;
+  gap: 1.6rem;
+  margin: 1rem 0 0;
+}
+
+.at-gaz-facts dt {
+  font-family: var(--at-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.16em;
+  color: var(--at-muted);
+}
+
+.at-gaz-facts dd {
+  margin: 0.25rem 0 0;
+  font-family: var(--at-mono);
+  font-size: 0.75rem;
+  color: var(--at-coast);
+}
+
+.at-gaz-knows {
+  grid-column: 2;
+  grid-row: 2 / 5;
+  align-self: start;
+  margin: 0;
+  padding-left: 2rem;
+  border-left: 1px solid var(--at-faint);
+  font-size: 1rem;
+  line-height: 1.66;
+  color: var(--at-ink);
+}
+
+.at-gaz-evidence-label {
+  grid-column: 3;
+  grid-row: 2;
+  margin: 0 0 0.6rem;
+  font-family: var(--at-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.18em;
+  color: var(--at-muted);
+}
+
+.at-gaz-evidence {
+  grid-column: 3;
+  grid-row: 3 / 5;
+  align-self: start;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.at-gaz-evidence li {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid var(--at-faint);
+}
+
+.at-gaz-kind {
+  font-family: var(--at-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.12rem 0.35rem;
+  border: 1px solid var(--at-panel-edge);
+  border-radius: 3px;
+  color: var(--at-gold);
+}
+
+.at-gaz-artifact {
+  font-family: var(--at-serif);
+  font-size: 0.9375rem;
+  color: var(--at-parchment);
+}
+
+.at-gaz-year {
+  font-family: var(--at-mono);
+  font-size: 0.625rem;
+  color: var(--at-muted);
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------ */
+/* HorizonSweep supporting panels                                      */
+/* ------------------------------------------------------------------ */
+
+.at-sweep {
+  display: grid;
+  gap: 3.2rem;
+  margin-top: 3.4rem;
+}
+
+/* --- legend --- */
+.at-legend-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 0.7rem 1.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.at-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.8125rem;
+  color: var(--at-muted);
+}
+
+.at-legend-glyph {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  position: relative;
+}
+
+.at-legend-glyph-territory {
+  border: 1.6px solid var(--at-coast);
+  border-radius: 40% 55% 50% 45%;
+  background: #0d283e;
+}
+
+.at-legend-glyph-settlement {
+  border: 1.6px solid var(--at-coast);
+  background: #06192a;
+  transform: rotate(45deg) scale(0.7);
+}
+
+.at-legend-glyph-lane {
+  border-top: 1.6px dashed var(--at-gold);
+  height: 0;
+  align-self: center;
+}
+
+.at-legend-glyph-sounding::before {
+  content: '5';
+  font-family: var(--at-mono);
+  font-size: 11px;
+  color: var(--at-muted);
+}
+
+.at-legend-glyph-uncharted {
+  border: 1.6px dashed var(--at-coral);
+  background: repeating-linear-gradient(45deg, var(--at-coral-dim) 0 2px, transparent 2px 5px);
+}
+
+/* --- cartographer card --- */
+.at-carto-card {
+  max-width: 46rem;
+  padding: 1.6rem 1.8rem;
+  border: 1px solid var(--at-panel-edge);
+  border-left: 3px solid var(--at-gold);
+  border-radius: 0 12px 12px 0;
+  background: var(--at-panel);
+}
+
+.at-carto-motto {
+  margin: 0;
+  font-family: var(--at-serif);
+  font-style: italic;
+  font-weight: 480;
+  font-size: 1.35rem;
+  line-height: 1.34;
+  color: var(--at-parchment);
+}
+
+.at-carto-method {
+  margin: 1rem 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.64;
+  color: var(--at-muted);
+}
+
+.at-carto-sig {
+  margin: 1.2rem 0 0;
+  font-family: var(--at-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  color: var(--at-gold);
+}
+
+/* --- expeditions --- */
+.at-exp-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0;
+}
+
+.at-exp-item {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 1.2rem;
+  padding: 1.1rem 0;
+  border-top: 1px solid var(--at-faint);
+}
+
+.at-exp-item:last-child {
+  border-bottom: 1px solid var(--at-faint);
+}
+
+.at-exp-date {
+  font-family: var(--at-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--at-gold);
+  padding-top: 0.2rem;
+}
+
+.at-exp-heading-h {
+  margin: 0;
+  font-family: var(--at-serif);
+  font-weight: 520;
+  font-size: 1.125rem;
+  color: var(--at-parchment);
+}
+
+.at-exp-found {
+  margin: 0.35rem 0 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--at-muted);
+}
+
+/* --- gazetteer table (mirror) --- */
+.at-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.at-table-caption {
+  text-align: left;
+  margin-bottom: 0.9rem;
+  font-size: 0.8125rem;
+  color: var(--at-muted);
+  max-width: 48rem;
+}
+
+.at-table thead th {
+  text-align: left;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--at-panel-edge);
+  font-family: var(--at-mono);
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--at-muted);
+}
+
+.at-table tbody th,
+.at-table tbody td {
+  padding: 0.7rem 0.8rem;
+  border-bottom: 1px solid var(--at-faint);
+  vertical-align: top;
+  color: var(--at-muted);
+}
+
+.at-table tbody th {
+  font-family: var(--at-serif);
+  font-weight: 520;
+  font-size: 0.9375rem;
+  color: var(--at-parchment);
+  white-space: nowrap;
+}
+
+.at-table tbody tr[data-kind='uncharted'] th {
+  color: var(--at-coral);
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+.at-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 78rem;
+  margin: 0 auto;
+  padding: 1.2rem clamp(1.4rem, 4vw, 3.4rem) 1.6rem;
+  border-top: 1px solid var(--at-faint);
+  font-family: var(--at-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  color: var(--at-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Narrow viewports                                                    */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 64rem) {
+  .at-gazetteer {
+    grid-template-columns: 1fr;
+  }
+
+  .at-gaz-knows,
+  .at-gaz-evidence,
+  .at-gaz-evidence-label,
+  .at-gaz-name,
+  .at-gaz-waters,
+  .at-gaz-facts {
+    grid-column: 1;
+    grid-row: auto;
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+@media (max-width: 46rem) {
+  .at-chrome {
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .at-table thead {
+    display: none;
+  }
+
+  .at-table tbody th,
+  .at-table tbody td {
+    display: block;
+    border: 0;
+    padding: 0.15rem 0;
+  }
+
+  .at-table tbody tr {
+    display: block;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--at-faint);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Print                                                               */
+/* ------------------------------------------------------------------ */
+
+@media print {
+  .at-root {
+    background: #fff;
+    color: #10202c;
+  }
+
+  .at-field {
+    display: none;
+  }
+}

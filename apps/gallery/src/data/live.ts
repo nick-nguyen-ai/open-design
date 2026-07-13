@@ -25,6 +25,9 @@ export const LIVE_EXPERIENCE_IDS = [
   'home-career-project-timeline',
   'home-team-contribution-impact-page',
   'home-mentoring-tutorial-hub',
+  'home-knowledge-atlas',
+  'home-research-publication-portfolio',
+  'home-talks-presentation-archive',
 ] as const;
 
 export type LiveExperienceId = (typeof LIVE_EXPERIENCE_IDS)[number];
