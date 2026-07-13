@@ -24,9 +24,19 @@ import type { McpErrorCode } from '@enterprise-design/contracts';
 import type { RegistryData } from './registry-data.js';
 import type { Logger } from './logger.js';
 import { makeError, newRequestId, type ToolOutcome } from './errors.js';
-import { GetComponentInput, SearchComponentsInput, SearchComponentsOutput } from './schemas.js';
+import {
+  ComposeDesignInput,
+  ComposeDesignOutput,
+  GetComponentInput,
+  SearchComponentsInput,
+  SearchComponentsOutput,
+  ValidateCompositionInput,
+  ValidateCompositionOutput,
+} from './schemas.js';
 import { getComponent } from './tools/get-component.js';
 import { searchComponents } from './tools/search-components.js';
+import { composeDesignTool } from './tools/compose-design.js';
+import { validateCompositionTool } from './tools/validate-composition.js';
 
 /** Read-only posture, identical for both tools (plus a per-tool `title`). */
 const READ_ONLY_ANNOTATIONS: Omit<ToolAnnotations, 'title'> = {
@@ -131,6 +141,58 @@ export function createServer(registry: RegistryData, logger: Logger): McpServer 
         });
       } else {
         logger.audit({ tool: 'search_components', status: 'error', durationMs, code: outcome.error.code });
+      }
+      return toCallToolResult(outcome);
+    },
+  );
+
+  server.registerTool(
+    'compose_design',
+    {
+      title: 'Compose design blueprint',
+      description:
+        'Generates a deterministic DesignBlueprint from a DesignContext: the third step of the analyse → search → compose → validate loop. Given the surface, audience, business intent and available content inventory, it selects real registry components, lays out routes/sections, picks one signature motion sequence, and returns three structural alternatives. It never invents content — anything it cannot map to an approved component is reported in the blueprint\'s implementationNotes/rejected candidates rather than fabricated. Pass selectedComponentIds to constrain the candidate pool. Feed the returned blueprint to validate_composition before shipping.',
+      inputSchema: ComposeDesignInput.shape,
+      outputSchema: ComposeDesignOutput.shape,
+      annotations: { title: 'Compose design blueprint', ...READ_ONLY_ANNOTATIONS },
+    },
+    (args) => {
+      const startedAt = performance.now();
+      const outcome = composeDesignTool(registry, args);
+      const durationMs = Math.round(performance.now() - startedAt);
+      if (outcome.ok) {
+        const sections = outcome.data.blueprint.routes.reduce((n, route) => n + route.sections.length, 0);
+        logger.audit({ tool: 'compose_design', status: 'ok', durationMs, count: sections });
+      } else {
+        logger.audit({ tool: 'compose_design', status: 'error', durationMs, code: outcome.error.code });
+      }
+      return toCallToolResult(outcome);
+    },
+  );
+
+  server.registerTool(
+    'validate_composition',
+    {
+      title: 'Validate design blueprint',
+      description:
+        'Validates a DesignBlueprint against the registry and design rules (accessibility, compatibility, corporate suitability, content coverage, performance, originality): the final step of the analyse → search → compose → validate loop. Returns a structured result — valid flag, aggregate score, per-domain metrics, and a list of findings each naming a rule id, path and remediation. A blueprint that fails the rules is a SUCCESSFUL call that returns findings with valid=false (NOT an error); only a structurally malformed blueprint is rejected as invalid input. Choose the profile by rigour: draft, corporate (default), or release.',
+      inputSchema: ValidateCompositionInput.shape,
+      outputSchema: ValidateCompositionOutput.shape,
+      annotations: { title: 'Validate design blueprint', ...READ_ONLY_ANNOTATIONS },
+    },
+    (args) => {
+      const startedAt = performance.now();
+      const outcome = validateCompositionTool(registry, args);
+      const durationMs = Math.round(performance.now() - startedAt);
+      if (outcome.ok) {
+        logger.audit({
+          tool: 'validate_composition',
+          status: 'ok',
+          durationMs,
+          count: outcome.data.result.findings.length,
+        });
+      } else {
+        logger.audit({ tool: 'validate_composition', status: 'error', durationMs, code: outcome.error.code });
       }
       return toCallToolResult(outcome);
     },

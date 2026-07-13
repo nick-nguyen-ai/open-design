@@ -20,11 +20,14 @@ import {
   ComponentCategory,
   ContentDensity,
   CorporateSuitability,
+  DesignBlueprint,
+  DesignContext,
   EntityType,
   MotionLevel,
   SearchFacets,
   SurfaceType,
   ThemeMode,
+  ValidationResult,
 } from '@enterprise-design/contracts';
 import type { FacetFilter } from '@enterprise-design/search';
 
@@ -105,3 +108,62 @@ export const SearchComponentsOutput = z.object({
   note: z.string().optional(),
 });
 export type SearchComponentsOutput = z.infer<typeof SearchComponentsOutput>;
+
+// ---- compose_design ---------------------------------------------------------
+
+/** Which structural variant `compose_design` promotes to the returned blueprint (plan §18.3). */
+export const AlternativeMode = z.enum(['conservative', 'recommended', 'expressive']);
+export type AlternativeMode = z.infer<typeof AlternativeMode>;
+
+/**
+ * Tight input schema for `compose_design` (advertised AND validated). The full
+ * `context` is the contracts `DesignContext`, so a malformed context is rejected
+ * as a structured `INVALID_INPUT` before composition runs.
+ */
+export const ComposeDesignInput = z.object({
+  context: DesignContext.describe(
+    'The full DesignContext: surface, audience, business intent, available content inventory, density, motion preference, theme, corporate suitability, and technical/accessibility constraints.',
+  ),
+  selectedComponentIds: z
+    .array(z.string().min(1))
+    .optional()
+    .describe(
+      'Optional allow-list of component ids to compose from (still filtered by role/surface/corporate compatibility). Every id must exist; omit to consider the whole catalogue.',
+    ),
+  alternativeMode: AlternativeMode.default('recommended').describe(
+    "Structural variant to return: 'conservative' (simpler, calmer), 'recommended' (balanced, the default), or 'expressive' (higher visual emphasis and motion).",
+  ),
+});
+export type ComposeDesignInput = z.infer<typeof ComposeDesignInput>;
+
+/** `compose_design` structured output: the deterministic blueprint. */
+export const ComposeDesignOutput = z.object({
+  blueprint: DesignBlueprint,
+});
+export type ComposeDesignOutput = z.infer<typeof ComposeDesignOutput>;
+
+// ---- validate_composition ---------------------------------------------------
+
+/** Validation strictness (plan §17.3); later profiles escalate warnings to errors. */
+export const ValidationProfile = z.enum(['draft', 'corporate', 'release']);
+export type ValidationProfile = z.infer<typeof ValidationProfile>;
+
+/**
+ * Tight input schema for `validate_composition` (advertised AND validated). The
+ * `blueprint` is the contracts `DesignBlueprint`, so a structurally malformed
+ * blueprint is rejected as `INVALID_INPUT`; a blueprint that is well-formed but
+ * fails design rules is a SUCCESSFUL call returning findings.
+ */
+export const ValidateCompositionInput = z.object({
+  blueprint: DesignBlueprint.describe('A DesignBlueprint (typically produced by compose_design) to validate.'),
+  validationProfile: ValidationProfile.default('corporate').describe(
+    "Strictness profile: 'draft' (only natural errors block), 'corporate' (accessibility + corporate warnings become errors, the default), or 'release' (every warning blocks).",
+  ),
+});
+export type ValidateCompositionInput = z.infer<typeof ValidateCompositionInput>;
+
+/** `validate_composition` structured output: the full validation result (valid flag, score, findings, per-domain metrics). */
+export const ValidateCompositionOutput = z.object({
+  result: ValidationResult,
+});
+export type ValidateCompositionOutput = z.infer<typeof ValidateCompositionOutput>;

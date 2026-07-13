@@ -17,9 +17,26 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { z } from 'zod';
-import { ComponentManifest, SearchDocument } from '@enterprise-design/contracts';
+import {
+  ComponentManifest,
+  DesignGrammar,
+  MotionSequence,
+  SearchDocument,
+} from '@enterprise-design/contracts';
 import { createSearchIndex } from '@enterprise-design/search';
 import type { SearchIndex } from '@enterprise-design/search';
+
+/**
+ * The registry slice the composition and validation domain packages read. Both
+ * `CompositionRegistry` and `ValidationRegistry` are structurally this shape;
+ * the domain packages receive it as a parameter (never touching the filesystem),
+ * so we build it once at startup and hand the same object to both engines.
+ */
+export interface DomainRegistry {
+  components: ComponentManifest[];
+  grammars: DesignGrammar[];
+  motionSequences: MotionSequence[];
+}
 
 /** Everything the tools need to answer a request, built once and held for the process lifetime. */
 export interface RegistryData {
@@ -27,6 +44,8 @@ export interface RegistryData {
   readonly componentById: ReadonlyMap<string, ComponentManifest>;
   readonly searchDocuments: readonly SearchDocument[];
   readonly searchIndex: SearchIndex;
+  /** Grammars + motion sequences + components, in the shape the compose/validate engines consume. */
+  readonly domain: DomainRegistry;
 }
 
 const GENERATED_DIR = path.resolve(
@@ -48,11 +67,14 @@ function readGenerated<T>(file: string, schema: z.ZodType<T>): T {
 export function loadRegistryData(): RegistryData {
   const components = readGenerated('components.json', z.array(ComponentManifest));
   const searchDocuments = readGenerated('search-documents.json', z.array(SearchDocument));
+  const grammars = readGenerated('grammars.json', z.array(DesignGrammar));
+  const motionSequences = readGenerated('motion-sequences.json', z.array(MotionSequence));
 
   return {
     components,
     componentById: new Map(components.map((component) => [component.id, component])),
     searchDocuments,
     searchIndex: createSearchIndex([...searchDocuments]),
+    domain: { components, grammars, motionSequences },
   };
 }

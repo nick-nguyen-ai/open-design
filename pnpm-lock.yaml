@@ -129,6 +129,9 @@ importers:
 
   apps/mcp-server:
     dependencies:
+      '@enterprise-design/composition':
+        specifier: workspace:*
+        version: link:../../packages/composition
       '@enterprise-design/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
@@ -138,6 +141,9 @@ importers:
       '@enterprise-design/search':
         specifier: workspace:*
         version: link:../../packages/search
+      '@enterprise-design/validator':
+        specifier: workspace:*
+        version: link:../../packages/validator
       '@modelcontextprotocol/sdk':
         specifier: ^1.29.0
         version: 1.29.0(zod@4.4.3)

@@ -15,10 +15,80 @@ import path from 'node:path';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
-import { ComponentManifest, McpError } from '@enterprise-design/contracts';
+import {
+  ComponentManifest,
+  DesignBlueprint,
+  McpError,
+  ValidationResult,
+  type ComponentPlacement,
+  type DesignContext,
+} from '@enterprise-design/contracts';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const serverEntry = path.join(here, 'index.ts');
+
+/** A realistic DesignContext, constructed directly by the client (the server never invents one). */
+function makeContext(overrides: Partial<DesignContext> = {}): DesignContext {
+  return {
+    requestId: 'demo-compose',
+    surface: 'dashboard',
+    businessIntent: ['monitor-risk', 'communicate-performance'],
+    audience: ['executive'],
+    contentSummary: 'Executive overview of production model health and drift.',
+    availableContent: {
+      headings: ['Model health', 'Drift trend', 'Open risks'],
+      narrativeSections: 1,
+      kpis: 4,
+      tables: 1,
+      timeSeries: 2,
+      categories: 3,
+      processes: 1,
+      entities: 2,
+      decisions: 1,
+      risks: 3,
+      milestones: 0,
+      codeBlocks: 0,
+      citations: 0,
+      mediaAssets: 0,
+    },
+    desiredTone: ['calm', 'authoritative'],
+    density: 'medium',
+    motionPreference: 2,
+    themeMode: 'light',
+    corporateSuitability: 'standard',
+    technicalConstraints: {
+      framework: 'react',
+      buildTool: 'vite',
+      styling: 'tailwind',
+      externalRuntimeNetworkAllowed: false,
+      approvedDependencies: [],
+      prohibitedDependencies: [],
+      targetBrowsers: ['chrome', 'edge'],
+      ssrRequired: false,
+      staticExportRequired: true,
+    },
+    accessibilityRequirements: {
+      target: 'WCAG-2.2-AA',
+      reducedMotionRequired: true,
+      keyboardRequired: true,
+      screenReaderRequired: true,
+      highContrastRequired: false,
+    },
+    requiredCapabilities: [],
+    prohibitedCapabilities: [],
+    ...overrides,
+  };
+}
+
+/** All component placements across a blueprint's routes/sections. */
+function placementsOf(bp: DesignBlueprint): ComponentPlacement[] {
+  return bp.routes.flatMap((r) => r.sections.flatMap((s) => s.componentPlacements));
+}
+
+/** Count of sections carrying a (signature) motion sequence — the compose invariant is exactly one. */
+function signatureCount(bp: DesignBlueprint): number {
+  return bp.routes.flatMap((r) => r.sections).filter((s) => s.motionSequence).length;
+}
 
 interface Check {
   name: string;
@@ -112,6 +182,112 @@ async function main(): Promise<void> {
     const limited = (await client.callTool({ name: 'search_components', arguments: { query: 'time series line chart', limit: 2 } })) as CallToolResult;
     const limitedOut = limited.structuredContent as { results: unknown[]; totalMatched: number; note?: string } | undefined;
     check('search(limit=2) truncates to 2 with true total', (limitedOut?.results.length ?? 0) === 2 && (limitedOut?.totalMatched ?? 0) > 2 && !!limitedOut?.note?.includes('Showing 2 of'), JSON.stringify({ n: limitedOut?.results.length, total: limitedOut?.totalMatched, note: limitedOut?.note }));
+
+    // === Compose → validate loop (Task 22) ===
+    const dashboardTools = ['compose_design', 'validate_composition'];
+    check('compose + validate tools advertised', dashboardTools.every((n) => byName.has(n)), tools.map((t) => t.name).join(', '));
+    for (const name of dashboardTools) {
+      const ann = byName.get(name)?.annotations;
+      check(
+        `${name} read-only annotations`,
+        ann?.readOnlyHint === true &&
+          ann?.destructiveHint === false &&
+          ann?.idempotentHint === true &&
+          ann?.openWorldHint === false &&
+          typeof ann?.title === 'string',
+        JSON.stringify(ann),
+      );
+    }
+
+    // 5a. Compose a dashboard blueprint for an executive model-monitoring context.
+    const composed = (await client.callTool({
+      name: 'compose_design',
+      arguments: { context: makeContext(), alternativeMode: 'recommended' },
+    })) as CallToolResult;
+    check('compose_design(dashboard) not isError', composed.isError !== true);
+    const composedParsed = DesignBlueprint.safeParse((composed.structuredContent as { blueprint?: unknown } | undefined)?.blueprint);
+    check('compose_design returns a schema-valid DesignBlueprint', composedParsed.success, composedParsed.success ? composedParsed.data.blueprintId : composedParsed.error.message);
+
+    let dashboardBlueprint: DesignBlueprint | undefined;
+    if (composedParsed.success) {
+      dashboardBlueprint = composedParsed.data;
+      const placements = placementsOf(dashboardBlueprint);
+      check('compose_design placed at least one component', placements.length > 0, `${placements.length} placements`);
+      // Real component ids: every placed id resolves through get_component without error.
+      const uniqueIds = [...new Set(placements.map((p) => p.componentId))];
+      const resolved = await Promise.all(
+        uniqueIds.map(async (id) => {
+          const r = (await client.callTool({ name: 'get_component', arguments: { componentId: id } })) as CallToolResult;
+          return r.isError !== true && ComponentManifest.safeParse(r.structuredContent).success;
+        }),
+      );
+      check('compose_design placed only real registry component ids', resolved.every(Boolean), uniqueIds.join(', '));
+      check('compose_design emits exactly one signature motion sequence', signatureCount(dashboardBlueprint) === 1, `${signatureCount(dashboardBlueprint)} signature sections`);
+      check('compose_design evidence is non-empty', dashboardBlueprint.evidence.length > 0, `${dashboardBlueprint.evidence.length} evidence entries`);
+    } else {
+      check('compose_design placed at least one component', false, 'blueprint did not parse');
+    }
+
+    // 5b. Validate the composed blueprint at corporate → valid true.
+    if (dashboardBlueprint) {
+      const validated = (await client.callTool({
+        name: 'validate_composition',
+        arguments: { blueprint: dashboardBlueprint, validationProfile: 'corporate' },
+      })) as CallToolResult;
+      check('validate_composition(corporate) not isError', validated.isError !== true);
+      const validRes = ValidationResult.safeParse((validated.structuredContent as { result?: unknown } | undefined)?.result);
+      check('validate_composition(clean blueprint) valid=true', validRes.success && validRes.data.valid === true, validRes.success ? `score ${validRes.data.score}, ${validRes.data.findings.length} findings` : validRes.error.message);
+    }
+
+    // 5c. Tamper the blueprint (raw hex colour + unknown component id) → findings incl. THEME-001 & REG-001, valid false.
+    if (dashboardBlueprint) {
+      const tampered = structuredClone(dashboardBlueprint);
+      tampered.tokens.colour = { '--surface-raised': '#ff0000' };
+      const firstPlacement = tampered.routes[0]?.sections[0]?.componentPlacements[0];
+      if (firstPlacement) firstPlacement.componentId = 'comp.__does_not_exist__';
+      const tamperedResult = (await client.callTool({
+        name: 'validate_composition',
+        arguments: { blueprint: tampered, validationProfile: 'corporate' },
+      })) as CallToolResult;
+      check('validate_composition(tampered) is a successful call, not isError', tamperedResult.isError !== true);
+      const tamperedRes = ValidationResult.safeParse((tamperedResult.structuredContent as { result?: unknown } | undefined)?.result);
+      const ruleIds = new Set(tamperedRes.success ? tamperedRes.data.findings.map((f) => f.ruleId) : []);
+      check('validate_composition(tampered) reports THEME-001 and REG-001', ruleIds.has('THEME-001') && ruleIds.has('REG-001'), [...ruleIds].join(', '));
+      check('validate_composition(tampered) valid=false', tamperedRes.success && tamperedRes.data.valid === false);
+    }
+
+    // 5d. Compose slide-deck expressive vs conservative → structurally different.
+    const expressive = (await client.callTool({
+      name: 'compose_design',
+      arguments: { context: makeContext({ surface: 'slide-deck', motionPreference: 3 }), alternativeMode: 'expressive' },
+    })) as CallToolResult;
+    const conservative = (await client.callTool({
+      name: 'compose_design',
+      arguments: { context: makeContext({ surface: 'slide-deck', motionPreference: 3 }), alternativeMode: 'conservative' },
+    })) as CallToolResult;
+    const exprBp = DesignBlueprint.safeParse((expressive.structuredContent as { blueprint?: unknown } | undefined)?.blueprint);
+    const consBp = DesignBlueprint.safeParse((conservative.structuredContent as { blueprint?: unknown } | undefined)?.blueprint);
+    if (exprBp.success && consBp.success) {
+      const distinctIds = exprBp.data.blueprintId !== consBp.data.blueprintId;
+      const higherMotion = exprBp.data.motionLevel >= consBp.data.motionLevel;
+      // differenceSummary of the non-recommended alternatives is non-trivial (structural, not a bare theme swap).
+      const nonTrivial = exprBp.data.alternatives
+        .filter((a) => a.mode !== 'recommended')
+        .every((a) => a.differenceSummary.length > 0 && !a.differenceSummary.join(' ').toLowerCase().includes('theme'));
+      check('compose_design(slide-deck) expressive vs conservative are structurally different', distinctIds && higherMotion && nonTrivial, JSON.stringify({ distinctIds, higherMotion, nonTrivial, exprMotion: exprBp.data.motionLevel, consMotion: consBp.data.motionLevel }));
+    } else {
+      check('compose_design(slide-deck) expressive vs conservative are structurally different', false, 'slide-deck blueprints did not parse');
+    }
+
+    // 5e. Schema-garbage context → structured INVALID_INPUT McpError.
+    const garbage = (await client.callTool({ name: 'compose_design', arguments: { context: { nonsense: true } } })) as CallToolResult;
+    const garbageErr = McpError.safeParse(textPayload(garbage));
+    check('compose_design(garbage context) structured INVALID_INPUT', garbage.isError === true && garbageErr.success && garbageErr.data.code === 'INVALID_INPUT', garbageErr.success ? garbageErr.data.code : String(garbageErr.error?.message));
+
+    // 5f. Unknown selectedComponentIds → structured UNKNOWN_COMPONENT McpError.
+    const unknownSel = (await client.callTool({ name: 'compose_design', arguments: { context: makeContext(), selectedComponentIds: ['comp.__ghost__'] } })) as CallToolResult;
+    const unknownSelErr = McpError.safeParse(textPayload(unknownSel));
+    check('compose_design(unknown selectedComponentIds) structured UNKNOWN_COMPONENT', unknownSel.isError === true && unknownSelErr.success && unknownSelErr.data.code === 'UNKNOWN_COMPONENT', unknownSelErr.success ? unknownSelErr.data.code : String(unknownSelErr.error?.message));
 
     // 4. Logging stayed on stderr and is content-safe (no raw query text).
     check('server logged audit records to stderr', /"kind":"audit"/.test(stderrText), `${stderrText.split('\n').filter(Boolean).length} stderr lines`);

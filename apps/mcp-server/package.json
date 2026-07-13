@@ -13,9 +13,11 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@enterprise-design/composition": "workspace:*",
     "@enterprise-design/contracts": "workspace:*",
     "@enterprise-design/registry": "workspace:*",
     "@enterprise-design/search": "workspace:*",
+    "@enterprise-design/validator": "workspace:*",
     "@modelcontextprotocol/sdk": "^1.29.0",
     "zod": "^4.4.3"
   }

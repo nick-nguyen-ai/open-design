@@ -12,11 +12,70 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
-import { ComponentManifest, McpError } from '@enterprise-design/contracts';
+import {
+  ComponentManifest,
+  DesignBlueprint,
+  McpError,
+  ValidationResult,
+  type DesignContext,
+} from '@enterprise-design/contracts';
 import { createServer } from './server.js';
 import { loadRegistryData } from './registry-data.js';
 import { createLogger } from './logger.js';
 import { SearchComponentResult, SearchComponentsOutput } from './schemas.js';
+
+/** A realistic executive model-monitoring DesignContext. */
+function makeContext(overrides: Partial<DesignContext> = {}): DesignContext {
+  return {
+    requestId: 'test-compose',
+    surface: 'dashboard',
+    businessIntent: ['monitor-risk', 'communicate-performance'],
+    audience: ['executive'],
+    contentSummary: 'Executive overview of production model health and drift.',
+    availableContent: {
+      headings: ['Model health', 'Drift trend', 'Open risks'],
+      narrativeSections: 1,
+      kpis: 4,
+      tables: 1,
+      timeSeries: 2,
+      categories: 3,
+      processes: 1,
+      entities: 2,
+      decisions: 1,
+      risks: 3,
+      milestones: 0,
+      codeBlocks: 0,
+      citations: 0,
+      mediaAssets: 0,
+    },
+    desiredTone: ['calm'],
+    density: 'medium',
+    motionPreference: 2,
+    themeMode: 'light',
+    corporateSuitability: 'standard',
+    technicalConstraints: {
+      framework: 'react',
+      buildTool: 'vite',
+      styling: 'tailwind',
+      externalRuntimeNetworkAllowed: false,
+      approvedDependencies: [],
+      prohibitedDependencies: [],
+      targetBrowsers: ['chrome', 'edge'],
+      ssrRequired: false,
+      staticExportRequired: true,
+    },
+    accessibilityRequirements: {
+      target: 'WCAG-2.2-AA',
+      reducedMotionRequired: true,
+      keyboardRequired: true,
+      screenReaderRequired: true,
+      highContrastRequired: false,
+    },
+    requiredCapabilities: [],
+    prohibitedCapabilities: [],
+    ...overrides,
+  };
+}
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const appRoot = path.resolve(here, '..');
@@ -62,10 +121,10 @@ describe('mcp-server tools', () => {
     await h.close();
   });
 
-  it('advertises both tools with read-only annotations and a title', async () => {
+  it('advertises all tools with read-only annotations and a title', async () => {
     const { tools } = await h.client.listTools();
     const names = tools.map((t) => t.name).sort();
-    expect(names).toEqual(['get_component', 'search_components']);
+    expect(names).toEqual(['compose_design', 'get_component', 'search_components', 'validate_composition']);
     for (const tool of tools) {
       expect(tool.annotations).toMatchObject({
         readOnlyHint: true,
@@ -167,6 +226,87 @@ describe('mcp-server tools', () => {
     expect(audits.at(-1)).toHaveProperty('durationMs');
     // The raw query must never appear anywhere in the logs.
     expect(JSON.stringify(h.logs)).not.toContain(secret);
+  });
+
+  // === compose_design + validate_composition: the full loop (Task 22) ===
+
+  async function compose(args: Record<string, unknown>): Promise<CallToolResult> {
+    return (await h.client.callTool({ name: 'compose_design', arguments: args })) as CallToolResult;
+  }
+  async function validate(args: Record<string, unknown>): Promise<CallToolResult> {
+    return (await h.client.callTool({ name: 'validate_composition', arguments: args })) as CallToolResult;
+  }
+
+  it('compose_design returns a schema-valid blueprint with real ids, one signature, non-empty evidence', async () => {
+    const result = await compose({ context: makeContext(), alternativeMode: 'recommended' });
+    expect(result.isError).not.toBe(true);
+    const bp = DesignBlueprint.parse((result.structuredContent as { blueprint: unknown }).blueprint);
+    const placements = bp.routes.flatMap((r) => r.sections.flatMap((s) => s.componentPlacements));
+    expect(placements.length).toBeGreaterThan(0);
+    const known = new Set(registry.components.map((c) => c.id));
+    expect(placements.every((p) => known.has(p.componentId))).toBe(true);
+    const signatures = bp.routes.flatMap((r) => r.sections).filter((s) => s.motionSequence).length;
+    expect(signatures).toBe(1);
+    expect(bp.evidence.length).toBeGreaterThan(0);
+  });
+
+  it('validate_composition marks a freshly composed blueprint valid at corporate', async () => {
+    const composed = await compose({ context: makeContext() });
+    const bp = DesignBlueprint.parse((composed.structuredContent as { blueprint: unknown }).blueprint);
+    const result = await validate({ blueprint: bp, validationProfile: 'corporate' });
+    expect(result.isError).not.toBe(true);
+    const res = ValidationResult.parse((result.structuredContent as { result: unknown }).result);
+    expect(res.valid).toBe(true);
+  });
+
+  it('validate_composition on a tampered blueprint is a successful call reporting THEME-001 + REG-001, valid=false', async () => {
+    const composed = await compose({ context: makeContext() });
+    const bp = DesignBlueprint.parse((composed.structuredContent as { blueprint: unknown }).blueprint);
+    bp.tokens.colour = { '--surface-raised': '#ff0000' };
+    bp.routes[0]!.sections[0]!.componentPlacements[0]!.componentId = 'comp.does-not-exist';
+    const result = await validate({ blueprint: bp, validationProfile: 'corporate' });
+    expect(result.isError).not.toBe(true); // failing validation is a SUCCESSFUL call
+    const res = ValidationResult.parse((result.structuredContent as { result: unknown }).result);
+    const ruleIds = new Set(res.findings.map((f) => f.ruleId));
+    expect(ruleIds).toContain('THEME-001');
+    expect(ruleIds).toContain('REG-001');
+    expect(res.valid).toBe(false);
+  });
+
+  it('compose_design slide-deck expressive vs conservative are structurally different', async () => {
+    const expr = await compose({ context: makeContext({ surface: 'slide-deck', motionPreference: 3 }), alternativeMode: 'expressive' });
+    const cons = await compose({ context: makeContext({ surface: 'slide-deck', motionPreference: 3 }), alternativeMode: 'conservative' });
+    const exprBp = DesignBlueprint.parse((expr.structuredContent as { blueprint: unknown }).blueprint);
+    const consBp = DesignBlueprint.parse((cons.structuredContent as { blueprint: unknown }).blueprint);
+    expect(exprBp.blueprintId).not.toBe(consBp.blueprintId);
+    expect(exprBp.motionLevel).toBeGreaterThanOrEqual(consBp.motionLevel);
+    for (const alt of exprBp.alternatives.filter((a) => a.mode !== 'recommended')) {
+      expect(alt.differenceSummary.length).toBeGreaterThan(0);
+      expect(alt.differenceSummary.join(' ').toLowerCase()).not.toContain('theme');
+    }
+  });
+
+  it('compose_design with a schema-garbage context returns a structured INVALID_INPUT', async () => {
+    const result = await compose({ context: { nonsense: true } });
+    expect(result.isError).toBe(true);
+    const error = McpError.parse(textPayload(result));
+    expect(error.code).toBe('INVALID_INPUT');
+    expect(error.requestId).toBeTruthy();
+  });
+
+  it('compose_design with an unknown selectedComponentId returns a structured UNKNOWN_COMPONENT', async () => {
+    const result = await compose({ context: makeContext(), selectedComponentIds: ['comp.__ghost__'] });
+    expect(result.isError).toBe(true);
+    const error = McpError.parse(textPayload(result));
+    expect(error.code).toBe('UNKNOWN_COMPONENT');
+    expect(error.remediation.length).toBeGreaterThan(0);
+  });
+
+  it('validate_composition with a structurally malformed blueprint returns a structured INVALID_INPUT', async () => {
+    const result = await validate({ blueprint: { schemaVersion: '1.0' }, validationProfile: 'corporate' });
+    expect(result.isError).toBe(true);
+    const error = McpError.parse(textPayload(result));
+    expect(error.code).toBe('INVALID_INPUT');
   });
 });
 
