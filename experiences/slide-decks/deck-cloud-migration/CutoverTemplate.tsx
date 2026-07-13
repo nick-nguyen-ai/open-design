@@ -89,10 +89,25 @@ const ROLLBACK_W = 1000;
 const ROLLBACK_H = 360;
 const ROLLBACK_NODE_H = 40;
 const ROLLBACK_VIEW = '0 0 1000 360';
-/** Vertical gap between auto-laid estate nodes in a lane (before compression). */
+/** Vertical gap between auto-laid estate nodes in a lane (mixed-lane fallback). */
 const LANE_GAP = 24;
-/** The on-prem zone box that surrounds the locked node in the target estate. */
-const ONPREM_ZONE = { x: 676, y: 116, w: 224, h: 122 } as const;
+/**
+ * Auto-grid tuning for a pure coordinate-free fill: a lane wider than
+ * {@link LANE_COL_THRESHOLD} nodes splits into two columns; rows get a generous
+ * gap for connector-label clearance; retired nodes (target estate) drop into a
+ * bottom ghost band so the before/after has a visible delta under pure autolayout.
+ */
+const COL_GAP = 48;
+const ROW_GAP = 42;
+const GHOST_BAND_H = 96;
+const LANE_COL_THRESHOLD = 4;
+/**
+ * Even padding used to DERIVE the dashed on-prem "stays" zone box from the
+ * resolved position of the node that stays. Tuned so the shipped, authored ledger
+ * (target tx/ty 700/145) yields a box within ~1px of the previously hardcoded one.
+ */
+const ZONE_PAD_X = 24;
+const ZONE_PAD_Y = 30;
 
 /* ------------------------------------------------------------------ */
 /* Label maps                                                          */
@@ -222,16 +237,97 @@ function gapFillTops(count: number, authoredTops: readonly number[]): number[] {
   return out;
 }
 
+/** Even, vertically-centred tops for k nodes in a column of the given height. */
+function stackTops(k: number, height: number, gap: number): number[] {
+  if (k <= 1) return [(height - NODE_H) / 2];
+  const ideal = NODE_H + gap;
+  const required = (k - 1) * ideal + NODE_H;
+  const fits = required <= height;
+  const spacing = fits ? ideal : (height - NODE_H) / (k - 1);
+  const startY = fits ? (height - required) / 2 : 0;
+  return Array.from({ length: k }, (_, j) => startY + j * spacing);
+}
+
+/**
+ * Boustrophedon (snake) cell assignment: fill order reads left→right along a row,
+ * then wraps and reads right→left along the next, so a split lane keeps stable,
+ * legible fill order across its two columns.
+ */
+function snakeCells(count: number, cols: number): { col: number; row: number }[] {
+  const out: { col: number; row: number }[] = [];
+  for (let i = 0; i < count; i += 1) {
+    const row = Math.floor(i / cols);
+    const posInRow = i % cols;
+    const col = row % 2 === 0 ? posInRow : cols - 1 - posInRow;
+    out.push({ col, row });
+  }
+  return out;
+}
+
+/**
+ * The composition-improved layout for a fully coordinate-free estate. Lanes are
+ * the zones in fill order (on-prem/cloud) placed left→right; a lane with more than
+ * {@link LANE_COL_THRESHOLD} nodes snake-fills two columns; rows get {@link ROW_GAP}
+ * clearance so connector labels don't sit on node rects; and in the TARGET estate
+ * every `retire` node drops into a bottom ghost band, giving the before/after a
+ * visible delta that the current estate (all nodes in the grid) does not show.
+ */
+function autoGridLayout(nodes: readonly CutoverNode[], layout: EstateLayout): Positions {
+  const positions = new Map<string, Box>();
+  const isGhost = (n: CutoverNode) => layout === 'target' && n.disposition === 'retire';
+  const ghosts = nodes.filter(isGhost);
+  const mainAreaH = ghosts.length > 0 ? ESTATE_H - GHOST_BAND_H : ESTATE_H;
+
+  const lanes = laneOrder(nodes);
+  const laneMains = lanes.map((zone) => nodes.filter((n) => n.zone === zone && !isGhost(n)));
+  const laneCols = laneMains.map((m) => (m.length > LANE_COL_THRESHOLD ? 2 : 1));
+  const laneWidths = laneCols.map((c) => c * NODE_W + (c - 1) * COL_GAP);
+  const totalW = laneWidths.reduce((a, b) => a + b, 0);
+  const gap = (ESTATE_W - totalW) / (lanes.length + 1);
+
+  let cursorX = gap;
+  lanes.forEach((_zone, li) => {
+    const mains = laneMains[li]!;
+    const cols = laneCols[li]!;
+    const laneStartX = cursorX;
+    cursorX += laneWidths[li]! + gap;
+    if (mains.length === 0) return;
+    const rows = Math.ceil(mains.length / cols);
+    const rowTops = stackTops(rows, mainAreaH, ROW_GAP);
+    const cells = snakeCells(mains.length, cols);
+    mains.forEach((n, idx) => {
+      const { col, row } = cells[idx]!;
+      positions.set(n.id, { x: laneStartX + col * (NODE_W + COL_GAP), y: rowTops[row]! });
+    });
+  });
+
+  if (ghosts.length > 0) {
+    const g = ghosts.length;
+    const gGap = (ESTATE_W - g * NODE_W) / (g + 1);
+    const gy = mainAreaH + (GHOST_BAND_H - NODE_H) / 2;
+    ghosts.forEach((n, i) => positions.set(n.id, { x: gGap + i * (NODE_W + gGap), y: gy }));
+  }
+
+  return positions;
+}
+
 function layoutEstate(nodes: readonly CutoverNode[], layout: EstateLayout): Positions {
   const getX = (n: CutoverNode) => (layout === 'current' ? n.cx : n.tx);
   const getY = (n: CutoverNode) => (layout === 'current' ? n.cy : n.ty);
+  const isAuthored = (n: CutoverNode) => getX(n) !== undefined && getY(n) !== undefined;
+
+  // Pure coordinate-free fill → the composition-improved auto grid. As soon as any
+  // node carries authored coords (the shipped, fully-authored fill), the exact
+  // authored path below runs and reproduces the working file byte-for-byte.
+  if (nodes.every((n) => !isAuthored(n))) return autoGridLayout(nodes, layout);
+
   const lanes = laneOrder(nodes);
   const positions = new Map<string, Box>();
 
   lanes.forEach((zone, laneIdx) => {
     const laneNodes = nodes.filter((n) => n.zone === zone);
-    const authored = laneNodes.filter((n) => getX(n) !== undefined && getY(n) !== undefined);
-    const autos = laneNodes.filter((n) => getX(n) === undefined || getY(n) === undefined);
+    const authored = laneNodes.filter(isAuthored);
+    const autos = laneNodes.filter((n) => !isAuthored(n));
     for (const n of authored) positions.set(n.id, { x: getX(n)!, y: getY(n)! });
     if (autos.length === 0) return;
     const x = laneX(laneIdx, lanes.length);
@@ -282,6 +378,31 @@ function buildConnectors(edges: readonly CutoverEdge[], positions: Positions): B
     const pB = port(b, toSide);
     return { id: e.id, label: e.label, d: orth(pA, fromSide, pB), p1: pA, p2: pB };
   });
+}
+
+interface ZoneBox {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
+/**
+ * Derive the dashed on-prem "stays" zone box from the RESOLVED position of the
+ * node that stays (rect + even padding, label above), so it wraps that node
+ * whether the fill authored its coords or the template auto-laid it — never the
+ * old hardcoded geometry that left the auto-laid ledger outside an empty box.
+ */
+function staysZoneBox(nodes: readonly CutoverNode[], positions: Positions): ZoneBox | null {
+  const stays = nodes.find((n) => n.disposition === 'stays');
+  const box = stays ? positions.get(stays.id) : undefined;
+  if (!box) return null;
+  return {
+    x: box.x - ZONE_PAD_X,
+    y: box.y - ZONE_PAD_Y,
+    w: NODE_W + ZONE_PAD_X * 2,
+    h: NODE_H + ZONE_PAD_Y * 2,
+  };
 }
 
 /**
@@ -444,6 +565,7 @@ function EstateDiagram({
   const focusBox = positions.get(focus)!;
   const fx = focusBox.x;
   const fy = focusBox.y;
+  const zone = layout === 'target' ? staysZoneBox(nodes, positions) : null;
   return (
     <svg
       className="cu-estate-svg"
@@ -452,37 +574,23 @@ function EstateDiagram({
       aria-label={`${layout === 'current' ? 'Current' : 'Target'} estate diagram. ${nodes.map((n) => `${n.label}, ${DISPOSITION_LABEL[n.disposition]}`).join('; ')}. ${anomalyText}.`}
       data-testid={testid}
     >
-      {/* target estate: the on-prem zone that keeps the locked node */}
-      {layout === 'target' ? (
+      {/* target estate: the on-prem zone that keeps the locked node — derived from
+          the node's resolved position so it wraps the ledger under autolayout too */}
+      {zone ? (
         <g className="cu-zone" aria-hidden="true">
-          <rect x={ONPREM_ZONE.x} y={ONPREM_ZONE.y} width={ONPREM_ZONE.w} height={ONPREM_ZONE.h} rx={8} />
-          <text className="cu-zone-label" x={ONPREM_ZONE.x + 10} y={ONPREM_ZONE.y + 20}>
+          <rect x={zone.x} y={zone.y} width={zone.w} height={zone.h} rx={8} />
+          <text className="cu-zone-label" x={zone.x + 10} y={zone.y + 20}>
             ON-PREM · STAYS
           </text>
         </g>
       ) : null}
 
-      {/* connectors first, under the boxes */}
+      {/* connector lines + ports first, UNDER the boxes */}
       {connectors.map((c) => (
         <g key={c.id} className="cu-conn">
           <path className="cu-conn-line" d={c.d} />
           <circle className="cu-port" cx={c.p1[0]} cy={c.p1[1]} r={3} />
           <circle className="cu-port" cx={c.p2[0]} cy={c.p2[1]} r={3} />
-          {c.label ? (
-            <>
-              <rect
-                className="cu-conn-label-bg"
-                x={(c.p1[0] + c.p2[0]) / 2 - (c.label.length * 6.2) / 2 - 4}
-                y={(c.p1[1] + c.p2[1]) / 2 - 17}
-                width={c.label.length * 6.2 + 8}
-                height={15}
-                rx={2}
-              />
-              <text className="cu-conn-label" x={(c.p1[0] + c.p2[0]) / 2} y={(c.p1[1] + c.p2[1]) / 2 - 5} textAnchor="middle">
-                {c.label}
-              </text>
-            </>
-          ) : null}
         </g>
       ))}
 
@@ -518,6 +626,26 @@ function EstateDiagram({
           </g>
         );
       })}
+
+      {/* connector labels ON TOP of the boxes — each keeps a white halo so it
+          stays legible with clearance even where an auto-laid wire runs tight */}
+      {connectors.map((c) =>
+        c.label ? (
+          <g key={`${c.id}-label`} className="cu-conn-label-layer" aria-hidden="true">
+            <rect
+              className="cu-conn-label-bg"
+              x={(c.p1[0] + c.p2[0]) / 2 - (c.label.length * 6.2) / 2 - 4}
+              y={(c.p1[1] + c.p2[1]) / 2 - 17}
+              width={c.label.length * 6.2 + 8}
+              height={15}
+              rx={2}
+            />
+            <text className="cu-conn-label" x={(c.p1[0] + c.p2[0]) / 2} y={(c.p1[1] + c.p2[1]) / 2 - 5} textAnchor="middle">
+              {c.label}
+            </text>
+          </g>
+        ) : null,
+      )}
     </svg>
   );
 }
@@ -676,7 +804,7 @@ function SlideBody({ slide, fill, derived }: { slide: Slide; fill: CutoverFill; 
           anomalyText={derived.anomalyText}
           testid="current-estate"
           heading="What we have today."
-          note="Seven systems in one data centre, hung off a monolithic core that posts to the mainframe ledger. Selected: the ledger — the fixed point."
+          note={fill.estateNotes.current}
         />
       );
 
@@ -691,7 +819,7 @@ function SlideBody({ slide, fill, derived }: { slide: Slide; fill: CutoverFill; 
           anomalyText={derived.anomalyText}
           testid="target-estate"
           heading="What we run after."
-          note="Same canvas, moved. The core refactors into the cloud; batch ETL retires; the ledger stays exactly where it is, boxed in its on-prem zone."
+          note={fill.estateNotes.target}
         />
       );
 
@@ -911,8 +1039,8 @@ export default function CutoverTemplate({ fill }: { fill: CutoverFill }) {
   const targetMirror = useMemo(() => buildEstateMirror(fill.nodes, 'target'), [fill.nodes]);
 
   useEffect(() => {
-    document.title = 'The Cutover — cutover-plan.drawio — Live';
-  }, []);
+    document.title = `${fill.deck.world} — ${fill.deck.file} — Live`;
+  }, [fill.deck.world, fill.deck.file]);
 
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
@@ -961,10 +1089,10 @@ export default function CutoverTemplate({ fill }: { fill: CutoverFill }) {
       <main className="cu-main">
         <h1>
           <VisuallyHidden>
-            The Cutover — the synthetic core-banking cloud migration, rendered as a draw.io working
-            file (cutover-plan.drawio, rev 14). Seven systems move over three weekends; the mainframe
-            ledger stays on-prem: “{derived.anomalyText}”. Slide {activeNumber} of {SLIDE_COUNT}:{' '}
-            {activeSlide.section}.
+            {fill.deck.world} — {fill.deck.programme}, a cloud-migration cutover plan rendered as a
+            draw.io working file ({fill.deck.file}, {fill.deck.rev}). {fill.thesis.line1}{' '}
+            {fill.thesis.line2} The fixed point stays on-prem: “{derived.anomalyText}”. Slide{' '}
+            {activeNumber} of {SLIDE_COUNT}: {activeSlide.section}.
           </VisuallyHidden>
         </h1>
         <VisuallyHidden>

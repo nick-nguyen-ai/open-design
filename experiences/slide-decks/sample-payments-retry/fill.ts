@@ -41,6 +41,13 @@ export const sampleFill: CutoverFill = CutoverFill.parse({
       'Six systems in the payments retry pipeline leave the data centre over three weekends. One does not: the settlement ledger stays on-prem — the legal book of record, with a 5ms posting SLA. The whole plan is shaped around that single fixed point.',
   },
 
+  estateNotes: {
+    current:
+      'Six systems in one data centre, hung off a retry orchestrator that posts every settlement to the ledger. Selected: the ledger — the fixed point.',
+    target:
+      'Same canvas, moved. The orchestrator refactors into the cloud; the nightly batch poster retires; the ledger stays exactly where it is, on-prem.',
+  },
+
   /**
    * The pipeline on a shared canvas. GEOMETRY OMITTED on every node so the
    * template auto-lays the estate by zone (cloud lane left, on-prem right).

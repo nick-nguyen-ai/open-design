@@ -178,6 +178,15 @@ export const CutoverFill = z
       standfirst: z.string().min(1).max(260),
     }),
     /**
+     * The one-line captions under each estate diagram — the estate story, not
+     * template craft. `current` frames what the estate is today; `target` frames
+     * what changes after the move. Each wraps naturally under the canvas.
+     */
+    estateNotes: z.object({
+      current: z.string().min(1).max(180),
+      target: z.string().min(1).max(180),
+    }),
+    /**
      * The estate systems on the shared canvas. Exactly one carries the `stays`
      * anomaly disposition (padlocked, its badge the verbatim anomaly text). The
      * count is bounded so both the current and target diagrams stay composed.
@@ -266,6 +275,7 @@ export const CUTOVER_SLIDE_KINDS: SlideKindSpec[] = [
       { name: 'nodes', type: 'nodes', required: true, limits: { minItems: 5, maxItems: 9 }, guidance: 'The estate systems (id, label, kind app|data|integration, target zone, disposition). Geometry (current cx/cy + target tx/ty) is OPTIONAL and bounded to the canvas when given; omit it and the template auto-lays the node by zone (on-prem left, cloud right). Exactly one carries disposition "stays" — the padlocked anomaly, in the same place on both estates.' },
       { name: 'currentEdges', type: 'edges', required: true, limits: { minItems: 4, maxItems: 10 }, guidance: 'Current-estate orthogonal connectors: from/to node ids, OPTIONAL exit/enter ports (l|r|t|b) derived from node positions when omitted, and an optional wire label (e.g. "sql · 4ms").' },
       { name: 'currentFocus', type: 'text', required: true, limits: { maxChars: 40 }, guidance: 'Node id given draw.io selection handles on the current estate slide — usually the fixed point.' },
+      { name: 'estateNotes.current', type: 'longtext', required: true, limits: { maxChars: 180 }, guidance: 'One-line caption under the current-estate diagram — what the estate is today and which node is the selected fixed point.' },
     ],
   },
   {
@@ -275,6 +285,7 @@ export const CUTOVER_SLIDE_KINDS: SlideKindSpec[] = [
     slots: [
       { name: 'targetEdges', type: 'edges', required: true, limits: { minItems: 4, maxItems: 10 }, guidance: 'Target-estate orthogonal connectors after the move; same shape as currentEdges (ports optional, derived when omitted).' },
       { name: 'targetFocus', type: 'text', required: true, limits: { maxChars: 40 }, guidance: 'Node id given selection handles on the target estate slide — usually the system being refactored.' },
+      { name: 'estateNotes.target', type: 'longtext', required: true, limits: { maxChars: 180 }, guidance: 'One-line caption under the target-estate diagram — what changes after the move; the fixed point stays boxed in its on-prem zone.' },
     ],
   },
   {

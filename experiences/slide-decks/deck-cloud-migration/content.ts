@@ -37,6 +37,13 @@ export const cutoverFill: CutoverFill = CutoverFill.parse({
       'Seven systems leave the data centre over three weekends. One does not: the mainframe ledger stays on-prem, because a four-millisecond posting SLA does not survive the trip. The whole plan is shaped around that single fixed point.',
   },
 
+  estateNotes: {
+    current:
+      'Seven systems in one data centre, hung off a monolithic core that posts to the mainframe ledger. Selected: the ledger — the fixed point.',
+    target:
+      'Same canvas, moved. The core refactors into the cloud; batch ETL retires; the ledger stays exactly where it is, boxed in its on-prem zone.',
+  },
+
   /** The estate on a shared canvas — two layouts (current cx/cy, target tx/ty). */
   nodes: [
     { id: 'portal', label: 'Customer portal', kind: 'app', zone: 'cloud', disposition: 'rehost', cx: 60, cy: 40, tx: 60, ty: 40 },

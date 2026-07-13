@@ -50,14 +50,35 @@ interface Rect {
   h: number;
 }
 
+function rectOf(el: Element): Rect {
+  return {
+    x: Number.parseFloat(el.getAttribute('x')!),
+    y: Number.parseFloat(el.getAttribute('y')!),
+    w: Number.parseFloat(el.getAttribute('width')!),
+    h: Number.parseFloat(el.getAttribute('height')!),
+  };
+}
+
 function nodeRects(testid: string): Rect[] {
   const svg = screen.getByTestId(testid);
-  return Array.from(svg.querySelectorAll('rect.cu-node-box')).map((r) => ({
-    x: Number.parseFloat(r.getAttribute('x')!),
-    y: Number.parseFloat(r.getAttribute('y')!),
-    w: Number.parseFloat(r.getAttribute('width')!),
-    h: Number.parseFloat(r.getAttribute('height')!),
-  }));
+  return Array.from(svg.querySelectorAll('rect.cu-node-box')).map(rectOf);
+}
+
+/** The node-box rects of the retired (ghost-band) nodes in an estate. */
+function retiredRects(testid: string): Rect[] {
+  const svg = screen.getByTestId(testid);
+  return Array.from(svg.querySelectorAll('[data-retired="true"] rect.cu-node-box')).map(rectOf);
+}
+
+/** The white-halo background rects behind every connector label in an estate. */
+function labelBgRects(testid: string): Rect[] {
+  const svg = screen.getByTestId(testid);
+  return Array.from(svg.querySelectorAll('rect.cu-conn-label-bg')).map(rectOf);
+}
+
+/** Distinct rounded x origins — one per laid-out column. */
+function distinctColumns(rects: Rect[]): number {
+  return new Set(rects.map((r) => Math.round(r.x))).size;
 }
 
 function overlaps(a: Rect, b: Rect): boolean {
@@ -94,6 +115,68 @@ describe('The Cutover — deterministic estate auto-layout', () => {
         for (let j = i + 1; j < rects.length; j += 1) {
           expect(overlaps(rects[i]!, rects[j]!)).toBe(false);
         }
+      }
+    }
+  });
+
+  it('splits a lane of more than four nodes into two columns in both estates', () => {
+    render(
+      <MotionProvider reducedMotion>
+        <MemoryRouter>
+          <CutoverTemplate fill={coordinateFreeFill} />
+        </MemoryRouter>
+      </MotionProvider>,
+    );
+
+    // The cloud lane has >4 nodes, so it snake-fills two columns; with the on-prem
+    // lane that is at least three distinct column origins in each estate.
+    expect(distinctColumns(nodeRects('current-estate'))).toBeGreaterThanOrEqual(3);
+    expect(distinctColumns(nodeRects('target-estate'))).toBeGreaterThanOrEqual(3);
+  });
+
+  it('drops target-estate retired nodes into a bottom ghost band (a visible before/after delta)', () => {
+    render(
+      <MotionProvider reducedMotion>
+        <MemoryRouter>
+          <CutoverTemplate fill={coordinateFreeFill} />
+        </MemoryRouter>
+      </MotionProvider>,
+    );
+
+    // The current estate ghosts nothing — every node sits in the grid.
+    expect(retiredRects('current-estate')).toHaveLength(0);
+
+    // The target estate ghosts its retire node into a band BELOW every other node.
+    const retired = retiredRects('target-estate');
+    expect(retired.length).toBeGreaterThanOrEqual(1);
+
+    const others = nodeRects('target-estate').filter(
+      (r) => !retired.some((g) => g.x === r.x && g.y === r.y),
+    );
+    const bandTop = Math.min(...retired.map((r) => r.y));
+    const maxOtherBottom = Math.max(...others.map((r) => r.y + r.h));
+    expect(bandTop).toBeGreaterThanOrEqual(maxOtherBottom);
+    // …and the whole band stays on the canvas.
+    for (const r of retired) expect(r.y + r.h).toBeLessThanOrEqual(ESTATE_H);
+  });
+
+  it('keeps every connector label halo within the canvas (label clearance)', () => {
+    render(
+      <MotionProvider reducedMotion>
+        <MemoryRouter>
+          <CutoverTemplate fill={coordinateFreeFill} />
+        </MemoryRouter>
+      </MotionProvider>,
+    );
+
+    for (const testid of ['current-estate', 'target-estate']) {
+      const halos = labelBgRects(testid);
+      expect(halos.length).toBeGreaterThan(0);
+      for (const r of halos) {
+        expect(r.x).toBeGreaterThanOrEqual(0);
+        expect(r.y).toBeGreaterThanOrEqual(0);
+        expect(r.x + r.w).toBeLessThanOrEqual(ESTATE_W);
+        expect(r.y + r.h).toBeLessThanOrEqual(ESTATE_H);
       }
     }
   });
