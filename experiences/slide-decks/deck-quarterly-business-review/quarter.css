@@ -1,0 +1,927 @@
+/*
+ * THE QUARTER — experience-local art layer for deck-quarterly-business-review.
+ *
+ * Batch-2 art-direction licence: raw colour values are permitted in THIS
+ * stylesheet only. Easings and durations come from the platform motion tokens
+ * (var(--ease-*), var(--dur-*)) — never ad-hoc curves.
+ *
+ * Mood: a flawlessly conventional quarterly business review. White ground, one
+ * navy accent, a visible 12-column grid, a persistent title bar and a footer
+ * rule. Fraunces for display, Inter for text, IBM Plex Mono for figures and
+ * chrome. Motion is a single fade/rise per slide. The craft is scale and
+ * alignment, not a conceit.
+ */
+
+.q-root {
+  --q-paper: #f7f8fa;
+  --q-card: #ffffff;
+  --q-navy: #1f3a67;
+  --q-navy-soft: #5a6f92;
+  --q-ink: #1a2230;
+  --q-ink-soft: #3a4557;
+  --q-muted: #6b7484;
+  --q-faint: #9aa1ad;
+  --q-line: rgba(31, 58, 103, 0.16);
+  --q-line-faint: rgba(31, 58, 103, 0.09);
+  --q-guide: rgba(31, 58, 103, 0.045);
+  --q-red: #b03a3a;
+  --q-green: #2f6b4f;
+  --q-serif: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
+  --q-sans: 'Inter Variable', 'Inter', system-ui, sans-serif;
+  --q-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+  color: var(--q-ink);
+  font-family: var(--q-sans);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  background: var(--q-paper);
+}
+
+/* ------------------------------------------------------------------ */
+/* Persistent title bar                                                */
+/* ------------------------------------------------------------------ */
+
+.q-titlebar {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  height: 2.9rem;
+  padding: 0 clamp(1.2rem, 4vw, 2.6rem);
+  background: var(--q-navy);
+  color: #eef1f6;
+  font-family: var(--q-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+}
+
+.q-titlebar-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  white-space: nowrap;
+}
+
+.q-titlebar-rule {
+  width: 1px;
+  height: 0.95em;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.q-back {
+  color: #cdd7e6;
+  text-decoration: none;
+  letter-spacing: 0.14em;
+}
+
+.q-back:hover {
+  color: #fff;
+}
+
+.q-titlebar-title {
+  font-family: var(--q-sans);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  letter-spacing: 0.01em;
+  color: #fff;
+}
+
+.q-titlebar-tag {
+  color: #9fb0c8;
+}
+
+.q-titlebar-section {
+  color: #dbe3ef;
+  font-weight: 500;
+}
+
+.q-back:focus-visible,
+.q-nav-btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Stage & slides                                                      */
+/* ------------------------------------------------------------------ */
+
+.q-main {
+  height: 100%;
+}
+
+.q-stage {
+  position: absolute;
+  inset: 2.9rem 0 2.6rem 0;
+}
+
+.q-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.6rem, 3.4vh, 2.6rem) clamp(1.4rem, 5vw, 3.6rem) 0.6rem;
+  visibility: hidden;
+  /* the visible 12-column grid the content aligns to — faint, precision-paper */
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--q-guide) 0 1px,
+    transparent 1px calc(100% / 12)
+  );
+  background-origin: content-box;
+  background-clip: content-box;
+  background-repeat: no-repeat;
+}
+
+.q-slide[data-state='active'] {
+  visibility: visible;
+  z-index: 2;
+}
+
+.q-slide[data-state='leaving'] {
+  visibility: visible;
+  z-index: 3;
+  animation: q-slide-out var(--dur-structure) var(--ease-shift) both;
+  pointer-events: none;
+}
+
+@keyframes q-slide-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.q-slide-inner {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  /* the visible 12-column content grid every slide body aligns to */
+}
+
+.q-slide[data-state='active'] .q-build {
+  animation: q-rise var(--dur-structure) var(--ease-settle) both;
+  animation-delay: calc(var(--q-i, 0) * var(--dur-feedback));
+}
+
+@keyframes q-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.55rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer rule (per slide) — page · confidentiality · synthetic notice */
+/* ------------------------------------------------------------------ */
+
+.q-footer {
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1.4rem;
+  padding: 0.55rem clamp(0.2rem, 1vw, 0.6rem) 0.2rem;
+  margin-top: 0.4rem;
+  border-top: 1.5px solid var(--q-navy);
+  font-family: var(--q-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  color: var(--q-faint);
+}
+
+.q-footer-page {
+  color: var(--q-navy);
+  font-weight: 500;
+}
+
+.q-footer-conf {
+  text-align: center;
+  color: var(--q-muted);
+}
+
+.q-footer-notice {
+  text-align: right;
+  color: var(--q-red);
+}
+
+/* ------------------------------------------------------------------ */
+/* Bottom control strip                                                */
+/* ------------------------------------------------------------------ */
+
+.q-controls {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  height: 2.6rem;
+  padding: 0 clamp(1.2rem, 4vw, 2.6rem);
+  background: var(--q-card);
+  border-top: 1px solid var(--q-line-faint);
+  font-family: var(--q-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  color: var(--q-faint);
+}
+
+.q-controls-notice {
+  color: var(--q-red);
+  white-space: nowrap;
+}
+
+.q-controls-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  white-space: nowrap;
+}
+
+.q-controls-count {
+  color: var(--q-navy);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+}
+
+.q-hint {
+  color: var(--q-faint);
+}
+
+.q-nav-btn {
+  width: 1.9rem;
+  height: 1.9rem;
+  border: 1px solid var(--q-line);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--q-navy);
+  font-family: var(--q-mono);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition:
+    color var(--dur-feedback) var(--ease-settle),
+    border-color var(--dur-feedback) var(--ease-settle),
+    background-color var(--dur-feedback) var(--ease-settle);
+}
+
+.q-nav-btn:hover:not(:disabled) {
+  color: #fff;
+  background: var(--q-navy);
+  border-color: var(--q-navy);
+}
+
+.q-nav-btn:disabled {
+  opacity: 0.32;
+  cursor: default;
+}
+
+/* ------------------------------------------------------------------ */
+/* Shared type                                                         */
+/* ------------------------------------------------------------------ */
+
+.q-slidehead {
+  margin-bottom: clamp(1rem, 2.4vh, 1.6rem);
+}
+
+.q-kicker {
+  display: block;
+  margin-bottom: 0.55rem;
+  font-family: var(--q-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  color: var(--q-navy-soft);
+}
+
+.q-heading {
+  margin: 0;
+  font-family: var(--q-serif);
+  font-weight: 380;
+  font-size: clamp(1.9rem, 3.6vw, 3rem);
+  line-height: 1.04;
+  letter-spacing: -0.012em;
+  color: var(--q-ink);
+  max-width: 22ch;
+  text-wrap: balance;
+}
+
+.q-note {
+  margin: 0.7rem 0 0;
+  max-width: 72ch;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--q-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Cover                                                               */
+/* ------------------------------------------------------------------ */
+
+.q-cover {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 60rem;
+  border-left: 3px solid var(--q-navy);
+  padding-left: clamp(1.4rem, 3vw, 2.6rem);
+}
+
+.q-cover-org {
+  margin: 0 0 1.4rem;
+  font-family: var(--q-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.28em;
+  color: var(--q-navy-soft);
+}
+
+.q-cover-title {
+  margin: 0 0 1.6rem;
+  font-family: var(--q-serif);
+  font-weight: 340;
+  font-size: clamp(3rem, 7vw, 5.4rem);
+  line-height: 0.98;
+  letter-spacing: -0.028em;
+  color: var(--q-ink);
+}
+
+.q-cover-line {
+  display: block;
+}
+
+.q-cover-sub {
+  margin-top: 0.7rem;
+  font-family: var(--q-sans);
+  font-weight: 400;
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  letter-spacing: 0;
+  color: var(--q-navy);
+}
+
+.q-cover-lead {
+  margin: 0;
+  max-width: 46ch;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--q-ink-soft);
+}
+
+.q-cover-foot {
+  display: flex;
+  gap: 1.6rem;
+  margin-top: 2rem;
+  font-family: var(--q-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  color: var(--q-faint);
+}
+
+/* ------------------------------------------------------------------ */
+/* Agenda                                                              */
+/* ------------------------------------------------------------------ */
+
+.q-agenda-body,
+.q-summary-body,
+.q-kpi-body,
+.q-chart-body,
+.q-twocol-body,
+.q-table-body,
+.q-priorities-body,
+.q-appendix-body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 0;
+}
+
+.q-agenda {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--q-line-faint);
+}
+
+.q-agenda-item {
+  display: grid;
+  grid-template-columns: 4rem 14rem 1fr;
+  align-items: baseline;
+  gap: 1.4rem;
+  padding: clamp(0.7rem, 1.8vh, 1.15rem) 0.2rem;
+  border-bottom: 1px solid var(--q-line-faint);
+}
+
+.q-agenda-no {
+  font-family: var(--q-mono);
+  font-size: 1.1rem;
+  color: var(--q-navy);
+}
+
+.q-agenda-title {
+  font-family: var(--q-serif);
+  font-weight: 460;
+  font-size: 1.35rem;
+  color: var(--q-ink);
+}
+
+.q-agenda-detail {
+  font-size: 0.9375rem;
+  color: var(--q-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Executive summary                                                   */
+/* ------------------------------------------------------------------ */
+
+.q-summary {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.9rem, 2.2vh, 1.5rem);
+  max-width: 62rem;
+}
+
+.q-summary-line {
+  display: grid;
+  grid-template-columns: 2.6rem 1fr;
+  gap: 1.2rem;
+  font-family: var(--q-serif);
+  font-weight: 360;
+  font-size: clamp(1.15rem, 1.9vw, 1.6rem);
+  line-height: 1.42;
+  color: var(--q-ink);
+}
+
+.q-summary-mark {
+  font-family: var(--q-mono);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--q-navy-soft);
+  padding-top: 0.5em;
+}
+
+.q-summary-line[data-anomaly='true'] {
+  color: var(--q-ink);
+}
+
+.q-summary-line[data-anomaly='true'] .q-summary-mark {
+  color: var(--q-red);
+}
+
+.q-summary-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 1.4rem 0 0;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--q-red);
+  border-left: 3px solid var(--q-red);
+  border-radius: 3px;
+  background: rgba(176, 58, 58, 0.05);
+  font-family: var(--q-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+  color: var(--q-red);
+}
+
+/* ------------------------------------------------------------------ */
+/* KPI row (comp.kpi-tile) — 4 columns, framed                         */
+/* ------------------------------------------------------------------ */
+
+.q-kpi-frame {
+  margin-top: 0.4rem;
+}
+
+/* Override the component's responsive grid to a clean 4-up row. */
+.q-kpi-tiles :where(.grid) {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 1rem !important;
+}
+
+.q-kpi-foot {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  margin-top: 1.1rem;
+  flex-wrap: wrap;
+}
+
+.q-kpi-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--q-red);
+  border-radius: 3px;
+  background: rgba(176, 58, 58, 0.06);
+  font-family: var(--q-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+  color: var(--q-red);
+}
+
+.q-flag-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--q-red);
+}
+
+.q-kpi-foot .q-note {
+  margin: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Chart slides                                                        */
+/* ------------------------------------------------------------------ */
+
+.q-chart-frame {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin-top: 0.4rem;
+  padding: 1.1rem 1.3rem 0.7rem;
+  background: var(--q-card);
+  border: 1px solid var(--q-line-faint);
+  border-radius: 6px;
+  box-shadow: 0 18px 40px -30px rgba(31, 58, 103, 0.4);
+}
+
+.q-chart figcaption {
+  font-family: var(--q-mono);
+  letter-spacing: 0.02em;
+}
+
+/* ------------------------------------------------------------------ */
+/* Two-column wins/losses                                              */
+/* ------------------------------------------------------------------ */
+
+.q-twocol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.6rem;
+  min-height: 0;
+}
+
+.q-col {
+  padding: 1.2rem 1.4rem;
+  background: var(--q-card);
+  border: 1px solid var(--q-line-faint);
+  border-radius: 6px;
+  border-top: 3px solid var(--q-navy);
+}
+
+.q-col[data-tone='loss'] {
+  border-top-color: var(--q-red);
+}
+
+.q-col-head {
+  display: block;
+  margin-bottom: 1rem;
+  font-family: var(--q-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--q-navy);
+}
+
+.q-col[data-tone='loss'] .q-col-head {
+  color: var(--q-red);
+}
+
+.q-col ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.q-deal-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.q-deal-top b {
+  font-weight: 600;
+  color: var(--q-ink);
+}
+
+.q-deal-value {
+  font-family: var(--q-mono);
+  font-size: 0.8125rem;
+  color: var(--q-navy);
+  white-space: nowrap;
+}
+
+.q-col[data-tone='loss'] .q-deal-value {
+  color: var(--q-red);
+}
+
+.q-deal-note {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.875rem;
+  color: var(--q-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Tables (pipeline, risks)                                            */
+/* ------------------------------------------------------------------ */
+
+.q-table-frame {
+  margin-top: 0.4rem;
+  overflow-x: auto;
+}
+
+.q-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.q-table thead th {
+  padding: 0.7rem 1rem;
+  text-align: left;
+  font-family: var(--q-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #eef1f6;
+  background: var(--q-navy);
+}
+
+.q-table tbody th,
+.q-table tbody td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--q-line-faint);
+  color: var(--q-ink);
+  font-weight: 400;
+  text-align: left;
+}
+
+.q-table tbody th {
+  font-weight: 600;
+}
+
+.q-table tbody tr:nth-child(even) {
+  background: rgba(31, 58, 103, 0.03);
+}
+
+.q-num {
+  text-align: right !important;
+  font-family: var(--q-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.q-table tbody tr[data-thin='true'] {
+  background: rgba(176, 58, 58, 0.06);
+}
+
+.q-table tbody tr[data-thin='true'] td:last-child {
+  color: var(--q-red);
+  font-weight: 600;
+}
+
+.q-risk-table td:last-child {
+  color: var(--q-muted);
+  max-width: 42ch;
+}
+
+.q-sev {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-family: var(--q-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  border: 1px solid currentColor;
+}
+
+.q-sev[data-sev='high'] {
+  color: var(--q-red);
+  background: rgba(176, 58, 58, 0.07);
+}
+
+.q-sev[data-sev='medium'] {
+  color: #9a6b1e;
+  background: rgba(154, 107, 30, 0.08);
+}
+
+.q-sev[data-sev='low'] {
+  color: var(--q-green);
+  background: rgba(47, 107, 79, 0.08);
+}
+
+/* ------------------------------------------------------------------ */
+/* Priorities                                                          */
+/* ------------------------------------------------------------------ */
+
+.q-priorities {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem 1.8rem;
+  max-width: 72rem;
+}
+
+.q-priority {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  gap: 1rem;
+  padding: 1.1rem 1.2rem;
+  background: var(--q-card);
+  border: 1px solid var(--q-line-faint);
+  border-radius: 6px;
+  border-left: 3px solid var(--q-navy);
+}
+
+.q-priority-no {
+  font-family: var(--q-mono);
+  font-size: 1.3rem;
+  color: var(--q-navy);
+}
+
+.q-priority-text b {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-family: var(--q-serif);
+  font-weight: 500;
+  font-size: 1.15rem;
+  color: var(--q-ink);
+}
+
+.q-priority-text span {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--q-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Appendix                                                            */
+/* ------------------------------------------------------------------ */
+
+.q-divider-rule {
+  width: 4rem;
+  height: 3px;
+  margin-bottom: 1.4rem;
+  background: var(--q-navy);
+}
+
+.q-datanotes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  max-width: 78ch;
+}
+
+.q-datanotes li {
+  position: relative;
+  padding-left: 1.4rem;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--q-ink-soft);
+}
+
+.q-datanotes li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--q-navy-soft);
+  font-family: var(--q-mono);
+}
+
+/* ------------------------------------------------------------------ */
+/* Reduced motion                                                      */
+/* ------------------------------------------------------------------ */
+
+.q-root[data-reduced='true'] .q-slide[data-state='active'] .q-build {
+  animation: none;
+}
+
+.q-root[data-reduced='true'] .q-slide[data-state='leaving'] {
+  visibility: hidden;
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .q-slide[data-state='active'] .q-build {
+    animation: none;
+  }
+  .q-slide[data-state='leaving'] {
+    visibility: hidden;
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Narrow viewports                                                    */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 62rem) {
+  .q-root {
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+  }
+  .q-stage {
+    position: relative;
+    inset: auto;
+  }
+  .q-slide {
+    position: relative;
+    padding: 1.4rem 1.2rem;
+    min-height: calc(100svh - 5.5rem);
+  }
+  .q-slide:not([data-state='active']) {
+    display: none;
+  }
+  .q-kpi-tiles :where(.grid) {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  .q-twocol,
+  .q-priorities,
+  .q-agenda-item {
+    grid-template-columns: 1fr;
+  }
+  .q-agenda-item {
+    gap: 0.3rem;
+  }
+  .q-hint,
+  .q-controls-notice {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Print: one slide per page, white ground                             */
+/* ------------------------------------------------------------------ */
+
+@media print {
+  .q-root {
+    --q-paper: #ffffff;
+    height: auto;
+    overflow: visible;
+    background: #fff;
+  }
+  .q-titlebar,
+  .q-controls {
+    display: none;
+  }
+  .q-stage {
+    position: static;
+    inset: auto;
+  }
+  .q-slide {
+    position: static;
+    visibility: visible !important;
+    height: auto;
+    min-height: 96vh;
+    padding: 1.4rem;
+    break-after: page;
+    animation: none !important;
+  }
+  .q-slide {
+    background-image: none;
+  }
+  .q-slide .q-build {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .q-chart-frame,
+  .q-col,
+  .q-priority,
+  .q-slide[data-state] {
+    box-shadow: none;
+  }
+  .q-footer {
+    border-top-color: #000;
+  }
+}

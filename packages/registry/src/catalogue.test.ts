@@ -25,7 +25,7 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
     expect(result.components).toHaveLength(5);
     expect(result.grammars).toHaveLength(10);
     expect(result.motionSequences).toHaveLength(3);
-    expect(result.experiences).toHaveLength(56);
+    expect(result.experiences).toHaveLength(59);
   });
 
   it('discovers the 5 real component ids', async () => {
@@ -77,7 +77,7 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
     expect(bySurface.get('project-page')?.every((id) => id.startsWith('proj-'))).toBe(true);
     expect(bySurface.get('project-page')).toHaveLength(10);
     expect(bySurface.get('slide-deck')?.every((id) => id.startsWith('deck-'))).toBe(true);
-    expect(bySurface.get('slide-deck')).toHaveLength(16);
+    expect(bySurface.get('slide-deck')).toHaveLength(19);
     expect(bySurface.get('personal-page')?.every((id) => id.startsWith('home-'))).toBe(true);
     expect(bySurface.get('personal-page')).toHaveLength(10);
     expect(bySurface.get('technical-explainer')?.every((id) => id.startsWith('exp-'))).toBe(true);
@@ -126,7 +126,7 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
       expect.arrayContaining(['comp.status-list', 'comp.trend-chart']),
     );
 
-    // Exactly these twenty-nine experiences are approved: the original five
+    // Exactly these thirty-two experiences are approved: the original five
     // live worlds (one per surface), the three slide-deck worlds from the
     // task-15 deck batch, the three from the task-16 deck batch (The River, The
     // Readout, The Gallery Floor), the three from the task-17 deck batch that
@@ -136,14 +136,17 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
     // the task-19 batch (The Line, The Dawn Wall, The Reading Room), the three
     // personal pages from the task-20 batch that complete all ten personal pages
     // (The Atlas, The Specimen Book, The Playbill), the three batch-2 deck
-    // worlds D (The Planning Wall, The Preprint, The Campaign Room), and the
-    // three batch-2 deck worlds E (T-Minus, The Whiteboard, The Cutover).
-    // Everything else remains reviewed/experimental.
+    // worlds D (The Planning Wall, The Preprint, The Campaign Room), the three
+    // batch-2 deck worlds E (T-Minus, The Whiteboard, The Cutover), and the
+    // three batch-2 deck worlds F — the PowerPoint-familiar three (The Quarter,
+    // The Straight Pitch, The Allocation). Everything else remains
+    // reviewed/experimental.
     const approvedIds = result.experiences.filter((e) => e.approval.state === 'approved').map((e) => e.id);
     expect(approvedIds.sort()).toEqual([
       'db-model-monitoring-cockpit',
       'deck-ai-governance-and-controls',
       'deck-ai-strategy',
+      'deck-budget-planning',
       'deck-cloud-migration',
       'deck-executive-decision-proposal',
       'deck-experiment-results',
@@ -153,7 +156,9 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
       'deck-product-launch',
       'deck-product-vision',
       'deck-project-kickoff',
+      'deck-quarterly-business-review',
       'deck-research-discussion',
+      'deck-sales-pitch',
       'deck-team-retrospective',
       'deck-technical-architecture-explanation',
       'deck-technical-training',
