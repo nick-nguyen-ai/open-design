@@ -130,10 +130,6 @@ export const QuarterFill = z
     risks: z.array(RiskRow).min(3).max(6),
     priorities: z.array(Priority).min(3).max(5),
     dataNotes: z.array(z.string().min(1).max(180)).min(2).max(6),
-  })
-  .refine((fill) => fill.summary.sentences.length >= 3, {
-    message: 'The executive summary needs at least three sentences.',
-    path: ['summary', 'sentences'],
   });
 
 export type QuarterFill = z.infer<typeof QuarterFill>;
@@ -188,7 +184,7 @@ export const QUARTER_SLIDE_KINDS: SlideKindSpec[] = [
     purpose: 'The multi-quarter revenue trend (comp.trend-chart).',
     repeats: { min: 1, max: 1 },
     slots: [
-      { name: 'revenueSeries', type: 'number', required: true, limits: { minItems: 6, maxItems: 10 }, guidance: 'Six-to-ten period points (label + value); the last point is the reporting quarter.' },
+      { name: 'revenueSeries', type: 'items', required: true, limits: { minItems: 6, maxItems: 10 }, guidance: 'Six-to-ten period points (label + value); the last point is the reporting quarter.' },
       { name: 'revenueNote', type: 'text', required: true, limits: { maxChars: 140 }, guidance: 'Source note explaining the trend and any step, shown under the chart.' },
     ],
   },
