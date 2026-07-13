@@ -180,6 +180,68 @@ export const CURRENT_FOCUS = 'ledger';
 export const TARGET_FOCUS = 'core';
 
 /* ------------------------------------------------------------------ */
+/* Estate zones — the accessible mirror groups each diagram by zone     */
+/* ------------------------------------------------------------------ */
+
+/**
+ * The two diagrams differ by WHERE each system lives, not just by
+ * disposition. The current estate is one on-prem data centre; the target
+ * estate splits into a cloud landing zone plus the on-prem zone that keeps
+ * the locked ledger (the `ONPREM_ZONE` box drawn on the target slide). The
+ * accessible mirror is grouped by that same zone level, so a screen-reader
+ * user reads a TRUE mirror of each diagram — the current mirror places a
+ * system on-prem that the target mirror places in the cloud.
+ */
+export type Zone = 'onprem' | 'cloud';
+
+export const ZONE_LABEL: Record<Zone, string> = {
+  onprem: 'On-prem data centre',
+  cloud: 'Cloud landing zone',
+};
+
+/** Zone of a node per estate: current is all on-prem; target moves all but the locked ledger to cloud. */
+function zoneOf(node: EstateNode, layout: 'current' | 'target'): Zone {
+  if (layout === 'current') return 'onprem';
+  return node.locked ? 'onprem' : 'cloud';
+}
+
+export interface EstateMirrorSystem {
+  id: string;
+  label: string;
+  kind: NodeKind;
+  disposition: Disposition;
+  locked?: boolean;
+}
+
+export interface EstateMirrorZone {
+  zone: Zone;
+  label: string;
+  systems: readonly EstateMirrorSystem[];
+}
+
+function buildEstateMirror(layout: 'current' | 'target'): readonly EstateMirrorZone[] {
+  const order: readonly Zone[] = ['onprem', 'cloud'];
+  return order
+    .map((zone) => ({
+      zone,
+      label: ZONE_LABEL[zone],
+      systems: NODES.filter((n) => zoneOf(n, layout) === zone).map((n) => ({
+        id: n.id,
+        label: n.label,
+        kind: n.kind,
+        disposition: n.disposition,
+        locked: n.locked,
+      })),
+    }))
+    .filter((g) => g.systems.length > 0);
+}
+
+/** Current estate: one on-prem zone holding every system. */
+export const CURRENT_ESTATE_MIRROR = buildEstateMirror('current');
+/** Target estate: cloud landing zone + the on-prem zone that keeps the locked ledger. */
+export const TARGET_ESTATE_MIRROR = buildEstateMirror('target');
+
+/* ------------------------------------------------------------------ */
 /* Title / thesis                                                      */
 /* ------------------------------------------------------------------ */
 

@@ -211,15 +211,43 @@ describe('LiveExperience — The Cutover (deck-cloud-migration)', () => {
     expect(screen.getByTestId('cutover-counter')).toHaveTextContent('01 / 10');
   });
 
-  it('exposes both estate diagrams as accessible nested-list mirrors', async () => {
+  it('exposes both estate diagrams as TRUE zone-grouped mirrors that differ exactly as the diagrams do', async () => {
     renderLive('/live/deck-cloud-migration');
     await screen.findByTestId('live-cutover', {}, { timeout: 15000 });
+
     expect(
       screen.getByRole('heading', { name: /Current estate, system by system/i }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole('heading', { name: /Target estate, system by system/i }),
     ).toBeInTheDocument();
+
+    const current = screen.getByTestId('current-estate-mirror');
+    const target = screen.getByTestId('target-estate-mirror');
+
+    // The two mirrors are NOT identical (the old bug: same flat NODES list twice).
+    expect(current.textContent).not.toEqual(target.textContent);
+
+    // Zone level is present. The current estate is entirely on-prem — no cloud zone yet.
+    const currentOnprem = within(current).getByText('On-prem data centre').closest('li')!;
+    expect(within(current).queryByText('Cloud landing zone')).toBeNull();
+
+    // The target estate splits into an on-prem zone and a cloud landing zone.
+    const targetOnprem = within(target).getByText('On-prem data centre').closest('li')!;
+    const targetCloud = within(target).getByText('Cloud landing zone').closest('li')!;
+
+    // A system the CURRENT mirror lists on-prem, the TARGET mirror places in the cloud.
+    expect(within(currentOnprem).getByText(/Customer portal/i)).toBeInTheDocument();
+    expect(within(targetCloud).getByText(/Customer portal/i)).toBeInTheDocument();
+    expect(within(targetOnprem).queryByText(/Customer portal/i)).toBeNull();
+
+    // The padlocked mainframe ledger appears on-prem in BOTH mirrors.
+    expect(within(currentOnprem).getByText(/Mainframe ledger/i)).toHaveTextContent(
+      /MAINFRAME LEDGER — STAYS ON-PREM · LATENCY SLA 4ms/,
+    );
+    expect(within(targetOnprem).getByText(/Mainframe ledger/i)).toHaveTextContent(
+      /MAINFRAME LEDGER — STAYS ON-PREM · LATENCY SLA 4ms/,
+    );
   });
 
   it('has no axe violations', async () => {

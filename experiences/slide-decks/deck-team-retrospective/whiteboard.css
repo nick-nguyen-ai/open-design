@@ -44,16 +44,19 @@
     var(--wb-board);
 }
 
-/* faint whiteboard sheen + ghost of old marker */
+/* faint whiteboard sheen + a smudged eraser ghost top-right — a wipe arc that
+   never fully cleaned off, drawn as two soft low-contrast ellipses (no hard
+   edge, so it reads as a deliberate smear rather than a rendering artifact) */
 .wb-root::before {
   content: '';
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.6;
+  opacity: 0.7;
   background-image:
     linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, 0.5) 46%, transparent 52%),
-    radial-gradient(circle at 78% 22%, rgba(47, 49, 54, 0.03) 0 30px, transparent 31px);
+    radial-gradient(ellipse 150px 44px at 78% 21%, rgba(47, 49, 54, 0.05), rgba(47, 49, 54, 0.02) 52%, transparent 78%),
+    radial-gradient(ellipse 96px 64px at 82% 25%, rgba(47, 49, 54, 0.035), transparent 72%);
 }
 
 /* the marker frame drawn around each slide */
@@ -405,43 +408,61 @@
 /* ------------------------------------------------------------------ */
 
 .wb-wall-body {
-  max-width: 80rem;
+  max-width: 82rem;
 }
 
+/* A photographed board: stickies scattered across two loose rows, not a tidy
+   single row. Absolute placement from deterministic per-sticky offsets fills
+   the lower half of the board so nothing reads as dead space. */
 .wb-wall {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 1.3rem 1.5rem;
-  align-items: start;
+  position: relative;
+  width: 100%;
+  height: clamp(23rem, 47vh, 33rem);
   margin-top: 0.6rem;
 }
 
-/* organic vertical stagger — a photographed board, not a card row.
-   margin (not transform) so the build's entrance animation doesn't reset it. */
-.wb-wall > .wb-build:nth-child(3n + 2) {
-  margin-top: 2.1rem;
+.wb-wall > .wb-build {
+  position: absolute;
+  left: var(--wb-x, 0);
+  top: var(--wb-y, 0);
+  z-index: var(--wb-z, 1);
+  width: clamp(11rem, 15.5vw, 15rem);
 }
 
-.wb-wall > .wb-build:nth-child(3n) {
-  margin-top: 1rem;
+/* the marker arrow + underline sit on the board, under the stickies */
+.wb-wall-deco {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: visible;
 }
 
-.wb-wall > .wb-build:nth-child(4n + 1) {
-  margin-top: 0.5rem;
+.wb-wall-arrow,
+.wb-wall-underline {
+  fill: none;
+  stroke: var(--wb-black);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.66;
 }
 
-.wb-slide[data-slide-id='badly'] .wb-wall {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  max-width: 66rem;
+.wb-wall-underline {
+  stroke: var(--wb-red);
+  stroke-width: 3;
+  opacity: 0.8;
 }
 
 .wb-sticky {
   position: relative;
-  padding: 1.35rem 1.2rem 1.7rem;
-  min-height: 12.5rem;
+  padding: 1.25rem 1.15rem 1.55rem;
+  min-height: 11.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.55rem;
   transform: rotate(var(--wb-rot, 0deg));
   box-shadow: 0 16px 26px -14px rgba(47, 41, 20, 0.6);
 }
@@ -490,6 +511,26 @@
   font-size: 0.625rem;
   letter-spacing: 0.12em;
   color: rgba(47, 49, 54, 0.55);
+}
+
+/* dot-votes clustered on the strongest stickies — blue felt-tip dots */
+.wb-sticky-votes {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.55rem;
+  width: 3.6rem;
+  height: 2.1rem;
+  overflow: visible;
+  opacity: 0.9;
+}
+
+.wb-sticky-votes circle {
+  fill: var(--wb-blue);
+}
+
+/* the note that recurs most gets red dots — reads as the room's loudest vote */
+.wb-sticky[data-colour='pink'] .wb-sticky-votes circle {
+  fill: var(--wb-red);
 }
 
 /* ------------------------------------------------------------------ */
@@ -808,9 +849,22 @@
   .wb-slide:not([data-state='active']) {
     display: none;
   }
-  .wb-wall,
-  .wb-slide[data-slide-id='badly'] .wb-wall {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* stack the scatter into a simple two-up flow on narrow screens */
+  .wb-wall {
+    position: relative;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .wb-wall > .wb-build {
+    position: static;
+    left: auto;
+    top: auto;
+    width: calc(50% - 0.5rem);
+  }
+  .wb-wall-deco {
+    display: none;
   }
   .wb-actions-grid {
     grid-template-columns: 1fr;
@@ -864,6 +918,23 @@
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
+  }
+  /* flow the scattered stickies into a plain grid for paginated print */
+  .wb-wall {
+    position: relative;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+  .wb-wall > .wb-build {
+    position: static;
+    left: auto;
+    top: auto;
+    width: auto;
+  }
+  .wb-wall-deco {
+    display: none;
   }
   .wb-sticky,
   .wb-printout {

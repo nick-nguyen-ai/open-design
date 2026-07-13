@@ -28,6 +28,7 @@ import { useDeckNavigation } from '../_deck-kit/useDeckNavigation.js';
 import {
   ANOMALY_TEXT,
   CURRENT_CONNECTORS,
+  CURRENT_ESTATE_MIRROR,
   CURRENT_FOCUS,
   CURRENT_SLIDE_NUMBER,
   CUTOVER_FLOW,
@@ -51,12 +52,13 @@ import {
   SLIDE_COUNT,
   SYNC_PLAN,
   TARGET_CONNECTORS,
+  TARGET_ESTATE_MIRROR,
   TARGET_FOCUS,
   TARGET_SLIDE_NUMBER,
   THESIS,
   WAVES,
 } from './content.js';
-import type { EstateNode, Slide } from './content.js';
+import type { EstateMirrorZone, EstateNode, Slide } from './content.js';
 
 /* ------------------------------------------------------------------ */
 /* Build wrapper                                                       */
@@ -479,22 +481,29 @@ function SlideBody({ slide }: { slide: Slide }) {
 }
 
 /* ------------------------------------------------------------------ */
-/* Accessible mirror — BOTH estates as nested lists                    */
+/* Accessible mirror — each estate grouped by zone, system by system   */
 /* ------------------------------------------------------------------ */
 
-function EstateMirror({ title }: { title: string }) {
+function EstateMirror({ title, groups, testid }: { title: string; groups: readonly EstateMirrorZone[]; testid: string }) {
   return (
-    <>
+    <div data-testid={testid}>
       <h2>{title}</h2>
       <ul>
-        {NODES.map((n) => (
-          <li key={n.id}>
-            {n.label} — {n.kind} — {DISPOSITION_LABEL[n.disposition]}
-            {n.locked ? ` (${ANOMALY_TEXT})` : ''}
+        {groups.map((g) => (
+          <li key={g.zone}>
+            {g.label}
+            <ul>
+              {g.systems.map((s) => (
+                <li key={s.id}>
+                  {s.label} — {s.kind} — {DISPOSITION_LABEL[s.disposition]}
+                  {s.locked ? ` (${ANOMALY_TEXT})` : ''}
+                </li>
+              ))}
+            </ul>
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 }
 
@@ -567,8 +576,8 @@ export default function CutoverPage() {
           </VisuallyHidden>
         </h1>
         <VisuallyHidden>
-          <EstateMirror title="Current estate, system by system" />
-          <EstateMirror title="Target estate, system by system" />
+          <EstateMirror title="Current estate, system by system" groups={CURRENT_ESTATE_MIRROR} testid="current-estate-mirror" />
+          <EstateMirror title="Target estate, system by system" groups={TARGET_ESTATE_MIRROR} testid="target-estate-mirror" />
         </VisuallyHidden>
         <div className="cu-stage">
           {SLIDES.map((slide, index) => {

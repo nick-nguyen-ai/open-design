@@ -32,6 +32,7 @@ import {
   ANOMALY_CIRCLES,
   ANOMALY_CIRCLE_VIEW,
   ANOMALY_TEXT,
+  BADLY_DECO,
   BIG_THING,
   BOARD_FRAME,
   BOARD_FRAME_VIEW,
@@ -45,11 +46,13 @@ import {
   OWNER_VIEW,
   SLIDES,
   SLIDE_COUNT,
+  WALL_DECO_VIEW,
+  WELL_DECO,
   WENT_BADLY,
   WENT_WELL,
   roughRect,
 } from './content.js';
-import type { Sticky, Slide } from './content.js';
+import type { Sticky, Slide, WallDeco } from './content.js';
 
 /* ------------------------------------------------------------------ */
 /* Build wrapper                                                       */
@@ -60,14 +63,16 @@ function Build({
   children,
   className,
   as: Tag = 'div',
+  style,
 }: {
   i: number;
   children: React.ReactNode;
   className?: string;
   as?: 'div' | 'li';
+  style?: React.CSSProperties;
 }) {
   return (
-    <Tag className={className ? `wb-build ${className}` : 'wb-build'} style={{ ['--wb-i' as string]: i }}>
+    <Tag className={className ? `wb-build ${className}` : 'wb-build'} style={{ ['--wb-i' as string]: i, ...style }}>
       {children}
     </Tag>
   );
@@ -79,12 +84,55 @@ function Build({
 
 function StickyNote({ sticky, seed }: { sticky: Sticky; seed: number }) {
   return (
-    <div className="wb-sticky" data-colour={sticky.colour} style={{ ['--wb-rot' as string]: `${sticky.rot}deg` }}>
+    <div className="wb-sticky" data-colour={sticky.colour} data-voted={sticky.votes ? 'true' : undefined} style={{ ['--wb-rot' as string]: `${sticky.rot}deg` }}>
       <svg className="wb-sticky-edge" viewBox="0 0 240 200" preserveAspectRatio="none" aria-hidden="true">
         <path d={roughRect(240, 200, seed, 3.2)} />
       </svg>
       <p className="wb-sticky-text">{sticky.text}</p>
       <span className="wb-sticky-by">— {sticky.by}</span>
+      {sticky.dots ? (
+        <svg className="wb-sticky-votes" viewBox="0 0 96 56" aria-hidden="true">
+          {sticky.dots.map((d, di) => (
+            <circle key={di} cx={d[0] + 12} cy={d[1] + 12} r={5.5} />
+          ))}
+        </svg>
+      ) : null}
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Sticky wall — two loose rows, scattered, with mid-session artifacts  */
+/* ------------------------------------------------------------------ */
+
+function StickyWall({
+  stickies,
+  deco,
+  testid,
+  seedBase,
+}: {
+  stickies: readonly Sticky[];
+  deco: WallDeco;
+  testid: string;
+  seedBase: number;
+}) {
+  return (
+    <div className="wb-wall" data-testid={testid}>
+      {/* marker artifacts under the stickies: an arrow tying two notes, an underline */}
+      <svg className="wb-wall-deco" viewBox={WALL_DECO_VIEW} preserveAspectRatio="none" aria-hidden="true">
+        <path className="wb-wall-arrow" d={deco.arrow.shaft} />
+        <path className="wb-wall-arrow" d={deco.arrow.head} />
+        <path className="wb-wall-underline" d={deco.underline} />
+      </svg>
+      {stickies.map((s, i) => (
+        <Build
+          key={s.id}
+          i={i + 2}
+          style={{ ['--wb-x' as string]: `${s.x}%`, ['--wb-y' as string]: `${s.y}%`, ['--wb-z' as string]: s.z }}
+        >
+          <StickyNote sticky={s} seed={seedBase + i * 13} />
+        </Build>
+      ))}
     </div>
   );
 }
@@ -181,13 +229,7 @@ function SlideBody({ slide }: { slide: Slide }) {
           <Build i={1}>
             <h2 className="wb-heading">What went well.</h2>
           </Build>
-          <div className="wb-wall" data-testid="well-wall">
-            {WENT_WELL.map((s, i) => (
-              <Build key={s.id} i={i + 2}>
-                <StickyNote sticky={s} seed={90 + i * 13} />
-              </Build>
-            ))}
-          </div>
+          <StickyWall stickies={WENT_WELL} deco={WELL_DECO} testid="well-wall" seedBase={90} />
         </div>
       );
 
@@ -198,13 +240,7 @@ function SlideBody({ slide }: { slide: Slide }) {
           <Build i={1}>
             <h2 className="wb-heading">What didn’t.</h2>
           </Build>
-          <div className="wb-wall" data-testid="badly-wall">
-            {WENT_BADLY.map((s, i) => (
-              <Build key={s.id} i={i + 2}>
-                <StickyNote sticky={s} seed={160 + i * 13} />
-              </Build>
-            ))}
-          </div>
+          <StickyWall stickies={WENT_BADLY} deco={BADLY_DECO} testid="badly-wall" seedBase={160} />
         </div>
       );
 

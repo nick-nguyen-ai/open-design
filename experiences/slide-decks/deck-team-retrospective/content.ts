@@ -162,22 +162,75 @@ export interface Sticky {
   by: string;
   colour: 'yellow' | 'pink';
   rot: number;
+  /** deterministic scatter within the board box — left %, top %, stacking */
+  x: number;
+  y: number;
+  z: number;
+  /** dot-votes clustered on the strongest notes (precomputed offsets, never re-randomised) */
+  votes?: number;
+  dots?: readonly Pt[];
 }
 
+/**
+ * Stickies are scattered across TWO loose rows (top row + a lower row that
+ * fills the bottom of the board), with varied rotation and slight overlap —
+ * a board photographed mid-session, not a tidy single row. All offsets are
+ * deterministic (authored here / seeded at load), never Math.random at render.
+ */
 export const WENT_WELL: readonly Sticky[] = [
-  { id: 'w1', text: 'Instant-payments spike came in a day early', by: 'PJ', colour: 'yellow', rot: -2.4 },
-  { id: 'w2', text: 'Pairing on the ledger refactor really worked', by: 'AM', colour: 'yellow', rot: 1.8 },
-  { id: 'w3', text: 'On-call was quiet — the new alerts are good', by: 'RO', colour: 'pink', rot: -1.2 },
-  { id: 'w4', text: 'Design + eng in the same standup finally', by: 'TS', colour: 'yellow', rot: 2.6 },
-  { id: 'w5', text: 'Shipped the reconciliation report to ops', by: 'KD', colour: 'pink', rot: -2.9 },
+  { id: 'w1', text: 'Instant-payments spike came in a day early', by: 'PJ', colour: 'yellow', rot: -3.2, x: 2, y: 3, z: 3, votes: 3, dots: dotCluster(3, 701) },
+  { id: 'w2', text: 'Pairing on the ledger refactor really worked', by: 'AM', colour: 'yellow', rot: 2.4, x: 35, y: 9, z: 2 },
+  { id: 'w3', text: 'On-call was quiet — the new alerts are good', by: 'RO', colour: 'pink', rot: -1.4, x: 66, y: 1, z: 5, votes: 4, dots: dotCluster(4, 702) },
+  { id: 'w4', text: 'Design + eng in the same standup finally', by: 'TS', colour: 'yellow', rot: 3.1, x: 19, y: 45, z: 4 },
+  { id: 'w5', text: 'Shipped the reconciliation report to ops', by: 'KD', colour: 'pink', rot: -2.6, x: 52, y: 49, z: 6 },
 ];
 
 export const WENT_BADLY: readonly Sticky[] = [
-  { id: 'b1', text: 'E2E suite flaked all week, nobody owns it', by: 'AM', colour: 'pink', rot: 2.2 },
-  { id: 'b2', text: 'Two prod pushes blocked on a slow review', by: 'PJ', colour: 'yellow', rot: -1.7 },
-  { id: 'b3', text: 'Scope crept mid-sprint — added the CSV export', by: 'TS', colour: 'pink', rot: 1.4 },
-  { id: 'b4', text: 'Staging matched prod for about two hours total', by: 'KD', colour: 'yellow', rot: -2.5 },
+  { id: 'b1', text: 'E2E suite flaked all week, nobody owns it', by: 'AM', colour: 'pink', rot: 2.6, x: 3, y: 4, z: 6, votes: 5, dots: dotCluster(5, 711) },
+  { id: 'b2', text: 'Two prod pushes blocked on a slow review', by: 'PJ', colour: 'yellow', rot: -2.0, x: 35, y: 0, z: 2 },
+  { id: 'b3', text: 'Scope crept mid-sprint — added the CSV export', by: 'TS', colour: 'pink', rot: 1.6, x: 62, y: 8, z: 3, votes: 2, dots: dotCluster(2, 712) },
+  { id: 'b4', text: 'Staging matched prod for about two hours total', by: 'KD', colour: 'yellow', rot: -2.8, x: 26, y: 46, z: 4 },
 ];
+
+/* ------------------------------------------------------------------ */
+/* Mid-session board artifacts — marker arrow linking two notes + a     */
+/* small underline on the most-voted sticky. Deterministic at load.     */
+/* ------------------------------------------------------------------ */
+
+export interface WallDeco {
+  /** hand-drawn arrow connecting two related stickies */
+  arrow: { shaft: string; head: string };
+  /** a small marker underline scored beneath the most-voted sticky */
+  underline: string;
+}
+
+export const WALL_DECO_VIEW = '0 0 1000 560';
+
+/** Well board: an arrow ties "pairing worked" to "on-call was quiet"; the most-voted on-call note underlined. */
+export const WELL_DECO: WallDeco = {
+  arrow: roughArrow([545, 150] as Pt, [672, 112] as Pt, 517),
+  underline: roughLine(
+    [
+      [672, 262],
+      [806, 268],
+    ],
+    531,
+    2,
+  ),
+};
+
+/** Badly board: an arrow ties the flaky-E2E note down to the staging-parity note; the most-voted E2E note underlined. */
+export const BADLY_DECO: WallDeco = {
+  arrow: roughArrow([140, 205] as Pt, [332, 288] as Pt, 547),
+  underline: roughLine(
+    [
+      [46, 272],
+      [184, 277],
+    ],
+    563,
+    2,
+  ),
+};
 
 /* ------------------------------------------------------------------ */
 /* The one big thing — monumental marker statement                     */
