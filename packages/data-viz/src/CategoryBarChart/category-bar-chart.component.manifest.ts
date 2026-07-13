@@ -18,7 +18,9 @@ const categoryBarChartManifest: ComponentManifest = {
   exportName: 'CategoryBarChart',
   previewRoute: '/components/comp.category-bar-chart',
   designGrammars: ['precision-grid'],
-  compatibleSurfaces: ['dashboard', 'project-page', 'technical-explainer'],
+  // slide-deck is proven ground truth: live decks (Lab Report FIG 1, Sectional
+  // load schedule) place CategoryBarChart on evidence slides.
+  compatibleSurfaces: ['dashboard', 'project-page', 'technical-explainer', 'slide-deck'],
   businessIntents: ['communicate-comparison', 'communicate-performance'],
   audiences: ['executive', 'business', 'risk-and-governance', 'technical'],
   density: ['low', 'medium'],

@@ -18,7 +18,9 @@ const trendChartManifest: ComponentManifest = {
   exportName: 'TrendChart',
   previewRoute: '/components/comp.trend-chart',
   designGrammars: ['precision-grid'],
-  compatibleSurfaces: ['dashboard', 'project-page', 'technical-explainer'],
+  // slide-deck is proven ground truth: live decks (Board Pack, River, Readout,
+  // Lab Report) all place TrendChart on evidence slides.
+  compatibleSurfaces: ['dashboard', 'project-page', 'technical-explainer', 'slide-deck'],
   businessIntents: ['communicate-trend', 'communicate-performance'],
   audiences: ['executive', 'business', 'risk-and-governance', 'technical'],
   density: ['low', 'medium'],

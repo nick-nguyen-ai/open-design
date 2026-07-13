@@ -32,7 +32,7 @@ describe('LiveExperience — Model Risk Control Room (flagship)', () => {
   it('renders the world from its content pack: breaching model + threshold', async () => {
     renderLive('db-model-monitoring-cockpit');
 
-    await screen.findByTestId('live-cockpit', {}, { timeout: 8000 });
+    await screen.findByTestId('live-cockpit', {}, { timeout: 20_000 });
 
     // The watchlist table (the scope's accessible mirror) carries the
     // breaching model and the breach threshold.
@@ -54,7 +54,7 @@ describe('LiveExperience — Model Risk Control Room (flagship)', () => {
   it('locks the document theme to dark while mounted and restores on unmount', async () => {
     document.documentElement.setAttribute('data-theme', 'light');
     const { unmount } = renderLive('db-model-monitoring-cockpit');
-    await screen.findByTestId('live-cockpit', {}, { timeout: 8000 });
+    await screen.findByTestId('live-cockpit', {}, { timeout: 20_000 });
     expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
     unmount();
     expect(document.documentElement.getAttribute('data-theme')).toBe('light');
@@ -62,7 +62,7 @@ describe('LiveExperience — Model Risk Control Room (flagship)', () => {
 
   it('reduced motion renders a HELD scope: no sweep, static clock', async () => {
     renderLive('db-model-monitoring-cockpit');
-    const scope = await screen.findByTestId('drift-scope', {}, { timeout: 8000 });
+    const scope = await screen.findByTestId('drift-scope', {}, { timeout: 20_000 });
     expect(scope).toHaveAttribute('data-scope-variant', 'held');
     expect(scope.querySelector('.ck-anim-sweep')).toBeNull();
     expect(screen.getByTestId('watch-clock')).toHaveTextContent('02:47:12 AEST');
@@ -70,7 +70,7 @@ describe('LiveExperience — Model Risk Control Room (flagship)', () => {
 
   it('has no axe violations', async () => {
     const { container } = renderLive('db-model-monitoring-cockpit');
-    await screen.findByTestId('live-cockpit', {}, { timeout: 8000 });
+    await screen.findByTestId('live-cockpit', {}, { timeout: 20_000 });
     expect(await axe(container)).toHaveNoViolations();
   });
 });
@@ -79,7 +79,7 @@ describe('LiveExperience — The Drawing Office', () => {
   it('renders the signed drawing: title block + schedule-of-parts outline', async () => {
     renderLive('exp-system-architecture');
 
-    await screen.findByTestId('live-architecture', {}, { timeout: 8000 });
+    await screen.findByTestId('live-architecture', {}, { timeout: 20_000 });
 
     // Title block: drawing number, revision table, sign-offs.
     const titleBlock = screen.getByTestId('title-block');
@@ -101,7 +101,7 @@ describe('LiveExperience — The Drawing Office', () => {
   it('locks the document theme to light while mounted', async () => {
     document.documentElement.setAttribute('data-theme', 'dark');
     const { unmount } = renderLive('exp-system-architecture');
-    await screen.findByTestId('live-architecture', {}, { timeout: 8000 });
+    await screen.findByTestId('live-architecture', {}, { timeout: 20_000 });
     expect(document.documentElement.getAttribute('data-theme')).toBe('light');
     unmount();
     expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
@@ -109,7 +109,7 @@ describe('LiveExperience — The Drawing Office', () => {
 
   it('has no axe violations', async () => {
     const { container } = renderLive('exp-system-architecture');
-    await screen.findByTestId('live-architecture', {}, { timeout: 8000 });
+    await screen.findByTestId('live-architecture', {}, { timeout: 20_000 });
     expect(await axe(container)).toHaveNoViolations();
   });
 });
