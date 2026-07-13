@@ -1,0 +1,680 @@
+/*
+ * THE WINDOW — experience-local art layer for the MCP demo deck.
+ *
+ * Art-direction licence: raw colour values are permitted in THIS stylesheet
+ * only. Easings and durations come from the platform motion tokens
+ * (var(--ease-*), var(--dur-*)) — never ad-hoc curves.
+ *
+ * Mood: cold near-black field; ONE warm luminous column — the orchestrator's
+ * context window, rendered as a literal capacity gauge. The column persists
+ * across every slide, re-seating itself as the argument develops. It floods
+ * red exactly once (the problem slide) — the deck's single anomaly. Warm
+ * light is reserved for the window and what it touches; everything else
+ * stays cool and quiet.
+ */
+
+.da-root {
+  --da-field: #08090d;
+  --da-field-deep: #050609;
+  --da-ink: #ece7db;
+  --da-bright: #fdfaf2;
+  --da-dim: #7e8496;
+  --da-line: rgba(236, 231, 219, 0.16);
+  --da-line-faint: rgba(236, 231, 219, 0.07);
+  --da-glow: #e9b158;
+  --da-glow-soft: rgba(233, 177, 88, 0.14);
+  --da-glow-faint: rgba(233, 177, 88, 0.055);
+  --da-danger: #ff5c47;
+  --da-danger-soft: rgba(255, 92, 71, 0.16);
+  --da-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+  --da-display: 'Fraunces Variable', ui-serif, Georgia, serif;
+
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+  color: var(--da-ink);
+  font-family: var(--da-mono);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  background:
+    radial-gradient(130vmin 90vmin at 50% 120%, rgba(233, 177, 88, 0.05), transparent 60%),
+    radial-gradient(120vmin 120vmin at 85% -20%, var(--da-field-deep), transparent 70%),
+    var(--da-field);
+}
+
+/* Faint capacity ruling across the whole field — the air of the world */
+.da-root::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(to bottom, var(--da-line-faint) 1px, transparent 1px);
+  background-size: 100% 56px;
+}
+
+/* ------------------------------------------------------------------ */
+/* THE WINDOW — the persistent luminous column                         */
+/* ------------------------------------------------------------------ */
+
+.da-window {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 5;
+  pointer-events: none;
+  border-left: 1px solid var(--da-line);
+  border-right: 1px solid var(--da-line);
+  background: linear-gradient(to bottom, transparent, var(--da-glow-faint) 30%, var(--da-glow-faint));
+  transition:
+    left var(--dur-narrative) var(--ease-settle),
+    width var(--dur-narrative) var(--ease-settle);
+}
+
+/* The fill — how much of the 200K cap is in use */
+.da-window-fill {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: calc(var(--da-load, 6) * 1%);
+  background: linear-gradient(to top, var(--da-glow-soft), rgba(233, 177, 88, 0.03));
+  border-top: 1.5px solid var(--da-glow);
+  box-shadow: 0 -18px 48px rgba(233, 177, 88, 0.14);
+  transition:
+    height var(--dur-narrative) var(--ease-settle),
+    background var(--dur-structure) var(--ease-shift),
+    border-color var(--dur-structure) var(--ease-shift);
+}
+
+.da-window-fill::after {
+  content: '';
+  position: absolute;
+  inset: -26px 0 auto 0;
+  height: 26px;
+  background: linear-gradient(to top, rgba(233, 177, 88, 0.1), transparent);
+  animation: da-breathe 6s var(--ease-settle) infinite alternate;
+}
+
+/* Capacity ticks on the column's inner edge */
+.da-window-scale {
+  position: absolute;
+  inset: 0;
+}
+
+.da-window-tick {
+  position: absolute;
+  left: 0;
+  width: 10px;
+  border-top: 1px solid var(--da-line);
+}
+
+.da-window-tick span {
+  position: absolute;
+  top: -0.5em;
+  left: 14px;
+  font-size: 0.5625rem;
+  letter-spacing: 0.14em;
+  color: var(--da-dim);
+  white-space: nowrap;
+}
+
+.da-window-cap {
+  position: absolute;
+  top: 12px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.5625rem;
+  letter-spacing: 0.22em;
+  color: var(--da-dim);
+}
+
+.da-window-readout {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--da-load, 6) * 1% + 10px);
+  text-align: center;
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  color: var(--da-glow);
+  transition: bottom var(--dur-narrative) var(--ease-settle);
+}
+
+/* Narrow rail state: the corner gauge carries the numbers */
+.da-window[data-narrow='true'] .da-window-cap { display: none; }
+
+/* THE ANOMALY — the flooded window (problem slide only) */
+.da-window[data-tone='danger'] {
+  border-color: rgba(255, 92, 71, 0.5);
+}
+
+/* At 97% the fill line is at the top — pin the readout under the cap label
+   instead of letting it collide with it */
+.da-window[data-tone='danger'] .da-window-readout {
+  bottom: auto;
+  top: 36px;
+}
+
+.da-window[data-tone='danger'] .da-window-fill {
+  border-top-color: var(--da-danger);
+  box-shadow: 0 -18px 56px rgba(255, 92, 71, 0.18);
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      var(--da-danger-soft) 0 2px,
+      transparent 2px 11px
+    ),
+    linear-gradient(to top, rgba(255, 92, 71, 0.12), rgba(255, 92, 71, 0.04));
+  animation: da-flood 11s linear infinite;
+}
+
+.da-window[data-tone='danger'] .da-window-readout {
+  color: var(--da-danger);
+  font-weight: 600;
+}
+
+@keyframes da-flood {
+  from { background-position: 0 0, 0 0; }
+  to { background-position: 0 -220px, 0 0; }
+}
+
+@keyframes da-breathe {
+  from { opacity: 0.45; }
+  to { opacity: 1; }
+}
+
+/* ------------------------------------------------------------------ */
+/* Corner chrome                                                       */
+/* ------------------------------------------------------------------ */
+
+.da-chrome {
+  position: absolute;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  color: var(--da-dim);
+  text-transform: uppercase;
+  /* keeps corner text legible where the window passes beneath it */
+  text-shadow: 0 0 10px rgba(8, 9, 13, 0.95);
+}
+
+.da-chrome-tl {
+  top: 22px;
+  left: 26px;
+  transition: left var(--dur-narrative) var(--ease-settle);
+}
+.da-chrome-tr { top: 22px; right: 26px; }
+.da-chrome-bl {
+  bottom: 22px;
+  left: 26px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+}
+.da-chrome-br { bottom: 22px; right: 26px; }
+
+.da-back {
+  color: var(--da-glow);
+  text-decoration: none;
+  letter-spacing: 0.2em;
+}
+
+.da-back:hover { text-decoration: underline; }
+
+.da-back:focus-visible,
+.da-nav-btn:focus-visible {
+  outline: 2px solid var(--da-bright);
+  outline-offset: 3px;
+}
+
+.da-chrome-rule {
+  width: 26px;
+  border-top: 1px solid var(--da-line);
+}
+
+.da-gauge { color: var(--da-glow); }
+.da-gauge[data-tone='danger'] { color: var(--da-danger); font-weight: 600; }
+
+.da-nav-btn {
+  min-width: 40px;
+  padding: 7px 12px;
+  border: 1px solid var(--da-line);
+  background: transparent;
+  color: var(--da-ink);
+  font-family: var(--da-mono);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition:
+    border-color var(--dur-feedback) var(--ease-settle),
+    color var(--dur-feedback) var(--ease-settle);
+}
+
+.da-nav-btn:hover:not(:disabled) {
+  border-color: var(--da-glow);
+  color: var(--da-glow);
+}
+
+.da-nav-btn:disabled { opacity: 0.32; cursor: default; }
+
+/* ------------------------------------------------------------------ */
+/* Stage + slides                                                      */
+/* ------------------------------------------------------------------ */
+
+.da-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+}
+
+.da-slide {
+  position: absolute;
+  inset: 0;
+  padding: 84px 5vw 96px;
+  display: none;
+}
+
+.da-slide[data-state='active'] { display: block; }
+
+.da-slide[data-state='leaving'] {
+  display: block;
+  animation: da-out var(--dur-structure) var(--ease-shift) both;
+  pointer-events: none;
+}
+
+@keyframes da-out {
+  to { opacity: 0; }
+}
+
+/* Staged builds inside a slide */
+.da-build {
+  animation: da-rise var(--dur-structure) var(--ease-settle) both;
+  animation-delay: calc(var(--da-i, 0) * var(--dur-feedback));
+}
+
+@keyframes da-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Shared slide furniture */
+.da-kickerrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 24px;
+  margin-bottom: 3.2vh;
+}
+
+.da-kicker {
+  font-size: 0.6875rem;
+  letter-spacing: 0.3em;
+  color: var(--da-glow);
+  text-transform: uppercase;
+}
+
+.da-role {
+  font-size: 0.5625rem;
+  letter-spacing: 0.2em;
+  color: var(--da-dim);
+  text-transform: uppercase;
+  border: 1px solid var(--da-line);
+  padding: 5px 10px;
+}
+
+.da-heading {
+  font-family: var(--da-display);
+  font-weight: 480;
+  font-size: clamp(2rem, 3.6vw, 3.2rem);
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  color: var(--da-bright);
+  max-width: 22ch;
+  margin-bottom: 3.6vh;
+}
+
+.da-note {
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  color: var(--da-dim);
+  text-transform: uppercase;
+}
+
+/* Token-component panel: frames the registered components in world chrome */
+.da-panel {
+  border: 1px solid var(--da-line);
+  background: rgba(236, 231, 219, 0.025);
+  padding: 18px 22px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Cover                                                               */
+/* ------------------------------------------------------------------ */
+
+.da-cover {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 62vw;
+}
+
+.da-display {
+  font-family: var(--da-display);
+  font-weight: 430;
+  font-size: clamp(3.4rem, 7vw, 6.4rem);
+  line-height: 0.98;
+  letter-spacing: -0.015em;
+  color: var(--da-bright);
+  margin: 2.6vh 0 3.4vh;
+}
+
+.da-display .da-line { display: block; }
+
+.da-display em {
+  font-style: italic;
+  color: var(--da-glow);
+}
+
+.da-standfirst {
+  max-width: 46ch;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--da-dim);
+  font-family: var(--da-mono);
+}
+
+.da-cover-index {
+  margin-top: 5.2vh;
+  border-top: 1px solid var(--da-line);
+  padding-top: 18px;
+  display: flex;
+  gap: 34px;
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  color: var(--da-dim);
+  text-transform: uppercase;
+}
+
+.da-cover-index b {
+  font-weight: 500;
+  color: var(--da-ink);
+  margin-right: 8px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Problem                                                             */
+/* ------------------------------------------------------------------ */
+
+.da-problem { max-width: 44vw; }
+
+.da-problem-annot {
+  position: absolute;
+  top: 26%;
+  left: 49.4vw;
+  transform: rotate(90deg);
+  transform-origin: left center;
+  font-size: 0.625rem;
+  letter-spacing: 0.3em;
+  color: var(--da-danger);
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------ */
+/* Pillars                                                             */
+/* ------------------------------------------------------------------ */
+
+.da-pillars-body { margin-left: 9vw; }
+
+.da-pillar-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  max-width: 78vw;
+}
+
+.da-pillar {
+  border: 1px solid var(--da-line);
+  border-top: 1px solid var(--da-glow);
+  background: rgba(236, 231, 219, 0.02);
+  padding: 20px 24px 18px;
+}
+
+.da-pillar-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.da-pillar-no {
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  color: var(--da-dim);
+}
+
+.da-pillar-name {
+  font-family: var(--da-display);
+  font-weight: 500;
+  font-size: 1.45rem;
+  color: var(--da-bright);
+  margin: 6px 0 8px;
+}
+
+.da-pillar-tag {
+  font-size: 0.6875rem;
+  color: var(--da-glow);
+  white-space: nowrap;
+}
+
+.da-pillar-desc {
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--da-dim);
+  font-family: var(--da-mono);
+}
+
+.da-pillar-held {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--da-line);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  color: var(--da-glow);
+}
+
+/* ------------------------------------------------------------------ */
+/* Architecture                                                        */
+/* ------------------------------------------------------------------ */
+
+.da-arch-body { margin-left: 9vw; }
+
+.da-arch-frame {
+  max-width: 66vw;
+  border: 1px solid var(--da-line);
+  padding: 26px 30px 14px;
+  background: rgba(236, 231, 219, 0.02);
+}
+
+/* ------------------------------------------------------------------ */
+/* Trace                                                               */
+/* ------------------------------------------------------------------ */
+
+.da-trace-body { margin-left: 9vw; }
+
+.da-trace-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 40px;
+  align-items: start;
+  max-width: 80vw;
+}
+
+.da-trace-grid .da-panel { padding: 8px 22px; }
+
+.da-ledger-figure {
+  border: 1px solid var(--da-line);
+  padding: 20px 22px 16px;
+  background: rgba(236, 231, 219, 0.02);
+}
+
+.da-ledger-title {
+  font-size: 0.625rem;
+  letter-spacing: 0.22em;
+  color: var(--da-dim);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.da-ledger-svg { width: 100%; height: auto; display: block; }
+
+.da-ledger-delta {
+  margin-top: 14px;
+  border-top: 1px solid var(--da-line);
+  padding-top: 12px;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.da-ledger-delta b {
+  font-family: var(--da-display);
+  font-weight: 480;
+  font-size: 2.1rem;
+  color: var(--da-glow);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.da-ledger-delta span {
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  color: var(--da-dim);
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------------ */
+/* Closing                                                             */
+/* ------------------------------------------------------------------ */
+
+.da-closing {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 39vw 1fr;
+  align-items: center;
+  gap: 18vw;
+}
+
+.da-quote {
+  font-family: var(--da-display);
+  font-style: italic;
+  font-weight: 420;
+  font-size: clamp(2.1rem, 3.4vw, 3.3rem);
+  line-height: 1.14;
+  letter-spacing: -0.01em;
+  color: var(--da-bright);
+  text-align: right;
+}
+
+.da-quote em { color: var(--da-glow); font-style: inherit; }
+
+.da-closing-aside { max-width: 34ch; }
+
+.da-closing-aside .da-note { margin-bottom: 14px; display: block; }
+
+.da-closing-guidance {
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  color: var(--da-dim);
+  font-family: var(--da-mono);
+}
+
+/* ------------------------------------------------------------------ */
+/* Registered-component restyle hooks (frames only — the components    */
+/* themselves stay token-rendered)                                     */
+/* ------------------------------------------------------------------ */
+
+.da-panel ul[aria-label] { font-size: 0.8125rem; }
+
+/* ------------------------------------------------------------------ */
+/* Reduced motion: everything lands settled                            */
+/* ------------------------------------------------------------------ */
+
+.da-root[data-reduced='true'] .da-build,
+.da-root[data-reduced='true'] .da-slide[data-state='leaving'],
+.da-root[data-reduced='true'] .da-window-fill::after {
+  animation: none !important;
+}
+
+.da-root[data-reduced='true'] .da-window,
+.da-root[data-reduced='true'] .da-window-fill,
+.da-root[data-reduced='true'] .da-window-readout {
+  transition: none !important;
+}
+
+.da-root[data-reduced='true'] .da-window[data-tone='danger'] .da-window-fill {
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .da-build,
+  .da-slide[data-state='leaving'],
+  .da-window-fill::after,
+  .da-window[data-tone='danger'] .da-window-fill {
+    animation: none !important;
+  }
+
+  .da-window,
+  .da-window-fill,
+  .da-window-readout {
+    transition: none !important;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Print: the argument survives on paper                               */
+/* ------------------------------------------------------------------ */
+
+@media print {
+  .da-root {
+    height: auto;
+    overflow: visible;
+    background: #fff;
+    color: #111;
+  }
+
+  .da-root::before,
+  .da-window,
+  .da-chrome { display: none; }
+
+  .da-stage { position: static; }
+
+  .da-slide {
+    display: block !important;
+    position: static;
+    padding: 24px 0;
+    page-break-after: always;
+    animation: none !important;
+  }
+
+  .da-build { animation: none !important; }
+
+  .da-heading,
+  .da-display,
+  .da-quote,
+  .da-pillar-name { color: #111; }
+
+  .da-standfirst,
+  .da-pillar-desc,
+  .da-closing-guidance { color: #333; }
+}

@@ -28,6 +28,10 @@
 @source '../../../packages/content-components/src';
 @source '../../../packages/diagrams/src';
 @source '../../../packages/motion/src';
+/* Full-bleed live experiences and demo decks render here too; scan their
+ * sources so utilities unique to a page (e.g. a responsive grid) aren't
+ * tree-shaken out. */
+@source '../../../experiences';
 
 :root {
   color-scheme: light dark;

@@ -20,6 +20,11 @@ const NotFound = lazy(() => import('./routes/NotFound.js'));
 // Full-bleed live anchor experiences — rendered OUTSIDE RootLayout so the
 // page owns the viewport (no gallery header/nav; task 12).
 const LiveExperience = lazy(() => import('./routes/LiveExperience.js'));
+// MCP demo deck — not a catalogue template; proves what a compose_design
+// blueprint looks like once rendered with real registered components.
+const DeepAgentsDemo = lazy(
+  () => import('../../../experiences/slide-decks/demo-langchain-deepagents/DeepAgentsPage.js'),
+);
 
 export function App() {
   const preferences = usePreferences();
@@ -33,6 +38,14 @@ export function App() {
             element={
               <Suspense fallback={<RouteFallback />}>
                 <LiveExperience />
+              </Suspense>
+            }
+          />
+          <Route
+            path="demo/deepagents"
+            element={
+              <Suspense fallback={<RouteFallback />}>
+                <DeepAgentsDemo />
               </Suspense>
             }
           />
