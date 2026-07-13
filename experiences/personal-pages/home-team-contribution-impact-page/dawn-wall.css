@@ -1,0 +1,623 @@
+/*
+ * THE DAWN WALL — experience-local art layer.
+ *
+ * Art-direction licence (task 13/19): raw colour values are permitted in THIS
+ * stylesheet only. Easings/durations come from the platform motion tokens; the
+ * HorizonSweep sequence supplies the entrance choreography and its reduced-
+ * motion parity. No bespoke cubic-bezier values.
+ *
+ * Mood: signal-glass at first light, composed OPPOSITE to The Studio. A deep
+ * indigo field warming to ONE amber horizon band at the dawn (right) edge,
+ * where translucent contribution streams converge into solid, bright shipped
+ * outcomes. Horizontal confluence, not stacked panes.
+ */
+
+.dw-root {
+  --dw-bg: #0c0e28;
+  --dw-indigo: #1a1c40;
+  --dw-violet: #2e2350;
+  --dw-amber: #f6a94e;
+  --dw-amber-bright: #ffc880;
+  --dw-stream: #8a8ce8;
+  --dw-text: #eef0ff;
+  --dw-muted: #a3a6cf;
+  --dw-faint: rgba(238, 240, 255, 0.1);
+  --dw-panel: rgba(138, 140, 232, 0.06);
+  --dw-panel-edge: rgba(138, 140, 232, 0.2);
+  --dw-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+  --dw-serif: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
+  --dw-sans: system-ui, 'Segoe UI', 'Helvetica Neue', sans-serif;
+
+  position: relative;
+  min-height: 100svh;
+  background: var(--dw-bg);
+  color: var(--dw-text);
+  font-family: var(--dw-sans);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  isolation: isolate;
+}
+
+/* Dawn field — deep indigo warming to a single amber horizon at the right. */
+.dw-field {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(120vmin 80vmin at 100% 44%, rgba(246, 169, 78, 0.2), transparent 58%),
+    radial-gradient(90vmin 70vmin at 96% 46%, rgba(255, 200, 128, 0.16), transparent 50%),
+    radial-gradient(120vmin 100vmin at 8% 8%, rgba(50, 40, 96, 0.5), transparent 66%),
+    linear-gradient(175deg, #0a0c24 0%, #0c0e28 54%, #12112e 100%);
+}
+
+/* ------------------------------------------------------------------ */
+/* Chrome                                                              */
+/* ------------------------------------------------------------------ */
+
+.dw-chrome {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 2rem;
+  padding: 1rem 1.6rem 0.85rem;
+  font-family: var(--dw-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  color: var(--dw-muted);
+  background: rgba(12, 14, 40, 0.72);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--dw-faint);
+}
+
+.dw-chrome-cell {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  white-space: nowrap;
+}
+
+.dw-chrome-rule {
+  width: 1px;
+  height: 0.85em;
+  align-self: center;
+  background: var(--dw-panel-edge);
+}
+
+.dw-back {
+  color: var(--dw-text);
+  text-decoration: none;
+  letter-spacing: 0.14em;
+}
+
+.dw-back:hover {
+  color: var(--dw-amber);
+}
+
+.dw-back:focus-visible {
+  outline: 2px solid var(--dw-amber);
+  outline-offset: 3px;
+}
+
+.dw-synthetic {
+  padding: 0.2rem 0.55rem;
+  border: 1px dashed var(--dw-panel-edge);
+  color: var(--dw-muted);
+  letter-spacing: 0.16em;
+}
+
+/* ------------------------------------------------------------------ */
+/* Layout + hero                                                       */
+/* ------------------------------------------------------------------ */
+
+.dw-main {
+  max-width: 84rem;
+  margin: 0 auto;
+  padding: 0 clamp(1.4rem, 4vw, 3.4rem) 4rem;
+}
+
+.dw-hero {
+  padding: 4.4rem 0 2.4rem;
+}
+
+.dw-kicker {
+  margin: 0 0 1.3rem;
+  font-family: var(--dw-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.42em;
+  color: var(--dw-amber);
+}
+
+.dw-display {
+  margin: 0;
+  max-width: 36rem;
+  font-family: var(--dw-serif);
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-size: clamp(2.6rem, 6vw, 4.8rem);
+  line-height: 1.02;
+  letter-spacing: -0.018em;
+  color: var(--dw-text);
+}
+
+.dw-display-line {
+  display: block;
+}
+
+.dw-subline {
+  margin: 1.5rem 0 0;
+  max-width: 44rem;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--dw-muted);
+}
+
+.dw-lead-card {
+  margin: 2rem 0 0;
+  max-width: 40rem;
+  padding: 1.2rem 1.4rem;
+  border: 1px solid var(--dw-panel-edge);
+  border-left: 3px solid var(--dw-amber);
+  border-radius: 12px;
+  background: var(--dw-panel);
+}
+
+.dw-lead-framing {
+  margin: 0;
+  font-family: var(--dw-serif);
+  font-weight: 540;
+  font-size: 1.25rem;
+  color: var(--dw-amber-bright);
+}
+
+.dw-lead-note {
+  margin: 0.6rem 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.62;
+  color: var(--dw-muted);
+}
+
+.dw-lead-sig {
+  margin: 0.8rem 0 0;
+  font-family: var(--dw-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.16em;
+  color: var(--dw-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Section headings                                                    */
+/* ------------------------------------------------------------------ */
+
+.dw-sweep {
+  display: flex;
+  flex-direction: column;
+  gap: 2.6rem;
+}
+
+.dw-sweep > [data-testid='horizon-sweep-baseline'] {
+  height: 2px;
+  margin-bottom: 0.4rem;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(138, 140, 232, 0.2),
+    rgba(246, 169, 78, 0.85) 92%
+  );
+}
+
+.dw-section-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.9rem;
+  margin: 0 0 1.4rem;
+  font-family: var(--dw-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  color: var(--dw-muted);
+}
+
+.dw-section-sub {
+  font-weight: 400;
+  font-size: 0.5625rem;
+  letter-spacing: 0.16em;
+  color: var(--dw-amber);
+}
+
+/* ------------------------------------------------------------------ */
+/* THE CONFLUENCE — the commanding visual                              */
+/* ------------------------------------------------------------------ */
+
+.dw-wall {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  box-shadow: 0 30px 80px rgba(4, 4, 20, 0.55);
+}
+
+.dw-horizon {
+  stroke: rgba(255, 200, 128, 0.35);
+  stroke-width: 1;
+  stroke-dasharray: 2 6;
+}
+
+.dw-ribbon {
+  mix-blend-mode: screen;
+}
+
+.dw-ribbon-departed {
+  opacity: 0.55;
+}
+
+.dw-origin {
+  fill: var(--dw-stream);
+}
+
+.dw-stream-departed .dw-origin {
+  fill: #7f86b8;
+}
+
+.dw-origin-name {
+  fill: var(--dw-text);
+  font-family: var(--dw-serif);
+  font-weight: 520;
+  font-size: 15px;
+}
+
+.dw-origin-chan {
+  fill: var(--dw-muted);
+  font-family: var(--dw-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+/* the departed teammate's cap + tribute mark */
+.dw-cap-bar {
+  stroke: var(--dw-amber-bright);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.dw-cap-mark {
+  fill: var(--dw-bg);
+  stroke: var(--dw-amber-bright);
+  stroke-width: 2;
+}
+
+.dw-cap-glyph {
+  fill: var(--dw-amber-bright);
+  font-family: var(--dw-serif);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.dw-cap-note {
+  fill: var(--dw-amber);
+  font-family: var(--dw-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.12em;
+}
+
+.dw-out-block {
+  filter: drop-shadow(0 0 16px rgba(246, 169, 78, 0.5));
+}
+
+.dw-out-code {
+  fill: #7a4a16;
+  font-family: var(--dw-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+
+.dw-out-name {
+  fill: #2a1806;
+  font-family: var(--dw-serif);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.dw-out-metric {
+  fill: #3a2208;
+  font-family: var(--dw-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* ------------------------------------------------------------------ */
+/* Impact receipts                                                     */
+/* ------------------------------------------------------------------ */
+
+.dw-receipt-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dw-receipt {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 1.3rem 1.4rem 1.4rem;
+  border: 1px solid var(--dw-panel-edge);
+  border-radius: 14px;
+  background: var(--dw-panel);
+}
+
+.dw-receipt-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+}
+
+.dw-receipt-code {
+  font-family: var(--dw-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--dw-amber);
+}
+
+.dw-receipt-name {
+  margin: 0;
+  font-family: var(--dw-serif);
+  font-weight: 540;
+  font-size: 1.1875rem;
+  line-height: 1.2;
+  color: var(--dw-text);
+}
+
+.dw-receipt-numbers {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  margin: 0.2rem 0 0;
+  font-family: var(--dw-mono);
+  font-size: 0.9375rem;
+}
+
+.dw-before {
+  color: var(--dw-muted);
+  text-decoration: line-through;
+  text-decoration-color: rgba(163, 166, 207, 0.5);
+}
+
+.dw-arrow {
+  color: var(--dw-amber);
+}
+
+.dw-after {
+  color: var(--dw-amber-bright);
+  font-weight: 600;
+}
+
+.dw-receipt-impact {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.56;
+  color: var(--dw-muted);
+}
+
+.dw-drivers {
+  margin: 0.4rem 0 0;
+  padding: 0.8rem 0 0;
+  border-top: 1px solid var(--dw-faint);
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.dw-driver {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-size: 0.8125rem;
+}
+
+.dw-driver-name {
+  flex: 1;
+  color: var(--dw-text);
+  white-space: nowrap;
+}
+
+.dw-driver-share {
+  font-family: var(--dw-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--dw-amber);
+}
+
+.dw-driver-flag {
+  flex-basis: 100%;
+  font-family: var(--dw-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.1em;
+  color: var(--dw-amber);
+}
+
+.dw-driver-departed .dw-driver-name {
+  color: var(--dw-amber-bright);
+}
+
+/* ------------------------------------------------------------------ */
+/* Rituals                                                             */
+/* ------------------------------------------------------------------ */
+
+.dw-ritual-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dw-ritual {
+  padding: 1.2rem 1.3rem;
+  border: 1px solid var(--dw-panel-edge);
+  border-radius: 12px;
+  background: var(--dw-panel);
+}
+
+.dw-ritual-title {
+  margin: 0;
+  font-family: var(--dw-serif);
+  font-weight: 540;
+  font-size: 1.0625rem;
+  color: var(--dw-text);
+}
+
+.dw-ritual-measure {
+  margin: 0.4rem 0 0;
+  font-family: var(--dw-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: var(--dw-amber);
+}
+
+.dw-ritual-detail {
+  margin: 0.7rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.56;
+  color: var(--dw-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Contributions table (accessible mirror)                             */
+/* ------------------------------------------------------------------ */
+
+.dw-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.dw-table-caption {
+  text-align: left;
+  margin-bottom: 0.9rem;
+  font-size: 0.8125rem;
+  color: var(--dw-muted);
+  max-width: 48rem;
+}
+
+.dw-table thead th {
+  text-align: left;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--dw-panel-edge);
+  font-family: var(--dw-mono);
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--dw-muted);
+}
+
+.dw-table tbody th,
+.dw-table tbody td {
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--dw-faint);
+  vertical-align: top;
+  color: var(--dw-muted);
+}
+
+.dw-table tbody th {
+  font-weight: 600;
+  color: var(--dw-text);
+  white-space: nowrap;
+}
+
+.dw-table tbody tr[data-departed='true'] th {
+  color: var(--dw-amber-bright);
+}
+
+.dw-mirror-note {
+  margin: 0.9rem 0 0;
+  font-family: var(--dw-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  color: var(--dw-amber);
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+.dw-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 84rem;
+  margin: 0 auto;
+  padding: 1.2rem clamp(1.4rem, 4vw, 3.4rem) 1.6rem;
+  border-top: 1px solid var(--dw-faint);
+  font-family: var(--dw-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  color: var(--dw-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Narrow viewports                                                    */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 68rem) {
+  .dw-receipt-list {
+    grid-template-columns: 1fr;
+  }
+
+  .dw-ritual-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 46rem) {
+  .dw-ritual-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dw-chrome {
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .dw-table thead {
+    display: none;
+  }
+
+  .dw-table tbody th,
+  .dw-table tbody td {
+    display: block;
+    border: 0;
+    padding: 0.15rem 0;
+  }
+
+  .dw-table tbody tr {
+    display: block;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--dw-faint);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Print                                                               */
+/* ------------------------------------------------------------------ */
+
+@media print {
+  .dw-root {
+    background: #fff;
+    color: #16181c;
+  }
+
+  .dw-field {
+    display: none;
+  }
+}

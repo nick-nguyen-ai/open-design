@@ -87,6 +87,20 @@ const GreenhousePage = lazy(
     ),
 );
 
+const TheLinePage = lazy(
+  () => import('../../../../experiences/personal-pages/home-career-project-timeline/TheLinePage.js'),
+);
+const DawnWallPage = lazy(
+  () =>
+    import(
+      '../../../../experiences/personal-pages/home-team-contribution-impact-page/DawnWallPage.js'
+    ),
+);
+const ReadingRoomPage = lazy(
+  () =>
+    import('../../../../experiences/personal-pages/home-mentoring-tutorial-hub/ReadingRoomPage.js'),
+);
+
 const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: ComponentType }> = {
   'db-model-monitoring-cockpit': { mood: 'dark', Component: CockpitPage },
   'exp-system-architecture': { mood: 'light', Component: DrawingOfficePage },
@@ -105,6 +119,9 @@ const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: 
   'home-technical-leadership-portfolio': { mood: 'light', Component: AnnualLetterPage },
   'home-ai-experiment-notebook': { mood: 'light', Component: BenchJournalPage },
   'home-internal-ai-tool-laboratory': { mood: 'dark', Component: GreenhousePage },
+  'home-career-project-timeline': { mood: 'dark', Component: TheLinePage },
+  'home-team-contribution-impact-page': { mood: 'dark', Component: DawnWallPage },
+  'home-mentoring-tutorial-hub': { mood: 'light', Component: ReadingRoomPage },
 };
 
 /**
@@ -144,12 +161,13 @@ export default function LiveExperience() {
           No live experience here
         </h1>
         <p className="text-text-secondary">
-          “{experienceId}” has no live rendering yet. Seventeen worlds are live: the Model
+          “{experienceId}” has no live rendering yet. Twenty worlds are live: the Model
           Monitoring Cockpit, the System Architecture explainer, the AI Strategy board deck, the
           Model Validation Hub, the Data Scientist Studio, nine deck worlds — the Committee
           Paper, the Lab Report, the Control Frame, the River, the Readout, the Gallery Floor,
-          the Manifesto, the Sectional, and the Field Manual — and three personal pages: the
-          Annual Letter, the Bench Journal, and the Greenhouse.
+          the Manifesto, the Sectional, and the Field Manual — and six personal pages: the
+          Annual Letter, the Bench Journal, the Greenhouse, the Line, the Dawn Wall, and the
+          Reading Room.
         </p>
         <RouterLink to="/browse" className="text-accent hover:underline">
           ◄ Back to the gallery

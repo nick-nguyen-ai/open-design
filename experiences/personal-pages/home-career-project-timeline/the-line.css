@@ -1,0 +1,854 @@
+/*
+ * THE LINE — experience-local art layer.
+ *
+ * Art-direction licence (task 13/19): raw colour values are permitted in THIS
+ * stylesheet only. Easings and durations come from the platform motion tokens
+ * (var(--ease-*), var(--dur-*)); DataInkDraw supplies the reveal choreography
+ * and its own reduced-motion parity. No bespoke cubic-bezier values.
+ *
+ * Mood: dark slate transit cartography. A cold survey field and ONE luminous
+ * aqua line that thickens with grade (gauge), branches for side-projects, and
+ * once doubles back on itself. Station typography is mono; project names are
+ * an editorial serif. Distinct from The Studio (warm dusk, stacked panes) by
+ * being cold, linear and vertical.
+ */
+
+.ln-root {
+  --ln-bg: #0e1218;
+  --ln-bg-2: #121821;
+  --ln-line: #7ff0dc;
+  --ln-line-dim: #3f6f6a;
+  --ln-branch: #9fb4c6;
+  --ln-anomaly: #f2a15c;
+  --ln-text: #eaf1f2;
+  --ln-muted: #8ba0a6;
+  --ln-faint: rgba(234, 241, 242, 0.1);
+  --ln-panel: rgba(127, 240, 220, 0.035);
+  --ln-panel-edge: rgba(127, 240, 220, 0.14);
+  --ln-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+  --ln-serif: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
+  --ln-sans: system-ui, 'Segoe UI', 'Helvetica Neue', sans-serif;
+
+  position: relative;
+  min-height: 100svh;
+  background: var(--ln-bg);
+  color: var(--ln-text);
+  font-family: var(--ln-sans);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  isolation: isolate;
+}
+
+/* Cold survey field — a faint contour grid under a slate wash. */
+.ln-field {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(90vmin 70vmin at 82% 4%, rgba(127, 240, 220, 0.07), transparent 60%),
+    radial-gradient(120vmin 90vmin at 8% 40%, rgba(40, 78, 96, 0.28), transparent 66%),
+    radial-gradient(120vmin 110vmin at 60% 96%, rgba(30, 44, 58, 0.5), transparent 70%),
+    linear-gradient(178deg, #10151c 0%, #0e1218 52%, #0c1016 100%);
+}
+
+.ln-field::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(127, 240, 220, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(127, 240, 220, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(120vmin 120vmin at 30% 30%, #000 10%, transparent 78%);
+}
+
+/* ------------------------------------------------------------------ */
+/* Chrome                                                              */
+/* ------------------------------------------------------------------ */
+
+.ln-chrome {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 2rem;
+  padding: 1rem 1.6rem 0.85rem;
+  font-family: var(--ln-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  color: var(--ln-muted);
+  background: rgba(14, 18, 24, 0.74);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--ln-faint);
+}
+
+.ln-chrome-cell {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  white-space: nowrap;
+}
+
+.ln-chrome-rule {
+  width: 1px;
+  height: 0.85em;
+  align-self: center;
+  background: var(--ln-panel-edge);
+}
+
+.ln-back {
+  color: var(--ln-text);
+  text-decoration: none;
+  letter-spacing: 0.14em;
+}
+
+.ln-back:hover {
+  color: var(--ln-line);
+}
+
+.ln-back:focus-visible {
+  outline: 2px solid var(--ln-line);
+  outline-offset: 3px;
+}
+
+.ln-synthetic {
+  padding: 0.2rem 0.55rem;
+  border: 1px dashed var(--ln-panel-edge);
+  color: var(--ln-muted);
+  letter-spacing: 0.16em;
+}
+
+/* ------------------------------------------------------------------ */
+/* Layout                                                              */
+/* ------------------------------------------------------------------ */
+
+.ln-main {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 clamp(1.4rem, 4vw, 3.4rem) 4rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Hero                                                                */
+/* ------------------------------------------------------------------ */
+
+.ln-hero {
+  padding: 4.4rem 0 2.4rem;
+}
+
+.ln-kicker {
+  margin: 0 0 1.4rem;
+  font-family: var(--ln-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.42em;
+  color: var(--ln-line);
+}
+
+.ln-display {
+  margin: 0;
+  max-width: 40rem;
+  font-family: var(--ln-serif);
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.018em;
+  color: var(--ln-text);
+}
+
+.ln-display-line {
+  display: block;
+}
+
+.ln-identity {
+  margin: 1.8rem 0 0;
+  font-family: var(--ln-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  color: var(--ln-line);
+}
+
+.ln-subline {
+  margin: 1.2rem 0 0;
+  max-width: 42rem;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--ln-muted);
+}
+
+.ln-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4rem 3rem;
+  margin: 2.4rem 0 0;
+}
+
+.ln-fact dt {
+  font-family: var(--ln-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.2em;
+  color: var(--ln-muted);
+}
+
+.ln-fact dd {
+  margin: 0.35rem 0 0;
+  font-family: var(--ln-serif);
+  font-weight: 500;
+  font-size: 1.125rem;
+  color: var(--ln-text);
+}
+
+/* ------------------------------------------------------------------ */
+/* Section headings                                                    */
+/* ------------------------------------------------------------------ */
+
+.ln-section-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.9rem;
+  margin: 0 0 1.6rem;
+  font-family: var(--ln-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  color: var(--ln-muted);
+}
+
+.ln-section-sub {
+  font-weight: 400;
+  font-size: 0.5625rem;
+  letter-spacing: 0.16em;
+  color: var(--ln-line-dim);
+}
+
+/* ------------------------------------------------------------------ */
+/* THE LINE — the commanding visual                                    */
+/* ------------------------------------------------------------------ */
+
+.ln-timeline-section {
+  margin-top: 2rem;
+}
+
+/* rail width shared by origin / nodes / terminus so the line is one column */
+.ln-timeline-section {
+  --ln-rail-w: 96px;
+  --ln-dot-y: 30px;
+}
+
+.ln-origin {
+  display: grid;
+  grid-template-columns: var(--ln-rail-w) minmax(0, 1fr) 6rem;
+  column-gap: 0.6rem;
+  align-items: end;
+  height: 60px;
+}
+
+.ln-origin-rail {
+  position: relative;
+  justify-self: center;
+  width: var(--ln-g-out, 2px);
+  height: 100%;
+  background: linear-gradient(180deg, transparent, var(--ln-line-dim));
+  --ln-g-out: 2px;
+}
+
+.ln-origin-label {
+  align-self: end;
+  padding-bottom: 0.4rem;
+  font-family: var(--ln-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.22em;
+  color: var(--ln-line-dim);
+}
+
+.ln-line {
+  display: block;
+}
+
+/* every direct child (a DataInkDraw motion.div) stacks with no gap */
+.ln-line > * {
+  display: block;
+}
+
+.ln-node {
+  display: grid;
+  grid-template-columns: var(--ln-rail-w) minmax(0, 1fr) 6rem;
+  column-gap: 0.6rem;
+  min-height: 96px;
+  padding-bottom: 1.8rem;
+}
+
+/* the year gutter — big cartographic year marker filling the right */
+.ln-year-gutter {
+  padding-top: calc(var(--ln-dot-y) - 0.7rem);
+  text-align: right;
+  border-top: 1px solid transparent;
+}
+
+.ln-year-big {
+  font-family: var(--ln-serif);
+  font-weight: 480;
+  font-size: 1.5rem;
+  letter-spacing: -0.01em;
+  color: var(--ln-line-dim);
+  white-space: nowrap;
+}
+
+.ln-node-switchback .ln-year-big {
+  font-size: 1rem;
+  color: var(--ln-anomaly);
+}
+
+/* --- the rail (continuous line by construction) --- */
+.ln-rail {
+  position: relative;
+  width: var(--ln-rail-w);
+}
+
+.ln-seg {
+  position: absolute;
+  left: 50%;
+  background: var(--ln-line);
+  border-radius: 3px;
+  box-shadow: 0 0 12px rgba(127, 240, 220, 0.55);
+}
+
+.ln-seg-top {
+  top: 0;
+  height: var(--ln-dot-y);
+  width: var(--ln-g-in, 2px);
+  transform: translateX(-50%);
+  transform-origin: top center;
+}
+
+.ln-seg-bottom {
+  top: var(--ln-dot-y);
+  bottom: 0;
+  width: var(--ln-g-out, 2px);
+  transform: translateX(-50%);
+  transform-origin: top center;
+}
+
+/* the switchback continues the line BELOW the loop */
+.ln-node-switchback .ln-seg-bottom {
+  top: 240px;
+}
+
+.ln-loop-wrap {
+  position: absolute;
+  left: 50%;
+  top: var(--ln-dot-y);
+  transform: translateX(-50%);
+  width: 88px;
+  height: 210px;
+}
+
+.ln-loop {
+  display: block;
+  overflow: visible;
+}
+
+.ln-loop-path {
+  stroke: var(--ln-anomaly);
+  stroke-width: 5.5;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 8px rgba(242, 161, 92, 0.6));
+}
+
+.ln-loop-arrow {
+  stroke: var(--ln-anomaly);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* --- station dot --- */
+.ln-dot {
+  position: absolute;
+  left: 50%;
+  top: var(--ln-dot-y);
+  transform: translate(-50%, -50%);
+  color: var(--ln-line);
+  line-height: 0;
+}
+
+.ln-dot svg {
+  display: block;
+  overflow: visible;
+}
+
+.ln-dot-halo {
+  fill: currentColor;
+  opacity: 0.16;
+}
+
+.ln-dot-core {
+  fill: var(--ln-bg);
+  stroke: currentColor;
+  stroke-width: 2.4;
+}
+
+.ln-dot-ring {
+  fill: currentColor;
+}
+
+.ln-dot-switchback {
+  color: var(--ln-anomaly);
+}
+
+.ln-dot-branch {
+  color: var(--ln-branch);
+}
+
+/* --- node body --- */
+.ln-body {
+  padding-top: calc(var(--ln-dot-y) - 0.85rem);
+  min-width: 0;
+}
+
+.ln-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+}
+
+.ln-code {
+  font-family: var(--ln-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--ln-line);
+}
+
+.ln-grade {
+  font-family: var(--ln-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ln-muted);
+}
+
+.ln-year {
+  font-family: var(--ln-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  color: var(--ln-muted);
+}
+
+.ln-year-survey {
+  color: var(--ln-line);
+}
+
+.ln-name {
+  margin: 0.5rem 0 0;
+  font-family: var(--ln-serif);
+  font-optical-sizing: auto;
+  font-weight: 520;
+  font-size: clamp(1.3rem, 2.4vw, 1.75rem);
+  line-height: 1.16;
+  letter-spacing: -0.01em;
+  color: var(--ln-text);
+}
+
+.ln-name-terminus {
+  color: var(--ln-line);
+}
+
+.ln-promotion {
+  display: inline-block;
+  margin: 0.7rem 0 0;
+  padding: 0.24rem 0.6rem;
+  border: 1px solid var(--ln-line);
+  border-radius: 999px;
+  font-family: var(--ln-mono);
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--ln-line);
+}
+
+.ln-outcome {
+  margin: 0.7rem 0 0;
+  max-width: 40rem;
+  font-size: 0.9375rem;
+  line-height: 1.62;
+  color: var(--ln-muted);
+}
+
+/* --- the switchback (anomaly) body --- */
+.ln-detour {
+  margin: 0.9rem 0 0;
+  padding: 0.95rem 1.1rem;
+  border: 1px dashed rgba(242, 161, 92, 0.5);
+  border-radius: 10px;
+  background: rgba(242, 161, 92, 0.07);
+}
+
+.ln-detour-flag {
+  margin: 0;
+  font-family: var(--ln-mono);
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--ln-anomaly);
+}
+
+.ln-detour-lesson {
+  margin: 0.55rem 0 0;
+  max-width: 38rem;
+  font-size: 0.9375rem;
+  line-height: 1.62;
+  color: var(--ln-text);
+}
+
+/* --- branches --- */
+.ln-branch-note {
+  position: relative;
+  margin: 0.8rem 0 0;
+  padding: 0.75rem 0.9rem 0.75rem 1.1rem;
+  border-left: 2px solid var(--ln-branch);
+  border-radius: 0 8px 8px 0;
+  background: rgba(159, 180, 198, 0.06);
+  font-size: 0.875rem;
+  line-height: 1.58;
+  color: var(--ln-muted);
+}
+
+.ln-branch-note-rejoined {
+  border-left-color: var(--ln-line);
+  background: rgba(127, 240, 220, 0.06);
+}
+
+.ln-branch-tag {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-family: var(--ln-mono);
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--ln-branch);
+}
+
+.ln-branch-note-rejoined .ln-branch-tag {
+  color: var(--ln-line);
+}
+
+/* branches genuinely leave the main line: the body is offset to the right and
+ * an elbow connector splits off the rail dot and runs into it. */
+.ln-node-branch .ln-body {
+  position: relative;
+  margin-left: 2.2rem;
+  padding-left: 1.2rem;
+}
+
+.ln-node-branch .ln-body::before {
+  content: '';
+  position: absolute;
+  left: -2.2rem;
+  top: calc(var(--ln-dot-y) - 0.7rem);
+  width: 2.2rem;
+  height: 1.9rem;
+  border-left: 2px solid var(--ln-branch);
+  border-bottom: 2px solid var(--ln-branch);
+  border-radius: 0 0 0 10px;
+}
+
+.ln-node-branch .ln-body::after {
+  content: '';
+  position: absolute;
+  left: -0.05rem;
+  top: calc(var(--ln-dot-y) + 1.05rem);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ln-bg);
+  border: 2px solid var(--ln-branch);
+  transform: translate(-50%, -50%);
+}
+
+.ln-branch-terminated .ln-body::after {
+  border-radius: 1px;
+  width: 12px;
+  height: 3px;
+  border: 0;
+  background: var(--ln-branch);
+}
+
+.ln-branch-rejoined .ln-body::before,
+.ln-branch-rejoined .ln-body::after {
+  border-color: var(--ln-line);
+}
+
+.ln-branch-rejoined .ln-body::after {
+  background: var(--ln-bg);
+}
+
+/* --- terminus --- */
+.ln-terminus {
+  display: grid;
+  grid-template-columns: var(--ln-rail-w) minmax(0, 1fr) 6rem;
+  column-gap: 0.6rem;
+  min-height: 90px;
+  padding-top: 0.4rem;
+}
+
+.ln-rail-terminus .ln-seg-top {
+  height: 44px;
+}
+
+.ln-terminus-cap {
+  position: absolute;
+  left: 50%;
+  top: 44px;
+  width: 40px;
+  height: var(--ln-g-out, 6px);
+  min-height: 4px;
+  background: var(--ln-line);
+  border-radius: 2px;
+  transform: translateX(-50%);
+  box-shadow: 0 0 14px rgba(127, 240, 220, 0.5);
+}
+
+.ln-terminus .ln-body {
+  padding-top: 2.6rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* The line-draw — an entrance draw on a token easing                  */
+/* ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: no-preference) {
+  .ln-root:not([data-reduced='true']) .ln-seg {
+    animation: ln-draw var(--dur-narrative) var(--ease-trace) var(--ln-delay, 0ms) both;
+  }
+
+  @keyframes ln-draw {
+    from {
+      opacity: 0;
+      transform: translateX(-50%) scaleY(0);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-50%) scaleY(1);
+    }
+  }
+}
+
+/* Reduced motion / SVG loop: never scale a path with transform — draw via
+ * stroke-dashoffset is the loop's parity; when reduced, everything is static. */
+.ln-loop-path {
+  transform: none !important;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ln-root:not([data-reduced='true']) .ln-loop-path {
+    animation: ln-loop-draw var(--dur-narrative) var(--ease-trace) var(--ln-delay, 0ms) both;
+    stroke-dasharray: 100;
+  }
+
+  @keyframes ln-loop-draw {
+    from {
+      stroke-dashoffset: 100;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Interchange                                                         */
+/* ------------------------------------------------------------------ */
+
+.ln-interchange {
+  margin-top: 3.4rem;
+}
+
+.ln-ix-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ln-ix-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.9rem;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--ln-panel-edge);
+  border-radius: 12px;
+  background: var(--ln-panel);
+}
+
+.ln-ix-code {
+  font-family: var(--ln-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--ln-line);
+  padding-top: 0.15rem;
+}
+
+.ln-ix-cross {
+  margin: 0;
+  font-family: var(--ln-serif);
+  font-weight: 520;
+  font-size: 1.0625rem;
+  color: var(--ln-text);
+}
+
+.ln-ix-station {
+  margin: 0.2rem 0 0;
+  font-family: var(--ln-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.12em;
+  color: var(--ln-muted);
+}
+
+.ln-ix-note {
+  margin: 0.55rem 0 0;
+  font-size: 0.875rem;
+  line-height: 1.58;
+  color: var(--ln-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Station register (accessible mirror)                                */
+/* ------------------------------------------------------------------ */
+
+.ln-manifest {
+  margin-top: 3.4rem;
+}
+
+.ln-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.ln-table-caption {
+  text-align: left;
+  margin-bottom: 0.9rem;
+  font-size: 0.8125rem;
+  color: var(--ln-muted);
+  max-width: 46rem;
+}
+
+.ln-table thead th {
+  text-align: left;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--ln-panel-edge);
+  font-family: var(--ln-mono);
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--ln-muted);
+}
+
+.ln-table tbody th,
+.ln-table tbody td {
+  padding: 0.7rem 0.8rem;
+  border-bottom: 1px solid var(--ln-faint);
+  vertical-align: top;
+  color: var(--ln-muted);
+}
+
+.ln-table tbody th {
+  font-family: var(--ln-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--ln-line);
+  white-space: nowrap;
+}
+
+.ln-table tbody tr[data-kind='switchback'] th {
+  color: var(--ln-anomaly);
+}
+
+.ln-table tbody tr[data-kind='terminus'] td,
+.ln-table tbody tr[data-kind='terminus'] th {
+  color: var(--ln-text);
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+.ln-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 1.2rem clamp(1.4rem, 4vw, 3.4rem) 1.6rem;
+  border-top: 1px solid var(--ln-faint);
+  font-family: var(--ln-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  color: var(--ln-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Narrow viewports                                                    */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 60rem) {
+  .ln-ix-list {
+    grid-template-columns: 1fr;
+  }
+
+  .ln-timeline-section {
+    --ln-rail-w: 64px;
+  }
+
+  .ln-chrome {
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+}
+
+@media (max-width: 46rem) {
+  .ln-table thead {
+    display: none;
+  }
+
+  .ln-table tbody th,
+  .ln-table tbody td {
+    display: block;
+    border: 0;
+    padding: 0.15rem 0;
+  }
+
+  .ln-table tbody tr {
+    display: block;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--ln-faint);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Print — the line drops to ink on paper                              */
+/* ------------------------------------------------------------------ */
+
+@media print {
+  .ln-root {
+    background: #fff;
+    color: #16181c;
+  }
+
+  .ln-field {
+    display: none;
+  }
+
+  .ln-seg,
+  .ln-dot-core {
+    background: #16181c;
+  }
+}

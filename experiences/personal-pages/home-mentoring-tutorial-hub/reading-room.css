@@ -1,0 +1,755 @@
+/*
+ * THE READING ROOM — experience-local art layer.
+ *
+ * Art-direction licence (task 13/19): raw colour values are permitted in THIS
+ * stylesheet only. This is motion level 1: the ONLY motion is the LedgerReveal
+ * settle on entrance (token-driven, with its own reduced-motion parity). There
+ * is NO continuous motion anywhere — the stillness is the design statement.
+ *
+ * Mood: a warm, lamplit reading room. Cream paper, deep-green leather, brass,
+ * library typography with small-caps catalogue headings. Bound volumes stand
+ * on a shelf; each opens in place to its table of contents.
+ */
+
+.rr-root {
+  --rr-paper: #f0e7d3;
+  --rr-paper-2: #e9dec5;
+  --rr-ink: #2c2419;
+  --rr-ink-soft: #5c5140;
+  --rr-ink-faint: #857a64;
+  --rr-green: #2f4433;
+  --rr-green-2: #3c5643;
+  --rr-oxblood: #6f2b2b;
+  --rr-navy: #2a3550;
+  --rr-tan: #9c6f38;
+  --rr-brass: #a9863f;
+  --rr-brass-bright: #caa858;
+  --rr-line: rgba(44, 36, 25, 0.16);
+  --rr-line-soft: rgba(44, 36, 25, 0.1);
+  --rr-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+  --rr-serif: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
+  --rr-sans: system-ui, 'Segoe UI', 'Helvetica Neue', sans-serif;
+
+  position: relative;
+  min-height: 100svh;
+  background: var(--rr-paper);
+  color: var(--rr-ink);
+  font-family: var(--rr-sans);
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  isolation: isolate;
+}
+
+/* Paper field — a warm grain under a soft vignette. */
+.rr-field {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(120vmin 90vmin at 78% -6%, rgba(244, 232, 206, 0.9), transparent 60%),
+    radial-gradient(140vmin 120vmin at 20% 110%, rgba(214, 198, 166, 0.55), transparent 66%),
+    linear-gradient(172deg, #f3ebd8 0%, #efe5cf 55%, #e7dbc1 100%);
+}
+
+.rr-field::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+  background-image: radial-gradient(rgba(120, 96, 60, 0.05) 1px, transparent 1px);
+  background-size: 4px 4px;
+}
+
+/* The lamp — one warm pool of light, top-right, utterly still. */
+.rr-lamp {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(70vmin 52vmin at 82% 3%, rgba(255, 236, 190, 0.55), transparent 60%);
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+}
+
+/* ------------------------------------------------------------------ */
+/* Chrome                                                              */
+/* ------------------------------------------------------------------ */
+
+.rr-chrome {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 2rem;
+  padding: 1rem 1.6rem 0.85rem;
+  font-family: var(--rr-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  color: var(--rr-ink-soft);
+  background: rgba(240, 231, 211, 0.82);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rr-line);
+}
+
+.rr-chrome-cell {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  white-space: nowrap;
+}
+
+.rr-chrome-rule {
+  width: 1px;
+  height: 0.85em;
+  align-self: center;
+  background: var(--rr-line);
+}
+
+.rr-back {
+  color: var(--rr-ink);
+  text-decoration: none;
+  letter-spacing: 0.14em;
+}
+
+.rr-back:hover {
+  color: var(--rr-green);
+}
+
+.rr-back:focus-visible {
+  outline: 2px solid var(--rr-green);
+  outline-offset: 3px;
+}
+
+.rr-synthetic {
+  padding: 0.2rem 0.55rem;
+  border: 1px dashed var(--rr-line);
+  color: var(--rr-ink-soft);
+  letter-spacing: 0.16em;
+}
+
+/* ------------------------------------------------------------------ */
+/* Layout + hero                                                       */
+/* ------------------------------------------------------------------ */
+
+.rr-main {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 clamp(1.4rem, 4vw, 3.4rem) 4rem;
+}
+
+.rr-hero {
+  padding: 4.4rem 0 2.6rem;
+}
+
+.rr-kicker {
+  margin: 0 0 1.3rem;
+  font-family: var(--rr-serif);
+  font-variant: small-caps;
+  letter-spacing: 0.22em;
+  font-size: 0.9375rem;
+  color: var(--rr-green);
+}
+
+.rr-display {
+  margin: 0;
+  max-width: 32rem;
+  font-family: var(--rr-serif);
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  line-height: 1.04;
+  letter-spacing: -0.014em;
+  color: var(--rr-ink);
+}
+
+.rr-display-line {
+  display: block;
+}
+
+.rr-identity {
+  margin: 1.8rem 0 0;
+  font-family: var(--rr-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  color: var(--rr-green);
+}
+
+.rr-subline {
+  margin: 1.2rem 0 0;
+  max-width: 40rem;
+  font-size: 1.0625rem;
+  line-height: 1.72;
+  color: var(--rr-ink-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* Headings — library small caps                                       */
+/* ------------------------------------------------------------------ */
+
+.rr-reveal {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.rr-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.9rem;
+  margin: 0 0 1.4rem;
+  font-family: var(--rr-serif);
+  font-variant: small-caps;
+  font-weight: 560;
+  letter-spacing: 0.08em;
+  font-size: 1.375rem;
+  color: var(--rr-ink);
+}
+
+.rr-heading-sub {
+  font-variant: normal;
+  font-family: var(--rr-sans);
+  font-weight: 400;
+  font-size: 0.8125rem;
+  letter-spacing: 0.01em;
+  color: var(--rr-ink-faint);
+}
+
+/* ------------------------------------------------------------------ */
+/* THE SYLLABUS SHELF — the commanding visual                          */
+/* ------------------------------------------------------------------ */
+
+.rr-shelf-section {
+  position: relative;
+}
+
+.rr-shelf {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 1.6rem 1.4rem 0.6rem;
+  list-style: none;
+  border-radius: 6px 6px 0 0;
+  background:
+    linear-gradient(180deg, rgba(44, 36, 25, 0.04), transparent 40%),
+    var(--rr-paper-2);
+}
+
+.rr-shelf-slot {
+  flex: 0 0 auto;
+  display: flex;
+}
+
+/* an opened volume takes the full width and drops onto its own line */
+.rr-shelf-slot:has(details[open]) {
+  flex: 1 1 100%;
+}
+
+/* the plank the spines stand on */
+.rr-plank {
+  height: 20px;
+  border-radius: 0 0 3px 3px;
+  background: linear-gradient(180deg, #6b4f2e, #4a3620);
+  box-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.2),
+    0 14px 26px rgba(74, 54, 32, 0.35),
+    inset 0 1px 0 rgba(255, 220, 160, 0.25);
+}
+
+/* --- a volume (native <details>) --- */
+.rr-volume {
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+.rr-volume > summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.rr-volume > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* closed spine — vertical bound book */
+.rr-spine {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
+  width: 66px;
+  min-height: 320px;
+  padding: 16px 0;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  border-radius: 4px 5px 5px 4px;
+  color: #f3ead2;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.28), transparent 18%, transparent 82%, rgba(0, 0, 0, 0.22));
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 10px 22px rgba(44, 30, 14, 0.34);
+}
+
+.rr-spine-green {
+  background-color: var(--rr-green);
+}
+.rr-spine-oxblood {
+  background-color: var(--rr-oxblood);
+}
+.rr-spine-navy {
+  background-color: var(--rr-navy);
+}
+.rr-spine-tan {
+  background-color: var(--rr-tan);
+}
+
+.rr-spine-inner {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  gap: 0.8rem;
+}
+
+.rr-spine-level {
+  font-family: var(--rr-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.24em;
+  color: var(--rr-brass-bright);
+}
+
+.rr-spine-title {
+  font-family: var(--rr-serif);
+  font-weight: 560;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+}
+
+.rr-spine-meta {
+  font-family: var(--rr-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.16em;
+  color: rgba(243, 234, 210, 0.72);
+}
+
+.rr-spine-open {
+  color: var(--rr-brass-bright);
+  font-size: 0.9rem;
+}
+
+/* focus + hover: the book lifts a little (transform only on interaction,
+ * not continuous — reduced motion users still get the outline) */
+.rr-volume > summary:focus-visible {
+  outline: 2px solid var(--rr-brass);
+  outline-offset: 3px;
+}
+
+.rr-volume > summary:hover {
+  filter: brightness(1.08);
+}
+
+/* retired volume — spine-out but faded */
+.rr-volume-retired .rr-spine {
+  filter: grayscale(0.5) brightness(0.82);
+  opacity: 0.82;
+}
+
+.rr-volume-retired .rr-spine-meta {
+  color: var(--rr-brass-bright);
+  letter-spacing: 0.2em;
+}
+
+/* --- the opened volume: horizontal header + table of contents --- */
+.rr-volume[open] > summary {
+  writing-mode: horizontal-tb;
+  width: 100%;
+  min-height: 0;
+  padding: 0.9rem 1.2rem;
+  border-radius: 5px 5px 0 0;
+  justify-content: space-between;
+}
+
+.rr-volume[open] .rr-spine-inner {
+  flex-direction: row;
+  align-items: baseline;
+  gap: 1.2rem;
+}
+
+.rr-volume[open] .rr-spine-title {
+  font-size: 1.25rem;
+  text-align: left;
+}
+
+.rr-toc {
+  padding: 1.3rem 1.4rem 1.5rem;
+  border: 1px solid var(--rr-line);
+  border-top: 0;
+  border-radius: 0 0 6px 6px;
+  background: var(--rr-paper);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.rr-toc-head {
+  display: none;
+}
+
+.rr-retired-note {
+  margin: 0 0 1rem;
+  padding: 0.75rem 0.9rem;
+  border-left: 3px solid var(--rr-brass);
+  border-radius: 0 6px 6px 0;
+  background: rgba(169, 134, 63, 0.1);
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--rr-ink-soft);
+}
+
+.rr-toc-blurb {
+  margin: 0 0 1.1rem;
+  max-width: 44rem;
+  font-family: var(--rr-serif);
+  font-style: italic;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--rr-ink-soft);
+}
+
+.rr-toc-list {
+  columns: 2;
+  column-gap: 2.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rr-toc-item {
+  display: flex;
+  gap: 0.8rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px dotted var(--rr-line-soft);
+  break-inside: avoid;
+}
+
+.rr-toc-num {
+  font-family: var(--rr-mono);
+  font-size: 0.75rem;
+  color: var(--rr-brass);
+  padding-top: 0.1rem;
+}
+
+.rr-toc-session {
+  font-size: 0.9375rem;
+  color: var(--rr-ink);
+}
+
+.rr-shelf-hint {
+  margin: 1.2rem 0 0;
+  font-family: var(--rr-serif);
+  font-style: italic;
+  font-size: 0.9375rem;
+  color: var(--rr-ink-faint);
+}
+
+/* ------------------------------------------------------------------ */
+/* Cards                                                               */
+/* ------------------------------------------------------------------ */
+
+.rr-card {
+  padding: 1.6rem 1.7rem;
+  border: 1px solid var(--rr-line);
+  border-radius: 10px;
+  background: rgba(255, 250, 238, 0.6);
+  box-shadow: 0 10px 26px rgba(74, 54, 32, 0.08);
+}
+
+.rr-row-desk {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: 1.4rem;
+}
+
+/* office hours */
+.rr-office {
+  border-left: 4px solid var(--rr-green);
+}
+
+.rr-office-facts {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0 0 1.1rem;
+}
+
+.rr-office-facts > div {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: 0.8rem;
+  align-items: baseline;
+}
+
+.rr-office-facts dt {
+  font-family: var(--rr-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rr-ink-faint);
+}
+
+.rr-office-facts dd {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--rr-ink);
+}
+
+.rr-office-invite {
+  margin: 0 0 0.7rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rr-line-soft);
+  font-family: var(--rr-serif);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--rr-ink);
+}
+
+.rr-office-booking {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--rr-ink-soft);
+}
+
+/* margin notes */
+.rr-margins {
+  border-left: 4px solid var(--rr-oxblood);
+}
+
+.rr-margin-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.rr-margin-note {
+  position: relative;
+  padding-left: 1.5rem;
+  font-family: var(--rr-serif);
+  font-style: italic;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: var(--rr-ink);
+}
+
+.rr-margin-note::before {
+  content: '❝';
+  position: absolute;
+  left: 0;
+  top: -0.1rem;
+  font-style: normal;
+  color: var(--rr-brass);
+}
+
+/* ------------------------------------------------------------------ */
+/* The register                                                        */
+/* ------------------------------------------------------------------ */
+
+.rr-register {
+  border-left: 4px solid var(--rr-navy);
+}
+
+.rr-register-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.rr-register-caption {
+  text-align: left;
+  margin-bottom: 1rem;
+  font-family: var(--rr-serif);
+  font-style: italic;
+  font-size: 0.9375rem;
+  color: var(--rr-ink-soft);
+  max-width: 44rem;
+}
+
+.rr-register-table thead th {
+  text-align: left;
+  padding: 0.5rem 0.8rem;
+  border-bottom: 1px solid var(--rr-line);
+  font-family: var(--rr-mono);
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--rr-ink-faint);
+}
+
+.rr-register-table tbody th,
+.rr-register-table tbody td {
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--rr-line-soft);
+  vertical-align: baseline;
+  text-align: left;
+}
+
+.rr-cohort-year {
+  font-family: var(--rr-serif);
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: var(--rr-green);
+  border-right: 1px solid var(--rr-line);
+  vertical-align: top;
+  padding-top: 0.7rem;
+}
+
+.rr-mentee-name {
+  font-weight: 600;
+  color: var(--rr-ink);
+  white-space: nowrap;
+}
+
+.rr-mentee-went {
+  color: var(--rr-ink-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* Tutorial catalogue                                                  */
+/* ------------------------------------------------------------------ */
+
+.rr-cat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rr-cat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.1rem 1.2rem 1.2rem;
+  border: 1px solid var(--rr-line);
+  border-radius: 8px;
+  background: rgba(255, 250, 238, 0.7);
+}
+
+.rr-cat-stale {
+  border-style: dashed;
+  border-color: var(--rr-brass);
+  background: rgba(169, 134, 63, 0.08);
+}
+
+.rr-cat-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.rr-cat-format {
+  font-family: var(--rr-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rr-green);
+}
+
+.rr-cat-date {
+  font-family: var(--rr-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.1em;
+  color: var(--rr-ink-faint);
+}
+
+.rr-cat-stale .rr-cat-date {
+  color: var(--rr-oxblood);
+}
+
+.rr-cat-title {
+  margin: 0;
+  font-family: var(--rr-serif);
+  font-weight: 540;
+  font-size: 1.0625rem;
+  line-height: 1.25;
+  color: var(--rr-ink);
+}
+
+.rr-cat-note {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--rr-ink-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+.rr-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 1.2rem clamp(1.4rem, 4vw, 3.4rem) 1.6rem;
+  border-top: 1px solid var(--rr-line);
+  font-family: var(--rr-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  color: var(--rr-ink-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* Narrow viewports                                                    */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 60rem) {
+  .rr-row-desk {
+    grid-template-columns: 1fr;
+  }
+
+  .rr-cat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 44rem) {
+  .rr-toc-list {
+    columns: 1;
+  }
+
+  .rr-cat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rr-chrome {
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Print                                                               */
+/* ------------------------------------------------------------------ */
+
+@media print {
+  .rr-lamp,
+  .rr-field::after {
+    display: none;
+  }
+
+  .rr-toc {
+    display: block !important;
+  }
+}
