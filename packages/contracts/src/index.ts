@@ -6,4 +6,6 @@ export * from './grammar.js';
 export * from './experience-manifest.js';
 export * from './search-document.js';
 export * from './recommendation.js';
+export * from './blueprint.js';
+export * from './validation.js';
 export * from './mcp-error.js';
