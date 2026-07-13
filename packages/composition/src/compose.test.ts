@@ -4,6 +4,7 @@ import { beforeAll, describe, expect, it } from 'vitest';
 import { compileRegistry } from '@enterprise-design/registry';
 import { DesignBlueprint, type DesignContext, type SurfaceType } from '@enterprise-design/contracts';
 import { composeDesign } from './compose.js';
+import { rankCandidates } from './components.js';
 import type { CompositionRegistry } from './types.js';
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
@@ -154,5 +155,61 @@ describe('composeDesign', () => {
       const bp = composeDesign(makeContext({ surface, motionPreference: 3 }), registry);
       expect(bp.motionLevel).toBeLessThanOrEqual(2); // dashboard/project cap
     }
+  });
+
+  it('gives contexts differing only in density different blueprintIds', () => {
+    const low = composeDesign(makeContext({ density: 'low' }), registry);
+    const high = composeDesign(makeContext({ density: 'high' }), registry);
+    expect(low.blueprintId).not.toBe(high.blueprintId);
+  });
+
+  it('gives contexts differing only in audience different blueprintIds', () => {
+    const exec = composeDesign(makeContext({ audience: ['executive'] }), registry);
+    const tech = composeDesign(makeContext({ audience: ['technical'] }), registry);
+    expect(exec.blueprintId).not.toBe(tech.blueprintId);
+  });
+
+  it('carries real per-component evidence, not a rebuilt stub', () => {
+    // Real registry components declare intents like 'communicate-risk' /
+    // 'communicate-performance' (see comp.status-list, comp.kpi-tile); use
+    // matching intents so we can assert matchedIntents actually flows through.
+    const ctx = makeContext({ businessIntent: ['communicate-risk', 'communicate-performance'] });
+    const bp = composeDesign(ctx, registry);
+    const componentEvidence = bp.evidence.filter((e) => e.componentId !== bp.grammarId);
+    expect(componentEvidence.length).toBeGreaterThan(0);
+    for (const ev of componentEvidence) {
+      expect(ev.matchedConstraints.length).toBeGreaterThan(0);
+      // score must be the real selection score (a float around 1-3), never
+      // the placement's ordinal priority (which would always be a small
+      // positive integer counting up from 1 per section) masquerading as one.
+      expect(ev.score).toBeGreaterThan(0);
+      expect(ev.explanation).toContain(ev.componentId);
+    }
+    const withIntents = componentEvidence.filter((e) => e.matchedIntents.length > 0);
+    expect(withIntents.length).toBeGreaterThan(0);
+  });
+
+  it('evidence score equals the real selection score, not the placement priority ordinal', () => {
+    const bp = composeDesign(makeContext(), registry);
+    const placements = bp.routes.flatMap((r) => r.sections.flatMap((s) => s.componentPlacements));
+    const componentEvidence = bp.evidence.filter((e) => e.componentId !== bp.grammarId);
+    expect(componentEvidence.length).toBeGreaterThan(0);
+    for (const ev of componentEvidence) {
+      const placement = placements.find((p) => p.componentId === ev.componentId);
+      expect(placement).toBeDefined();
+      if (!placement) continue;
+      // Independently recompute the candidate's real score via the same
+      // ranking function `compose.ts` uses for selection, and assert the
+      // evidence score matches it exactly.
+      const { ranked } = rankCandidates(placement.role, makeContext(), registry);
+      const expected = ranked.find((c) => c.component.id === placement.componentId);
+      expect(expected).toBeDefined();
+      expect(ev.score).toBe(expected?.score);
+      // The ordinal priority counts sections 1..N in placement order and is
+      // unrelated to match quality — for this fixture (executive audience +
+      // monitor-risk intent + medium density) at least one placed component
+      // has a fractional real score, which an integer ordinal could never equal.
+    }
+    expect(componentEvidence.some((ev) => !Number.isInteger(ev.score))).toBe(true);
   });
 });

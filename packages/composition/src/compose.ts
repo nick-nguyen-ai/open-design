@@ -69,7 +69,7 @@ export function composeDesign(
   // (b) summarise the structural deltas of all three.
   const variants = new Map<AlternativeMode, ReturnType<typeof materialiseVariant>>();
   for (const mode of ALL_MODES) {
-    variants.set(mode, materialiseVariant(mode, baseSpecs, recommendedMotion, cap, context, signature));
+    variants.set(mode, materialiseVariant(mode, baseSpecs, recommendedMotion, cap, context, signature, themeId));
   }
   const chosen = variants.get(selectedMode);
   if (!chosen) throw new Error(`unknown alternative mode: ${selectedMode}`);
@@ -85,7 +85,7 @@ export function composeDesign(
   });
 
   // Stage 10 — evidence (grammar first, then one entry per placed component, deduped).
-  const evidence = collectEvidence(grammarChoice.evidence, chosen.sections);
+  const evidence = collectEvidence(grammarChoice.evidence, chosen.specs);
 
   const notes = implementationNotes(context, rejected, grammar.id);
 
@@ -184,6 +184,8 @@ interface Variant {
   blueprintId: string;
   motionLevel: MotionLevel;
   sections: SectionBlueprint[];
+  /** The specs actually materialised for this variant (post filter/reorder), carrying each candidate's real scoring evidence. */
+  specs: SectionSpec[];
 }
 
 function materialiseVariant(
@@ -193,6 +195,7 @@ function materialiseVariant(
   cap: MotionLevel,
   context: DesignContext,
   signature: MotionSequence | undefined,
+  themeId: string,
 ): Variant {
   let specs = [...baseSpecs];
   let motionLevel: MotionLevel = recommendedMotion;
@@ -216,15 +219,27 @@ function materialiseVariant(
       ? specs.map((spec, index) => toSection(spec, index, index === 0 ? signature : undefined))
       : [fallbackSection(signature)];
 
+  // Canonical signature of every input that can shape the blueprint's content,
+  // not just its structural skeleton — two contexts that select the same
+  // components in the same order but differ in density, theme, audience,
+  // business intent, corporate suitability or content inventory must NOT
+  // collide on the same blueprintId (Task 21 review, Important finding #1).
   const blueprintId = blueprintIdFrom({
     surface: context.surface,
     mode,
     motionLevel,
+    density: context.density,
+    themeId,
+    audience: context.audience,
+    businessIntent: context.businessIntent,
+    corporateSuitability: context.corporateSuitability,
+    contentInventory: context.availableContent,
     order: specs.map((s) => s.id),
     components: specs.map((s) => s.candidate.component.id),
+    contentMappings: specs.map((s) => ({ id: s.id, contentPath: s.contentPath })),
   });
 
-  return { blueprintId, motionLevel, sections };
+  return { blueprintId, motionLevel, sections, specs };
 }
 
 function toSection(
@@ -296,24 +311,24 @@ function differenceSummary(mode: AlternativeMode, recommended: Variant, v: Varia
   return out;
 }
 
+/**
+ * Grammar evidence first, then one entry per placed component, carrying the
+ * real {@link Candidate.evidence} computed during selection (`scoreComponent`)
+ * — real `matchedIntents`, real `matchedConstraints`, the actual selection
+ * `score`, and an explanation referencing real manifest fields — rather than
+ * a rebuilt stub (Task 21 review, Important finding #2).
+ */
 function collectEvidence(
   grammarEvidence: RecommendationEvidence,
-  sections: SectionBlueprint[],
+  specs: SectionSpec[],
 ): RecommendationEvidence[] {
   const out: RecommendationEvidence[] = [grammarEvidence];
   const seen = new Set<string>();
-  for (const section of sections) {
-    for (const placement of section.componentPlacements) {
-      if (seen.has(placement.componentId)) continue;
-      seen.add(placement.componentId);
-      out.push({
-        componentId: placement.componentId,
-        matchedIntents: [],
-        matchedConstraints: [`role:${placement.role}`, `region:${placement.region}`],
-        score: placement.priority,
-        explanation: `${placement.componentId} placed in ${placement.region} as ${placement.role}.`,
-      });
-    }
+  for (const spec of specs) {
+    const componentId = spec.candidate.component.id;
+    if (seen.has(componentId)) continue;
+    seen.add(componentId);
+    out.push(spec.candidate.evidence);
   }
   return out;
 }
