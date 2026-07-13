@@ -31,6 +31,29 @@ const StatusKind = z.enum(['success', 'warning', 'danger', 'info', 'neutral']);
 const RollbackTone = z.enum(['root', 'ok', 'abort']);
 
 /* ------------------------------------------------------------------ */
+/* Canvas bounds for OPTIONAL authored geometry                        */
+/*                                                                     */
+/* Estate node coords (cx/cy/tx/ty) and rollback node coords (x/y) are */
+/* optional: when omitted the template auto-lays the node (by zone for */
+/* the estate, by depth for the rollback tree). When PRESENT they are  */
+/* bounded to the template canvases minus the node footprint so an     */
+/* authored node can never render off-canvas. Values mirror the        */
+/* template-fixed canvases in CutoverTemplate.tsx.                     */
+/* ------------------------------------------------------------------ */
+
+const ESTATE_CANVAS = { w: 1020, h: 560 } as const;
+const ROLLBACK_CANVAS = { w: 1000, h: 360 } as const;
+const NODE_W = 176;
+const NODE_H = 62;
+
+/** Estate node top-left: keeps the whole 176×62 box on the 1020×560 canvas. */
+const estateX = z.number().min(0).max(ESTATE_CANVAS.w - NODE_W);
+const estateY = z.number().min(0).max(ESTATE_CANVAS.h - NODE_H);
+/** Rollback node is anchored at its centre-x; keep the anchor on the canvas. */
+const rollbackX = z.number().min(0).max(ROLLBACK_CANVAS.w);
+const rollbackY = z.number().min(0).max(ROLLBACK_CANVAS.h);
+
+/* ------------------------------------------------------------------ */
 /* Fill schema — content slots only                                    */
 /* ------------------------------------------------------------------ */
 
@@ -47,11 +70,13 @@ const DeckMeta = z.object({
 });
 
 /**
- * A system on the shared estate canvas. `cx/cy` is its current-estate top-left,
- * `tx/ty` its target-estate top-left (the draw.io geometry is authored, exact).
- * `zone` is its TARGET-estate placement — the current estate is one on-prem data
- * centre, so the accessible mirror reads current as all-on-prem and target by
- * this field. Exactly one node is the `stays` anomaly: `locked` with a `badge`.
+ * `cx/cy` is its current-estate top-left, `tx/ty` its target-estate top-left.
+ * The geometry is OPTIONAL: authored coords reproduce an exact draw.io working
+ * file (bounded so a node can never render off-canvas); when a node omits its
+ * coords for an estate the template auto-lays it by zone. `zone` is its
+ * TARGET-estate placement — the current estate is one on-prem data centre, so
+ * the accessible mirror reads current as all-on-prem and target by this field.
+ * Exactly one node is the `stays` anomaly: `locked` with a `badge`.
  */
 const EstateNode = z.object({
   id: z.string().min(1),
@@ -59,21 +84,25 @@ const EstateNode = z.object({
   kind: NodeKind,
   zone: Zone,
   disposition: Disposition,
-  cx: z.number(),
-  cy: z.number(),
-  tx: z.number(),
-  ty: z.number(),
+  cx: estateX.optional(),
+  cy: estateY.optional(),
+  tx: estateX.optional(),
+  ty: estateY.optional(),
   locked: z.boolean().optional(),
   badge: z.string().min(1).max(64).optional(),
 });
 
-/** An orthogonal connector: which ports it leaves and enters, and its wire label. */
+/**
+ * An orthogonal connector: its wire label and, OPTIONALLY, which ports it leaves
+ * and enters. When a side is omitted the template derives it from the two node
+ * centres (dominant axis → facing sides).
+ */
 const EstateEdge = z.object({
   id: z.string().min(1),
   from: z.string().min(1),
   to: z.string().min(1),
-  fromSide: Side,
-  toSide: Side,
+  fromSide: Side.optional(),
+  toSide: Side.optional(),
   label: z.string().min(1).max(16).optional(),
 });
 
@@ -112,8 +141,9 @@ const SyncLine = z.object({
 const RollbackNode = z.object({
   id: z.string().min(1),
   label: z.string().min(1).max(40),
-  x: z.number(),
-  y: z.number(),
+  /** OPTIONAL: authored coords (bounded to the tree canvas) or template-laid by depth. */
+  x: rollbackX.optional(),
+  y: rollbackY.optional(),
   tone: RollbackTone,
 });
 
@@ -167,9 +197,9 @@ export const CutoverFill = z
         { message: 'The stays node must be locked and carry the anomaly badge text.' },
       ),
     /** Node id given draw.io selection handles on the current estate slide. */
-    currentFocus: z.string().min(1),
+    currentFocus: z.string().min(1).max(40),
     /** Node id given draw.io selection handles on the target estate slide. */
-    targetFocus: z.string().min(1),
+    targetFocus: z.string().min(1).max(40),
     currentEdges: z.array(EstateEdge).min(4).max(10),
     targetEdges: z.array(EstateEdge).min(4).max(10),
     delta: z.object({
@@ -233,8 +263,8 @@ export const CUTOVER_SLIDE_KINDS: SlideKindSpec[] = [
     purpose: 'The current estate diagram on the shared draw.io canvas; selection handles on the focus node.',
     repeats: { min: 1, max: 1 },
     slots: [
-      { name: 'nodes', type: 'nodes', required: true, limits: { minItems: 5, maxItems: 9 }, guidance: 'The estate systems (id, label, kind app|data|integration, target zone, disposition, current + target x/y). Exactly one carries disposition "stays" — the padlocked anomaly, in the same place on both estates.' },
-      { name: 'currentEdges', type: 'edges', required: true, limits: { minItems: 4, maxItems: 10 }, guidance: 'Current-estate orthogonal connectors: from/to node ids, exit/enter ports (l|r|t|b), and an optional wire label (e.g. "sql · 4ms").' },
+      { name: 'nodes', type: 'nodes', required: true, limits: { minItems: 5, maxItems: 9 }, guidance: 'The estate systems (id, label, kind app|data|integration, target zone, disposition). Geometry (current cx/cy + target tx/ty) is OPTIONAL and bounded to the canvas when given; omit it and the template auto-lays the node by zone (on-prem left, cloud right). Exactly one carries disposition "stays" — the padlocked anomaly, in the same place on both estates.' },
+      { name: 'currentEdges', type: 'edges', required: true, limits: { minItems: 4, maxItems: 10 }, guidance: 'Current-estate orthogonal connectors: from/to node ids, OPTIONAL exit/enter ports (l|r|t|b) derived from node positions when omitted, and an optional wire label (e.g. "sql · 4ms").' },
       { name: 'currentFocus', type: 'text', required: true, limits: { maxChars: 40 }, guidance: 'Node id given draw.io selection handles on the current estate slide — usually the fixed point.' },
     ],
   },
@@ -243,7 +273,7 @@ export const CUTOVER_SLIDE_KINDS: SlideKindSpec[] = [
     purpose: 'The target estate diagram — same canvas, moved; the on-prem zone boxes the node that stays.',
     repeats: { min: 1, max: 1 },
     slots: [
-      { name: 'targetEdges', type: 'edges', required: true, limits: { minItems: 4, maxItems: 10 }, guidance: 'Target-estate orthogonal connectors after the move; same shape as currentEdges.' },
+      { name: 'targetEdges', type: 'edges', required: true, limits: { minItems: 4, maxItems: 10 }, guidance: 'Target-estate orthogonal connectors after the move; same shape as currentEdges (ports optional, derived when omitted).' },
       { name: 'targetFocus', type: 'text', required: true, limits: { maxChars: 40 }, guidance: 'Node id given selection handles on the target estate slide — usually the system being refactored.' },
     ],
   },
@@ -287,7 +317,7 @@ export const CUTOVER_SLIDE_KINDS: SlideKindSpec[] = [
     purpose: 'The bespoke rollback tree from the validation gate.',
     repeats: { min: 1, max: 1 },
     slots: [
-      { name: 'rollback.nodes', type: 'nodes', required: true, limits: { minItems: 3, maxItems: 7 }, guidance: 'Rollback-tree nodes (id, label, x/y, tone root|ok|abort); the root is the validation gate.' },
+      { name: 'rollback.nodes', type: 'nodes', required: true, limits: { minItems: 3, maxItems: 7 }, guidance: 'Rollback-tree nodes (id, label, tone root|ok|abort; optional x/y auto-laid by depth when omitted); the root is the validation gate.' },
       { name: 'rollback.edges', type: 'edges', required: true, limits: { minItems: 2, maxItems: 8 }, guidance: 'Rollback-tree edges (from/to node ids) — the pass branch and the fail chain.' },
       { name: 'rollback.note', type: 'longtext', required: true, limits: { maxChars: 240 }, guidance: 'One paragraph on why rollback is bounded to the maintenance window.' },
     ],

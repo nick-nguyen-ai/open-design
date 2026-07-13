@@ -82,8 +82,15 @@ const KEYBOARD_HINT = '← → NAVIGATE · HOME/END';
 
 const NODE_W = 176;
 const NODE_H = 62;
+const ESTATE_W = 1020;
+const ESTATE_H = 560;
 const ESTATE_VIEW = '0 0 1020 560';
+const ROLLBACK_W = 1000;
+const ROLLBACK_H = 360;
+const ROLLBACK_NODE_H = 40;
 const ROLLBACK_VIEW = '0 0 1000 360';
+/** Vertical gap between auto-laid estate nodes in a lane (before compression). */
+const LANE_GAP = 24;
 /** The on-prem zone box that surrounds the locked node in the target estate. */
 const ONPREM_ZONE = { x: 676, y: 116, w: 224, h: 122 } as const;
 
@@ -120,10 +127,14 @@ const ZONE_LABEL: Record<Zone, string> = {
 /* ------------------------------------------------------------------ */
 
 type Side = 'l' | 'r' | 't' | 'b';
+type EstateLayout = 'current' | 'target';
 interface Box {
   x: number;
   y: number;
 }
+/** Resolved top-left positions for one estate: node id → box origin. */
+type Positions = ReadonlyMap<string, Box>;
+
 function port(box: Box, side: Side): readonly [number, number] {
   switch (side) {
     case 'l':
@@ -149,27 +160,169 @@ function orth(p1: readonly [number, number], s1: Side, p2: readonly [number, num
   return `M ${x1} ${y1} L ${x1} ${midY} L ${x2} ${midY} L ${x2} ${y2}`;
 }
 
-interface BuiltConnector extends CutoverEdge {
+/* ------------------------------------------------------------------ */
+/* Deterministic estate auto-layout (fallback when coords are omitted) */
+/*                                                                     */
+/* Authored nodes keep their exact top-left (so the shipped, fully     */
+/* authored fill renders byte-identically). Any node missing coords is */
+/* laid out in its zone lane — distinct zones in fill order become     */
+/* lanes left→right (on-prem left, cloud right) — stacked and centred, */
+/* dodging the y-bands of authored nodes in the same lane. Counts are  */
+/* capped at 9, so a fully coordinate-free lane never overlaps.        */
+/* ------------------------------------------------------------------ */
+
+function laneOrder(nodes: readonly CutoverNode[]): Zone[] {
+  const order: Zone[] = [];
+  for (const n of nodes) if (!order.includes(n.zone)) order.push(n.zone);
+  return order;
+}
+
+function laneX(laneIdx: number, laneCount: number): number {
+  const gap = (ESTATE_W - laneCount * NODE_W) / (laneCount + 1);
+  return gap + laneIdx * (NODE_W + gap);
+}
+
+/** Evenly-spaced, vertically-centred tops for k nodes stacked in one lane. */
+function evenStackTops(k: number): number[] {
+  if (k <= 1) return [(ESTATE_H - NODE_H) / 2];
+  const ideal = NODE_H + LANE_GAP;
+  const required = (k - 1) * ideal + NODE_H;
+  const fits = required <= ESTATE_H;
+  const spacing = fits ? ideal : (ESTATE_H - NODE_H) / (k - 1);
+  const startY = fits ? (ESTATE_H - required) / 2 : 0;
+  return Array.from({ length: k }, (_, j) => startY + j * spacing);
+}
+
+/** Place `count` auto tops in the largest free gaps around the authored tops. */
+function gapFillTops(count: number, authoredTops: readonly number[]): number[] {
+  const occupied = authoredTops
+    .map((t) => [t, t + NODE_H] as [number, number])
+    .sort((a, b) => a[0] - b[0]);
+  const out: number[] = [];
+  for (let i = 0; i < count; i += 1) {
+    let bestStart = 0;
+    let bestSize = -1;
+    let cursor = 0;
+    for (const [s, e] of occupied) {
+      if (s - cursor > bestSize) {
+        bestSize = s - cursor;
+        bestStart = cursor;
+      }
+      cursor = Math.max(cursor, e);
+    }
+    if (ESTATE_H - cursor > bestSize) {
+      bestSize = ESTATE_H - cursor;
+      bestStart = cursor;
+    }
+    const y = Math.max(0, Math.min(ESTATE_H - NODE_H, bestStart + (bestSize - NODE_H) / 2));
+    out.push(y);
+    occupied.push([y, y + NODE_H]);
+    occupied.sort((a, b) => a[0] - b[0]);
+  }
+  return out;
+}
+
+function layoutEstate(nodes: readonly CutoverNode[], layout: EstateLayout): Positions {
+  const getX = (n: CutoverNode) => (layout === 'current' ? n.cx : n.tx);
+  const getY = (n: CutoverNode) => (layout === 'current' ? n.cy : n.ty);
+  const lanes = laneOrder(nodes);
+  const positions = new Map<string, Box>();
+
+  lanes.forEach((zone, laneIdx) => {
+    const laneNodes = nodes.filter((n) => n.zone === zone);
+    const authored = laneNodes.filter((n) => getX(n) !== undefined && getY(n) !== undefined);
+    const autos = laneNodes.filter((n) => getX(n) === undefined || getY(n) === undefined);
+    for (const n of authored) positions.set(n.id, { x: getX(n)!, y: getY(n)! });
+    if (autos.length === 0) return;
+    const x = laneX(laneIdx, lanes.length);
+    const tops =
+      authored.length === 0
+        ? evenStackTops(autos.length)
+        : gapFillTops(
+            autos.length,
+            authored.map((n) => getY(n)!).sort((a, b) => a - b),
+          );
+    autos.forEach((n, j) => positions.set(n.id, { x, y: tops[j]! }));
+  });
+
+  return positions;
+}
+
+/**
+ * Derive the port sides for an edge whose sides are omitted: compare the two node
+ * centres and pick the dominant axis, so the connector leaves and enters on the
+ * facing sides (right→left when the target is to the right, bottom→top when below,
+ * and the mirrors).
+ */
+export function deriveSides(a: Box, b: Box): { fromSide: Side; toSide: Side } {
+  const dx = b.x - a.x;
+  const dy = b.y - a.y;
+  if (Math.abs(dx) >= Math.abs(dy)) {
+    return dx >= 0 ? { fromSide: 'r', toSide: 'l' } : { fromSide: 'l', toSide: 'r' };
+  }
+  return dy >= 0 ? { fromSide: 'b', toSide: 't' } : { fromSide: 't', toSide: 'b' };
+}
+
+interface BuiltConnector {
+  id: string;
+  label?: string;
   d: string;
   p1: readonly [number, number];
   p2: readonly [number, number];
 }
 
-function buildConnectors(
-  nodes: readonly CutoverNode[],
-  edges: readonly CutoverEdge[],
-  layout: 'current' | 'target',
-): BuiltConnector[] {
-  const byId = new Map(nodes.map((n) => [n.id, n]));
+function buildConnectors(edges: readonly CutoverEdge[], positions: Positions): BuiltConnector[] {
   return edges.map((e) => {
-    const a = byId.get(e.from)!;
-    const b = byId.get(e.to)!;
-    const boxA: Box = layout === 'current' ? { x: a.cx, y: a.cy } : { x: a.tx, y: a.ty };
-    const boxB: Box = layout === 'current' ? { x: b.cx, y: b.cy } : { x: b.tx, y: b.ty };
-    const pA = port(boxA, e.fromSide);
-    const pB = port(boxB, e.toSide);
-    return { ...e, d: orth(pA, e.fromSide, pB), p1: pA, p2: pB };
+    const a = positions.get(e.from)!;
+    const b = positions.get(e.to)!;
+    const derived = deriveSides(a, b);
+    const fromSide = e.fromSide ?? derived.fromSide;
+    const toSide = e.toSide ?? derived.toSide;
+    const pA = port(a, fromSide);
+    const pB = port(b, toSide);
+    return { id: e.id, label: e.label, d: orth(pA, fromSide, pB), p1: pA, p2: pB };
   });
+}
+
+/**
+ * Deterministic rollback-tree layout: authored coords render as-is (shipped path);
+ * if any node omits coords the whole tree is laid out by longest-path depth from
+ * the roots, evenly across each level, with authored coords still honoured.
+ */
+function layoutRollback(rollback: CutoverFill['rollback']): Positions {
+  const { nodes, edges } = rollback;
+  const positions = new Map<string, Box>();
+  const complete = nodes.every((n) => n.x !== undefined && n.y !== undefined);
+  if (complete) {
+    for (const n of nodes) positions.set(n.id, { x: n.x!, y: n.y! });
+    return positions;
+  }
+  const depth = new Map<string, number>(nodes.map((n) => [n.id, 0]));
+  for (let i = 0; i < nodes.length; i += 1) {
+    for (const e of edges) {
+      const d = (depth.get(e.from) ?? 0) + 1;
+      if (d > (depth.get(e.to) ?? 0)) depth.set(e.to, d);
+    }
+  }
+  const byDepth = new Map<number, string[]>();
+  for (const n of nodes) {
+    const d = depth.get(n.id)!;
+    const row = byDepth.get(d) ?? [];
+    row.push(n.id);
+    byDepth.set(d, row);
+  }
+  const maxDepth = Math.max(...byDepth.keys());
+  const topY = 30;
+  const levelGap = (ROLLBACK_H - ROLLBACK_NODE_H - topY) / Math.max(1, maxDepth);
+  for (const [d, ids] of byDepth) {
+    const y = topY + d * levelGap;
+    ids.forEach((id, j) => {
+      const node = nodes.find((n) => n.id === id)!;
+      const autoX = (ROLLBACK_W * (j + 1)) / (ids.length + 1);
+      positions.set(id, { x: node.x ?? autoX, y: node.y ?? y });
+    });
+  }
+  return positions;
 }
 
 /* ------------------------------------------------------------------ */
@@ -274,6 +427,7 @@ function SelectionHandles({ x, y }: { x: number; y: number }) {
 function EstateDiagram({
   layout,
   nodes,
+  positions,
   connectors,
   focus,
   anomalyText,
@@ -281,14 +435,15 @@ function EstateDiagram({
 }: {
   layout: 'current' | 'target';
   nodes: readonly CutoverNode[];
+  positions: Positions;
   connectors: readonly BuiltConnector[];
   focus: string;
   anomalyText: string;
   testid: string;
 }) {
-  const focusNode = nodes.find((n) => n.id === focus)!;
-  const fx = layout === 'current' ? focusNode.cx : focusNode.tx;
-  const fy = layout === 'current' ? focusNode.cy : focusNode.ty;
+  const focusBox = positions.get(focus)!;
+  const fx = focusBox.x;
+  const fy = focusBox.y;
   return (
     <svg
       className="cu-estate-svg"
@@ -336,8 +491,9 @@ function EstateDiagram({
 
       {/* the system boxes */}
       {nodes.map((n) => {
-        const nx = layout === 'current' ? n.cx : n.tx;
-        const ny = layout === 'current' ? n.cy : n.ty;
+        const box = positions.get(n.id)!;
+        const nx = box.x;
+        const ny = box.y;
         const retired = layout === 'target' && n.disposition === 'retire';
         return (
           <g
@@ -408,6 +564,9 @@ function EstateMirror({
 /* ------------------------------------------------------------------ */
 
 interface Derived {
+  currentPositions: Positions;
+  targetPositions: Positions;
+  rollbackPositions: Positions;
   currentConnectors: readonly BuiltConnector[];
   targetConnectors: readonly BuiltConnector[];
   anomalyText: string;
@@ -427,6 +586,7 @@ function KickerRow({ slide, fill }: { slide: Slide; fill: CutoverFill }) {
 function EstateSlide({
   layout,
   fill,
+  positions,
   connectors,
   focus,
   anomalyText,
@@ -436,6 +596,7 @@ function EstateSlide({
 }: {
   layout: 'current' | 'target';
   fill: CutoverFill;
+  positions: Positions;
   connectors: readonly BuiltConnector[];
   focus: string;
   anomalyText: string;
@@ -458,6 +619,7 @@ function EstateSlide({
         <EstateDiagram
           layout={layout}
           nodes={fill.nodes}
+          positions={positions}
           connectors={connectors}
           focus={focus}
           anomalyText={anomalyText}
@@ -508,6 +670,7 @@ function SlideBody({ slide, fill, derived }: { slide: Slide; fill: CutoverFill; 
         <EstateSlide
           layout="current"
           fill={fill}
+          positions={derived.currentPositions}
           connectors={derived.currentConnectors}
           focus={fill.currentFocus}
           anomalyText={derived.anomalyText}
@@ -522,6 +685,7 @@ function SlideBody({ slide, fill, derived }: { slide: Slide; fill: CutoverFill; 
         <EstateSlide
           layout="target"
           fill={fill}
+          positions={derived.targetPositions}
           connectors={derived.targetConnectors}
           focus={fill.targetFocus}
           anomalyText={derived.anomalyText}
@@ -652,8 +816,8 @@ function SlideBody({ slide, fill, derived }: { slide: Slide; fill: CutoverFill; 
           <Build i={2} className="cu-canvas">
             <svg className="cu-rollback-svg" viewBox={ROLLBACK_VIEW} role="img" aria-label="Rollback tree from the validation gate: pass opens to customers; fail freezes the target, repoints DNS to source, and unfreezes source writes." data-testid="rollback-tree">
               {fill.rollback.edges.map((e, i) => {
-                const a = fill.rollback.nodes.find((n) => n.id === e.from)!;
-                const b = fill.rollback.nodes.find((n) => n.id === e.to)!;
+                const a = derived.rollbackPositions.get(e.from)!;
+                const b = derived.rollbackPositions.get(e.to)!;
                 const midY = (a.y + 26 + b.y) / 2;
                 return (
                   <path
@@ -663,14 +827,17 @@ function SlideBody({ slide, fill, derived }: { slide: Slide; fill: CutoverFill; 
                   />
                 );
               })}
-              {fill.rollback.nodes.map((n) => (
-                <g key={n.id} className="cu-rb-node" data-tone={n.tone}>
-                  <rect x={n.x - 130} y={n.y} width={260} height={40} rx={6} />
-                  <text x={n.x} y={n.y + 25} textAnchor="middle">
-                    {n.label}
-                  </text>
-                </g>
-              ))}
+              {fill.rollback.nodes.map((n) => {
+                const p = derived.rollbackPositions.get(n.id)!;
+                return (
+                  <g key={n.id} className="cu-rb-node" data-tone={n.tone}>
+                    <rect x={p.x - 130} y={p.y} width={260} height={40} rx={6} />
+                    <text x={p.x} y={p.y + 25} textAnchor="middle">
+                      {n.label}
+                    </text>
+                  </g>
+                );
+              })}
             </svg>
           </Build>
           <Build i={3}>
@@ -728,14 +895,18 @@ export default function CutoverTemplate({ fill }: { fill: CutoverFill }) {
   });
   const activeSlide = SLIDES[activeIndex] as Slide;
 
-  const derived = useMemo<Derived>(
-    () => ({
-      currentConnectors: buildConnectors(fill.nodes, fill.currentEdges, 'current'),
-      targetConnectors: buildConnectors(fill.nodes, fill.targetEdges, 'target'),
+  const derived = useMemo<Derived>(() => {
+    const currentPositions = layoutEstate(fill.nodes, 'current');
+    const targetPositions = layoutEstate(fill.nodes, 'target');
+    return {
+      currentPositions,
+      targetPositions,
+      rollbackPositions: layoutRollback(fill.rollback),
+      currentConnectors: buildConnectors(fill.currentEdges, currentPositions),
+      targetConnectors: buildConnectors(fill.targetEdges, targetPositions),
       anomalyText: fill.nodes.find((n) => n.disposition === 'stays')?.badge ?? '',
-    }),
-    [fill],
-  );
+    };
+  }, [fill]);
   const currentMirror = useMemo(() => buildEstateMirror(fill.nodes, 'current'), [fill.nodes]);
   const targetMirror = useMemo(() => buildEstateMirror(fill.nodes, 'target'), [fill.nodes]);
 
