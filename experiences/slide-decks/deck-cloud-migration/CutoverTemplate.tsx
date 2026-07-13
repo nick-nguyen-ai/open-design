@@ -365,18 +365,82 @@ interface BuiltConnector {
   d: string;
   p1: readonly [number, number];
   p2: readonly [number, number];
+  /** Extra vertical nudge for the LABEL only (one above its path, one below) —
+   * set when this connector is one of an anti-parallel pair/stack. */
+  labelDy?: number;
 }
 
+/**
+ * Ports are per node-side midpoints, independent of direction — so an edge and
+ * its reverse-direction mate (same {from,to} pair, swapped) resolve to the
+ * exact same two ports and smudge into one path + one label. Nudge each
+ * stacked-direction group a few px perpendicular to the connector's axis, one
+ * side per direction, so anti-parallel pairs (and any same-pair stack) read as
+ * distinct wires. A lone edge between a pair is untouched (returns 0).
+ */
+function antiParallelOffsets(edges: readonly CutoverEdge[]): ReadonlyMap<string, number> {
+  const groups = new Map<string, CutoverEdge[]>();
+  for (const e of edges) {
+    const key = [e.from, e.to].slice().sort().join(' ');
+    const list = groups.get(key);
+    if (list) list.push(e);
+    else groups.set(key, [e]);
+  }
+  const offsets = new Map<string, number>();
+  for (const group of groups.values()) {
+    if (group.length < 2) continue;
+    const lowId = group[0]!.from < group[0]!.to ? group[0]!.from : group[0]!.to;
+    const forward = group.filter((e) => e.from === lowId);
+    const backward = group.filter((e) => e.from !== lowId);
+    // Only an opposite-direction mate warrants separation; a stack of edges
+    // all running the same direction is a different concern (untouched).
+    if (forward.length === 0 || backward.length === 0) continue;
+    forward.forEach((e, i) => offsets.set(e.id, i + 1));
+    backward.forEach((e, i) => offsets.set(e.id, -(i + 1)));
+  }
+  return offsets;
+}
+
+/** Per-mate port nudge (path separation, perpendicular to the connector's own axis). */
+const ANTI_PARALLEL_PATH_OFFSET = 6;
+/**
+ * Per-mate label nudge. ALWAYS vertical (one label above its path, one below)
+ * regardless of the connector's axis: label text is wide but short, so a
+ * horizontal nudge big enough to clear an "exhausted"/"replay"-width label
+ * would push the path offset out to an ugly distance, while a small vertical
+ * step (label height + gap) reliably clears any label width.
+ */
+const ANTI_PARALLEL_LABEL_OFFSET = 18;
+
 function buildConnectors(edges: readonly CutoverEdge[], positions: Positions): BuiltConnector[] {
+  const offsets = antiParallelOffsets(edges);
   return edges.map((e) => {
     const a = positions.get(e.from)!;
     const b = positions.get(e.to)!;
     const derived = deriveSides(a, b);
     const fromSide = e.fromSide ?? derived.fromSide;
     const toSide = e.toSide ?? derived.toSide;
-    const pA = port(a, fromSide);
-    const pB = port(b, toSide);
-    return { id: e.id, label: e.label, d: orth(pA, fromSide, pB), p1: pA, p2: pB };
+    let pA = port(a, fromSide);
+    let pB = port(b, toSide);
+    let labelDy = 0;
+    const mult = offsets.get(e.id) ?? 0;
+    if (mult !== 0) {
+      const pathShift = mult * ANTI_PARALLEL_PATH_OFFSET;
+      // The path nudge is perpendicular to whichever axis the connector
+      // travels — horizontal (l/r ports) nudges vertically, vertical (t/b
+      // ports) nudges horizontally — so the two mates read as distinct wires.
+      if (fromSide === 'l' || fromSide === 'r') {
+        pA = [pA[0], pA[1] + pathShift];
+        pB = [pB[0], pB[1] + pathShift];
+      } else {
+        pA = [pA[0] + pathShift, pA[1]];
+        pB = [pB[0] + pathShift, pB[1]];
+      }
+      // The label nudge is always vertical regardless of axis: text is wide
+      // but short, so a small vertical step reliably clears any label width.
+      labelDy = mult * ANTI_PARALLEL_LABEL_OFFSET;
+    }
+    return { id: e.id, label: e.label, d: orth(pA, fromSide, pB), p1: pA, p2: pB, labelDy };
   });
 }
 
@@ -629,23 +693,26 @@ function EstateDiagram({
 
       {/* connector labels ON TOP of the boxes — each keeps a white halo so it
           stays legible with clearance even where an auto-laid wire runs tight */}
-      {connectors.map((c) =>
-        c.label ? (
+      {connectors.map((c) => {
+        if (!c.label) return null;
+        const lx = (c.p1[0] + c.p2[0]) / 2;
+        const ly = (c.p1[1] + c.p2[1]) / 2 + (c.labelDy ?? 0);
+        return (
           <g key={`${c.id}-label`} className="cu-conn-label-layer" aria-hidden="true">
             <rect
               className="cu-conn-label-bg"
-              x={(c.p1[0] + c.p2[0]) / 2 - (c.label.length * 6.2) / 2 - 4}
-              y={(c.p1[1] + c.p2[1]) / 2 - 17}
+              x={lx - (c.label.length * 6.2) / 2 - 4}
+              y={ly - 17}
               width={c.label.length * 6.2 + 8}
               height={15}
               rx={2}
             />
-            <text className="cu-conn-label" x={(c.p1[0] + c.p2[0]) / 2} y={(c.p1[1] + c.p2[1]) / 2 - 5} textAnchor="middle">
+            <text className="cu-conn-label" x={lx} y={ly - 5} textAnchor="middle">
               {c.label}
             </text>
           </g>
-        ) : null,
-      )}
+        );
+      })}
     </svg>
   );
 }
