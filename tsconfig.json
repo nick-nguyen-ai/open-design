@@ -11,6 +11,8 @@
     { "path": "packages/content-components" },
     { "path": "packages/diagrams" },
     { "path": "packages/search" },
+    { "path": "packages/composition" },
+    { "path": "packages/validator" },
     { "path": "experiences" }
   ]
 }

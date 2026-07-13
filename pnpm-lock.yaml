@@ -185,6 +185,16 @@ importers:
         specifier: ^19.2.17
         version: 19.2.17
 
+  packages/composition:
+    dependencies:
+      '@enterprise-design/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+    devDependencies:
+      '@enterprise-design/registry':
+        specifier: workspace:*
+        version: link:../registry
+
   packages/content-components:
     dependencies:
       '@enterprise-design/contracts':
@@ -438,6 +448,19 @@ importers:
       '@enterprise-design/design-tokens':
         specifier: workspace:*
         version: link:../design-tokens
+
+  packages/validator:
+    dependencies:
+      '@enterprise-design/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+    devDependencies:
+      '@enterprise-design/composition':
+        specifier: workspace:*
+        version: link:../composition
+      '@enterprise-design/registry':
+        specifier: workspace:*
+        version: link:../registry
 
 packages:
 
