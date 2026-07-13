@@ -96,6 +96,24 @@ describe('WorldTemplateDescriptor', () => {
     expect(result.success).toBe(false);
   });
 
+  it('defaults craftRules to an empty array when omitted', () => {
+    const parsed = WorldTemplateDescriptor.parse(validDescriptor);
+    expect(parsed.craftRules).toEqual([]);
+  });
+
+  it('accepts declared craft rule ids and rejects unknown ones', () => {
+    const ok = WorldTemplateDescriptor.safeParse({
+      ...validDescriptor,
+      craftRules: ['exactly-one-anomaly-kpi', 'notice-required'],
+    });
+    expect(ok.success).toBe(true);
+    const bad = WorldTemplateDescriptor.safeParse({
+      ...validDescriptor,
+      craftRules: ['no-such-rule'],
+    });
+    expect(bad.success).toBe(false);
+  });
+
   it('is JSON-serializable and round-trips stable (no functions)', () => {
     const parsed = WorldTemplateDescriptor.parse(validDescriptor);
     const json = JSON.stringify(parsed);

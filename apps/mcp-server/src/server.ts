@@ -27,16 +27,22 @@ import { makeError, newRequestId, type ToolOutcome } from './errors.js';
 import {
   ComposeDesignInput,
   ComposeDesignOutput,
+  ComposeSlideDeckInput,
+  ComposeSlideDeckOutput,
   GetComponentInput,
   SearchComponentsInput,
   SearchComponentsOutput,
   ValidateCompositionInput,
   ValidateCompositionOutput,
+  ValidateFillInput,
+  ValidateFillOutput,
 } from './schemas.js';
 import { getComponent } from './tools/get-component.js';
 import { searchComponents } from './tools/search-components.js';
 import { composeDesignTool } from './tools/compose-design.js';
 import { validateCompositionTool } from './tools/validate-composition.js';
+import { composeSlideDeckTool } from './tools/compose-slide-deck.js';
+import { validateFillTool } from './tools/validate-fill.js';
 
 /** Read-only posture, identical for both tools (plus a per-tool `title`). */
 const READ_ONLY_ANNOTATIONS: Omit<ToolAnnotations, 'title'> = {
@@ -193,6 +199,52 @@ export function createServer(registry: RegistryData, logger: Logger): McpServer 
         });
       } else {
         logger.audit({ tool: 'validate_composition', status: 'error', durationMs, code: outcome.error.code });
+      }
+      return toCallToolResult(outcome);
+    },
+  );
+
+  server.registerTool(
+    'compose_slide_deck',
+    {
+      title: 'Compose slide deck',
+      description:
+        'Deterministically selects ONE parameterized world-template for a slide-deck brief and returns its fill skeleton: the template\'s slide kinds with per-slot guidance and a descriptor-drawn example, plus the craft guarantees the template makes (the flagged anomaly, the required synthetic notice, the balanced grids). Selection scores audience overlap, business-intent keywords, and corporate fit, with an optional styleHint hard-filter and a stable tie-break. It never invents content — the caller authors the fill against the returned skeleton, then checks it with validate_fill. Returns the chosen worldTemplateId (and experienceId), a rationale, the scoring evidence, and the fillSkeleton.',
+      inputSchema: ComposeSlideDeckInput.shape,
+      outputSchema: ComposeSlideDeckOutput.shape,
+      annotations: { title: 'Compose slide deck', ...READ_ONLY_ANNOTATIONS },
+    },
+    (args) => {
+      const startedAt = performance.now();
+      const outcome = composeSlideDeckTool(registry, args);
+      const durationMs = Math.round(performance.now() - startedAt);
+      if (outcome.ok) {
+        logger.audit({ tool: 'compose_slide_deck', status: 'ok', durationMs, count: outcome.data.fillSkeleton.slideKinds.length });
+      } else {
+        logger.audit({ tool: 'compose_slide_deck', status: 'error', durationMs, code: outcome.error.code });
+      }
+      return toCallToolResult(outcome);
+    },
+  );
+
+  server.registerTool(
+    'validate_fill',
+    {
+      title: 'Validate slide-deck fill',
+      description:
+        'Validates a candidate fill against a world-template\'s DESCRIPTOR contract: required slots present, per-slot char caps and item counts respected, and the declared craft rules satisfied (exactly one flagged anomaly, a required synthetic notice). A fill that violates the contract is a SUCCESSFUL call returning valid=false with precise findings (slot path + limit violated + guidance echoed); only malformed arguments (INVALID_INPUT) or an unknown worldTemplateId (UNKNOWN_TEMPLATE) are errors. NOTE: this enforces the descriptor envelope, not the world-specific Zod fill schema — full Zod validation (refinements, enums, cross-field rules) remains a client-side step the fill author performs by importing the world\'s *Fill schema.',
+      inputSchema: ValidateFillInput.shape,
+      outputSchema: ValidateFillOutput.shape,
+      annotations: { title: 'Validate slide-deck fill', ...READ_ONLY_ANNOTATIONS },
+    },
+    (args) => {
+      const startedAt = performance.now();
+      const outcome = validateFillTool(registry, args);
+      const durationMs = Math.round(performance.now() - startedAt);
+      if (outcome.ok) {
+        logger.audit({ tool: 'validate_fill', status: 'ok', durationMs, count: outcome.data.findings.length });
+      } else {
+        logger.audit({ tool: 'validate_fill', status: 'error', durationMs, code: outcome.error.code });
       }
       return toCallToolResult(outcome);
     },

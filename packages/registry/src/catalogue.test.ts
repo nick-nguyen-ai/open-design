@@ -221,6 +221,34 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
     }
   });
 
+  it('discovers exactly the two world-templates, sorted by id, with zero errors', async () => {
+    const result = await compileRegistry({ cwd: REPO_ROOT });
+    expect(result.diagnostics).toEqual([]);
+    expect(result.worldTemplates.map((w) => w.id)).toEqual(['cutover', 'quarter']);
+    const byId = new Map(result.worldTemplates.map((w) => [w.id, w]));
+    expect(byId.get('quarter')?.experienceId).toBe('deck-quarterly-business-review');
+    expect(byId.get('quarter')?.style).toBe('conventional');
+    expect(byId.get('cutover')?.experienceId).toBe('deck-cloud-migration');
+    expect(byId.get('cutover')?.style).toBe('art-directed');
+  });
+
+  it('every world-template reference resolves to a real experience, grammar, and components', async () => {
+    const result = await compileRegistry({ cwd: REPO_ROOT });
+    const experienceIds = new Set(result.experiences.map((e) => e.id));
+    const grammarIds = new Set(result.grammars.map((g) => g.id));
+    const componentIds = new Set(result.components.map((c) => c.id));
+    for (const worldTemplate of result.worldTemplates) {
+      expect(experienceIds.has(worldTemplate.experienceId)).toBe(true);
+      expect(grammarIds.has(worldTemplate.grammarId)).toBe(true);
+      expect(worldTemplate.componentsUsed.length).toBeGreaterThan(0);
+      for (const componentId of worldTemplate.componentsUsed) {
+        expect(componentIds.has(componentId)).toBe(true);
+      }
+      // Every declared craft rule is one of the known ids, and both pilots require the notice.
+      expect(worldTemplate.craftRules).toContain('notice-required');
+    }
+  });
+
   it('produces byte-identical artefacts across re-runs (deterministic)', async () => {
     const first = await compileRegistry({ cwd: REPO_ROOT });
     const second = await compileRegistry({ cwd: REPO_ROOT });
@@ -228,5 +256,6 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
     expect(JSON.stringify(second.grammars)).toBe(JSON.stringify(first.grammars));
     expect(JSON.stringify(second.motionSequences)).toBe(JSON.stringify(first.motionSequences));
     expect(JSON.stringify(second.components)).toBe(JSON.stringify(first.components));
+    expect(JSON.stringify(second.worldTemplates)).toBe(JSON.stringify(first.worldTemplates));
   });
 });

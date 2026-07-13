@@ -22,7 +22,20 @@ import {
 import { createServer } from './server.js';
 import { loadRegistryData } from './registry-data.js';
 import { createLogger } from './logger.js';
-import { SearchComponentResult, SearchComponentsOutput } from './schemas.js';
+import { ComposeSlideDeckOutput, SearchComponentResult, SearchComponentsOutput, ValidateFillOutput } from './schemas.js';
+import { quarterFill } from '../../../experiences/slide-decks/deck-quarterly-business-review/content.js';
+
+/** A slide-deck DesignContext-lite for compose_slide_deck. */
+function deckContext(overrides: Record<string, unknown> = {}): Record<string, unknown> {
+  return {
+    surface: 'slide-deck',
+    audience: ['executive', 'business'],
+    businessIntent: ['review-quarterly-performance'],
+    corporateSuitability: 'restricted',
+    motionPreference: 1,
+    ...overrides,
+  };
+}
 
 /** A realistic executive model-monitoring DesignContext. */
 function makeContext(overrides: Partial<DesignContext> = {}): DesignContext {
@@ -124,7 +137,14 @@ describe('mcp-server tools', () => {
   it('advertises all tools with read-only annotations and a title', async () => {
     const { tools } = await h.client.listTools();
     const names = tools.map((t) => t.name).sort();
-    expect(names).toEqual(['compose_design', 'get_component', 'search_components', 'validate_composition']);
+    expect(names).toEqual([
+      'compose_design',
+      'compose_slide_deck',
+      'get_component',
+      'search_components',
+      'validate_composition',
+      'validate_fill',
+    ]);
     for (const tool of tools) {
       expect(tool.annotations).toMatchObject({
         readOnlyHint: true,
@@ -307,6 +327,101 @@ describe('mcp-server tools', () => {
     expect(result.isError).toBe(true);
     const error = McpError.parse(textPayload(result));
     expect(error.code).toBe('INVALID_INPUT');
+  });
+
+  // === compose_slide_deck + validate_fill: the world-template loop (Task 29) ===
+
+  async function composeDeck(args: Record<string, unknown>): Promise<CallToolResult> {
+    return (await h.client.callTool({ name: 'compose_slide_deck', arguments: args })) as CallToolResult;
+  }
+  async function validateFill(args: Record<string, unknown>): Promise<CallToolResult> {
+    return (await h.client.callTool({ name: 'validate_fill', arguments: args })) as CallToolResult;
+  }
+
+  it('compose_slide_deck selects deck-cloud-migration for a technical migration brief', async () => {
+    const result = await composeDeck({
+      context: deckContext({ audience: ['technical', 'risk-and-governance'], businessIntent: ['plan-cloud-migration'], corporateSuitability: 'standard', motionPreference: 2 }),
+      contentBrief: 'Explain the estate migration and the cutover-night sequence for platform engineering.',
+    });
+    expect(result.isError).not.toBe(true);
+    const out = ComposeSlideDeckOutput.parse(result.structuredContent);
+    expect(out.experienceId).toBe('deck-cloud-migration');
+    expect(out.worldTemplateId).toBe('cutover');
+    expect(out.evidence.length).toBeGreaterThan(0);
+    expect(out.fillSkeleton.slideKinds.length).toBeGreaterThan(0);
+    expect(out.fillSkeleton.craftGuarantees.length).toBeGreaterThan(0);
+    // Every slot carries a non-empty, descriptor-drawn example.
+    for (const kind of out.fillSkeleton.slideKinds) {
+      for (const slot of kind.slots) expect(slot.example.length).toBeGreaterThan(0);
+    }
+  });
+
+  it('compose_slide_deck selects deck-quarterly-business-review for a conventional business brief', async () => {
+    const result = await composeDeck({
+      context: deckContext(),
+      contentBrief: 'Quarterly business review of revenue, pipeline, and next-quarter priorities for the board.',
+    });
+    const out = ComposeSlideDeckOutput.parse(result.structuredContent);
+    expect(out.experienceId).toBe('deck-quarterly-business-review');
+    expect(out.worldTemplateId).toBe('quarter');
+  });
+
+  it('compose_slide_deck honours the styleHint hard filter', async () => {
+    // An executive/business audience would normally pick the conventional Quarter,
+    // but an art-directed styleHint forces the Cutover.
+    const result = await composeDeck({ context: deckContext({ styleHint: 'art-directed' }), contentBrief: 'A deck.' });
+    const out = ComposeSlideDeckOutput.parse(result.structuredContent);
+    expect(out.worldTemplateId).toBe('cutover');
+  });
+
+  it('compose_slide_deck with a malformed context returns a structured INVALID_INPUT', async () => {
+    const result = await composeDeck({ context: { surface: 'dashboard' }, contentBrief: 'x' });
+    expect(result.isError).toBe(true);
+    expect(McpError.parse(textPayload(result)).code).toBe('INVALID_INPUT');
+  });
+
+  it('validate_fill marks the shipped Quarter instance fill valid=true with no findings', async () => {
+    const result = await validateFill({ worldTemplateId: 'quarter', fill: quarterFill });
+    expect(result.isError).not.toBe(true);
+    const out = ValidateFillOutput.parse(result.structuredContent);
+    expect(out.findings).toEqual([]);
+    expect(out.valid).toBe(true);
+  });
+
+  it('validate_fill accepts the experienceId as the template identifier too', async () => {
+    const result = await validateFill({ worldTemplateId: 'deck-quarterly-business-review', fill: quarterFill });
+    expect(ValidateFillOutput.parse(result.structuredContent).valid).toBe(true);
+  });
+
+  it('validate_fill flags a tampered fill (anomaly removed + oversize headline) with precise findings', async () => {
+    const tampered = structuredClone(quarterFill) as typeof quarterFill;
+    // Remove the anomaly: no KPI is off-track anymore.
+    tampered.kpis = tampered.kpis.map((k) => ({ ...k, status: 'on-track' as const }));
+    // Oversize headline: summary.lead cap is 110.
+    tampered.summary.lead = 'x'.repeat(200);
+    const result = await validateFill({ worldTemplateId: 'quarter', fill: tampered });
+    expect(result.isError).not.toBe(true); // a bad fill is a successful call
+    const out = ValidateFillOutput.parse(result.structuredContent);
+    expect(out.valid).toBe(false);
+    const craft = out.findings.find((f) => f.rule === 'craft' && f.path === 'kpis');
+    expect(craft?.message).toMatch(/exactly-one-anomaly-kpi/);
+    const oversize = out.findings.find((f) => f.rule === 'maxChars' && f.path === 'summary.lead');
+    expect(oversize).toBeTruthy();
+    expect(oversize?.guidance).toBeTruthy();
+  });
+
+  it('validate_fill on an unknown template returns a structured UNKNOWN_TEMPLATE', async () => {
+    const result = await validateFill({ worldTemplateId: 'no-such-template', fill: {} });
+    expect(result.isError).toBe(true);
+    const error = McpError.parse(textPayload(result));
+    expect(error.code).toBe('UNKNOWN_TEMPLATE');
+    expect(error.remediation.length).toBeGreaterThan(0);
+  });
+
+  it('validate_fill with a missing worldTemplateId returns a structured INVALID_INPUT', async () => {
+    const result = await validateFill({ fill: {} });
+    expect(result.isError).toBe(true);
+    expect(McpError.parse(textPayload(result)).code).toBe('INVALID_INPUT');
   });
 });
 

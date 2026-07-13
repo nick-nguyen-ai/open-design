@@ -44,6 +44,10 @@ export async function compileRegistry(options: CompileOptions = {}): Promise<Com
     discovered.motionSequences.map((entry) => entry.manifest),
     (motion) => motion.sequenceId,
   );
+  const worldTemplates = sortBy(
+    discovered.worldTemplates.map((entry) => entry.manifest),
+    (worldTemplate) => worldTemplate.id,
+  );
 
   const compatibility = buildCompatibilityGraph(components);
   const searchDocuments = buildSearchDocuments({
@@ -61,6 +65,7 @@ export async function compileRegistry(options: CompileOptions = {}): Promise<Com
     experiences,
     grammars,
     motionSequences,
+    worldTemplates,
     compatibility,
     searchDocuments,
     diagnostics,

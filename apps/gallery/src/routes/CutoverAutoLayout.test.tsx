@@ -26,7 +26,7 @@ const ESTATE_W = 1020;
 const ESTATE_H = 560;
 
 function omit<T extends object>(obj: T, keys: readonly string[]): T {
-  const clone: Record<string, unknown> = { ...obj };
+  const clone: Record<string, unknown> = { ...(obj as Record<string, unknown>) };
   for (const key of keys) delete clone[key];
   return clone as T;
 }

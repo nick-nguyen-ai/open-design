@@ -24,6 +24,7 @@ const descriptor: WorldTemplateDescriptor = WorldTemplateDescriptor.parse({
   componentsUsed: ['comp.flow-diagram', 'comp.status-list'],
   slideKinds: CUTOVER_SLIDE_KINDS,
   guidance: CUTOVER_GUIDANCE,
+  craftRules: ['exactly-one-stays-node', 'notice-required'],
 });
 
 export default descriptor;

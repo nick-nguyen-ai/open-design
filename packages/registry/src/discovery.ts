@@ -6,6 +6,7 @@ import {
   ExperienceManifest,
   DesignGrammar,
   MotionSequence,
+  WorldTemplateDescriptor,
 } from '@enterprise-design/contracts';
 import type { Diagnostic } from './types.js';
 import { compareStrings } from './util.js';
@@ -21,6 +22,7 @@ export const DISCOVERY_GLOBS = {
   experience: 'experiences/**/*.experience.manifest.ts',
   grammar: '**/*.grammar.manifest.ts',
   motion: '**/*.motion.manifest.ts',
+  worldTemplate: '**/*.worldtemplate.manifest.ts',
 } as const;
 
 /**
@@ -50,6 +52,7 @@ export interface DiscoveredManifests {
   experiences: Loaded<ExperienceManifest>[];
   grammars: Loaded<DesignGrammar>[];
   motionSequences: Loaded<MotionSequence>[];
+  worldTemplates: Loaded<WorldTemplateDescriptor>[];
 }
 
 async function loadAndValidate<T>(
@@ -112,19 +115,22 @@ async function loadAndValidate<T>(
  * single bad manifest never aborts discovery of the rest.
  */
 export async function discover(cwd: string, diagnostics: Diagnostic[]): Promise<DiscoveredManifests> {
-  const [componentFiles, experienceFiles, grammarFiles, motionFiles] = await Promise.all([
-    glob([DISCOVERY_GLOBS.component], { cwd, absolute: true, ignore: IGNORE }),
-    glob([DISCOVERY_GLOBS.experience], { cwd, absolute: true, ignore: IGNORE }),
-    glob([DISCOVERY_GLOBS.grammar], { cwd, absolute: true, ignore: IGNORE }),
-    glob([DISCOVERY_GLOBS.motion], { cwd, absolute: true, ignore: IGNORE }),
-  ]);
+  const [componentFiles, experienceFiles, grammarFiles, motionFiles, worldTemplateFiles] =
+    await Promise.all([
+      glob([DISCOVERY_GLOBS.component], { cwd, absolute: true, ignore: IGNORE }),
+      glob([DISCOVERY_GLOBS.experience], { cwd, absolute: true, ignore: IGNORE }),
+      glob([DISCOVERY_GLOBS.grammar], { cwd, absolute: true, ignore: IGNORE }),
+      glob([DISCOVERY_GLOBS.motion], { cwd, absolute: true, ignore: IGNORE }),
+      glob([DISCOVERY_GLOBS.worldTemplate], { cwd, absolute: true, ignore: IGNORE }),
+    ]);
 
-  const [components, experiences, grammars, motionSequences] = await Promise.all([
+  const [components, experiences, grammars, motionSequences, worldTemplates] = await Promise.all([
     loadAndValidate(componentFiles, ComponentManifest, 'component', diagnostics),
     loadAndValidate(experienceFiles, ExperienceManifest, 'experience', diagnostics),
     loadAndValidate(grammarFiles, DesignGrammar, 'grammar', diagnostics),
     loadAndValidate(motionFiles, MotionSequence, 'motion', diagnostics),
+    loadAndValidate(worldTemplateFiles, WorldTemplateDescriptor, 'world-template', diagnostics),
   ]);
 
-  return { components, experiences, grammars, motionSequences };
+  return { components, experiences, grammars, motionSequences, worldTemplates };
 }

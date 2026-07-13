@@ -23,6 +23,8 @@ import {
   type ComponentPlacement,
   type DesignContext,
 } from '@enterprise-design/contracts';
+import { ComposeSlideDeckOutput, ValidateFillOutput } from './schemas.js';
+import { quarterFill } from '../../../experiences/slide-decks/deck-quarterly-business-review/content.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const serverEntry = path.join(here, 'index.ts');
@@ -288,6 +290,62 @@ async function main(): Promise<void> {
     const unknownSel = (await client.callTool({ name: 'compose_design', arguments: { context: makeContext(), selectedComponentIds: ['comp.__ghost__'] } })) as CallToolResult;
     const unknownSelErr = McpError.safeParse(textPayload(unknownSel));
     check('compose_design(unknown selectedComponentIds) structured UNKNOWN_COMPONENT', unknownSel.isError === true && unknownSelErr.success && unknownSelErr.data.code === 'UNKNOWN_COMPONENT', unknownSelErr.success ? unknownSelErr.data.code : String(unknownSelErr.error?.message));
+
+    // === compose_slide_deck → validate_fill: the world-template loop (Task 29) ===
+    const deckTools = ['compose_slide_deck', 'validate_fill'];
+    check('compose_slide_deck + validate_fill advertised', deckTools.every((n) => byName.has(n)), tools.map((t) => t.name).join(', '));
+    for (const name of deckTools) {
+      const ann = byName.get(name)?.annotations;
+      check(
+        `${name} read-only annotations`,
+        ann?.readOnlyHint === true && ann?.destructiveHint === false && ann?.idempotentHint === true && ann?.openWorldHint === false && typeof ann?.title === 'string',
+        JSON.stringify(ann),
+      );
+    }
+
+    // 6a. A technical migration brief selects deck-cloud-migration (The Cutover).
+    const cutover = (await client.callTool({
+      name: 'compose_slide_deck',
+      arguments: {
+        context: { surface: 'slide-deck', audience: ['technical', 'risk-and-governance'], businessIntent: ['plan-cloud-migration'], corporateSuitability: 'standard', motionPreference: 2 },
+        contentBrief: 'Explain the estate migration and the cutover-night sequence for platform engineering.',
+      },
+    })) as CallToolResult;
+    const cutoverOut = ComposeSlideDeckOutput.safeParse(cutover.structuredContent);
+    check('compose_slide_deck(technical brief) → deck-cloud-migration', cutoverOut.success && cutoverOut.data.experienceId === 'deck-cloud-migration' && cutoverOut.data.worldTemplateId === 'cutover', cutoverOut.success ? cutoverOut.data.experienceId : cutoverOut.error.message);
+    check('compose_slide_deck fill skeleton carries slide kinds + craft guarantees + examples', cutoverOut.success && cutoverOut.data.fillSkeleton.slideKinds.length > 0 && cutoverOut.data.fillSkeleton.craftGuarantees.length > 0 && cutoverOut.data.fillSkeleton.slideKinds.every((k) => k.slots.every((s) => s.example.length > 0)), cutoverOut.success ? `${cutoverOut.data.fillSkeleton.slideKinds.length} kinds` : '');
+
+    // 6b. A conventional business brief selects deck-quarterly-business-review (The Quarter).
+    const quarter = (await client.callTool({
+      name: 'compose_slide_deck',
+      arguments: {
+        context: { surface: 'slide-deck', audience: ['executive', 'business'], businessIntent: ['review-quarterly-performance'], corporateSuitability: 'restricted', motionPreference: 1 },
+        contentBrief: 'Quarterly business review of revenue, pipeline, and next-quarter priorities for the board.',
+      },
+    })) as CallToolResult;
+    const quarterOut = ComposeSlideDeckOutput.safeParse(quarter.structuredContent);
+    check('compose_slide_deck(business brief) → deck-quarterly-business-review', quarterOut.success && quarterOut.data.experienceId === 'deck-quarterly-business-review' && quarterOut.data.worldTemplateId === 'quarter', quarterOut.success ? quarterOut.data.experienceId : quarterOut.error.message);
+
+    // 6c. The shipped Quarter instance fill validates clean against the descriptor contract.
+    const validShipped = (await client.callTool({ name: 'validate_fill', arguments: { worldTemplateId: 'quarter', fill: quarterFill } })) as CallToolResult;
+    const validShippedOut = ValidateFillOutput.safeParse(validShipped.structuredContent);
+    check('validate_fill(shipped Quarter fill) valid=true, no findings', validShippedOut.success && validShippedOut.data.valid === true && validShippedOut.data.findings.length === 0, validShippedOut.success ? `${validShippedOut.data.findings.length} findings` : validShippedOut.error.message);
+
+    // 6d. A tampered fill (anomaly removed + oversize headline) is invalid with precise findings.
+    const tampered = structuredClone(quarterFill) as typeof quarterFill;
+    tampered.kpis = tampered.kpis.map((k) => ({ ...k, status: 'on-track' as const }));
+    tampered.summary.lead = 'x'.repeat(200);
+    const invalid = (await client.callTool({ name: 'validate_fill', arguments: { worldTemplateId: 'quarter', fill: tampered } })) as CallToolResult;
+    const invalidOut = ValidateFillOutput.safeParse(invalid.structuredContent);
+    const hasCraft = invalidOut.success && invalidOut.data.findings.some((f) => f.rule === 'craft' && f.path === 'kpis');
+    const hasOversize = invalidOut.success && invalidOut.data.findings.some((f) => f.rule === 'maxChars' && f.path === 'summary.lead');
+    check('validate_fill(tampered) is a successful call, not isError', invalid.isError !== true);
+    check('validate_fill(tampered) valid=false with anomaly + oversize findings', invalidOut.success && invalidOut.data.valid === false && hasCraft && hasOversize, invalidOut.success ? invalidOut.data.findings.map((f) => `${f.path}:${f.rule}`).join(', ') : invalidOut.error.message);
+
+    // 6e. An unknown template id is a structured UNKNOWN_TEMPLATE error.
+    const unknownTpl = (await client.callTool({ name: 'validate_fill', arguments: { worldTemplateId: 'no-such-template', fill: {} } })) as CallToolResult;
+    const unknownTplErr = McpError.safeParse(textPayload(unknownTpl));
+    check('validate_fill(unknown template) structured UNKNOWN_TEMPLATE', unknownTpl.isError === true && unknownTplErr.success && unknownTplErr.data.code === 'UNKNOWN_TEMPLATE', unknownTplErr.success ? unknownTplErr.data.code : String(unknownTplErr.error?.message));
 
     // 4. Logging stayed on stderr and is content-safe (no raw query text).
     check('server logged audit records to stderr', /"kind":"audit"/.test(stderrText), `${stderrText.split('\n').filter(Boolean).length} stderr lines`);

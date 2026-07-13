@@ -14,6 +14,7 @@ export function runValidationRules(manifests: DiscoveredManifests, diagnostics: 
   provProvenance(manifests, diagnostics);
   searchEmptyText(manifests, diagnostics);
   approvalForExperiences(manifests, diagnostics);
+  worldTemplateReferences(manifests, diagnostics);
 }
 
 /** REG_DUPLICATE_ID: no two manifests of any kind may share an id. */
@@ -155,6 +156,49 @@ function searchEmptyText(manifests: DiscoveredManifests, diagnostics: Diagnostic
   };
   for (const { manifest, path } of manifests.components) check(manifest.id, manifest.searchText, path);
   for (const { manifest, path } of manifests.experiences) check(manifest.id, manifest.searchText, path);
+}
+
+/**
+ * WT_UNKNOWN_REFERENCE: a world-template descriptor's experienceId, grammarId,
+ * and every componentsUsed id must resolve to a real manifest — the template
+ * carries a shipped world's craft, so its references must exist.
+ */
+function worldTemplateReferences(manifests: DiscoveredManifests, diagnostics: Diagnostic[]): void {
+  const componentIds = new Set(manifests.components.map((c) => c.manifest.id));
+  const grammarIds = new Set(manifests.grammars.map((g) => g.manifest.id));
+  const experienceIds = new Set(manifests.experiences.map((e) => e.manifest.id));
+
+  for (const { manifest, path } of manifests.worldTemplates) {
+    if (!experienceIds.has(manifest.experienceId)) {
+      diagnostics.push({
+        ruleId: 'WT_UNKNOWN_REFERENCE',
+        severity: 'error',
+        message: `World-template "${manifest.id}" references unknown experienceId "${manifest.experienceId}"`,
+        entityId: manifest.id,
+        path,
+      });
+    }
+    if (!grammarIds.has(manifest.grammarId)) {
+      diagnostics.push({
+        ruleId: 'WT_UNKNOWN_REFERENCE',
+        severity: 'error',
+        message: `World-template "${manifest.id}" references unknown grammarId "${manifest.grammarId}"`,
+        entityId: manifest.id,
+        path,
+      });
+    }
+    for (const componentId of manifest.componentsUsed) {
+      if (!componentIds.has(componentId)) {
+        diagnostics.push({
+          ruleId: 'WT_UNKNOWN_REFERENCE',
+          severity: 'error',
+          message: `World-template "${manifest.id}" references unknown component "${componentId}"`,
+          entityId: manifest.id,
+          path,
+        });
+      }
+    }
+  }
 }
 
 /** APPROVAL: an approved experience referencing a not-yet-approved component → warning. */

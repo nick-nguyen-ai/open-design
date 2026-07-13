@@ -25,6 +25,8 @@ import {
   EntityType,
   MotionLevel,
   SearchFacets,
+  SlideKindSpec,
+  SlotSpec,
   SurfaceType,
   ThemeMode,
   ValidationResult,
@@ -167,3 +169,112 @@ export const ValidateCompositionOutput = z.object({
   result: ValidationResult,
 });
 export type ValidateCompositionOutput = z.infer<typeof ValidateCompositionOutput>;
+
+// ---- compose_slide_deck -----------------------------------------------------
+
+/**
+ * A DesignContext-lite for slide-deck template selection: the surface is fixed
+ * to `slide-deck`, and only the facets that drive world-template selection are
+ * carried (audience, business intent, corporate suitability, motion preference,
+ * an optional style hard-filter). A full DesignContext is NOT required — the
+ * template already carries the layout/technical/accessibility craft.
+ */
+export const SlideDeckContext = z.object({
+  surface: z.literal('slide-deck').describe("Fixed surface for this tool; must be 'slide-deck'."),
+  audience: z
+    .array(Audience)
+    .min(1)
+    .describe('Intended audiences; overlap with a template audience is the strongest selection signal.'),
+  businessIntent: z
+    .array(z.string().min(1))
+    .min(1)
+    .describe("Business intents, e.g. 'plan-cloud-migration' or 'review-quarterly-performance'."),
+  corporateSuitability: CorporateSuitability.describe(
+    "Corporate register: 'restricted' leans conventional, 'expressive' leans art-directed, 'standard' fits either.",
+  ),
+  motionPreference: MotionLevel.describe('Desired motion level 0–3 (echoed in the rationale; templates lock their own motion).'),
+  styleHint: z
+    .enum(['art-directed', 'conventional'])
+    .optional()
+    .describe('Optional HARD filter: when set, only templates of this style are considered.'),
+});
+export type SlideDeckContext = z.infer<typeof SlideDeckContext>;
+
+/** Tight input schema for `compose_slide_deck` (advertised AND validated). */
+export const ComposeSlideDeckInput = z.object({
+  context: SlideDeckContext.describe('The slide-deck DesignContext-lite driving template selection.'),
+  contentBrief: z
+    .string()
+    .min(1)
+    .describe('A free-text brief of the deck content; its keywords add to the intent match score.'),
+});
+export type ComposeSlideDeckInput = z.infer<typeof ComposeSlideDeckInput>;
+
+/** One slot in the returned fill skeleton: the descriptor spec, its guidance echoed, and a descriptor-drawn example. */
+export const FillSkeletonSlot = z.object({
+  spec: SlotSpec,
+  guidance: z.string(),
+  /** A shape/example hint DRAWN FROM the descriptor (an `e.g.` in the guidance, or a bound hint) — never invented content. */
+  example: z.string(),
+});
+export type FillSkeletonSlot = z.infer<typeof FillSkeletonSlot>;
+
+/** One slide kind in the returned fill skeleton. */
+export const FillSkeletonSlideKind = z.object({
+  kind: z.string(),
+  purpose: z.string(),
+  repeats: SlideKindSpec.shape.repeats,
+  slots: z.array(FillSkeletonSlot),
+});
+export type FillSkeletonSlideKind = z.infer<typeof FillSkeletonSlideKind>;
+
+/** The fill skeleton: the template's slide kinds with per-slot guidance + example, and the craft guarantees. */
+export const FillSkeleton = z.object({
+  slideKinds: z.array(FillSkeletonSlideKind),
+  craftGuarantees: z.array(z.string()),
+});
+export type FillSkeleton = z.infer<typeof FillSkeleton>;
+
+/** `compose_slide_deck` structured output: the chosen template, why, the scoring evidence, and the fill skeleton. */
+export const ComposeSlideDeckOutput = z.object({
+  worldTemplateId: z.string(),
+  experienceId: z.string(),
+  rationale: z.string(),
+  evidence: z.array(z.string()),
+  fillSkeleton: FillSkeleton,
+});
+export type ComposeSlideDeckOutput = z.infer<typeof ComposeSlideDeckOutput>;
+
+// ---- validate_fill ----------------------------------------------------------
+
+/**
+ * Tight input schema for `validate_fill`. The `fill` is deliberately `unknown`:
+ * the tool validates it against the WORLD-TEMPLATE DESCRIPTOR contract (required
+ * slots, char caps, item counts, and the declared craft rules), NOT the
+ * world-specific Zod fill schema — full Zod validation stays a client-side step.
+ */
+export const ValidateFillInput = z.object({
+  worldTemplateId: z
+    .string()
+    .min(1)
+    .describe("The template id or experienceId returned by compose_slide_deck, e.g. 'quarter' or 'deck-cloud-migration'."),
+  fill: z.unknown().describe('The candidate fill object to check against the template descriptor contract.'),
+});
+export type ValidateFillInput = z.infer<typeof ValidateFillInput>;
+
+/** One validation finding: the slot/craft path, the rule violated, a message, and the guidance echoed. */
+export const FillFinding = z.object({
+  path: z.string(),
+  rule: z.enum(['required', 'maxChars', 'minItems', 'maxItems', 'craft']),
+  message: z.string(),
+  guidance: z.string().optional(),
+});
+export type FillFinding = z.infer<typeof FillFinding>;
+
+/** `validate_fill` structured output: the valid flag and the (possibly empty) findings list. */
+export const ValidateFillOutput = z.object({
+  valid: z.boolean(),
+  worldTemplateId: z.string(),
+  findings: z.array(FillFinding),
+});
+export type ValidateFillOutput = z.infer<typeof ValidateFillOutput>;

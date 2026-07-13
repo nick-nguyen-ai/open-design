@@ -5,6 +5,7 @@ import type {
   MotionSequence,
   SearchDocument,
   CompositionRole,
+  WorldTemplateDescriptor,
 } from '@enterprise-design/contracts';
 
 /** Severity of a validation diagnostic. `error` fails the build; `warning` is surfaced but non-fatal. */
@@ -43,6 +44,7 @@ export interface CompileResult {
   experiences: ExperienceManifest[];
   grammars: DesignGrammar[];
   motionSequences: MotionSequence[];
+  worldTemplates: WorldTemplateDescriptor[];
   compatibility: CompatibilityGraphData;
   searchDocuments: SearchDocument[];
   diagnostics: Diagnostic[];

@@ -24,6 +24,7 @@ const descriptor: WorldTemplateDescriptor = WorldTemplateDescriptor.parse({
   componentsUsed: ['comp.kpi-tile', 'comp.trend-chart', 'comp.category-bar-chart'],
   slideKinds: QUARTER_SLIDE_KINDS,
   guidance: QUARTER_GUIDANCE,
+  craftRules: ['exactly-one-anomaly-kpi', 'notice-required'],
 });
 
 export default descriptor;

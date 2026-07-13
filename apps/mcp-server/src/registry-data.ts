@@ -22,6 +22,7 @@ import {
   DesignGrammar,
   MotionSequence,
   SearchDocument,
+  WorldTemplateDescriptor,
 } from '@enterprise-design/contracts';
 import { createSearchIndex } from '@enterprise-design/search';
 import type { SearchIndex } from '@enterprise-design/search';
@@ -46,6 +47,14 @@ export interface RegistryData {
   readonly searchIndex: SearchIndex;
   /** Grammars + motion sequences + components, in the shape the compose/validate engines consume. */
   readonly domain: DomainRegistry;
+  /** Compiled world-template descriptors, for `compose_slide_deck` + `validate_fill`. */
+  readonly worldTemplates: readonly WorldTemplateDescriptor[];
+  /**
+   * World-templates keyed by BOTH their descriptor id (`quarter`/`cutover`) and
+   * their `experienceId` (`deck-quarterly-business-review`/`deck-cloud-migration`),
+   * so a client may reference a template by either identifier.
+   */
+  readonly worldTemplateById: ReadonlyMap<string, WorldTemplateDescriptor>;
 }
 
 const GENERATED_DIR = path.resolve(
@@ -69,6 +78,13 @@ export function loadRegistryData(): RegistryData {
   const searchDocuments = readGenerated('search-documents.json', z.array(SearchDocument));
   const grammars = readGenerated('grammars.json', z.array(DesignGrammar));
   const motionSequences = readGenerated('motion-sequences.json', z.array(MotionSequence));
+  const worldTemplates = readGenerated('world-templates.json', z.array(WorldTemplateDescriptor));
+
+  const worldTemplateById = new Map<string, WorldTemplateDescriptor>();
+  for (const worldTemplate of worldTemplates) {
+    worldTemplateById.set(worldTemplate.id, worldTemplate);
+    worldTemplateById.set(worldTemplate.experienceId, worldTemplate);
+  }
 
   return {
     components,
@@ -76,5 +92,7 @@ export function loadRegistryData(): RegistryData {
     searchDocuments,
     searchIndex: createSearchIndex([...searchDocuments]),
     domain: { components, grammars, motionSequences },
+    worldTemplates,
+    worldTemplateById,
   };
 }

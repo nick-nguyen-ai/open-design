@@ -9,6 +9,7 @@ export const ARTEFACT_FILES = {
   experiences: 'experiences.json',
   grammars: 'grammars.json',
   motionSequences: 'motion-sequences.json',
+  worldTemplates: 'world-templates.json',
   compatibility: 'compatibility.json',
   searchDocuments: 'search-documents.json',
 } as const;
@@ -24,6 +25,7 @@ export function serializeArtefacts(result: CompileResult): Record<string, string
     [ARTEFACT_FILES.experiences]: stableStringify(result.experiences),
     [ARTEFACT_FILES.grammars]: stableStringify(result.grammars),
     [ARTEFACT_FILES.motionSequences]: stableStringify(result.motionSequences),
+    [ARTEFACT_FILES.worldTemplates]: stableStringify(result.worldTemplates),
     [ARTEFACT_FILES.compatibility]: stableStringify(result.compatibility),
     [ARTEFACT_FILES.searchDocuments]: stableStringify(result.searchDocuments),
   };

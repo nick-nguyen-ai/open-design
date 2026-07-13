@@ -51,6 +51,27 @@ export const SlotSpec = z.object({
 });
 export type SlotSpec = z.infer<typeof SlotSpec>;
 
+/**
+ * Machine-checkable craft rules a template declares. The descriptor carries only
+ * the rule IDs (JSON-serializable); the MCP `validate_fill` tool knows how to
+ * enforce each against a fill's slot values. This is what lets the tool guarantee
+ * the design-defining constraints (the single flagged anomaly, the required
+ * synthetic notice) WITHOUT importing the world-specific Zod fill schema — the
+ * full Zod validation remains a client-side step.
+ *
+ * - `exactly-one-anomaly-kpi`: `fill.kpis` is an array with exactly one entry
+ *   whose `status === 'off-track'`.
+ * - `exactly-one-stays-node`: `fill.nodes` is an array with exactly one entry
+ *   whose `disposition === 'stays'`.
+ * - `notice-required`: `fill.deck.notice` is a present, non-empty string.
+ */
+export const CraftRuleId = z.enum([
+  'exactly-one-anomaly-kpi',
+  'exactly-one-stays-node',
+  'notice-required',
+]);
+export type CraftRuleId = z.infer<typeof CraftRuleId>;
+
 /** How many times a slide kind may repeat within a composed deck. */
 export const SlideKindRepeats = z.object({
   min: z.number().int().nonnegative(),
@@ -87,5 +108,11 @@ export const WorldTemplateDescriptor = z.object({
   componentsUsed: z.array(z.string()),
   slideKinds: z.array(SlideKindSpec).min(1),
   guidance: z.array(z.string()),
+  /**
+   * The machine-checkable craft rules `validate_fill` enforces (beyond the slot
+   * limits). Omitted defaults to none; the two pilot templates declare their
+   * anomaly rule plus `notice-required`.
+   */
+  craftRules: z.array(CraftRuleId).default([]),
 });
 export type WorldTemplateDescriptor = z.infer<typeof WorldTemplateDescriptor>;
