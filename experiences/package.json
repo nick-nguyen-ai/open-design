@@ -16,7 +16,8 @@
     "@fontsource/caveat": "^5.2.8",
     "@fontsource/ibm-plex-mono": "^5.2.7",
     "react": "^19.2.0",
-    "react-router-dom": "^7.9.6"
+    "react-router-dom": "^7.9.6",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/react": "^19.2.17"
