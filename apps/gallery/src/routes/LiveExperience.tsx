@@ -115,6 +115,16 @@ const PlaybillPage = lazy(
     import('../../../../experiences/personal-pages/home-talks-presentation-archive/PlaybillPage.js'),
 );
 
+const PlanningWallPage = lazy(
+  () => import('../../../../experiences/slide-decks/deck-project-kickoff/PlanningWallPage.js'),
+);
+const PreprintPage = lazy(
+  () => import('../../../../experiences/slide-decks/deck-research-discussion/PreprintPage.js'),
+);
+const CampaignRoomPage = lazy(
+  () => import('../../../../experiences/slide-decks/deck-marketing-campaign/CampaignRoomPage.js'),
+);
+
 const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: ComponentType }> = {
   'db-model-monitoring-cockpit': { mood: 'dark', Component: CockpitPage },
   'exp-system-architecture': { mood: 'light', Component: DrawingOfficePage },
@@ -139,6 +149,9 @@ const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: 
   'home-knowledge-atlas': { mood: 'dark', Component: AtlasPage },
   'home-research-publication-portfolio': { mood: 'light', Component: SpecimenBookPage },
   'home-talks-presentation-archive': { mood: 'dark', Component: PlaybillPage },
+  'deck-project-kickoff': { mood: 'light', Component: PlanningWallPage },
+  'deck-research-discussion': { mood: 'light', Component: PreprintPage },
+  'deck-marketing-campaign': { mood: 'dark', Component: CampaignRoomPage },
 };
 
 /**
@@ -178,13 +191,14 @@ export default function LiveExperience() {
           No live experience here
         </h1>
         <p className="text-text-secondary">
-          “{experienceId}” has no live rendering yet. Twenty-three worlds are live: the Model
+          “{experienceId}” has no live rendering yet. Twenty-six worlds are live: the Model
           Monitoring Cockpit, the System Architecture explainer, the AI Strategy board deck, the
-          Model Validation Hub, the Data Scientist Studio, nine deck worlds — the Committee
+          Model Validation Hub, the Data Scientist Studio, twelve deck worlds — the Committee
           Paper, the Lab Report, the Control Frame, the River, the Readout, the Gallery Floor,
-          the Manifesto, the Sectional, and the Field Manual — and nine personal pages: the
-          Annual Letter, the Bench Journal, the Greenhouse, the Line, the Dawn Wall, the
-          Reading Room, the Atlas, the Specimen Book, and the Playbill.
+          the Manifesto, the Sectional, the Field Manual, the Planning Wall, the Preprint, and
+          the Campaign Room — and nine personal pages: the Annual Letter, the Bench Journal, the
+          Greenhouse, the Line, the Dawn Wall, the Reading Room, the Atlas, the Specimen Book,
+          and the Playbill.
         </p>
         <RouterLink to="/browse" className="text-accent hover:underline">
           ◄ Back to the gallery

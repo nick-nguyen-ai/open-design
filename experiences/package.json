@@ -13,6 +13,7 @@
     "@enterprise-design/primitives": "workspace:*",
     "@fontsource-variable/fraunces": "^5.2.9",
     "@fontsource-variable/inter": "^5.2.8",
+    "@fontsource/caveat": "^5.2.8",
     "@fontsource/ibm-plex-mono": "^5.2.7",
     "react": "^19.2.0",
     "react-router-dom": "^7.9.6"

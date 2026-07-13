@@ -1,0 +1,973 @@
+/*
+ * THE CAMPAIGN ROOM — experience-local art layer for deck-marketing-campaign.
+ *
+ * Batch-2 art-direction licence: raw colour values are permitted in THIS
+ * stylesheet only. Easings and durations come from the platform motion tokens.
+ *
+ * Mood: a launch war-room at night. Near-black field, ONE electric coral
+ * signal, monumental editorial type for the campaign beats. Caveat is used
+ * only where the funnel is hand-drawn; Inter carries the campaign copy. A
+ * single coral horizon line persists across every slide. Print drops to white.
+ */
+
+.cr-root {
+  --cr-field: #0b0a0c;
+  --cr-field-deep: #060507;
+  --cr-ink: #f2ede6;
+  --cr-bright: #fffdf8;
+  --cr-dim: #8a8694;
+  --cr-coral: #ff5a4e;
+  --cr-coral-soft: rgba(255, 90, 78, 0.16);
+  --cr-coral-faint: rgba(255, 90, 78, 0.06);
+  --cr-line: rgba(242, 237, 230, 0.14);
+  --cr-line-faint: rgba(242, 237, 230, 0.07);
+  --cr-panel: rgba(242, 237, 230, 0.03);
+  --cr-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+  --cr-sans: 'Inter Variable', 'Inter', system-ui, sans-serif;
+  --cr-hand: 'Caveat', 'Segoe Script', cursive;
+
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+  color: var(--cr-ink);
+  font-family: var(--cr-sans);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  background:
+    radial-gradient(120vmin 90vmin at 82% -12%, rgba(255, 90, 78, 0.06), transparent 58%),
+    radial-gradient(120vmin 120vmin at 0% 118%, var(--cr-field-deep), transparent 62%),
+    var(--cr-field);
+}
+
+.cr-root::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(to bottom, var(--cr-line-faint) 1px, transparent 1px);
+  background-size: 100% 60px;
+  opacity: 0.6;
+}
+
+/* Persistent coral horizon line */
+.cr-horizon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 4.4rem;
+  height: 1px;
+  z-index: 3;
+  background: linear-gradient(to right, transparent, var(--cr-coral) 12%, var(--cr-coral) 88%, transparent);
+  opacity: 0.5;
+  box-shadow: 0 0 22px 1px rgba(255, 90, 78, 0.35);
+}
+
+/* ------------------------------------------------------------------ */
+/* Chrome                                                              */
+/* ------------------------------------------------------------------ */
+
+.cr-chrome {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 2rem;
+  padding: 0.95rem 1.6rem 0.7rem;
+  font-family: var(--cr-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  color: var(--cr-dim);
+}
+
+.cr-chrome-bottom {
+  inset: auto 0 0 0;
+  align-items: center;
+}
+
+.cr-chrome-cell {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  white-space: nowrap;
+}
+
+.cr-chrome-rule {
+  width: 1px;
+  height: 0.85em;
+  align-self: center;
+  background: var(--cr-line);
+}
+
+.cr-back {
+  color: var(--cr-coral);
+  text-decoration: none;
+  letter-spacing: 0.18em;
+}
+
+.cr-back:hover {
+  text-decoration: underline;
+}
+
+.cr-back:focus-visible,
+.cr-nav-btn:focus-visible,
+.cr-channel-seg:focus-visible {
+  outline: 2px solid var(--cr-bright);
+  outline-offset: 3px;
+}
+
+.cr-notice {
+  color: var(--cr-coral);
+  white-space: nowrap;
+}
+
+.cr-footer-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  white-space: nowrap;
+}
+
+.cr-hint {
+  margin-right: 0.7rem;
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+}
+
+.cr-nav-btn {
+  min-width: 2.2rem;
+  height: 2.1rem;
+  padding: 0 0.6rem;
+  border: 1px solid var(--cr-line);
+  background: transparent;
+  color: var(--cr-ink);
+  font-family: var(--cr-mono);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition:
+    color var(--dur-feedback) var(--ease-settle),
+    border-color var(--dur-feedback) var(--ease-settle);
+}
+
+.cr-nav-btn:hover:not(:disabled) {
+  color: var(--cr-coral);
+  border-color: var(--cr-coral);
+}
+
+.cr-nav-btn:disabled {
+  opacity: 0.32;
+  cursor: default;
+}
+
+/* ------------------------------------------------------------------ */
+/* Stage & slides                                                      */
+/* ------------------------------------------------------------------ */
+
+.cr-main {
+  height: 100%;
+}
+
+.cr-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+}
+
+.cr-slide {
+  position: absolute;
+  inset: 0;
+  padding: 4.2rem clamp(1.6rem, 5vw, 4.6rem) 5.4rem;
+  display: none;
+}
+
+.cr-slide[data-state='active'] {
+  display: block;
+}
+
+.cr-slide[data-state='leaving'] {
+  display: block;
+  animation: cr-out var(--dur-structure) var(--ease-shift) both;
+  pointer-events: none;
+}
+
+@keyframes cr-out {
+  to {
+    opacity: 0;
+    transform: translateX(-1.4rem);
+  }
+}
+
+.cr-slide-inner {
+  height: 100%;
+  min-height: 0;
+}
+
+/* Horizon-sweep builds */
+.cr-slide[data-state='active'] .cr-build {
+  animation: cr-rise var(--dur-structure) var(--ease-settle) both;
+  animation-delay: calc(var(--cr-i, 0) * var(--dur-feedback));
+}
+
+@keyframes cr-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Shared type                                                         */
+/* ------------------------------------------------------------------ */
+
+.cr-kickerrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1.5rem;
+  margin-bottom: 2.2rem;
+}
+
+.cr-kicker {
+  font-family: var(--cr-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.3em;
+  color: var(--cr-coral);
+  text-transform: uppercase;
+}
+
+.cr-codename {
+  font-family: var(--cr-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  color: var(--cr-dim);
+  text-transform: uppercase;
+}
+
+.cr-heading {
+  margin: 0 0 1.2rem;
+  font-family: var(--cr-sans);
+  font-weight: 300;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1.03;
+  letter-spacing: -0.03em;
+  color: var(--cr-bright);
+  max-width: 22ch;
+  text-wrap: balance;
+}
+
+.cr-heading-tight {
+  margin-bottom: 0.8rem;
+}
+
+.cr-body {
+  margin: 0;
+  max-width: 52ch;
+  font-size: 1.0625rem;
+  line-height: 1.62;
+  color: var(--cr-dim);
+}
+
+.cr-standfirst {
+  margin: 0;
+  max-width: 44ch;
+  font-size: 1rem;
+  line-height: 1.62;
+  color: var(--cr-dim);
+}
+
+.cr-standfirst-wide {
+  max-width: 56ch;
+}
+
+.cr-prose {
+  height: 100%;
+}
+
+.cr-accent {
+  color: var(--cr-coral);
+}
+
+/* ------------------------------------------------------------------ */
+/* Cover                                                               */
+/* ------------------------------------------------------------------ */
+
+.cr-cover {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 60rem;
+}
+
+.cr-campaign-name {
+  margin: 0 0 1.4rem;
+  font-family: var(--cr-mono);
+  font-size: 0.9rem;
+  letter-spacing: 0.5em;
+  color: var(--cr-coral);
+}
+
+.cr-display {
+  margin: 0 0 2rem;
+  font-family: var(--cr-sans);
+  font-weight: 250;
+  font-size: clamp(3rem, 7.6vw, 6.4rem);
+  line-height: 0.96;
+  letter-spacing: -0.045em;
+  color: var(--cr-bright);
+}
+
+.cr-line {
+  display: block;
+}
+
+/* ------------------------------------------------------------------ */
+/* Audience                                                            */
+/* ------------------------------------------------------------------ */
+
+.cr-fact-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.8rem;
+  margin-top: 2.4rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--cr-line);
+}
+
+.cr-fact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.cr-fact-stat {
+  font-family: var(--cr-sans);
+  font-weight: 300;
+  font-size: 2.8rem;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--cr-coral);
+}
+
+.cr-fact-cap {
+  max-width: 16ch;
+  font-family: var(--cr-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cr-dim);
+}
+
+/* ------------------------------------------------------------------ */
+/* Big idea / monument                                                 */
+/* ------------------------------------------------------------------ */
+
+.cr-bigidea {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 64rem;
+}
+
+.cr-monument {
+  margin: 1rem 0 2rem;
+  font-family: var(--cr-sans);
+  font-weight: 200;
+  font-size: clamp(3.4rem, 10vw, 8.4rem);
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+  color: var(--cr-bright);
+  text-transform: uppercase;
+}
+
+.cr-monument .cr-line {
+  display: block;
+}
+
+/* ------------------------------------------------------------------ */
+/* Funnel                                                              */
+/* ------------------------------------------------------------------ */
+
+.cr-funnel-body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.cr-funnel-grid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 3rem;
+  align-items: center;
+}
+
+.cr-funnel-frame {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cr-funnel-svg {
+  width: 100%;
+  height: 100%;
+  max-height: 64vh;
+}
+
+.cr-funnel-band {
+  fill: rgb(255 90 78 / calc((var(--cr-depth, 0) + 1) * 0.04));
+  stroke: var(--cr-ink);
+  stroke-width: 2.4;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.cr-funnel-band[data-last='true'] {
+  fill: var(--cr-coral-soft);
+  stroke: var(--cr-coral);
+}
+
+.cr-funnel-label {
+  fill: var(--cr-bright);
+  font-family: var(--cr-sans);
+  font-weight: 400;
+  font-size: 26px;
+  letter-spacing: -0.01em;
+}
+
+.cr-funnel-metric {
+  fill: var(--cr-dim);
+  font-family: var(--cr-mono);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+}
+
+.cr-funnel-conv {
+  fill: var(--cr-coral);
+  font-family: var(--cr-hand);
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.cr-funnel-drop {
+  stroke: var(--cr-coral);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.cr-cut-text {
+  fill: var(--cr-coral);
+  font-family: var(--cr-hand);
+  font-size: 27px;
+  font-weight: 600;
+}
+
+.cr-cut-strike {
+  stroke: var(--cr-coral);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+
+/* funnel draw-in */
+.cr-slide[data-state='active'] .cr-funnel-svg:not(.cr-funnel-static) .cr-funnel-stage {
+  animation: cr-fade var(--dur-structure) var(--ease-settle) both;
+  animation-delay: calc((var(--cr-i, 0) + 1) * var(--dur-state));
+}
+
+@keyframes cr-fade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cr-funnel-aside {
+  align-self: center;
+}
+
+.cr-cut-reason {
+  margin: 1.6rem 0 0;
+  max-width: 40ch;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--cr-dim);
+}
+
+.cr-cut-flag {
+  display: inline-block;
+  margin-right: 0.6rem;
+  padding: 0.1rem 0.45rem;
+  font-family: var(--cr-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--cr-field);
+  background: var(--cr-coral);
+  vertical-align: 0.1em;
+}
+
+/* ------------------------------------------------------------------ */
+/* Channel mix — interactive bar                                       */
+/* ------------------------------------------------------------------ */
+
+.cr-channels-body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.cr-channels {
+  margin-top: 0.4rem;
+}
+
+.cr-channel-bar {
+  display: flex;
+  gap: 4px;
+  height: 5.5rem;
+  align-items: flex-end;
+}
+
+.cr-channel-seg {
+  position: relative;
+  flex-basis: 0;
+  height: 3.4rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  text-align: left;
+  transition:
+    height var(--dur-state) var(--ease-lift),
+    transform var(--dur-state) var(--ease-lift);
+}
+
+.cr-seg-fill {
+  display: block;
+  height: 100%;
+  background: rgba(242, 237, 230, 0.16);
+  border-top: 2px solid var(--cr-dim);
+  transition:
+    background var(--dur-feedback) var(--ease-settle),
+    border-color var(--dur-feedback) var(--ease-settle);
+}
+
+.cr-channel-seg[data-active='true'] {
+  height: 5.2rem;
+  transform: translateY(-2px);
+}
+
+.cr-channel-seg[data-active='true'] .cr-seg-fill {
+  background: var(--cr-coral-soft);
+  border-top-color: var(--cr-coral);
+  box-shadow: 0 -14px 34px -12px rgba(255, 90, 78, 0.5);
+}
+
+.cr-seg-label {
+  position: absolute;
+  bottom: -1.5rem;
+  left: 0;
+  font-family: var(--cr-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  color: var(--cr-dim);
+  white-space: nowrap;
+}
+
+.cr-channel-seg[data-active='true'] .cr-seg-label {
+  color: var(--cr-bright);
+}
+
+.cr-seg-share {
+  position: absolute;
+  top: -1.3rem;
+  left: 0;
+  font-family: var(--cr-mono);
+  font-size: 0.6875rem;
+  color: var(--cr-ink);
+}
+
+.cr-channel-readout {
+  margin-top: 2.6rem;
+  border-top: 1px solid var(--cr-line);
+  padding-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 1.4rem 2.4rem;
+}
+
+.cr-readout-name {
+  font-family: var(--cr-sans);
+  font-weight: 400;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  color: var(--cr-coral);
+  min-width: 9rem;
+}
+
+.cr-readout-stats {
+  display: flex;
+  gap: 2.2rem;
+  margin: 0;
+}
+
+.cr-readout-stats div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.cr-readout-stats dt {
+  font-family: var(--cr-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.16em;
+  color: var(--cr-dim);
+}
+
+.cr-readout-stats dd {
+  margin: 0;
+  font-family: var(--cr-mono);
+  font-size: 1.15rem;
+  color: var(--cr-bright);
+}
+
+.cr-readout-note {
+  flex: 1 1 18rem;
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--cr-dim);
+}
+
+.cr-kpi-frame {
+  margin-top: 1.8rem;
+  max-width: 62rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Flight                                                              */
+/* ------------------------------------------------------------------ */
+
+.cr-flight {
+  margin-top: 1.4rem;
+  max-width: 66rem;
+}
+
+.cr-flight-scale {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 4px;
+  margin-bottom: 0.6rem;
+  font-family: var(--cr-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.06em;
+  color: var(--cr-dim);
+}
+
+.cr-flight-bars {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.cr-flight-bar {
+  position: relative;
+  grid-column: span var(--cr-span);
+  margin-left: calc((var(--cr-start) / 12) * 100%);
+  width: calc((var(--cr-span) / 12) * 100%);
+  min-height: 3rem;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--cr-line);
+  background: var(--cr-panel);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.2rem;
+}
+
+.cr-flight-bar[data-accent='true'] {
+  border-color: var(--cr-coral);
+  background: var(--cr-coral-faint);
+}
+
+.cr-flight-label {
+  font-family: var(--cr-sans);
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--cr-bright);
+}
+
+.cr-flight-weeks {
+  font-family: var(--cr-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  color: var(--cr-dim);
+}
+
+/* ------------------------------------------------------------------ */
+/* Creative                                                            */
+/* ------------------------------------------------------------------ */
+
+.cr-creative-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2rem;
+  margin-top: 1rem;
+  max-width: 68rem;
+}
+
+.cr-creative-card {
+  border: 1px solid var(--cr-line);
+  border-top: 2px solid var(--cr-coral);
+  background: var(--cr-panel);
+  padding: 1.1rem 1.3rem 1.2rem;
+}
+
+.cr-creative-term {
+  font-family: var(--cr-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.24em;
+  color: var(--cr-coral);
+}
+
+.cr-creative-text {
+  margin: 0.5rem 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--cr-ink);
+}
+
+/* ------------------------------------------------------------------ */
+/* Measurement                                                         */
+/* ------------------------------------------------------------------ */
+
+.cr-measure {
+  width: 100%;
+  max-width: 62rem;
+  border-collapse: collapse;
+  margin-top: 0.6rem;
+  font-size: 0.95rem;
+}
+
+.cr-measure th,
+.cr-measure td {
+  text-align: left;
+  padding: 0.85rem 1rem 0.85rem 0;
+  border-bottom: 1px solid var(--cr-line-faint);
+  vertical-align: baseline;
+}
+
+.cr-measure thead th {
+  font-family: var(--cr-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cr-dim);
+  border-bottom: 1.5px solid var(--cr-line);
+}
+
+.cr-measure tbody th {
+  font-weight: 500;
+  color: var(--cr-bright);
+}
+
+.cr-measure-target {
+  font-family: var(--cr-mono);
+  font-size: 1.1rem;
+  color: var(--cr-coral);
+}
+
+.cr-measure-guard {
+  font-family: var(--cr-mono);
+  font-size: 0.8125rem;
+  color: var(--cr-dim);
+}
+
+/* ------------------------------------------------------------------ */
+/* Closing                                                             */
+/* ------------------------------------------------------------------ */
+
+.cr-closing {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 62rem;
+}
+
+.cr-monument-close {
+  margin: 0 0 1.8rem;
+  font-size: clamp(3rem, 8.4vw, 7rem);
+}
+
+.cr-ask-list {
+  margin-top: 2rem;
+}
+
+.cr-ask-head {
+  display: block;
+  margin-bottom: 0.7rem;
+}
+
+.cr-ask-list ol {
+  margin: 0;
+  padding-left: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  max-width: 56ch;
+}
+
+.cr-ask-list li {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--cr-ink);
+}
+
+.cr-print-foot {
+  display: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Reduced motion                                                      */
+/* ------------------------------------------------------------------ */
+
+.cr-root[data-reduced='true'] .cr-slide[data-state='active'] .cr-build,
+.cr-root[data-reduced='true'] .cr-funnel-stage {
+  animation: none;
+}
+
+.cr-root[data-reduced='true'] .cr-channel-seg,
+.cr-root[data-reduced='true'] .cr-seg-fill {
+  transition: none;
+}
+
+.cr-root[data-reduced='true'] .cr-slide[data-state='leaving'] {
+  display: none;
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cr-slide[data-state='active'] .cr-build,
+  .cr-funnel-stage {
+    animation: none;
+  }
+  .cr-channel-seg,
+  .cr-seg-fill {
+    transition: none;
+  }
+  .cr-slide[data-state='leaving'] {
+    display: none;
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Narrow viewports                                                    */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 62rem) {
+  .cr-root {
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+  }
+  .cr-horizon {
+    display: none;
+  }
+  .cr-stage {
+    position: relative;
+    inset: auto;
+  }
+  .cr-slide {
+    padding: 4.4rem 1.2rem 5rem;
+    min-height: 100svh;
+  }
+  .cr-slide:not([data-state='active']) {
+    display: none;
+  }
+  .cr-funnel-grid,
+  .cr-creative-grid {
+    grid-template-columns: 1fr;
+  }
+  .cr-hint,
+  .cr-notice {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Print: night to white                                               */
+/* ------------------------------------------------------------------ */
+
+@media print {
+  .cr-root {
+    --cr-field: #ffffff;
+    --cr-field-deep: #ffffff;
+    --cr-ink: #1a1a1a;
+    --cr-bright: #0a0a0a;
+    --cr-dim: #555;
+    --cr-coral: #d43a2e;
+    --cr-panel: #fff;
+    --cr-line: rgba(0, 0, 0, 0.25);
+    height: auto;
+    overflow: visible;
+    background: #fff;
+    color: #1a1a1a;
+  }
+  .cr-root::before,
+  .cr-horizon,
+  .cr-chrome {
+    display: none;
+  }
+  .cr-stage {
+    position: static;
+  }
+  .cr-slide {
+    display: block !important;
+    position: static;
+    height: auto;
+    min-height: 92vh;
+    padding: 1.4rem;
+    break-after: page;
+    animation: none !important;
+  }
+  .cr-slide .cr-build,
+  .cr-funnel-stage {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .cr-funnel-band {
+    fill: rgba(0, 0, 0, 0.03);
+    stroke: #1a1a1a;
+  }
+  .cr-print-foot {
+    display: block;
+    margin-top: 0.8rem;
+    padding-top: 0.5rem;
+    border-top: 1pt solid rgba(0, 0, 0, 0.3);
+    font-family: var(--cr-mono);
+    font-size: 7.5pt;
+    letter-spacing: 0.12em;
+    color: #555;
+  }
+}

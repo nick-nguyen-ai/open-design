@@ -28,6 +28,9 @@ export const LIVE_EXPERIENCE_IDS = [
   'home-knowledge-atlas',
   'home-research-publication-portfolio',
   'home-talks-presentation-archive',
+  'deck-project-kickoff',
+  'deck-research-discussion',
+  'deck-marketing-campaign',
 ] as const;
 
 export type LiveExperienceId = (typeof LIVE_EXPERIENCE_IDS)[number];

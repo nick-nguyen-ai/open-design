@@ -41,10 +41,10 @@ function templateCards() {
 afterEach(cleanup);
 
 describe('Landing', () => {
-  it('shows all 50 templates in the default All mode', () => {
+  it('shows all 53 templates in the default All mode', () => {
     renderLanding();
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('bank-credible templates');
-    expect(templateCards()).toHaveLength(50);
+    expect(templateCards()).toHaveLength(53);
   });
 
   it('switches modes and preserves the query', async () => {
@@ -64,11 +64,11 @@ describe('Landing', () => {
     expect(screen.getByTestId('location-search')).toHaveTextContent('q=risk');
   });
 
-  // 50-card re-renders under jsdom exceed the 5s default on slow machines.
+  // 53-card re-renders under jsdom exceed the 5s default on slow machines.
   it('narrows results as the query is typed', { timeout: 30_000 }, async () => {
     const user = userEvent.setup();
     renderLanding();
-    expect(templateCards()).toHaveLength(50);
+    expect(templateCards()).toHaveLength(53);
 
     await user.type(
       screen.getByRole('searchbox', { name: /search templates, components, and grammars/i }),
@@ -79,7 +79,7 @@ describe('Landing', () => {
       () => {
         const count = templateCards().length;
         expect(count).toBeGreaterThan(0);
-        expect(count).toBeLessThan(50);
+        expect(count).toBeLessThan(53);
       },
       { timeout: 10_000 },
     );
@@ -140,7 +140,7 @@ describe('Landing', () => {
     expect(card).toHaveFocus();
   });
 
-  // axe over the full 50-card landing exceeds the 5s default on slow machines.
+  // axe over the full 53-card landing exceeds the 5s default on slow machines.
   it('has no axe violations', { timeout: 60_000 }, async () => {
     const { container } = renderLanding();
     expect(await axe(container)).toHaveNoViolations();
