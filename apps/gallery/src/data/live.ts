@@ -31,6 +31,9 @@ export const LIVE_EXPERIENCE_IDS = [
   'deck-project-kickoff',
   'deck-research-discussion',
   'deck-marketing-campaign',
+  'deck-product-launch',
+  'deck-team-retrospective',
+  'deck-cloud-migration',
 ] as const;
 
 export type LiveExperienceId = (typeof LIVE_EXPERIENCE_IDS)[number];

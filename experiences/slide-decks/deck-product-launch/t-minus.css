@@ -1,0 +1,1012 @@
+/*
+ * T-MINUS — experience-local art layer for deck-product-launch.
+ *
+ * Batch-2 art-direction licence: raw colour values are permitted in THIS
+ * stylesheet only. Easings and durations come from the platform motion tokens
+ * (var(--ease-*), var(--dur-*)) — never ad-hoc curves.
+ *
+ * Mood: a midnight launch-control field. A single thin amber horizon line rises
+ * slide by slide; a monumental T-minus stamp counts down behind the content;
+ * at T-0 the field flips GO-green. Inter carries body copy, IBM Plex Mono the
+ * instrument chrome. Print drops the field to white.
+ */
+
+.tm-root {
+  --tm-mid: #070b12;
+  --tm-mid-deep: #04070c;
+  --tm-panel: #0d1420;
+  --tm-ink: #eef0e9;
+  --tm-ink-soft: #b8bec6;
+  --tm-faint: #6d7885;
+  --tm-amber: #f0a63c;
+  --tm-amber-soft: rgba(240, 166, 60, 0.16);
+  --tm-green: #4fae72;
+  --tm-green-soft: rgba(79, 174, 114, 0.18);
+  --tm-line: rgba(184, 190, 198, 0.16);
+  --tm-line-faint: rgba(184, 190, 198, 0.09);
+  --tm-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+  --tm-sans: 'Inter Variable', 'Inter', system-ui, sans-serif;
+
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+  color: var(--tm-ink);
+  font-family: var(--tm-sans);
+  font-size: 0.875rem;
+  line-height: 1.55;
+  background:
+    radial-gradient(140vmin 100vmin at 50% 120%, #0a1220, transparent 60%),
+    radial-gradient(120vmin 80vmin at 82% -6%, rgba(240, 166, 60, 0.06), transparent 55%),
+    var(--tm-mid);
+}
+
+/* faint starfield / instrument grain */
+.tm-root::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image:
+    radial-gradient(circle at 18% 24%, rgba(238, 240, 233, 0.05) 0 1px, transparent 1px),
+    radial-gradient(circle at 62% 68%, rgba(238, 240, 233, 0.04) 0 1px, transparent 1px),
+    radial-gradient(circle at 88% 34%, rgba(238, 240, 233, 0.035) 0 1px, transparent 1px);
+  background-size: 120px 120px, 90px 90px, 160px 160px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Countdown field — monumental stamp + rising horizon                 */
+/* ------------------------------------------------------------------ */
+
+.tm-field {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.tm-stamp {
+  position: absolute;
+  right: clamp(1rem, 4vw, 4rem);
+  bottom: clamp(0.5rem, 3vh, 3rem);
+  font-family: var(--tm-mono);
+  font-weight: 500;
+  font-size: clamp(9rem, 30vh, 22rem);
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(184, 190, 198, 0.14);
+  text-stroke: 1.5px rgba(184, 190, 198, 0.14);
+  user-select: none;
+}
+
+.tm-stamp[data-go='true'] {
+  color: var(--tm-green-soft);
+  -webkit-text-stroke: 2px rgba(79, 174, 114, 0.55);
+  text-stroke: 2px rgba(79, 174, 114, 0.55);
+}
+
+/* the rising launch horizon: bottom → top as --tm-h goes 0 → 1 */
+.tm-horizon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(4% + (100% - 22%) * var(--tm-h, 0));
+  height: 1.5px;
+  background: linear-gradient(to right, transparent, var(--tm-amber) 10%, var(--tm-amber) 90%, transparent);
+  opacity: 0.55;
+  transition: bottom var(--dur-narrative) var(--ease-lift);
+}
+
+.tm-horizon-glow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(4% + (100% - 22%) * var(--tm-h, 0));
+  height: 40vh;
+  transform: translateY(50%);
+  background: linear-gradient(to top, rgba(240, 166, 60, 0.14), transparent 70%);
+  opacity: 0.7;
+  transition: bottom var(--dur-narrative) var(--ease-lift);
+}
+
+.tm-field[data-go='true'] .tm-horizon {
+  background: linear-gradient(to right, transparent, var(--tm-green) 8%, var(--tm-green) 92%, transparent);
+  height: 2.5px;
+  opacity: 1;
+  box-shadow: 0 0 26px 2px rgba(79, 174, 114, 0.5);
+}
+
+.tm-field[data-go='true'] .tm-horizon-glow {
+  background: linear-gradient(to top, rgba(79, 174, 114, 0.2), transparent 72%);
+}
+
+/* ------------------------------------------------------------------ */
+/* Chrome                                                              */
+/* ------------------------------------------------------------------ */
+
+.tm-chrome {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 2rem;
+  padding: 0.95rem 1.6rem 0.7rem;
+  font-family: var(--tm-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  color: var(--tm-faint);
+}
+
+.tm-chrome-bottom {
+  inset: auto 0 0 0;
+  align-items: center;
+}
+
+.tm-chrome-cell {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  white-space: nowrap;
+}
+
+.tm-chrome-rule {
+  width: 1px;
+  height: 0.85em;
+  align-self: center;
+  background: var(--tm-line);
+}
+
+.tm-back {
+  color: var(--tm-ink);
+  text-decoration: none;
+  letter-spacing: 0.16em;
+}
+
+.tm-back:hover {
+  color: var(--tm-amber);
+}
+
+.tm-back:focus-visible,
+.tm-nav-btn:focus-visible {
+  outline: 2px solid var(--tm-amber);
+  outline-offset: 3px;
+}
+
+.tm-notice {
+  color: var(--tm-amber);
+  white-space: nowrap;
+}
+
+.tm-footer-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  white-space: nowrap;
+}
+
+.tm-hint {
+  margin-right: 0.7rem;
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+}
+
+.tm-nav-btn {
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 1.5px solid var(--tm-line);
+  border-radius: 2px;
+  background: var(--tm-panel);
+  color: var(--tm-ink);
+  font-family: var(--tm-mono);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition:
+    color var(--dur-feedback) var(--ease-settle),
+    border-color var(--dur-feedback) var(--ease-settle);
+}
+
+.tm-nav-btn:hover:not(:disabled) {
+  color: var(--tm-amber);
+  border-color: var(--tm-amber);
+}
+
+.tm-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* ------------------------------------------------------------------ */
+/* Stage & slides                                                      */
+/* ------------------------------------------------------------------ */
+
+.tm-main {
+  height: 100%;
+}
+
+.tm-stage {
+  position: absolute;
+  inset: 0;
+}
+
+.tm-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem clamp(1.6rem, 6vw, 5.5rem) 3.6rem;
+  visibility: hidden;
+}
+
+.tm-slide[data-state='active'] {
+  visibility: visible;
+  z-index: 2;
+}
+
+.tm-slide[data-state='leaving'] {
+  visibility: visible;
+  z-index: 3;
+  animation: tm-slide-out var(--dur-structure) var(--ease-shift) both;
+  pointer-events: none;
+}
+
+@keyframes tm-slide-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-1.2rem);
+  }
+}
+
+.tm-slide-inner {
+  position: relative;
+  z-index: 5;
+  min-height: 0;
+}
+
+/* Builds */
+.tm-slide[data-state='active'] .tm-build {
+  animation: tm-rise var(--dur-structure) var(--ease-settle) both;
+  animation-delay: calc(var(--tm-i, 0) * var(--dur-feedback));
+}
+
+@keyframes tm-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.8rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Shared type                                                         */
+/* ------------------------------------------------------------------ */
+
+.tm-kickerrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1.5rem;
+  margin-bottom: 1.6rem;
+}
+
+.tm-kicker {
+  font-family: var(--tm-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.26em;
+  color: var(--tm-amber);
+}
+
+.tm-war {
+  font-family: var(--tm-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  color: var(--tm-faint);
+}
+
+.tm-eyebrow {
+  display: block;
+  margin-bottom: 0.9rem;
+  font-family: var(--tm-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--tm-faint);
+}
+
+.tm-heading {
+  margin: 0 0 1.2rem;
+  font-weight: 350;
+  font-size: clamp(1.9rem, 3.6vw, 3.1rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  color: var(--tm-ink);
+  max-width: 24ch;
+  text-wrap: balance;
+}
+
+.tm-heading-tight {
+  margin-bottom: 0.5rem;
+}
+
+.tm-body {
+  margin: 0;
+  max-width: 54ch;
+  font-size: 1.0625rem;
+  line-height: 1.66;
+  color: var(--tm-ink-soft);
+}
+
+.tm-standfirst {
+  margin: 0;
+  max-width: 46ch;
+  font-size: 1.0625rem;
+  line-height: 1.62;
+  color: var(--tm-ink-soft);
+}
+
+.tm-standfirst-wide {
+  max-width: 56ch;
+}
+
+.tm-accent {
+  color: var(--tm-amber);
+}
+
+.tm-prose {
+  position: relative;
+  max-width: 70rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Cover                                                               */
+/* ------------------------------------------------------------------ */
+
+.tm-cover {
+  max-width: 58rem;
+}
+
+.tm-product {
+  margin: 0 0 0.6rem;
+  font-family: var(--tm-mono);
+  font-size: 0.9rem;
+  letter-spacing: 0.4em;
+  color: var(--tm-amber);
+}
+
+.tm-display {
+  margin: 0.2rem 0 1.8rem;
+  font-weight: 300;
+  font-size: clamp(3rem, 7.2vw, 5.8rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  color: var(--tm-ink);
+}
+
+.tm-line {
+  display: block;
+}
+
+/* ------------------------------------------------------------------ */
+/* One sentence                                                        */
+/* ------------------------------------------------------------------ */
+
+.tm-oneliner {
+  margin: 0;
+  max-width: 24ch;
+  font-weight: 300;
+  font-size: clamp(2rem, 4.6vw, 3.7rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--tm-ink);
+}
+
+.tm-fact-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.8rem;
+  margin-top: 2.4rem;
+}
+
+.tm-fact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.tm-fact-stat {
+  font-weight: 300;
+  font-size: 2.6rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--tm-amber);
+}
+
+.tm-fact-cap {
+  font-family: var(--tm-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tm-faint);
+}
+
+/* ------------------------------------------------------------------ */
+/* Thesis                                                              */
+/* ------------------------------------------------------------------ */
+
+.tm-thesis {
+  max-width: 60rem;
+}
+
+.tm-monument {
+  margin: 0.6rem 0 1.6rem;
+  font-weight: 300;
+  font-size: clamp(3.2rem, 8vw, 6.4rem);
+  line-height: 0.96;
+  letter-spacing: -0.035em;
+  color: var(--tm-ink);
+}
+
+/* ------------------------------------------------------------------ */
+/* Readiness gates                                                     */
+/* ------------------------------------------------------------------ */
+
+.tm-gates-frame {
+  max-width: 52rem;
+  margin-top: 0.4rem;
+}
+
+.tm-gates-frame ul[aria-label] {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tm-gate-note {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  margin: 1.4rem 0 0;
+  max-width: 60ch;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--tm-ink-soft);
+}
+
+.tm-gate-flag,
+.tm-rollback-flag {
+  flex: 0 0 auto;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--tm-amber);
+  border-radius: 2px;
+  font-family: var(--tm-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  color: var(--tm-amber);
+}
+
+.tm-rollback-flag {
+  border-color: var(--tm-green);
+  color: var(--tm-green);
+}
+
+/* ------------------------------------------------------------------ */
+/* Comms plan                                                          */
+/* ------------------------------------------------------------------ */
+
+.tm-comms-wrap {
+  margin-top: 0.6rem;
+}
+
+.tm-comms {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: 62rem;
+}
+
+.tm-comms li {
+  display: grid;
+  grid-template-columns: 9rem 12rem 1fr;
+  align-items: baseline;
+  gap: 1.2rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--tm-line-faint);
+}
+
+.tm-comms-when {
+  font-family: var(--tm-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  color: var(--tm-amber);
+}
+
+.tm-comms-ch {
+  font-weight: 500;
+  color: var(--tm-ink);
+}
+
+.tm-comms-detail {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--tm-ink-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* Pricing                                                             */
+/* ------------------------------------------------------------------ */
+
+.tm-price-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.4rem;
+  margin-top: 0.6rem;
+  max-width: 66rem;
+}
+
+.tm-price-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.6rem 1.5rem;
+  background: var(--tm-panel);
+  border: 1.5px solid var(--tm-line);
+  border-radius: 4px;
+  min-height: 13rem;
+}
+
+.tm-price-card[data-feature='true'] {
+  border-color: var(--tm-amber);
+  box-shadow: 0 0 0 1px var(--tm-amber-soft), 0 18px 40px -26px rgba(240, 166, 60, 0.4);
+}
+
+.tm-price-tag {
+  position: absolute;
+  top: -0.7rem;
+  left: 1.4rem;
+  padding: 0.2rem 0.55rem;
+  background: var(--tm-amber);
+  color: var(--tm-mid);
+  border-radius: 2px;
+  font-family: var(--tm-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.16em;
+}
+
+.tm-price-name {
+  font-family: var(--tm-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--tm-faint);
+}
+
+.tm-price-amt {
+  font-weight: 300;
+  font-size: 2.8rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--tm-ink);
+}
+
+.tm-price-card[data-feature='true'] .tm-price-amt {
+  color: var(--tm-amber);
+}
+
+.tm-price-unit {
+  font-family: var(--tm-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  color: var(--tm-faint);
+}
+
+.tm-price-inc {
+  margin: 0.6rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--tm-ink-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* Runbook — commanding horizontal sequence                            */
+/* ------------------------------------------------------------------ */
+
+.tm-runbook-body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tm-runbook-frame {
+  flex: 0 1 auto;
+  margin: 2vh 0;
+}
+
+.tm-run-svg {
+  width: 100%;
+  max-height: 46vh;
+}
+
+.tm-runbook-cap {
+  margin: 0;
+  max-width: 82ch;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--tm-ink-soft);
+}
+
+.tm-run-rail {
+  stroke: var(--tm-amber);
+  stroke-width: 2;
+  opacity: 0.85;
+  stroke-dasharray: 1100;
+  stroke-dashoffset: 1100;
+}
+
+.tm-slide[data-state='active'] .tm-run-rail {
+  animation: tm-draw var(--dur-narrative) var(--ease-trace) forwards;
+  animation-delay: var(--dur-state);
+}
+
+@keyframes tm-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.tm-run-static .tm-run-rail {
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+}
+
+.tm-run-stem {
+  stroke: var(--tm-line);
+  stroke-width: 1.4;
+}
+
+.tm-run-node {
+  fill: var(--tm-mid);
+  stroke: var(--tm-amber);
+  stroke-width: 2.2;
+}
+
+.tm-run-diamond {
+  fill: var(--tm-amber);
+  stroke: var(--tm-amber);
+  stroke-width: 2;
+}
+
+.tm-run-time {
+  fill: var(--tm-amber);
+  font-family: var(--tm-mono);
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.tm-run-label {
+  fill: var(--tm-ink);
+  font-family: var(--tm-sans);
+  font-size: 21px;
+  font-weight: 400;
+}
+
+.tm-run-step[data-gate='true'] .tm-run-label {
+  fill: var(--tm-amber);
+  font-weight: 500;
+}
+
+.tm-run-detail {
+  fill: var(--tm-faint);
+  font-family: var(--tm-sans);
+  font-size: 12.5px;
+}
+
+.tm-slide[data-state='active'] .tm-run-step {
+  animation: tm-fade-in var(--dur-structure) var(--ease-settle) both;
+  animation-delay: calc(var(--dur-state) + var(--tm-i, 0) * 0.06s);
+}
+
+@keyframes tm-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Risk & rollback                                                     */
+/* ------------------------------------------------------------------ */
+
+.tm-abort-wrap {
+  overflow-x: auto;
+  margin-top: 0.4rem;
+}
+
+.tm-abort {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  max-width: 64rem;
+  font-size: 0.92rem;
+}
+
+.tm-abort th,
+.tm-abort td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--tm-line-faint);
+}
+
+.tm-abort thead th {
+  font-family: var(--tm-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tm-faint);
+  border-bottom: 1.5px solid var(--tm-line);
+}
+
+.tm-abort tbody th {
+  font-weight: 500;
+  color: var(--tm-ink);
+}
+
+.tm-abort-th {
+  font-family: var(--tm-mono);
+  font-size: 0.8rem;
+  color: var(--tm-amber);
+  white-space: nowrap;
+}
+
+.tm-abort td {
+  color: var(--tm-ink-soft);
+}
+
+.tm-rollback {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  margin: 1.3rem 0 0;
+  max-width: 70ch;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--tm-ink-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* Metrics                                                             */
+/* ------------------------------------------------------------------ */
+
+.tm-kpi-frame {
+  margin-top: 0.4rem;
+  max-width: 68rem;
+}
+
+.tm-metrics-note {
+  margin: 1.3rem 0 0;
+  max-width: 66ch;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--tm-faint);
+}
+
+/* ------------------------------------------------------------------ */
+/* Closing GO                                                          */
+/* ------------------------------------------------------------------ */
+
+.tm-closing {
+  max-width: 58rem;
+}
+
+.tm-go {
+  margin: 0 0 0.4rem;
+  font-weight: 300;
+  font-size: clamp(5rem, 16vw, 13rem);
+  line-height: 0.82;
+  letter-spacing: -0.04em;
+  color: var(--tm-green);
+  text-shadow: 0 0 60px rgba(79, 174, 114, 0.45);
+}
+
+.tm-closing-line {
+  margin: 0 0 1.2rem;
+  font-weight: 350;
+  font-size: clamp(1.6rem, 3.2vw, 2.6rem);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  color: var(--tm-ink);
+  max-width: 24ch;
+}
+
+.tm-ask-list {
+  margin-top: 2rem;
+}
+
+.tm-ask-head {
+  display: block;
+  margin-bottom: 0.7rem;
+  letter-spacing: 0.22em;
+}
+
+.tm-ask-list ol {
+  margin: 0;
+  padding-left: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  max-width: 58ch;
+}
+
+.tm-ask-list li {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--tm-ink);
+}
+
+.tm-print-foot {
+  display: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Reduced motion                                                      */
+/* ------------------------------------------------------------------ */
+
+.tm-root[data-reduced='true'] .tm-slide[data-state='active'] .tm-build,
+.tm-root[data-reduced='true'] .tm-slide[data-state='active'] .tm-run-step {
+  animation: none;
+}
+
+.tm-root[data-reduced='true'] .tm-run-rail,
+.tm-run-static .tm-run-rail {
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+  animation: none;
+}
+
+.tm-root[data-reduced='true'] .tm-horizon,
+.tm-root[data-reduced='true'] .tm-horizon-glow {
+  transition: none;
+}
+
+.tm-root[data-reduced='true'] .tm-slide[data-state='leaving'] {
+  visibility: hidden;
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tm-slide[data-state='active'] .tm-build,
+  .tm-slide[data-state='active'] .tm-run-step {
+    animation: none;
+  }
+  .tm-run-rail {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+  .tm-horizon,
+  .tm-horizon-glow {
+    transition: none;
+  }
+  .tm-slide[data-state='leaving'] {
+    visibility: hidden;
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Narrow viewports                                                    */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 62rem) {
+  .tm-root {
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+  }
+  .tm-stage {
+    position: relative;
+    inset: auto;
+  }
+  .tm-slide {
+    padding: 4.5rem 1.2rem 3.5rem;
+    min-height: 100svh;
+  }
+  .tm-slide:not([data-state='active']) {
+    display: none;
+  }
+  .tm-price-grid {
+    grid-template-columns: 1fr;
+  }
+  .tm-comms li {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+  }
+  .tm-stamp {
+    font-size: 7rem;
+  }
+  .tm-hint,
+  .tm-notice {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Print: field to white, one slide per page                           */
+/* ------------------------------------------------------------------ */
+
+@media print {
+  .tm-root {
+    --tm-mid: #ffffff;
+    --tm-mid-deep: #ffffff;
+    --tm-panel: #ffffff;
+    --tm-ink: #14181e;
+    --tm-ink-soft: #333;
+    --tm-faint: #555;
+    height: auto;
+    overflow: visible;
+    background: #fff;
+    color: #14181e;
+  }
+  .tm-root::before,
+  .tm-chrome,
+  .tm-horizon-glow {
+    display: none;
+  }
+  .tm-stamp {
+    color: transparent;
+    -webkit-text-stroke: 1px #999;
+    text-stroke: 1px #999;
+  }
+  .tm-stage {
+    position: static;
+  }
+  .tm-slide {
+    position: static;
+    visibility: visible !important;
+    height: auto;
+    min-height: 92vh;
+    padding: 1.4rem;
+    break-after: page;
+    animation: none !important;
+  }
+  .tm-slide .tm-build {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .tm-run-rail {
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+    animation: none !important;
+  }
+  .tm-price-card {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+  .tm-print-foot {
+    display: block;
+    margin-top: 0.8rem;
+    padding-top: 0.5rem;
+    border-top: 1pt solid rgba(0, 0, 0, 0.3);
+    font-family: var(--tm-mono);
+    font-size: 7.5pt;
+    letter-spacing: 0.12em;
+    color: #555;
+  }
+}

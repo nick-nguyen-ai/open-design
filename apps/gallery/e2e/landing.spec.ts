@@ -20,7 +20,7 @@ async function waitForMotionSettled(page: Page): Promise<void> {
   });
 }
 
-test('landing renders 53 templates, toggles theme + motion, opens a quick preview', async ({
+test('landing renders 56 templates, toggles theme + motion, opens a quick preview', async ({
   page,
 }) => {
   await page.goto('/');
@@ -33,10 +33,10 @@ test('landing renders 53 templates, toggles theme + motion, opens a quick previe
   });
   await expect(search).toBeVisible();
 
-  // The result grid contains all 53 template cards (experiences), even in the
+  // The result grid contains all 56 template cards (experiences), even in the
   // default All mode.
   const templateCards = page.locator('button[aria-label^="Template:"]');
-  await expect(templateCards).toHaveCount(53);
+  await expect(templateCards).toHaveCount(56);
 
   // Theme toggle flips the document theme attribute.
   const html = page.locator('html');
@@ -69,7 +69,7 @@ test('landing renders 53 templates, toggles theme + motion, opens a quick previe
 test('search narrows the result set and mode is reflected in the URL', async ({ page }) => {
   await page.goto('/');
   const templateCards = page.locator('button[aria-label^="Template:"]');
-  await expect(templateCards).toHaveCount(53);
+  await expect(templateCards).toHaveCount(56);
 
   await page
     .getByRole('searchbox', { name: /search templates, components, and grammars/i })
@@ -79,7 +79,7 @@ test('search narrows the result set and mode is reflected in the URL', async ({ 
   await expect(async () => {
     const count = await templateCards.count();
     expect(count).toBeGreaterThan(0);
-    expect(count).toBeLessThan(53);
+    expect(count).toBeLessThan(56);
   }).toPass();
 
   await expect(page).toHaveURL(/q=model\+risk|q=model%20risk/);

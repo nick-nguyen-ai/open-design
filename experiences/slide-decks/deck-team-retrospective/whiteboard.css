@@ -1,0 +1,883 @@
+/*
+ * THE WHITEBOARD — experience-local art layer for deck-team-retrospective.
+ *
+ * Batch-2 art-direction licence: raw colour values are permitted in THIS
+ * stylesheet only. Easings and durations come from the platform motion tokens
+ * (var(--ease-*), var(--dur-*)) — never ad-hoc curves.
+ *
+ * Mood: a real whiteboard photographed mid-retro. Cool off-white board with a
+ * faint sheen, thick felt-marker strokes in black / red / blue / green, muted
+ * yellow and pink sticky notes on soft drop shadows. Caveat is the marker hand;
+ * Inter carries structure. Distinct from The Planning Wall's warm butcher paper
+ * and pencil. Print drops the board to white.
+ */
+
+.wb-root {
+  --wb-board: #f8f8f6;
+  --wb-board-deep: #eeeeea;
+  --wb-black: #2f3136;
+  --wb-ink-soft: #55575c;
+  --wb-faint: #8b8d92;
+  --wb-red: #c94f42;
+  --wb-blue: #3d6bb0;
+  --wb-green: #4a8f5c;
+  --wb-sticky-yellow: #f7e9a0;
+  --wb-sticky-yellow-edge: #e6d47f;
+  --wb-sticky-pink: #f3c9c2;
+  --wb-sticky-pink-edge: #e3aaa0;
+  --wb-line: rgba(47, 49, 54, 0.2);
+  --wb-line-faint: rgba(47, 49, 54, 0.1);
+  --wb-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+  --wb-sans: 'Inter Variable', 'Inter', system-ui, sans-serif;
+  --wb-hand: 'Caveat', 'Segoe Script', cursive;
+
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+  color: var(--wb-black);
+  font-family: var(--wb-sans);
+  font-size: 0.875rem;
+  line-height: 1.55;
+  background:
+    radial-gradient(140vmin 100vmin at 22% -10%, rgba(255, 255, 255, 0.9), transparent 55%),
+    radial-gradient(120vmin 120vmin at 110% 115%, var(--wb-board-deep), transparent 60%),
+    var(--wb-board);
+}
+
+/* faint whiteboard sheen + ghost of old marker */
+.wb-root::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.6;
+  background-image:
+    linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, 0.5) 46%, transparent 52%),
+    radial-gradient(circle at 78% 22%, rgba(47, 49, 54, 0.03) 0 30px, transparent 31px);
+}
+
+/* the marker frame drawn around each slide */
+.wb-frame {
+  position: absolute;
+  inset: 2.2rem;
+  z-index: 0;
+  width: calc(100% - 4.4rem);
+  height: calc(100% - 4.4rem);
+  pointer-events: none;
+}
+
+.wb-frame path {
+  fill: none;
+  stroke: var(--wb-black);
+  stroke-width: 3.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.62;
+}
+
+/* ------------------------------------------------------------------ */
+/* Chrome                                                              */
+/* ------------------------------------------------------------------ */
+
+.wb-chrome {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 2rem;
+  padding: 0.95rem 1.6rem 0.7rem;
+  font-family: var(--wb-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  color: var(--wb-faint);
+}
+
+.wb-chrome-bottom {
+  inset: auto 0 0 0;
+  align-items: center;
+}
+
+.wb-chrome-cell {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  white-space: nowrap;
+}
+
+.wb-chrome-rule {
+  width: 1px;
+  height: 0.85em;
+  align-self: center;
+  background: var(--wb-line);
+}
+
+.wb-back {
+  color: var(--wb-black);
+  text-decoration: none;
+  letter-spacing: 0.16em;
+}
+
+.wb-back:hover {
+  color: var(--wb-red);
+}
+
+.wb-back:focus-visible,
+.wb-nav-btn:focus-visible {
+  outline: 2px solid var(--wb-black);
+  outline-offset: 3px;
+}
+
+.wb-notice {
+  color: var(--wb-red);
+  white-space: nowrap;
+}
+
+.wb-footer-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  white-space: nowrap;
+}
+
+.wb-hint {
+  margin-right: 0.7rem;
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+}
+
+.wb-nav-btn {
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 2px solid var(--wb-line);
+  border-radius: 50% 48% 52% 50% / 50% 52% 48% 50%;
+  background: transparent;
+  color: var(--wb-black);
+  font-family: var(--wb-mono);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition:
+    color var(--dur-feedback) var(--ease-settle),
+    border-color var(--dur-feedback) var(--ease-settle);
+}
+
+.wb-nav-btn:hover:not(:disabled) {
+  color: var(--wb-blue);
+  border-color: var(--wb-blue);
+}
+
+.wb-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* ------------------------------------------------------------------ */
+/* Stage & slides                                                      */
+/* ------------------------------------------------------------------ */
+
+.wb-main {
+  height: 100%;
+}
+
+.wb-stage {
+  position: absolute;
+  inset: 0;
+}
+
+.wb-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4.4rem clamp(3rem, 7vw, 6rem) 4rem;
+  visibility: hidden;
+}
+
+.wb-slide[data-state='active'] {
+  visibility: visible;
+  z-index: 2;
+}
+
+.wb-slide[data-state='leaving'] {
+  visibility: visible;
+  z-index: 3;
+  animation: wb-slide-out var(--dur-structure) var(--ease-shift) both;
+  pointer-events: none;
+}
+
+@keyframes wb-slide-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) rotate(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-1rem) rotate(0.3deg);
+  }
+}
+
+.wb-slide-inner {
+  position: relative;
+  z-index: 5;
+  min-height: 0;
+}
+
+/* Builds */
+.wb-slide[data-state='active'] .wb-build {
+  animation: wb-rise var(--dur-structure) var(--ease-settle) both;
+  animation-delay: calc(var(--wb-i, 0) * var(--dur-feedback));
+}
+
+@keyframes wb-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.7rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Shared type                                                         */
+/* ------------------------------------------------------------------ */
+
+.wb-kickerrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.wb-kicker {
+  font-family: var(--wb-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.24em;
+  color: var(--wb-blue);
+}
+
+.wb-scrawl {
+  font-family: var(--wb-hand);
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--wb-ink-soft);
+  transform: rotate(-1.5deg);
+}
+
+.wb-heading {
+  margin: 0 0 1.3rem;
+  font-family: var(--wb-hand);
+  font-weight: 600;
+  font-size: clamp(2.4rem, 4.6vw, 3.7rem);
+  line-height: 1.02;
+  letter-spacing: 0;
+  color: var(--wb-black);
+  max-width: 22ch;
+}
+
+.wb-heading-tight {
+  margin-bottom: 0.6rem;
+}
+
+.wb-standfirst {
+  margin: 0;
+  max-width: 50ch;
+  font-size: 1.0625rem;
+  line-height: 1.62;
+  color: var(--wb-ink-soft);
+}
+
+.wb-standfirst-wide {
+  max-width: 58ch;
+}
+
+.wb-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.wb-underline::after {
+  content: '';
+  position: absolute;
+  left: -3%;
+  right: -3%;
+  bottom: 0.04em;
+  height: 0.14em;
+  background: var(--wb-red);
+  border-radius: 60% 40% 55% 45%;
+  transform: rotate(-0.5deg);
+  opacity: 0.85;
+}
+
+.wb-prose {
+  position: relative;
+  max-width: 70rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Cover                                                               */
+/* ------------------------------------------------------------------ */
+
+.wb-cover {
+  max-width: 56rem;
+}
+
+.wb-marker-title {
+  margin: 0.4rem 0 1.6rem;
+  font-family: var(--wb-hand);
+  font-weight: 700;
+  font-size: clamp(3.4rem, 9vw, 7rem);
+  line-height: 0.94;
+  letter-spacing: 0;
+  color: var(--wb-black);
+}
+
+.wb-line {
+  display: block;
+}
+
+.wb-cover-meta {
+  margin-top: 2.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 2rem;
+  font-family: var(--wb-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  color: var(--wb-faint);
+}
+
+/* ------------------------------------------------------------------ */
+/* Mood — dot vote                                                     */
+/* ------------------------------------------------------------------ */
+
+.wb-mood {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  max-width: 52rem;
+  margin-top: 0.4rem;
+}
+
+.wb-mood-row {
+  display: grid;
+  grid-template-columns: 24rem 1fr 2.5rem;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--wb-line-faint);
+}
+
+.wb-mood-label {
+  font-family: var(--wb-hand);
+  font-size: 1.55rem;
+  font-weight: 600;
+  color: var(--wb-black);
+}
+
+.wb-mood-dots {
+  height: 2.6rem;
+  width: 100%;
+}
+
+.wb-mood-dots circle {
+  fill: var(--wb-blue);
+}
+
+.wb-mood-row[data-heavy='true'] .wb-mood-dots circle {
+  fill: var(--wb-red);
+}
+
+.wb-mood-count {
+  font-family: var(--wb-mono);
+  font-size: 1rem;
+  color: var(--wb-faint);
+  text-align: right;
+}
+
+/* ------------------------------------------------------------------ */
+/* Sticky notes + walls                                                */
+/* ------------------------------------------------------------------ */
+
+.wb-wall-body {
+  max-width: 80rem;
+}
+
+.wb-wall {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1.3rem 1.5rem;
+  align-items: start;
+  margin-top: 0.6rem;
+}
+
+/* organic vertical stagger — a photographed board, not a card row.
+   margin (not transform) so the build's entrance animation doesn't reset it. */
+.wb-wall > .wb-build:nth-child(3n + 2) {
+  margin-top: 2.1rem;
+}
+
+.wb-wall > .wb-build:nth-child(3n) {
+  margin-top: 1rem;
+}
+
+.wb-wall > .wb-build:nth-child(4n + 1) {
+  margin-top: 0.5rem;
+}
+
+.wb-slide[data-slide-id='badly'] .wb-wall {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  max-width: 66rem;
+}
+
+.wb-sticky {
+  position: relative;
+  padding: 1.35rem 1.2rem 1.7rem;
+  min-height: 12.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  transform: rotate(var(--wb-rot, 0deg));
+  box-shadow: 0 16px 26px -14px rgba(47, 41, 20, 0.6);
+}
+
+.wb-sticky[data-colour='yellow'] {
+  background: var(--wb-sticky-yellow);
+}
+
+.wb-sticky[data-colour='pink'] {
+  background: var(--wb-sticky-pink);
+}
+
+.wb-sticky-edge {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.wb-sticky-edge path {
+  fill: none;
+  stroke-width: 1.4;
+}
+
+.wb-sticky[data-colour='yellow'] .wb-sticky-edge path {
+  stroke: var(--wb-sticky-yellow-edge);
+}
+
+.wb-sticky[data-colour='pink'] .wb-sticky-edge path {
+  stroke: var(--wb-sticky-pink-edge);
+}
+
+.wb-sticky-text {
+  margin: 0;
+  font-family: var(--wb-hand);
+  font-size: 1.68rem;
+  font-weight: 600;
+  line-height: 1.14;
+  color: var(--wb-black);
+}
+
+.wb-sticky-by {
+  margin-top: auto;
+  font-family: var(--wb-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  color: rgba(47, 49, 54, 0.55);
+}
+
+/* ------------------------------------------------------------------ */
+/* The one big thing                                                   */
+/* ------------------------------------------------------------------ */
+
+.wb-big {
+  max-width: 58rem;
+}
+
+.wb-monument {
+  margin: 0.6rem 0 1.6rem;
+  font-family: var(--wb-hand);
+  font-weight: 700;
+  font-size: clamp(3.2rem, 8.2vw, 6.6rem);
+  line-height: 0.98;
+  color: var(--wb-black);
+}
+
+.wb-strike-through {
+  position: relative;
+  display: inline-block;
+  color: var(--wb-red);
+}
+
+.wb-strike-through::after {
+  content: '';
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  top: 52%;
+  height: 0.1em;
+  background: var(--wb-red);
+  transform: rotate(-1.4deg);
+}
+
+/* ------------------------------------------------------------------ */
+/* Actions board — taped printout + red-circled anomaly                */
+/* ------------------------------------------------------------------ */
+
+.wb-actions-body {
+  max-width: 82rem;
+}
+
+.wb-actions-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 2.4rem;
+  align-items: start;
+  margin-top: 0.4rem;
+}
+
+.wb-printout {
+  position: relative;
+  padding: 1.6rem 1.7rem;
+  background: #ffffff;
+  border: 1px solid var(--wb-line-faint);
+  box-shadow: 0 16px 30px -20px rgba(47, 41, 20, 0.45);
+  transform: rotate(-0.5deg);
+}
+
+.wb-printout ul[aria-label] {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wb-tape {
+  position: absolute;
+  width: 4rem;
+  height: 1.4rem;
+  background: rgba(120, 120, 110, 0.22);
+  box-shadow: 0 1px 3px -1px rgba(47, 41, 20, 0.3);
+}
+
+.wb-tape-tl {
+  top: -0.6rem;
+  left: 1.6rem;
+  transform: rotate(-5deg);
+}
+
+.wb-tape-tr {
+  top: -0.6rem;
+  right: 1.6rem;
+  transform: rotate(4deg);
+}
+
+.wb-anomaly-note {
+  position: relative;
+  padding-top: 0.5rem;
+}
+
+.wb-anomaly-circles {
+  width: 18rem;
+  max-width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.wb-anomaly-circles path {
+  fill: none;
+  stroke: var(--wb-red);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+}
+
+.wb-anomaly-word {
+  fill: var(--wb-red);
+  font-family: var(--wb-hand);
+  font-size: 34px;
+  font-weight: 700;
+}
+
+.wb-anomaly-text {
+  margin: 0.8rem 0 0.5rem;
+  font-family: var(--wb-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+  color: var(--wb-red);
+}
+
+.wb-anomaly-sub {
+  margin: 0;
+  max-width: 30ch;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--wb-ink-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* Ownership map                                                       */
+/* ------------------------------------------------------------------ */
+
+.wb-own-body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.wb-own-frame {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+}
+
+.wb-own-svg {
+  width: 100%;
+  max-height: 62vh;
+}
+
+.wb-own-arrow,
+.wb-own-arrowhead {
+  fill: none;
+  stroke: var(--wb-blue);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.wb-own-link[data-flagged='true'] .wb-own-arrow,
+.wb-own-link[data-flagged='true'] .wb-own-arrowhead {
+  stroke: var(--wb-red);
+}
+
+.wb-own-action rect {
+  fill: var(--wb-sticky-yellow);
+  stroke: var(--wb-sticky-yellow-edge);
+  stroke-width: 1.4;
+}
+
+.wb-own-link[data-flagged='true'] .wb-own-action rect {
+  fill: var(--wb-sticky-pink);
+  stroke: var(--wb-red);
+  stroke-width: 2;
+}
+
+.wb-own-action text {
+  fill: var(--wb-black);
+  font-family: var(--wb-hand);
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.wb-own-name {
+  fill: var(--wb-black);
+  font-family: var(--wb-hand);
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.wb-own-link[data-flagged='true'] .wb-own-name {
+  fill: var(--wb-red);
+}
+
+.wb-slide[data-state='active'] .wb-own-link {
+  animation: wb-fade-in var(--dur-structure) var(--ease-settle) both;
+  animation-delay: calc(var(--dur-state) + var(--wb-i, 0) * 0.1s);
+}
+
+@keyframes wb-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Experiment                                                          */
+/* ------------------------------------------------------------------ */
+
+.wb-exp {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  max-width: 64rem;
+  margin-top: 0.4rem;
+}
+
+.wb-exp-row {
+  display: grid;
+  grid-template-columns: 12rem 1fr;
+  align-items: baseline;
+  gap: 1.4rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--wb-line-faint);
+}
+
+.wb-exp-term {
+  font-family: var(--wb-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  color: var(--wb-blue);
+}
+
+.wb-exp-text {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.55;
+  color: var(--wb-ink-soft);
+}
+
+.wb-exp-hand {
+  font-family: var(--wb-hand);
+  font-size: 1.7rem;
+  line-height: 1.2;
+  color: var(--wb-black);
+}
+
+/* ------------------------------------------------------------------ */
+/* Closing                                                             */
+/* ------------------------------------------------------------------ */
+
+.wb-closing {
+  max-width: 56rem;
+}
+
+.wb-closing-marker {
+  font-size: clamp(3rem, 7.4vw, 5.8rem);
+  margin-bottom: 1.4rem;
+}
+
+.wb-print-foot {
+  display: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Reduced motion                                                      */
+/* ------------------------------------------------------------------ */
+
+.wb-root[data-reduced='true'] .wb-slide[data-state='active'] .wb-build,
+.wb-root[data-reduced='true'] .wb-slide[data-state='active'] .wb-own-link {
+  animation: none;
+}
+
+.wb-root[data-reduced='true'] .wb-slide[data-state='leaving'] {
+  visibility: hidden;
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wb-slide[data-state='active'] .wb-build,
+  .wb-slide[data-state='active'] .wb-own-link {
+    animation: none;
+  }
+  .wb-slide[data-state='leaving'] {
+    visibility: hidden;
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Narrow viewports                                                    */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 62rem) {
+  .wb-root {
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+  }
+  .wb-frame {
+    display: none;
+  }
+  .wb-stage {
+    position: relative;
+    inset: auto;
+  }
+  .wb-slide {
+    padding: 4.5rem 1.4rem 3.6rem;
+    min-height: 100svh;
+  }
+  .wb-slide:not([data-state='active']) {
+    display: none;
+  }
+  .wb-wall,
+  .wb-slide[data-slide-id='badly'] .wb-wall {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .wb-actions-grid {
+    grid-template-columns: 1fr;
+  }
+  .wb-mood-row {
+    grid-template-columns: 1fr 2rem;
+  }
+  .wb-mood-dots {
+    display: none;
+  }
+  .wb-hint,
+  .wb-notice {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Print: board to white, one slide per page                           */
+/* ------------------------------------------------------------------ */
+
+@media print {
+  .wb-root {
+    --wb-board: #ffffff;
+    --wb-board-deep: #ffffff;
+    --wb-black: #1a1a1a;
+    --wb-ink-soft: #333;
+    --wb-faint: #555;
+    height: auto;
+    overflow: visible;
+    background: #fff;
+    color: #1a1a1a;
+  }
+  .wb-root::before,
+  .wb-chrome,
+  .wb-frame {
+    display: none;
+  }
+  .wb-stage {
+    position: static;
+  }
+  .wb-slide {
+    position: static;
+    visibility: visible !important;
+    height: auto;
+    min-height: 92vh;
+    padding: 1.4rem;
+    break-after: page;
+    animation: none !important;
+  }
+  .wb-slide .wb-build {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .wb-sticky,
+  .wb-printout {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+  .wb-print-foot {
+    display: block;
+    margin-top: 0.8rem;
+    padding-top: 0.5rem;
+    border-top: 1pt solid rgba(0, 0, 0, 0.3);
+    font-family: var(--wb-mono);
+    font-size: 7.5pt;
+    letter-spacing: 0.12em;
+    color: #555;
+  }
+}

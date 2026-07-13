@@ -1,0 +1,992 @@
+/*
+ * THE CUTOVER — experience-local art layer for deck-cloud-migration.
+ *
+ * Batch-2 art-direction licence: raw colour values are permitted in THIS
+ * stylesheet only. Easings and durations come from the platform motion tokens
+ * (var(--ease-*), var(--dur-*)) — never ad-hoc curves.
+ *
+ * Mood: a modern web diagram tool (draw.io) working file. Flat off-white canvas
+ * with a faint dot-grid, exact orthogonal connectors with port dots, pastel
+ * system boxes with type badges, a layers legend chip in the chrome, and
+ * selection handles on the focus node. Perfectly straight strokes — the
+ * anti-excalidraw. Inter for structure, IBM Plex Mono for connector labels and
+ * chrome. Print drops to white.
+ */
+
+.cu-root {
+  --cu-canvas: #fafbfc;
+  --cu-canvas-deep: #f0f2f5;
+  --cu-ink: #232a33;
+  --cu-ink-soft: #4c5563;
+  --cu-faint: #8b95a3;
+  --cu-stroke: #5b6b82;
+  --cu-grid: rgba(60, 70, 90, 0.12);
+  --cu-focus: #2f6fdd;
+  --cu-focus-soft: rgba(47, 111, 221, 0.12);
+  --cu-app: #dbe8f7;
+  --cu-app-edge: #9db8dd;
+  --cu-data: #e3f2e4;
+  --cu-data-edge: #a6cfa8;
+  --cu-int: #fdeeda;
+  --cu-int-edge: #e8c79a;
+  --cu-die: #c94f42;
+  --cu-line: rgba(60, 70, 90, 0.16);
+  --cu-line-faint: rgba(60, 70, 90, 0.09);
+  --cu-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+  --cu-sans: 'Inter Variable', 'Inter', system-ui, sans-serif;
+
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+  color: var(--cu-ink);
+  font-family: var(--cu-sans);
+  font-size: 0.875rem;
+  line-height: 1.55;
+  background: var(--cu-canvas);
+}
+
+/* the faint diagram-tool dot-grid */
+.cu-root::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle at center, var(--cu-grid) 0 1.4px, transparent 1.4px);
+  background-size: 22px 22px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Chrome                                                              */
+/* ------------------------------------------------------------------ */
+
+.cu-chrome {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.7rem 1.4rem;
+  background: rgba(250, 251, 252, 0.9);
+  border-bottom: 1px solid var(--cu-line-faint);
+  backdrop-filter: blur(4px);
+  font-family: var(--cu-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  color: var(--cu-faint);
+}
+
+.cu-chrome-bottom {
+  inset: auto 0 0 0;
+  border-top: 1px solid var(--cu-line-faint);
+  border-bottom: none;
+}
+
+.cu-chrome-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  white-space: nowrap;
+}
+
+.cu-chrome-rule {
+  width: 1px;
+  height: 0.95em;
+  background: var(--cu-line);
+}
+
+.cu-back {
+  color: var(--cu-ink);
+  text-decoration: none;
+  letter-spacing: 0.14em;
+}
+
+.cu-back:hover {
+  color: var(--cu-focus);
+}
+
+.cu-back:focus-visible,
+.cu-nav-btn:focus-visible {
+  outline: 2px solid var(--cu-focus);
+  outline-offset: 3px;
+}
+
+/* the layers legend chip */
+.cu-legend {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.cu-legend-chip,
+.cu-chip {
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  font-family: var(--cu-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--cu-ink-soft);
+}
+
+.cu-legend-chip[data-kind='app'],
+.cu-chip[data-kind='app'] {
+  background: var(--cu-app);
+  border-color: var(--cu-app-edge);
+}
+
+.cu-legend-chip[data-kind='data'],
+.cu-chip[data-kind='data'] {
+  background: var(--cu-data);
+  border-color: var(--cu-data-edge);
+}
+
+.cu-legend-chip[data-kind='integration'],
+.cu-chip[data-kind='integration'] {
+  background: var(--cu-int);
+  border-color: var(--cu-int-edge);
+}
+
+.cu-notice {
+  color: var(--cu-die);
+  white-space: nowrap;
+}
+
+.cu-footer-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  white-space: nowrap;
+}
+
+.cu-hint {
+  margin-right: 0.7rem;
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+}
+
+.cu-nav-btn {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--cu-line);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--cu-ink);
+  font-family: var(--cu-mono);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition:
+    color var(--dur-feedback) var(--ease-settle),
+    border-color var(--dur-feedback) var(--ease-settle);
+}
+
+.cu-nav-btn:hover:not(:disabled) {
+  color: var(--cu-focus);
+  border-color: var(--cu-focus);
+}
+
+.cu-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* ------------------------------------------------------------------ */
+/* Stage & slides                                                      */
+/* ------------------------------------------------------------------ */
+
+.cu-main {
+  height: 100%;
+}
+
+.cu-stage {
+  position: absolute;
+  inset: 0;
+}
+
+.cu-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4.2rem clamp(1.6rem, 5vw, 4.4rem) 3.6rem;
+  visibility: hidden;
+}
+
+.cu-slide[data-state='active'] {
+  visibility: visible;
+  z-index: 2;
+}
+
+.cu-slide[data-state='leaving'] {
+  visibility: visible;
+  z-index: 3;
+  animation: cu-slide-out var(--dur-structure) var(--ease-shift) both;
+  pointer-events: none;
+}
+
+@keyframes cu-slide-out {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-1rem);
+  }
+}
+
+.cu-slide-inner {
+  min-height: 0;
+}
+
+.cu-slide[data-state='active'] .cu-build {
+  animation: cu-rise var(--dur-structure) var(--ease-settle) both;
+  animation-delay: calc(var(--cu-i, 0) * var(--dur-feedback));
+}
+
+@keyframes cu-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.6rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Shared type                                                         */
+/* ------------------------------------------------------------------ */
+
+.cu-kickerrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1.5rem;
+  margin-bottom: 1.4rem;
+}
+
+.cu-kicker {
+  font-family: var(--cu-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.24em;
+  color: var(--cu-focus);
+}
+
+.cu-file {
+  font-family: var(--cu-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  color: var(--cu-faint);
+}
+
+.cu-heading {
+  margin: 0 0 1.2rem;
+  font-weight: 350;
+  font-size: clamp(1.9rem, 3.6vw, 3.1rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  color: var(--cu-ink);
+  max-width: 24ch;
+  text-wrap: balance;
+}
+
+.cu-heading-tight {
+  margin-bottom: 0.6rem;
+}
+
+.cu-standfirst {
+  margin: 0;
+  max-width: 52ch;
+  font-size: 1.0625rem;
+  line-height: 1.62;
+  color: var(--cu-ink-soft);
+}
+
+.cu-standfirst-wide {
+  max-width: 60ch;
+}
+
+.cu-focus-text {
+  color: var(--cu-focus);
+}
+
+.cu-prose {
+  max-width: 74rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Cover                                                               */
+/* ------------------------------------------------------------------ */
+
+.cu-cover {
+  max-width: 58rem;
+}
+
+.cu-filetab {
+  display: inline-block;
+  margin: 0 0 0.9rem;
+  padding: 0.35rem 0.7rem;
+  background: #fff;
+  border: 1px solid var(--cu-line);
+  border-radius: 4px;
+  font-family: var(--cu-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--cu-ink-soft);
+}
+
+.cu-display {
+  margin: 0.2rem 0 1.8rem;
+  font-weight: 300;
+  font-size: clamp(3rem, 7vw, 5.6rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  color: var(--cu-ink);
+}
+
+.cu-line {
+  display: block;
+}
+
+/* ------------------------------------------------------------------ */
+/* Estate diagram — the commanding canvas                              */
+/* ------------------------------------------------------------------ */
+
+.cu-estate-body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cu-canvas {
+  flex: 0 1 auto;
+  margin: 0.4rem 0;
+  padding: 1rem;
+  background: #fff;
+  border: 1px solid var(--cu-line);
+  border-radius: 6px;
+  box-shadow: 0 20px 44px -30px rgba(35, 42, 51, 0.4);
+}
+
+.cu-estate-svg,
+.cu-rollback-svg {
+  width: 100%;
+  max-height: 58vh;
+  display: block;
+}
+
+/* connectors */
+.cu-conn-line {
+  fill: none;
+  stroke: var(--cu-stroke);
+  stroke-width: 1.6;
+}
+
+.cu-port {
+  fill: #fff;
+  stroke: var(--cu-stroke);
+  stroke-width: 1.4;
+}
+
+.cu-conn-label-bg {
+  fill: #fff;
+}
+
+.cu-conn-label {
+  fill: var(--cu-faint);
+  font-family: var(--cu-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+
+/* system boxes */
+.cu-node-box {
+  fill: var(--cu-app);
+  stroke: var(--cu-app-edge);
+  stroke-width: 1.5;
+}
+
+.cu-node[data-kind='data'] .cu-node-box {
+  fill: var(--cu-data);
+  stroke: var(--cu-data-edge);
+}
+
+.cu-node[data-kind='integration'] .cu-node-box {
+  fill: var(--cu-int);
+  stroke: var(--cu-int-edge);
+}
+
+.cu-node[data-locked='true'] .cu-node-box {
+  stroke: var(--cu-ink);
+  stroke-width: 3;
+  paint-order: stroke;
+  filter: drop-shadow(0 3px 8px rgba(35, 42, 51, 0.28));
+}
+
+.cu-node[data-retired='true'] {
+  opacity: 0.4;
+}
+
+.cu-node[data-retired='true'] .cu-node-box {
+  stroke-dasharray: 5 4;
+}
+
+.cu-node-kind {
+  fill: var(--cu-ink-soft);
+  font-family: var(--cu-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+}
+
+.cu-node-label {
+  fill: var(--cu-ink);
+  font-family: var(--cu-sans);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.cu-node-disp {
+  fill: var(--cu-faint);
+  font-family: var(--cu-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+}
+
+.cu-node[data-locked='true'] .cu-node-disp {
+  fill: var(--cu-ink);
+}
+
+/* draw.io selection handles on the focus node */
+.cu-handle-outline {
+  fill: none;
+  stroke: var(--cu-focus);
+  stroke-width: 1.4;
+  stroke-dasharray: 4 3;
+}
+
+.cu-handle {
+  fill: #fff;
+  stroke: var(--cu-focus);
+  stroke-width: 1.4;
+}
+
+/* the on-prem zone box (target estate) */
+.cu-zone rect {
+  fill: rgba(60, 70, 90, 0.04);
+  stroke: var(--cu-stroke);
+  stroke-width: 1.4;
+  stroke-dasharray: 6 4;
+}
+
+.cu-zone-label {
+  fill: var(--cu-faint);
+  font-family: var(--cu-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+}
+
+.cu-canvas-note {
+  margin: 0.6rem 0 0;
+  max-width: 74ch;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--cu-ink-soft);
+}
+
+.cu-estate-foot {
+  margin-top: 0.6rem;
+}
+
+.cu-estate-flag {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-family: var(--cu-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+  color: var(--cu-ink);
+}
+
+.cu-estate-foot .cu-canvas-note {
+  margin-top: 0.4rem;
+}
+
+.cu-lock {
+  font-size: 0.85rem;
+}
+
+/* draw-in of connectors under normal motion */
+.cu-slide[data-state='active'] .cu-conn-line {
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  animation: cu-draw var(--dur-narrative) var(--ease-trace) forwards;
+  animation-delay: var(--dur-state);
+}
+
+@keyframes cu-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Delta columns                                                       */
+/* ------------------------------------------------------------------ */
+
+.cu-delta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.4rem;
+  margin-top: 0.4rem;
+}
+
+.cu-delta-col {
+  padding: 1.3rem 1.4rem;
+  background: #fff;
+  border: 1px solid var(--cu-line);
+  border-radius: 6px;
+  border-top: 3px solid var(--cu-stroke);
+}
+
+.cu-delta-col[data-tone='move'] {
+  border-top-color: var(--cu-focus);
+}
+
+.cu-delta-col[data-tone='die'] {
+  border-top-color: var(--cu-die);
+}
+
+.cu-delta-col[data-tone='stay'] {
+  border-top-color: var(--cu-ink);
+}
+
+.cu-delta-head {
+  display: block;
+  margin-bottom: 0.9rem;
+  font-family: var(--cu-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--cu-ink);
+}
+
+.cu-delta-col[data-tone='die'] .cu-delta-head {
+  color: var(--cu-die);
+}
+
+.cu-delta-col ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.cu-delta-col li {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--cu-ink-soft);
+}
+
+.cu-delta-col li b {
+  display: block;
+  color: var(--cu-ink);
+  font-weight: 600;
+}
+
+.cu-delta-col[data-tone='die'] li b {
+  text-decoration: line-through;
+  text-decoration-color: rgba(201, 79, 66, 0.6);
+}
+
+/* ------------------------------------------------------------------ */
+/* Swimlanes                                                           */
+/* ------------------------------------------------------------------ */
+
+.cu-swimlanes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.4rem;
+  margin-top: 0.4rem;
+}
+
+.cu-lane {
+  padding: 1.2rem 1.3rem;
+  background: #fff;
+  border: 1px solid var(--cu-line);
+  border-radius: 6px;
+  border-left: 3px solid var(--cu-focus);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  min-height: 13rem;
+}
+
+.cu-lane-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.8rem;
+}
+
+.cu-lane-name {
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--cu-ink);
+}
+
+.cu-lane-when {
+  font-family: var(--cu-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  color: var(--cu-faint);
+}
+
+.cu-lane-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.cu-lane-note {
+  margin: auto 0 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--cu-ink-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* Flow diagram (cutover night) + rollback tree                        */
+/* ------------------------------------------------------------------ */
+
+.cu-flow-body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cu-flow-frame {
+  margin-top: 0.4rem;
+  padding: 1.2rem;
+  background: #fff;
+  border: 1px solid var(--cu-line);
+  border-radius: 6px;
+  box-shadow: 0 20px 44px -30px rgba(35, 42, 51, 0.4);
+  max-height: 62vh;
+  overflow: auto;
+}
+
+.cu-rb-edge {
+  fill: none;
+  stroke: var(--cu-stroke);
+  stroke-width: 1.6;
+}
+
+.cu-rb-node rect {
+  fill: #fff;
+  stroke: var(--cu-stroke);
+  stroke-width: 1.5;
+}
+
+.cu-rb-node[data-tone='root'] rect {
+  fill: var(--cu-app);
+  stroke: var(--cu-app-edge);
+}
+
+.cu-rb-node[data-tone='ok'] rect {
+  fill: var(--cu-data);
+  stroke: var(--cu-data-edge);
+}
+
+.cu-rb-node[data-tone='abort'] rect {
+  fill: #fbe6e2;
+  stroke: var(--cu-die);
+}
+
+.cu-rb-node text {
+  fill: var(--cu-ink);
+  font-family: var(--cu-sans);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* ------------------------------------------------------------------ */
+/* Sync plan                                                           */
+/* ------------------------------------------------------------------ */
+
+.cu-sync-wrap {
+  margin-top: 0.4rem;
+}
+
+.cu-sync {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: 66rem;
+}
+
+.cu-sync li {
+  display: grid;
+  grid-template-columns: 3rem 14rem 1fr;
+  align-items: baseline;
+  gap: 1.2rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--cu-line-faint);
+}
+
+.cu-sync-num {
+  font-family: var(--cu-mono);
+  font-size: 0.9rem;
+  color: var(--cu-focus);
+}
+
+.cu-sync-stage {
+  font-weight: 600;
+  color: var(--cu-ink);
+}
+
+.cu-sync-detail {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--cu-ink-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* Risk register                                                       */
+/* ------------------------------------------------------------------ */
+
+.cu-risk-frame {
+  margin-top: 0.4rem;
+  max-width: 56rem;
+}
+
+.cu-risk-frame ul[aria-label] {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Closing sign-off box                                                */
+/* ------------------------------------------------------------------ */
+
+.cu-closing {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  max-width: 62rem;
+}
+
+.cu-signoff {
+  width: 100%;
+  padding: 2rem 2.2rem;
+  background: #fff;
+  border: 1px solid var(--cu-line);
+  border-radius: 8px;
+  box-shadow: 0 24px 50px -32px rgba(35, 42, 51, 0.45);
+}
+
+.cu-signoff-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1.4rem;
+  border-bottom: 1px solid var(--cu-line-faint);
+  font-family: var(--cu-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  color: var(--cu-faint);
+}
+
+.cu-signoff-file {
+  color: var(--cu-ink);
+}
+
+.cu-signoff-title {
+  margin: 0 0 1rem;
+  font-weight: 350;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--cu-ink);
+}
+
+.cu-approvals {
+  margin: 1.6rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.cu-approvals li {
+  display: grid;
+  grid-template-columns: 10rem 1fr 2.2rem;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--cu-line-faint);
+}
+
+.cu-approval-role {
+  font-family: var(--cu-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--cu-focus);
+}
+
+.cu-approval-decision {
+  font-size: 0.95rem;
+  color: var(--cu-ink);
+}
+
+.cu-approval-box {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1.5px solid var(--cu-stroke);
+  border-radius: 3px;
+  justify-self: end;
+}
+
+.cu-print-foot {
+  display: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Reduced motion                                                      */
+/* ------------------------------------------------------------------ */
+
+.cu-root[data-reduced='true'] .cu-slide[data-state='active'] .cu-build {
+  animation: none;
+}
+
+.cu-root[data-reduced='true'] .cu-conn-line {
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+  animation: none;
+}
+
+.cu-root[data-reduced='true'] .cu-slide[data-state='leaving'] {
+  visibility: hidden;
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cu-slide[data-state='active'] .cu-build {
+    animation: none;
+  }
+  .cu-conn-line {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+  .cu-slide[data-state='leaving'] {
+    visibility: hidden;
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Narrow viewports                                                    */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 62rem) {
+  .cu-root {
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+  }
+  .cu-stage {
+    position: relative;
+    inset: auto;
+  }
+  .cu-slide {
+    padding: 4.6rem 1.2rem 3.6rem;
+    min-height: 100svh;
+  }
+  .cu-slide:not([data-state='active']) {
+    display: none;
+  }
+  .cu-delta-grid,
+  .cu-swimlanes {
+    grid-template-columns: 1fr;
+  }
+  .cu-sync li {
+    grid-template-columns: 2.5rem 1fr;
+  }
+  .cu-legend,
+  .cu-hint,
+  .cu-notice {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Print: canvas to white, one slide per page                          */
+/* ------------------------------------------------------------------ */
+
+@media print {
+  .cu-root {
+    --cu-canvas: #ffffff;
+    --cu-ink: #1a1f26;
+    --cu-ink-soft: #333;
+    --cu-faint: #555;
+    height: auto;
+    overflow: visible;
+    background: #fff;
+  }
+  .cu-root::before,
+  .cu-chrome {
+    display: none;
+  }
+  .cu-stage {
+    position: static;
+  }
+  .cu-slide {
+    position: static;
+    visibility: visible !important;
+    height: auto;
+    min-height: 92vh;
+    padding: 1.4rem;
+    break-after: page;
+    animation: none !important;
+  }
+  .cu-slide .cu-build {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .cu-conn-line {
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+    animation: none !important;
+  }
+  .cu-canvas,
+  .cu-flow-frame,
+  .cu-signoff,
+  .cu-delta-col,
+  .cu-lane {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+  .cu-print-foot {
+    display: block;
+    margin-top: 0.8rem;
+    padding-top: 0.5rem;
+    border-top: 1pt solid rgba(0, 0, 0, 0.3);
+    font-family: var(--cu-mono);
+    font-size: 7.5pt;
+    letter-spacing: 0.12em;
+    color: #555;
+  }
+}
