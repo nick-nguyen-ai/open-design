@@ -185,6 +185,7 @@ export const QUARTER_SLIDE_KINDS: SlideKindSpec[] = [
     purpose: 'The multi-quarter revenue trend (comp.trend-chart).',
     repeats: { min: 1, max: 1 },
     slots: [
+      { name: 'revenueSeries.id', type: 'text', required: true, limits: { maxChars: 24 }, guidance: 'Stable machine id for the revenue series, e.g. "revenue".' },
       { name: 'revenueSeries.label', type: 'text', required: true, limits: { maxChars: 24 }, guidance: 'The series name for the revenue line — its accessible data-table column header, e.g. "Recognised revenue".' },
       { name: 'revenueSeries.points', type: 'items', required: true, limits: { minItems: 6, maxItems: 10 }, guidance: 'Six-to-ten period points on the revenueSeries object; each is { x: period label (≤16 chars), y: value | null }, and the last point is the reporting quarter.' },
       { name: 'revenueNote', type: 'text', required: true, limits: { maxChars: 140 }, guidance: 'Source note explaining the trend and any step, shown under the chart.' },
