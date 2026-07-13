@@ -83,5 +83,14 @@ export default tseslint.config(
       ],
     },
   },
+  {
+    // Standalone evidence-generation scripts under docs/ (e.g. the Phase B
+    // sample screenshot runner) execute in Node and drive a browser page, so
+    // they legitimately reference Node + DOM globals.
+    files: ['docs/**/*.mjs'],
+    languageOptions: {
+      globals: { process: 'readonly', console: 'readonly', document: 'readonly' },
+    },
+  },
   prettierConfig,
 );

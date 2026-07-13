@@ -8,6 +8,8 @@
     "start": "corepack pnpm exec tsx src/index.ts",
     "predemo": "corepack pnpm -w run registry:build",
     "demo": "corepack pnpm exec tsx src/demo-client.ts",
+    "presample": "corepack pnpm -w run registry:build",
+    "sample": "corepack pnpm exec tsx src/sample-outcome.ts",
     "pretest": "corepack pnpm -w run registry:build",
     "test": "vitest run --root ../.. apps/mcp-server",
     "typecheck": "tsc --noEmit"

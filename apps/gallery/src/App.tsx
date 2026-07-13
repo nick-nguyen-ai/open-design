@@ -25,6 +25,12 @@ const LiveExperience = lazy(() => import('./routes/LiveExperience.js'));
 const DeepAgentsDemo = lazy(
   () => import('../../../experiences/slide-decks/demo-langchain-deepagents/DeepAgentsPage.js'),
 );
+// MCP-generated SAMPLE deck (Phase B quality loop) — the payments retry pipeline
+// composed via compose_slide_deck → deck-cloud-migration, rendered content-only
+// through CutoverTemplate. Not a catalogue template.
+const McpSampleDemo = lazy(
+  () => import('../../../experiences/slide-decks/sample-payments-retry/SamplePage.js'),
+);
 
 export function App() {
   const preferences = usePreferences();
@@ -46,6 +52,14 @@ export function App() {
             element={
               <Suspense fallback={<RouteFallback />}>
                 <DeepAgentsDemo />
+              </Suspense>
+            }
+          />
+          <Route
+            path="demo/mcp-sample"
+            element={
+              <Suspense fallback={<RouteFallback />}>
+                <McpSampleDemo />
               </Suspense>
             }
           />
