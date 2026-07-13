@@ -145,6 +145,9 @@ const StraightPitchPage = lazy(
 const AllocationPage = lazy(
   () => import('../../../../experiences/slide-decks/deck-budget-planning/AllocationPage.js'),
 );
+const LongSignalPage = lazy(
+  () => import('../../../../experiences/slide-decks/deck-analytics-deep-dive/LongSignalPage.js'),
+);
 
 const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: ComponentType }> = {
   'db-model-monitoring-cockpit': { mood: 'dark', Component: CockpitPage },
@@ -179,6 +182,7 @@ const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: 
   'deck-quarterly-business-review': { mood: 'light', Component: QuarterPage },
   'deck-sales-pitch': { mood: 'light', Component: StraightPitchPage },
   'deck-budget-planning': { mood: 'light', Component: AllocationPage },
+  'deck-analytics-deep-dive': { mood: 'dark', Component: LongSignalPage },
 };
 
 /**
@@ -218,13 +222,13 @@ export default function LiveExperience() {
           No live experience here
         </h1>
         <p className="text-text-secondary">
-          “{experienceId}” has no live rendering yet. Thirty-two worlds are live: the Model
+          “{experienceId}” has no live rendering yet. Thirty-three worlds are live: the Model
           Monitoring Cockpit, the System Architecture explainer, the AI Strategy board deck, the
-          Model Validation Hub, the Data Scientist Studio, eighteen deck worlds — the Committee
+          Model Validation Hub, the Data Scientist Studio, nineteen deck worlds — the Committee
           Paper, the Lab Report, the Control Frame, the River, the Readout, the Gallery Floor,
           the Manifesto, the Sectional, the Field Manual, the Planning Wall, the Preprint, the
           Campaign Room, T-Minus, the Whiteboard, the Cutover, the Quarter, the Straight Pitch,
-          and the Allocation — and nine personal pages: the Annual Letter, the Bench Journal, the
+          the Allocation, and the Long Signal — and nine personal pages: the Annual Letter, the Bench Journal, the
           Greenhouse, the Line, the Dawn Wall, the Reading Room, the Atlas, the Specimen Book, and
           the Playbill.
         </p>
