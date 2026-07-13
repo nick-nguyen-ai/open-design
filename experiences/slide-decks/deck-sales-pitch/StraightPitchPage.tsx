@@ -312,7 +312,7 @@ function SlideBody({ slide }: { slide: Slide }) {
                 className="sp-tier"
                 data-recommended={tier.recommended ? 'true' : undefined}
               >
-                {tier.recommended ? <span className="sp-tier-badge">RECOMMENDED FOR NORTHWIND</span> : null}
+                {tier.recommended ? <span className="sp-tier-badge">RECOMMENDED</span> : null}
                 <span className="sp-tier-name">{tier.name}</span>
                 <div className="sp-tier-price">
                   <span className="sp-tier-amount">{tier.price}</span>
@@ -362,7 +362,7 @@ function SlideBody({ slide }: { slide: Slide }) {
 
 export default function StraightPitchPage() {
   const { reduced } = useMotionPreference();
-  const { activeIndex, activeNumber, leavingIndex, goTo, counter } = useDeckNavigation(SLIDE_COUNT, {
+  const { activeIndex, activeNumber, leavingIndex, goTo } = useDeckNavigation(SLIDE_COUNT, {
     reduced,
   });
   const activeSlide = SLIDES[activeIndex] as Slide;
@@ -426,8 +426,14 @@ export default function StraightPitchPage() {
                 <div className="sp-slide-inner">
                   <SlideBody slide={slide} />
                 </div>
+                {/* Footer rule — page number · confidentiality · synthetic notice.
+                    The single page counter lives here (active slide carries the
+                    testid); the outer chrome no longer duplicates it. */}
                 <div className="sp-footer" aria-hidden="true">
-                  <span className="sp-footer-page">
+                  <span
+                    className="sp-footer-page"
+                    data-testid={state === 'active' ? 'pitch-counter' : undefined}
+                  >
                     {String(index + 1).padStart(2, '0')} / {String(SLIDE_COUNT).padStart(2, '0')}
                   </span>
                   <span className="sp-footer-conf">{DECK.confidential}</span>
@@ -440,11 +446,7 @@ export default function StraightPitchPage() {
       </main>
 
       <footer className="sp-controls" aria-label="Deck controls">
-        <span className="sp-controls-notice">{DECK.dataNotice}</span>
         <div className="sp-controls-nav">
-          <span className="sp-controls-count" data-testid="pitch-counter" aria-live="polite">
-            {counter}
-          </span>
           <span className="sp-hint">{DECK.keyboardHint}</span>
           <button
             type="button"

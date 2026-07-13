@@ -664,7 +664,7 @@ function SlideBody({
 
 export default function AllocationPage() {
   const { reduced } = useMotionPreference();
-  const { activeIndex, activeNumber, leavingIndex, goTo, counter } = useDeckNavigation(SLIDE_COUNT, {
+  const { activeIndex, activeNumber, leavingIndex, goTo } = useDeckNavigation(SLIDE_COUNT, {
     reduced,
   });
   const activeSlide = SLIDES[activeIndex] as Slide;
@@ -728,8 +728,14 @@ export default function AllocationPage() {
                 <div className="al-slide-inner">
                   <SlideBody slide={slide} reduced={reduced} functionOption={functionOption} />
                 </div>
+                {/* Footer rule — page number · confidentiality · synthetic notice.
+                    The single page counter lives here (active slide carries the
+                    testid); the outer chrome no longer duplicates it. */}
                 <div className="al-footer" aria-hidden="true">
-                  <span className="al-footer-page">
+                  <span
+                    className="al-footer-page"
+                    data-testid={state === 'active' ? 'allocation-counter' : undefined}
+                  >
                     {String(index + 1).padStart(2, '0')} / {String(SLIDE_COUNT).padStart(2, '0')}
                   </span>
                   <span className="al-footer-conf">{DECK.confidential}</span>
@@ -742,11 +748,7 @@ export default function AllocationPage() {
       </main>
 
       <footer className="al-controls" aria-label="Deck controls">
-        <span className="al-controls-notice">{DECK.dataNotice}</span>
         <div className="al-controls-nav">
-          <span className="al-controls-count" data-testid="allocation-counter" aria-live="polite">
-            {counter}
-          </span>
           <span className="al-hint">{DECK.keyboardHint}</span>
           <button
             type="button"

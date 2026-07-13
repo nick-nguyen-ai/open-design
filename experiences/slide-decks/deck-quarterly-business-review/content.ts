@@ -153,6 +153,26 @@ export const KPIS: readonly KpiTileDatum[] = [
 export const KPI_NOTE =
   'Four headline metrics against plan. Three are on track; net revenue retention is not.';
 
+/**
+ * The same four headline figures, laid against the board-approved operating
+ * plan — a compact "vs plan" mini-table under the KPI tiles. Figures are
+ * consistent with KPIS; the NRR miss is shown in neutral ink here so the
+ * flagged strip stays the single red element on the slide.
+ */
+export interface KpiVsPlanRow {
+  metric: string;
+  actual: string;
+  plan: string;
+  delta: string;
+}
+
+export const KPI_VS_PLAN: readonly KpiVsPlanRow[] = [
+  { metric: 'Revenue', actual: '$48.2M', plan: '$47.0M', delta: '+$1.2M' },
+  { metric: 'Net revenue retention', actual: '96%', plan: '100%', delta: '−4 pts' },
+  { metric: 'Gross margin', actual: '71.2%', plan: '70.0%', delta: '+1.2 pts' },
+  { metric: 'Headcount', actual: '742', plan: '760', delta: '−18' },
+];
+
 /* ------------------------------------------------------------------ */
 /* Revenue trend — comp.trend-chart, eight quarters ($M)               */
 /* ------------------------------------------------------------------ */

@@ -226,7 +226,7 @@
   inset: auto 0 0 0;
   z-index: 40;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   gap: 2rem;
   height: 2.6rem;
@@ -505,14 +505,84 @@
 /* KPI row (comp.kpi-tile) — 4 columns, framed                         */
 /* ------------------------------------------------------------------ */
 
-.q-kpi-frame {
-  margin-top: 0.4rem;
+/* The KPI slide claims the full slide height: the tiles sit up near the title
+   bar, the flagged strip and note follow, and the "vs plan" mini-table fills
+   the lower half — no floating middle band. */
+.q-kpi-body {
+  justify-content: flex-start;
 }
 
-/* Override the component's responsive grid to a clean 4-up row. */
+.q-kpi-frame {
+  margin-top: clamp(0.6rem, 1.6vh, 1.2rem);
+}
+
+/* Override the component's responsive grid to a clean 4-up row, scaled up to
+   claim the width and read as the commanding element of the slide. */
 .q-kpi-tiles :where(.grid) {
   grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-  gap: 1rem !important;
+  gap: 1.1rem !important;
+}
+
+.q-kpi-tiles :where(.grid) > * {
+  min-height: clamp(8rem, 15vh, 10.5rem);
+}
+
+/* ------------------------------------------------------------------ */
+/* KPI "vs plan" mini-table — fills the lower half, mono figures       */
+/* ------------------------------------------------------------------ */
+
+.q-vsplan-frame {
+  margin-top: auto;
+  padding-top: clamp(1rem, 3vh, 2rem);
+}
+
+.q-vsplan {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.q-vsplan-cap {
+  text-align: left;
+  margin-bottom: 0.55rem;
+  font-family: var(--q-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--q-navy-soft);
+}
+
+.q-vsplan thead th {
+  padding: 0.4rem 0.9rem;
+  text-align: left;
+  font-family: var(--q-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--q-muted);
+  border-bottom: 1px solid var(--q-line);
+}
+
+.q-vsplan tbody th,
+.q-vsplan tbody td {
+  padding: 0.5rem 0.9rem;
+  border-bottom: 1px solid var(--q-line-faint);
+  color: var(--q-ink);
+  font-weight: 400;
+  text-align: left;
+}
+
+.q-vsplan tbody th {
+  font-weight: 600;
+}
+
+.q-vsplan .q-num {
+  color: var(--q-ink);
+}
+
+.q-vsplan tbody td.q-num:last-child {
+  color: var(--q-navy);
 }
 
 .q-kpi-foot {

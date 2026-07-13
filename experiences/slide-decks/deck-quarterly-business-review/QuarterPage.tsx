@@ -41,6 +41,7 @@ import {
   KPIS,
   KPI_NOTE,
   KPI_SLIDE_NUMBER,
+  KPI_VS_PLAN,
   LOSSES,
   NRR_ANOMALY,
   PIPELINE,
@@ -345,6 +346,29 @@ function SlideBody({
             </p>
             <p className="q-note">{KPI_NOTE}</p>
           </Build>
+          <Build i={3} className="q-vsplan-frame">
+            <table className="q-vsplan">
+              <caption className="q-vsplan-cap">Q3 FY26 actual vs. operating plan</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Metric</th>
+                  <th scope="col" className="q-num">Actual</th>
+                  <th scope="col" className="q-num">Plan</th>
+                  <th scope="col" className="q-num">Δ vs plan</th>
+                </tr>
+              </thead>
+              <tbody>
+                {KPI_VS_PLAN.map((row) => (
+                  <tr key={row.metric}>
+                    <th scope="row">{row.metric}</th>
+                    <td className="q-num">{row.actual}</td>
+                    <td className="q-num">{row.plan}</td>
+                    <td className="q-num">{row.delta}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </Build>
         </div>
       );
 
@@ -529,7 +553,7 @@ function SlideBody({
 
 export default function QuarterPage() {
   const { reduced } = useMotionPreference();
-  const { activeIndex, activeNumber, leavingIndex, goTo, counter } = useDeckNavigation(SLIDE_COUNT, {
+  const { activeIndex, activeNumber, leavingIndex, goTo } = useDeckNavigation(SLIDE_COUNT, {
     reduced,
   });
   const activeSlide = SLIDES[activeIndex] as Slide;
@@ -600,9 +624,14 @@ export default function QuarterPage() {
                     segmentOption={segmentOption}
                   />
                 </div>
-                {/* Footer rule — page number · confidentiality · synthetic notice */}
+                {/* Footer rule — page number · confidentiality · synthetic notice.
+                    The single page counter lives here (the active slide carries the
+                    testid); the outer chrome no longer duplicates it. */}
                 <div className="q-footer" aria-hidden="true">
-                  <span className="q-footer-page">
+                  <span
+                    className="q-footer-page"
+                    data-testid={state === 'active' ? 'quarter-counter' : undefined}
+                  >
                     {String(index + 1).padStart(2, '0')} / {String(SLIDE_COUNT).padStart(2, '0')}
                   </span>
                   <span className="q-footer-conf">{DECK.confidential}</span>
@@ -615,11 +644,7 @@ export default function QuarterPage() {
       </main>
 
       <footer className="q-controls" aria-label="Deck controls">
-        <span className="q-controls-notice">{DECK.dataNotice}</span>
         <div className="q-controls-nav">
-          <span className="q-controls-count" data-testid="quarter-counter" aria-live="polite">
-            {counter}
-          </span>
           <span className="q-hint">{DECK.keyboardHint}</span>
           <button
             type="button"

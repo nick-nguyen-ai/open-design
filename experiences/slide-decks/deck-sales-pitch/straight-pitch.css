@@ -218,7 +218,7 @@
   inset: auto 0 0 0;
   z-index: 40;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   gap: 2rem;
   height: 2.6rem;
@@ -824,23 +824,22 @@
   border-radius: 8px;
 }
 
+/* The middle tier is pre-selected with a QUIET RULE only: a 2px teal top rule
+   and a hairline column emphasis — no fill, no shadow. */
 .sp-tier[data-recommended='true'] {
-  border: 1px solid var(--sp-teal);
-  border-top: 3px solid var(--sp-teal);
-  box-shadow: 0 20px 44px -30px rgba(14, 107, 98, 0.45);
+  border-top: 2px solid var(--sp-teal);
 }
 
+/* A small uppercase mono caption sitting on the top rule — teal, no fill. */
 .sp-tier-badge {
   position: absolute;
-  top: -0.72rem;
-  left: 1.5rem;
-  padding: 0.2rem 0.6rem;
-  background: var(--sp-teal);
-  color: #fff;
-  border-radius: 3px;
+  top: -1.35rem;
+  left: 0;
+  color: var(--sp-teal);
   font-family: var(--sp-mono);
   font-size: 0.5625rem;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 
 .sp-tier-name {
