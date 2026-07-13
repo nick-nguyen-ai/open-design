@@ -2,8 +2,9 @@
  * Registry data loading — adapter-independent domain module.
  *
  * The registry is compiled to JSON by `pnpm registry:build` (wired as this
- * app's `prestart`/`predemo`/`pretest`). Here we read the committed generated
- * artefacts ONCE at startup and build the lexical search index. This is the
+ * app's `prestart`/`predemo`/`pretest`). The generated artefacts are gitignored
+ * and rebuilt by those pre-scripts, never committed. Here we read them ONCE at
+ * startup and build the lexical search index. This is the
  * only filesystem access the server performs: two known files under
  * `packages/registry/generated`, no traversal, no writes, no network — the
  * read-only posture the server promises.

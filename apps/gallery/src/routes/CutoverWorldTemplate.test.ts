@@ -92,3 +92,80 @@ describe('The Cutover — shipped fill', () => {
     expect(CutoverFill.safeParse(overflow).success).toBe(false);
   });
 });
+
+/* ------------------------------------------------------------------ */
+/* Descriptor ⇄ Zod lockstep — recurrence guard for F2.               */
+/*                                                                     */
+/* A future template author who adds a required Zod field/deck leaf    */
+/* but forgets its descriptor slot (F2), or advertises a slot whose    */
+/* path/shape does not match the schema, gets a red test here — the    */
+/* source of truth is walked (the Zod shape + the shipped fill), never */
+/* a hand-maintained duplicate list.                                   */
+/* ------------------------------------------------------------------ */
+
+/** Slot types that must resolve to an ARRAY in the shipped fill. */
+const COLLECTION_SLOT_TYPES = new Set(['items', 'nodes', 'edges', 'tableRows', 'metric']);
+/** Slot types that must resolve to a STRING in the shipped fill. */
+const STRING_SLOT_TYPES = new Set(['text', 'longtext']);
+
+/** Resolve a dot-path (e.g. `deck.code`, `cutoverFlow.nodes`) against a value. */
+function resolvePath(root: unknown, dotPath: string): unknown {
+  let current: unknown = root;
+  for (const part of dotPath.split('.')) {
+    if (current === null || typeof current !== 'object') return undefined;
+    current = (current as Record<string, unknown>)[part];
+  }
+  return current;
+}
+
+/** Minimal structural view of a Zod object schema (zod is not a direct gallery dep). */
+function objectShape(schema: unknown): Record<string, { isOptional(): boolean }> {
+  return (schema as { shape: Record<string, { isOptional(): boolean }> }).shape;
+}
+
+/** Keys of a Zod object shape whose field is NOT optional. */
+function requiredKeys(shape: Record<string, { isOptional(): boolean }>): string[] {
+  return Object.entries(shape)
+    .filter(([, field]) => !field.isOptional())
+    .map(([key]) => key);
+}
+
+describe('The Cutover — descriptor ⇄ Zod lockstep', () => {
+  const slotNames = new Set(cutoverDescriptor.slideKinds.flatMap((kind) => kind.slots.map((slot) => slot.name)));
+  const topShape = objectShape(CutoverFill);
+  const deckShape = objectShape(topShape.deck);
+
+  it('advertises a slot for every REQUIRED deck leaf in the Zod schema (guards F2)', () => {
+    for (const leaf of requiredKeys(deckShape)) {
+      expect([...slotNames], `descriptor must advertise a "deck.${leaf}" slot`).toContain(`deck.${leaf}`);
+    }
+  });
+
+  it('advertises every REQUIRED top-level field (by name or a sub-path slot)', () => {
+    for (const field of requiredKeys(topShape)) {
+      const advertised = [...slotNames].some((name) => name === field || name.startsWith(`${field}.`));
+      expect(advertised, `descriptor must advertise top-level field "${field}"`).toBe(true);
+    }
+  });
+
+  it('every descriptor slot resolves to a real, correctly-shaped path in the shipped fill', () => {
+    for (const kind of cutoverDescriptor.slideKinds) {
+      for (const slot of kind.slots) {
+        const value = resolvePath(cutoverFill, slot.name);
+        expect(value, `slot "${slot.name}" must resolve to a value in the shipped fill`).toBeDefined();
+        if (COLLECTION_SLOT_TYPES.has(slot.type)) {
+          expect(Array.isArray(value), `slot "${slot.name}" (type ${slot.type}) must be an array`).toBe(true);
+        } else if (STRING_SLOT_TYPES.has(slot.type)) {
+          expect(typeof value, `slot "${slot.name}" (type ${slot.type}) must be a string`).toBe('string');
+        } else if (slot.type === 'number') {
+          expect(typeof value, `slot "${slot.name}" (type number) must be a number`).toBe('number');
+        }
+      }
+    }
+  });
+
+  it('locks in the F2 fix: deck.code and deck.world are advertised', () => {
+    expect([...slotNames]).toContain('deck.code');
+    expect([...slotNames]).toContain('deck.world');
+  });
+});

@@ -257,6 +257,8 @@ export const CUTOVER_SLIDE_KINDS: SlideKindSpec[] = [
     purpose: 'The file-header cover — draw.io file/rev, programme, editors, the two-line thesis, and the notice.',
     repeats: { min: 1, max: 1 },
     slots: [
+      { name: 'deck.code', type: 'text', required: true, limits: { maxChars: 24 }, guidance: 'The short programme code shown first on every kicker row, e.g. "CBM-CUTOVER".' },
+      { name: 'deck.world', type: 'text', required: true, limits: { maxChars: 24 }, guidance: 'The world name paired with the code on the kicker and the browser title, e.g. "The Cutover".' },
       { name: 'deck.file', type: 'text', required: true, limits: { maxChars: 32 }, guidance: 'The draw.io working-file name, e.g. "cutover-plan.drawio" — shown in the file tab and every kicker row.' },
       { name: 'deck.rev', type: 'text', required: true, limits: { maxChars: 16 }, guidance: 'The revision marker, e.g. "rev 14" — paired with the file name and echoed on sign-off.' },
       { name: 'deck.programme', type: 'text', required: true, limits: { maxChars: 44 }, guidance: 'Programme line above the thesis, e.g. "CORE BANKING · CLOUD MIGRATION".' },

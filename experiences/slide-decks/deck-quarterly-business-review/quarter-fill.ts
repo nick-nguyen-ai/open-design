@@ -144,6 +144,7 @@ export const QUARTER_SLIDE_KINDS: SlideKindSpec[] = [
     purpose: 'The cover — org, period, the one-line lead, confidentiality, and the synthetic notice.',
     repeats: { min: 1, max: 1 },
     slots: [
+      { name: 'deck.title', type: 'text', required: true, limits: { maxChars: 30 }, guidance: 'The deck title, shown on the persistent title bar of every slide, e.g. "Quarterly Business Review".' },
       { name: 'deck.org', type: 'text', required: true, limits: { maxChars: 30 }, guidance: 'Organisation name, set in mono small-caps above the cover title.' },
       { name: 'deck.period', type: 'text', required: true, limits: { maxChars: 48 }, guidance: 'The reporting period and deck kind, e.g. "Q3 FY26 · Quarterly Business Review".' },
       { name: 'deck.confidentiality', type: 'text', required: true, limits: { maxChars: 48 }, guidance: 'Distribution line, e.g. "CONFIDENTIAL — BOARD DISTRIBUTION".' },
@@ -184,7 +185,8 @@ export const QUARTER_SLIDE_KINDS: SlideKindSpec[] = [
     purpose: 'The multi-quarter revenue trend (comp.trend-chart).',
     repeats: { min: 1, max: 1 },
     slots: [
-      { name: 'revenueSeries', type: 'items', required: true, limits: { minItems: 6, maxItems: 10 }, guidance: 'Six-to-ten period points (label + value); the last point is the reporting quarter.' },
+      { name: 'revenueSeries.label', type: 'text', required: true, limits: { maxChars: 24 }, guidance: 'The series name for the revenue line — its accessible data-table column header, e.g. "Recognised revenue".' },
+      { name: 'revenueSeries.points', type: 'items', required: true, limits: { minItems: 6, maxItems: 10 }, guidance: 'Six-to-ten period points on the revenueSeries object; each is { x: period label (≤16 chars), y: value | null }, and the last point is the reporting quarter.' },
       { name: 'revenueNote', type: 'text', required: true, limits: { maxChars: 140 }, guidance: 'Source note explaining the trend and any step, shown under the chart.' },
     ],
   },

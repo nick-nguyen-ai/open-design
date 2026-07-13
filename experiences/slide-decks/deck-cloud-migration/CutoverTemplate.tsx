@@ -381,7 +381,7 @@ interface BuiltConnector {
 function antiParallelOffsets(edges: readonly CutoverEdge[]): ReadonlyMap<string, number> {
   const groups = new Map<string, CutoverEdge[]>();
   for (const e of edges) {
-    const key = [e.from, e.to].slice().sort().join(' ');
+    const key = [e.from, e.to].slice().sort().join('\x1f');
     const list = groups.get(key);
     if (list) list.push(e);
     else groups.set(key, [e]);

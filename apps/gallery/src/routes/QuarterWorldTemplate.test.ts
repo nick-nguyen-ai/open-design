@@ -69,3 +69,86 @@ describe('The Quarter — shipped fill', () => {
     expect(QuarterFill.safeParse(overflow).success).toBe(false);
   });
 });
+
+/* ------------------------------------------------------------------ */
+/* Descriptor ⇄ Zod lockstep — recurrence guard for F1/F3.            */
+/*                                                                     */
+/* A future template author who adds a required Zod field/deck leaf    */
+/* but forgets its descriptor slot (F1/F2), or advertises a slot whose */
+/* path/shape does not match the schema (F3), gets a red test here —   */
+/* the source of truth is walked (the Zod shape + the shipped fill),   */
+/* never a hand-maintained duplicate list.                             */
+/* ------------------------------------------------------------------ */
+
+/** Slot types that must resolve to an ARRAY in the shipped fill. */
+const COLLECTION_SLOT_TYPES = new Set(['items', 'nodes', 'edges', 'tableRows', 'metric']);
+/** Slot types that must resolve to a STRING in the shipped fill. */
+const STRING_SLOT_TYPES = new Set(['text', 'longtext']);
+
+/** Resolve a dot-path (e.g. `deck.title`, `revenueSeries.points`) against a value. */
+function resolvePath(root: unknown, dotPath: string): unknown {
+  let current: unknown = root;
+  for (const part of dotPath.split('.')) {
+    if (current === null || typeof current !== 'object') return undefined;
+    current = (current as Record<string, unknown>)[part];
+  }
+  return current;
+}
+
+/** Minimal structural view of a Zod object schema (zod is not a direct gallery dep). */
+function objectShape(schema: unknown): Record<string, { isOptional(): boolean }> {
+  return (schema as { shape: Record<string, { isOptional(): boolean }> }).shape;
+}
+
+/** Keys of a Zod object shape whose field is NOT optional. */
+function requiredKeys(shape: Record<string, { isOptional(): boolean }>): string[] {
+  return Object.entries(shape)
+    .filter(([, field]) => !field.isOptional())
+    .map(([key]) => key);
+}
+
+describe('The Quarter — descriptor ⇄ Zod lockstep', () => {
+  const slotNames = new Set(quarterDescriptor.slideKinds.flatMap((kind) => kind.slots.map((slot) => slot.name)));
+  const topShape = objectShape(QuarterFill);
+  const deckShape = objectShape(topShape.deck);
+
+  it('advertises a slot for every REQUIRED deck leaf in the Zod schema (guards F1)', () => {
+    for (const leaf of requiredKeys(deckShape)) {
+      expect([...slotNames], `descriptor must advertise a "deck.${leaf}" slot`).toContain(`deck.${leaf}`);
+    }
+  });
+
+  it('advertises every REQUIRED top-level field (by name or a sub-path slot)', () => {
+    for (const field of requiredKeys(topShape)) {
+      const advertised = [...slotNames].some((name) => name === field || name.startsWith(`${field}.`));
+      expect(advertised, `descriptor must advertise top-level field "${field}"`).toBe(true);
+    }
+  });
+
+  it('every descriptor slot resolves to a real, correctly-shaped path in the shipped fill (guards F3)', () => {
+    for (const kind of quarterDescriptor.slideKinds) {
+      for (const slot of kind.slots) {
+        const value = resolvePath(quarterFill, slot.name);
+        expect(value, `slot "${slot.name}" must resolve to a value in the shipped fill`).toBeDefined();
+        if (COLLECTION_SLOT_TYPES.has(slot.type)) {
+          expect(Array.isArray(value), `slot "${slot.name}" (type ${slot.type}) must be an array`).toBe(true);
+        } else if (STRING_SLOT_TYPES.has(slot.type)) {
+          expect(typeof value, `slot "${slot.name}" (type ${slot.type}) must be a string`).toBe('string');
+        } else if (slot.type === 'number') {
+          expect(typeof value, `slot "${slot.name}" (type number) must be a number`).toBe('number');
+        }
+      }
+    }
+  });
+
+  it('locks in the F1/F3 fixes: deck.title advertised; revenueSeries bound to its object leaves', () => {
+    // F1 — the persistent title-bar slot must exist.
+    expect([...slotNames]).toContain('deck.title');
+    // F3 — the object series is advertised by its real leaves, not a bare array slot.
+    expect([...slotNames]).toContain('revenueSeries.label');
+    expect([...slotNames]).toContain('revenueSeries.points');
+    expect([...slotNames]).not.toContain('revenueSeries');
+    expect(Array.isArray(resolvePath(quarterFill, 'revenueSeries.points'))).toBe(true);
+    expect(typeof resolvePath(quarterFill, 'revenueSeries.label')).toBe('string');
+  });
+});

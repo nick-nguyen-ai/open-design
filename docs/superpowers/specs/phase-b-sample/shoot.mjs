@@ -12,15 +12,28 @@
  *
  * Run from repo root: `node docs/superpowers/specs/phase-b-sample/shoot.mjs`
  */
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+import { createRequire } from 'node:module';
 import path from 'node:path';
-import { chromium } from '@playwright/test';
+
+const here = path.dirname(fileURLToPath(import.meta.url));
+// Repo root: docs/superpowers/specs/phase-b-sample -> up four dirs.
+const repoRoot = path.resolve(here, '../../../..');
+
+// Resolve Playwright from the repo's OWN install, never one accidentally
+// hoisted into a parent workspace ABOVE the repo root (a bare
+// `import '@playwright/test'` run from repo root would resolve there). The
+// gallery package owns the Playwright devDependency, so anchor resolution at
+// its manifest, then reach the bundled `playwright-core` it pulls in.
+const requireFromGallery = createRequire(path.join(repoRoot, 'apps', 'gallery', 'package.json'));
+const playwrightCoreEntry = createRequire(requireFromGallery.resolve('@playwright/test')).resolve('playwright-core');
+const playwrightCore = await import(pathToFileURL(playwrightCoreEntry).href);
+const chromium = playwrightCore.chromium ?? playwrightCore.default.chromium;
 
 const PORT = Number(process.env.PORT ?? 4318);
 const BASE = `http://localhost:${PORT}`;
 const ROUTE = '/demo/mcp-sample';
 const SLIDE_COUNT = 10;
-const here = path.dirname(fileURLToPath(import.meta.url));
 
 async function main() {
   const browser = await chromium.launch();
