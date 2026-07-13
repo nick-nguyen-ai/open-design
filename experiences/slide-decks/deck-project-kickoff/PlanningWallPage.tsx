@@ -37,13 +37,16 @@ import {
   FLAG_CIRCLE,
   FLAG_CIRCLE_2,
   MILESTONES,
+  NODE_CIRCLES,
   RACI_ROLES,
   RACI_ROWS,
   RESOURCING,
   RESOURCING_TOTAL,
   RISKS,
   ROUTE_PATH,
+  ROUTE_PATH_2,
   ROUTE_SLIDE_NUMBER,
+  SCALE,
   SCOPE_IN,
   SCOPE_OUT,
   SLIDES,
@@ -91,8 +94,10 @@ function RouteDrawing({ full, reduced }: { full: boolean; reduced: boolean }) {
       data-testid="milestone-route"
       data-full={full ? 'true' : undefined}
     >
-      {/* The one continuous pencil line — faint under-draw + firm top stroke */}
+      {/* The one continuous pencil line — faint under-draw, a doubled offset
+          pencil pass, then the firm top stroke that draws in on the route slide. */}
       {full ? <path className="pw-route-under" d={ROUTE_PATH} /> : null}
+      <path className="pw-route-second" d={ROUTE_PATH_2} />
       <path className="pw-route-line" d={ROUTE_PATH} />
       {MILESTONES.map((m) => {
         // Keep the flagged milestone's label clear of its red-pencil circle.
@@ -101,7 +106,11 @@ function RouteDrawing({ full, reduced }: { full: boolean; reduced: boolean }) {
         const codeDy = m.flagged ? 46 : 26;
         return (
           <g key={m.id} className="pw-node-g" data-flagged={m.flagged ? 'true' : undefined}>
-            <circle className="pw-node-dot" cx={m.x} cy={m.y} r={full ? 13 : 9} />
+            {full ? (
+              <path className="pw-node-ring" d={NODE_CIRCLES[m.index]} />
+            ) : (
+              <circle className="pw-node-dot" cx={m.x} cy={m.y} r={9} />
+            )}
             {full ? <circle className="pw-node-pin" cx={m.x} cy={m.y} r={3.4} /> : null}
             <text className="pw-node-code" x={m.x} y={m.y - (full ? codeDy : 18)} textAnchor="middle">
               M{m.index}
@@ -129,6 +138,24 @@ function RouteDrawing({ full, reduced }: { full: boolean; reduced: boolean }) {
           </text>
           <path className="pw-flag-lead" d="M 762 58 Q 752 92 764 116" />
           <path className="pw-flag-lead-head" d="M 758 108 l 6 10 l 7 -8 Z" />
+        </g>
+      ) : null}
+      {/* Quiet hand-annotated week scale in the empty top-right corner */}
+      {full ? (
+        <g className="pw-scale" data-testid="route-scale" aria-hidden="true">
+          <text className="pw-scale-caption" x={SCALE.x2} y={SCALE.y - 24} textAnchor="end">
+            {SCALE.caption}
+          </text>
+          <path className="pw-scale-line" d={SCALE.line} />
+          {SCALE.ticks.map((tx) => (
+            <line key={tx} className="pw-scale-tick" x1={tx} y1={SCALE.y - 6} x2={tx} y2={SCALE.y + 6} />
+          ))}
+          <text className="pw-scale-label" x={SCALE.x1} y={SCALE.y + 20} textAnchor="start">
+            {SCALE.startLabel}
+          </text>
+          <text className="pw-scale-label" x={SCALE.x2} y={SCALE.y + 20} textAnchor="end">
+            {SCALE.endLabel}
+          </text>
         </g>
       ) : null}
     </svg>

@@ -570,6 +570,16 @@
   stroke-linejoin: round;
 }
 
+/* The doubled offset pencil pass — a lighter second graphite stroke */
+.pw-route-second {
+  fill: none;
+  stroke: var(--pw-graphite);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.4;
+}
+
 .pw-node-pin {
   fill: var(--pw-graphite);
 }
@@ -608,6 +618,56 @@
 .pw-node-g[data-flagged='true'] .pw-node-dot {
   fill: var(--pw-red-soft);
   stroke: var(--pw-red);
+}
+
+/* Hand-drawn milestone ring — imperfect pencil loop, not a geometric dot */
+.pw-node-ring {
+  fill: var(--pw-paper);
+  stroke: var(--pw-graphite);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pw-node-g[data-flagged='true'] .pw-node-ring {
+  fill: var(--pw-red-soft);
+  stroke: var(--pw-red);
+}
+
+/* ------------------------------------------------------------------ */
+/* Top-right week-scale legend (route slide)                           */
+/* ------------------------------------------------------------------ */
+
+.pw-scale-line {
+  fill: none;
+  stroke: var(--pw-graphite-soft);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+.pw-scale-tick {
+  stroke: var(--pw-graphite-soft);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+.pw-scale-label {
+  fill: var(--pw-faint);
+  font-family: var(--pw-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+}
+
+.pw-scale-caption {
+  fill: var(--pw-graphite-soft);
+  font-family: var(--pw-hand);
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.pw-slide[data-state='active'] .pw-route-svg[data-full='true'] .pw-scale {
+  animation: pw-fade-in var(--dur-structure) var(--ease-settle) both;
+  animation-delay: var(--dur-narrative);
 }
 
 .pw-node-code {
@@ -1077,7 +1137,8 @@
 /* ------------------------------------------------------------------ */
 
 .pw-root[data-reduced='true'] .pw-slide[data-state='active'] .pw-build,
-.pw-root[data-reduced='true'] .pw-slide[data-state='active'] .pw-flag {
+.pw-root[data-reduced='true'] .pw-slide[data-state='active'] .pw-flag,
+.pw-root[data-reduced='true'] .pw-slide[data-state='active'] .pw-scale {
   animation: none;
 }
 
@@ -1099,7 +1160,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .pw-slide[data-state='active'] .pw-build,
-  .pw-slide[data-state='active'] .pw-flag {
+  .pw-slide[data-state='active'] .pw-flag,
+  .pw-slide[data-state='active'] .pw-scale {
     animation: none;
   }
   .pw-route-svg[data-full='true'] .pw-route-line {

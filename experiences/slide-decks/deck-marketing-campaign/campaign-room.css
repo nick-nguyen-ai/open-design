@@ -463,6 +463,15 @@
   stroke-linecap: round;
 }
 
+/* Last stage's label is led out to the right of the narrow band */
+.cr-funnel-label-out {
+  fill: var(--cr-coral);
+}
+
+.cr-funnel-metric-out {
+  fill: var(--cr-dim);
+}
+
 .cr-cut-text {
   fill: var(--cr-coral);
   font-family: var(--cr-hand);

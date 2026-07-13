@@ -67,16 +67,73 @@ function roughLine(points: readonly Pt[], seed: number, jitter = 4): string {
 }
 
 /** A hand-drawn closed circle (two overlapping loops read as pencil). */
-function roughCircle(cx: number, cy: number, r: number, seed: number, jitter = 3): string {
+function roughCircle(
+  cx: number,
+  cy: number,
+  r: number,
+  seed: number,
+  jitter = 3,
+  squash = 0.82,
+): string {
   const rnd = seeded(seed);
   const steps = 14;
   const pts: Pt[] = [];
   for (let i = 0; i <= steps; i += 1) {
     const a = (i / steps) * Math.PI * 2 - 0.4;
     const rr = r + (rnd() - 0.5) * 2 * jitter;
-    pts.push([cx + Math.cos(a) * rr, cy + Math.sin(a) * rr * 0.82]);
+    pts.push([cx + Math.cos(a) * rr, cy + Math.sin(a) * rr * squash]);
   }
   return roughLine(pts, seed + 7, jitter * 0.5);
+}
+
+/**
+ * Sample a jittered polyline THROUGH a set of anchor points: each straight
+ * segment is broken into sub-points nudged along its perpendicular, with the
+ * wobble tapering to almost nothing at the anchors so the stroke still meets
+ * each milestone cleanly. Deterministic (seeded) — runs once at module load.
+ */
+function jitteredThrough(points: readonly Pt[], seed: number, jitter = 4.5): Pt[] {
+  const rnd = seeded(seed);
+  const out: Pt[] = [];
+  for (let s = 0; s < points.length - 1; s += 1) {
+    const [ax, ay] = points[s] as Pt;
+    const [bx, by] = points[s + 1] as Pt;
+    const dx = bx - ax;
+    const dy = by - ay;
+    const len = Math.hypot(dx, dy) || 1;
+    const nx = -dy / len; // unit perpendicular
+    const ny = dx / len;
+    const sub = 5;
+    const start = s === 0 ? 0 : 1; // avoid duplicating the shared anchor
+    for (let k = start; k <= sub; k += 1) {
+      const t = k / sub;
+      // taper the perpendicular offset to ~0 at the anchors (t=0, t=1)
+      const ease = 0.32 + 0.68 * Math.sin(t * Math.PI);
+      const off = (rnd() - 0.5) * 2 * jitter * ease;
+      out.push([ax + dx * t + nx * off, ay + dy * t + ny * off]);
+    }
+  }
+  return out;
+}
+
+/** Smooth a point list into one continuous cubic path (Catmull-Rom → Bézier). */
+function smoothPath(pts: readonly Pt[]): string {
+  if (pts.length === 0) return '';
+  const f = (n: number) => n.toFixed(1);
+  const [x0, y0] = pts[0] as Pt;
+  let d = `M ${f(x0)} ${f(y0)}`;
+  for (let i = 0; i < pts.length - 1; i += 1) {
+    const [p0x, p0y] = (pts[i - 1] ?? pts[i]) as Pt;
+    const [p1x, p1y] = pts[i] as Pt;
+    const [p2x, p2y] = pts[i + 1] as Pt;
+    const [p3x, p3y] = (pts[i + 2] ?? pts[i + 1]) as Pt;
+    const c1x = p1x + (p2x - p0x) / 6;
+    const c1y = p1y + (p2y - p0y) / 6;
+    const c2x = p2x - (p3x - p1x) / 6;
+    const c2y = p2y - (p3y - p1y) / 6;
+    d += ` C ${f(c1x)} ${f(c1y)}, ${f(c2x)} ${f(c2y)}, ${f(p2x)} ${f(p2y)}`;
+  }
+  return d;
 }
 
 /** A hand-drawn rectangle outline (uneven, slightly open corners). */
@@ -126,12 +183,46 @@ export const MILESTONES: readonly Milestone[] = [
   { id: 'm5', index: 5, x: 1136, y: 150, label: 'Scaled rollout', date: 'WK 36', detail: 'All lines, all regions, monitored in production.' },
 ];
 
-/** The one continuous pencil line through every milestone — precomputed. */
-export const ROUTE_PATH = roughLine(
-  MILESTONES.map((m) => [m.x, m.y] as Pt),
-  91,
-  5,
+/**
+ * The one continuous pencil line through every milestone — precomputed as a
+ * hand-sketched stroke (wobbly cubic segments) plus a second, slightly offset
+ * pencil pass so the route reads as a real graphite line, not a chart series.
+ */
+const ROUTE_ANCHORS: readonly Pt[] = MILESTONES.map((m) => [m.x, m.y] as Pt);
+export const ROUTE_PATH = smoothPath(jitteredThrough(ROUTE_ANCHORS, 91, 4.6));
+/** The doubled offset pass — a lighter second graphite stroke over the first. */
+export const ROUTE_PATH_2 = smoothPath(jitteredThrough(ROUTE_ANCHORS, 138, 5.4));
+
+/**
+ * Hand-drawn milestone rings — imperfect pencil circles (like the red anomaly
+ * loop), one per milestone, replacing the geometric dots. Precomputed.
+ */
+export const NODE_CIRCLES: readonly string[] = MILESTONES.map((m, i) =>
+  roughCircle(m.x, m.y, 13, 460 + i * 29, 2, 0.96),
 );
+
+/**
+ * A quiet hand-annotated week scale, tucked into the empty top-right of the
+ * route slide (WK 0 → WK 36 ≈ nine months). Pencil voice, not decoration.
+ */
+export const SCALE = {
+  x1: 1052,
+  x2: 1216,
+  y: 84,
+  ticks: [1052, 1134, 1216] as const,
+  line: roughLine(
+    [
+      [1052, 85],
+      [1134, 82],
+      [1216, 84],
+    ],
+    617,
+    1.6,
+  ),
+  startLabel: 'WK 0',
+  endLabel: 'WK 36',
+  caption: 'nine months, end to end',
+} as const;
 
 /** The red-pencil circle around the flagged milestone — precomputed. */
 const FLAGGED = MILESTONES.find((m) => m.flagged) as Milestone;

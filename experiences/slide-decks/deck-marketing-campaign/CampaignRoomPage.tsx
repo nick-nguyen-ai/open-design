@@ -85,20 +85,38 @@ function FunnelDrawing({ reduced }: { reduced: boolean }) {
       aria-label={`Conversion funnel: ${FUNNEL.map((s) => `${s.label}, ${s.metric}${s.toNext ? `, ${s.toNext}` : ''}`).join('; ')}. ${ANOMALY_TEXT}.`}
       data-testid="funnel"
     >
-      {FUNNEL.map((stage, i) => (
+      {FUNNEL.map((stage, i) => {
+        const isLast = i === FUNNEL.length - 1;
+        return (
         <g key={stage.id} className="cr-funnel-stage" style={{ ['--cr-i' as string]: i }}>
           <path
             className="cr-funnel-band"
             d={stage.path}
             style={{ ['--cr-depth' as string]: i }}
-            data-last={i === FUNNEL.length - 1 ? 'true' : undefined}
+            data-last={isLast ? 'true' : undefined}
           />
-          <text className="cr-funnel-label" x={296} y={stage.cy} textAnchor="middle">
-            {stage.label}
-          </text>
-          <text className="cr-funnel-metric" x={296} y={stage.cy + 24} textAnchor="middle">
-            {stage.metric}
-          </text>
+          {isLast ? (
+            /* The narrowest band can't hold its label — lead it out to the
+               right on a coral leader, in the same voice as the % carry notes. */
+            <>
+              <line className="cr-funnel-drop cr-funnel-lead" x1={338} y1={stage.cy} x2={382} y2={stage.cy} />
+              <text className="cr-funnel-label cr-funnel-label-out" x={392} y={stage.cy + 2} textAnchor="start">
+                {stage.label}
+              </text>
+              <text className="cr-funnel-metric cr-funnel-metric-out" x={392} y={stage.cy + 24} textAnchor="start">
+                {stage.metric}
+              </text>
+            </>
+          ) : (
+            <>
+              <text className="cr-funnel-label" x={296} y={stage.cy} textAnchor="middle">
+                {stage.label}
+              </text>
+              <text className="cr-funnel-metric" x={296} y={stage.cy + 24} textAnchor="middle">
+                {stage.metric}
+              </text>
+            </>
+          )}
           {stage.toNext ? (
             <>
               <line
@@ -114,7 +132,8 @@ function FunnelDrawing({ reduced }: { reduced: boolean }) {
             </>
           ) : null}
         </g>
-      ))}
+        );
+      })}
       {/* The anomaly: struck-through cut channel, clear above the funnel */}
       <g className="cr-funnel-cut" data-testid="funnel-cut">
         <text className="cr-cut-text" x={48} y={56}>
