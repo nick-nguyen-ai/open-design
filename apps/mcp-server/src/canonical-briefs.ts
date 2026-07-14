@@ -64,4 +64,19 @@ export const CANONICAL_BRIEFS: CanonicalBrief[] = [
     },
     brief: 'Quarterly business review of revenue, pipeline, and next-quarter priorities for the board.',
   },
+  // Model-monitoring cockpit — the first dashboard pilot (Task 7). Locks the
+  // 'cockpit' selection as the only live dashboard template; the row guards
+  // Phase 2/3 regressions once more dashboards go live.
+  {
+    surface: 'dashboard',
+    expect: 'cockpit',
+    context: {
+      audience: ['technical', 'risk-and-governance'],
+      businessIntent: ['monitor-model-health', 'detect-drift-early'],
+      corporateSuitability: 'standard',
+      motionPreference: 1,
+    },
+    brief:
+      'Stand up a fleet-wide model-monitoring dashboard for the model-risk team: watch every production model’s drift (PSI) against its breach limit, flag the one model in breach, and drill into its latency and feature-level diagnostics with an overnight alert log.',
+  },
 ];

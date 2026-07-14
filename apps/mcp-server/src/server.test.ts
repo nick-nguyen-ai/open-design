@@ -444,8 +444,9 @@ describe('mcp-server tools', () => {
   });
 
   // === Four per-surface compose tools (Task 4) ===
-  // Pre-pilot: the registry publishes templates for slide-deck ONLY, so every
-  // other surface's compose tool is a live tool with an (as yet) empty pool.
+  // Post dashboard pilot (Task 7): the registry publishes templates for
+  // slide-deck AND dashboard (the 'cockpit'); the remaining three surfaces are
+  // live tools with an (as yet) empty pool.
 
   const NEW_SURFACE_TOOLS = [
     ['compose_dashboard', 'dashboard'],
@@ -453,6 +454,9 @@ describe('mcp-server tools', () => {
     ['compose_personal_page', 'personal-page'],
     ['compose_explainer', 'technical-explainer'],
   ] as const;
+
+  /** The surfaces that still have NO live template published (dashboard now does). */
+  const EMPTY_SURFACE_TOOLS = NEW_SURFACE_TOOLS.filter(([, surface]) => surface !== 'dashboard');
 
   /** A surface-lite context for a new-surface compose tool (mirrors deckContext). */
   function surfaceContextArgs(surface: string, overrides: Record<string, unknown> = {}): Record<string, unknown> {
@@ -483,7 +487,7 @@ describe('mcp-server tools', () => {
     expect(error.requestId).toBeTruthy();
   });
 
-  it.each(NEW_SURFACE_TOOLS)('%s returns NO_TEMPLATE_FIT with no live template on %s', async (name, surface) => {
+  it.each(EMPTY_SURFACE_TOOLS)('%s returns NO_TEMPLATE_FIT with no live template on %s', async (name, surface) => {
     const result = (await h.client.callTool({
       name,
       arguments: { context: surfaceContextArgs(surface), contentBrief: 'Any brief; no template is published for this surface yet.' },
@@ -493,6 +497,23 @@ describe('mcp-server tools', () => {
     expect(error.code).toBe('NO_TEMPLATE_FIT');
     expect(error.remediation.length).toBeGreaterThan(0);
     expect(error.requestId).toBeTruthy();
+  });
+
+  it('compose_dashboard selects the live cockpit for a model-monitoring brief (dashboard pilot)', async () => {
+    const result = (await h.client.callTool({
+      name: 'compose_dashboard',
+      arguments: {
+        context: surfaceContextArgs('dashboard', {
+          audience: ['technical', 'risk-and-governance'],
+          businessIntent: ['monitor-model-health', 'detect-drift-early'],
+        }),
+        contentBrief: 'Fleet-wide model-monitoring dashboard: watch every production model’s drift against its breach limit and flag the one in breach.',
+      },
+    })) as CallToolResult;
+    expect(result.isError).not.toBe(true);
+    const out = ComposeSlideDeckOutput.parse(result.structuredContent);
+    expect(out.worldTemplateId).toBe('cockpit');
+    expect(out.experienceId).toBe('db-model-monitoring-cockpit');
   });
 });
 

@@ -3,39 +3,71 @@
  *
  * Hand-built SVG instrument — every model in the fleet is a contact placed at
  * its drift-severity radius (30-day PSI) inside its business-line sector.
- * Threshold rings at PSI 0.10 (watch) and 0.25 (limit); one contact —
- * card-fraud-v4 — sits visibly past the limit ring with a crosshair and a
- * callout dossier line. A slow phosphor sweep keeps the instrument alive;
- * it pauses on demand and never renders under reduced motion.
+ * Threshold rings at the watch and breach limits; one contact — the single
+ * `breach` model — sits visibly past the limit ring with a crosshair and a
+ * callout dossier line. A slow phosphor sweep keeps the instrument alive; it
+ * pauses on demand and never renders under reduced motion.
+ *
+ * This is a TEMPLATE helper (not a `*Template.tsx`): it owns the scope's whole
+ * GEOMETRY and takes only CONTENT as props (the fleet, the sectors, the drift
+ * thresholds, the breach callout note) — every editorial string it draws is
+ * either passed in or DERIVED from that content, so the scope always names and
+ * points at whichever model is flagged.
  *
  * Accessibility: the SVG is decorative (`aria-hidden`); the REAL content is
  * the visible fleet watchlist table rendered beside/below the scope by
- * CockpitPage. All colours live in cockpit.css (experience-local art layer).
+ * CockpitTemplate. All colours live in cockpit.css (experience-local art layer).
  */
 import { DataInkDraw } from '@enterprise-design/motion';
-import {
-  PSI_BREACH_THRESHOLD,
-  PSI_WATCH_THRESHOLD,
-  SCOPE_CENTER,
-  SCOPE_SIZE,
-  SECTORS,
-  buildScopeContacts,
-  scopeRadius,
-} from './content.js';
-import type { ScopeContact } from './content.js';
+import type { CockpitFleetModel, CockpitSector } from './cockpit-fill.js';
+
+/* ------------------------------------------------------------------ */
+/* Scope geometry (template-fixed — content-independent)               */
+/* ------------------------------------------------------------------ */
+
+const SCOPE_SIZE = 1000;
+const SCOPE_CENTER = SCOPE_SIZE / 2;
+/** PSI value mapped to the scope's outer graticule. */
+const SCOPE_MAX_PSI = 0.34;
+/** Radius of the outermost graticule ring, in viewBox units. */
+const SCOPE_MAX_R = 430;
 
 const C = SCOPE_CENTER;
 
-const RING_STOPS: readonly { psi: number; label?: string; kind: 'minor' | 'watch' | 'limit' }[] = [
-  { psi: 0.05, kind: 'minor' },
-  { psi: 0.1, label: '0.10 WATCH', kind: 'watch' },
-  { psi: 0.15, kind: 'minor' },
-  { psi: 0.2, kind: 'minor' },
-  { psi: PSI_BREACH_THRESHOLD, label: '0.25 LIMIT', kind: 'limit' },
-  { psi: 0.3, kind: 'minor' },
-];
+function scopeRadius(psi: number): number {
+  return (Math.min(psi, SCOPE_MAX_PSI) / SCOPE_MAX_PSI) * SCOPE_MAX_R;
+}
 
 const OUTER_R = scopeRadius(0.34);
+
+/** A model placed on the scope: its polar coordinate resolved to x/y. */
+interface ScopeContact extends CockpitFleetModel {
+  angleDeg: number;
+  x: number;
+  y: number;
+}
+
+/** Deterministic polar placement: sector quadrant + even slots within it. */
+function buildScopeContacts(
+  sectors: readonly CockpitSector[],
+  models: readonly CockpitFleetModel[],
+): ScopeContact[] {
+  return sectors.flatMap((sector, sectorIndex) => {
+    const sectorModels = models.filter((m) => m.sectorId === sector.id);
+    return sectorModels.map((model, slot) => {
+      const sectorStart = -90 + sectorIndex * 90;
+      const angleDeg = sectorStart + ((slot + 0.5) * 90) / sectorModels.length;
+      const rad = (angleDeg * Math.PI) / 180;
+      const r = scopeRadius(model.psi);
+      return {
+        ...model,
+        angleDeg,
+        x: SCOPE_CENTER + r * Math.cos(rad),
+        y: SCOPE_CENTER + r * Math.sin(rad),
+      };
+    });
+  });
+}
 
 /**
  * Deterministic per-contact label nudges (viewBox units) — hand-set where the
@@ -76,10 +108,10 @@ function BezelTicks() {
   return <g>{ticks}</g>;
 }
 
-function SectorChrome() {
+function SectorChrome({ sectors }: { sectors: readonly CockpitSector[] }) {
   return (
     <g>
-      {SECTORS.map((sector, i) => {
+      {sectors.map((sector, i) => {
         const boundary = polar(-90 + i * 90, OUTER_R + 4);
         const mid = polar(-45 + i * 90, OUTER_R + 44);
         const anchor = mid.x > C + 1 ? 'start' : mid.x < C - 1 ? 'end' : 'middle';
@@ -102,15 +134,24 @@ function SectorChrome() {
   );
 }
 
-function Graticule() {
+/** The threshold rings — minor graticule + the watch and limit rings from thresholds. */
+function Graticule({ sectors, watch, breach }: { sectors: readonly CockpitSector[]; watch: number; breach: number }) {
+  const rings: readonly { psi: number; label?: string; kind: 'minor' | 'watch' | 'limit' }[] = [
+    { psi: 0.05, kind: 'minor' },
+    { psi: watch, label: `${watch.toFixed(2)} WATCH`, kind: 'watch' },
+    { psi: 0.15, kind: 'minor' },
+    { psi: 0.2, kind: 'minor' },
+    { psi: breach, label: `${breach.toFixed(2)} LIMIT`, kind: 'limit' },
+    { psi: 0.3, kind: 'minor' },
+  ];
   return (
     <g>
       <circle cx={C} cy={C} r={OUTER_R} className="ck-bezel" />
       <BezelTicks />
-      {RING_STOPS.map((ring) => {
+      {rings.map((ring) => {
         const r = scopeRadius(ring.psi);
         return (
-          <g key={ring.psi}>
+          <g key={ring.kind === 'minor' ? `minor-${ring.psi}` : ring.kind}>
             <circle
               cx={C}
               cy={C}
@@ -131,7 +172,7 @@ function Graticule() {
           </g>
         );
       })}
-      <SectorChrome />
+      <SectorChrome sectors={sectors} />
       {/* centre hub */}
       <line x1={C - 12} y1={C} x2={C + 12} y2={C} className="ck-hub" />
       <line x1={C} y1={C - 12} x2={C} y2={C + 12} className="ck-hub" />
@@ -202,10 +243,12 @@ function ContactMark({ contact }: { contact: ScopeContact }) {
   );
 }
 
-function BreachCallout({ contact }: { contact: ScopeContact }) {
+/** The breach callout — name + a DERIVED PSI/limit row + the fill's continuation note. */
+function BreachCallout({ contact, breach, note }: { contact: ScopeContact; breach: number; note: string }) {
   const kneeX = contact.x + 74;
   const kneeY = contact.y - 36;
   const endX = 984;
+  const over = contact.psi - breach;
   return (
     <g className="ck-callout">
       <polyline
@@ -216,10 +259,10 @@ function BreachCallout({ contact }: { contact: ScopeContact }) {
         {contact.name.toUpperCase()}
       </text>
       <text x={endX} y={kneeY + 24} textAnchor="end" className="ck-callout-row">
-        PSI 0.312 · LIMIT 0.250 · +0.062 OVER
+        {`PSI ${contact.psi.toFixed(3)} · LIMIT ${breach.toFixed(3)} · +${over.toFixed(3)} OVER`}
       </text>
       <text x={endX} y={kneeY + 48} textAnchor="end" className="ck-callout-row">
-        41 H IN BREACH · RETRAIN QUEUED
+        {note}
       </text>
     </g>
   );
@@ -254,11 +297,18 @@ function Sweep() {
 export interface DriftScopeProps {
   /** Reduced-motion: no sweep, no halo pulse — a held, static scope. */
   reduced: boolean;
+  sectors: readonly CockpitSector[];
+  models: readonly CockpitFleetModel[];
+  /** Drift thresholds — the watch and breach rings. */
+  watch: number;
+  breach: number;
+  /** The breach callout's continuation line. */
+  breachCalloutNote: string;
 }
 
-export function DriftScope({ reduced }: DriftScopeProps) {
-  const contacts = buildScopeContacts();
-  const breach = contacts.find((c) => c.status === 'breach');
+export function DriftScope({ reduced, sectors, models, watch, breach, breachCalloutNote }: DriftScopeProps) {
+  const contacts = buildScopeContacts(sectors, models);
+  const breaching = contacts.find((c) => c.status === 'breach');
 
   return (
     <svg
@@ -283,7 +333,7 @@ export function DriftScope({ reduced }: DriftScopeProps) {
       <DataInkDraw
         as="g"
         groups={[
-          { id: 'graticule', content: <Graticule /> },
+          { id: 'graticule', content: <Graticule sectors={sectors} watch={watch} breach={breach} /> },
           {
             id: 'contacts',
             content: (
@@ -296,12 +346,14 @@ export function DriftScope({ reduced }: DriftScopeProps) {
           },
           {
             id: 'annotation',
-            content: breach ? <BreachCallout contact={breach} /> : <g />,
+            content: breaching ? (
+              <BreachCallout contact={breaching} breach={breach} note={breachCalloutNote} />
+            ) : (
+              <g />
+            ),
           },
         ]}
       />
     </svg>
   );
 }
-
-export { PSI_WATCH_THRESHOLD, PSI_BREACH_THRESHOLD };

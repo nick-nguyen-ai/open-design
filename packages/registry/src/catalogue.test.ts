@@ -224,7 +224,7 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
   it('discovers exactly the three world-templates, sorted by id, with zero errors', async () => {
     const result = await compileRegistry({ cwd: REPO_ROOT });
     expect(result.diagnostics).toEqual([]);
-    expect(result.worldTemplates.map((w) => w.id)).toEqual(['cutover', 'quarter', 'tminus']);
+    expect(result.worldTemplates.map((w) => w.id)).toEqual(['cockpit', 'cutover', 'quarter', 'tminus']);
     const byId = new Map(result.worldTemplates.map((w) => [w.id, w]));
     expect(byId.get('quarter')?.experienceId).toBe('deck-quarterly-business-review');
     expect(byId.get('quarter')?.style).toBe('conventional');
@@ -247,12 +247,14 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
       for (const componentId of worldTemplate.componentsUsed) {
         expect(componentIds.has(componentId)).toBe(true);
       }
-      // Every template requires a non-empty provenance notice at deck.notice.
-      expect(worldTemplate.craftRules).toContainEqual({
-        kind: 'required-nonempty',
-        path: 'deck.notice',
-        description: expect.any(String),
-      });
+      // Every template requires a non-empty provenance notice via a
+      // required-nonempty craft rule (the path is per-surface: deck.notice for
+      // decks, watch.dataNotice for the dashboard cockpit).
+      expect(
+        worldTemplate.craftRules.some(
+          (rule) => rule.kind === 'required-nonempty' && typeof rule.description === 'string' && rule.description.length > 0,
+        ),
+      ).toBe(true);
     }
   });
 
