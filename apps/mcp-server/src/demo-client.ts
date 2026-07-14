@@ -313,7 +313,7 @@ async function main(): Promise<void> {
     })) as CallToolResult;
     const cutoverOut = ComposeSlideDeckOutput.safeParse(cutover.structuredContent);
     check('compose_slide_deck(technical brief) → deck-cloud-migration', cutoverOut.success && cutoverOut.data.experienceId === 'deck-cloud-migration' && cutoverOut.data.worldTemplateId === 'cutover', cutoverOut.success ? cutoverOut.data.experienceId : cutoverOut.error.message);
-    check('compose_slide_deck fill skeleton carries slide kinds + craft guarantees + examples', cutoverOut.success && cutoverOut.data.fillSkeleton.slideKinds.length > 0 && cutoverOut.data.fillSkeleton.craftGuarantees.length > 0 && cutoverOut.data.fillSkeleton.slideKinds.every((k) => k.slots.every((s) => s.example.length > 0)), cutoverOut.success ? `${cutoverOut.data.fillSkeleton.slideKinds.length} kinds` : '');
+    check('compose_slide_deck fill skeleton carries slide kinds + craft guarantees + examples', cutoverOut.success && cutoverOut.data.fillSkeleton.sections.length > 0 && cutoverOut.data.fillSkeleton.craftGuarantees.length > 0 && cutoverOut.data.fillSkeleton.sections.every((k) => k.slots.every((s) => s.example.length > 0)), cutoverOut.success ? `${cutoverOut.data.fillSkeleton.sections.length} kinds` : '');
 
     // 6b. A conventional business brief selects deck-quarterly-business-review (The Quarter).
     const quarter = (await client.callTool({

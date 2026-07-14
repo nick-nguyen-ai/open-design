@@ -77,21 +77,21 @@ export const CraftRule = z.discriminatedUnion('kind', [
 ]);
 export type CraftRule = z.infer<typeof CraftRule>;
 
-/** How many times a slide kind may repeat within a composed deck. */
-export const SlideKindRepeats = z.object({
+/** How many times a section may repeat within a composed surface. */
+export const SectionRepeats = z.object({
   min: z.number().int().nonnegative(),
   max: z.number().int().positive(),
 });
-export type SlideKindRepeats = z.infer<typeof SlideKindRepeats>;
+export type SectionRepeats = z.infer<typeof SectionRepeats>;
 
-/** One slide anatomy in the template — its purpose and the slots it consumes. */
-export const SlideKindSpec = z.object({
+/** One section anatomy (a deck slide kind, a page region) — purpose + slots. */
+export const SectionSpec = z.object({
   kind: z.string().min(1),
   purpose: z.string().min(1),
-  repeats: SlideKindRepeats.optional(),
+  repeats: SectionRepeats.optional(),
   slots: z.array(SlotSpec).min(1),
 });
-export type SlideKindSpec = z.infer<typeof SlideKindSpec>;
+export type SectionSpec = z.infer<typeof SectionSpec>;
 
 /**
  * The full world-template descriptor. `style` records whether the template is an
@@ -101,7 +101,7 @@ export type SlideKindSpec = z.infer<typeof SlideKindSpec>;
  * the synthetic notice, the balanced grids).
  */
 export const WorldTemplateDescriptor = z.object({
-  schemaVersion: z.literal('1.0'),
+  schemaVersion: z.literal('1.1'),
   id: z.string().min(1),
   experienceId: z.string().min(1),
   surface: SurfaceType,
@@ -110,8 +110,13 @@ export const WorldTemplateDescriptor = z.object({
   grammarId: z.string().min(1),
   audiences: z.array(Audience).min(1),
   businessIntents: z.array(z.string()).min(1),
+  /**
+   * Free-text keywords that bias template selection toward this world when a
+   * brief mentions them (surface-neutral targeting metadata). Defaults to none.
+   */
+  briefKeywords: z.array(z.string().min(1)).default([]),
   componentsUsed: z.array(z.string()),
-  slideKinds: z.array(SlideKindSpec).min(1),
+  sections: z.array(SectionSpec).min(1),
   guidance: z.array(z.string()),
   /**
    * The machine-checkable craft rules `validate_fill` enforces (beyond the slot

@@ -15,10 +15,10 @@
  * executive/business audience still resolves to the Cutover on the id tie-break.
  */
 import { WorldTemplateDescriptor } from '@enterprise-design/contracts';
-import { TMINUS_SLIDE_KINDS, TMINUS_GUIDANCE } from './tminus-fill.js';
+import { TMINUS_SECTIONS, TMINUS_GUIDANCE } from './tminus-fill.js';
 
 const descriptor: WorldTemplateDescriptor = WorldTemplateDescriptor.parse({
-  schemaVersion: '1.0',
+  schemaVersion: '1.1',
   id: 'tminus',
   experienceId: 'deck-product-launch',
   surface: 'slide-deck',
@@ -28,7 +28,7 @@ const descriptor: WorldTemplateDescriptor = WorldTemplateDescriptor.parse({
   audiences: ['mixed', 'technical'],
   businessIntents: ['plan-product-launch', 'announce-product-release'],
   componentsUsed: ['comp.status-list', 'comp.kpi-tile'],
-  slideKinds: TMINUS_SLIDE_KINDS,
+  sections: TMINUS_SECTIONS,
   guidance: TMINUS_GUIDANCE,
   craftRules: [
     { kind: 'exactly-one', path: 'gates', field: 'status', equals: 'warning',

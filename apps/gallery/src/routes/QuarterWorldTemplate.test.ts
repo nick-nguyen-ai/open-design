@@ -19,7 +19,7 @@ describe('The Quarter — world-template descriptor', () => {
     const parsed = WorldTemplateDescriptor.parse(quarterDescriptor);
     expect(parsed.experienceId).toBe('deck-quarterly-business-review');
     expect(parsed.style).toBe('conventional');
-    expect(parsed.slideKinds).toHaveLength(11);
+    expect(parsed.sections).toHaveLength(11);
   });
 
   it('is JSON-serializable (no functions) and round-trips stable — Task 3 compiles it to JSON', () => {
@@ -29,7 +29,7 @@ describe('The Quarter — world-template descriptor', () => {
   });
 
   it('every slot declares limits and guidance', () => {
-    for (const kind of quarterDescriptor.slideKinds) {
+    for (const kind of quarterDescriptor.sections) {
       expect(kind.slots.length).toBeGreaterThan(0);
       for (const slot of kind.slots) {
         expect(slot.guidance.length).toBeGreaterThan(0);
@@ -108,7 +108,7 @@ function requiredKeys(shape: Record<string, { isOptional(): boolean }>): string[
 }
 
 describe('The Quarter — descriptor ⇄ Zod lockstep', () => {
-  const slotNames = new Set(quarterDescriptor.slideKinds.flatMap((kind) => kind.slots.map((slot) => slot.name)));
+  const slotNames = new Set(quarterDescriptor.sections.flatMap((kind) => kind.slots.map((slot) => slot.name)));
   const topShape = objectShape(QuarterFill);
   const deckShape = objectShape(topShape.deck);
 
@@ -126,7 +126,7 @@ describe('The Quarter — descriptor ⇄ Zod lockstep', () => {
   });
 
   it('every descriptor slot resolves to a real, correctly-shaped path in the shipped fill (guards F3)', () => {
-    for (const kind of quarterDescriptor.slideKinds) {
+    for (const kind of quarterDescriptor.sections) {
       for (const slot of kind.slots) {
         const value = resolvePath(quarterFill, slot.name);
         expect(value, `slot "${slot.name}" must resolve to a value in the shipped fill`).toBeDefined();

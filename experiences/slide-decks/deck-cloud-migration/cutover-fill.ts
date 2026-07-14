@@ -16,11 +16,11 @@
  * current and target estate, its badge the verbatim anomaly text — and the
  * synthetic-estate notice string.
  *
- * `CUTOVER_SLIDE_KINDS` re-states the same slots as the registry-serializable
- * `SlideKindSpec[]` the world-template descriptor advertises.
+ * `CUTOVER_SECTIONS` re-states the same slots as the registry-serializable
+ * `SectionSpec[]` the world-template descriptor advertises.
  */
 import { z } from 'zod';
-import type { SlideKindSpec } from '@enterprise-design/contracts';
+import type { SectionSpec } from '@enterprise-design/contracts';
 
 const NodeKind = z.enum(['app', 'data', 'integration']);
 const Disposition = z.enum(['rehost', 'refactor', 'replatform', 'replace', 'retire', 'stays']);
@@ -251,7 +251,7 @@ export type CutoverEdge = z.infer<typeof EstateEdge>;
 /* Slot specs — the registry-serializable descriptor view             */
 /* ------------------------------------------------------------------ */
 
-export const CUTOVER_SLIDE_KINDS: SlideKindSpec[] = [
+export const CUTOVER_SECTIONS: SectionSpec[] = [
   {
     kind: 'title',
     purpose: 'The file-header cover — draw.io file/rev, programme, editors, the two-line thesis, and the notice.',

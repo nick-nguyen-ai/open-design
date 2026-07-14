@@ -19,7 +19,7 @@ describe('The Cutover — world-template descriptor', () => {
     const parsed = WorldTemplateDescriptor.parse(cutoverDescriptor);
     expect(parsed.experienceId).toBe('deck-cloud-migration');
     expect(parsed.style).toBe('art-directed');
-    expect(parsed.slideKinds).toHaveLength(10);
+    expect(parsed.sections).toHaveLength(10);
   });
 
   it('is JSON-serializable (no functions) and round-trips stable — Task 3 compiles it to JSON', () => {
@@ -29,7 +29,7 @@ describe('The Cutover — world-template descriptor', () => {
   });
 
   it('every slot declares limits and guidance', () => {
-    for (const kind of cutoverDescriptor.slideKinds) {
+    for (const kind of cutoverDescriptor.sections) {
       expect(kind.slots.length).toBeGreaterThan(0);
       for (const slot of kind.slots) {
         expect(slot.guidance.length).toBeGreaterThan(0);
@@ -131,7 +131,7 @@ function requiredKeys(shape: Record<string, { isOptional(): boolean }>): string[
 }
 
 describe('The Cutover — descriptor ⇄ Zod lockstep', () => {
-  const slotNames = new Set(cutoverDescriptor.slideKinds.flatMap((kind) => kind.slots.map((slot) => slot.name)));
+  const slotNames = new Set(cutoverDescriptor.sections.flatMap((kind) => kind.slots.map((slot) => slot.name)));
   const topShape = objectShape(CutoverFill);
   const deckShape = objectShape(topShape.deck);
 
@@ -149,7 +149,7 @@ describe('The Cutover — descriptor ⇄ Zod lockstep', () => {
   });
 
   it('every descriptor slot resolves to a real, correctly-shaped path in the shipped fill', () => {
-    for (const kind of cutoverDescriptor.slideKinds) {
+    for (const kind of cutoverDescriptor.sections) {
       for (const slot of kind.slots) {
         const value = resolvePath(cutoverFill, slot.name);
         expect(value, `slot "${slot.name}" must resolve to a value in the shipped fill`).toBeDefined();

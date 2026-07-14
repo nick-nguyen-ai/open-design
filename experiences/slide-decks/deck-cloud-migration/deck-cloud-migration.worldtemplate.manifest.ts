@@ -9,10 +9,10 @@
  * valid before it ever reaches the registry.
  */
 import { WorldTemplateDescriptor } from '@enterprise-design/contracts';
-import { CUTOVER_SLIDE_KINDS, CUTOVER_GUIDANCE } from './cutover-fill.js';
+import { CUTOVER_SECTIONS, CUTOVER_GUIDANCE } from './cutover-fill.js';
 
 const descriptor: WorldTemplateDescriptor = WorldTemplateDescriptor.parse({
-  schemaVersion: '1.0',
+  schemaVersion: '1.1',
   id: 'cutover',
   experienceId: 'deck-cloud-migration',
   surface: 'slide-deck',
@@ -22,7 +22,7 @@ const descriptor: WorldTemplateDescriptor = WorldTemplateDescriptor.parse({
   audiences: ['technical', 'risk-and-governance'],
   businessIntents: ['plan-cloud-migration', 'commit-cutover'],
   componentsUsed: ['comp.flow-diagram', 'comp.status-list'],
-  slideKinds: CUTOVER_SLIDE_KINDS,
+  sections: CUTOVER_SECTIONS,
   guidance: CUTOVER_GUIDANCE,
   craftRules: [
     { kind: 'exactly-one', path: 'nodes', field: 'disposition', equals: 'stays',

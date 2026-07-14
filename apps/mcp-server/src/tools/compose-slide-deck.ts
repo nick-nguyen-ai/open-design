@@ -21,7 +21,7 @@ import {
   ComposeSlideDeckInput,
   type ComposeSlideDeckOutput,
   type FillSkeleton,
-  type FillSkeletonSlideKind,
+  type FillSkeletonSection,
   type FillSkeletonSlot,
   type SlideDeckContext,
 } from '../schemas.js';
@@ -103,15 +103,15 @@ function slotExample(slot: SlotSpec): string {
 }
 
 function buildFillSkeleton(descriptor: WorldTemplateDescriptor): FillSkeleton {
-  const slideKinds: FillSkeletonSlideKind[] = descriptor.slideKinds.map((slideKind) => ({
-    kind: slideKind.kind,
-    purpose: slideKind.purpose,
-    ...(slideKind.repeats ? { repeats: slideKind.repeats } : {}),
-    slots: slideKind.slots.map(
+  const sections: FillSkeletonSection[] = descriptor.sections.map((section) => ({
+    kind: section.kind,
+    purpose: section.purpose,
+    ...(section.repeats ? { repeats: section.repeats } : {}),
+    slots: section.slots.map(
       (slot): FillSkeletonSlot => ({ spec: slot, guidance: slot.guidance, example: slotExample(slot) }),
     ),
   }));
-  return { slideKinds, craftGuarantees: descriptor.guidance };
+  return { sections, craftGuarantees: descriptor.guidance };
 }
 
 export function composeSlideDeckTool(registry: RegistryData, rawInput: unknown): ToolOutcome<ComposeSlideDeckOutput> {

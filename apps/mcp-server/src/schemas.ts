@@ -25,7 +25,7 @@ import {
   EntityType,
   MotionLevel,
   SearchFacets,
-  SlideKindSpec,
+  SectionSpec,
   SlotSpec,
   SurfaceType,
   ThemeMode,
@@ -219,18 +219,18 @@ export const FillSkeletonSlot = z.object({
 });
 export type FillSkeletonSlot = z.infer<typeof FillSkeletonSlot>;
 
-/** One slide kind in the returned fill skeleton. */
-export const FillSkeletonSlideKind = z.object({
+/** One section in the returned fill skeleton. */
+export const FillSkeletonSection = z.object({
   kind: z.string(),
   purpose: z.string(),
-  repeats: SlideKindSpec.shape.repeats,
+  repeats: SectionSpec.shape.repeats,
   slots: z.array(FillSkeletonSlot),
 });
-export type FillSkeletonSlideKind = z.infer<typeof FillSkeletonSlideKind>;
+export type FillSkeletonSection = z.infer<typeof FillSkeletonSection>;
 
-/** The fill skeleton: the template's slide kinds with per-slot guidance + example, and the craft guarantees. */
+/** The fill skeleton: the template's sections with per-slot guidance + example, and the craft guarantees. */
 export const FillSkeleton = z.object({
-  slideKinds: z.array(FillSkeletonSlideKind),
+  sections: z.array(FillSkeletonSection),
   craftGuarantees: z.array(z.string()),
 });
 export type FillSkeleton = z.infer<typeof FillSkeleton>;

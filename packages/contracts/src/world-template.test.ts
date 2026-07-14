@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { CraftRule, WorldTemplateDescriptor, SlideKindSpec, SlotSpec } from './world-template.js';
+import { CraftRule, WorldTemplateDescriptor, SectionSpec, SlotSpec } from './world-template.js';
 
 const validSlot = {
   name: 'notice',
@@ -9,7 +9,7 @@ const validSlot = {
   guidance: 'A synthetic-data notice, printed on the footer rule of every slide.',
 };
 
-const validSlideKind = {
+const validSection = {
   kind: 'kpi',
   purpose: 'The four headline metrics, one flagged below its floor.',
   repeats: { min: 1, max: 1 },
@@ -26,7 +26,7 @@ const validSlideKind = {
 };
 
 const validDescriptor = {
-  schemaVersion: '1.0',
+  schemaVersion: '1.1',
   id: 'quarter',
   experienceId: 'deck-quarterly-business-review',
   surface: 'slide-deck',
@@ -36,7 +36,7 @@ const validDescriptor = {
   audiences: ['executive', 'business'],
   businessIntents: ['review-quarterly-performance'],
   componentsUsed: ['comp.kpi-tile'],
-  slideKinds: [validSlideKind],
+  sections: [validSection],
   guidance: ['Exactly one KPI carries the anomaly status.', 'The synthetic notice is required.'],
 };
 
@@ -44,10 +44,30 @@ describe('WorldTemplateDescriptor', () => {
   it('parses a valid descriptor', () => {
     const parsed = WorldTemplateDescriptor.parse(validDescriptor);
     expect(parsed.id).toBe('quarter');
-    expect(parsed.slideKinds[0]?.slots[0]?.name).toBe('notice');
+    expect(parsed.sections.length).toBeGreaterThan(0);
+    expect(parsed.sections[0]?.slots[0]?.name).toBe('notice');
   });
 
-  it('rejects a schemaVersion other than 1.0', () => {
+  it('parses schemaVersion 1.1 with sections and briefKeywords', () => {
+    const parsed = WorldTemplateDescriptor.parse({
+      ...validDescriptor,
+      briefKeywords: ['monitoring', 'drift'],
+    });
+    expect(parsed.schemaVersion).toBe('1.1');
+    expect(parsed.briefKeywords).toEqual(['monitoring', 'drift']);
+  });
+
+  it('defaults briefKeywords to an empty array when omitted', () => {
+    const parsed = WorldTemplateDescriptor.parse(validDescriptor);
+    expect(parsed.briefKeywords).toEqual([]);
+  });
+
+  it('rejects the legacy schemaVersion 1.0', () => {
+    const result = WorldTemplateDescriptor.safeParse({ ...validDescriptor, schemaVersion: '1.0' });
+    expect(result.success).toBe(false);
+  });
+
+  it('rejects a schemaVersion other than 1.1', () => {
     const result = WorldTemplateDescriptor.safeParse({ ...validDescriptor, schemaVersion: '2.0' });
     expect(result.success).toBe(false);
   });
@@ -86,13 +106,13 @@ describe('WorldTemplateDescriptor', () => {
     }
   });
 
-  it('rejects a slide kind with no slots', () => {
-    const result = SlideKindSpec.safeParse({ ...validSlideKind, slots: [] });
+  it('rejects a section with no slots', () => {
+    const result = SectionSpec.safeParse({ ...validSection, slots: [] });
     expect(result.success).toBe(false);
   });
 
-  it('requires at least one slide kind', () => {
-    const result = WorldTemplateDescriptor.safeParse({ ...validDescriptor, slideKinds: [] });
+  it('requires at least one section', () => {
+    const result = WorldTemplateDescriptor.safeParse({ ...validDescriptor, sections: [] });
     expect(result.success).toBe(false);
   });
 

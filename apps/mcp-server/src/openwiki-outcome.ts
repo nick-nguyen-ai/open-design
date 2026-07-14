@@ -101,9 +101,9 @@ async function main(): Promise<void> {
     check(
       'compose_slide_deck fill skeleton carries slide kinds + craft guarantees',
       composeOut.success &&
-        composeOut.data.fillSkeleton.slideKinds.length > 0 &&
+        composeOut.data.fillSkeleton.sections.length > 0 &&
         composeOut.data.fillSkeleton.craftGuarantees.length > 0,
-      composeOut.success ? `${composeOut.data.fillSkeleton.slideKinds.length} slide kinds` : '',
+      composeOut.success ? `${composeOut.data.fillSkeleton.sections.length} slide kinds` : '',
     );
 
     // 2. validate_fill with the JSON-serialized OpenWiki fill → expect valid:true.

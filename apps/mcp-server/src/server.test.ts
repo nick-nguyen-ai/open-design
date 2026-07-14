@@ -348,10 +348,10 @@ describe('mcp-server tools', () => {
     expect(out.experienceId).toBe('deck-cloud-migration');
     expect(out.worldTemplateId).toBe('cutover');
     expect(out.evidence.length).toBeGreaterThan(0);
-    expect(out.fillSkeleton.slideKinds.length).toBeGreaterThan(0);
+    expect(out.fillSkeleton.sections.length).toBeGreaterThan(0);
     expect(out.fillSkeleton.craftGuarantees.length).toBeGreaterThan(0);
     // Every slot carries a non-empty, descriptor-drawn example.
-    for (const kind of out.fillSkeleton.slideKinds) {
+    for (const kind of out.fillSkeleton.sections) {
       for (const slot of kind.slots) expect(slot.example.length).toBeGreaterThan(0);
     }
   });

@@ -188,8 +188,8 @@ export function validateFillTool(registry: RegistryData, rawInput: unknown): Too
   }
 
   const findings: FillFinding[] = [];
-  for (const slideKind of descriptor.slideKinds) {
-    for (const slot of slideKind.slots) {
+  for (const section of descriptor.sections) {
+    for (const slot of section.slots) {
       checkSlot(fill, slot, findings);
     }
   }

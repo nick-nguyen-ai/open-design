@@ -9,10 +9,10 @@
  * valid before it ever reaches the registry.
  */
 import { WorldTemplateDescriptor } from '@enterprise-design/contracts';
-import { QUARTER_SLIDE_KINDS, QUARTER_GUIDANCE } from './quarter-fill.js';
+import { QUARTER_SECTIONS, QUARTER_GUIDANCE } from './quarter-fill.js';
 
 const descriptor: WorldTemplateDescriptor = WorldTemplateDescriptor.parse({
-  schemaVersion: '1.0',
+  schemaVersion: '1.1',
   id: 'quarter',
   experienceId: 'deck-quarterly-business-review',
   surface: 'slide-deck',
@@ -22,7 +22,7 @@ const descriptor: WorldTemplateDescriptor = WorldTemplateDescriptor.parse({
   audiences: ['executive', 'business'],
   businessIntents: ['review-quarterly-performance', 'brief-the-board'],
   componentsUsed: ['comp.kpi-tile', 'comp.trend-chart', 'comp.category-bar-chart'],
-  slideKinds: QUARTER_SLIDE_KINDS,
+  sections: QUARTER_SECTIONS,
   guidance: QUARTER_GUIDANCE,
   craftRules: [
     { kind: 'exactly-one', path: 'kpis', field: 'status', equals: 'off-track',

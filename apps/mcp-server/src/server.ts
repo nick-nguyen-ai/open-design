@@ -219,7 +219,7 @@ export function createServer(registry: RegistryData, logger: Logger): McpServer 
       const outcome = composeSlideDeckTool(registry, args);
       const durationMs = Math.round(performance.now() - startedAt);
       if (outcome.ok) {
-        logger.audit({ tool: 'compose_slide_deck', status: 'ok', durationMs, count: outcome.data.fillSkeleton.slideKinds.length });
+        logger.audit({ tool: 'compose_slide_deck', status: 'ok', durationMs, count: outcome.data.fillSkeleton.sections.length });
       } else {
         logger.audit({ tool: 'compose_slide_deck', status: 'error', durationMs, code: outcome.error.code });
       }

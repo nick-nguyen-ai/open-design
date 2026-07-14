@@ -20,7 +20,7 @@ describe('The T-Minus — world-template descriptor', () => {
     expect(parsed.experienceId).toBe('deck-product-launch');
     expect(parsed.style).toBe('art-directed');
     expect(parsed.mood).toBe('dark');
-    expect(parsed.slideKinds).toHaveLength(10);
+    expect(parsed.sections).toHaveLength(10);
   });
 
   it('is JSON-serializable (no functions) and round-trips stable — Task 3 compiles it to JSON', () => {
@@ -45,7 +45,7 @@ describe('The T-Minus — world-template descriptor', () => {
   });
 
   it('every slot declares limits and guidance', () => {
-    for (const kind of tminusDescriptor.slideKinds) {
+    for (const kind of tminusDescriptor.sections) {
       expect(kind.slots.length).toBeGreaterThan(0);
       for (const slot of kind.slots) {
         expect(slot.guidance.length).toBeGreaterThan(0);
@@ -134,7 +134,7 @@ function requiredKeys(shape: Record<string, { isOptional(): boolean }>): string[
 }
 
 describe('The T-Minus — descriptor ⇄ Zod lockstep', () => {
-  const slotNames = new Set(tminusDescriptor.slideKinds.flatMap((kind) => kind.slots.map((slot) => slot.name)));
+  const slotNames = new Set(tminusDescriptor.sections.flatMap((kind) => kind.slots.map((slot) => slot.name)));
   const topShape = objectShape(TMinusFill);
   const deckShape = objectShape(topShape.deck);
 
@@ -152,7 +152,7 @@ describe('The T-Minus — descriptor ⇄ Zod lockstep', () => {
   });
 
   it('every descriptor slot resolves to a real, correctly-shaped path in the shipped fill', () => {
-    for (const kind of tminusDescriptor.slideKinds) {
+    for (const kind of tminusDescriptor.sections) {
       for (const slot of kind.slots) {
         const value = resolvePath(tminusFill, slot.name);
         expect(value, `slot "${slot.name}" must resolve to a value in the shipped fill`).toBeDefined();

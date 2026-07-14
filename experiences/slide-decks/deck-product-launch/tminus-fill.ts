@@ -15,11 +15,11 @@
  * status — the single flagged blocker still standing between the team and go, its
  * verbatim text echoed in `anomalyLabel` — and the synthetic-launch notice string.
  *
- * `TMINUS_SLIDE_KINDS` re-states the same slots as the registry-serializable
- * `SlideKindSpec[]` the world-template descriptor advertises.
+ * `TMINUS_SECTIONS` re-states the same slots as the registry-serializable
+ * `SectionSpec[]` the world-template descriptor advertises.
  */
 import { z } from 'zod';
-import type { SlideKindSpec } from '@enterprise-design/contracts';
+import type { SectionSpec } from '@enterprise-design/contracts';
 
 const KpiUnit = z.enum(['currency', 'percent', 'count', 'ratio']);
 const KpiStatus = z.enum(['on-track', 'at-risk', 'off-track', 'neutral']);
@@ -172,7 +172,7 @@ export type TMinusRunStep = z.infer<typeof RunStep>;
 /* Slot specs — the registry-serializable descriptor view             */
 /* ------------------------------------------------------------------ */
 
-export const TMINUS_SLIDE_KINDS: SlideKindSpec[] = [
+export const TMINUS_SECTIONS: SectionSpec[] = [
   {
     kind: 'title',
     purpose: 'The countdown cover — product, programme, the two-line launch display, and the notice.',

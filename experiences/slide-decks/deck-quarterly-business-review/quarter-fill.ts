@@ -10,11 +10,11 @@
  * balanced). Two craft slots are mandatory: exactly one flagged-anomaly KPI
  * (`status: 'off-track'`) and the synthetic-notice string.
  *
- * `QUARTER_SLIDE_KINDS` re-states the same slots as the registry-serializable
- * `SlideKindSpec[]` the world-template descriptor advertises.
+ * `QUARTER_SECTIONS` re-states the same slots as the registry-serializable
+ * `SectionSpec[]` the world-template descriptor advertises.
  */
 import { z } from 'zod';
-import type { SlideKindSpec } from '@enterprise-design/contracts';
+import type { SectionSpec } from '@enterprise-design/contracts';
 
 const KpiUnit = z.enum(['currency', 'percent', 'count', 'ratio']);
 const KpiStatus = z.enum(['on-track', 'at-risk', 'off-track', 'neutral']);
@@ -138,7 +138,7 @@ export type QuarterFill = z.infer<typeof QuarterFill>;
 /* Slot specs — the registry-serializable descriptor view             */
 /* ------------------------------------------------------------------ */
 
-export const QUARTER_SLIDE_KINDS: SlideKindSpec[] = [
+export const QUARTER_SECTIONS: SectionSpec[] = [
   {
     kind: 'title',
     purpose: 'The cover — org, period, the one-line lead, confidentiality, and the synthetic notice.',
