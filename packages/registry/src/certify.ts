@@ -124,22 +124,30 @@ function slotPath(name: string): string {
 }
 
 /**
- * Extract candidate JSX text nodes from a template source. The brief's regex
- * captures the run between a `>` and the next `<`; because that run can span the
- * `);\n\n case 'x': return (` boundary between two sibling JSX returns, we drop
- * any candidate containing a newline — genuine single-line text nodes never do,
- * while every such code fragment does. Candidates with ≥4 words or ≥25 chars are
- * the ones substantial enough to be an editorial leak.
+ * Extract candidate JSX text nodes from a template source. The captured run
+ * between a `>` and the next tag must be immediately followed by a CLOSING tag
+ * (`</`): a genuine element text node always is, while the code fragment the
+ * bare-`<` variant also captures — the run spanning the `);\n\n case 'x':
+ * return (` boundary between two sibling JSX returns — never is (it ends at an
+ * OPENING tag). Multiline-formatted text nodes (e.g. a headline on its own
+ * line inside `<h2>…</h2>`) are therefore scanned too; internal whitespace is
+ * normalized to single spaces so they compare like single-line ones against
+ * the fill and the allowlist. Candidates with ≥4 words or ≥25 chars are the
+ * ones substantial enough to be an editorial leak.
+ *
+ * KNOWN BOUNDARY: the scan covers element TEXT NODES only — string literals in
+ * JSX attributes (e.g. `aria-label={\`…\`}`) and template literals are out of
+ * scope for this gate.
  */
-function leakCandidates(templateSource: string): string[] {
-  const re = />\s*([^<>{}\n][^<>{}]*)</g;
+export function leakCandidates(templateSource: string): string[] {
+  const re = />\s*([^<>{}\n][^<>{}]*)<\//g;
   const seen = new Set<string>();
   const out: string[] = [];
   let match: RegExpExecArray | null;
   while ((match = re.exec(templateSource)) !== null) {
     const raw = match[1];
-    if (raw === undefined || raw.includes('\n')) continue; // a code fragment between two returns, not a text node
-    const candidate = raw.trim();
+    if (raw === undefined) continue;
+    const candidate = raw.replace(/\s+/g, ' ').trim();
     if (!candidate) continue;
     const words = candidate.split(/\s+/).length;
     if (words < 4 && candidate.length < 25) continue;
