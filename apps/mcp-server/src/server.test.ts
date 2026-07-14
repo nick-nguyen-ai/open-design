@@ -410,6 +410,17 @@ describe('mcp-server tools', () => {
     expect(oversize?.guidance).toBeTruthy();
   });
 
+  it('validate_fill flags an emptied deck.notice via the required-nonempty craft rule', async () => {
+    const tampered = structuredClone(quarterFill) as typeof quarterFill;
+    tampered.deck.notice = '   ';
+    const result = await validateFill({ worldTemplateId: 'quarter', fill: tampered });
+    expect(result.isError).not.toBe(true); // a bad fill is a successful call
+    const out = ValidateFillOutput.parse(result.structuredContent);
+    expect(out.valid).toBe(false);
+    const craft = out.findings.find((f) => f.rule === 'craft' && f.path === 'deck.notice');
+    expect(craft?.message).toMatch(/required-nonempty at "deck\.notice"/);
+  });
+
   it('validate_fill on an unknown template returns a structured UNKNOWN_TEMPLATE', async () => {
     const result = await validateFill({ worldTemplateId: 'no-such-template', fill: {} });
     expect(result.isError).toBe(true);

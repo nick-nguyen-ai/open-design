@@ -114,7 +114,7 @@ function checkCraftRules(fill: unknown, descriptor: WorldTemplateDescriptor, fin
           message: `Craft rule (required-nonempty at "${rule.path}"): ${rule.description}`,
         });
       }
-    } else {
+    } else if (rule.kind === 'exactly-one') {
       const value = resolvePath(fill, rule.path);
       const count = Array.isArray(value)
         ? value.filter(
