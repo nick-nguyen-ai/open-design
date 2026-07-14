@@ -367,9 +367,13 @@ describe('mcp-server tools', () => {
   });
 
   it('compose_slide_deck honours the styleHint hard filter', async () => {
-    // An executive/business audience would normally pick the conventional Quarter,
-    // but an art-directed styleHint forces the Cutover.
-    const result = await composeDeck({ context: deckContext({ styleHint: 'art-directed' }), contentBrief: 'A deck.' });
+    // An executive/business restricted brief would normally pick the conventional
+    // Quarter, but an art-directed styleHint excludes it and forces the Cutover
+    // (the brief's cloud-migration intent gives the art-directed pick genuine fit).
+    const result = await composeDeck({
+      context: deckContext({ styleHint: 'art-directed' }),
+      contentBrief: 'Our cloud migration cutover plan and target-state architecture.',
+    });
     const out = ComposeSlideDeckOutput.parse(result.structuredContent);
     expect(out.worldTemplateId).toBe('cutover');
   });

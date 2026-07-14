@@ -3,6 +3,7 @@ import { z } from 'zod';
 export const McpErrorCode = z.enum([
   'INVALID_INPUT',
   'NO_MATCH',
+  'NO_TEMPLATE_FIT',
   'CONSTRAINT_CONFLICT',
   'UNKNOWN_COMPONENT',
   'UNKNOWN_TEMPLATE',

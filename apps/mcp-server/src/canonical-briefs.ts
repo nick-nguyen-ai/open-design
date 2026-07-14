@@ -1,0 +1,67 @@
+/**
+ * The canonical-brief regression matrix.
+ *
+ * One row per surface pilot: a real brief + its surface-neutral `ComposeContext`
+ * and the world-template id the deterministic core MUST select for it. The three
+ * seed rows are the LOCKED deck outcomes — the exact contexts driving the demo
+ * (`demo-client.ts` QBR case), the MCP sample (`sample-outcome.ts`), and the
+ * OpenWiki skill run (`openwiki-outcome.ts`), copied here verbatim (minus the
+ * fixed `surface` literal, which each row carries in its own field).
+ *
+ * `canonical-briefs.test.ts` iterates this matrix against the REAL registry and
+ * asserts `composeForSurface` selects `expect` for every row — so the compose-core
+ * extraction is provably behaviour-preserving for the shipped decks. Each pilot
+ * (Tasks 7–10) appends one row when its surface goes live.
+ */
+import type { SurfaceType } from '@enterprise-design/contracts';
+import type { ComposeContext } from './tools/compose-core.js';
+
+/** One regression row: the surface, the template id expected, the context, and the brief. */
+export interface CanonicalBrief {
+  surface: SurfaceType;
+  expect: string;
+  context: ComposeContext;
+  brief: string;
+}
+
+export const CANONICAL_BRIEFS: CanonicalBrief[] = [
+  // Payments cutover — the MCP sample brief (sample-outcome.ts). NO styleHint; scoring decides.
+  {
+    surface: 'slide-deck',
+    expect: 'cutover',
+    context: {
+      audience: ['technical'],
+      businessIntent: ['plan-cloud-migration'],
+      corporateSuitability: 'standard',
+      motionPreference: 2,
+    },
+    brief:
+      'Explain how our payments retry pipeline works and what changes in the Q3 migration — platform engineering audience.',
+  },
+  // OpenWiki product intro — the deck-composer skill run (openwiki-outcome.ts). styleHint art-directed.
+  {
+    surface: 'slide-deck',
+    expect: 'tminus',
+    context: {
+      audience: ['mixed'],
+      businessIntent: ['announce-product-release'],
+      corporateSuitability: 'standard',
+      motionPreference: 2,
+      styleHint: 'art-directed',
+    },
+    brief:
+      'Introduce OpenWiki, the just-released open-source agent for repo documentation — announce the launch and stage the countdown to rolling it out across our repositories: readiness gates, day-0 runbook, adoption targets.',
+  },
+  // QBR executive review — the demo-client business brief (demo-client.ts case 6b).
+  {
+    surface: 'slide-deck',
+    expect: 'quarter',
+    context: {
+      audience: ['executive', 'business'],
+      businessIntent: ['review-quarterly-performance'],
+      corporateSuitability: 'restricted',
+      motionPreference: 1,
+    },
+    brief: 'Quarterly business review of revenue, pipeline, and next-quarter priorities for the board.',
+  },
+];
