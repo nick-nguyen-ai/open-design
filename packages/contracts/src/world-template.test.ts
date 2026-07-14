@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { WorldTemplateDescriptor, SlideKindSpec, SlotSpec } from './world-template.js';
+import { CraftRule, WorldTemplateDescriptor, SlideKindSpec, SlotSpec } from './world-template.js';
 
 const validSlot = {
   name: 'notice',
@@ -101,10 +101,38 @@ describe('WorldTemplateDescriptor', () => {
     expect(parsed.craftRules).toEqual([]);
   });
 
-  it('accepts declared craft rule ids and rejects unknown ones', () => {
+  it('accepts an exactly-one rule with path/field/equals', () => {
+    const rule = CraftRule.parse({
+      kind: 'exactly-one',
+      path: 'gates',
+      field: 'status',
+      equals: 'warning',
+      description: 'Exactly one readiness gate carries status warning.',
+    });
+    expect(rule.kind).toBe('exactly-one');
+  });
+
+  it('accepts a required-nonempty rule', () => {
+    const rule = CraftRule.parse({
+      kind: 'required-nonempty',
+      path: 'deck.notice',
+      description: 'The synthetic-data notice must be present.',
+    });
+    expect(rule.path).toBe('deck.notice');
+  });
+
+  it('rejects an unknown rule kind and legacy string ids', () => {
+    expect(() => CraftRule.parse('notice-required')).toThrow();
+    expect(() => CraftRule.parse({ kind: 'count-range', path: 'x', description: 'y' })).toThrow();
+  });
+
+  it('accepts declared craft rules as objects and rejects legacy string ids', () => {
     const ok = WorldTemplateDescriptor.safeParse({
       ...validDescriptor,
-      craftRules: ['exactly-one-anomaly-kpi', 'notice-required'],
+      craftRules: [
+        { kind: 'exactly-one', path: 'kpis', field: 'status', equals: 'off-track', description: 'One anomaly.' },
+        { kind: 'required-nonempty', path: 'deck.notice', description: 'Provenance notice.' },
+      ],
     });
     expect(ok.success).toBe(true);
     const bad = WorldTemplateDescriptor.safeParse({

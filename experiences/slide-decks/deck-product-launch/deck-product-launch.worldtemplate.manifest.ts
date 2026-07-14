@@ -30,7 +30,12 @@ const descriptor: WorldTemplateDescriptor = WorldTemplateDescriptor.parse({
   componentsUsed: ['comp.status-list', 'comp.kpi-tile'],
   slideKinds: TMINUS_SLIDE_KINDS,
   guidance: TMINUS_GUIDANCE,
-  craftRules: ['exactly-one-blocked-gate', 'notice-required'],
+  craftRules: [
+    { kind: 'exactly-one', path: 'gates', field: 'status', equals: 'warning',
+      description: 'Exactly one readiness gate carries status warning — the single honest blocker.' },
+    { kind: 'required-nonempty', path: 'deck.notice',
+      description: 'deck.notice must state data provenance (synthetic or sourced).' },
+  ],
 });
 
 export default descriptor;

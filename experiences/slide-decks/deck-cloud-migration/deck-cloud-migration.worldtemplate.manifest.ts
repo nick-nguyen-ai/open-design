@@ -24,7 +24,12 @@ const descriptor: WorldTemplateDescriptor = WorldTemplateDescriptor.parse({
   componentsUsed: ['comp.flow-diagram', 'comp.status-list'],
   slideKinds: CUTOVER_SLIDE_KINDS,
   guidance: CUTOVER_GUIDANCE,
-  craftRules: ['exactly-one-stays-node', 'notice-required'],
+  craftRules: [
+    { kind: 'exactly-one', path: 'nodes', field: 'disposition', equals: 'stays',
+      description: 'Exactly one estate node carries disposition stays — the single deliberate exception.' },
+    { kind: 'required-nonempty', path: 'deck.notice',
+      description: 'deck.notice must state data provenance (synthetic or sourced).' },
+  ],
 });
 
 export default descriptor;

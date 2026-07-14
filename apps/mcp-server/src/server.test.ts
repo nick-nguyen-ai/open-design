@@ -404,7 +404,7 @@ describe('mcp-server tools', () => {
     const out = ValidateFillOutput.parse(result.structuredContent);
     expect(out.valid).toBe(false);
     const craft = out.findings.find((f) => f.rule === 'craft' && f.path === 'kpis');
-    expect(craft?.message).toMatch(/exactly-one-anomaly-kpi/);
+    expect(craft?.message).toMatch(/exactly-one at "kpis" where status="off-track"/);
     const oversize = out.findings.find((f) => f.rule === 'maxChars' && f.path === 'summary.lead');
     expect(oversize).toBeTruthy();
     expect(oversize?.guidance).toBeTruthy();

@@ -30,8 +30,18 @@ describe('The T-Minus — world-template descriptor', () => {
   });
 
   it('declares its flagged-blocker craft rule and the required notice', () => {
-    expect(tminusDescriptor.craftRules).toContain('exactly-one-blocked-gate');
-    expect(tminusDescriptor.craftRules).toContain('notice-required');
+    expect(tminusDescriptor.craftRules).toContainEqual({
+      kind: 'exactly-one',
+      path: 'gates',
+      field: 'status',
+      equals: 'warning',
+      description: expect.any(String),
+    });
+    expect(tminusDescriptor.craftRules).toContainEqual({
+      kind: 'required-nonempty',
+      path: 'deck.notice',
+      description: expect.any(String),
+    });
   });
 
   it('every slot declares limits and guidance', () => {

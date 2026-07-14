@@ -247,8 +247,12 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
       for (const componentId of worldTemplate.componentsUsed) {
         expect(componentIds.has(componentId)).toBe(true);
       }
-      // Every declared craft rule is one of the known ids, and both pilots require the notice.
-      expect(worldTemplate.craftRules).toContain('notice-required');
+      // Every template requires a non-empty provenance notice at deck.notice.
+      expect(worldTemplate.craftRules).toContainEqual({
+        kind: 'required-nonempty',
+        path: 'deck.notice',
+        description: expect.any(String),
+      });
     }
   });
 

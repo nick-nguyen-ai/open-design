@@ -52,28 +52,30 @@ export const SlotSpec = z.object({
 export type SlotSpec = z.infer<typeof SlotSpec>;
 
 /**
- * Machine-checkable craft rules a template declares. The descriptor carries only
- * the rule IDs (JSON-serializable); the MCP `validate_fill` tool knows how to
- * enforce each against a fill's slot values. This is what lets the tool guarantee
- * the design-defining constraints (the single flagged anomaly, the required
- * synthetic notice) WITHOUT importing the world-specific Zod fill schema — the
- * full Zod validation remains a client-side step.
- *
- * - `exactly-one-anomaly-kpi`: `fill.kpis` is an array with exactly one entry
- *   whose `status === 'off-track'`.
- * - `exactly-one-stays-node`: `fill.nodes` is an array with exactly one entry
- *   whose `disposition === 'stays'`.
- * - `exactly-one-blocked-gate`: `fill.gates` is an array with exactly one entry
- *   whose `status === 'warning'` — the single flagged blocker.
- * - `notice-required`: `fill.deck.notice` is a present, non-empty string.
+ * Machine-checkable craft rules a template declares, parameterized so any
+ * template can express its design-defining constraint without server changes.
+ * `validate_fill` interprets them generically:
+ * - `exactly-one`: the array at `path` has exactly one element whose `field`
+ *   equals `equals` (the single flagged anomaly/blocker/tension).
+ * - `required-nonempty`: the string at `path` is present and non-empty after
+ *   trimming (the provenance notice).
+ * New kinds join the union only when a template needs one.
  */
-export const CraftRuleId = z.enum([
-  'exactly-one-anomaly-kpi',
-  'exactly-one-stays-node',
-  'exactly-one-blocked-gate',
-  'notice-required',
+export const CraftRule = z.discriminatedUnion('kind', [
+  z.object({
+    kind: z.literal('exactly-one'),
+    path: z.string().min(1),
+    field: z.string().min(1),
+    equals: z.string().min(1),
+    description: z.string().min(1),
+  }),
+  z.object({
+    kind: z.literal('required-nonempty'),
+    path: z.string().min(1),
+    description: z.string().min(1),
+  }),
 ]);
-export type CraftRuleId = z.infer<typeof CraftRuleId>;
+export type CraftRule = z.infer<typeof CraftRule>;
 
 /** How many times a slide kind may repeat within a composed deck. */
 export const SlideKindRepeats = z.object({
@@ -113,9 +115,9 @@ export const WorldTemplateDescriptor = z.object({
   guidance: z.array(z.string()),
   /**
    * The machine-checkable craft rules `validate_fill` enforces (beyond the slot
-   * limits). Omitted defaults to none; the two pilot templates declare their
-   * anomaly rule plus `notice-required`.
+   * limits). Omitted defaults to none; each pilot template declares its
+   * `exactly-one` anomaly rule plus a `required-nonempty` provenance notice.
    */
-  craftRules: z.array(CraftRuleId).default([]),
+  craftRules: z.array(CraftRule).default([]),
 });
 export type WorldTemplateDescriptor = z.infer<typeof WorldTemplateDescriptor>;

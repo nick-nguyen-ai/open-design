@@ -24,7 +24,12 @@ const descriptor: WorldTemplateDescriptor = WorldTemplateDescriptor.parse({
   componentsUsed: ['comp.kpi-tile', 'comp.trend-chart', 'comp.category-bar-chart'],
   slideKinds: QUARTER_SLIDE_KINDS,
   guidance: QUARTER_GUIDANCE,
-  craftRules: ['exactly-one-anomaly-kpi', 'notice-required'],
+  craftRules: [
+    { kind: 'exactly-one', path: 'kpis', field: 'status', equals: 'off-track',
+      description: 'Exactly one KPI carries status off-track — the single flagged anomaly the world turns on.' },
+    { kind: 'required-nonempty', path: 'deck.notice',
+      description: 'deck.notice must state data provenance (synthetic or sourced).' },
+  ],
 });
 
 export default descriptor;

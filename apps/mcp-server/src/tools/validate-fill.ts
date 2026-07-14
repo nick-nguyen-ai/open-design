@@ -102,52 +102,30 @@ function checkSlot(fill: unknown, slot: SlotSpec, findings: FillFinding[]): void
   }
 }
 
-/** Append craft-rule findings for the rules the descriptor declares. */
+/** Generic interpreter for the descriptor's parameterized craft rules. */
 function checkCraftRules(fill: unknown, descriptor: WorldTemplateDescriptor, findings: FillFinding[]): void {
   for (const rule of descriptor.craftRules) {
-    if (rule === 'notice-required') {
-      const notice = resolvePath(fill, 'deck.notice');
-      if (typeof notice !== 'string' || notice.trim().length === 0) {
+    if (rule.kind === 'required-nonempty') {
+      const value = resolvePath(fill, rule.path);
+      if (typeof value !== 'string' || value.trim().length === 0) {
         findings.push({
-          path: 'deck.notice',
+          path: rule.path,
           rule: 'craft',
-          message: 'Craft rule "notice-required": deck.notice must be a present, non-empty synthetic-data notice.',
+          message: `Craft rule (required-nonempty at "${rule.path}"): ${rule.description}`,
         });
       }
-    } else if (rule === 'exactly-one-anomaly-kpi') {
-      const kpis = resolvePath(fill, 'kpis');
-      const count = Array.isArray(kpis)
-        ? kpis.filter((k) => typeof k === 'object' && k !== null && (k as { status?: unknown }).status === 'off-track').length
+    } else {
+      const value = resolvePath(fill, rule.path);
+      const count = Array.isArray(value)
+        ? value.filter(
+            (el) => typeof el === 'object' && el !== null && (el as Record<string, unknown>)[rule.field] === rule.equals,
+          ).length
         : 0;
       if (count !== 1) {
         findings.push({
-          path: 'kpis',
+          path: rule.path,
           rule: 'craft',
-          message: `Craft rule "exactly-one-anomaly-kpi": exactly one KPI must carry status "off-track" (found ${count}).`,
-        });
-      }
-    } else if (rule === 'exactly-one-stays-node') {
-      const nodes = resolvePath(fill, 'nodes');
-      const count = Array.isArray(nodes)
-        ? nodes.filter((n) => typeof n === 'object' && n !== null && (n as { disposition?: unknown }).disposition === 'stays').length
-        : 0;
-      if (count !== 1) {
-        findings.push({
-          path: 'nodes',
-          rule: 'craft',
-          message: `Craft rule "exactly-one-stays-node": exactly one estate node must carry disposition "stays" (found ${count}).`,
-        });
-      }
-    } else if (rule === 'exactly-one-blocked-gate') {
-      const gates = resolvePath(fill, 'gates');
-      const count = Array.isArray(gates)
-        ? gates.filter((g) => typeof g === 'object' && g !== null && (g as { status?: unknown }).status === 'warning').length
-        : 0;
-      if (count !== 1) {
-        findings.push({
-          path: 'gates',
-          rule: 'craft',
-          message: `Craft rule "exactly-one-blocked-gate": exactly one readiness gate must carry status "warning" (found ${count}).`,
+          message: `Craft rule (exactly-one at "${rule.path}" where ${rule.field}="${rule.equals}", found ${count}): ${rule.description}`,
         });
       }
     }
