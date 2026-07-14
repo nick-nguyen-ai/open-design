@@ -58,6 +58,7 @@ const TREND_POINTS = Array.from({ length: TREND_DAYS }, (_, i) => {
 
 export const cockpitFill: CockpitFill = CockpitFill.parse({
   watch: {
+    pageTitle: 'The Model Risk Control Room, 02:47',
     commandLine: 'MODEL RISK COMMAND · NIGHT WATCH · EST. 2021',
     environment: 'PROD',
     refreshCadence: 'REFRESH 60S',
@@ -105,21 +106,21 @@ export const cockpitFill: CockpitFill = CockpitFill.parse({
     ],
     models: [
       // FRAUD & FIN-CRIME
-      { id: 'card-fraud-v4', name: 'card-fraud-v4', sectorId: 'fraud', psi: 0.312, status: 'breach', owner: 'Decision Science — Cards', tier: 1, lastRetrain: '2026-05-28' },
-      { id: 'aml-alert-ranker', name: 'aml-alert-ranker', sectorId: 'fraud', psi: 0.118, status: 'watch', owner: 'Financial Crime Analytics', tier: 1, lastRetrain: '2026-06-19' },
-      { id: 'sanctions-screening-v3', name: 'sanctions-screening-v3', sectorId: 'fraud', psi: 0.052, status: 'stable', owner: 'Financial Crime Analytics', tier: 1, lastRetrain: '2026-07-01' },
-      { id: 'merchant-risk-gbm', name: 'merchant-risk-gbm', sectorId: 'fraud', psi: 0.087, status: 'stable', owner: 'Decision Science — Merchants', tier: 2, lastRetrain: '2026-06-24' },
+      { id: 'card-fraud-v4', name: 'card-fraud-v4', sectorId: 'fraud', psi: 0.312, status: 'breach', owner: 'Decision Science — Cards', lastRetrain: '2026-05-28' },
+      { id: 'aml-alert-ranker', name: 'aml-alert-ranker', sectorId: 'fraud', psi: 0.118, status: 'watch', owner: 'Financial Crime Analytics', lastRetrain: '2026-06-19' },
+      { id: 'sanctions-screening-v3', name: 'sanctions-screening-v3', sectorId: 'fraud', psi: 0.052, status: 'stable', owner: 'Financial Crime Analytics', lastRetrain: '2026-07-01' },
+      { id: 'merchant-risk-gbm', name: 'merchant-risk-gbm', sectorId: 'fraud', psi: 0.087, status: 'stable', owner: 'Decision Science — Merchants', lastRetrain: '2026-06-24' },
       // CREDIT RISK
-      { id: 'mortgage-pd-b2', name: 'mortgage-pd-b2', sectorId: 'credit', psi: 0.064, status: 'stable', owner: 'Retail Credit Models', tier: 1, lastRetrain: '2026-04-30' },
-      { id: 'credit-limit-optimiser', name: 'credit-limit-optimiser', sectorId: 'credit', psi: 0.141, status: 'watch', owner: 'Retail Credit Models', tier: 2, lastRetrain: '2026-06-07' },
-      { id: 'collections-uplift', name: 'collections-uplift', sectorId: 'credit', psi: 0.049, status: 'stable', owner: 'Collections Strategy', tier: 3, lastRetrain: '2026-06-28' },
+      { id: 'mortgage-pd-b2', name: 'mortgage-pd-b2', sectorId: 'credit', psi: 0.064, status: 'stable', owner: 'Retail Credit Models', lastRetrain: '2026-04-30' },
+      { id: 'credit-limit-optimiser', name: 'credit-limit-optimiser', sectorId: 'credit', psi: 0.141, status: 'watch', owner: 'Retail Credit Models', lastRetrain: '2026-06-07' },
+      { id: 'collections-uplift', name: 'collections-uplift', sectorId: 'credit', psi: 0.049, status: 'stable', owner: 'Collections Strategy', lastRetrain: '2026-06-28' },
       // MARKETS & TREASURY
-      { id: 'fx-liquidity-lstm', name: 'fx-liquidity-lstm', sectorId: 'markets', psi: 0.093, status: 'stable', owner: 'Markets Quant Engineering', tier: 2, lastRetrain: '2026-06-15' },
-      { id: 'rate-path-scenario', name: 'rate-path-scenario', sectorId: 'markets', psi: 0.071, status: 'stable', owner: 'Treasury Analytics', tier: 2, lastRetrain: '2026-05-22' },
+      { id: 'fx-liquidity-lstm', name: 'fx-liquidity-lstm', sectorId: 'markets', psi: 0.093, status: 'stable', owner: 'Markets Quant Engineering', lastRetrain: '2026-06-15' },
+      { id: 'rate-path-scenario', name: 'rate-path-scenario', sectorId: 'markets', psi: 0.071, status: 'stable', owner: 'Treasury Analytics', lastRetrain: '2026-05-22' },
       // CUSTOMER OPS
-      { id: 'churn-early-warning', name: 'churn-early-warning', sectorId: 'customer', psi: 0.116, status: 'watch', owner: 'Customer Decisioning', tier: 3, lastRetrain: '2026-06-11' },
-      { id: 'kyc-doc-classifier', name: 'kyc-doc-classifier', sectorId: 'customer', psi: 0.083, status: 'stable', owner: 'Onboarding Automation', tier: 2, lastRetrain: '2026-06-30' },
-      { id: 'complaint-triage-nlp', name: 'complaint-triage-nlp', sectorId: 'customer', psi: 0.044, status: 'stable', owner: 'Customer Decisioning', tier: 3, lastRetrain: '2026-07-03' },
+      { id: 'churn-early-warning', name: 'churn-early-warning', sectorId: 'customer', psi: 0.116, status: 'watch', owner: 'Customer Decisioning', lastRetrain: '2026-06-11' },
+      { id: 'kyc-doc-classifier', name: 'kyc-doc-classifier', sectorId: 'customer', psi: 0.083, status: 'stable', owner: 'Onboarding Automation', lastRetrain: '2026-06-30' },
+      { id: 'complaint-triage-nlp', name: 'complaint-triage-nlp', sectorId: 'customer', psi: 0.044, status: 'stable', owner: 'Customer Decisioning', lastRetrain: '2026-07-03' },
     ],
   },
 

@@ -202,8 +202,10 @@ export default function CockpitTemplate({ fill }: { fill: CockpitFill }) {
   const breaching = (fleet.models.find((m) => m.status === 'breach') ?? fleet.models[0]) as CockpitFleetModel;
 
   useEffect(() => {
-    document.title = 'The Model Risk Control Room, 02:47 — Live';
-  }, []);
+    // Derived from the fill: a different monitoring story gets a truthful tab
+    // title (" — Live" is the gallery live-route suffix, chrome not content).
+    document.title = `${watch.pageTitle} — Live`;
+  }, [watch.pageTitle]);
 
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
