@@ -54,6 +54,16 @@ export const tminusFill: TMinusFill = TMinusFill.parse({
       'Businesses do not switch banks for another payments menu. They switch when a payment that used to take a day takes eight seconds and never fails silently. That is the one promise this launch has to keep on day zero — everything else on the plan exists to protect it.',
   },
 
+  /** The editorial slide headlines — the shipped deck's voice, verbatim. */
+  headlines: {
+    readiness: 'Five gates. Four are green.',
+    comms: 'Nobody hears it before the right people do.',
+    pricing: 'One flat price does most of the selling.',
+    runbook: 'Launch day, hour by hour.',
+    risk: 'What stops the clock — and how fast we’re back.',
+    metrics: 'Four numbers tell us it worked.',
+  },
+
   /** The readiness board — the security gate is the single flagged blocker. */
   gates: [
     {
@@ -90,6 +100,7 @@ export const tminusFill: TMinusFill = TMinusFill.parse({
 
   /** The one flagged blocker — echoed under the board and in the a11y summary. */
   anomalyLabel: 'SECURITY REVIEW PENDING — BLOCKS T-7',
+  anomalyNote: 'the retest is booked; sign-off is the single thing between amber and go.',
 
   comms: [
     { id: 'c1', channel: 'In-product', moment: 'T-0, at GA', detail: 'Eligible admins see an enablement card the moment their account flips on.' },
@@ -116,6 +127,8 @@ export const tminusFill: TMinusFill = TMinusFill.parse({
     { id: 'ga', time: '16:00', label: 'GA · 100%', detail: 'General availability; announcement and press embargo lift.' },
     { id: 'watch', time: '18:00', label: 'Night watch', detail: 'Heightened monitoring held through the first overnight.' },
   ],
+  runbookNote:
+    'One code freeze at 05:00, one go/no-go on the readiness board at 07:45, then a staged ramp — staff, 10%, 50%, 100% — before the announcement lifts at general availability. Every step is reversible with one switch until we choose to open the doors.',
 
   aborts: [
     { id: 'a1', metric: 'Payment success rate', threshold: 'below 99.0% for 5 min', action: 'Halt ramp, hold cohort, page platform on-call.' },

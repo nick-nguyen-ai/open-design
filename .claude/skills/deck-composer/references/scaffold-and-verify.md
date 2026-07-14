@@ -69,6 +69,7 @@ Evidence directory convention: `docs/superpowers/specs/<slug>-sample/` — holds
 
 Design quality is the template's job — you are checking that YOUR CONTENT sits well in it:
 
+- **Template leak (check FIRST):** read every word on every slide and ask "did I author this?" Any sentence you didn't write is shipped-instance story leaking from the template — a template defect, even when it happens to sound plausible. (The OpenWiki run caught four of these: an anomaly echo line, a runbook summary paragraph, a derived-looking kicker, and six editorial headlines.)
 - **Overflow/truncation:** no clipped text, no ellipsis you didn't write, no wrapped display type breaking the type ramp.
 - **Orphans in display type:** no single-word last lines in titles/headlines; rephrase, don't restyle.
 - **Density:** no slide that reads empty (slot much shorter than its example's magnitude) or crammed (items at max where the example used fewer) — compare against the skeleton examples.

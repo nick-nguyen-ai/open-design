@@ -1,0 +1,2152 @@
+{
+  "generatedAt": "2026-07-14T04:16:16.104Z",
+  "brief": "Introduce OpenWiki, the just-released open-source agent for repo documentation — announce the launch and stage the countdown to rolling it out across our repositories: readiness gates, day-0 runbook, adoption targets.",
+  "context": {
+    "surface": "slide-deck",
+    "audience": [
+      "mixed"
+    ],
+    "businessIntent": [
+      "announce-product-release"
+    ],
+    "corporateSuitability": "standard",
+    "motionPreference": 2,
+    "styleHint": "art-directed"
+  },
+  "validateTemplateHandle": "deck-product-launch",
+  "compose": {
+    "tool": "compose_slide_deck",
+    "arguments": {
+      "context": {
+        "surface": "slide-deck",
+        "audience": [
+          "mixed"
+        ],
+        "businessIntent": [
+          "announce-product-release"
+        ],
+        "corporateSuitability": "standard",
+        "motionPreference": 2,
+        "styleHint": "art-directed"
+      },
+      "contentBrief": "Introduce OpenWiki, the just-released open-source agent for repo documentation — announce the launch and stage the countdown to rolling it out across our repositories: readiness gates, day-0 runbook, adoption targets."
+    },
+    "raw": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"worldTemplateId\":\"tminus\",\"experienceId\":\"deck-product-launch\",\"rationale\":\"Selected 'tminus' (deck-product-launch, art-directed style); shares audience(s) [mixed]; matched intent keyword(s) [product, launch, announce, release]; art-directed style fits standard corporate suitability; motion preference 2 noted (the template locks its own motion).\",\"evidence\":[\"tminus (deck-product-launch): audienceOverlap 1×2=2 + intentMatch 4 + corporateFit 1 = 7\",\"cutover (deck-cloud-migration): audienceOverlap 0×2=0 + intentMatch 0 + corporateFit 1 = 1\"],\"fillSkeleton\":{\"slideKinds\":[{\"kind\":\"title\",\"purpose\":\"The countdown cover — product, programme, the two-line launch display, and the notice.\",\"repeats\":{\"min\":1,\"max\":1},\"slots\":[{\"spec\":{\"name\":\"deck.code\",\"type\":\"text\",\"required\":true,\"limits\":{\"maxChars\":24},\"guidance\":\"The short launch code shown first on the chrome, e.g. \\\"LAUNCH-04\\\".\"},\"guidance\":\"The short launch code shown first on the chrome, e.g. \\\"LAUNCH-04\\\".\",\"example\":\"LAUNCH-04\"},{\"spec\":{\"name\":\"deck.world\",\"type\":\"text\",\"required\":true,\"limits\":{\"maxChars\":24},\"guidance\":\"The world name paired with the code on the chrome and browser title, e.g. \\\"T-MINUS\\\".\"},\"guidance\":\"The world name paired with the code on the chrome and browser title, e.g. \\\"T-MINUS\\\".\",\"example\":\"T-MINUS\"},{\"spec\":{\"name\":\"deck.product\",\"type\":\"text\",\"required\":true,\"limits\":{\"maxChars\":28},\"guidance\":\"The product being launched, set large on the cover, e.g. \\\"MERIDIAN INSTANT\\\".\"},\"guidance\":\"The product being launched, set large on the cover, e.g. \\\"MERIDIAN INSTANT\\\".\",\"example\":\"MERIDIAN INSTANT\"},{\"spec\":{\"name\":\"deck.programme\",\"type\":\"text\",\"required\":true,\"limits\":{\"maxChars\":48},\"guidance\":\"The programme line above the cover title, e.g. \\\"REAL-TIME BUSINESS PAYMENTS · GO-LIVE\\\".\"},\"guidance\":\"The programme line above the cover title, e.g. \\\"REAL-TIME BUSINESS PAYMENTS · GO-LIVE\\\".\",\"example\":\"REAL-TIME BUSINESS PAYMENTS · GO-LIVE\"},{\"spec\":{\"name\":\"deck.war\",\"type\":\"text\",\"required\":true,\"limits\":{\"maxChars\":40},\"guidance\":\"The launch-control room line shown on kicker rows, e.g. \\\"LAUNCH CONTROL · SEQUENCE 04\\\".\"},\"guidance\":\"The launch-control room line shown on kicker rows, e.g. \\\"LAUNCH CONTROL · SEQUENCE 04\\\".\",\"example\":\"LAUNCH CONTROL · SEQUENCE 04\"},{\"spec\":{\"name\":\"deck.notice\",\"type\":\"text\",\"required\":true,\"limits\":{\"maxChars\":56},\"guidance\":\"REQUIRED synthetic-launch notice printed on every slide foot and the footer, e.g. \\\"SYNTHETIC LAUNCH PLAN — DEMONSTRATION ONLY\\\".\"},\"guidance\":\"REQUIRED synthetic-launch notice printed on every slide foot and the footer, e.g. \\\"SYNTHETIC LAUNCH PLAN — DEMONSTRATION ONLY\\\".\",\"example\":\"SYNTHETIC LAUNCH PLAN — DEMONSTRATION ONLY\"},{\"spec\":{\"name\":\"cover.line1\",\"type\":\"text\",\"required\":true,\"limits\":{\"maxChars\":32},\"guidance\":\"First display line of the cover thesis, e.g. \\\"A launch is a\\\".\"},\"guidance\":\"First display line of the cover thesis, e.g. \\\"A launch is a\\\".\",\"example\":\"A launch is a\"},{\"spec\":{\"name\":\"cover.line2\",\"type\":\"text\",\"required\":true,\"limits\":{\"maxChars\":32},\"guidance\":\"Second display line — the accented turn, e.g. \\\"countdown, not a date.\\\".\"},\"guidance\":\"Second display line — the accented turn, e.g. \\\"countdown, not a date.\\\".\",\"example\":\"countdown, not a date.\"},{\"spec\":{\"name\":\"cover.standfirst\",\"type\":\"longtext\",\"required\":true,\"limits\":{\"maxChars\":200},\"guidance\":\"One paragraph framing the countdown to go-live and the one gate still standing amber.\"},\"guidance\":\"One paragraph framing the countdown to go-live and the one gate still standing amber.\",\"example\":\"<longtext, ≤200 chars>\"}]},{\"kind\":\"one-sentence\",\"purpose\":\"The product in one sentence, with three proof facts.\",\"repeats\":{\"min\":1,\"max\":1},\"slots\":[{\"spec\":{\"name\":\"oneSentence.lead\",\"type\":\"text\",\"required\":true,\"limits\":{\"maxChars\":32},\"guidance\":\"The eyebrow above the one-liner, e.g. \\\"What we are launching\\\".\"},\"guidance\":\"The eyebrow above the one-liner, e.g. \\\"What we are launching\\\".\",\"example\":\"What we are launching\"},{\"spec\":{\"name\":\"oneSentence.sentence\",\"type\":\"longtext\",\"required\":true,\"limits\":{\"maxChars\":208},\"guidance\":\"The whole product in one sentence — the promise the launch has to keep.\"},\"guidance\":\"The whole product in one sentence — the promise the launch has to keep.\",\"example\":\"<longtext, ≤208 chars>\"},{\"spec\":{\"name\":\"oneSentence.facts\",\"type\":\"items\",\"required\":true,\"limits\":{\"minItems\":2,\"maxItems\":4},\"guidance\":\"Two-to-four proof facts; each a short stat (≤16 chars) and a caption (≤40 chars).\"},\"guidance\":\"Two-to-four proof facts; each a short stat (≤16 chars) and a caption (≤40 chars).\",\"example\":\"<2–4 items>\"}]},{\"kind\":\"thesis\",\"purpose\":\"The launch thesis — a monumental two-line statement and a paragraph.\",\"repeats\":{\"min\":1,\"max\":1},\"slots\":[{\"spec\":{\"name\":\"thesis.line1\",\"type\":\"text\",\"required\":true,\"limits\":{\"maxChars\":24},\"guidance\":\"First display line of the thesis, e.g. \\\"Speed is the\\\".\"},\"guidance\":\"First display line of the thesis, e.g. \\\"Speed is the\\\".\",\"example\":\"Speed is the\"},{\"spec\":{\"name\":\"thesis.line2\",\"type\":\"text\",\"required\":true,\"limits\":{\"maxChars\":24},\"guidance\":\"Second, accented display line, e.g. \\\"whole product.\\\".\"},\"guidance\":\"Second, accented display line, e.g. \\\"whole product.\\\".\",\"example\":\"whole product.\"},{\"spec\":{\"name\":\"thesis.standfirst\",\"type\":\"longtext\",\"required\":true,\"limits\":{\"maxChars\":350},\"guidance\":\"One paragraph on the single promise the launch protects on day zero.\"},\"guidance\":\"One paragraph on the single promise the launch protects on day zero.\",\"example\":\"<longtext, ≤350 chars>\"}]},{\"kind\":\"readiness\",\"purpose\":\"The launch-readiness board (comp.status-list); exactly one gate is flagged.\",\"repeats\":{\"min\":1,\"max\":1},\"slots\":[{\"spec\":{\"name\":\"headlines.readiness\",\"type\":\"text\",\"required\":true,\"limits\":{\"maxChars\":64},\"guidance\":\"Editorial headline for the readiness board; must be true of the gates you supply, e.g. \\\"Five gates. Four are green.\\\".\"},\"guidance\":\"Editorial headline for the readiness board; must be true of the gates you supply, e.g. \\\"Five gates. Four are green.\\\".\",\"example\":\"Five gates. Four are green.\"},{\"spec\":{\"name\":\"gates\",\"type\":\"items\",\"required\":true,\"limits\":{\"minItems\":3,\"maxItems\":7},\"guidance\":\"Three-to-seven readiness gates (id, label, status success|warning|danger|info|neutral, description). Exactly ONE carries status \\\"warning\\\" — the single flagged blocker still standing between the team and go.\"},\"guidance\":\"Three-to-seven readiness gates (id, label, status success|warning|danger|info|neutral, description). Exactly ONE carries status \\\"warning\\\" — the single flagged blocker still standing between the team and go.\",\"example\":\"<3–7 items>\"},{\"spec\":{\"name\":\"anomalyLabel\",\"type\":\"text\",\"required\":true,\"limits\":{\"maxChars\":48},\"guidance\":\"REQUIRED verbatim flag for the blocked gate, echoed under the board, e.g. \\\"SECURITY REVIEW PENDING — BLOCKS T-7\\\".\"},\"guidance\":\"REQUIRED verbatim flag for the blocked gate, echoed under the board, e.g. \\\"SECURITY REVIEW PENDING — BLOCKS T-7\\\".\",\"example\":\"SECURITY REVIEW PENDING — BLOCKS T-7\"},{\"spec\":{\"name\":\"anomalyNote\",\"type\":\"text\",\"required\":true,\"limits\":{\"maxChars\":120},\"guidance\":\"Continues the HOLD callout after the flag: what unblocks the amber gate, e.g. \\\"the retest is booked; sign-off is the single thing between amber and go.\\\".\"},\"guidance\":\"Continues the HOLD callout after the flag: what unblocks the amber gate, e.g. \\\"the retest is booked; sign-off is the single thing between amber and go.\\\".\",\"example\":\"the retest is booked; sign-off is the single thing between amber and go.\"}]},{\"kind\":\"comms\",\"purpose\":\"The comms & channel plan — who hears the launch, and when.\",\"repeats\":{\"min\":1,\"max\":1},\"slots\":[{\"spec\":{\"name\":\"headlines.comms\",\"type\":\"text\",\"required\":true,\"limits\":{\"maxChars\":64},\"guidance\":\"Editorial headline for the comms plan, e.g. \\\"Nobody hears it before the right people do.\\\".\"},\"guidance\":\"Editorial headline for the comms plan, e.g. \\\"Nobody hears it before the right people do.\\\".\",\"example\":\"Nobody hears it before the right people do.\"},{\"spec\":{\"name\":\"comms\",\"type\":\"items\",\"required\":true,\"limits\":{\"minItems\":3,\"maxItems\":7},\"guidance\":\"Three-to-seven comms lines; each a channel, a moment (e.g. \\\"T-0, at GA\\\"), and a one-line detail.\"},\"guidance\":\"Three-to-seven comms lines; each a channel, a moment (e.g. \\\"T-0, at GA\\\"), and a one-line detail.\",\"example\":\"T-0, at GA\"}]},{\"kind\":\"pricing\",\"purpose\":\"Pricing & packaging — the tiers, one flagged as the launch focus.\",\"repeats\":{\"min\":1,\"max\":1},\"slots\":[{\"spec\":{\"name\":\"headlines.pricing\",\"type\":\"text\",\"required\":true,\"limits\":{\"maxChars\":64},\"guidance\":\"Editorial headline for pricing & packaging; must match the tier shape you supply, e.g. \\\"One flat price does most of the selling.\\\".\"},\"guidance\":\"Editorial headline for pricing & packaging; must match the tier shape you supply, e.g. \\\"One flat price does most of the selling.\\\".\",\"example\":\"One flat price does most of the selling.\"},{\"spec\":{\"name\":\"pricing\",\"type\":\"items\",\"required\":true,\"limits\":{\"minItems\":2,\"maxItems\":4},\"guidance\":\"Two-to-four price tiers; each a name, price, unit, an includes line, and a boolean \\\"feature\\\" (the launch-focus card).\"},\"guidance\":\"Two-to-four price tiers; each a name, price, unit, an includes line, and a boolean \\\"feature\\\" (the launch-focus card).\",\"example\":\"<2–4 items>\"}]},{\"kind\":\"runbook\",\"purpose\":\"The day-0 runbook — the commanding horizontal sequence with a go/no-go gate.\",\"repeats\":{\"min\":1,\"max\":1},\"slots\":[{\"spec\":{\"name\":\"headlines.runbook\",\"type\":\"text\",\"required\":true,\"limits\":{\"maxChars\":64},\"guidance\":\"Editorial headline for the day-0 sequence, e.g. \\\"Launch day, hour by hour.\\\".\"},\"guidance\":\"Editorial headline for the day-0 sequence, e.g. \\\"Launch day, hour by hour.\\\".\",\"example\":\"Launch day, hour by hour.\"},{\"spec\":{\"name\":\"runbook\",\"type\":\"items\",\"required\":true,\"limits\":{\"minItems\":5,\"maxItems\":12},\"guidance\":\"Five-to-twelve ordered runbook steps (id, time, label, detail); mark exactly the go/no-go step with gate:true so it renders as the pivotal diamond. The slide kicker derives from these: \\\"ONE DAY · {first step time} → {last step label}\\\".\"},\"guidance\":\"Five-to-twelve ordered runbook steps (id, time, label, detail); mark exactly the go/no-go step with gate:true so it renders as the pivotal diamond. The slide kicker derives from these: \\\"ONE DAY · {first step time} → {last step label}\\\".\",\"example\":\"<5–12 items>\"},{\"spec\":{\"name\":\"runbookNote\",\"type\":\"longtext\",\"required\":true,\"limits\":{\"maxChars\":300},\"guidance\":\"The paragraph under the rail — the day read as one story: the single go/no-go, what is reversible, and until when.\"},\"guidance\":\"The paragraph under the rail — the day read as one story: the single go/no-go, what is reversible, and until when.\",\"example\":\"<longtext, ≤300 chars>\"}]},{\"kind\":\"risk\",\"purpose\":\"Abort triggers and the one-switch rollback.\",\"repeats\":{\"min\":1,\"max\":1},\"slots\":[{\"spec\":{\"name\":\"headlines.risk\",\"type\":\"text\",\"required\":true,\"limits\":{\"maxChars\":64},\"guidance\":\"Editorial headline for risk & rollback, e.g. \\\"What stops the clock — and how fast we’re back.\\\".\"},\"guidance\":\"Editorial headline for risk & rollback, e.g. \\\"What stops the clock — and how fast we’re back.\\\".\",\"example\":\"What stops the clock — and how fast we’re back.\"},{\"spec\":{\"name\":\"aborts\",\"type\":\"tableRows\",\"required\":true,\"limits\":{\"minItems\":2,\"maxItems\":6},\"guidance\":\"Abort-trigger rows: a signal metric, an abort threshold, and the action taken.\"},\"guidance\":\"Abort-trigger rows: a signal metric, an abort threshold, and the action taken.\",\"example\":\"<2–6 tableRows>\"},{\"spec\":{\"name\":\"rollbackNote\",\"type\":\"longtext\",\"required\":true,\"limits\":{\"maxChars\":260},\"guidance\":\"One paragraph on how fast the one-switch rollback returns to today’s rails.\"},\"guidance\":\"One paragraph on how fast the one-switch rollback returns to today’s rails.\",\"example\":\"<longtext, ≤260 chars>\"}]},{\"kind\":\"metrics\",\"purpose\":\"The launch metrics row (comp.kpi-tile) — day 7 and day 30.\",\"repeats\":{\"min\":1,\"max\":1},\"slots\":[{\"spec\":{\"name\":\"headlines.metrics\",\"type\":\"text\",\"required\":true,\"limits\":{\"maxChars\":64},\"guidance\":\"Editorial headline for the metrics row; must be true of the KPIs you supply, e.g. \\\"Four numbers tell us it worked.\\\".\"},\"guidance\":\"Editorial headline for the metrics row; must be true of the KPIs you supply, e.g. \\\"Four numbers tell us it worked.\\\".\",\"example\":\"Four numbers tell us it worked.\"},{\"spec\":{\"name\":\"metrics\",\"type\":\"metric\",\"required\":true,\"limits\":{\"minItems\":3,\"maxItems\":6},\"guidance\":\"Three-to-six launch KPIs (day-7 / day-30); each a label, value, unit, and status. Values with unit \\\"percent\\\" are FRACTIONS: 0.8 renders as 80.0%, never 80.\"},\"guidance\":\"Three-to-six launch KPIs (day-7 / day-30); each a label, value, unit, and status. Values with unit \\\"percent\\\" are FRACTIONS: 0.8 renders as 80.0%, never 80.\",\"example\":\"<3–6 metric>\"},{\"spec\":{\"name\":\"metricsNote\",\"type\":\"text\",\"required\":true,\"limits\":{\"maxChars\":220},\"guidance\":\"One-line reading of the metrics row — the committed targets and the trailing figure.\"},\"guidance\":\"One-line reading of the metrics row — the committed targets and the trailing figure.\",\"example\":\"<text, ≤220 chars>\"}]},{\"kind\":\"closing\",\"purpose\":\"The T-0 GO slide — the word, the line, and the decisions needed today.\",\"repeats\":{\"min\":1,\"max\":1},\"slots\":[{\"spec\":{\"name\":\"closing.word\",\"type\":\"text\",\"required\":true,\"limits\":{\"maxChars\":8},\"guidance\":\"The monumental closing word, e.g. \\\"GO\\\".\"},\"guidance\":\"The monumental closing word, e.g. \\\"GO\\\".\",\"example\":\"GO\"},{\"spec\":{\"name\":\"closing.line\",\"type\":\"text\",\"required\":true,\"limits\":{\"maxChars\":60},\"guidance\":\"The closing headline, e.g. \\\"On the readiness board, one gate stays amber.\\\".\"},\"guidance\":\"The closing headline, e.g. \\\"On the readiness board, one gate stays amber.\\\".\",\"example\":\"On the readiness board, one gate stays amber.\"},{\"spec\":{\"name\":\"closing.detail\",\"type\":\"longtext\",\"required\":true,\"limits\":{\"maxChars\":184},\"guidance\":\"One paragraph stating what clears the last gate and unblocks go.\"},\"guidance\":\"One paragraph stating what clears the last gate and unblocks go.\",\"example\":\"<longtext, ≤184 chars>\"},{\"spec\":{\"name\":\"closing.decisions\",\"type\":\"items\",\"required\":true,\"limits\":{\"minItems\":2,\"maxItems\":5},\"guidance\":\"Two-to-five decisions the go/no-go needs today; each ≤90 chars.\"},\"guidance\":\"Two-to-five decisions the go/no-go needs today; each ≤90 chars.\",\"example\":\"<2–5 items>\"}]}],\"craftGuarantees\":[\"A launch plan staged as a COUNTDOWN SEQUENCE: every slide carries a monumental T-minus stamp (T-30 → T-0) over a midnight field, with a single thin amber horizon line that RISES slide by slide and, at T-0, reaches the top as the field turns GO-green.\",\"Exactly one readiness gate carries the \\\"warning\\\" flagged-blocker status: the single amber square in an otherwise green board, its verbatim text echoed in anomalyLabel under the board and in the accessible summary.\",\"The synthetic-launch notice is required and prints on every slide’s print foot and the footer.\",\"The day-0 runbook is the commanding bespoke visual — a local SVG rail with a go/no-go diamond gate — and exposes a hidden ordered-list mirror derived from the same runbook data.\",\"Slot char caps and item counts are sized so any schema-valid fill stays composed — the runbook rail, the price grid, and the readiness board stay balanced and headlines never overflow.\",\"Motion level 2 (staggered build + horizon-sweep); the mood is locked dark.\"]}}"
+        }
+      ],
+      "structuredContent": {
+        "worldTemplateId": "tminus",
+        "experienceId": "deck-product-launch",
+        "rationale": "Selected 'tminus' (deck-product-launch, art-directed style); shares audience(s) [mixed]; matched intent keyword(s) [product, launch, announce, release]; art-directed style fits standard corporate suitability; motion preference 2 noted (the template locks its own motion).",
+        "evidence": [
+          "tminus (deck-product-launch): audienceOverlap 1×2=2 + intentMatch 4 + corporateFit 1 = 7",
+          "cutover (deck-cloud-migration): audienceOverlap 0×2=0 + intentMatch 0 + corporateFit 1 = 1"
+        ],
+        "fillSkeleton": {
+          "slideKinds": [
+            {
+              "kind": "title",
+              "purpose": "The countdown cover — product, programme, the two-line launch display, and the notice.",
+              "repeats": {
+                "min": 1,
+                "max": 1
+              },
+              "slots": [
+                {
+                  "spec": {
+                    "name": "deck.code",
+                    "type": "text",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 24
+                    },
+                    "guidance": "The short launch code shown first on the chrome, e.g. \"LAUNCH-04\"."
+                  },
+                  "guidance": "The short launch code shown first on the chrome, e.g. \"LAUNCH-04\".",
+                  "example": "LAUNCH-04"
+                },
+                {
+                  "spec": {
+                    "name": "deck.world",
+                    "type": "text",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 24
+                    },
+                    "guidance": "The world name paired with the code on the chrome and browser title, e.g. \"T-MINUS\"."
+                  },
+                  "guidance": "The world name paired with the code on the chrome and browser title, e.g. \"T-MINUS\".",
+                  "example": "T-MINUS"
+                },
+                {
+                  "spec": {
+                    "name": "deck.product",
+                    "type": "text",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 28
+                    },
+                    "guidance": "The product being launched, set large on the cover, e.g. \"MERIDIAN INSTANT\"."
+                  },
+                  "guidance": "The product being launched, set large on the cover, e.g. \"MERIDIAN INSTANT\".",
+                  "example": "MERIDIAN INSTANT"
+                },
+                {
+                  "spec": {
+                    "name": "deck.programme",
+                    "type": "text",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 48
+                    },
+                    "guidance": "The programme line above the cover title, e.g. \"REAL-TIME BUSINESS PAYMENTS · GO-LIVE\"."
+                  },
+                  "guidance": "The programme line above the cover title, e.g. \"REAL-TIME BUSINESS PAYMENTS · GO-LIVE\".",
+                  "example": "REAL-TIME BUSINESS PAYMENTS · GO-LIVE"
+                },
+                {
+                  "spec": {
+                    "name": "deck.war",
+                    "type": "text",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 40
+                    },
+                    "guidance": "The launch-control room line shown on kicker rows, e.g. \"LAUNCH CONTROL · SEQUENCE 04\"."
+                  },
+                  "guidance": "The launch-control room line shown on kicker rows, e.g. \"LAUNCH CONTROL · SEQUENCE 04\".",
+                  "example": "LAUNCH CONTROL · SEQUENCE 04"
+                },
+                {
+                  "spec": {
+                    "name": "deck.notice",
+                    "type": "text",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 56
+                    },
+                    "guidance": "REQUIRED synthetic-launch notice printed on every slide foot and the footer, e.g. \"SYNTHETIC LAUNCH PLAN — DEMONSTRATION ONLY\"."
+                  },
+                  "guidance": "REQUIRED synthetic-launch notice printed on every slide foot and the footer, e.g. \"SYNTHETIC LAUNCH PLAN — DEMONSTRATION ONLY\".",
+                  "example": "SYNTHETIC LAUNCH PLAN — DEMONSTRATION ONLY"
+                },
+                {
+                  "spec": {
+                    "name": "cover.line1",
+                    "type": "text",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 32
+                    },
+                    "guidance": "First display line of the cover thesis, e.g. \"A launch is a\"."
+                  },
+                  "guidance": "First display line of the cover thesis, e.g. \"A launch is a\".",
+                  "example": "A launch is a"
+                },
+                {
+                  "spec": {
+                    "name": "cover.line2",
+                    "type": "text",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 32
+                    },
+                    "guidance": "Second display line — the accented turn, e.g. \"countdown, not a date.\"."
+                  },
+                  "guidance": "Second display line — the accented turn, e.g. \"countdown, not a date.\".",
+                  "example": "countdown, not a date."
+                },
+                {
+                  "spec": {
+                    "name": "cover.standfirst",
+                    "type": "longtext",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 200
+                    },
+                    "guidance": "One paragraph framing the countdown to go-live and the one gate still standing amber."
+                  },
+                  "guidance": "One paragraph framing the countdown to go-live and the one gate still standing amber.",
+                  "example": "<longtext, ≤200 chars>"
+                }
+              ]
+            },
+            {
+              "kind": "one-sentence",
+              "purpose": "The product in one sentence, with three proof facts.",
+              "repeats": {
+                "min": 1,
+                "max": 1
+              },
+              "slots": [
+                {
+                  "spec": {
+                    "name": "oneSentence.lead",
+                    "type": "text",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 32
+                    },
+                    "guidance": "The eyebrow above the one-liner, e.g. \"What we are launching\"."
+                  },
+                  "guidance": "The eyebrow above the one-liner, e.g. \"What we are launching\".",
+                  "example": "What we are launching"
+                },
+                {
+                  "spec": {
+                    "name": "oneSentence.sentence",
+                    "type": "longtext",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 208
+                    },
+                    "guidance": "The whole product in one sentence — the promise the launch has to keep."
+                  },
+                  "guidance": "The whole product in one sentence — the promise the launch has to keep.",
+                  "example": "<longtext, ≤208 chars>"
+                },
+                {
+                  "spec": {
+                    "name": "oneSentence.facts",
+                    "type": "items",
+                    "required": true,
+                    "limits": {
+                      "minItems": 2,
+                      "maxItems": 4
+                    },
+                    "guidance": "Two-to-four proof facts; each a short stat (≤16 chars) and a caption (≤40 chars)."
+                  },
+                  "guidance": "Two-to-four proof facts; each a short stat (≤16 chars) and a caption (≤40 chars).",
+                  "example": "<2–4 items>"
+                }
+              ]
+            },
+            {
+              "kind": "thesis",
+              "purpose": "The launch thesis — a monumental two-line statement and a paragraph.",
+              "repeats": {
+                "min": 1,
+                "max": 1
+              },
+              "slots": [
+                {
+                  "spec": {
+                    "name": "thesis.line1",
+                    "type": "text",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 24
+                    },
+                    "guidance": "First display line of the thesis, e.g. \"Speed is the\"."
+                  },
+                  "guidance": "First display line of the thesis, e.g. \"Speed is the\".",
+                  "example": "Speed is the"
+                },
+                {
+                  "spec": {
+                    "name": "thesis.line2",
+                    "type": "text",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 24
+                    },
+                    "guidance": "Second, accented display line, e.g. \"whole product.\"."
+                  },
+                  "guidance": "Second, accented display line, e.g. \"whole product.\".",
+                  "example": "whole product."
+                },
+                {
+                  "spec": {
+                    "name": "thesis.standfirst",
+                    "type": "longtext",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 350
+                    },
+                    "guidance": "One paragraph on the single promise the launch protects on day zero."
+                  },
+                  "guidance": "One paragraph on the single promise the launch protects on day zero.",
+                  "example": "<longtext, ≤350 chars>"
+                }
+              ]
+            },
+            {
+              "kind": "readiness",
+              "purpose": "The launch-readiness board (comp.status-list); exactly one gate is flagged.",
+              "repeats": {
+                "min": 1,
+                "max": 1
+              },
+              "slots": [
+                {
+                  "spec": {
+                    "name": "headlines.readiness",
+                    "type": "text",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 64
+                    },
+                    "guidance": "Editorial headline for the readiness board; must be true of the gates you supply, e.g. \"Five gates. Four are green.\"."
+                  },
+                  "guidance": "Editorial headline for the readiness board; must be true of the gates you supply, e.g. \"Five gates. Four are green.\".",
+                  "example": "Five gates. Four are green."
+                },
+                {
+                  "spec": {
+                    "name": "gates",
+                    "type": "items",
+                    "required": true,
+                    "limits": {
+                      "minItems": 3,
+                      "maxItems": 7
+                    },
+                    "guidance": "Three-to-seven readiness gates (id, label, status success|warning|danger|info|neutral, description). Exactly ONE carries status \"warning\" — the single flagged blocker still standing between the team and go."
+                  },
+                  "guidance": "Three-to-seven readiness gates (id, label, status success|warning|danger|info|neutral, description). Exactly ONE carries status \"warning\" — the single flagged blocker still standing between the team and go.",
+                  "example": "<3–7 items>"
+                },
+                {
+                  "spec": {
+                    "name": "anomalyLabel",
+                    "type": "text",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 48
+                    },
+                    "guidance": "REQUIRED verbatim flag for the blocked gate, echoed under the board, e.g. \"SECURITY REVIEW PENDING — BLOCKS T-7\"."
+                  },
+                  "guidance": "REQUIRED verbatim flag for the blocked gate, echoed under the board, e.g. \"SECURITY REVIEW PENDING — BLOCKS T-7\".",
+                  "example": "SECURITY REVIEW PENDING — BLOCKS T-7"
+                },
+                {
+                  "spec": {
+                    "name": "anomalyNote",
+                    "type": "text",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 120
+                    },
+                    "guidance": "Continues the HOLD callout after the flag: what unblocks the amber gate, e.g. \"the retest is booked; sign-off is the single thing between amber and go.\"."
+                  },
+                  "guidance": "Continues the HOLD callout after the flag: what unblocks the amber gate, e.g. \"the retest is booked; sign-off is the single thing between amber and go.\".",
+                  "example": "the retest is booked; sign-off is the single thing between amber and go."
+                }
+              ]
+            },
+            {
+              "kind": "comms",
+              "purpose": "The comms & channel plan — who hears the launch, and when.",
+              "repeats": {
+                "min": 1,
+                "max": 1
+              },
+              "slots": [
+                {
+                  "spec": {
+                    "name": "headlines.comms",
+                    "type": "text",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 64
+                    },
+                    "guidance": "Editorial headline for the comms plan, e.g. \"Nobody hears it before the right people do.\"."
+                  },
+                  "guidance": "Editorial headline for the comms plan, e.g. \"Nobody hears it before the right people do.\".",
+                  "example": "Nobody hears it before the right people do."
+                },
+                {
+                  "spec": {
+                    "name": "comms",
+                    "type": "items",
+                    "required": true,
+                    "limits": {
+                      "minItems": 3,
+                      "maxItems": 7
+                    },
+                    "guidance": "Three-to-seven comms lines; each a channel, a moment (e.g. \"T-0, at GA\"), and a one-line detail."
+                  },
+                  "guidance": "Three-to-seven comms lines; each a channel, a moment (e.g. \"T-0, at GA\"), and a one-line detail.",
+                  "example": "T-0, at GA"
+                }
+              ]
+            },
+            {
+              "kind": "pricing",
+              "purpose": "Pricing & packaging — the tiers, one flagged as the launch focus.",
+              "repeats": {
+                "min": 1,
+                "max": 1
+              },
+              "slots": [
+                {
+                  "spec": {
+                    "name": "headlines.pricing",
+                    "type": "text",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 64
+                    },
+                    "guidance": "Editorial headline for pricing & packaging; must match the tier shape you supply, e.g. \"One flat price does most of the selling.\"."
+                  },
+                  "guidance": "Editorial headline for pricing & packaging; must match the tier shape you supply, e.g. \"One flat price does most of the selling.\".",
+                  "example": "One flat price does most of the selling."
+                },
+                {
+                  "spec": {
+                    "name": "pricing",
+                    "type": "items",
+                    "required": true,
+                    "limits": {
+                      "minItems": 2,
+                      "maxItems": 4
+                    },
+                    "guidance": "Two-to-four price tiers; each a name, price, unit, an includes line, and a boolean \"feature\" (the launch-focus card)."
+                  },
+                  "guidance": "Two-to-four price tiers; each a name, price, unit, an includes line, and a boolean \"feature\" (the launch-focus card).",
+                  "example": "<2–4 items>"
+                }
+              ]
+            },
+            {
+              "kind": "runbook",
+              "purpose": "The day-0 runbook — the commanding horizontal sequence with a go/no-go gate.",
+              "repeats": {
+                "min": 1,
+                "max": 1
+              },
+              "slots": [
+                {
+                  "spec": {
+                    "name": "headlines.runbook",
+                    "type": "text",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 64
+                    },
+                    "guidance": "Editorial headline for the day-0 sequence, e.g. \"Launch day, hour by hour.\"."
+                  },
+                  "guidance": "Editorial headline for the day-0 sequence, e.g. \"Launch day, hour by hour.\".",
+                  "example": "Launch day, hour by hour."
+                },
+                {
+                  "spec": {
+                    "name": "runbook",
+                    "type": "items",
+                    "required": true,
+                    "limits": {
+                      "minItems": 5,
+                      "maxItems": 12
+                    },
+                    "guidance": "Five-to-twelve ordered runbook steps (id, time, label, detail); mark exactly the go/no-go step with gate:true so it renders as the pivotal diamond. The slide kicker derives from these: \"ONE DAY · {first step time} → {last step label}\"."
+                  },
+                  "guidance": "Five-to-twelve ordered runbook steps (id, time, label, detail); mark exactly the go/no-go step with gate:true so it renders as the pivotal diamond. The slide kicker derives from these: \"ONE DAY · {first step time} → {last step label}\".",
+                  "example": "<5–12 items>"
+                },
+                {
+                  "spec": {
+                    "name": "runbookNote",
+                    "type": "longtext",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 300
+                    },
+                    "guidance": "The paragraph under the rail — the day read as one story: the single go/no-go, what is reversible, and until when."
+                  },
+                  "guidance": "The paragraph under the rail — the day read as one story: the single go/no-go, what is reversible, and until when.",
+                  "example": "<longtext, ≤300 chars>"
+                }
+              ]
+            },
+            {
+              "kind": "risk",
+              "purpose": "Abort triggers and the one-switch rollback.",
+              "repeats": {
+                "min": 1,
+                "max": 1
+              },
+              "slots": [
+                {
+                  "spec": {
+                    "name": "headlines.risk",
+                    "type": "text",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 64
+                    },
+                    "guidance": "Editorial headline for risk & rollback, e.g. \"What stops the clock — and how fast we’re back.\"."
+                  },
+                  "guidance": "Editorial headline for risk & rollback, e.g. \"What stops the clock — and how fast we’re back.\".",
+                  "example": "What stops the clock — and how fast we’re back."
+                },
+                {
+                  "spec": {
+                    "name": "aborts",
+                    "type": "tableRows",
+                    "required": true,
+                    "limits": {
+                      "minItems": 2,
+                      "maxItems": 6
+                    },
+                    "guidance": "Abort-trigger rows: a signal metric, an abort threshold, and the action taken."
+                  },
+                  "guidance": "Abort-trigger rows: a signal metric, an abort threshold, and the action taken.",
+                  "example": "<2–6 tableRows>"
+                },
+                {
+                  "spec": {
+                    "name": "rollbackNote",
+                    "type": "longtext",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 260
+                    },
+                    "guidance": "One paragraph on how fast the one-switch rollback returns to today’s rails."
+                  },
+                  "guidance": "One paragraph on how fast the one-switch rollback returns to today’s rails.",
+                  "example": "<longtext, ≤260 chars>"
+                }
+              ]
+            },
+            {
+              "kind": "metrics",
+              "purpose": "The launch metrics row (comp.kpi-tile) — day 7 and day 30.",
+              "repeats": {
+                "min": 1,
+                "max": 1
+              },
+              "slots": [
+                {
+                  "spec": {
+                    "name": "headlines.metrics",
+                    "type": "text",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 64
+                    },
+                    "guidance": "Editorial headline for the metrics row; must be true of the KPIs you supply, e.g. \"Four numbers tell us it worked.\"."
+                  },
+                  "guidance": "Editorial headline for the metrics row; must be true of the KPIs you supply, e.g. \"Four numbers tell us it worked.\".",
+                  "example": "Four numbers tell us it worked."
+                },
+                {
+                  "spec": {
+                    "name": "metrics",
+                    "type": "metric",
+                    "required": true,
+                    "limits": {
+                      "minItems": 3,
+                      "maxItems": 6
+                    },
+                    "guidance": "Three-to-six launch KPIs (day-7 / day-30); each a label, value, unit, and status. Values with unit \"percent\" are FRACTIONS: 0.8 renders as 80.0%, never 80."
+                  },
+                  "guidance": "Three-to-six launch KPIs (day-7 / day-30); each a label, value, unit, and status. Values with unit \"percent\" are FRACTIONS: 0.8 renders as 80.0%, never 80.",
+                  "example": "<3–6 metric>"
+                },
+                {
+                  "spec": {
+                    "name": "metricsNote",
+                    "type": "text",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 220
+                    },
+                    "guidance": "One-line reading of the metrics row — the committed targets and the trailing figure."
+                  },
+                  "guidance": "One-line reading of the metrics row — the committed targets and the trailing figure.",
+                  "example": "<text, ≤220 chars>"
+                }
+              ]
+            },
+            {
+              "kind": "closing",
+              "purpose": "The T-0 GO slide — the word, the line, and the decisions needed today.",
+              "repeats": {
+                "min": 1,
+                "max": 1
+              },
+              "slots": [
+                {
+                  "spec": {
+                    "name": "closing.word",
+                    "type": "text",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 8
+                    },
+                    "guidance": "The monumental closing word, e.g. \"GO\"."
+                  },
+                  "guidance": "The monumental closing word, e.g. \"GO\".",
+                  "example": "GO"
+                },
+                {
+                  "spec": {
+                    "name": "closing.line",
+                    "type": "text",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 60
+                    },
+                    "guidance": "The closing headline, e.g. \"On the readiness board, one gate stays amber.\"."
+                  },
+                  "guidance": "The closing headline, e.g. \"On the readiness board, one gate stays amber.\".",
+                  "example": "On the readiness board, one gate stays amber."
+                },
+                {
+                  "spec": {
+                    "name": "closing.detail",
+                    "type": "longtext",
+                    "required": true,
+                    "limits": {
+                      "maxChars": 184
+                    },
+                    "guidance": "One paragraph stating what clears the last gate and unblocks go."
+                  },
+                  "guidance": "One paragraph stating what clears the last gate and unblocks go.",
+                  "example": "<longtext, ≤184 chars>"
+                },
+                {
+                  "spec": {
+                    "name": "closing.decisions",
+                    "type": "items",
+                    "required": true,
+                    "limits": {
+                      "minItems": 2,
+                      "maxItems": 5
+                    },
+                    "guidance": "Two-to-five decisions the go/no-go needs today; each ≤90 chars."
+                  },
+                  "guidance": "Two-to-five decisions the go/no-go needs today; each ≤90 chars.",
+                  "example": "<2–5 items>"
+                }
+              ]
+            }
+          ],
+          "craftGuarantees": [
+            "A launch plan staged as a COUNTDOWN SEQUENCE: every slide carries a monumental T-minus stamp (T-30 → T-0) over a midnight field, with a single thin amber horizon line that RISES slide by slide and, at T-0, reaches the top as the field turns GO-green.",
+            "Exactly one readiness gate carries the \"warning\" flagged-blocker status: the single amber square in an otherwise green board, its verbatim text echoed in anomalyLabel under the board and in the accessible summary.",
+            "The synthetic-launch notice is required and prints on every slide’s print foot and the footer.",
+            "The day-0 runbook is the commanding bespoke visual — a local SVG rail with a go/no-go diamond gate — and exposes a hidden ordered-list mirror derived from the same runbook data.",
+            "Slot char caps and item counts are sized so any schema-valid fill stays composed — the runbook rail, the price grid, and the readiness board stay balanced and headlines never overflow.",
+            "Motion level 2 (staggered build + horizon-sweep); the mood is locked dark."
+          ]
+        }
+      }
+    },
+    "structuredContent": {
+      "worldTemplateId": "tminus",
+      "experienceId": "deck-product-launch",
+      "rationale": "Selected 'tminus' (deck-product-launch, art-directed style); shares audience(s) [mixed]; matched intent keyword(s) [product, launch, announce, release]; art-directed style fits standard corporate suitability; motion preference 2 noted (the template locks its own motion).",
+      "evidence": [
+        "tminus (deck-product-launch): audienceOverlap 1×2=2 + intentMatch 4 + corporateFit 1 = 7",
+        "cutover (deck-cloud-migration): audienceOverlap 0×2=0 + intentMatch 0 + corporateFit 1 = 1"
+      ],
+      "fillSkeleton": {
+        "slideKinds": [
+          {
+            "kind": "title",
+            "purpose": "The countdown cover — product, programme, the two-line launch display, and the notice.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "deck.code",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 24
+                  },
+                  "guidance": "The short launch code shown first on the chrome, e.g. \"LAUNCH-04\"."
+                },
+                "guidance": "The short launch code shown first on the chrome, e.g. \"LAUNCH-04\".",
+                "example": "LAUNCH-04"
+              },
+              {
+                "spec": {
+                  "name": "deck.world",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 24
+                  },
+                  "guidance": "The world name paired with the code on the chrome and browser title, e.g. \"T-MINUS\"."
+                },
+                "guidance": "The world name paired with the code on the chrome and browser title, e.g. \"T-MINUS\".",
+                "example": "T-MINUS"
+              },
+              {
+                "spec": {
+                  "name": "deck.product",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 28
+                  },
+                  "guidance": "The product being launched, set large on the cover, e.g. \"MERIDIAN INSTANT\"."
+                },
+                "guidance": "The product being launched, set large on the cover, e.g. \"MERIDIAN INSTANT\".",
+                "example": "MERIDIAN INSTANT"
+              },
+              {
+                "spec": {
+                  "name": "deck.programme",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 48
+                  },
+                  "guidance": "The programme line above the cover title, e.g. \"REAL-TIME BUSINESS PAYMENTS · GO-LIVE\"."
+                },
+                "guidance": "The programme line above the cover title, e.g. \"REAL-TIME BUSINESS PAYMENTS · GO-LIVE\".",
+                "example": "REAL-TIME BUSINESS PAYMENTS · GO-LIVE"
+              },
+              {
+                "spec": {
+                  "name": "deck.war",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 40
+                  },
+                  "guidance": "The launch-control room line shown on kicker rows, e.g. \"LAUNCH CONTROL · SEQUENCE 04\"."
+                },
+                "guidance": "The launch-control room line shown on kicker rows, e.g. \"LAUNCH CONTROL · SEQUENCE 04\".",
+                "example": "LAUNCH CONTROL · SEQUENCE 04"
+              },
+              {
+                "spec": {
+                  "name": "deck.notice",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 56
+                  },
+                  "guidance": "REQUIRED synthetic-launch notice printed on every slide foot and the footer, e.g. \"SYNTHETIC LAUNCH PLAN — DEMONSTRATION ONLY\"."
+                },
+                "guidance": "REQUIRED synthetic-launch notice printed on every slide foot and the footer, e.g. \"SYNTHETIC LAUNCH PLAN — DEMONSTRATION ONLY\".",
+                "example": "SYNTHETIC LAUNCH PLAN — DEMONSTRATION ONLY"
+              },
+              {
+                "spec": {
+                  "name": "cover.line1",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 32
+                  },
+                  "guidance": "First display line of the cover thesis, e.g. \"A launch is a\"."
+                },
+                "guidance": "First display line of the cover thesis, e.g. \"A launch is a\".",
+                "example": "A launch is a"
+              },
+              {
+                "spec": {
+                  "name": "cover.line2",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 32
+                  },
+                  "guidance": "Second display line — the accented turn, e.g. \"countdown, not a date.\"."
+                },
+                "guidance": "Second display line — the accented turn, e.g. \"countdown, not a date.\".",
+                "example": "countdown, not a date."
+              },
+              {
+                "spec": {
+                  "name": "cover.standfirst",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 200
+                  },
+                  "guidance": "One paragraph framing the countdown to go-live and the one gate still standing amber."
+                },
+                "guidance": "One paragraph framing the countdown to go-live and the one gate still standing amber.",
+                "example": "<longtext, ≤200 chars>"
+              }
+            ]
+          },
+          {
+            "kind": "one-sentence",
+            "purpose": "The product in one sentence, with three proof facts.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "oneSentence.lead",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 32
+                  },
+                  "guidance": "The eyebrow above the one-liner, e.g. \"What we are launching\"."
+                },
+                "guidance": "The eyebrow above the one-liner, e.g. \"What we are launching\".",
+                "example": "What we are launching"
+              },
+              {
+                "spec": {
+                  "name": "oneSentence.sentence",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 208
+                  },
+                  "guidance": "The whole product in one sentence — the promise the launch has to keep."
+                },
+                "guidance": "The whole product in one sentence — the promise the launch has to keep.",
+                "example": "<longtext, ≤208 chars>"
+              },
+              {
+                "spec": {
+                  "name": "oneSentence.facts",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 2,
+                    "maxItems": 4
+                  },
+                  "guidance": "Two-to-four proof facts; each a short stat (≤16 chars) and a caption (≤40 chars)."
+                },
+                "guidance": "Two-to-four proof facts; each a short stat (≤16 chars) and a caption (≤40 chars).",
+                "example": "<2–4 items>"
+              }
+            ]
+          },
+          {
+            "kind": "thesis",
+            "purpose": "The launch thesis — a monumental two-line statement and a paragraph.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "thesis.line1",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 24
+                  },
+                  "guidance": "First display line of the thesis, e.g. \"Speed is the\"."
+                },
+                "guidance": "First display line of the thesis, e.g. \"Speed is the\".",
+                "example": "Speed is the"
+              },
+              {
+                "spec": {
+                  "name": "thesis.line2",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 24
+                  },
+                  "guidance": "Second, accented display line, e.g. \"whole product.\"."
+                },
+                "guidance": "Second, accented display line, e.g. \"whole product.\".",
+                "example": "whole product."
+              },
+              {
+                "spec": {
+                  "name": "thesis.standfirst",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 350
+                  },
+                  "guidance": "One paragraph on the single promise the launch protects on day zero."
+                },
+                "guidance": "One paragraph on the single promise the launch protects on day zero.",
+                "example": "<longtext, ≤350 chars>"
+              }
+            ]
+          },
+          {
+            "kind": "readiness",
+            "purpose": "The launch-readiness board (comp.status-list); exactly one gate is flagged.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "headlines.readiness",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 64
+                  },
+                  "guidance": "Editorial headline for the readiness board; must be true of the gates you supply, e.g. \"Five gates. Four are green.\"."
+                },
+                "guidance": "Editorial headline for the readiness board; must be true of the gates you supply, e.g. \"Five gates. Four are green.\".",
+                "example": "Five gates. Four are green."
+              },
+              {
+                "spec": {
+                  "name": "gates",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 7
+                  },
+                  "guidance": "Three-to-seven readiness gates (id, label, status success|warning|danger|info|neutral, description). Exactly ONE carries status \"warning\" — the single flagged blocker still standing between the team and go."
+                },
+                "guidance": "Three-to-seven readiness gates (id, label, status success|warning|danger|info|neutral, description). Exactly ONE carries status \"warning\" — the single flagged blocker still standing between the team and go.",
+                "example": "<3–7 items>"
+              },
+              {
+                "spec": {
+                  "name": "anomalyLabel",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 48
+                  },
+                  "guidance": "REQUIRED verbatim flag for the blocked gate, echoed under the board, e.g. \"SECURITY REVIEW PENDING — BLOCKS T-7\"."
+                },
+                "guidance": "REQUIRED verbatim flag for the blocked gate, echoed under the board, e.g. \"SECURITY REVIEW PENDING — BLOCKS T-7\".",
+                "example": "SECURITY REVIEW PENDING — BLOCKS T-7"
+              },
+              {
+                "spec": {
+                  "name": "anomalyNote",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 120
+                  },
+                  "guidance": "Continues the HOLD callout after the flag: what unblocks the amber gate, e.g. \"the retest is booked; sign-off is the single thing between amber and go.\"."
+                },
+                "guidance": "Continues the HOLD callout after the flag: what unblocks the amber gate, e.g. \"the retest is booked; sign-off is the single thing between amber and go.\".",
+                "example": "the retest is booked; sign-off is the single thing between amber and go."
+              }
+            ]
+          },
+          {
+            "kind": "comms",
+            "purpose": "The comms & channel plan — who hears the launch, and when.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "headlines.comms",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 64
+                  },
+                  "guidance": "Editorial headline for the comms plan, e.g. \"Nobody hears it before the right people do.\"."
+                },
+                "guidance": "Editorial headline for the comms plan, e.g. \"Nobody hears it before the right people do.\".",
+                "example": "Nobody hears it before the right people do."
+              },
+              {
+                "spec": {
+                  "name": "comms",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 7
+                  },
+                  "guidance": "Three-to-seven comms lines; each a channel, a moment (e.g. \"T-0, at GA\"), and a one-line detail."
+                },
+                "guidance": "Three-to-seven comms lines; each a channel, a moment (e.g. \"T-0, at GA\"), and a one-line detail.",
+                "example": "T-0, at GA"
+              }
+            ]
+          },
+          {
+            "kind": "pricing",
+            "purpose": "Pricing & packaging — the tiers, one flagged as the launch focus.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "headlines.pricing",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 64
+                  },
+                  "guidance": "Editorial headline for pricing & packaging; must match the tier shape you supply, e.g. \"One flat price does most of the selling.\"."
+                },
+                "guidance": "Editorial headline for pricing & packaging; must match the tier shape you supply, e.g. \"One flat price does most of the selling.\".",
+                "example": "One flat price does most of the selling."
+              },
+              {
+                "spec": {
+                  "name": "pricing",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 2,
+                    "maxItems": 4
+                  },
+                  "guidance": "Two-to-four price tiers; each a name, price, unit, an includes line, and a boolean \"feature\" (the launch-focus card)."
+                },
+                "guidance": "Two-to-four price tiers; each a name, price, unit, an includes line, and a boolean \"feature\" (the launch-focus card).",
+                "example": "<2–4 items>"
+              }
+            ]
+          },
+          {
+            "kind": "runbook",
+            "purpose": "The day-0 runbook — the commanding horizontal sequence with a go/no-go gate.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "headlines.runbook",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 64
+                  },
+                  "guidance": "Editorial headline for the day-0 sequence, e.g. \"Launch day, hour by hour.\"."
+                },
+                "guidance": "Editorial headline for the day-0 sequence, e.g. \"Launch day, hour by hour.\".",
+                "example": "Launch day, hour by hour."
+              },
+              {
+                "spec": {
+                  "name": "runbook",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 5,
+                    "maxItems": 12
+                  },
+                  "guidance": "Five-to-twelve ordered runbook steps (id, time, label, detail); mark exactly the go/no-go step with gate:true so it renders as the pivotal diamond. The slide kicker derives from these: \"ONE DAY · {first step time} → {last step label}\"."
+                },
+                "guidance": "Five-to-twelve ordered runbook steps (id, time, label, detail); mark exactly the go/no-go step with gate:true so it renders as the pivotal diamond. The slide kicker derives from these: \"ONE DAY · {first step time} → {last step label}\".",
+                "example": "<5–12 items>"
+              },
+              {
+                "spec": {
+                  "name": "runbookNote",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 300
+                  },
+                  "guidance": "The paragraph under the rail — the day read as one story: the single go/no-go, what is reversible, and until when."
+                },
+                "guidance": "The paragraph under the rail — the day read as one story: the single go/no-go, what is reversible, and until when.",
+                "example": "<longtext, ≤300 chars>"
+              }
+            ]
+          },
+          {
+            "kind": "risk",
+            "purpose": "Abort triggers and the one-switch rollback.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "headlines.risk",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 64
+                  },
+                  "guidance": "Editorial headline for risk & rollback, e.g. \"What stops the clock — and how fast we’re back.\"."
+                },
+                "guidance": "Editorial headline for risk & rollback, e.g. \"What stops the clock — and how fast we’re back.\".",
+                "example": "What stops the clock — and how fast we’re back."
+              },
+              {
+                "spec": {
+                  "name": "aborts",
+                  "type": "tableRows",
+                  "required": true,
+                  "limits": {
+                    "minItems": 2,
+                    "maxItems": 6
+                  },
+                  "guidance": "Abort-trigger rows: a signal metric, an abort threshold, and the action taken."
+                },
+                "guidance": "Abort-trigger rows: a signal metric, an abort threshold, and the action taken.",
+                "example": "<2–6 tableRows>"
+              },
+              {
+                "spec": {
+                  "name": "rollbackNote",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 260
+                  },
+                  "guidance": "One paragraph on how fast the one-switch rollback returns to today’s rails."
+                },
+                "guidance": "One paragraph on how fast the one-switch rollback returns to today’s rails.",
+                "example": "<longtext, ≤260 chars>"
+              }
+            ]
+          },
+          {
+            "kind": "metrics",
+            "purpose": "The launch metrics row (comp.kpi-tile) — day 7 and day 30.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "headlines.metrics",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 64
+                  },
+                  "guidance": "Editorial headline for the metrics row; must be true of the KPIs you supply, e.g. \"Four numbers tell us it worked.\"."
+                },
+                "guidance": "Editorial headline for the metrics row; must be true of the KPIs you supply, e.g. \"Four numbers tell us it worked.\".",
+                "example": "Four numbers tell us it worked."
+              },
+              {
+                "spec": {
+                  "name": "metrics",
+                  "type": "metric",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 6
+                  },
+                  "guidance": "Three-to-six launch KPIs (day-7 / day-30); each a label, value, unit, and status. Values with unit \"percent\" are FRACTIONS: 0.8 renders as 80.0%, never 80."
+                },
+                "guidance": "Three-to-six launch KPIs (day-7 / day-30); each a label, value, unit, and status. Values with unit \"percent\" are FRACTIONS: 0.8 renders as 80.0%, never 80.",
+                "example": "<3–6 metric>"
+              },
+              {
+                "spec": {
+                  "name": "metricsNote",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 220
+                  },
+                  "guidance": "One-line reading of the metrics row — the committed targets and the trailing figure."
+                },
+                "guidance": "One-line reading of the metrics row — the committed targets and the trailing figure.",
+                "example": "<text, ≤220 chars>"
+              }
+            ]
+          },
+          {
+            "kind": "closing",
+            "purpose": "The T-0 GO slide — the word, the line, and the decisions needed today.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "closing.word",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 8
+                  },
+                  "guidance": "The monumental closing word, e.g. \"GO\"."
+                },
+                "guidance": "The monumental closing word, e.g. \"GO\".",
+                "example": "GO"
+              },
+              {
+                "spec": {
+                  "name": "closing.line",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 60
+                  },
+                  "guidance": "The closing headline, e.g. \"On the readiness board, one gate stays amber.\"."
+                },
+                "guidance": "The closing headline, e.g. \"On the readiness board, one gate stays amber.\".",
+                "example": "On the readiness board, one gate stays amber."
+              },
+              {
+                "spec": {
+                  "name": "closing.detail",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 184
+                  },
+                  "guidance": "One paragraph stating what clears the last gate and unblocks go."
+                },
+                "guidance": "One paragraph stating what clears the last gate and unblocks go.",
+                "example": "<longtext, ≤184 chars>"
+              },
+              {
+                "spec": {
+                  "name": "closing.decisions",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 2,
+                    "maxItems": 5
+                  },
+                  "guidance": "Two-to-five decisions the go/no-go needs today; each ≤90 chars."
+                },
+                "guidance": "Two-to-five decisions the go/no-go needs today; each ≤90 chars.",
+                "example": "<2–5 items>"
+              }
+            ]
+          }
+        ],
+        "craftGuarantees": [
+          "A launch plan staged as a COUNTDOWN SEQUENCE: every slide carries a monumental T-minus stamp (T-30 → T-0) over a midnight field, with a single thin amber horizon line that RISES slide by slide and, at T-0, reaches the top as the field turns GO-green.",
+          "Exactly one readiness gate carries the \"warning\" flagged-blocker status: the single amber square in an otherwise green board, its verbatim text echoed in anomalyLabel under the board and in the accessible summary.",
+          "The synthetic-launch notice is required and prints on every slide’s print foot and the footer.",
+          "The day-0 runbook is the commanding bespoke visual — a local SVG rail with a go/no-go diamond gate — and exposes a hidden ordered-list mirror derived from the same runbook data.",
+          "Slot char caps and item counts are sized so any schema-valid fill stays composed — the runbook rail, the price grid, and the readiness board stay balanced and headlines never overflow.",
+          "Motion level 2 (staggered build + horizon-sweep); the mood is locked dark."
+        ]
+      }
+    },
+    "text": {
+      "worldTemplateId": "tminus",
+      "experienceId": "deck-product-launch",
+      "rationale": "Selected 'tminus' (deck-product-launch, art-directed style); shares audience(s) [mixed]; matched intent keyword(s) [product, launch, announce, release]; art-directed style fits standard corporate suitability; motion preference 2 noted (the template locks its own motion).",
+      "evidence": [
+        "tminus (deck-product-launch): audienceOverlap 1×2=2 + intentMatch 4 + corporateFit 1 = 7",
+        "cutover (deck-cloud-migration): audienceOverlap 0×2=0 + intentMatch 0 + corporateFit 1 = 1"
+      ],
+      "fillSkeleton": {
+        "slideKinds": [
+          {
+            "kind": "title",
+            "purpose": "The countdown cover — product, programme, the two-line launch display, and the notice.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "deck.code",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 24
+                  },
+                  "guidance": "The short launch code shown first on the chrome, e.g. \"LAUNCH-04\"."
+                },
+                "guidance": "The short launch code shown first on the chrome, e.g. \"LAUNCH-04\".",
+                "example": "LAUNCH-04"
+              },
+              {
+                "spec": {
+                  "name": "deck.world",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 24
+                  },
+                  "guidance": "The world name paired with the code on the chrome and browser title, e.g. \"T-MINUS\"."
+                },
+                "guidance": "The world name paired with the code on the chrome and browser title, e.g. \"T-MINUS\".",
+                "example": "T-MINUS"
+              },
+              {
+                "spec": {
+                  "name": "deck.product",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 28
+                  },
+                  "guidance": "The product being launched, set large on the cover, e.g. \"MERIDIAN INSTANT\"."
+                },
+                "guidance": "The product being launched, set large on the cover, e.g. \"MERIDIAN INSTANT\".",
+                "example": "MERIDIAN INSTANT"
+              },
+              {
+                "spec": {
+                  "name": "deck.programme",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 48
+                  },
+                  "guidance": "The programme line above the cover title, e.g. \"REAL-TIME BUSINESS PAYMENTS · GO-LIVE\"."
+                },
+                "guidance": "The programme line above the cover title, e.g. \"REAL-TIME BUSINESS PAYMENTS · GO-LIVE\".",
+                "example": "REAL-TIME BUSINESS PAYMENTS · GO-LIVE"
+              },
+              {
+                "spec": {
+                  "name": "deck.war",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 40
+                  },
+                  "guidance": "The launch-control room line shown on kicker rows, e.g. \"LAUNCH CONTROL · SEQUENCE 04\"."
+                },
+                "guidance": "The launch-control room line shown on kicker rows, e.g. \"LAUNCH CONTROL · SEQUENCE 04\".",
+                "example": "LAUNCH CONTROL · SEQUENCE 04"
+              },
+              {
+                "spec": {
+                  "name": "deck.notice",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 56
+                  },
+                  "guidance": "REQUIRED synthetic-launch notice printed on every slide foot and the footer, e.g. \"SYNTHETIC LAUNCH PLAN — DEMONSTRATION ONLY\"."
+                },
+                "guidance": "REQUIRED synthetic-launch notice printed on every slide foot and the footer, e.g. \"SYNTHETIC LAUNCH PLAN — DEMONSTRATION ONLY\".",
+                "example": "SYNTHETIC LAUNCH PLAN — DEMONSTRATION ONLY"
+              },
+              {
+                "spec": {
+                  "name": "cover.line1",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 32
+                  },
+                  "guidance": "First display line of the cover thesis, e.g. \"A launch is a\"."
+                },
+                "guidance": "First display line of the cover thesis, e.g. \"A launch is a\".",
+                "example": "A launch is a"
+              },
+              {
+                "spec": {
+                  "name": "cover.line2",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 32
+                  },
+                  "guidance": "Second display line — the accented turn, e.g. \"countdown, not a date.\"."
+                },
+                "guidance": "Second display line — the accented turn, e.g. \"countdown, not a date.\".",
+                "example": "countdown, not a date."
+              },
+              {
+                "spec": {
+                  "name": "cover.standfirst",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 200
+                  },
+                  "guidance": "One paragraph framing the countdown to go-live and the one gate still standing amber."
+                },
+                "guidance": "One paragraph framing the countdown to go-live and the one gate still standing amber.",
+                "example": "<longtext, ≤200 chars>"
+              }
+            ]
+          },
+          {
+            "kind": "one-sentence",
+            "purpose": "The product in one sentence, with three proof facts.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "oneSentence.lead",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 32
+                  },
+                  "guidance": "The eyebrow above the one-liner, e.g. \"What we are launching\"."
+                },
+                "guidance": "The eyebrow above the one-liner, e.g. \"What we are launching\".",
+                "example": "What we are launching"
+              },
+              {
+                "spec": {
+                  "name": "oneSentence.sentence",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 208
+                  },
+                  "guidance": "The whole product in one sentence — the promise the launch has to keep."
+                },
+                "guidance": "The whole product in one sentence — the promise the launch has to keep.",
+                "example": "<longtext, ≤208 chars>"
+              },
+              {
+                "spec": {
+                  "name": "oneSentence.facts",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 2,
+                    "maxItems": 4
+                  },
+                  "guidance": "Two-to-four proof facts; each a short stat (≤16 chars) and a caption (≤40 chars)."
+                },
+                "guidance": "Two-to-four proof facts; each a short stat (≤16 chars) and a caption (≤40 chars).",
+                "example": "<2–4 items>"
+              }
+            ]
+          },
+          {
+            "kind": "thesis",
+            "purpose": "The launch thesis — a monumental two-line statement and a paragraph.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "thesis.line1",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 24
+                  },
+                  "guidance": "First display line of the thesis, e.g. \"Speed is the\"."
+                },
+                "guidance": "First display line of the thesis, e.g. \"Speed is the\".",
+                "example": "Speed is the"
+              },
+              {
+                "spec": {
+                  "name": "thesis.line2",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 24
+                  },
+                  "guidance": "Second, accented display line, e.g. \"whole product.\"."
+                },
+                "guidance": "Second, accented display line, e.g. \"whole product.\".",
+                "example": "whole product."
+              },
+              {
+                "spec": {
+                  "name": "thesis.standfirst",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 350
+                  },
+                  "guidance": "One paragraph on the single promise the launch protects on day zero."
+                },
+                "guidance": "One paragraph on the single promise the launch protects on day zero.",
+                "example": "<longtext, ≤350 chars>"
+              }
+            ]
+          },
+          {
+            "kind": "readiness",
+            "purpose": "The launch-readiness board (comp.status-list); exactly one gate is flagged.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "headlines.readiness",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 64
+                  },
+                  "guidance": "Editorial headline for the readiness board; must be true of the gates you supply, e.g. \"Five gates. Four are green.\"."
+                },
+                "guidance": "Editorial headline for the readiness board; must be true of the gates you supply, e.g. \"Five gates. Four are green.\".",
+                "example": "Five gates. Four are green."
+              },
+              {
+                "spec": {
+                  "name": "gates",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 7
+                  },
+                  "guidance": "Three-to-seven readiness gates (id, label, status success|warning|danger|info|neutral, description). Exactly ONE carries status \"warning\" — the single flagged blocker still standing between the team and go."
+                },
+                "guidance": "Three-to-seven readiness gates (id, label, status success|warning|danger|info|neutral, description). Exactly ONE carries status \"warning\" — the single flagged blocker still standing between the team and go.",
+                "example": "<3–7 items>"
+              },
+              {
+                "spec": {
+                  "name": "anomalyLabel",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 48
+                  },
+                  "guidance": "REQUIRED verbatim flag for the blocked gate, echoed under the board, e.g. \"SECURITY REVIEW PENDING — BLOCKS T-7\"."
+                },
+                "guidance": "REQUIRED verbatim flag for the blocked gate, echoed under the board, e.g. \"SECURITY REVIEW PENDING — BLOCKS T-7\".",
+                "example": "SECURITY REVIEW PENDING — BLOCKS T-7"
+              },
+              {
+                "spec": {
+                  "name": "anomalyNote",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 120
+                  },
+                  "guidance": "Continues the HOLD callout after the flag: what unblocks the amber gate, e.g. \"the retest is booked; sign-off is the single thing between amber and go.\"."
+                },
+                "guidance": "Continues the HOLD callout after the flag: what unblocks the amber gate, e.g. \"the retest is booked; sign-off is the single thing between amber and go.\".",
+                "example": "the retest is booked; sign-off is the single thing between amber and go."
+              }
+            ]
+          },
+          {
+            "kind": "comms",
+            "purpose": "The comms & channel plan — who hears the launch, and when.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "headlines.comms",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 64
+                  },
+                  "guidance": "Editorial headline for the comms plan, e.g. \"Nobody hears it before the right people do.\"."
+                },
+                "guidance": "Editorial headline for the comms plan, e.g. \"Nobody hears it before the right people do.\".",
+                "example": "Nobody hears it before the right people do."
+              },
+              {
+                "spec": {
+                  "name": "comms",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 7
+                  },
+                  "guidance": "Three-to-seven comms lines; each a channel, a moment (e.g. \"T-0, at GA\"), and a one-line detail."
+                },
+                "guidance": "Three-to-seven comms lines; each a channel, a moment (e.g. \"T-0, at GA\"), and a one-line detail.",
+                "example": "T-0, at GA"
+              }
+            ]
+          },
+          {
+            "kind": "pricing",
+            "purpose": "Pricing & packaging — the tiers, one flagged as the launch focus.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "headlines.pricing",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 64
+                  },
+                  "guidance": "Editorial headline for pricing & packaging; must match the tier shape you supply, e.g. \"One flat price does most of the selling.\"."
+                },
+                "guidance": "Editorial headline for pricing & packaging; must match the tier shape you supply, e.g. \"One flat price does most of the selling.\".",
+                "example": "One flat price does most of the selling."
+              },
+              {
+                "spec": {
+                  "name": "pricing",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 2,
+                    "maxItems": 4
+                  },
+                  "guidance": "Two-to-four price tiers; each a name, price, unit, an includes line, and a boolean \"feature\" (the launch-focus card)."
+                },
+                "guidance": "Two-to-four price tiers; each a name, price, unit, an includes line, and a boolean \"feature\" (the launch-focus card).",
+                "example": "<2–4 items>"
+              }
+            ]
+          },
+          {
+            "kind": "runbook",
+            "purpose": "The day-0 runbook — the commanding horizontal sequence with a go/no-go gate.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "headlines.runbook",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 64
+                  },
+                  "guidance": "Editorial headline for the day-0 sequence, e.g. \"Launch day, hour by hour.\"."
+                },
+                "guidance": "Editorial headline for the day-0 sequence, e.g. \"Launch day, hour by hour.\".",
+                "example": "Launch day, hour by hour."
+              },
+              {
+                "spec": {
+                  "name": "runbook",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 5,
+                    "maxItems": 12
+                  },
+                  "guidance": "Five-to-twelve ordered runbook steps (id, time, label, detail); mark exactly the go/no-go step with gate:true so it renders as the pivotal diamond. The slide kicker derives from these: \"ONE DAY · {first step time} → {last step label}\"."
+                },
+                "guidance": "Five-to-twelve ordered runbook steps (id, time, label, detail); mark exactly the go/no-go step with gate:true so it renders as the pivotal diamond. The slide kicker derives from these: \"ONE DAY · {first step time} → {last step label}\".",
+                "example": "<5–12 items>"
+              },
+              {
+                "spec": {
+                  "name": "runbookNote",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 300
+                  },
+                  "guidance": "The paragraph under the rail — the day read as one story: the single go/no-go, what is reversible, and until when."
+                },
+                "guidance": "The paragraph under the rail — the day read as one story: the single go/no-go, what is reversible, and until when.",
+                "example": "<longtext, ≤300 chars>"
+              }
+            ]
+          },
+          {
+            "kind": "risk",
+            "purpose": "Abort triggers and the one-switch rollback.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "headlines.risk",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 64
+                  },
+                  "guidance": "Editorial headline for risk & rollback, e.g. \"What stops the clock — and how fast we’re back.\"."
+                },
+                "guidance": "Editorial headline for risk & rollback, e.g. \"What stops the clock — and how fast we’re back.\".",
+                "example": "What stops the clock — and how fast we’re back."
+              },
+              {
+                "spec": {
+                  "name": "aborts",
+                  "type": "tableRows",
+                  "required": true,
+                  "limits": {
+                    "minItems": 2,
+                    "maxItems": 6
+                  },
+                  "guidance": "Abort-trigger rows: a signal metric, an abort threshold, and the action taken."
+                },
+                "guidance": "Abort-trigger rows: a signal metric, an abort threshold, and the action taken.",
+                "example": "<2–6 tableRows>"
+              },
+              {
+                "spec": {
+                  "name": "rollbackNote",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 260
+                  },
+                  "guidance": "One paragraph on how fast the one-switch rollback returns to today’s rails."
+                },
+                "guidance": "One paragraph on how fast the one-switch rollback returns to today’s rails.",
+                "example": "<longtext, ≤260 chars>"
+              }
+            ]
+          },
+          {
+            "kind": "metrics",
+            "purpose": "The launch metrics row (comp.kpi-tile) — day 7 and day 30.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "headlines.metrics",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 64
+                  },
+                  "guidance": "Editorial headline for the metrics row; must be true of the KPIs you supply, e.g. \"Four numbers tell us it worked.\"."
+                },
+                "guidance": "Editorial headline for the metrics row; must be true of the KPIs you supply, e.g. \"Four numbers tell us it worked.\".",
+                "example": "Four numbers tell us it worked."
+              },
+              {
+                "spec": {
+                  "name": "metrics",
+                  "type": "metric",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 6
+                  },
+                  "guidance": "Three-to-six launch KPIs (day-7 / day-30); each a label, value, unit, and status. Values with unit \"percent\" are FRACTIONS: 0.8 renders as 80.0%, never 80."
+                },
+                "guidance": "Three-to-six launch KPIs (day-7 / day-30); each a label, value, unit, and status. Values with unit \"percent\" are FRACTIONS: 0.8 renders as 80.0%, never 80.",
+                "example": "<3–6 metric>"
+              },
+              {
+                "spec": {
+                  "name": "metricsNote",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 220
+                  },
+                  "guidance": "One-line reading of the metrics row — the committed targets and the trailing figure."
+                },
+                "guidance": "One-line reading of the metrics row — the committed targets and the trailing figure.",
+                "example": "<text, ≤220 chars>"
+              }
+            ]
+          },
+          {
+            "kind": "closing",
+            "purpose": "The T-0 GO slide — the word, the line, and the decisions needed today.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "closing.word",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 8
+                  },
+                  "guidance": "The monumental closing word, e.g. \"GO\"."
+                },
+                "guidance": "The monumental closing word, e.g. \"GO\".",
+                "example": "GO"
+              },
+              {
+                "spec": {
+                  "name": "closing.line",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 60
+                  },
+                  "guidance": "The closing headline, e.g. \"On the readiness board, one gate stays amber.\"."
+                },
+                "guidance": "The closing headline, e.g. \"On the readiness board, one gate stays amber.\".",
+                "example": "On the readiness board, one gate stays amber."
+              },
+              {
+                "spec": {
+                  "name": "closing.detail",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 184
+                  },
+                  "guidance": "One paragraph stating what clears the last gate and unblocks go."
+                },
+                "guidance": "One paragraph stating what clears the last gate and unblocks go.",
+                "example": "<longtext, ≤184 chars>"
+              },
+              {
+                "spec": {
+                  "name": "closing.decisions",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 2,
+                    "maxItems": 5
+                  },
+                  "guidance": "Two-to-five decisions the go/no-go needs today; each ≤90 chars."
+                },
+                "guidance": "Two-to-five decisions the go/no-go needs today; each ≤90 chars.",
+                "example": "<2–5 items>"
+              }
+            ]
+          }
+        ],
+        "craftGuarantees": [
+          "A launch plan staged as a COUNTDOWN SEQUENCE: every slide carries a monumental T-minus stamp (T-30 → T-0) over a midnight field, with a single thin amber horizon line that RISES slide by slide and, at T-0, reaches the top as the field turns GO-green.",
+          "Exactly one readiness gate carries the \"warning\" flagged-blocker status: the single amber square in an otherwise green board, its verbatim text echoed in anomalyLabel under the board and in the accessible summary.",
+          "The synthetic-launch notice is required and prints on every slide’s print foot and the footer.",
+          "The day-0 runbook is the commanding bespoke visual — a local SVG rail with a go/no-go diamond gate — and exposes a hidden ordered-list mirror derived from the same runbook data.",
+          "Slot char caps and item counts are sized so any schema-valid fill stays composed — the runbook rail, the price grid, and the readiness board stay balanced and headlines never overflow.",
+          "Motion level 2 (staggered build + horizon-sweep); the mood is locked dark."
+        ]
+      }
+    }
+  },
+  "validate": {
+    "tool": "validate_fill",
+    "arguments": {
+      "worldTemplateId": "deck-product-launch",
+      "fill": {
+        "deck": {
+          "code": "OPENWIKI-GA",
+          "world": "T-MINUS",
+          "product": "OPENWIKI",
+          "programme": "OPEN-SOURCE REPO DOCUMENTATION · GA",
+          "war": "LANGCHAIN OSS · LAUNCH ROOM 01",
+          "notice": "PUBLIC LANGCHAIN SOURCES + SYNTHETIC TARGETS"
+        },
+        "cover": {
+          "line1": "Documentation that",
+          "line2": "keeps itself current.",
+          "standfirst": "OpenWiki is live: an open-source agent that builds a wiki for any repository and maintains it from the commit history. This is the countdown to switching it on across our repos."
+        },
+        "oneSentence": {
+          "lead": "WHAT JUST SHIPPED",
+          "sentence": "OpenWiki is an open-source agent and CLI that generates a living wiki for any codebase, then keeps it current from git diffs on a schedule — so coding agents and humans share one map of the repo.",
+          "facts": [
+            {
+              "stat": "10.9k",
+              "cap": "GitHub stars at launch"
+            },
+            {
+              "stat": "MIT",
+              "cap": "license — fully open source"
+            },
+            {
+              "stat": "6+",
+              "cap": "model providers supported"
+            }
+          ]
+        },
+        "thesis": {
+          "line1": "Stale docs are",
+          "line2": "a broken build.",
+          "standfirst": "Every merge quietly invalidates a page somewhere, and large repos rot fastest. Now coding agents read those pages too — so stale documentation turns directly into wrong code. OpenWiki treats the wiki as a build artifact: generated once, then rebuilt from what actually changed, run by run."
+        },
+        "headlines": {
+          "readiness": "Four green lights. One amber.",
+          "comms": "Everyone hears it in the right order.",
+          "pricing": "Free is the product. The model is the meter.",
+          "runbook": "Pilot day, hour by hour.",
+          "risk": "What stops the pilot — and how fast we roll back.",
+          "metrics": "Four numbers will tell us it worked."
+        },
+        "gates": [
+          {
+            "id": "repos",
+            "label": "Pilot repos selected",
+            "status": "success",
+            "description": "Three candidate repositories agreed with their owning teams for the first generation pass."
+          },
+          {
+            "id": "provider",
+            "label": "Model provider keys",
+            "status": "success",
+            "description": "Provider chosen and keys stored via openwiki auth; retry attempts configured in ~/.openwiki/.env."
+          },
+          {
+            "id": "ci",
+            "label": "CI schedule ready",
+            "status": "success",
+            "description": "GitHub Action prepared to run openwiki --update on a schedule, reading git diffs since the last run."
+          },
+          {
+            "id": "agents",
+            "label": "Agent files wired",
+            "status": "success",
+            "description": "AGENTS.md and CLAUDE.md carry short wiki references, so agents pull pages on demand without context bloat."
+          },
+          {
+            "id": "review",
+            "label": "Human review gate",
+            "status": "warning",
+            "description": "No named reviewer yet for agent-written pages — generated docs ship unreviewed until an owner signs off."
+          }
+        ],
+        "anomalyLabel": "GENERATED DOCS UNREVIEWED — NO NAMED OWNER",
+        "anomalyNote": "naming the reviewing owners is on today’s agenda; sign-off is the single thing between amber and go.",
+        "comms": [
+          {
+            "id": "blog",
+            "channel": "Blog",
+            "moment": "T-0, at GA",
+            "detail": "LangChain publishes Introducing OpenWiki — the problem, the pipeline, and the quickstart."
+          },
+          {
+            "id": "github",
+            "channel": "GitHub",
+            "moment": "T-0",
+            "detail": "langchain-ai/openwiki goes public under MIT with the README quickstart and issue templates."
+          },
+          {
+            "id": "npm",
+            "channel": "npm",
+            "moment": "T-0",
+            "detail": "openwiki published: npm install -g openwiki, then openwiki --init prompts for provider and key."
+          },
+          {
+            "id": "allhands",
+            "channel": "Engineering all-hands",
+            "moment": "T+1, 10:00",
+            "detail": "This deck: what OpenWiki is, the pilot plan, and the review gate that must close first."
+          },
+          {
+            "id": "channels",
+            "channel": "Team channels",
+            "moment": "T+1 → T+7",
+            "detail": "Pilot teams get the runbook and a thread for wiki-accuracy reports during week one."
+          }
+        ],
+        "pricing": [
+          {
+            "id": "code",
+            "name": "Code mode",
+            "price": "FREE",
+            "unit": "per repository",
+            "includes": "Repo wiki in openwiki/, AGENTS.md wiring, scheduled updates from git diffs",
+            "feature": true
+          },
+          {
+            "id": "personal",
+            "name": "Personal mode",
+            "price": "FREE",
+            "unit": "per person",
+            "includes": "Local brain wiki in ~/.openwiki with connectors: Notion, Gmail, X, web search",
+            "feature": false
+          },
+          {
+            "id": "model",
+            "name": "Your model",
+            "price": "BYO",
+            "unit": "per token, at cost",
+            "includes": "OpenAI, Anthropic, OpenRouter, Fireworks, Baseten, NVIDIA NIM — or compatible",
+            "feature": false
+          }
+        ],
+        "runbook": [
+          {
+            "id": "install",
+            "time": "09:00",
+            "label": "Install",
+            "detail": "npm install -g openwiki on the pilot machines and the CI runner."
+          },
+          {
+            "id": "init",
+            "time": "09:15",
+            "label": "Init",
+            "detail": "openwiki --init per repo; choose the provider, store the API key."
+          },
+          {
+            "id": "build",
+            "time": "09:30",
+            "label": "First build",
+            "detail": "Full wiki generated into openwiki/ as interconnected pages."
+          },
+          {
+            "id": "wire",
+            "time": "10:30",
+            "label": "Wire agents",
+            "detail": "AGENTS.md and CLAUDE.md get short references to the new wiki."
+          },
+          {
+            "id": "review",
+            "time": "11:30",
+            "label": "Review gate",
+            "detail": "Named owner reads every generated page; go / no-go on accuracy.",
+            "gate": true
+          },
+          {
+            "id": "schedule",
+            "time": "13:00",
+            "label": "Schedule",
+            "detail": "GitHub Action cron enabled; openwiki --update runs after merges."
+          },
+          {
+            "id": "query",
+            "time": "14:00",
+            "label": "First queries",
+            "detail": "Teams try openwiki -p questions against the fresh wiki."
+          },
+          {
+            "id": "watch",
+            "time": "T+7",
+            "label": "Week-one watch",
+            "detail": "Accuracy reports triaged; update lag measured against merges."
+          }
+        ],
+        "runbookNote": "Install to first queries inside one morning. The 11:30 review gate is the only go/no-go — a named owner reads every generated page before the schedule flips on. Until then, everything OpenWiki has written is plain files on a branch, reversible by deleting them.",
+        "aborts": [
+          {
+            "id": "accuracy",
+            "metric": "Factual errors found in review",
+            "threshold": ">1 per generated page",
+            "action": "Hold the rollout; regenerate with a stronger model before retry."
+          },
+          {
+            "id": "ci",
+            "metric": "Scheduled update failures",
+            "threshold": "2 consecutive Action runs",
+            "action": "Disable the cron; fall back to manual openwiki --update."
+          },
+          {
+            "id": "spend",
+            "metric": "Provider token spend",
+            "threshold": "Monthly cap breached",
+            "action": "Switch provider or model via OPENWIKI_PROVIDER; resume next cycle."
+          }
+        ],
+        "rollbackNote": "Rollback is one commit: OpenWiki writes plain files inside the repo. Delete the openwiki/ directory, revert the AGENTS.md and CLAUDE.md references, disable the Action — and the repo is exactly what it was. No service to unwind, no data held outside git.",
+        "metrics": [
+          {
+            "id": "stars",
+            "label": "GitHub stars at launch",
+            "value": 10900,
+            "unit": "count",
+            "status": "on-track"
+          },
+          {
+            "id": "repos",
+            "label": "Pilot repos onboarded — day 30",
+            "value": 3,
+            "unit": "count",
+            "status": "neutral"
+          },
+          {
+            "id": "lag",
+            "label": "Median doc update lag, hours",
+            "value": 24,
+            "unit": "count",
+            "status": "at-risk"
+          },
+          {
+            "id": "coverage",
+            "label": "Core-module coverage, day 30",
+            "value": 0.8,
+            "unit": "percent",
+            "status": "neutral"
+          }
+        ],
+        "metricsNote": "Stars are the live GitHub figure at launch; the other three are day-30 pilot targets set before the rollout — update lag stays at-risk until week-one data proves the schedule keeps pace with merges.",
+        "closing": {
+          "word": "GO",
+          "line": "One gate stays amber: nobody owns the generated pages yet.",
+          "detail": "Name a reviewing owner per pilot repo and the board goes green — the whole runbook is a morning, and the wiki starts paying rent on the first merge.",
+          "decisions": [
+            "Name the documentation reviewer for each of the three pilot repos",
+            "Fix the default provider and model, and set the monthly token-spend cap",
+            "Approve wiring wiki references into AGENTS.md and CLAUDE.md on pilot repos"
+          ]
+        }
+      }
+    },
+    "raw": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"valid\":true,\"worldTemplateId\":\"deck-product-launch\",\"findings\":[]}"
+        }
+      ],
+      "structuredContent": {
+        "valid": true,
+        "worldTemplateId": "deck-product-launch",
+        "findings": []
+      }
+    },
+    "structuredContent": {
+      "valid": true,
+      "worldTemplateId": "deck-product-launch",
+      "findings": []
+    },
+    "text": {
+      "valid": true,
+      "worldTemplateId": "deck-product-launch",
+      "findings": []
+    }
+  },
+  "checks": [
+    {
+      "name": "compose_slide_deck not isError",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "compose_slide_deck structuredContent is a valid ComposeSlideDeckOutput",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "compose_slide_deck → deck-product-launch (tminus)",
+      "pass": true,
+      "detail": "tminus / deck-product-launch"
+    },
+    {
+      "name": "compose_slide_deck fill skeleton carries slide kinds + craft guarantees",
+      "pass": true,
+      "detail": "10 slide kinds"
+    },
+    {
+      "name": "validate_fill not isError",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "validate_fill structuredContent is a valid ValidateFillOutput",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "validate_fill(OpenWiki fill) valid=true, no findings",
+      "pass": true,
+      "detail": "valid=true, 0 findings"
+    }
+  ]
+}

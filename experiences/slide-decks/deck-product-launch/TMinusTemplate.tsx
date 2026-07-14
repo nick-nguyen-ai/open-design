@@ -94,6 +94,13 @@ const RUNBOOK_VIEW = '0 0 1200 300';
 /** A runbook step with its precomputed rail x-position and label side. */
 type RunPos = TMinusRunStep & { x: number; above: boolean };
 
+/** Keep a centred SVG text run inside the runbook viewBox (6px safe margin). */
+function clampTextX(x: number, halfWidth: number): number {
+  const min = halfWidth + 6;
+  const max = 1200 - halfWidth - 6;
+  return Math.min(Math.max(x, min), max);
+}
+
 /** Precompute x-positions for the runbook rail from the fill's steps. */
 function layoutRunbook(runbook: readonly TMinusRunStep[]): RunPos[] {
   return runbook.map((s, i) => ({
@@ -152,6 +159,11 @@ function RunbookDrawing({
       {runbookPos.map((s, i) => {
         const labelY = s.above ? RUNBOOK_RAIL_Y - 34 : RUNBOOK_RAIL_Y + 50;
         const timeY = s.above ? RUNBOOK_RAIL_Y - 62 : RUNBOOK_RAIL_Y + 78;
+        // Clamp centred text into the viewBox so in-spec labels near the rail
+        // ends never clip (estimated half-widths: 21px sans ≈ 5.6/char,
+        // 19px mono ≈ 5.8/char). Steps away from the edges are unaffected.
+        const labelX = clampTextX(s.x, s.label.length * 5.6);
+        const timeX = clampTextX(s.x, s.time.length * 5.8);
         return (
           <g key={s.id} className="tm-run-step" style={{ ['--tm-i' as string]: i }} data-gate={s.gate ? 'true' : undefined}>
             <line className="tm-run-stem" x1={s.x} y1={RUNBOOK_RAIL_Y} x2={s.x} y2={s.above ? RUNBOOK_RAIL_Y - 22 : RUNBOOK_RAIL_Y + 22} />
@@ -160,10 +172,10 @@ function RunbookDrawing({
             ) : (
               <circle className="tm-run-node" cx={s.x} cy={RUNBOOK_RAIL_Y} r={7} />
             )}
-            <text className="tm-run-time" x={s.x} y={timeY} textAnchor="middle">
+            <text className="tm-run-time" x={timeX} y={timeY} textAnchor="middle">
               {s.time}
             </text>
-            <text className="tm-run-label" x={s.x} y={labelY} textAnchor="middle">
+            <text className="tm-run-label" x={labelX} y={labelY} textAnchor="middle">
               {s.label}
             </text>
           </g>
@@ -268,7 +280,7 @@ function SlideBody({
         <div className="tm-prose">
           <KickerRow slide={slide} war={fill.deck.war} />
           <Build i={1}>
-            <h2 className="tm-heading">Five gates. Four are green.</h2>
+            <h2 className="tm-heading">{fill.headlines.readiness}</h2>
           </Build>
           <Build i={2} className="tm-gates-frame">
             <StatusList title="Launch readiness gates" items={[...fill.gates]} />
@@ -276,7 +288,7 @@ function SlideBody({
           <Build i={3}>
             <p className="tm-gate-note" data-testid="readiness-anomaly">
               <span className="tm-gate-flag">HOLD</span>
-              {fill.anomalyLabel} — the retest is booked; sign-off is the single thing between amber and go.
+              {fill.anomalyLabel} — {fill.anomalyNote}
             </p>
           </Build>
         </div>
@@ -287,7 +299,7 @@ function SlideBody({
         <div className="tm-prose">
           <KickerRow slide={slide} war={fill.deck.war} />
           <Build i={1}>
-            <h2 className="tm-heading">Nobody hears it before the right people do.</h2>
+            <h2 className="tm-heading">{fill.headlines.comms}</h2>
           </Build>
           <Build i={2} className="tm-comms-wrap">
             <ul className="tm-comms">
@@ -308,7 +320,7 @@ function SlideBody({
         <div className="tm-prose">
           <KickerRow slide={slide} war={fill.deck.war} />
           <Build i={1}>
-            <h2 className="tm-heading">One flat price does most of the selling.</h2>
+            <h2 className="tm-heading">{fill.headlines.pricing}</h2>
           </Build>
           <div className="tm-price-grid">
             {fill.pricing.map((t, i) => (
@@ -331,20 +343,19 @@ function SlideBody({
         <div className="tm-runbook-body">
           <Build i={0} className="tm-kickerrow">
             <span className="tm-kicker">{slide.kicker}</span>
-            <span className="tm-war">ONE DAY · 05:00 → NIGHT WATCH</span>
+            <span className="tm-war">
+              {/* Derived from the runbook fill: the day's span in one breath. */}
+              {`ONE DAY · ${fill.runbook[0]!.time} → ${fill.runbook[fill.runbook.length - 1]!.label.toUpperCase()}`}
+            </span>
           </Build>
           <Build i={1}>
-            <h2 className="tm-heading tm-heading-tight">Launch day, hour by hour.</h2>
+            <h2 className="tm-heading tm-heading-tight">{fill.headlines.runbook}</h2>
           </Build>
           <Build i={2} className="tm-runbook-frame">
             <RunbookDrawing reduced={reduced} runbook={fill.runbook} runbookPos={runbookPos} />
           </Build>
           <Build i={3}>
-            <p className="tm-runbook-cap">
-              One code freeze at 05:00, one go/no-go on the readiness board at 07:45, then a staged
-              ramp — staff, 10%, 50%, 100% — before the announcement lifts at general availability.
-              Every step is reversible with one switch until we choose to open the doors.
-            </p>
+            <p className="tm-runbook-cap">{fill.runbookNote}</p>
           </Build>
         </div>
       );
@@ -354,7 +365,7 @@ function SlideBody({
         <div className="tm-prose">
           <KickerRow slide={slide} war={fill.deck.war} />
           <Build i={1}>
-            <h2 className="tm-heading">What stops the clock — and how fast we’re back.</h2>
+            <h2 className="tm-heading">{fill.headlines.risk}</h2>
           </Build>
           <Build i={2} className="tm-abort-wrap">
             <table className="tm-abort" data-testid="abort-table">
@@ -390,7 +401,7 @@ function SlideBody({
         <div className="tm-prose">
           <KickerRow slide={slide} war={fill.deck.war} />
           <Build i={1}>
-            <h2 className="tm-heading">Four numbers tell us it worked.</h2>
+            <h2 className="tm-heading">{fill.headlines.metrics}</h2>
           </Build>
           <Build i={2} className="tm-kpi-frame">
             <KpiTile title="Launch metrics — day 7 and day 30" metrics={[...fill.metrics]} />

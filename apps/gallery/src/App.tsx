@@ -32,6 +32,13 @@ const McpSampleDemo = lazy(
   () => import('../../../experiences/slide-decks/sample-payments-retry/SamplePage.js'),
 );
 
+// Deck-composer skill OUTPUT (ledger T33) — introducing LangChain OpenWiki,
+// composed via compose_slide_deck → deck-product-launch, rendered content-only
+// through TMinusTemplate. Not a catalogue template.
+const OpenWikiDemo = lazy(
+  () => import('../../../experiences/slide-decks/sample-openwiki/OpenWikiPage.js'),
+);
+
 export function App() {
   const preferences = usePreferences();
 
@@ -60,6 +67,14 @@ export function App() {
             element={
               <Suspense fallback={<RouteFallback />}>
                 <McpSampleDemo />
+              </Suspense>
+            }
+          />
+          <Route
+            path="demo/openwiki"
+            element={
+              <Suspense fallback={<RouteFallback />}>
+                <OpenWikiDemo />
               </Suspense>
             }
           />

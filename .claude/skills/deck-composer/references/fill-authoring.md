@@ -8,6 +8,7 @@ The fillSkeleton returned by `compose_slide_deck` lists every slide kind and slo
 - **The example anchors register and magnitude.** If the example is `"Settlement ledger"`, the slot wants a noun phrase, not a sentence. If the example series has 8 points between 90 and 130, don't supply 3 points between 0 and 10⁶ — the template's axis/scale craft was tuned around the example's magnitude.
 - **`minItems`/`maxItems` are composition bounds.** The layout stays composed only inside them. When the source offers more items than `maxItems`, cut by relevance to the audience answer — never squeeze.
 - **Machine-id slots** (fields named `id`, `code`): stable kebab/short tokens, no spaces, mirroring the example's shape.
+- **Unit conventions are part of the spec.** When guidance states a convention (e.g. "percent values are FRACTIONS: 0.8 renders as 80.0%"), a value that ignores it validates fine and renders absurdly. If the guidance is silent, infer the convention from the example's magnitude before writing any number.
 
 ## Fidelity application (the intake answer)
 

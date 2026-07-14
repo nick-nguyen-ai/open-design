@@ -117,6 +117,20 @@ export const TMinusFill = z.object({
     standfirst: z.string().min(1).max(350),
   }),
   /**
+   * The editorial slide headlines — the deck's voice, one per content slide.
+   * These are CONTENT (they assert things about the fill's facts — gate
+   * counts, price shape, metric counts), so they live in the fill, not the
+   * template.
+   */
+  headlines: z.object({
+    readiness: z.string().min(1).max(64),
+    comms: z.string().min(1).max(64),
+    pricing: z.string().min(1).max(64),
+    runbook: z.string().min(1).max(64),
+    risk: z.string().min(1).max(64),
+    metrics: z.string().min(1).max(64),
+  }),
+  /**
    * The readiness board (comp.status-list). Exactly one gate carries the
    * `warning` status — the single flagged blocker still holding the clock.
    */
@@ -129,10 +143,14 @@ export const TMinusFill = z.object({
     }),
   /** REQUIRED verbatim flag, echoed on the readiness board and in the a11y summary. */
   anomalyLabel: z.string().min(1).max(48),
+  /** Continues the HOLD callout after the flag: what unblocks the amber gate. */
+  anomalyNote: z.string().min(1).max(120),
   comms: z.array(CommsLine).min(3).max(7),
   pricing: z.array(PriceTier).min(2).max(4),
   /** The day-0 runbook — the commanding horizontal sequence. */
   runbook: z.array(RunStep).min(5).max(12),
+  /** The paragraph under the rail — the day read as one story. */
+  runbookNote: z.string().min(1).max(300),
   aborts: z.array(AbortTrigger).min(2).max(6),
   rollbackNote: z.string().min(1).max(260),
   metrics: z.array(Kpi).min(3).max(6),
@@ -196,8 +214,10 @@ export const TMINUS_SLIDE_KINDS: SlideKindSpec[] = [
     purpose: 'The launch-readiness board (comp.status-list); exactly one gate is flagged.',
     repeats: { min: 1, max: 1 },
     slots: [
+      { name: 'headlines.readiness', type: 'text', required: true, limits: { maxChars: 64 }, guidance: 'Editorial headline for the readiness board; must be true of the gates you supply, e.g. "Five gates. Four are green.".' },
       { name: 'gates', type: 'items', required: true, limits: { minItems: 3, maxItems: 7 }, guidance: 'Three-to-seven readiness gates (id, label, status success|warning|danger|info|neutral, description). Exactly ONE carries status "warning" — the single flagged blocker still standing between the team and go.' },
       { name: 'anomalyLabel', type: 'text', required: true, limits: { maxChars: 48 }, guidance: 'REQUIRED verbatim flag for the blocked gate, echoed under the board, e.g. "SECURITY REVIEW PENDING — BLOCKS T-7".' },
+      { name: 'anomalyNote', type: 'text', required: true, limits: { maxChars: 120 }, guidance: 'Continues the HOLD callout after the flag: what unblocks the amber gate, e.g. "the retest is booked; sign-off is the single thing between amber and go.".' },
     ],
   },
   {
@@ -205,6 +225,7 @@ export const TMINUS_SLIDE_KINDS: SlideKindSpec[] = [
     purpose: 'The comms & channel plan — who hears the launch, and when.',
     repeats: { min: 1, max: 1 },
     slots: [
+      { name: 'headlines.comms', type: 'text', required: true, limits: { maxChars: 64 }, guidance: 'Editorial headline for the comms plan, e.g. "Nobody hears it before the right people do.".' },
       { name: 'comms', type: 'items', required: true, limits: { minItems: 3, maxItems: 7 }, guidance: 'Three-to-seven comms lines; each a channel, a moment (e.g. "T-0, at GA"), and a one-line detail.' },
     ],
   },
@@ -213,6 +234,7 @@ export const TMINUS_SLIDE_KINDS: SlideKindSpec[] = [
     purpose: 'Pricing & packaging — the tiers, one flagged as the launch focus.',
     repeats: { min: 1, max: 1 },
     slots: [
+      { name: 'headlines.pricing', type: 'text', required: true, limits: { maxChars: 64 }, guidance: 'Editorial headline for pricing & packaging; must match the tier shape you supply, e.g. "One flat price does most of the selling.".' },
       { name: 'pricing', type: 'items', required: true, limits: { minItems: 2, maxItems: 4 }, guidance: 'Two-to-four price tiers; each a name, price, unit, an includes line, and a boolean "feature" (the launch-focus card).' },
     ],
   },
@@ -221,7 +243,9 @@ export const TMINUS_SLIDE_KINDS: SlideKindSpec[] = [
     purpose: 'The day-0 runbook — the commanding horizontal sequence with a go/no-go gate.',
     repeats: { min: 1, max: 1 },
     slots: [
-      { name: 'runbook', type: 'items', required: true, limits: { minItems: 5, maxItems: 12 }, guidance: 'Five-to-twelve ordered runbook steps (id, time, label, detail); mark exactly the go/no-go step with gate:true so it renders as the pivotal diamond.' },
+      { name: 'headlines.runbook', type: 'text', required: true, limits: { maxChars: 64 }, guidance: 'Editorial headline for the day-0 sequence, e.g. "Launch day, hour by hour.".' },
+      { name: 'runbook', type: 'items', required: true, limits: { minItems: 5, maxItems: 12 }, guidance: 'Five-to-twelve ordered runbook steps (id, time, label, detail); mark exactly the go/no-go step with gate:true so it renders as the pivotal diamond. The slide kicker derives from these: "ONE DAY · {first step time} → {last step label}".' },
+      { name: 'runbookNote', type: 'longtext', required: true, limits: { maxChars: 300 }, guidance: 'The paragraph under the rail — the day read as one story: the single go/no-go, what is reversible, and until when.' },
     ],
   },
   {
@@ -229,6 +253,7 @@ export const TMINUS_SLIDE_KINDS: SlideKindSpec[] = [
     purpose: 'Abort triggers and the one-switch rollback.',
     repeats: { min: 1, max: 1 },
     slots: [
+      { name: 'headlines.risk', type: 'text', required: true, limits: { maxChars: 64 }, guidance: 'Editorial headline for risk & rollback, e.g. "What stops the clock — and how fast we’re back.".' },
       { name: 'aborts', type: 'tableRows', required: true, limits: { minItems: 2, maxItems: 6 }, guidance: 'Abort-trigger rows: a signal metric, an abort threshold, and the action taken.' },
       { name: 'rollbackNote', type: 'longtext', required: true, limits: { maxChars: 260 }, guidance: 'One paragraph on how fast the one-switch rollback returns to today’s rails.' },
     ],
@@ -238,7 +263,8 @@ export const TMINUS_SLIDE_KINDS: SlideKindSpec[] = [
     purpose: 'The launch metrics row (comp.kpi-tile) — day 7 and day 30.',
     repeats: { min: 1, max: 1 },
     slots: [
-      { name: 'metrics', type: 'metric', required: true, limits: { minItems: 3, maxItems: 6 }, guidance: 'Three-to-six launch KPIs (day-7 / day-30); each a label, value, unit, and status.' },
+      { name: 'headlines.metrics', type: 'text', required: true, limits: { maxChars: 64 }, guidance: 'Editorial headline for the metrics row; must be true of the KPIs you supply, e.g. "Four numbers tell us it worked.".' },
+      { name: 'metrics', type: 'metric', required: true, limits: { minItems: 3, maxItems: 6 }, guidance: 'Three-to-six launch KPIs (day-7 / day-30); each a label, value, unit, and status. Values with unit "percent" are FRACTIONS: 0.8 renders as 80.0%, never 80.' },
       { name: 'metricsNote', type: 'text', required: true, limits: { maxChars: 220 }, guidance: 'One-line reading of the metrics row — the committed targets and the trailing figure.' },
     ],
   },

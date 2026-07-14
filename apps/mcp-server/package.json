@@ -10,6 +10,8 @@
     "demo": "corepack pnpm exec tsx src/demo-client.ts",
     "presample": "corepack pnpm -w run registry:build",
     "sample": "corepack pnpm exec tsx src/sample-outcome.ts",
+    "preopenwiki": "corepack pnpm -w run registry:build",
+    "openwiki": "corepack pnpm exec tsx src/openwiki-outcome.ts",
     "pretest": "corepack pnpm -w run registry:build",
     "test": "vitest run --root ../.. apps/mcp-server",
     "typecheck": "tsc --noEmit"
