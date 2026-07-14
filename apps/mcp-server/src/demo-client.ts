@@ -326,6 +326,17 @@ async function main(): Promise<void> {
     const quarterOut = ComposeSlideDeckOutput.safeParse(quarter.structuredContent);
     check('compose_slide_deck(business brief) → deck-quarterly-business-review', quarterOut.success && quarterOut.data.experienceId === 'deck-quarterly-business-review' && quarterOut.data.worldTemplateId === 'quarter', quarterOut.success ? quarterOut.data.experienceId : quarterOut.error.message);
 
+    // 6b2. A product-introduction brief selects deck-product-launch (The T-Minus).
+    const launch = (await client.callTool({
+      name: 'compose_slide_deck',
+      arguments: {
+        context: { surface: 'slide-deck', audience: ['mixed'], businessIntent: ['plan-product-launch'], corporateSuitability: 'expressive', motionPreference: 2 },
+        contentBrief: 'Announce and launch our new instant-payments product to the go-live team — the release countdown, readiness gates, and day-0 runbook.',
+      },
+    })) as CallToolResult;
+    const launchOut = ComposeSlideDeckOutput.safeParse(launch.structuredContent);
+    check('compose_slide_deck(product-intro brief) → deck-product-launch', launchOut.success && launchOut.data.experienceId === 'deck-product-launch' && launchOut.data.worldTemplateId === 'tminus', launchOut.success ? launchOut.data.experienceId : launchOut.error.message);
+
     // 6c. The shipped Quarter instance fill validates clean against the descriptor contract.
     const validShipped = (await client.callTool({ name: 'validate_fill', arguments: { worldTemplateId: 'quarter', fill: quarterFill } })) as CallToolResult;
     const validShippedOut = ValidateFillOutput.safeParse(validShipped.structuredContent);

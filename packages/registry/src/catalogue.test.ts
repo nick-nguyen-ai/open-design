@@ -221,15 +221,18 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
     }
   });
 
-  it('discovers exactly the two world-templates, sorted by id, with zero errors', async () => {
+  it('discovers exactly the three world-templates, sorted by id, with zero errors', async () => {
     const result = await compileRegistry({ cwd: REPO_ROOT });
     expect(result.diagnostics).toEqual([]);
-    expect(result.worldTemplates.map((w) => w.id)).toEqual(['cutover', 'quarter']);
+    expect(result.worldTemplates.map((w) => w.id)).toEqual(['cutover', 'quarter', 'tminus']);
     const byId = new Map(result.worldTemplates.map((w) => [w.id, w]));
     expect(byId.get('quarter')?.experienceId).toBe('deck-quarterly-business-review');
     expect(byId.get('quarter')?.style).toBe('conventional');
     expect(byId.get('cutover')?.experienceId).toBe('deck-cloud-migration');
     expect(byId.get('cutover')?.style).toBe('art-directed');
+    expect(byId.get('tminus')?.experienceId).toBe('deck-product-launch');
+    expect(byId.get('tminus')?.style).toBe('art-directed');
+    expect(byId.get('tminus')?.mood).toBe('dark');
   });
 
   it('every world-template reference resolves to a real experience, grammar, and components', async () => {

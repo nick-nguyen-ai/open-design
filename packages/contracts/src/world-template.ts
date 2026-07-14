@@ -63,11 +63,14 @@ export type SlotSpec = z.infer<typeof SlotSpec>;
  *   whose `status === 'off-track'`.
  * - `exactly-one-stays-node`: `fill.nodes` is an array with exactly one entry
  *   whose `disposition === 'stays'`.
+ * - `exactly-one-blocked-gate`: `fill.gates` is an array with exactly one entry
+ *   whose `status === 'warning'` — the single flagged blocker.
  * - `notice-required`: `fill.deck.notice` is a present, non-empty string.
  */
 export const CraftRuleId = z.enum([
   'exactly-one-anomaly-kpi',
   'exactly-one-stays-node',
+  'exactly-one-blocked-gate',
   'notice-required',
 ]);
 export type CraftRuleId = z.infer<typeof CraftRuleId>;

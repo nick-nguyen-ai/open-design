@@ -138,6 +138,18 @@ function checkCraftRules(fill: unknown, descriptor: WorldTemplateDescriptor, fin
           message: `Craft rule "exactly-one-stays-node": exactly one estate node must carry disposition "stays" (found ${count}).`,
         });
       }
+    } else if (rule === 'exactly-one-blocked-gate') {
+      const gates = resolvePath(fill, 'gates');
+      const count = Array.isArray(gates)
+        ? gates.filter((g) => typeof g === 'object' && g !== null && (g as { status?: unknown }).status === 'warning').length
+        : 0;
+      if (count !== 1) {
+        findings.push({
+          path: 'gates',
+          rule: 'craft',
+          message: `Craft rule "exactly-one-blocked-gate": exactly one readiness gate must carry status "warning" (found ${count}).`,
+        });
+      }
     }
   }
 }
