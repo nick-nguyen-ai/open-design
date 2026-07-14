@@ -1,10 +1,1 @@
-[
-  {
-    "text": "Q3 FY26 · QBR",
-    "reason": "KNOWN LEAK — flagged as a concern, not clean chrome. The persistent title-bar tag hardcodes the reporting period 'Q3 FY26', which is fill data (deck.period = 'Q3 FY26 · Quarterly Business Review'). A different reporting period in the fill would leave this tag stale. Recommended template-side fix: derive the tag from deck.period (add a short-period fill leaf). Allowlisted only to keep the certifier green within Task 5's scope (no template re-authoring)."
-  },
-  {
-    "text": "Q3 FY26 actual vs. operating plan",
-    "reason": "KNOWN LEAK — flagged as a concern, not clean chrome. The vs-plan table caption hardcodes the period 'Q3 FY26' (fill data). A different period would leave the caption stale. Recommended template-side fix: compose the caption from deck.period. Allowlisted only to keep the certifier green within Task 5's scope."
-  }
-]
+[]

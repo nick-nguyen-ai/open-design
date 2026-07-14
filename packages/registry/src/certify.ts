@@ -138,6 +138,11 @@ function slotPath(name: string): string {
  * KNOWN BOUNDARY: the scan covers element TEXT NODES only — string literals in
  * JSX attributes (e.g. `aria-label={\`…\`}`) and template literals are out of
  * scope for this gate.
+ * KNOWN BOUNDARY: a mixed-content text run that ends at an OPENING child tag
+ * (e.g. the `some words ` in `<p>some words <strong>x</strong></p>`, or the
+ * ` · QBR` after a `{expr}` in `<span>{fill.x} · QBR</span>`) is not scanned —
+ * the run must terminate at a CLOSING tag (`</`) to be a candidate, so text
+ * broken by an opening tag or interpolation on its right is out of scope.
  */
 export function leakCandidates(templateSource: string): string[] {
   const re = />\s*([^<>{}\n][^<>{}]*)<\//g;

@@ -49,6 +49,20 @@ export const sampleFill: CutoverFill = CutoverFill.parse({
   },
 
   /**
+   * The editorial slide headlines — the deck's voice, one per content slide.
+   * The waves headline matches the three waves below; the risk headline matches
+   * the single flagged (warning) item in the register.
+   */
+  headlines: {
+    delta: 'Three columns say the whole plan.',
+    waves: 'Three weekends, three waves.',
+    cutover: 'Cutover night, one path down.',
+    sync: 'Nothing cuts over until the data agrees.',
+    rollback: 'If it fails, we’re back by morning.',
+    risk: 'The risk register, one open item.',
+  },
+
+  /**
    * The pipeline on a shared canvas. GEOMETRY OMITTED on every node so the
    * template auto-lays the estate by zone (cloud lane left, on-prem right).
    */

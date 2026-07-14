@@ -28,6 +28,12 @@ const DeckMeta = z.object({
   title: z.string().min(1).max(30),
   org: z.string().min(1).max(30),
   period: z.string().min(1).max(48),
+  /**
+   * The short reporting period (e.g. "Q3 FY26"), composed into the title-bar tag
+   * ("<periodShort> · QBR") and the vs-plan caption ("<periodShort> actual vs.
+   * operating plan") — those periods are CONTENT, not template chrome.
+   */
+  periodShort: z.string().min(1).max(16),
   confidentiality: z.string().min(1).max(48),
   /** REQUIRED craft slot: the synthetic-data notice printed on the footer rule. */
   notice: z.string().min(1).max(52),
@@ -147,6 +153,7 @@ export const QUARTER_SECTIONS: SectionSpec[] = [
       { name: 'deck.title', type: 'text', required: true, limits: { maxChars: 30 }, guidance: 'The deck title, shown on the persistent title bar of every slide, e.g. "Quarterly Business Review".' },
       { name: 'deck.org', type: 'text', required: true, limits: { maxChars: 30 }, guidance: 'Organisation name, set in mono small-caps above the cover title.' },
       { name: 'deck.period', type: 'text', required: true, limits: { maxChars: 48 }, guidance: 'The reporting period and deck kind, e.g. "Q3 FY26 · Quarterly Business Review".' },
+      { name: 'deck.periodShort', type: 'text', required: true, limits: { maxChars: 16 }, guidance: 'The short reporting period composed into the title-bar tag and the vs-plan caption, e.g. "Q3 FY26".' },
       { name: 'deck.confidentiality', type: 'text', required: true, limits: { maxChars: 48 }, guidance: 'Distribution line, e.g. "CONFIDENTIAL — BOARD DISTRIBUTION".' },
       { name: 'deck.notice', type: 'text', required: true, limits: { maxChars: 52 }, guidance: 'REQUIRED synthetic-data notice printed on every footer rule.' },
       { name: 'summary.lead', type: 'longtext', required: true, limits: { maxChars: 110 }, guidance: 'One sentence framing the quarter — the honest through-line, shown on the cover.' },

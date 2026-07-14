@@ -19,6 +19,7 @@ export const quarterFill: QuarterFill = QuarterFill.parse({
     title: 'Meridian Systems',
     org: 'MERIDIAN SYSTEMS',
     period: 'Q3 FY26 · Quarterly Business Review',
+    periodShort: 'Q3 FY26',
     confidentiality: 'CONFIDENTIAL — BOARD DISTRIBUTION',
     notice: 'SYNTHETIC RESULTS — DEMONSTRATION ONLY',
   },

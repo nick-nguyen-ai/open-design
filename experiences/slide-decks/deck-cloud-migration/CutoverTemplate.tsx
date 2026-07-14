@@ -895,7 +895,7 @@ function SlideBody({ slide, fill, derived }: { slide: Slide; fill: CutoverFill; 
         <div className="cu-prose">
           <KickerRow slide={slide} fill={fill} />
           <Build i={1}>
-            <h2 className="cu-heading">Three columns say the whole plan.</h2>
+            <h2 className="cu-heading">{fill.headlines.delta}</h2>
           </Build>
           <div className="cu-delta-grid">
             <Build i={2} className="cu-delta-col" data-tone="move">
@@ -940,7 +940,7 @@ function SlideBody({ slide, fill, derived }: { slide: Slide; fill: CutoverFill; 
         <div className="cu-prose">
           <KickerRow slide={slide} fill={fill} />
           <Build i={1}>
-            <h2 className="cu-heading cu-heading-tight">Three weekends, three waves.</h2>
+            <h2 className="cu-heading cu-heading-tight">{fill.headlines.waves}</h2>
           </Build>
           <div className="cu-swimlanes">
             {fill.waves.map((w, i) => (
@@ -968,7 +968,7 @@ function SlideBody({ slide, fill, derived }: { slide: Slide; fill: CutoverFill; 
         <div className="cu-flow-body">
           <KickerRow slide={slide} fill={fill} />
           <Build i={1}>
-            <h2 className="cu-heading cu-heading-tight">Cutover night, one path down.</h2>
+            <h2 className="cu-heading cu-heading-tight">{fill.headlines.cutover}</h2>
           </Build>
           <Build i={2} className="cu-flow-frame">
             <FlowDiagram
@@ -985,7 +985,7 @@ function SlideBody({ slide, fill, derived }: { slide: Slide; fill: CutoverFill; 
         <div className="cu-prose">
           <KickerRow slide={slide} fill={fill} />
           <Build i={1}>
-            <h2 className="cu-heading">Nothing cuts over until the data agrees.</h2>
+            <h2 className="cu-heading">{fill.headlines.sync}</h2>
           </Build>
           <Build i={2} className="cu-sync-wrap">
             <ol className="cu-sync">
@@ -1006,7 +1006,7 @@ function SlideBody({ slide, fill, derived }: { slide: Slide; fill: CutoverFill; 
         <div className="cu-flow-body">
           <KickerRow slide={slide} fill={fill} />
           <Build i={1}>
-            <h2 className="cu-heading cu-heading-tight">If it fails, we’re back by morning.</h2>
+            <h2 className="cu-heading cu-heading-tight">{fill.headlines.rollback}</h2>
           </Build>
           <Build i={2} className="cu-canvas">
             <svg className="cu-rollback-svg" viewBox={ROLLBACK_VIEW} role="img" aria-label="Rollback tree from the validation gate: pass opens to customers; fail freezes the target, repoints DNS to source, and unfreezes source writes." data-testid="rollback-tree">
@@ -1046,7 +1046,7 @@ function SlideBody({ slide, fill, derived }: { slide: Slide; fill: CutoverFill; 
         <div className="cu-prose">
           <KickerRow slide={slide} fill={fill} />
           <Build i={1}>
-            <h2 className="cu-heading">The risk register, one open item.</h2>
+            <h2 className="cu-heading">{fill.headlines.risk}</h2>
           </Build>
           <Build i={2} className="cu-risk-frame">
             <StatusList title="Cutover risk register" items={[...fill.risks]} />

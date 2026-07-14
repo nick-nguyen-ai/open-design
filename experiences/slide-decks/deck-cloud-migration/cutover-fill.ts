@@ -187,6 +187,19 @@ export const CutoverFill = z
       target: z.string().min(1).max(180),
     }),
     /**
+     * The editorial slide headlines — the deck's voice, one per content slide.
+     * These are CONTENT (they assert things about the fill's facts — the wave
+     * count, the single open risk), so they live in the fill, not the template.
+     */
+    headlines: z.object({
+      delta: z.string().min(1).max(64),
+      waves: z.string().min(1).max(64),
+      cutover: z.string().min(1).max(64),
+      sync: z.string().min(1).max(64),
+      rollback: z.string().min(1).max(64),
+      risk: z.string().min(1).max(64),
+    }),
+    /**
      * The estate systems on the shared canvas. Exactly one carries the `stays`
      * anomaly disposition (padlocked, its badge the verbatim anomaly text). The
      * count is bounded so both the current and target diagrams stay composed.
@@ -295,6 +308,7 @@ export const CUTOVER_SECTIONS: SectionSpec[] = [
     purpose: 'Three columns — what moves, what dies, what stays.',
     repeats: { min: 1, max: 1 },
     slots: [
+      { name: 'headlines.delta', type: 'text', required: true, limits: { maxChars: 64 }, guidance: 'Editorial headline for the moves/dies/stays columns, e.g. "Three columns say the whole plan.".' },
       { name: 'delta.moves', type: 'items', required: true, limits: { minItems: 1, maxItems: 6 }, guidance: 'Systems that migrate; each a system name and a one-line disposition note.' },
       { name: 'delta.dies', type: 'items', required: true, limits: { minItems: 1, maxItems: 4 }, guidance: 'Systems retired or replaced; each a system name and a one-line note.' },
       { name: 'delta.stays', type: 'items', required: true, limits: { minItems: 1, maxItems: 3 }, guidance: 'Systems that stay put; the fixed point belongs here.' },
@@ -305,6 +319,7 @@ export const CUTOVER_SECTIONS: SectionSpec[] = [
     purpose: 'The migration waves as a swimlane — each a weekend, its systems as chips.',
     repeats: { min: 1, max: 1 },
     slots: [
+      { name: 'headlines.waves', type: 'text', required: true, limits: { maxChars: 64 }, guidance: 'Editorial headline for the migration waves; must match the wave count you supply, e.g. "Three weekends, three waves.".' },
       { name: 'waves', type: 'items', required: true, limits: { minItems: 2, maxItems: 5 }, guidance: 'Each wave has a name, a when, one-to-four system chips (label + kind), and a one-line note.' },
     ],
   },
@@ -313,6 +328,7 @@ export const CUTOVER_SECTIONS: SectionSpec[] = [
     purpose: 'The cutover-night sequence as a comp.flow-diagram, one path down to a validation gate.',
     repeats: { min: 1, max: 1 },
     slots: [
+      { name: 'headlines.cutover', type: 'text', required: true, limits: { maxChars: 64 }, guidance: 'Editorial headline for the cutover-night sequence, e.g. "Cutover night, one path down.".' },
       { name: 'cutoverFlow.nodes', type: 'nodes', required: true, limits: { minItems: 3, maxItems: 9 }, guidance: 'Flow steps (id, label, kind start|process|decision|end|data); include one decision gate that branches to open vs. rollback.' },
       { name: 'cutoverFlow.edges', type: 'edges', required: true, limits: { minItems: 2, maxItems: 10 }, guidance: 'Flow transitions (from/to node ids); label the decision branches (e.g. "pass" / "fail").' },
     ],
@@ -322,6 +338,7 @@ export const CUTOVER_SECTIONS: SectionSpec[] = [
     purpose: 'The data sync & validation plan as a numbered list.',
     repeats: { min: 1, max: 1 },
     slots: [
+      { name: 'headlines.sync', type: 'text', required: true, limits: { maxChars: 64 }, guidance: 'Editorial headline for the data sync plan, e.g. "Nothing cuts over until the data agrees.".' },
       { name: 'syncPlan', type: 'items', required: true, limits: { minItems: 3, maxItems: 7 }, guidance: 'Ordered sync stages; each a stage name and a one-line detail — nothing cuts over until the data agrees.' },
     ],
   },
@@ -330,6 +347,7 @@ export const CUTOVER_SECTIONS: SectionSpec[] = [
     purpose: 'The bespoke rollback tree from the validation gate.',
     repeats: { min: 1, max: 1 },
     slots: [
+      { name: 'headlines.rollback', type: 'text', required: true, limits: { maxChars: 64 }, guidance: 'Editorial headline for the rollback tree, e.g. "If it fails, we’re back by morning.".' },
       { name: 'rollback.nodes', type: 'nodes', required: true, limits: { minItems: 3, maxItems: 7 }, guidance: 'Rollback-tree nodes (id, label, tone root|ok|abort; optional x/y auto-laid by depth when omitted); the root is the validation gate.' },
       { name: 'rollback.edges', type: 'edges', required: true, limits: { minItems: 2, maxItems: 8 }, guidance: 'Rollback-tree edges (from/to node ids) — the pass branch and the fail chain.' },
       { name: 'rollback.note', type: 'longtext', required: true, limits: { maxChars: 240 }, guidance: 'One paragraph on why rollback is bounded to the maintenance window.' },
@@ -340,6 +358,7 @@ export const CUTOVER_SECTIONS: SectionSpec[] = [
     purpose: 'The cutover risk register as a comp.status-list.',
     repeats: { min: 1, max: 1 },
     slots: [
+      { name: 'headlines.risk', type: 'text', required: true, limits: { maxChars: 64 }, guidance: 'Editorial headline for the risk register; must be true of the risks you supply, e.g. "The risk register, one open item.".' },
       { name: 'risks', type: 'items', required: true, limits: { minItems: 2, maxItems: 6 }, guidance: 'Each risk: a label, a status (success|warning|danger|info|neutral), and a description.' },
     ],
   },

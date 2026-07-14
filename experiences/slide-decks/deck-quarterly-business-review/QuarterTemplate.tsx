@@ -375,7 +375,7 @@ function SlideBody({
           </Build>
           <Build i={3} className="q-vsplan-frame">
             <table className="q-vsplan">
-              <caption className="q-vsplan-cap">Q3 FY26 actual vs. operating plan</caption>
+              <caption className="q-vsplan-cap">{fill.deck.periodShort} actual vs. operating plan</caption>
               <thead>
                 <tr>
                   <th scope="col">Metric</th>
@@ -612,7 +612,7 @@ export default function QuarterTemplate({ fill }: { fill: QuarterFill }) {
           </RouterLink>
           <span className="q-titlebar-rule" aria-hidden="true" />
           <span className="q-titlebar-title">{fill.deck.title}</span>
-          <span className="q-titlebar-tag">Q3 FY26 · QBR</span>
+          <span className="q-titlebar-tag">{fill.deck.periodShort} · QBR</span>
         </div>
         <div className="q-titlebar-cell">
           <span className="q-titlebar-section" data-testid="deck-section">
