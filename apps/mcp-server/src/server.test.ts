@@ -138,7 +138,11 @@ describe('mcp-server tools', () => {
     const { tools } = await h.client.listTools();
     const names = tools.map((t) => t.name).sort();
     expect(names).toEqual([
+      'compose_dashboard',
       'compose_design',
+      'compose_explainer',
+      'compose_personal_page',
+      'compose_project_page',
       'compose_slide_deck',
       'get_component',
       'search_components',
@@ -437,6 +441,58 @@ describe('mcp-server tools', () => {
     const result = await validateFill({ fill: {} });
     expect(result.isError).toBe(true);
     expect(McpError.parse(textPayload(result)).code).toBe('INVALID_INPUT');
+  });
+
+  // === Four per-surface compose tools (Task 4) ===
+  // Pre-pilot: the registry publishes templates for slide-deck ONLY, so every
+  // other surface's compose tool is a live tool with an (as yet) empty pool.
+
+  const NEW_SURFACE_TOOLS = [
+    ['compose_dashboard', 'dashboard'],
+    ['compose_project_page', 'project-page'],
+    ['compose_personal_page', 'personal-page'],
+    ['compose_explainer', 'technical-explainer'],
+  ] as const;
+
+  /** A surface-lite context for a new-surface compose tool (mirrors deckContext). */
+  function surfaceContextArgs(surface: string, overrides: Record<string, unknown> = {}): Record<string, unknown> {
+    return {
+      surface,
+      audience: ['technical', 'business'],
+      businessIntent: ['explain-architecture'],
+      corporateSuitability: 'standard',
+      motionPreference: 1,
+      ...overrides,
+    };
+  }
+
+  it.each(NEW_SURFACE_TOOLS)('%s is advertised in tools/list', async (name) => {
+    const { tools } = await h.client.listTools();
+    expect(tools.map((t) => t.name)).toContain(name);
+  });
+
+  it.each(NEW_SURFACE_TOOLS)('%s rejects a context with the wrong surface literal as INVALID_INPUT', async (name) => {
+    // A slide-deck literal on any non-deck tool violates its fixed surface literal.
+    const result = (await h.client.callTool({
+      name,
+      arguments: { context: surfaceContextArgs('slide-deck'), contentBrief: 'x' },
+    })) as CallToolResult;
+    expect(result.isError).toBe(true);
+    const error = McpError.parse(textPayload(result));
+    expect(error.code).toBe('INVALID_INPUT');
+    expect(error.requestId).toBeTruthy();
+  });
+
+  it.each(NEW_SURFACE_TOOLS)('%s returns NO_TEMPLATE_FIT with no live template on %s', async (name, surface) => {
+    const result = (await h.client.callTool({
+      name,
+      arguments: { context: surfaceContextArgs(surface), contentBrief: 'Any brief; no template is published for this surface yet.' },
+    })) as CallToolResult;
+    expect(result.isError).toBe(true);
+    const error = McpError.parse(textPayload(result));
+    expect(error.code).toBe('NO_TEMPLATE_FIT');
+    expect(error.remediation.length).toBeGreaterThan(0);
+    expect(error.requestId).toBeTruthy();
   });
 });
 

@@ -25,8 +25,12 @@ import type { RegistryData } from './registry-data.js';
 import type { Logger } from './logger.js';
 import { makeError, newRequestId, type ToolOutcome } from './errors.js';
 import {
+  ComposeDashboardInput,
   ComposeDesignInput,
   ComposeDesignOutput,
+  ComposeExplainerInput,
+  ComposePersonalPageInput,
+  ComposeProjectPageInput,
   ComposeSlideDeckInput,
   ComposeSlideDeckOutput,
   GetComponentInput,
@@ -42,6 +46,12 @@ import { searchComponents } from './tools/search-components.js';
 import { composeDesignTool } from './tools/compose-design.js';
 import { validateCompositionTool } from './tools/validate-composition.js';
 import { composeSlideDeckTool } from './tools/compose-slide-deck.js';
+import {
+  composeDashboardTool,
+  composeExplainerTool,
+  composePersonalPageTool,
+  composeProjectPageTool,
+} from './tools/compose-surface.js';
 import { validateFillTool } from './tools/validate-fill.js';
 
 /** Read-only posture, identical for both tools (plus a per-tool `title`). */
@@ -222,6 +232,98 @@ export function createServer(registry: RegistryData, logger: Logger): McpServer 
         logger.audit({ tool: 'compose_slide_deck', status: 'ok', durationMs, count: outcome.data.fillSkeleton.sections.length });
       } else {
         logger.audit({ tool: 'compose_slide_deck', status: 'error', durationMs, code: outcome.error.code });
+      }
+      return toCallToolResult(outcome);
+    },
+  );
+
+  server.registerTool(
+    'compose_dashboard',
+    {
+      title: 'Compose dashboard',
+      description:
+        'Deterministically selects ONE parameterized world-template for a DASHBOARD brief and returns its fill skeleton. A dashboard is a single monitoring surface laid out as page REGIONS — a KPI/stat row, one or more trend or breakdown panels, and a status/risk area — populated with live-feeling data and exactly ONE flagged anomaly the viewer is meant to notice. The skeleton returns each region\'s slots with per-slot guidance and a descriptor-drawn example, plus the craft guarantees the template makes (the single flagged anomaly, the required synthetic-data notice, the balanced region grid). Selection scores audience overlap, business-intent keywords, and corporate fit, with an optional styleHint hard-filter and a stable tie-break. It never invents content — author the fill against the returned skeleton, then check it with validate_fill. Returns the chosen worldTemplateId (and experienceId), a rationale, the scoring evidence, and the fillSkeleton.',
+      inputSchema: ComposeDashboardInput.shape,
+      outputSchema: ComposeSlideDeckOutput.shape,
+      annotations: { title: 'Compose dashboard', ...READ_ONLY_ANNOTATIONS },
+    },
+    (args) => {
+      const startedAt = performance.now();
+      const outcome = composeDashboardTool(registry, args);
+      const durationMs = Math.round(performance.now() - startedAt);
+      if (outcome.ok) {
+        logger.audit({ tool: 'compose_dashboard', status: 'ok', durationMs, count: outcome.data.fillSkeleton.sections.length });
+      } else {
+        logger.audit({ tool: 'compose_dashboard', status: 'error', durationMs, code: outcome.error.code });
+      }
+      return toCallToolResult(outcome);
+    },
+  );
+
+  server.registerTool(
+    'compose_project_page',
+    {
+      title: 'Compose project page',
+      description:
+        'Deterministically selects ONE parameterized world-template for a PROJECT-PAGE brief and returns its fill skeleton. A project page is a scroll of SECTIONS that build ONE narrative about a piece of work — context/problem, approach, the work itself, outcomes, and what is next — each section handing the reader to the next so the whole page reads as a single story, not a list of tiles. The skeleton returns each section\'s slots with per-slot guidance and a descriptor-drawn example, plus the craft guarantees the template makes. Selection scores audience overlap, business-intent keywords, and corporate fit, with an optional styleHint hard-filter and a stable tie-break. It never invents content — author the fill against the returned skeleton, then check it with validate_fill. Returns the chosen worldTemplateId (and experienceId), a rationale, the scoring evidence, and the fillSkeleton.',
+      inputSchema: ComposeProjectPageInput.shape,
+      outputSchema: ComposeSlideDeckOutput.shape,
+      annotations: { title: 'Compose project page', ...READ_ONLY_ANNOTATIONS },
+    },
+    (args) => {
+      const startedAt = performance.now();
+      const outcome = composeProjectPageTool(registry, args);
+      const durationMs = Math.round(performance.now() - startedAt);
+      if (outcome.ok) {
+        logger.audit({ tool: 'compose_project_page', status: 'ok', durationMs, count: outcome.data.fillSkeleton.sections.length });
+      } else {
+        logger.audit({ tool: 'compose_project_page', status: 'error', durationMs, code: outcome.error.code });
+      }
+      return toCallToolResult(outcome);
+    },
+  );
+
+  server.registerTool(
+    'compose_personal_page',
+    {
+      title: 'Compose personal page',
+      description:
+        'Deterministically selects ONE parameterized world-template for a PERSONAL-PAGE brief and returns its fill skeleton. A personal page (a profile, bio, or portfolio landing) is a scroll of SECTIONS that build ONE story about a person — who they are, what they do, selected work or highlights, and how to reach them — each section leading into the next so the page reads as a single arc rather than disconnected blocks. The skeleton returns each section\'s slots with per-slot guidance and a descriptor-drawn example, plus the craft guarantees the template makes. Selection scores audience overlap, business-intent keywords, and corporate fit, with an optional styleHint hard-filter and a stable tie-break. It never invents content — author the fill against the returned skeleton, then check it with validate_fill. Returns the chosen worldTemplateId (and experienceId), a rationale, the scoring evidence, and the fillSkeleton.',
+      inputSchema: ComposePersonalPageInput.shape,
+      outputSchema: ComposeSlideDeckOutput.shape,
+      annotations: { title: 'Compose personal page', ...READ_ONLY_ANNOTATIONS },
+    },
+    (args) => {
+      const startedAt = performance.now();
+      const outcome = composePersonalPageTool(registry, args);
+      const durationMs = Math.round(performance.now() - startedAt);
+      if (outcome.ok) {
+        logger.audit({ tool: 'compose_personal_page', status: 'ok', durationMs, count: outcome.data.fillSkeleton.sections.length });
+      } else {
+        logger.audit({ tool: 'compose_personal_page', status: 'error', durationMs, code: outcome.error.code });
+      }
+      return toCallToolResult(outcome);
+    },
+  );
+
+  server.registerTool(
+    'compose_explainer',
+    {
+      title: 'Compose technical explainer',
+      description:
+        'Deterministically selects ONE parameterized world-template for a TECHNICAL-EXPLAINER brief and returns its fill skeleton. An explainer is built around ONE central DRAWING — a diagram, schematic, or annotated figure of the system or concept — supported by its LEGEND and ANNOTATION sections that name the parts, walk the flow step by step, and call out the details that matter. The skeleton returns the drawing\'s slots and each legend/annotation section\'s slots with per-slot guidance and a descriptor-drawn example, plus the craft guarantees the template makes. Selection scores audience overlap, business-intent keywords, and corporate fit, with an optional styleHint hard-filter and a stable tie-break. It never invents content — author the fill against the returned skeleton, then check it with validate_fill. Returns the chosen worldTemplateId (and experienceId), a rationale, the scoring evidence, and the fillSkeleton.',
+      inputSchema: ComposeExplainerInput.shape,
+      outputSchema: ComposeSlideDeckOutput.shape,
+      annotations: { title: 'Compose technical explainer', ...READ_ONLY_ANNOTATIONS },
+    },
+    (args) => {
+      const startedAt = performance.now();
+      const outcome = composeExplainerTool(registry, args);
+      const durationMs = Math.round(performance.now() - startedAt);
+      if (outcome.ok) {
+        logger.audit({ tool: 'compose_explainer', status: 'ok', durationMs, count: outcome.data.fillSkeleton.sections.length });
+      } else {
+        logger.audit({ tool: 'compose_explainer', status: 'error', durationMs, code: outcome.error.code });
       }
       return toCallToolResult(outcome);
     },

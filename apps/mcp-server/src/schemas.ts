@@ -173,31 +173,39 @@ export type ValidateCompositionOutput = z.infer<typeof ValidateCompositionOutput
 // ---- compose_slide_deck -----------------------------------------------------
 
 /**
- * A DesignContext-lite for slide-deck template selection: the surface is fixed
- * to `slide-deck`, and only the facets that drive world-template selection are
- * carried (audience, business intent, corporate suitability, motion preference,
- * an optional style hard-filter). A full DesignContext is NOT required — the
- * template already carries the layout/technical/accessibility craft.
+ * A DesignContext-lite for world-template selection, parameterized by surface.
+ * The surface is fixed to a single literal (so each `compose_<surface>` tool
+ * advertises and validates its own surface), and only the facets that drive
+ * template selection are carried (audience, business intent, corporate
+ * suitability, motion preference, an optional style hard-filter). A full
+ * DesignContext is NOT required — the template already carries the
+ * layout/technical/accessibility craft. Every `compose_<surface>` input reuses
+ * this factory, so the five surfaces share ONE context contract that differs
+ * only in the `surface` literal.
  */
-export const SlideDeckContext = z.object({
-  surface: z.literal('slide-deck').describe("Fixed surface for this tool; must be 'slide-deck'."),
-  audience: z
-    .array(Audience)
-    .min(1)
-    .describe('Intended audiences; overlap with a template audience is the strongest selection signal.'),
-  businessIntent: z
-    .array(z.string().min(1))
-    .min(1)
-    .describe("Business intents, e.g. 'plan-cloud-migration' or 'review-quarterly-performance'."),
-  corporateSuitability: CorporateSuitability.describe(
-    "Corporate register: 'restricted' leans conventional, 'expressive' leans art-directed, 'standard' fits either.",
-  ),
-  motionPreference: MotionLevel.describe('Desired motion level 0–3 (echoed in the rationale; templates lock their own motion).'),
-  styleHint: z
-    .enum(['art-directed', 'conventional'])
-    .optional()
-    .describe('Optional HARD filter: when set, only templates of this style are considered.'),
-});
+const surfaceContext = <S extends string>(surface: S) =>
+  z.object({
+    surface: z.literal(surface).describe(`Fixed surface for this tool; must be '${surface}'.`),
+    audience: z
+      .array(Audience)
+      .min(1)
+      .describe('Intended audiences; overlap with a template audience is the strongest selection signal.'),
+    businessIntent: z
+      .array(z.string().min(1))
+      .min(1)
+      .describe('Business intents driving template selection.'),
+    corporateSuitability: CorporateSuitability.describe(
+      "Corporate register: 'restricted' leans conventional, 'expressive' leans art-directed, 'standard' fits either.",
+    ),
+    motionPreference: MotionLevel.describe('Desired motion level 0-3 (echoed; templates lock their own motion).'),
+    styleHint: z
+      .enum(['art-directed', 'conventional'])
+      .optional()
+      .describe('Optional HARD filter on template style.'),
+  });
+
+/** Slide-deck context: `surfaceContext('slide-deck')`. Retained as a named export the compose core reuses. */
+export const SlideDeckContext = surfaceContext('slide-deck');
 export type SlideDeckContext = z.infer<typeof SlideDeckContext>;
 
 /** Tight input schema for `compose_slide_deck` (advertised AND validated). */
@@ -209,6 +217,38 @@ export const ComposeSlideDeckInput = z.object({
     .describe('A free-text brief of the deck content; its keywords add to the intent match score.'),
 });
 export type ComposeSlideDeckInput = z.infer<typeof ComposeSlideDeckInput>;
+
+// ---- compose_dashboard / _project_page / _personal_page / _explainer --------
+// The four other surfaces reuse the same context factory + skeleton output; only
+// the fixed `surface` literal differs. Output reuses `ComposeSlideDeckOutput`.
+
+/** Tight input schema for `compose_dashboard` (surface fixed to `dashboard`). */
+export const ComposeDashboardInput = z.object({
+  context: surfaceContext('dashboard').describe('The dashboard DesignContext-lite driving template selection.'),
+  contentBrief: z.string().min(1).describe('A free-text brief of the dashboard content; its keywords add to the intent match score.'),
+});
+export type ComposeDashboardInput = z.infer<typeof ComposeDashboardInput>;
+
+/** Tight input schema for `compose_project_page` (surface fixed to `project-page`). */
+export const ComposeProjectPageInput = z.object({
+  context: surfaceContext('project-page').describe('The project-page DesignContext-lite driving template selection.'),
+  contentBrief: z.string().min(1).describe('A free-text brief of the project-page content; its keywords add to the intent match score.'),
+});
+export type ComposeProjectPageInput = z.infer<typeof ComposeProjectPageInput>;
+
+/** Tight input schema for `compose_personal_page` (surface fixed to `personal-page`). */
+export const ComposePersonalPageInput = z.object({
+  context: surfaceContext('personal-page').describe('The personal-page DesignContext-lite driving template selection.'),
+  contentBrief: z.string().min(1).describe('A free-text brief of the personal-page content; its keywords add to the intent match score.'),
+});
+export type ComposePersonalPageInput = z.infer<typeof ComposePersonalPageInput>;
+
+/** Tight input schema for `compose_explainer` (surface fixed to `technical-explainer`). */
+export const ComposeExplainerInput = z.object({
+  context: surfaceContext('technical-explainer').describe('The technical-explainer DesignContext-lite driving template selection.'),
+  contentBrief: z.string().min(1).describe('A free-text brief of the explainer content; its keywords add to the intent match score.'),
+});
+export type ComposeExplainerInput = z.infer<typeof ComposeExplainerInput>;
 
 /** One slot in the returned fill skeleton: the descriptor spec, its guidance echoed, and a descriptor-drawn example. */
 export const FillSkeletonSlot = z.object({
@@ -244,6 +284,16 @@ export const ComposeSlideDeckOutput = z.object({
   fillSkeleton: FillSkeleton,
 });
 export type ComposeSlideDeckOutput = z.infer<typeof ComposeSlideDeckOutput>;
+
+/**
+ * The four other surfaces return the SAME skeleton output as the deck (chosen
+ * template, rationale, evidence, fill skeleton), so each aliases
+ * `ComposeSlideDeckOutput` — one output contract, advertised per tool.
+ */
+export const ComposeDashboardOutput = ComposeSlideDeckOutput;
+export const ComposeProjectPageOutput = ComposeSlideDeckOutput;
+export const ComposePersonalPageOutput = ComposeSlideDeckOutput;
+export const ComposeExplainerOutput = ComposeSlideDeckOutput;
 
 // ---- validate_fill ----------------------------------------------------------
 
