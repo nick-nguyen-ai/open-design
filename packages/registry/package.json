@@ -11,7 +11,8 @@
   },
   "scripts": {
     "test": "vitest run --root ../.. packages/registry",
-    "certify": "tsx src/certify-cli.ts"
+    "certify": "tsx src/certify-cli.ts",
+    "scaffold-template": "tsx src/scaffold-cli.ts"
   },
   "dependencies": {
     "@enterprise-design/contracts": "workspace:*",
