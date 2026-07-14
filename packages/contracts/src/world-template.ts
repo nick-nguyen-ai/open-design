@@ -100,6 +100,42 @@ export type SectionSpec = z.infer<typeof SectionSpec>;
  * echoes so a fill author knows what the template promises (the flagged anomaly,
  * the synthetic notice, the balanced grids).
  */
+/**
+ * Resolve a dot-path (e.g. `deck.notice`, `summary.sentences`) against a value.
+ * Returns `undefined` at the first non-object hop, so a missing slot is
+ * distinguishable from a present `null`/`false`. Shared by `validate_fill` (the
+ * MCP tool) and the registry certifier so the two never diverge.
+ */
+export function resolveFillPath(root: unknown, path: string): unknown {
+  let current: unknown = root;
+  for (const part of path.split('.')) {
+    if (current === null || typeof current !== 'object') return undefined;
+    current = (current as Record<string, unknown>)[part];
+  }
+  return current;
+}
+
+/**
+ * Pure pass/fail evaluation of a single {@link CraftRule} against a fill — the
+ * one interpreter both `validate_fill` and the certifier call, so the machine-
+ * checkable craft guarantee is defined in exactly one place.
+ * - `required-nonempty`: the string at `path` is present and non-empty (trimmed).
+ * - `exactly-one`: the array at `path` has exactly one element whose `field`
+ *   equals `equals`.
+ */
+export function evaluateCraftRule(rule: CraftRule, fill: unknown): boolean {
+  const value = resolveFillPath(fill, rule.path);
+  if (rule.kind === 'required-nonempty') {
+    return typeof value === 'string' && value.trim().length > 0;
+  }
+  const count = Array.isArray(value)
+    ? value.filter(
+        (el) => typeof el === 'object' && el !== null && (el as Record<string, unknown>)[rule.field] === rule.equals,
+      ).length
+    : 0;
+  return count === 1;
+}
+
 export const WorldTemplateDescriptor = z.object({
   schemaVersion: z.literal('1.1'),
   id: z.string().min(1),

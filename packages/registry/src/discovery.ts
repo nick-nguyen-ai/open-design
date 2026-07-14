@@ -31,7 +31,7 @@ export const DISCOVERY_GLOBS = {
  * succeed on the real (empty) workspace even though the fixtures contain
  * intentionally-invalid manifests.
  */
-const IGNORE = [
+export const IGNORE = [
   '**/node_modules/**',
   '**/dist/**',
   '**/build/**',

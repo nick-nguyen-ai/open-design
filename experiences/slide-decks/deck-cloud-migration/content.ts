@@ -218,3 +218,6 @@ export const cutoverFill: CutoverFill = CutoverFill.parse({
     ],
   },
 });
+
+/** Standard certifier alias (Task 5): the shipped fill instance. */
+export const SHIPPED_FILL = cutoverFill;

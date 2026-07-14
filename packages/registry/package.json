@@ -10,7 +10,8 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "test": "vitest run --root ../.. packages/registry"
+    "test": "vitest run --root ../.. packages/registry",
+    "certify": "tsx src/certify-cli.ts"
   },
   "dependencies": {
     "@enterprise-design/contracts": "workspace:*",

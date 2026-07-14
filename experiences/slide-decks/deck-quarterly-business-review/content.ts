@@ -198,3 +198,6 @@ export const quarterFill: QuarterFill = QuarterFill.parse({
     'Pipeline coverage is weighted value ÷ the $9.1M Q4 commit target as of the quarter close.',
   ],
 });
+
+/** Standard certifier alias (Task 5): the shipped fill instance. */
+export const SHIPPED_FILL = quarterFill;

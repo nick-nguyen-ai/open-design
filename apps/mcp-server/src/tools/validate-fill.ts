@@ -21,20 +21,15 @@
  * `INVALID_INPUT` for malformed arguments, or `UNKNOWN_TEMPLATE` for an id that
  * is not in the registry.
  */
-import type { SlotSpec, WorldTemplateDescriptor } from '@enterprise-design/contracts';
+import {
+  evaluateCraftRule,
+  resolveFillPath as resolvePath,
+  type SlotSpec,
+  type WorldTemplateDescriptor,
+} from '@enterprise-design/contracts';
 import { ValidateFillInput, type FillFinding, type ValidateFillOutput } from '../schemas.js';
 import { makeError, newRequestId, type ToolOutcome } from '../errors.js';
 import type { RegistryData } from '../registry-data.js';
-
-/** Resolve a dot-path (e.g. `deck.notice`, `summary.sentences`) against a value. */
-function resolvePath(root: unknown, path: string): unknown {
-  let current: unknown = root;
-  for (const part of path.split('.')) {
-    if (current === null || typeof current !== 'object') return undefined;
-    current = (current as Record<string, unknown>)[part];
-  }
-  return current;
-}
 
 function isMissing(value: unknown): boolean {
   return value === undefined || value === null;
@@ -102,32 +97,33 @@ function checkSlot(fill: unknown, slot: SlotSpec, findings: FillFinding[]): void
   }
 }
 
-/** Generic interpreter for the descriptor's parameterized craft rules. */
+/**
+ * Generic interpreter for the descriptor's parameterized craft rules. The
+ * pass/fail decision is delegated to the shared {@link evaluateCraftRule} in
+ * contracts (so the tool and the certifier can never diverge); only the
+ * message construction is tool-specific.
+ */
 function checkCraftRules(fill: unknown, descriptor: WorldTemplateDescriptor, findings: FillFinding[]): void {
   for (const rule of descriptor.craftRules) {
+    if (evaluateCraftRule(rule, fill)) continue;
     if (rule.kind === 'required-nonempty') {
-      const value = resolvePath(fill, rule.path);
-      if (typeof value !== 'string' || value.trim().length === 0) {
-        findings.push({
-          path: rule.path,
-          rule: 'craft',
-          message: `Craft rule (required-nonempty at "${rule.path}"): ${rule.description}`,
-        });
-      }
-    } else if (rule.kind === 'exactly-one') {
+      findings.push({
+        path: rule.path,
+        rule: 'craft',
+        message: `Craft rule (required-nonempty at "${rule.path}"): ${rule.description}`,
+      });
+    } else {
       const value = resolvePath(fill, rule.path);
       const count = Array.isArray(value)
         ? value.filter(
             (el) => typeof el === 'object' && el !== null && (el as Record<string, unknown>)[rule.field] === rule.equals,
           ).length
         : 0;
-      if (count !== 1) {
-        findings.push({
-          path: rule.path,
-          rule: 'craft',
-          message: `Craft rule (exactly-one at "${rule.path}" where ${rule.field}="${rule.equals}", found ${count}): ${rule.description}`,
-        });
-      }
+      findings.push({
+        path: rule.path,
+        rule: 'craft',
+        message: `Craft rule (exactly-one at "${rule.path}" where ${rule.field}="${rule.equals}", found ${count}): ${rule.description}`,
+      });
     }
   }
 }

@@ -281,6 +281,18 @@ export const TMINUS_SECTIONS: SectionSpec[] = [
   },
 ];
 
+/* ------------------------------------------------------------------ */
+/* Standard certifier aliases (Task 5)                                 */
+/*                                                                     */
+/* The data-driven certifier resolves a world's contract by these      */
+/* convention names, so no per-world test boilerplate is needed.       */
+/* ------------------------------------------------------------------ */
+
+/** The world's fill Zod schema, by the certifier's standard name. */
+export const FILL_SCHEMA = TMinusFill;
+/** The registry-serializable section specs, by the certifier's standard name. */
+export const SECTIONS = TMINUS_SECTIONS;
+
 /** The craft guarantees the template makes and the descriptor advertises. */
 export const TMINUS_GUIDANCE: string[] = [
   'A launch plan staged as a COUNTDOWN SEQUENCE: every slide carries a monumental T-minus stamp (T-30 → T-0) over a midnight field, with a single thin amber horizon line that RISES slide by slide and, at T-0, reaches the top as the field turns GO-green.',

@@ -1,0 +1,10 @@
+[
+  {
+    "text": "DECISIONS WE NEED TODAY",
+    "reason": "Fixed section-heading kicker on the closing slide (constant UI furniture). It labels the decisions list; it is identical for every T-Minus fill and asserts no fill-specific fact, so it is chrome, not authored content."
+  },
+  {
+    "text": "Day-0 launch runbook, in order",
+    "reason": "Fixed heading of the visually-hidden accessible mirror of the runbook widget (a11y furniture). It names the widget for screen readers; it is constant across fills and asserts no fill-specific fact."
+  }
+]

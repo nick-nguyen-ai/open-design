@@ -162,3 +162,6 @@ export const tminusFill: TMinusFill = TMinusFill.parse({
     ],
   },
 });
+
+/** Standard certifier alias (Task 5): the shipped fill instance. */
+export const SHIPPED_FILL = tminusFill;

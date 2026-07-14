@@ -244,6 +244,18 @@ export const QUARTER_SECTIONS: SectionSpec[] = [
   },
 ];
 
+/* ------------------------------------------------------------------ */
+/* Standard certifier aliases (Task 5)                                 */
+/*                                                                     */
+/* The data-driven certifier resolves a world's contract by these      */
+/* convention names, so no per-world test boilerplate is needed.       */
+/* ------------------------------------------------------------------ */
+
+/** The world's fill Zod schema, by the certifier's standard name. */
+export const FILL_SCHEMA = QuarterFill;
+/** The registry-serializable section specs, by the certifier's standard name. */
+export const SECTIONS = QUARTER_SECTIONS;
+
 /** The craft guarantees the template makes and the descriptor advertises. */
 export const QUARTER_GUIDANCE: string[] = [
   'Deliberately conventional slide anatomy: a persistent navy title bar, a 12-column content grid, a numbered agenda, and a footer rule — executed flawlessly, no world conceit.',

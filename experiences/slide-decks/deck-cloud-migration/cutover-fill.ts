@@ -355,6 +355,18 @@ export const CUTOVER_SECTIONS: SectionSpec[] = [
   },
 ];
 
+/* ------------------------------------------------------------------ */
+/* Standard certifier aliases (Task 5)                                 */
+/*                                                                     */
+/* The data-driven certifier resolves a world's contract by these      */
+/* convention names, so no per-world test boilerplate is needed.       */
+/* ------------------------------------------------------------------ */
+
+/** The world's fill Zod schema, by the certifier's standard name. */
+export const FILL_SCHEMA = CutoverFill;
+/** The registry-serializable section specs, by the certifier's standard name. */
+export const SECTIONS = CUTOVER_SECTIONS;
+
 /** The craft guarantees the template makes and the descriptor advertises. */
 export const CUTOVER_GUIDANCE: string[] = [
   'The draw.io working-file idiom: a flat dot-grid canvas, exact orthogonal connectors with port dots, pastel-filled system boxes with type badges, a layers legend chip in the chrome, and selection handles on each slide’s focus node.',
