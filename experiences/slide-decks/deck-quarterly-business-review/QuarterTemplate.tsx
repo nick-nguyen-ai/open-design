@@ -63,8 +63,29 @@ export interface Slide {
   section: string;
 }
 
+/**
+ * Count-asserting slide headlines derive their number word from the fill so
+ * they can never contradict it ("Revenue, six quarters." over six points).
+ * Bounds follow the schema: series points 6–10, priorities 3–5.
+ */
+const NUMBER_WORDS: Record<number, string> = {
+  3: 'three',
+  4: 'four',
+  5: 'five',
+  6: 'six',
+  7: 'seven',
+  8: 'eight',
+  9: 'nine',
+  10: 'ten',
+};
+function numberWord(n: number): string {
+  return NUMBER_WORDS[n] ?? String(n);
+}
+
 const SLIDES: readonly Slide[] = [
-  { id: 'title', kind: 'title', section: 'Q3 FY26' },
+  // The title slide's rail/titlebar section label is the reporting period —
+  // fill data, derived in the component (sectionOf), never hardcoded here.
+  { id: 'title', kind: 'title', section: '' },
   { id: 'agenda', kind: 'agenda', section: 'Agenda' },
   { id: 'summary', kind: 'summary', section: '01 · Performance' },
   { id: 'kpi', kind: 'kpi', section: '01 · Performance' },
@@ -402,7 +423,7 @@ function SlideBody({
     case 'trend':
       return (
         <div className="q-chart-body">
-          <SlideHeading kicker="01 · PERFORMANCE" title="Revenue, eight quarters." />
+          <SlideHeading kicker="01 · PERFORMANCE" title={`Revenue, ${numberWord(fill.revenueSeries.points.length)} quarters.`} />
           <Build i={1} className="q-chart-frame" testid="quarter-trend">
             <ChartFigure
               key={reduced ? 'r' : 'f'}
@@ -422,11 +443,15 @@ function SlideBody({
     case 'segment':
       return (
         <div className="q-chart-body">
-          <SlideHeading kicker="02 · SEGMENTS" title="Where the growth came from." />
+          <SlideHeading kicker="02 · SEGMENTS" title={fill.headlines.segment} />
           <Build i={1} className="q-chart-frame" testid="quarter-segment">
             <ChartFigure
               key={reduced ? 'r' : 'f'}
-              title="Revenue by segment vs. plan"
+              title={
+                fill.segments.some((s) => s.target !== undefined)
+                  ? 'Revenue by segment vs. plan'
+                  : 'Revenue by segment'
+              }
               sourceNote={fill.segmentNote}
               option={segmentOption}
               tableColumns={buildCategoryBarChartTable([...fill.segments], '$M').columns}
@@ -542,7 +567,7 @@ function SlideBody({
     case 'priorities':
       return (
         <div className="q-priorities-body">
-          <SlideHeading kicker="05 · OUTLOOK" title="Next quarter, four priorities." />
+          <SlideHeading kicker="05 · OUTLOOK" title={`Next quarter, ${numberWord(fill.priorities.length)} priorities.`} />
           <ol className="q-priorities">
             {fill.priorities.map((p, i) => (
               <Build key={p.no} i={i + 1} as="li" className="q-priority">
@@ -587,9 +612,16 @@ export default function QuarterTemplate({ fill }: { fill: QuarterFill }) {
   const revenueOption = useRevenueOption([fill.revenueSeries], reduced);
   const segmentOption = useSegmentOption(fill.segments, reduced);
 
+  // The title slide's section label is the fill's reporting period; all other
+  // slides carry their fixed agenda-section chrome.
+  const sectionOf = (slide: Slide): string =>
+    slide.kind === 'title' ? fill.deck.periodShort : slide.section;
+
   useEffect(() => {
-    document.title = 'The Quarter — Q3 FY26 QBR — Live';
-  }, []);
+    // Derived from the fill: a different reporting period gets a truthful tab
+    // title (" — Live" and the deck name are chrome, not content).
+    document.title = `The Quarter — ${fill.deck.periodShort} QBR — Live`;
+  }, [fill.deck.periodShort]);
 
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
@@ -616,7 +648,7 @@ export default function QuarterTemplate({ fill }: { fill: QuarterFill }) {
         </div>
         <div className="q-titlebar-cell">
           <span className="q-titlebar-section" data-testid="deck-section">
-            {activeSlide.section}
+            {sectionOf(activeSlide)}
           </span>
         </div>
       </header>
@@ -624,9 +656,9 @@ export default function QuarterTemplate({ fill }: { fill: QuarterFill }) {
       <main className="q-main">
         <h1>
           <VisuallyHidden>
-            The Quarter — the synthetic Q3 FY26 quarterly business review for Meridian Systems.
-            Eleven conventional slides. The one flagged figure: “{fill.anomalyLabel}”. Slide {activeNumber}{' '}
-            of {SLIDE_COUNT}: {activeSlide.section}.
+            The Quarter — {fill.deck.period} for {fill.deck.org}. {SLIDE_COUNT} conventional
+            slides. The one flagged figure: “{fill.anomalyLabel}”. Slide {activeNumber} of{' '}
+            {SLIDE_COUNT}: {sectionOf(activeSlide)}.
           </VisuallyHidden>
         </h1>
         <div className="q-stage">
@@ -641,7 +673,7 @@ export default function QuarterTemplate({ fill }: { fill: QuarterFill }) {
                 data-slide-id={slide.id}
                 aria-hidden={index === activeIndex ? undefined : 'true'}
                 inert={index === activeIndex ? undefined : true}
-                aria-label={`Slide ${index + 1} of ${SLIDE_COUNT}: ${slide.section}`}
+                aria-label={`Slide ${index + 1} of ${SLIDE_COUNT}: ${sectionOf(slide)}`}
               >
                 <div className="q-slide-inner">
                   <SlideBody

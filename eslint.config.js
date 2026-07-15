@@ -9,6 +9,7 @@ export default tseslint.config(
   {
     ignores: [
       '**/node_modules/**',
+      '**/.claude/worktrees/**',
       '**/dist/**',
       '**/build/**',
       '**/coverage/**',

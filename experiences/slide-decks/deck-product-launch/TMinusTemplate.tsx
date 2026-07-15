@@ -490,8 +490,10 @@ export default function TMinusTemplate({ fill }: { fill: TMinusFill }) {
   const runbookPos = layoutRunbook(fill.runbook);
 
   useEffect(() => {
-    document.title = 'T-Minus — Meridian Instant launch — Live';
-  }, []);
+    // Derived from the fill: a different launch gets a truthful tab title
+    // (" — Live" and the deck name are chrome, not content).
+    document.title = `T-Minus — ${fill.deck.product} launch — Live`;
+  }, [fill.deck.product]);
 
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
@@ -526,10 +528,10 @@ export default function TMinusTemplate({ fill }: { fill: TMinusFill }) {
       <main className="tm-main">
         <h1>
           <VisuallyHidden>
-            T-Minus — the Meridian Instant real-time-payments launch (synthetic), staged as a
-            countdown from T-30 to T-0. A rising amber horizon reaches the top at launch. On the
-            readiness board the security gate is amber: “{fill.anomalyLabel}”. Slide {activeNumber} of{' '}
-            {SLIDE_COUNT}: {activeSlide.section}.
+            T-Minus — the {fill.deck.product} launch, staged as a countdown from T-30 to T-0. A
+            rising amber horizon reaches the top at launch. On the readiness board one gate is
+            amber: “{fill.anomalyLabel}”. Slide {activeNumber} of {SLIDE_COUNT}:{' '}
+            {activeSlide.section}.
           </VisuallyHidden>
         </h1>
         <AccessibleMirror runbook={fill.runbook} />

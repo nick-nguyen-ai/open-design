@@ -455,8 +455,9 @@ describe('mcp-server tools', () => {
     ['compose_explainer', 'technical-explainer'],
   ] as const;
 
-  /** The surfaces that still have NO live template published (dashboard now does). */
-  const EMPTY_SURFACE_TOOLS = NEW_SURFACE_TOOLS.filter(([, surface]) => surface !== 'dashboard');
+  /** The surfaces that still have NO live template published (dashboard + technical-explainer + project-page + personal-page now do). */
+  const LIVE_SURFACES: readonly string[] = ['dashboard', 'technical-explainer', 'project-page', 'personal-page'];
+  const EMPTY_SURFACE_TOOLS = NEW_SURFACE_TOOLS.filter(([, surface]) => !LIVE_SURFACES.includes(surface));
 
   /** A surface-lite context for a new-surface compose tool (mirrors deckContext). */
   function surfaceContextArgs(surface: string, overrides: Record<string, unknown> = {}): Record<string, unknown> {
@@ -514,6 +515,57 @@ describe('mcp-server tools', () => {
     const out = ComposeSlideDeckOutput.parse(result.structuredContent);
     expect(out.worldTemplateId).toBe('cockpit');
     expect(out.experienceId).toBe('db-model-monitoring-cockpit');
+  });
+
+  it('compose_explainer selects the live drawing-office for a system-architecture brief (technical-explainer pilot)', async () => {
+    const result = (await h.client.callTool({
+      name: 'compose_explainer',
+      arguments: {
+        context: surfaceContextArgs('technical-explainer', {
+          audience: ['technical', 'mixed'],
+          businessIntent: ['onboard-new-engineers', 'support-architecture-review'],
+        }),
+        contentBrief: 'The canonical as-built explainer of our model-decision platform architecture: components, data flow across trust boundaries, and where the system is capacity-constrained.',
+      },
+    })) as CallToolResult;
+    expect(result.isError).not.toBe(true);
+    const out = ComposeSlideDeckOutput.parse(result.structuredContent);
+    expect(out.worldTemplateId).toBe('drawing-office');
+    expect(out.experienceId).toBe('exp-system-architecture');
+  });
+
+  it('compose_project_page selects the live ledger for a model-validation programme brief (project-page pilot)', async () => {
+    const result = (await h.client.callTool({
+      name: 'compose_project_page',
+      arguments: {
+        context: surfaceContextArgs('project-page', {
+          audience: ['technical', 'risk-and-governance'],
+          businessIntent: ['centralise-validation-evidence', 'track-sign-off-status'],
+        }),
+        contentBrief: 'The model-validation programme hub: every in-flight model on the pipeline from intake to sign-off, the one item stalled past its review threshold flagged up front, recent sign-off outcomes on file, and the decision log.',
+      },
+    })) as CallToolResult;
+    expect(result.isError).not.toBe(true);
+    const out = ComposeSlideDeckOutput.parse(result.structuredContent);
+    expect(out.worldTemplateId).toBe('ledger');
+    expect(out.experienceId).toBe('proj-ai-model-validation-hub');
+  });
+
+  it('compose_personal_page selects the live the-line for a career-timeline brief (personal-page pilot)', async () => {
+    const result = (await h.client.callTool({
+      name: 'compose_personal_page',
+      arguments: {
+        context: surfaceContextArgs('personal-page', {
+          audience: ['personal-internal'],
+          businessIntent: ['showcase-career-trajectory', 'connect-projects-to-outcomes'],
+        }),
+        contentBrief: 'A personal page telling the story of a twelve-year engineering career as one continuous line of projects — each station a shipped project with a real outcome, promotions where the line steps up, side-projects that branched off, and the one detour reversed out of left in honestly.',
+      },
+    })) as CallToolResult;
+    expect(result.isError).not.toBe(true);
+    const out = ComposeSlideDeckOutput.parse(result.structuredContent);
+    expect(out.worldTemplateId).toBe('the-line');
+    expect(out.experienceId).toBe('home-career-project-timeline');
   });
 });
 

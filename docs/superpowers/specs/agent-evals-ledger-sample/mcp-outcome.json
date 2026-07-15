@@ -1,0 +1,1427 @@
+{
+  "generatedAt": "2026-07-15T03:06:42.010Z",
+  "sample": "agent-evals",
+  "brief": "The agent-evaluation programme hub: every LLM agent on the pre-production pipeline from intake through red-team challenge and independent review to sign-off, the one agent stalled past its threshold flagged up front, recent outcomes on file, and the decision log.",
+  "context": {
+    "surface": "project-page",
+    "audience": [
+      "technical",
+      "risk-and-governance"
+    ],
+    "businessIntent": [
+      "track-sign-off-status",
+      "centralise-validation-evidence"
+    ],
+    "corporateSuitability": "restricted",
+    "motionPreference": 1
+  },
+  "compose": {
+    "tool": "compose_project_page",
+    "arguments": {
+      "context": {
+        "surface": "project-page",
+        "audience": [
+          "technical",
+          "risk-and-governance"
+        ],
+        "businessIntent": [
+          "track-sign-off-status",
+          "centralise-validation-evidence"
+        ],
+        "corporateSuitability": "restricted",
+        "motionPreference": 1
+      },
+      "contentBrief": "The agent-evaluation programme hub: every LLM agent on the pre-production pipeline from intake through red-team challenge and independent review to sign-off, the one agent stalled past its threshold flagged up front, recent outcomes on file, and the decision log."
+    },
+    "structuredContent": {
+      "worldTemplateId": "ledger",
+      "experienceId": "proj-ai-model-validation-hub",
+      "rationale": "Selected 'ledger' (proj-ai-model-validation-hub, art-directed style); shares audience(s) [technical, risk-and-governance]; matched intent keyword(s) [centralise, validation, evidence, track, sign, off, status, programme, pipeline, governance]; art-directed style fits restricted corporate suitability; motion preference 1 noted (the template locks its own motion).",
+      "evidence": [
+        "ledger (proj-ai-model-validation-hub): audienceOverlap 2×2=4 + intentMatch 10 + corporateFit 0 = 14"
+      ],
+      "fillSkeleton": {
+        "sections": [
+          {
+            "kind": "office",
+            "purpose": "The programme-office identity — the sticky top chrome, the letter-coded RAG posture, the footer edition line, and the required provenance notice.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "office.pageTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 66
+                  },
+                  "guidance": "The browser-tab title stem (assigned in JS, derived byte-identically; the template appends \" — Live\"), e.g. \"The Validation Ledger — Model Validation Programme\"."
+                },
+                "guidance": "The browser-tab title stem (assigned in JS, derived byte-identically; the template appends \" — Live\"), e.g. \"The Validation Ledger — Model Validation Programme\".",
+                "example": "The Validation Ledger — Model Validation Programme"
+              },
+              {
+                "spec": {
+                  "name": "office.programmeCode",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 14
+                  },
+                  "guidance": "The programme code on the top chrome, e.g. \"MVP-2026\"."
+                },
+                "guidance": "The programme code on the top chrome, e.g. \"MVP-2026\".",
+                "example": "MVP-2026"
+              },
+              {
+                "spec": {
+                  "name": "office.programmeName",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 34
+                  },
+                  "guidance": "The programme name on the top chrome, e.g. \"MODEL VALIDATION PROGRAMME\"."
+                },
+                "guidance": "The programme name on the top chrome, e.g. \"MODEL VALIDATION PROGRAMME\".",
+                "example": "MODEL VALIDATION PROGRAMME"
+              },
+              {
+                "spec": {
+                  "name": "office.reportingPeriod",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 42
+                  },
+                  "guidance": "The reporting period on the chrome and hero kicker, e.g. \"PERIOD 07 · 29 JUN – 12 JUL 2026\"."
+                },
+                "guidance": "The reporting period on the chrome and hero kicker, e.g. \"PERIOD 07 · 29 JUN – 12 JUL 2026\".",
+                "example": "PERIOD 07 · 29 JUN – 12 JUL 2026"
+              },
+              {
+                "spec": {
+                  "name": "office.rag",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 10
+                  },
+                  "guidance": "The RAG posture letter (the encoding is the letter, never colour alone), e.g. \"AMBER\"."
+                },
+                "guidance": "The RAG posture letter (the encoding is the letter, never colour alone), e.g. \"AMBER\".",
+                "example": "AMBER"
+              },
+              {
+                "spec": {
+                  "name": "office.ragReason",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 50
+                  },
+                  "guidance": "The one-line reason for the RAG posture, e.g. \"ONE ITEM STALLED IN INDEPENDENT REVIEW\"."
+                },
+                "guidance": "The one-line reason for the RAG posture, e.g. \"ONE ITEM STALLED IN INDEPENDENT REVIEW\".",
+                "example": "ONE ITEM STALLED IN INDEPENDENT REVIEW"
+              },
+              {
+                "spec": {
+                  "name": "office.editionLine",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 60
+                  },
+                  "guidance": "REQUIRED provenance notice printed in the footer; must state the data is synthetic/sourced, e.g. \"PROGRAMME OFFICE · SYNTHETIC DEMONSTRATION DATA\"."
+                },
+                "guidance": "REQUIRED provenance notice printed in the footer; must state the data is synthetic/sourced, e.g. \"PROGRAMME OFFICE · SYNTHETIC DEMONSTRATION DATA\".",
+                "example": "PROGRAMME OFFICE · SYNTHETIC DEMONSTRATION DATA"
+              },
+              {
+                "spec": {
+                  "name": "office.director",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 40
+                  },
+                  "guidance": "The signing programme director in the footer, e.g. \"H. NGUYEN, PROGRAMME DIRECTOR\"."
+                },
+                "guidance": "The signing programme director in the footer, e.g. \"H. NGUYEN, PROGRAMME DIRECTOR\".",
+                "example": "H. NGUYEN, PROGRAMME DIRECTOR"
+              },
+              {
+                "spec": {
+                  "name": "office.issued",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 24
+                  },
+                  "guidance": "The issue stamp in the footer, e.g. \"ISSUED 2026-07-12\"."
+                },
+                "guidance": "The issue stamp in the footer, e.g. \"ISSUED 2026-07-12\".",
+                "example": "ISSUED 2026-07-12"
+              }
+            ]
+          },
+          {
+            "kind": "hero",
+            "purpose": "The editorial hero — the kicker, the multi-line display statement, the one-line subline, and the programme facts.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "hero.kicker",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 30
+                  },
+                  "guidance": "The hero eyebrow stem; the template appends \" · {office.reportingPeriod}\", e.g. \"THE VALIDATION LEDGER\"."
+                },
+                "guidance": "The hero eyebrow stem; the template appends \" · {office.reportingPeriod}\", e.g. \"THE VALIDATION LEDGER\".",
+                "example": "THE VALIDATION LEDGER"
+              },
+              {
+                "spec": {
+                  "name": "hero.statementLines",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 44,
+                    "minItems": 2,
+                    "maxItems": 4
+                  },
+                  "guidance": "Two-to-four display lines (one per array entry, rendered as broken lines) building the programme thesis, e.g. \"A model is an opinion\" / \"until the ledger says otherwise.\"."
+                },
+                "guidance": "Two-to-four display lines (one per array entry, rendered as broken lines) building the programme thesis, e.g. \"A model is an opinion\" / \"until the ledger says otherwise.\".",
+                "example": "A model is an opinion"
+              },
+              {
+                "spec": {
+                  "name": "hero.subline",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 230
+                  },
+                  "guidance": "One reading of the period under the statement, naming the stalled item, e.g. \"Twenty-eight models pass through this office in FY26. Nine are on the ledger this period. Eight are moving. One has stopped — and the whole page is arranged so you cannot miss it.\"."
+                },
+                "guidance": "One reading of the period under the statement, naming the stalled item, e.g. \"Twenty-eight models pass through this office in FY26. Nine are on the ledger this period. Eight are moving. One has stopped — and the whole page is arranged so you cannot miss it.\".",
+                "example": "Twenty-eight models pass through this office in FY26. Nine are on the ledger this period. Eight are moving. One has stopped — and the whole page is arranged so you cannot miss it."
+              },
+              {
+                "spec": {
+                  "name": "hero.facts",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 7
+                  },
+                  "guidance": "Three-to-seven programme facts (label, value) in the hero definition list, e.g. { label: \"ON THE LEDGER\", value: \"9\" }."
+                },
+                "guidance": "Three-to-seven programme facts (label, value) in the hero definition list, e.g. { label: \"ON THE LEDGER\", value: \"9\" }.",
+                "example": "<3–7 items>"
+              }
+            ]
+          },
+          {
+            "kind": "pipeline",
+            "purpose": "The commanding pipeline ledger — the four fixed validation stages and the models in flight, with the one stalled item flagged. The track and stage-head are a template-fixed four-column grid; the fill carries the content and pins the stage id set.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "pipeline.bandTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 28
+                  },
+                  "guidance": "The §1 band heading, e.g. \"THE PIPELINE LEDGER\"."
+                },
+                "guidance": "The §1 band heading, e.g. \"THE PIPELINE LEDGER\".",
+                "example": "THE PIPELINE LEDGER"
+              },
+              {
+                "spec": {
+                  "name": "pipeline.bandSub",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 78
+                  },
+                  "guidance": "The §1 band sub-line, true of the ledger you supply, e.g. \"NINE MODELS IN FLIGHT · READ LEFT TO RIGHT · ONE ITEM STALLED\"."
+                },
+                "guidance": "The §1 band sub-line, true of the ledger you supply, e.g. \"NINE MODELS IN FLIGHT · READ LEFT TO RIGHT · ONE ITEM STALLED\".",
+                "example": "NINE MODELS IN FLIGHT · READ LEFT TO RIGHT · ONE ITEM STALLED"
+              },
+              {
+                "spec": {
+                  "name": "pipeline.rowLegend",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 28
+                  },
+                  "guidance": "The stage-head lead label above the model column, e.g. \"MODEL · TIER · OWNER\"."
+                },
+                "guidance": "The stage-head lead label above the model column, e.g. \"MODEL · TIER · OWNER\".",
+                "example": "MODEL · TIER · OWNER"
+              },
+              {
+                "spec": {
+                  "name": "pipeline.stallThresholdDays",
+                  "type": "number",
+                  "required": true,
+                  "limits": {},
+                  "guidance": "Days-in-stage beyond which the office calls a model stalled; drives the stall note and the over-threshold table mark, e.g. 25."
+                },
+                "guidance": "Days-in-stage beyond which the office calls a model stalled; drives the stall note and the over-threshold table mark, e.g. 25.",
+                "example": "<number>"
+              },
+              {
+                "spec": {
+                  "name": "pipeline.a11yCaption",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 360
+                  },
+                  "guidance": "The full accessible caption of the aria-hidden ledger, naming the stalled model and pointing to the mirror table, e.g. \"The pipeline ledger plots nine in-flight models across four validation stages … wholesale-credit-pd has been in independent review for 41 days against a 25-day stall threshold and is flagged as stalled. The table in section 2 carries every entry.\"."
+                },
+                "guidance": "The full accessible caption of the aria-hidden ledger, naming the stalled model and pointing to the mirror table, e.g. \"The pipeline ledger plots nine in-flight models across four validation stages … wholesale-credit-pd has been in independent review for 41 days against a 25-day stall threshold and is flagged as stalled. The table in section 2 carries every entry.\".",
+                "example": "The pipeline ledger plots nine in-flight models across four validation stages … wholesale-credit-pd has been in independent review for 41 days against a 25-day stall threshold and is flagged as stalled. The table in section 2 carries every entry."
+              },
+              {
+                "spec": {
+                  "name": "pipeline.stageKeyNote",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 130
+                  },
+                  "guidance": "The stage-key note stem; the template appends \" {stallThresholdDays} DAYS\", e.g. \"TRAIL = STAGES CLEARED · SQUARE = CURRENT STAGE, DAYS IN STAGE · HATCH + STALLED STAMP = CLOCK HELD BEYOND\"."
+                },
+                "guidance": "The stage-key note stem; the template appends \" {stallThresholdDays} DAYS\", e.g. \"TRAIL = STAGES CLEARED · SQUARE = CURRENT STAGE, DAYS IN STAGE · HATCH + STALLED STAMP = CLOCK HELD BEYOND\".",
+                "example": "TRAIL = STAGES CLEARED · SQUARE = CURRENT STAGE, DAYS IN STAGE · HATCH + STALLED STAMP = CLOCK HELD BEYOND"
+              },
+              {
+                "spec": {
+                  "name": "pipeline.stages",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 4,
+                    "maxItems": 4
+                  },
+                  "guidance": "Exactly four validation stages, read left-to-right. FIXED-SLOT: ids must be exactly the shipped set (intake, challenge, review, sign-off). Each: id, label, exitRule, flowKind (start|process|decision|data|end), and flowInboundLabel on every stage after the first, e.g. { id: \"review\", label: \"INDEPENDENT REVIEW\", exitRule: \"All findings closed or accepted\", flowKind: \"decision\", flowInboundLabel: \"challenger result filed\" }."
+                },
+                "guidance": "Exactly four validation stages, read left-to-right. FIXED-SLOT: ids must be exactly the shipped set (intake, challenge, review, sign-off). Each: id, label, exitRule, flowKind (start|process|decision|data|end), and flowInboundLabel on every stage after the first, e.g. { id: \"review\", label: \"INDEPENDENT REVIEW\", exitRule: \"All findings closed or accepted\", flowKind: \"decision\", flowInboundLabel: \"challenger result filed\" }.",
+                "example": "<4–4 items>"
+              },
+              {
+                "spec": {
+                  "name": "pipeline.models",
+                  "type": "tableRows",
+                  "required": true,
+                  "limits": {
+                    "minItems": 6,
+                    "maxItems": 12
+                  },
+                  "guidance": "Six-to-twelve models in flight (id, model, version, tier 1|2|3, owner, stage = one of the pinned stage ids, daysInStage, enteredStage, targetSignOff, status moving|stalled, and stall {reason, escalation} on the stalled model). Exactly ONE model is \"stalled\" — the single flagged item held past the threshold, e.g. wholesale-credit-pd in review at 41 days."
+                },
+                "guidance": "Six-to-twelve models in flight (id, model, version, tier 1|2|3, owner, stage = one of the pinned stage ids, daysInStage, enteredStage, targetSignOff, status moving|stalled, and stall {reason, escalation} on the stalled model). Exactly ONE model is \"stalled\" — the single flagged item held past the threshold, e.g. wholesale-credit-pd in review at 41 days.",
+                "example": "<6–12 tableRows>"
+              }
+            ]
+          },
+          {
+            "kind": "table",
+            "purpose": "The §2 textual ledger mirror — the pipeline as a table (rendered from pipeline.models); this section carries only its band furniture and accessible caption.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "table.bandTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 32
+                  },
+                  "guidance": "The §2 band heading, e.g. \"THE LEDGER, LINE BY LINE\"."
+                },
+                "guidance": "The §2 band heading, e.g. \"THE LEDGER, LINE BY LINE\".",
+                "example": "THE LEDGER, LINE BY LINE"
+              },
+              {
+                "spec": {
+                  "name": "table.bandSub",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 36
+                  },
+                  "guidance": "The §2 band sub-line, true of the ledger, e.g. \"TEXTUAL MIRROR · 9 ENTRIES\"."
+                },
+                "guidance": "The §2 band sub-line, true of the ledger, e.g. \"TEXTUAL MIRROR · 9 ENTRIES\".",
+                "example": "TEXTUAL MIRROR · 9 ENTRIES"
+              },
+              {
+                "spec": {
+                  "name": "table.caption",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 200
+                  },
+                  "guidance": "The accessible caption of the mirror table naming its columns, e.g. \"The pipeline ledger as a table: nine models with version, tier, owner, current stage, days in stage, date entered, target sign-off, and any stall note.\"."
+                },
+                "guidance": "The accessible caption of the mirror table naming its columns, e.g. \"The pipeline ledger as a table: nine models with version, tier, owner, current stage, days in stage, date entered, target sign-off, and any stall note.\".",
+                "example": "The pipeline ledger as a table: nine models with version, tier, owner, current stage, days in stage, date entered, target sign-off, and any stall note."
+              }
+            ]
+          },
+          {
+            "kind": "posture",
+            "purpose": "The §3 programme-posture band — the KPI gauges and the throughput exhibit, subordinate to the ledger.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "posture.bandTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 26
+                  },
+                  "guidance": "The §3 band heading, e.g. \"PROGRAMME POSTURE\"."
+                },
+                "guidance": "The §3 band heading, e.g. \"PROGRAMME POSTURE\".",
+                "example": "PROGRAMME POSTURE"
+              },
+              {
+                "spec": {
+                  "name": "posture.bandSub",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 60
+                  },
+                  "guidance": "The §3 band sub-line, e.g. \"PROGRESS & STATUS · SUBORDINATE TO THE LEDGER\"."
+                },
+                "guidance": "The §3 band sub-line, e.g. \"PROGRESS & STATUS · SUBORDINATE TO THE LEDGER\".",
+                "example": "PROGRESS & STATUS · SUBORDINATE TO THE LEDGER"
+              },
+              {
+                "spec": {
+                  "name": "posture.kpiTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 26
+                  },
+                  "guidance": "The KPI tile's accessible title, e.g. \"Programme measures\"."
+                },
+                "guidance": "The KPI tile's accessible title, e.g. \"Programme measures\".",
+                "example": "Programme measures"
+              },
+              {
+                "spec": {
+                  "name": "posture.kpis",
+                  "type": "metric",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 6
+                  },
+                  "guidance": "Three-to-six programme gauges (id, label, value, unit currency|percent|count|ratio, optional target, status on-track|at-risk|off-track|neutral). Values with unit \"percent\" are FRACTIONS: 0.87 renders as 87.0%."
+                },
+                "guidance": "Three-to-six programme gauges (id, label, value, unit currency|percent|count|ratio, optional target, status on-track|at-risk|off-track|neutral). Values with unit \"percent\" are FRACTIONS: 0.87 renders as 87.0%.",
+                "example": "<3–6 metric>"
+              },
+              {
+                "spec": {
+                  "name": "posture.exhibit.number",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 14
+                  },
+                  "guidance": "The exhibit label, e.g. \"EXHIBIT A\"."
+                },
+                "guidance": "The exhibit label, e.g. \"EXHIBIT A\".",
+                "example": "EXHIBIT A"
+              },
+              {
+                "spec": {
+                  "name": "posture.exhibit.title",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 74
+                  },
+                  "guidance": "The exhibit title (chart accessible title stem), e.g. \"Validation throughput against intake, last twelve periods\"."
+                },
+                "guidance": "The exhibit title (chart accessible title stem), e.g. \"Validation throughput against intake, last twelve periods\".",
+                "example": "Validation throughput against intake, last twelve periods"
+              },
+              {
+                "spec": {
+                  "name": "posture.exhibit.source",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 140
+                  },
+                  "guidance": "The chart source note; state synthetic provenance, e.g. \"Models entering the pipeline vs models signed off, per four-week reporting period. Synthetic demonstration data.\"."
+                },
+                "guidance": "The chart source note; state synthetic provenance, e.g. \"Models entering the pipeline vs models signed off, per four-week reporting period. Synthetic demonstration data.\".",
+                "example": "Models entering the pipeline vs models signed off, per four-week reporting period. Synthetic demonstration data."
+              },
+              {
+                "spec": {
+                  "name": "posture.exhibit.caption",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 200
+                  },
+                  "guidance": "The exhibit figcaption reading the chart, e.g. \"Sign-off throughput has closed most of the gap intake opened in the autumn; the backlog the office carries is the area between the lines.\"."
+                },
+                "guidance": "The exhibit figcaption reading the chart, e.g. \"Sign-off throughput has closed most of the gap intake opened in the autumn; the backlog the office carries is the area between the lines.\".",
+                "example": "Sign-off throughput has closed most of the gap intake opened in the autumn; the backlog the office carries is the area between the lines."
+              },
+              {
+                "spec": {
+                  "name": "posture.throughput",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  "guidance": "The two throughput lines. FIXED-SLOT: ids must be exactly the shipped set (intake, signed-off) — the \"intake\" line draws dashed by id. Each: id, label, points (8–16 { x period, y count }), e.g. { id: \"signed-off\", label: \"Models signed off\", points: [{ x: \"2026·P07\", y: 3 }] }."
+                },
+                "guidance": "The two throughput lines. FIXED-SLOT: ids must be exactly the shipped set (intake, signed-off) — the \"intake\" line draws dashed by id. Each: id, label, points (8–16 { x period, y count }), e.g. { id: \"signed-off\", label: \"Models signed off\", points: [{ x: \"2026·P07\", y: 3 }] }.",
+                "example": "<2–2 items>"
+              }
+            ]
+          },
+          {
+            "kind": "outcomes",
+            "purpose": "The §4 recent-outcomes evidence table — the last dispositions on file.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "outcomes.bandTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 24
+                  },
+                  "guidance": "The §4 band heading, e.g. \"RECENT OUTCOMES\"."
+                },
+                "guidance": "The §4 band heading, e.g. \"RECENT OUTCOMES\".",
+                "example": "RECENT OUTCOMES"
+              },
+              {
+                "spec": {
+                  "name": "outcomes.bandSub",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 54
+                  },
+                  "guidance": "The §4 band sub-line, e.g. \"LAST SIX DISPOSITIONS · EVIDENCE ON FILE\"."
+                },
+                "guidance": "The §4 band sub-line, e.g. \"LAST SIX DISPOSITIONS · EVIDENCE ON FILE\".",
+                "example": "LAST SIX DISPOSITIONS · EVIDENCE ON FILE"
+              },
+              {
+                "spec": {
+                  "name": "outcomes.caption",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 180
+                  },
+                  "guidance": "The accessible caption of the outcomes table naming its columns, e.g. \"Recent validation outcomes: reference, date, model, tier, outcome, findings raised, and validator.\"."
+                },
+                "guidance": "The accessible caption of the outcomes table naming its columns, e.g. \"Recent validation outcomes: reference, date, model, tier, outcome, findings raised, and validator.\".",
+                "example": "Recent validation outcomes: reference, date, model, tier, outcome, findings raised, and validator."
+              },
+              {
+                "spec": {
+                  "name": "outcomes.rows",
+                  "type": "tableRows",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 8
+                  },
+                  "guidance": "Three-to-eight outcome rows (ref, date, model, tier 1|2|3, outcome approved|approved-with-conditions|rejected, findings count, validator), newest first, e.g. { ref: \"MV-26-081\", date: \"2026-07-04\", model: \"complaint-triage-nlp v2\", tier: 3, outcome: \"approved\", findings: 2, validator: \"R. OKONJO\" }."
+                },
+                "guidance": "Three-to-eight outcome rows (ref, date, model, tier 1|2|3, outcome approved|approved-with-conditions|rejected, findings count, validator), newest first, e.g. { ref: \"MV-26-081\", date: \"2026-07-04\", model: \"complaint-triage-nlp v2\", tier: 3, outcome: \"approved\", findings: 2, validator: \"R. OKONJO\" }.",
+                "example": "<3–8 tableRows>"
+              }
+            ]
+          },
+          {
+            "kind": "decisions",
+            "purpose": "The §5 decision log & programme wire — what the office decided, and what the office heard.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "decisions.bandTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 38
+                  },
+                  "guidance": "The §5 band heading, e.g. \"DECISION LOG & PROGRAMME WIRE\"."
+                },
+                "guidance": "The §5 band heading, e.g. \"DECISION LOG & PROGRAMME WIRE\".",
+                "example": "DECISION LOG & PROGRAMME WIRE"
+              },
+              {
+                "spec": {
+                  "name": "decisions.bandSub",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 60
+                  },
+                  "guidance": "The §5 band sub-line, e.g. \"WHAT THE OFFICE DECIDED · WHAT THE OFFICE HEARD\"."
+                },
+                "guidance": "The §5 band sub-line, e.g. \"WHAT THE OFFICE DECIDED · WHAT THE OFFICE HEARD\".",
+                "example": "WHAT THE OFFICE DECIDED · WHAT THE OFFICE HEARD"
+              },
+              {
+                "spec": {
+                  "name": "decisions.decisionLogHeading",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 20
+                  },
+                  "guidance": "The decision-log panel heading, e.g. \"DECISION LOG\"."
+                },
+                "guidance": "The decision-log panel heading, e.g. \"DECISION LOG\".",
+                "example": "DECISION LOG"
+              },
+              {
+                "spec": {
+                  "name": "decisions.wireHeading",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 22
+                  },
+                  "guidance": "The programme-wire panel heading, e.g. \"PROGRAMME WIRE\"."
+                },
+                "guidance": "The programme-wire panel heading, e.g. \"PROGRAMME WIRE\".",
+                "example": "PROGRAMME WIRE"
+              },
+              {
+                "spec": {
+                  "name": "decisions.wireTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 22
+                  },
+                  "guidance": "The programme-wire status-list accessible title, e.g. \"Programme wire\"."
+                },
+                "guidance": "The programme-wire status-list accessible title, e.g. \"Programme wire\".",
+                "example": "Programme wire"
+              },
+              {
+                "spec": {
+                  "name": "decisions.log",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 7
+                  },
+                  "guidance": "Three-to-seven decision entries (date, decision, owner, disposition), newest first, e.g. { date: \"2026-07-08\", decision: \"Escalate wholesale-credit-pd lineage gap to programme sponsor; hold review clock.\", owner: \"H. NGUYEN\", disposition: \"ESCALATED · OPEN\" }."
+                },
+                "guidance": "Three-to-seven decision entries (date, decision, owner, disposition), newest first, e.g. { date: \"2026-07-08\", decision: \"Escalate wholesale-credit-pd lineage gap to programme sponsor; hold review clock.\", owner: \"H. NGUYEN\", disposition: \"ESCALATED · OPEN\" }.",
+                "example": "<3–7 items>"
+              },
+              {
+                "spec": {
+                  "name": "decisions.wire",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 7
+                  },
+                  "guidance": "Three-to-seven programme-wire items (id, label, status success|warning|danger|info|neutral, optional description, optional ISO timestamp), newest first."
+                },
+                "guidance": "Three-to-seven programme-wire items (id, label, status success|warning|danger|info|neutral, optional description, optional ISO timestamp), newest first.",
+                "example": "<3–7 items>"
+              }
+            ]
+          }
+        ],
+        "craftGuarantees": [
+          "A model-validation programme hub staged as a PROGRAMME OFFICE IN DAYLIGHT — a well-edited board paper crossed with a working ledger: cool porcelain paper, near-black ink, hairline rules, tabular numerals, one registrar's green for progress and one dry sienna reserved for the stalled item alone.",
+          "The commanding visual is the PIPELINE LEDGER: every in-flight model placed on the road from intake to sign-off across four validation stages, revealed in reading order. THE PIPELINE IS FIXED-SLOT — the track and stage-head are a template-fixed four-column grid, so the schema pins the stage id set to exactly the four shipped stages (intake, challenge, independent review, sign-off); a fill re-labels the stages and rewrites their exit rules and flow captions but cannot add a column the grid has nowhere to place. Any schema-valid fill renders composed.",
+          "Exactly one ledger model carries status \"stalled\": the single flagged item held past the stall threshold that the whole page is arranged around — marked with the sienna stall stamp and stall note on the track, and the flagged row of the textual mirror table. The flag is STRUCTURAL (a status field the schema requires exactly one of), never a match on free-form text.",
+          "The pipeline ledger is decorative (aria-hidden); the REAL content is the visible §2 mirror TABLE — the ledger line by line — so the world is fully legible without the track. The stage-key outline and the accessible caption name the stalled model and point to the table.",
+          "The synthetic-data provenance notice (office.editionLine) is required and prints in the footer edition line; the hero subline and chart sources reinforce the synthetic magnitudes.",
+          "The RAG posture is letter-coded (the letter is the encoding, never colour alone). The throughput exhibit is pinned to its two fixed series ids (intake, signed-off) so the dashed-intake line always lands; percent KPI values are fractions (0.87 → 87.0%).",
+          "Slot char caps and item counts are sized so any schema-valid fill stays composed — the display statement never overflows, the ledger track and the mirror table stay balanced, and the decision log and wire stay legible. Motion level 1 (LedgerReveal in reading order); the mood is locked light."
+        ]
+      }
+    },
+    "text": {
+      "worldTemplateId": "ledger",
+      "experienceId": "proj-ai-model-validation-hub",
+      "rationale": "Selected 'ledger' (proj-ai-model-validation-hub, art-directed style); shares audience(s) [technical, risk-and-governance]; matched intent keyword(s) [centralise, validation, evidence, track, sign, off, status, programme, pipeline, governance]; art-directed style fits restricted corporate suitability; motion preference 1 noted (the template locks its own motion).",
+      "evidence": [
+        "ledger (proj-ai-model-validation-hub): audienceOverlap 2×2=4 + intentMatch 10 + corporateFit 0 = 14"
+      ],
+      "fillSkeleton": {
+        "sections": [
+          {
+            "kind": "office",
+            "purpose": "The programme-office identity — the sticky top chrome, the letter-coded RAG posture, the footer edition line, and the required provenance notice.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "office.pageTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 66
+                  },
+                  "guidance": "The browser-tab title stem (assigned in JS, derived byte-identically; the template appends \" — Live\"), e.g. \"The Validation Ledger — Model Validation Programme\"."
+                },
+                "guidance": "The browser-tab title stem (assigned in JS, derived byte-identically; the template appends \" — Live\"), e.g. \"The Validation Ledger — Model Validation Programme\".",
+                "example": "The Validation Ledger — Model Validation Programme"
+              },
+              {
+                "spec": {
+                  "name": "office.programmeCode",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 14
+                  },
+                  "guidance": "The programme code on the top chrome, e.g. \"MVP-2026\"."
+                },
+                "guidance": "The programme code on the top chrome, e.g. \"MVP-2026\".",
+                "example": "MVP-2026"
+              },
+              {
+                "spec": {
+                  "name": "office.programmeName",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 34
+                  },
+                  "guidance": "The programme name on the top chrome, e.g. \"MODEL VALIDATION PROGRAMME\"."
+                },
+                "guidance": "The programme name on the top chrome, e.g. \"MODEL VALIDATION PROGRAMME\".",
+                "example": "MODEL VALIDATION PROGRAMME"
+              },
+              {
+                "spec": {
+                  "name": "office.reportingPeriod",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 42
+                  },
+                  "guidance": "The reporting period on the chrome and hero kicker, e.g. \"PERIOD 07 · 29 JUN – 12 JUL 2026\"."
+                },
+                "guidance": "The reporting period on the chrome and hero kicker, e.g. \"PERIOD 07 · 29 JUN – 12 JUL 2026\".",
+                "example": "PERIOD 07 · 29 JUN – 12 JUL 2026"
+              },
+              {
+                "spec": {
+                  "name": "office.rag",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 10
+                  },
+                  "guidance": "The RAG posture letter (the encoding is the letter, never colour alone), e.g. \"AMBER\"."
+                },
+                "guidance": "The RAG posture letter (the encoding is the letter, never colour alone), e.g. \"AMBER\".",
+                "example": "AMBER"
+              },
+              {
+                "spec": {
+                  "name": "office.ragReason",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 50
+                  },
+                  "guidance": "The one-line reason for the RAG posture, e.g. \"ONE ITEM STALLED IN INDEPENDENT REVIEW\"."
+                },
+                "guidance": "The one-line reason for the RAG posture, e.g. \"ONE ITEM STALLED IN INDEPENDENT REVIEW\".",
+                "example": "ONE ITEM STALLED IN INDEPENDENT REVIEW"
+              },
+              {
+                "spec": {
+                  "name": "office.editionLine",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 60
+                  },
+                  "guidance": "REQUIRED provenance notice printed in the footer; must state the data is synthetic/sourced, e.g. \"PROGRAMME OFFICE · SYNTHETIC DEMONSTRATION DATA\"."
+                },
+                "guidance": "REQUIRED provenance notice printed in the footer; must state the data is synthetic/sourced, e.g. \"PROGRAMME OFFICE · SYNTHETIC DEMONSTRATION DATA\".",
+                "example": "PROGRAMME OFFICE · SYNTHETIC DEMONSTRATION DATA"
+              },
+              {
+                "spec": {
+                  "name": "office.director",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 40
+                  },
+                  "guidance": "The signing programme director in the footer, e.g. \"H. NGUYEN, PROGRAMME DIRECTOR\"."
+                },
+                "guidance": "The signing programme director in the footer, e.g. \"H. NGUYEN, PROGRAMME DIRECTOR\".",
+                "example": "H. NGUYEN, PROGRAMME DIRECTOR"
+              },
+              {
+                "spec": {
+                  "name": "office.issued",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 24
+                  },
+                  "guidance": "The issue stamp in the footer, e.g. \"ISSUED 2026-07-12\"."
+                },
+                "guidance": "The issue stamp in the footer, e.g. \"ISSUED 2026-07-12\".",
+                "example": "ISSUED 2026-07-12"
+              }
+            ]
+          },
+          {
+            "kind": "hero",
+            "purpose": "The editorial hero — the kicker, the multi-line display statement, the one-line subline, and the programme facts.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "hero.kicker",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 30
+                  },
+                  "guidance": "The hero eyebrow stem; the template appends \" · {office.reportingPeriod}\", e.g. \"THE VALIDATION LEDGER\"."
+                },
+                "guidance": "The hero eyebrow stem; the template appends \" · {office.reportingPeriod}\", e.g. \"THE VALIDATION LEDGER\".",
+                "example": "THE VALIDATION LEDGER"
+              },
+              {
+                "spec": {
+                  "name": "hero.statementLines",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 44,
+                    "minItems": 2,
+                    "maxItems": 4
+                  },
+                  "guidance": "Two-to-four display lines (one per array entry, rendered as broken lines) building the programme thesis, e.g. \"A model is an opinion\" / \"until the ledger says otherwise.\"."
+                },
+                "guidance": "Two-to-four display lines (one per array entry, rendered as broken lines) building the programme thesis, e.g. \"A model is an opinion\" / \"until the ledger says otherwise.\".",
+                "example": "A model is an opinion"
+              },
+              {
+                "spec": {
+                  "name": "hero.subline",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 230
+                  },
+                  "guidance": "One reading of the period under the statement, naming the stalled item, e.g. \"Twenty-eight models pass through this office in FY26. Nine are on the ledger this period. Eight are moving. One has stopped — and the whole page is arranged so you cannot miss it.\"."
+                },
+                "guidance": "One reading of the period under the statement, naming the stalled item, e.g. \"Twenty-eight models pass through this office in FY26. Nine are on the ledger this period. Eight are moving. One has stopped — and the whole page is arranged so you cannot miss it.\".",
+                "example": "Twenty-eight models pass through this office in FY26. Nine are on the ledger this period. Eight are moving. One has stopped — and the whole page is arranged so you cannot miss it."
+              },
+              {
+                "spec": {
+                  "name": "hero.facts",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 7
+                  },
+                  "guidance": "Three-to-seven programme facts (label, value) in the hero definition list, e.g. { label: \"ON THE LEDGER\", value: \"9\" }."
+                },
+                "guidance": "Three-to-seven programme facts (label, value) in the hero definition list, e.g. { label: \"ON THE LEDGER\", value: \"9\" }.",
+                "example": "<3–7 items>"
+              }
+            ]
+          },
+          {
+            "kind": "pipeline",
+            "purpose": "The commanding pipeline ledger — the four fixed validation stages and the models in flight, with the one stalled item flagged. The track and stage-head are a template-fixed four-column grid; the fill carries the content and pins the stage id set.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "pipeline.bandTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 28
+                  },
+                  "guidance": "The §1 band heading, e.g. \"THE PIPELINE LEDGER\"."
+                },
+                "guidance": "The §1 band heading, e.g. \"THE PIPELINE LEDGER\".",
+                "example": "THE PIPELINE LEDGER"
+              },
+              {
+                "spec": {
+                  "name": "pipeline.bandSub",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 78
+                  },
+                  "guidance": "The §1 band sub-line, true of the ledger you supply, e.g. \"NINE MODELS IN FLIGHT · READ LEFT TO RIGHT · ONE ITEM STALLED\"."
+                },
+                "guidance": "The §1 band sub-line, true of the ledger you supply, e.g. \"NINE MODELS IN FLIGHT · READ LEFT TO RIGHT · ONE ITEM STALLED\".",
+                "example": "NINE MODELS IN FLIGHT · READ LEFT TO RIGHT · ONE ITEM STALLED"
+              },
+              {
+                "spec": {
+                  "name": "pipeline.rowLegend",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 28
+                  },
+                  "guidance": "The stage-head lead label above the model column, e.g. \"MODEL · TIER · OWNER\"."
+                },
+                "guidance": "The stage-head lead label above the model column, e.g. \"MODEL · TIER · OWNER\".",
+                "example": "MODEL · TIER · OWNER"
+              },
+              {
+                "spec": {
+                  "name": "pipeline.stallThresholdDays",
+                  "type": "number",
+                  "required": true,
+                  "limits": {},
+                  "guidance": "Days-in-stage beyond which the office calls a model stalled; drives the stall note and the over-threshold table mark, e.g. 25."
+                },
+                "guidance": "Days-in-stage beyond which the office calls a model stalled; drives the stall note and the over-threshold table mark, e.g. 25.",
+                "example": "<number>"
+              },
+              {
+                "spec": {
+                  "name": "pipeline.a11yCaption",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 360
+                  },
+                  "guidance": "The full accessible caption of the aria-hidden ledger, naming the stalled model and pointing to the mirror table, e.g. \"The pipeline ledger plots nine in-flight models across four validation stages … wholesale-credit-pd has been in independent review for 41 days against a 25-day stall threshold and is flagged as stalled. The table in section 2 carries every entry.\"."
+                },
+                "guidance": "The full accessible caption of the aria-hidden ledger, naming the stalled model and pointing to the mirror table, e.g. \"The pipeline ledger plots nine in-flight models across four validation stages … wholesale-credit-pd has been in independent review for 41 days against a 25-day stall threshold and is flagged as stalled. The table in section 2 carries every entry.\".",
+                "example": "The pipeline ledger plots nine in-flight models across four validation stages … wholesale-credit-pd has been in independent review for 41 days against a 25-day stall threshold and is flagged as stalled. The table in section 2 carries every entry."
+              },
+              {
+                "spec": {
+                  "name": "pipeline.stageKeyNote",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 130
+                  },
+                  "guidance": "The stage-key note stem; the template appends \" {stallThresholdDays} DAYS\", e.g. \"TRAIL = STAGES CLEARED · SQUARE = CURRENT STAGE, DAYS IN STAGE · HATCH + STALLED STAMP = CLOCK HELD BEYOND\"."
+                },
+                "guidance": "The stage-key note stem; the template appends \" {stallThresholdDays} DAYS\", e.g. \"TRAIL = STAGES CLEARED · SQUARE = CURRENT STAGE, DAYS IN STAGE · HATCH + STALLED STAMP = CLOCK HELD BEYOND\".",
+                "example": "TRAIL = STAGES CLEARED · SQUARE = CURRENT STAGE, DAYS IN STAGE · HATCH + STALLED STAMP = CLOCK HELD BEYOND"
+              },
+              {
+                "spec": {
+                  "name": "pipeline.stages",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 4,
+                    "maxItems": 4
+                  },
+                  "guidance": "Exactly four validation stages, read left-to-right. FIXED-SLOT: ids must be exactly the shipped set (intake, challenge, review, sign-off). Each: id, label, exitRule, flowKind (start|process|decision|data|end), and flowInboundLabel on every stage after the first, e.g. { id: \"review\", label: \"INDEPENDENT REVIEW\", exitRule: \"All findings closed or accepted\", flowKind: \"decision\", flowInboundLabel: \"challenger result filed\" }."
+                },
+                "guidance": "Exactly four validation stages, read left-to-right. FIXED-SLOT: ids must be exactly the shipped set (intake, challenge, review, sign-off). Each: id, label, exitRule, flowKind (start|process|decision|data|end), and flowInboundLabel on every stage after the first, e.g. { id: \"review\", label: \"INDEPENDENT REVIEW\", exitRule: \"All findings closed or accepted\", flowKind: \"decision\", flowInboundLabel: \"challenger result filed\" }.",
+                "example": "<4–4 items>"
+              },
+              {
+                "spec": {
+                  "name": "pipeline.models",
+                  "type": "tableRows",
+                  "required": true,
+                  "limits": {
+                    "minItems": 6,
+                    "maxItems": 12
+                  },
+                  "guidance": "Six-to-twelve models in flight (id, model, version, tier 1|2|3, owner, stage = one of the pinned stage ids, daysInStage, enteredStage, targetSignOff, status moving|stalled, and stall {reason, escalation} on the stalled model). Exactly ONE model is \"stalled\" — the single flagged item held past the threshold, e.g. wholesale-credit-pd in review at 41 days."
+                },
+                "guidance": "Six-to-twelve models in flight (id, model, version, tier 1|2|3, owner, stage = one of the pinned stage ids, daysInStage, enteredStage, targetSignOff, status moving|stalled, and stall {reason, escalation} on the stalled model). Exactly ONE model is \"stalled\" — the single flagged item held past the threshold, e.g. wholesale-credit-pd in review at 41 days.",
+                "example": "<6–12 tableRows>"
+              }
+            ]
+          },
+          {
+            "kind": "table",
+            "purpose": "The §2 textual ledger mirror — the pipeline as a table (rendered from pipeline.models); this section carries only its band furniture and accessible caption.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "table.bandTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 32
+                  },
+                  "guidance": "The §2 band heading, e.g. \"THE LEDGER, LINE BY LINE\"."
+                },
+                "guidance": "The §2 band heading, e.g. \"THE LEDGER, LINE BY LINE\".",
+                "example": "THE LEDGER, LINE BY LINE"
+              },
+              {
+                "spec": {
+                  "name": "table.bandSub",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 36
+                  },
+                  "guidance": "The §2 band sub-line, true of the ledger, e.g. \"TEXTUAL MIRROR · 9 ENTRIES\"."
+                },
+                "guidance": "The §2 band sub-line, true of the ledger, e.g. \"TEXTUAL MIRROR · 9 ENTRIES\".",
+                "example": "TEXTUAL MIRROR · 9 ENTRIES"
+              },
+              {
+                "spec": {
+                  "name": "table.caption",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 200
+                  },
+                  "guidance": "The accessible caption of the mirror table naming its columns, e.g. \"The pipeline ledger as a table: nine models with version, tier, owner, current stage, days in stage, date entered, target sign-off, and any stall note.\"."
+                },
+                "guidance": "The accessible caption of the mirror table naming its columns, e.g. \"The pipeline ledger as a table: nine models with version, tier, owner, current stage, days in stage, date entered, target sign-off, and any stall note.\".",
+                "example": "The pipeline ledger as a table: nine models with version, tier, owner, current stage, days in stage, date entered, target sign-off, and any stall note."
+              }
+            ]
+          },
+          {
+            "kind": "posture",
+            "purpose": "The §3 programme-posture band — the KPI gauges and the throughput exhibit, subordinate to the ledger.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "posture.bandTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 26
+                  },
+                  "guidance": "The §3 band heading, e.g. \"PROGRAMME POSTURE\"."
+                },
+                "guidance": "The §3 band heading, e.g. \"PROGRAMME POSTURE\".",
+                "example": "PROGRAMME POSTURE"
+              },
+              {
+                "spec": {
+                  "name": "posture.bandSub",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 60
+                  },
+                  "guidance": "The §3 band sub-line, e.g. \"PROGRESS & STATUS · SUBORDINATE TO THE LEDGER\"."
+                },
+                "guidance": "The §3 band sub-line, e.g. \"PROGRESS & STATUS · SUBORDINATE TO THE LEDGER\".",
+                "example": "PROGRESS & STATUS · SUBORDINATE TO THE LEDGER"
+              },
+              {
+                "spec": {
+                  "name": "posture.kpiTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 26
+                  },
+                  "guidance": "The KPI tile's accessible title, e.g. \"Programme measures\"."
+                },
+                "guidance": "The KPI tile's accessible title, e.g. \"Programme measures\".",
+                "example": "Programme measures"
+              },
+              {
+                "spec": {
+                  "name": "posture.kpis",
+                  "type": "metric",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 6
+                  },
+                  "guidance": "Three-to-six programme gauges (id, label, value, unit currency|percent|count|ratio, optional target, status on-track|at-risk|off-track|neutral). Values with unit \"percent\" are FRACTIONS: 0.87 renders as 87.0%."
+                },
+                "guidance": "Three-to-six programme gauges (id, label, value, unit currency|percent|count|ratio, optional target, status on-track|at-risk|off-track|neutral). Values with unit \"percent\" are FRACTIONS: 0.87 renders as 87.0%.",
+                "example": "<3–6 metric>"
+              },
+              {
+                "spec": {
+                  "name": "posture.exhibit.number",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 14
+                  },
+                  "guidance": "The exhibit label, e.g. \"EXHIBIT A\"."
+                },
+                "guidance": "The exhibit label, e.g. \"EXHIBIT A\".",
+                "example": "EXHIBIT A"
+              },
+              {
+                "spec": {
+                  "name": "posture.exhibit.title",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 74
+                  },
+                  "guidance": "The exhibit title (chart accessible title stem), e.g. \"Validation throughput against intake, last twelve periods\"."
+                },
+                "guidance": "The exhibit title (chart accessible title stem), e.g. \"Validation throughput against intake, last twelve periods\".",
+                "example": "Validation throughput against intake, last twelve periods"
+              },
+              {
+                "spec": {
+                  "name": "posture.exhibit.source",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 140
+                  },
+                  "guidance": "The chart source note; state synthetic provenance, e.g. \"Models entering the pipeline vs models signed off, per four-week reporting period. Synthetic demonstration data.\"."
+                },
+                "guidance": "The chart source note; state synthetic provenance, e.g. \"Models entering the pipeline vs models signed off, per four-week reporting period. Synthetic demonstration data.\".",
+                "example": "Models entering the pipeline vs models signed off, per four-week reporting period. Synthetic demonstration data."
+              },
+              {
+                "spec": {
+                  "name": "posture.exhibit.caption",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 200
+                  },
+                  "guidance": "The exhibit figcaption reading the chart, e.g. \"Sign-off throughput has closed most of the gap intake opened in the autumn; the backlog the office carries is the area between the lines.\"."
+                },
+                "guidance": "The exhibit figcaption reading the chart, e.g. \"Sign-off throughput has closed most of the gap intake opened in the autumn; the backlog the office carries is the area between the lines.\".",
+                "example": "Sign-off throughput has closed most of the gap intake opened in the autumn; the backlog the office carries is the area between the lines."
+              },
+              {
+                "spec": {
+                  "name": "posture.throughput",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  "guidance": "The two throughput lines. FIXED-SLOT: ids must be exactly the shipped set (intake, signed-off) — the \"intake\" line draws dashed by id. Each: id, label, points (8–16 { x period, y count }), e.g. { id: \"signed-off\", label: \"Models signed off\", points: [{ x: \"2026·P07\", y: 3 }] }."
+                },
+                "guidance": "The two throughput lines. FIXED-SLOT: ids must be exactly the shipped set (intake, signed-off) — the \"intake\" line draws dashed by id. Each: id, label, points (8–16 { x period, y count }), e.g. { id: \"signed-off\", label: \"Models signed off\", points: [{ x: \"2026·P07\", y: 3 }] }.",
+                "example": "<2–2 items>"
+              }
+            ]
+          },
+          {
+            "kind": "outcomes",
+            "purpose": "The §4 recent-outcomes evidence table — the last dispositions on file.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "outcomes.bandTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 24
+                  },
+                  "guidance": "The §4 band heading, e.g. \"RECENT OUTCOMES\"."
+                },
+                "guidance": "The §4 band heading, e.g. \"RECENT OUTCOMES\".",
+                "example": "RECENT OUTCOMES"
+              },
+              {
+                "spec": {
+                  "name": "outcomes.bandSub",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 54
+                  },
+                  "guidance": "The §4 band sub-line, e.g. \"LAST SIX DISPOSITIONS · EVIDENCE ON FILE\"."
+                },
+                "guidance": "The §4 band sub-line, e.g. \"LAST SIX DISPOSITIONS · EVIDENCE ON FILE\".",
+                "example": "LAST SIX DISPOSITIONS · EVIDENCE ON FILE"
+              },
+              {
+                "spec": {
+                  "name": "outcomes.caption",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 180
+                  },
+                  "guidance": "The accessible caption of the outcomes table naming its columns, e.g. \"Recent validation outcomes: reference, date, model, tier, outcome, findings raised, and validator.\"."
+                },
+                "guidance": "The accessible caption of the outcomes table naming its columns, e.g. \"Recent validation outcomes: reference, date, model, tier, outcome, findings raised, and validator.\".",
+                "example": "Recent validation outcomes: reference, date, model, tier, outcome, findings raised, and validator."
+              },
+              {
+                "spec": {
+                  "name": "outcomes.rows",
+                  "type": "tableRows",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 8
+                  },
+                  "guidance": "Three-to-eight outcome rows (ref, date, model, tier 1|2|3, outcome approved|approved-with-conditions|rejected, findings count, validator), newest first, e.g. { ref: \"MV-26-081\", date: \"2026-07-04\", model: \"complaint-triage-nlp v2\", tier: 3, outcome: \"approved\", findings: 2, validator: \"R. OKONJO\" }."
+                },
+                "guidance": "Three-to-eight outcome rows (ref, date, model, tier 1|2|3, outcome approved|approved-with-conditions|rejected, findings count, validator), newest first, e.g. { ref: \"MV-26-081\", date: \"2026-07-04\", model: \"complaint-triage-nlp v2\", tier: 3, outcome: \"approved\", findings: 2, validator: \"R. OKONJO\" }.",
+                "example": "<3–8 tableRows>"
+              }
+            ]
+          },
+          {
+            "kind": "decisions",
+            "purpose": "The §5 decision log & programme wire — what the office decided, and what the office heard.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "decisions.bandTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 38
+                  },
+                  "guidance": "The §5 band heading, e.g. \"DECISION LOG & PROGRAMME WIRE\"."
+                },
+                "guidance": "The §5 band heading, e.g. \"DECISION LOG & PROGRAMME WIRE\".",
+                "example": "DECISION LOG & PROGRAMME WIRE"
+              },
+              {
+                "spec": {
+                  "name": "decisions.bandSub",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 60
+                  },
+                  "guidance": "The §5 band sub-line, e.g. \"WHAT THE OFFICE DECIDED · WHAT THE OFFICE HEARD\"."
+                },
+                "guidance": "The §5 band sub-line, e.g. \"WHAT THE OFFICE DECIDED · WHAT THE OFFICE HEARD\".",
+                "example": "WHAT THE OFFICE DECIDED · WHAT THE OFFICE HEARD"
+              },
+              {
+                "spec": {
+                  "name": "decisions.decisionLogHeading",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 20
+                  },
+                  "guidance": "The decision-log panel heading, e.g. \"DECISION LOG\"."
+                },
+                "guidance": "The decision-log panel heading, e.g. \"DECISION LOG\".",
+                "example": "DECISION LOG"
+              },
+              {
+                "spec": {
+                  "name": "decisions.wireHeading",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 22
+                  },
+                  "guidance": "The programme-wire panel heading, e.g. \"PROGRAMME WIRE\"."
+                },
+                "guidance": "The programme-wire panel heading, e.g. \"PROGRAMME WIRE\".",
+                "example": "PROGRAMME WIRE"
+              },
+              {
+                "spec": {
+                  "name": "decisions.wireTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 22
+                  },
+                  "guidance": "The programme-wire status-list accessible title, e.g. \"Programme wire\"."
+                },
+                "guidance": "The programme-wire status-list accessible title, e.g. \"Programme wire\".",
+                "example": "Programme wire"
+              },
+              {
+                "spec": {
+                  "name": "decisions.log",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 7
+                  },
+                  "guidance": "Three-to-seven decision entries (date, decision, owner, disposition), newest first, e.g. { date: \"2026-07-08\", decision: \"Escalate wholesale-credit-pd lineage gap to programme sponsor; hold review clock.\", owner: \"H. NGUYEN\", disposition: \"ESCALATED · OPEN\" }."
+                },
+                "guidance": "Three-to-seven decision entries (date, decision, owner, disposition), newest first, e.g. { date: \"2026-07-08\", decision: \"Escalate wholesale-credit-pd lineage gap to programme sponsor; hold review clock.\", owner: \"H. NGUYEN\", disposition: \"ESCALATED · OPEN\" }.",
+                "example": "<3–7 items>"
+              },
+              {
+                "spec": {
+                  "name": "decisions.wire",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 7
+                  },
+                  "guidance": "Three-to-seven programme-wire items (id, label, status success|warning|danger|info|neutral, optional description, optional ISO timestamp), newest first."
+                },
+                "guidance": "Three-to-seven programme-wire items (id, label, status success|warning|danger|info|neutral, optional description, optional ISO timestamp), newest first.",
+                "example": "<3–7 items>"
+              }
+            ]
+          }
+        ],
+        "craftGuarantees": [
+          "A model-validation programme hub staged as a PROGRAMME OFFICE IN DAYLIGHT — a well-edited board paper crossed with a working ledger: cool porcelain paper, near-black ink, hairline rules, tabular numerals, one registrar's green for progress and one dry sienna reserved for the stalled item alone.",
+          "The commanding visual is the PIPELINE LEDGER: every in-flight model placed on the road from intake to sign-off across four validation stages, revealed in reading order. THE PIPELINE IS FIXED-SLOT — the track and stage-head are a template-fixed four-column grid, so the schema pins the stage id set to exactly the four shipped stages (intake, challenge, independent review, sign-off); a fill re-labels the stages and rewrites their exit rules and flow captions but cannot add a column the grid has nowhere to place. Any schema-valid fill renders composed.",
+          "Exactly one ledger model carries status \"stalled\": the single flagged item held past the stall threshold that the whole page is arranged around — marked with the sienna stall stamp and stall note on the track, and the flagged row of the textual mirror table. The flag is STRUCTURAL (a status field the schema requires exactly one of), never a match on free-form text.",
+          "The pipeline ledger is decorative (aria-hidden); the REAL content is the visible §2 mirror TABLE — the ledger line by line — so the world is fully legible without the track. The stage-key outline and the accessible caption name the stalled model and point to the table.",
+          "The synthetic-data provenance notice (office.editionLine) is required and prints in the footer edition line; the hero subline and chart sources reinforce the synthetic magnitudes.",
+          "The RAG posture is letter-coded (the letter is the encoding, never colour alone). The throughput exhibit is pinned to its two fixed series ids (intake, signed-off) so the dashed-intake line always lands; percent KPI values are fractions (0.87 → 87.0%).",
+          "Slot char caps and item counts are sized so any schema-valid fill stays composed — the display statement never overflows, the ledger track and the mirror table stay balanced, and the decision log and wire stay legible. Motion level 1 (LedgerReveal in reading order); the mood is locked light."
+        ]
+      }
+    }
+  },
+  "validate": {
+    "tool": "validate_fill",
+    "arguments": {
+      "worldTemplateId": "proj-ai-model-validation-hub"
+    },
+    "structuredContent": {
+      "valid": true,
+      "worldTemplateId": "proj-ai-model-validation-hub",
+      "findings": []
+    },
+    "text": {
+      "valid": true,
+      "worldTemplateId": "proj-ai-model-validation-hub",
+      "findings": []
+    }
+  },
+  "checks": [
+    {
+      "name": "[agent-evals] compose_project_page not isError",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[agent-evals] compose output parses",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[agent-evals] selection → proj-ai-model-validation-hub (ledger)",
+      "pass": true,
+      "detail": "ledger / proj-ai-model-validation-hub"
+    },
+    {
+      "name": "[agent-evals] skeleton carries sections + craft guarantees",
+      "pass": true,
+      "detail": "7 sections"
+    },
+    {
+      "name": "[agent-evals] validate_fill not isError",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[agent-evals] validate_fill valid=true, no findings",
+      "pass": true,
+      "detail": "valid=true, 0 findings"
+    }
+  ]
+}

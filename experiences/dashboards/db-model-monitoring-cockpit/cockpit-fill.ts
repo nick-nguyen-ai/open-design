@@ -39,12 +39,26 @@ const KpiUnit = z.enum(['currency', 'percent', 'count', 'ratio']);
 /** StatusList status vocabulary (comp.status-list). */
 const LogStatus = z.enum(['success', 'warning', 'danger', 'info', 'neutral']);
 
+/**
+ * The instrument's fixed PSI scale. The DriftScope maps PSI onto a graticule
+ * whose outer ring is 0.34 and the trend chart's y-axis tops out at 0.35 —
+ * both template-fixed geometry. Every PSI-valued slot is bounded to the scale
+ * so a schema-valid fill can never pin contacts to the rim or clip the trend.
+ */
+const SCOPE_PSI_MAX = 0.34;
+const TREND_PSI_MAX = 0.35;
+
+/** A PSI value on the fixed 0–0.34 instrument scale. */
+const ScopePsi = z.number().min(0).max(SCOPE_PSI_MAX);
+
 /* ------------------------------------------------------------------ */
 /* Fill schema — content slots only                                    */
 /* ------------------------------------------------------------------ */
 
 /** The watch chrome + the REQUIRED synthetic-data provenance notice. */
 const Watch = z.object({
+  /** The browser-tab title stem; the template appends the fixed " — Live" suffix. */
+  pageTitle: z.string().min(1).max(46),
   commandLine: z.string().min(1).max(58),
   environment: z.string().min(1).max(12),
   refreshCadence: z.string().min(1).max(16),
@@ -66,12 +80,16 @@ const Statement = z.object({
   subline: z.string().min(1).max(100),
 });
 
-const Thresholds = z.object({
-  /** Watch band starts here (the scope's inner ring). */
-  watch: z.number(),
-  /** Breach limit — the scope's outer ring; crossing it wakes people up. */
-  breach: z.number(),
-});
+const Thresholds = z
+  .object({
+    /** Watch band starts here (the scope's inner ring). PSI on the fixed 0–0.34 scale. */
+    watch: ScopePsi,
+    /** Breach limit — the scope's outer ring; crossing it wakes people up. PSI on the fixed 0–0.34 scale. */
+    breach: ScopePsi,
+  })
+  .refine((t) => t.watch < t.breach, {
+    message: 'thresholds.watch must be strictly below thresholds.breach (inner ring inside outer ring).',
+  });
 
 const Scope = z.object({
   /** The full accessible caption of the aria-hidden scope figure. */
@@ -92,11 +110,10 @@ const FleetModel = z.object({
   id: z.string().min(1),
   name: z.string().min(1).max(32),
   sectorId: z.string().min(1).max(24),
-  /** 30-day population stability index — the scope's radial coordinate. */
-  psi: z.number(),
+  /** 30-day population stability index — the scope's radial coordinate, on the fixed 0–0.34 instrument scale. */
+  psi: ScopePsi,
   status: ContactStatus,
   owner: z.string().min(1).max(40),
-  tier: z.union([z.literal(1), z.literal(2), z.literal(3)]),
   lastRetrain: z.string().min(1).max(14),
 });
 
@@ -119,7 +136,8 @@ const Fleet = z.object({
     }),
 });
 
-const TrendPoint = z.object({ x: z.string().min(1).max(12), y: z.number() });
+/** A daily PSI reading; y is bounded to the trend chart's fixed 0–0.35 axis. */
+const TrendPoint = z.object({ x: z.string().min(1).max(12), y: z.number().min(0).max(TREND_PSI_MAX) });
 const FeatureDatum = z.object({
   id: z.string().min(1),
   category: z.string().min(1).max(40),
@@ -204,6 +222,7 @@ export const COCKPIT_SECTIONS: SectionSpec[] = [
     purpose: 'The dealing-floor chrome — command line, environment, the watch clock start, and the required provenance notice.',
     repeats: { min: 1, max: 1 },
     slots: [
+      { name: 'watch.pageTitle', type: 'text', required: true, limits: { maxChars: 46 }, guidance: 'The browser-tab title stem (the template appends " — Live"), e.g. "The Model Risk Control Room, 02:47".' },
       { name: 'watch.commandLine', type: 'text', required: true, limits: { maxChars: 58 }, guidance: 'The command-room line on the top chrome, e.g. "MODEL RISK COMMAND · NIGHT WATCH · EST. 2021".' },
       { name: 'watch.environment', type: 'text', required: true, limits: { maxChars: 12 }, guidance: 'The environment flag shown after "ENV", e.g. "PROD".' },
       { name: 'watch.refreshCadence', type: 'text', required: true, limits: { maxChars: 16 }, guidance: 'The refresh cadence on the chrome, e.g. "REFRESH 60S".' },
@@ -231,8 +250,8 @@ export const COCKPIT_SECTIONS: SectionSpec[] = [
     purpose: 'The drift-scope instrument — the drift thresholds it rings, its accessible caption and encoding legend.',
     repeats: { min: 1, max: 1 },
     slots: [
-      { name: 'thresholds.watch', type: 'number', required: true, limits: {}, guidance: 'The watch-band PSI threshold (the inner ring), e.g. 0.1.' },
-      { name: 'thresholds.breach', type: 'number', required: true, limits: {}, guidance: 'The breach-limit PSI threshold (the outer ring), e.g. 0.25.' },
+      { name: 'thresholds.watch', type: 'number', required: true, limits: {}, guidance: 'The watch-band PSI threshold (the inner ring), on the fixed 0–0.34 instrument scale and strictly below thresholds.breach, e.g. 0.1.' },
+      { name: 'thresholds.breach', type: 'number', required: true, limits: {}, guidance: 'The breach-limit PSI threshold (the outer ring), on the fixed 0–0.34 instrument scale and strictly above thresholds.watch, e.g. 0.25.' },
       { name: 'scope.caption', type: 'longtext', required: true, limits: { maxChars: 300 }, guidance: 'The full accessible caption of the aria-hidden scope, naming the breaching model and pointing to the watchlist table, e.g. "Fleet drift scope: twelve production models plotted by 30-day population stability index …".' },
       { name: 'scope.encodingNote', type: 'text', required: true, limits: { maxChars: 58 }, guidance: 'How to read the instrument — its encoding legend line, e.g. "RADIUS = 30-DAY PSI · SECTOR = BUSINESS LINE".' },
       { name: 'scope.breachCalloutNote', type: 'text', required: true, limits: { maxChars: 42 }, guidance: 'The breach callout continuation under the derived PSI/limit row, e.g. "41 H IN BREACH · RETRAIN QUEUED".' },
@@ -247,7 +266,7 @@ export const COCKPIT_SECTIONS: SectionSpec[] = [
       { name: 'fleet.bandSub', type: 'text', required: true, limits: { maxChars: 54 }, guidance: 'The band sub-line, true of the fleet you supply, e.g. "TEXTUAL MIRROR OF THE SCOPE · 12 CONTACTS".' },
       { name: 'fleet.tableCaption', type: 'longtext', required: true, limits: { maxChars: 180 }, guidance: 'The accessible caption of the watchlist table naming its columns, e.g. "Fleet watchlist — the drift scope\'s contents as a table. Twelve models with sector, 30-day PSI, limit, status, owner, and last retrain date.".' },
       { name: 'fleet.sectors', type: 'items', required: true, limits: { minItems: 2, maxItems: 6 }, guidance: 'Two-to-six business-line sectors (id, label); each becomes a quadrant of the scope, e.g. { id: "fraud", label: "FRAUD & FIN-CRIME" }.' },
-      { name: 'fleet.models', type: 'tableRows', required: true, limits: { minItems: 6, maxItems: 16 }, guidance: 'Six-to-sixteen models (id, name, sectorId, psi, status stable|watch|breach, owner, tier 1|2|3, lastRetrain). Exactly ONE carries status "breach" — the single flagged contact past its limit, e.g. card-fraud-v4 at psi 0.312.' },
+      { name: 'fleet.models', type: 'tableRows', required: true, limits: { minItems: 6, maxItems: 16 }, guidance: 'Six-to-sixteen models (id, name, sectorId, psi, status stable|watch|breach, owner, lastRetrain). psi is on the fixed 0–0.34 instrument scale. Exactly ONE carries status "breach" — the single flagged contact past its limit, e.g. card-fraud-v4 at psi 0.312.' },
     ],
   },
   {
@@ -260,7 +279,7 @@ export const COCKPIT_SECTIONS: SectionSpec[] = [
       { name: 'dossier.trendHeading', type: 'text', required: true, limits: { maxChars: 32 }, guidance: 'The drift-trend panel heading, e.g. "DRIFT · 90 DAYS VS LIMIT".' },
       { name: 'dossier.trendChartTitle', type: 'text', required: true, limits: { maxChars: 68 }, guidance: 'The trend chart\'s accessible title, e.g. "card-fraud-v4 — population stability index, 90 days".' },
       { name: 'dossier.trendChartSource', type: 'text', required: true, limits: { maxChars: 100 }, guidance: 'The trend chart source note; state synthetic provenance, e.g. "Daily 30-day-window PSI vs the 0.25 breach limit. Synthetic demonstration data.".' },
-      { name: 'dossier.trendPoints', type: 'items', required: true, limits: { minItems: 30, maxItems: 120 }, guidance: 'Daily 30-day-window PSI points (x ISO date, y PSI) for the breaching model — the drift history the trend line draws.' },
+      { name: 'dossier.trendPoints', type: 'items', required: true, limits: { minItems: 30, maxItems: 120 }, guidance: 'Daily 30-day-window PSI points (x ISO date, y PSI on the fixed 0–0.35 trend axis) for the breaching model — the drift history the trend line draws.' },
       { name: 'dossier.featureHeading', type: 'text', required: true, limits: { maxChars: 40 }, guidance: 'The feature-drift panel heading, e.g. "FEATURE CONTRIBUTIONS TO DRIFT".' },
       { name: 'dossier.featureChartTitle', type: 'text', required: true, limits: { maxChars: 60 }, guidance: 'The feature-bar chart\'s accessible title, e.g. "card-fraud-v4 — feature-level PSI contribution".' },
       { name: 'dossier.featureChartSource', type: 'text', required: true, limits: { maxChars: 104 }, guidance: 'The feature-bar source note; state synthetic provenance, e.g. "Top six features by contribution to composite PSI. Synthetic demonstration data.".' },
@@ -308,6 +327,6 @@ export const COCKPIT_GUIDANCE: string[] = [
   'The synthetic-data provenance notice (watch.dataNotice) is required and prints in the hero and the footer.',
   'The scope is decorative (aria-hidden); the REAL content is the fleet watchlist table — the scope\'s textual mirror — so the world is fully legible without the instrument.',
   'The dossier auto-titles the breaching model and derives its breach callout, trend series labels, and ring labels from the fleet + thresholds, so the diagnosis always names whichever model is flagged.',
-  'Slot char caps and item counts are sized so any schema-valid fill stays composed — the statement never overflows, the watchlist and scope stay balanced, and the dossier panels stay legible.',
+  'Slot char caps and item counts are sized so any schema-valid fill stays composed — the statement never overflows, the watchlist and scope stay balanced, and the dossier panels stay legible. Every PSI value is bounded to the instrument\'s fixed scale (contacts and thresholds 0–0.34, trend points 0–0.35, watch strictly below breach), so no fill can pin a contact to the rim or clip the trend.',
   'Motion level 1 (data-ink-draw + phosphor sweep); the mood is locked dark.',
 ];

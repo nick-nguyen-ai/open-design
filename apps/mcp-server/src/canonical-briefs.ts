@@ -79,4 +79,49 @@ export const CANONICAL_BRIEFS: CanonicalBrief[] = [
     brief:
       'Stand up a fleet-wide model-monitoring dashboard for the model-risk team: watch every production model’s drift (PSI) against its breach limit, flag the one model in breach, and drill into its latency and feature-level diagnostics with an overnight alert log.',
   },
+  // System-architecture explainer — the first technical-explainer pilot (Task 8).
+  // Locks the 'drawing-office' selection as the only live technical-explainer
+  // template; the row guards Phase 2/3 regressions once more explainers go live.
+  {
+    surface: 'technical-explainer',
+    expect: 'drawing-office',
+    context: {
+      audience: ['technical', 'mixed'],
+      businessIntent: ['onboard-new-engineers', 'support-architecture-review'],
+      corporateSuitability: 'standard',
+      motionPreference: 2,
+    },
+    brief:
+      'Produce the canonical as-built explainer of our model-decision platform architecture: the components and services, how requests and data flow across trust boundaries, and where the system is capacity-constrained — one legible diagram new engineers and architecture reviewers can rely on.',
+  },
+  // Model-validation programme hub — the first project-page pilot (Task 9).
+  // Locks the 'ledger' selection as the only live project-page template; the row
+  // guards Phase 2/3 regressions once more project pages go live.
+  {
+    surface: 'project-page',
+    expect: 'ledger',
+    context: {
+      audience: ['technical', 'risk-and-governance'],
+      businessIntent: ['centralise-validation-evidence', 'track-sign-off-status'],
+      corporateSuitability: 'restricted',
+      motionPreference: 1,
+    },
+    brief:
+      'Stand up the model-validation programme hub: one project page a validator, model owner, and committee can all point to — every in-flight model on the pipeline from intake to sign-off, the one item stalled past its review threshold flagged up front, the recent sign-off outcomes on file, and the decision log and programme status.',
+  },
+  // Career-and-project timeline — the first personal-page pilot (Task 10). Locks
+  // the 'the-line' selection as the only live personal-page template; the row
+  // guards Phase 2/3 regressions once more personal pages go live.
+  {
+    surface: 'personal-page',
+    expect: 'the-line',
+    context: {
+      audience: ['personal-internal'],
+      businessIntent: ['showcase-career-trajectory', 'connect-projects-to-outcomes'],
+      corporateSuitability: 'standard',
+      motionPreference: 3,
+    },
+    brief:
+      'Build a personal page that tells the story of my twelve-year engineering career as one continuous line of projects — each station a shipped project with a real outcome, promotions where the line steps up, side-projects that branched off, and the one two-year detour I reversed out of left in honestly — connecting each project to the outcome it drove.',
+  },
 ];

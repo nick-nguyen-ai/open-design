@@ -47,6 +47,25 @@ const BorrowPilotDemo = lazy(
   () => import('../../../experiences/slide-decks/demo-borrow-pilot/BorrowPilotPage.js'),
 );
 
+// Experience-composer goal-test OUTPUTS (five-surface sample run, ledger Task 12).
+// Each is a fill composed via its surface's compose tool, rendered content-only
+// through the shipped world-template. Not catalogue templates.
+const GitlabQbrDemo = lazy(
+  () => import('../../../experiences/slide-decks/sample-gitlab-qbr/GitlabQbrPage.js'),
+);
+const OpenmodelCockpitDemo = lazy(
+  () => import('../../../experiences/dashboards/sample-openmodel-cockpit/OpenmodelCockpitPage.js'),
+);
+const ModerationStackDemo = lazy(
+  () => import('../../../experiences/explainers/sample-moderation-stack/ModerationStackPage.js'),
+);
+const AgentEvalsDemo = lazy(
+  () => import('../../../experiences/project-pages/sample-agent-evals/AgentEvalsPage.js'),
+);
+const MlCareerDemo = lazy(
+  () => import('../../../experiences/personal-pages/sample-ml-career/MlCareerPage.js'),
+);
+
 export function App() {
   const preferences = usePreferences();
 
@@ -91,6 +110,46 @@ export function App() {
             element={
               <Suspense fallback={<RouteFallback />}>
                 <BorrowPilotDemo />
+              </Suspense>
+            }
+          />
+          <Route
+            path="demo/gitlab-qbr"
+            element={
+              <Suspense fallback={<RouteFallback />}>
+                <GitlabQbrDemo />
+              </Suspense>
+            }
+          />
+          <Route
+            path="demo/openmodel-cockpit"
+            element={
+              <Suspense fallback={<RouteFallback />}>
+                <OpenmodelCockpitDemo />
+              </Suspense>
+            }
+          />
+          <Route
+            path="demo/moderation-stack"
+            element={
+              <Suspense fallback={<RouteFallback />}>
+                <ModerationStackDemo />
+              </Suspense>
+            }
+          />
+          <Route
+            path="demo/agent-evals"
+            element={
+              <Suspense fallback={<RouteFallback />}>
+                <AgentEvalsDemo />
+              </Suspense>
+            }
+          />
+          <Route
+            path="demo/ml-career"
+            element={
+              <Suspense fallback={<RouteFallback />}>
+                <MlCareerDemo />
               </Suspense>
             }
           />

@@ -109,6 +109,16 @@ const Priority = z.object({
 export const QuarterFill = z
   .object({
     deck: DeckMeta,
+    /**
+     * Editorial slide headline(s) a fill author controls. The segment slide's
+     * headline is an editorial CLAIM about the quarter (the shipped instance
+     * says "Where the growth came from.") — it must be authored true of the
+     * fill, never hardcoded. Count-asserting headlines (trend, priorities) are
+     * DERIVED by the template from the fill's own counts instead.
+     */
+    headlines: z.object({
+      segment: z.string().min(1).max(40),
+    }),
     agenda: z.array(AgendaEntry).min(3).max(7),
     summary: z.object({
       lead: z.string().min(1).max(110),
@@ -181,7 +191,7 @@ export const QUARTER_SECTIONS: SectionSpec[] = [
     purpose: 'The four headline metrics with a vs-plan mini-table; exactly one is flagged.',
     repeats: { min: 1, max: 1 },
     slots: [
-      { name: 'kpis', type: 'metric', required: true, limits: { minItems: 4, maxItems: 4 }, guidance: 'Exactly four KPI tiles; exactly one carries status "off-track" — the single red figure in a green row.' },
+      { name: 'kpis', type: 'metric', required: true, limits: { minItems: 4, maxItems: 4 }, guidance: 'Exactly four KPI tiles; exactly one carries status "off-track" — the single red figure in a green row. Values with unit "percent" are FRACTIONS (0.14 renders as 14.0%), and delta is ALWAYS a fraction of change whatever the unit (0.23 renders as +23.0%) — never an absolute.' },
       { name: 'kpiVsPlan', type: 'tableRows', required: true, limits: { minItems: 4, maxItems: 4 }, guidance: 'One vs-plan row per KPI: metric, actual, plan, delta — neutral ink so the flag stays the only red element.' },
       { name: 'kpiNote', type: 'text', required: true, limits: { maxChars: 120 }, guidance: 'One-line reading of the row, e.g. "Three are on track; net revenue retention is not.".' },
       { name: 'anomalyLabel', type: 'text', required: true, limits: { maxChars: 40 }, guidance: 'REQUIRED verbatim flag shown in the pinned strip under the tiles.' },
@@ -203,6 +213,7 @@ export const QUARTER_SECTIONS: SectionSpec[] = [
     purpose: 'Revenue by segment against plan (comp.category-bar-chart).',
     repeats: { min: 1, max: 1 },
     slots: [
+      { name: 'headlines.segment', type: 'text', required: true, limits: { maxChars: 40 }, guidance: 'The segment slide\'s editorial headline — a claim that must be TRUE of your segments, e.g. "Where the growth came from.".' },
       { name: 'segments', type: 'items', required: true, limits: { minItems: 3, maxItems: 6 }, guidance: 'Three-to-six segments; each a value with an optional plan target (diamond marker).' },
       { name: 'segmentNote', type: 'text', required: true, limits: { maxChars: 180 }, guidance: 'Which segments beat, which missed, and how that ties to the flag.' },
     ],
