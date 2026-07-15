@@ -226,6 +226,10 @@ function PipelineLedger({
 export default function LedgerTemplate({ fill }: { fill: LedgerFill }) {
   const { reduced } = useMotionPreference();
   const { office, hero, pipeline, table, posture, outcomes, decisions } = fill;
+  // The tables' subject-noun header is the first token of the fill's row
+  // legend ("MODEL · TIER · OWNER" → "MODEL"; an agent programme gets AGENT) —
+  // the subject is content, not chrome.
+  const subjectNoun = pipeline.rowLegend.split('·')[0]!.trim() || 'ITEM';
 
   useEffect(() => {
     // Derived from the fill: a different programme gets a truthful tab title
@@ -333,7 +337,7 @@ export default function LedgerTemplate({ fill }: { fill: LedgerFill }) {
               </caption>
               <thead>
                 <tr>
-                  <th scope="col">MODEL</th>
+                  <th scope="col">{subjectNoun}</th>
                   <th scope="col">TIER</th>
                   <th scope="col">OWNER</th>
                   <th scope="col">STAGE</th>
@@ -409,7 +413,7 @@ export default function LedgerTemplate({ fill }: { fill: LedgerFill }) {
                 <tr>
                   <th scope="col">REF</th>
                   <th scope="col">DATE</th>
-                  <th scope="col">MODEL</th>
+                  <th scope="col">{subjectNoun}</th>
                   <th scope="col">TIER</th>
                   <th scope="col">OUTCOME</th>
                   <th scope="col" className="lg-num">

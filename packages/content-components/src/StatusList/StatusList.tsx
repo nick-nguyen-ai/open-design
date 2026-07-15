@@ -30,6 +30,12 @@ export interface StatusListProps {
   errorMessage?: string;
   onRetry?: () => void;
   className?: string;
+  /**
+   * IANA time zone for rendering item timestamps (e.g. `'UTC'`). Defaults to
+   * the viewer's local zone. Pass this when the surrounding page shows a clock
+   * in a fixed zone — otherwise the list's stamps silently disagree with it.
+   */
+  timeZone?: string;
 }
 
 const STATUS_LABEL: Record<StatusKind, string> = {
@@ -56,17 +62,24 @@ const STATUS_ICON: Record<StatusKind, () => ReactNode> = {
   neutral: DashCircleIcon,
 };
 
-const TIMESTAMP_FORMATTER = new Intl.DateTimeFormat('en-US', {
-  dateStyle: 'medium',
-  timeStyle: 'short',
-});
+const FORMATTERS = new Map<string, Intl.DateTimeFormat>();
 
-function formatTimestamp(timestamp: string): string {
-  const date = new Date(timestamp);
-  return Number.isNaN(date.getTime()) ? timestamp : TIMESTAMP_FORMATTER.format(date);
+function timestampFormatter(timeZone: string | undefined): Intl.DateTimeFormat {
+  const key = timeZone ?? 'local';
+  let formatter = FORMATTERS.get(key);
+  if (!formatter) {
+    formatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', timeStyle: 'short', timeZone });
+    FORMATTERS.set(key, formatter);
+  }
+  return formatter;
 }
 
-function StatusListRow({ item }: { item: StatusListItemDatum }) {
+function formatTimestamp(timestamp: string, timeZone: string | undefined): string {
+  const date = new Date(timestamp);
+  return Number.isNaN(date.getTime()) ? timestamp : timestampFormatter(timeZone).format(date);
+}
+
+function StatusListRow({ item, timeZone }: { item: StatusListItemDatum; timeZone?: string }) {
   const StatusIcon = STATUS_ICON[item.status];
   return (
     <li className="flex items-start gap-3 border-b border-border-subtle py-3 last:border-b-0">
@@ -82,7 +95,7 @@ function StatusListRow({ item }: { item: StatusListItemDatum }) {
       </div>
       {item.timestamp ? (
         <time dateTime={item.timestamp} className="shrink-0 text-xs font-numeric text-text-muted">
-          {formatTimestamp(item.timestamp)}
+          {formatTimestamp(item.timestamp, timeZone)}
         </time>
       ) : null}
     </li>
@@ -105,7 +118,7 @@ function LoadingRows({ count }: { count: number }) {
  * data) — each row encodes its status via a Badge tone AND a distinct icon
  * shape, so colour is never the only signal.
  */
-export function StatusList({ items, title, state, loadingCount = 3, errorMessage, onRetry, className }: StatusListProps) {
+export function StatusList({ items, title, state, loadingCount = 3, errorMessage, onRetry, className, timeZone }: StatusListProps) {
   const resolvedState = state ?? (items.length === 0 ? 'empty' : 'default');
 
   if (resolvedState === 'loading') {
@@ -129,7 +142,7 @@ export function StatusList({ items, title, state, loadingCount = 3, errorMessage
   return (
     <ul aria-label={title} className={className}>
       {items.map((item) => (
-        <StatusListRow key={item.id} item={item} />
+        <StatusListRow key={item.id} item={item} timeZone={timeZone} />
       ))}
     </ul>
   );

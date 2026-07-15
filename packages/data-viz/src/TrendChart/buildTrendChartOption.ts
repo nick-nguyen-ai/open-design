@@ -37,11 +37,19 @@ export interface BuildTrendChartOptionOptions {
 const LINE_DASH_STYLES = ['solid', 'dashed', 'dotted'] as const;
 const SERIES_SYMBOLS = ['circle', 'diamond', 'triangle', 'rect'] as const;
 
-/** The union of every series' `x` value, in ascending (lexical/chronological) order. */
+/**
+ * The union of every series' `x` value. ISO-like date labels (`YYYY-MM…`) sort
+ * lexically — which IS chronological for them — so misaligned date series merge
+ * correctly. Any other category vocabulary (quarter labels like `Q1 FY27`,
+ * month names, stage names) is NOT lexically chronological, so the authored
+ * first-seen order is preserved verbatim.
+ */
 export function collectTrendChartCategories(series: readonly TrendChartSeriesInput[]): string[] {
   const set = new Set<string>();
   for (const s of series) for (const point of s.points) set.add(point.x);
-  return [...set].sort();
+  const labels = [...set];
+  const isoLike = labels.every((label) => /^\d{4}-\d{2}/.test(label));
+  return isoLike ? labels.sort() : labels;
 }
 
 function average(points: readonly TrendChartPoint[]): number | undefined {

@@ -41,6 +41,22 @@ describe('collectTrendChartCategories', () => {
     ];
     expect(collectTrendChartCategories(series)).toEqual(['2026-01', '2026-02']);
   });
+
+  it('preserves authored order for non-date category labels (quarters are not lexically chronological)', () => {
+    const series: TrendChartSeriesInput[] = [
+      {
+        id: 'revenue',
+        label: 'Revenue',
+        points: [
+          { x: 'Q4 FY25', y: 211.4 },
+          { x: 'Q1 FY26', y: 214.5 },
+          { x: 'Q2 FY26', y: 236.0 },
+          { x: 'Q1 FY27', y: 264.2 },
+        ],
+      },
+    ];
+    expect(collectTrendChartCategories(series)).toEqual(['Q4 FY25', 'Q1 FY26', 'Q2 FY26', 'Q1 FY27']);
+  });
 });
 
 describe('buildTrendChartOption', () => {

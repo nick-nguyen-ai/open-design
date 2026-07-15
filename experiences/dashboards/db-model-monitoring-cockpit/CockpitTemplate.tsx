@@ -452,7 +452,8 @@ export default function CockpitTemplate({ fill }: { fill: CockpitFill }) {
             </div>
             <div className="ck-panel ck-panel-log">
               <h3 className="ck-panel-heading">{log.heading}</h3>
-              <StatusList title={log.listTitle} items={[...log.items]} />
+              {/* The header clock is UTC; the log's stamps must agree with it. */}
+              <StatusList title={log.listTitle} items={[...log.items]} timeZone="UTC" />
             </div>
           </div>
         </section>

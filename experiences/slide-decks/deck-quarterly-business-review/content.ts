@@ -24,6 +24,10 @@ export const quarterFill: QuarterFill = QuarterFill.parse({
     notice: 'SYNTHETIC RESULTS — DEMONSTRATION ONLY',
   },
 
+  headlines: {
+    segment: 'Where the growth came from.',
+  },
+
   agenda: [
     { no: '01', title: 'Performance', detail: 'The quarter against plan — headline metrics and revenue trend.' },
     { no: '02', title: 'Segments', detail: 'Where growth came from, and where it did not.' },
