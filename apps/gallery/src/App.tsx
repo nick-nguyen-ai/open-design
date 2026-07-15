@@ -40,6 +40,13 @@ const OpenWikiDemo = lazy(
   () => import('../../../experiences/slide-decks/sample-openwiki/OpenWikiPage.js'),
 );
 
+// design-borrow skill run EVIDENCE — the Cutover swimlanes part
+// (deck-cloud-migration/waves/swimlanes) borrowed into a standalone page.
+// Not a catalogue template.
+const BorrowPilotDemo = lazy(
+  () => import('../../../experiences/slide-decks/demo-borrow-pilot/BorrowPilotPage.js'),
+);
+
 export function App() {
   const preferences = usePreferences();
 
@@ -76,6 +83,14 @@ export function App() {
             element={
               <Suspense fallback={<RouteFallback />}>
                 <OpenWikiDemo />
+              </Suspense>
+            }
+          />
+          <Route
+            path="demo/borrow-pilot"
+            element={
+              <Suspense fallback={<RouteFallback />}>
+                <BorrowPilotDemo />
               </Suspense>
             }
           />

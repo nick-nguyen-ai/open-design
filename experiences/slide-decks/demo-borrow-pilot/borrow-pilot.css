@@ -1,0 +1,192 @@
+/*
+ * BORROW PILOT — art layer for the design-borrow run evidence page.
+ *
+ * The swimlane/chip/rise blocks below are the CSS closure borrowed from
+ * deck-cloud-migration/cutover.css (prefix cu- → bp-), re-inked slightly
+ * warmer for this page. The animation trigger is `data-armed` on the root
+ * (mount) instead of the deck's slide `data-state='active'`. Reduced motion
+ * collapses the rise exactly as the source does.
+ */
+
+.bp-root {
+  --bp-canvas: #fbfaf8;
+  --bp-ink: #232a33;
+  --bp-ink-soft: #4c5563;
+  --bp-faint: #8b95a3;
+  --bp-focus: #b56a2f;
+  --bp-ui: #dbe8f7;
+  --bp-ui-edge: #9db8dd;
+  --bp-contract: #e3f2e4;
+  --bp-contract-edge: #a6cfa8;
+  --bp-skill: #fdeeda;
+  --bp-skill-edge: #e8c79a;
+  --bp-line: rgba(60, 70, 90, 0.16);
+  --bp-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+  --bp-sans: 'Inter Variable', 'Inter', system-ui, sans-serif;
+
+  min-height: 100svh;
+  color: var(--bp-ink);
+  font-family: var(--bp-sans);
+  font-size: 0.875rem;
+  line-height: 1.55;
+  background: var(--bp-canvas);
+}
+
+.bp-chrome {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 1rem 1.6rem;
+  border-bottom: 1px solid var(--bp-line);
+  font-family: var(--bp-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  color: var(--bp-faint);
+}
+
+.bp-back {
+  color: var(--bp-ink-soft);
+  text-decoration: none;
+}
+
+.bp-back:hover {
+  color: var(--bp-focus);
+}
+
+.bp-main {
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: 3rem 1.6rem 4rem;
+}
+
+.bp-heading {
+  font-size: 1.9rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.6rem;
+}
+
+.bp-standfirst {
+  max-width: 44rem;
+  color: var(--bp-ink-soft);
+  margin: 0 0 2.2rem;
+}
+
+/* ---------------------------------------------------------------- */
+/* Borrowed: swimlanes (cu-swimlanes closure, re-prefixed)           */
+/* ---------------------------------------------------------------- */
+
+.bp-swimlanes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.4rem;
+  margin-top: 0.4rem;
+}
+
+.bp-lane {
+  padding: 1.2rem 1.3rem;
+  background: #fff;
+  border: 1px solid var(--bp-line);
+  border-radius: 6px;
+  border-left: 3px solid var(--bp-focus);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  min-height: 13rem;
+}
+
+.bp-lane-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.8rem;
+}
+
+.bp-lane-name {
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--bp-ink);
+}
+
+.bp-lane-when {
+  font-family: var(--bp-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  color: var(--bp-faint);
+}
+
+.bp-lane-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.bp-lane-note {
+  margin: auto 0 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--bp-ink-soft);
+}
+
+/* Borrowed: chips (cu-chip closure), kinds re-semanticized. */
+.bp-chip {
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  font-family: var(--bp-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--bp-ink-soft);
+}
+
+.bp-chip[data-kind='ui'] {
+  background: var(--bp-ui);
+  border-color: var(--bp-ui-edge);
+}
+
+.bp-chip[data-kind='contract'] {
+  background: var(--bp-contract);
+  border-color: var(--bp-contract-edge);
+}
+
+.bp-chip[data-kind='skill'] {
+  background: var(--bp-skill);
+  border-color: var(--bp-skill-edge);
+}
+
+/* Borrowed: the Build stagger (cu-build/cu-rise closure); trigger is the
+   mount-armed root, not a deck slide state. */
+.bp-root[data-armed='true'] .bp-build {
+  animation: bp-rise var(--dur-structure) var(--ease-settle) both;
+  animation-delay: calc(var(--bp-i, 0) * var(--dur-feedback));
+}
+
+@keyframes bp-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.6rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reduced motion — same collapse as the source. */
+.bp-root[data-reduced='true'][data-armed='true'] .bp-build {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bp-root[data-armed='true'] .bp-build {
+    animation: none;
+  }
+}
+
+/* Narrow viewports — borrowed single-column collapse. */
+@media (max-width: 62rem) {
+  .bp-swimlanes {
+    grid-template-columns: 1fr;
+  }
+}
