@@ -1,0 +1,1099 @@
+{
+  "generatedAt": "2026-07-15T03:06:41.964Z",
+  "sample": "gitlab-qbr",
+  "brief": "GitLab Q1 FY27 quarterly business review for the board from public filings: a fourth straight revenue beat and a raised full-year guide, one honest flag — self-managed flat quarter on quarter for the first time since IPO — named enterprise wins, pipeline coverage, risks, and next-quarter priorities.",
+  "context": {
+    "surface": "slide-deck",
+    "audience": [
+      "executive",
+      "business"
+    ],
+    "businessIntent": [
+      "review-quarterly-performance",
+      "report-financial-results"
+    ],
+    "corporateSuitability": "restricted",
+    "motionPreference": 1,
+    "styleHint": "conventional"
+  },
+  "compose": {
+    "tool": "compose_slide_deck",
+    "arguments": {
+      "context": {
+        "surface": "slide-deck",
+        "audience": [
+          "executive",
+          "business"
+        ],
+        "businessIntent": [
+          "review-quarterly-performance",
+          "report-financial-results"
+        ],
+        "corporateSuitability": "restricted",
+        "motionPreference": 1,
+        "styleHint": "conventional"
+      },
+      "contentBrief": "GitLab Q1 FY27 quarterly business review for the board from public filings: a fourth straight revenue beat and a raised full-year guide, one honest flag — self-managed flat quarter on quarter for the first time since IPO — named enterprise wins, pipeline coverage, risks, and next-quarter priorities."
+    },
+    "structuredContent": {
+      "worldTemplateId": "quarter",
+      "experienceId": "deck-quarterly-business-review",
+      "rationale": "Selected 'quarter' (deck-quarterly-business-review, conventional style); shares audience(s) [executive, business]; matched intent keyword(s) [review, quarterly, performance, the, board]; conventional style fits restricted corporate suitability; motion preference 1 noted (the template locks its own motion).",
+      "evidence": [
+        "quarter (deck-quarterly-business-review): audienceOverlap 2×2=4 + intentMatch 5 + corporateFit 2 = 11"
+      ],
+      "fillSkeleton": {
+        "sections": [
+          {
+            "kind": "title",
+            "purpose": "The cover — org, period, the one-line lead, confidentiality, and the synthetic notice.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "deck.title",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 30
+                  },
+                  "guidance": "The deck title, shown on the persistent title bar of every slide, e.g. \"Quarterly Business Review\"."
+                },
+                "guidance": "The deck title, shown on the persistent title bar of every slide, e.g. \"Quarterly Business Review\".",
+                "example": "Quarterly Business Review"
+              },
+              {
+                "spec": {
+                  "name": "deck.org",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 30
+                  },
+                  "guidance": "Organisation name, set in mono small-caps above the cover title."
+                },
+                "guidance": "Organisation name, set in mono small-caps above the cover title.",
+                "example": "<text, ≤30 chars>"
+              },
+              {
+                "spec": {
+                  "name": "deck.period",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 48
+                  },
+                  "guidance": "The reporting period and deck kind, e.g. \"Q3 FY26 · Quarterly Business Review\"."
+                },
+                "guidance": "The reporting period and deck kind, e.g. \"Q3 FY26 · Quarterly Business Review\".",
+                "example": "Q3 FY26 · Quarterly Business Review"
+              },
+              {
+                "spec": {
+                  "name": "deck.periodShort",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 16
+                  },
+                  "guidance": "The short reporting period composed into the title-bar tag and the vs-plan caption, e.g. \"Q3 FY26\"."
+                },
+                "guidance": "The short reporting period composed into the title-bar tag and the vs-plan caption, e.g. \"Q3 FY26\".",
+                "example": "Q3 FY26"
+              },
+              {
+                "spec": {
+                  "name": "deck.confidentiality",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 48
+                  },
+                  "guidance": "Distribution line, e.g. \"CONFIDENTIAL — BOARD DISTRIBUTION\"."
+                },
+                "guidance": "Distribution line, e.g. \"CONFIDENTIAL — BOARD DISTRIBUTION\".",
+                "example": "CONFIDENTIAL — BOARD DISTRIBUTION"
+              },
+              {
+                "spec": {
+                  "name": "deck.notice",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 52
+                  },
+                  "guidance": "REQUIRED synthetic-data notice printed on every footer rule."
+                },
+                "guidance": "REQUIRED synthetic-data notice printed on every footer rule.",
+                "example": "<text, ≤52 chars>"
+              },
+              {
+                "spec": {
+                  "name": "summary.lead",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 110
+                  },
+                  "guidance": "One sentence framing the quarter — the honest through-line, shown on the cover."
+                },
+                "guidance": "One sentence framing the quarter — the honest through-line, shown on the cover.",
+                "example": "<longtext, ≤110 chars>"
+              }
+            ]
+          },
+          {
+            "kind": "agenda",
+            "purpose": "The numbered agenda — the five sections the deck will walk.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "agenda",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 7
+                  },
+                  "guidance": "Numbered sections; each has a short title (≤20 chars) and a one-line detail (≤90 chars)."
+                },
+                "guidance": "Numbered sections; each has a short title (≤20 chars) and a one-line detail (≤90 chars).",
+                "example": "<3–7 items>"
+              }
+            ]
+          },
+          {
+            "kind": "summary",
+            "purpose": "The executive summary — three-to-five sentences, one of them naming the anomaly.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "summary.sentences",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 240,
+                    "minItems": 3,
+                    "maxItems": 5
+                  },
+                  "guidance": "Numbered summary sentences; one should name the flagged metric so the flag is not a surprise."
+                },
+                "guidance": "Numbered summary sentences; one should name the flagged metric so the flag is not a surprise.",
+                "example": "<3–5 items>"
+              },
+              {
+                "spec": {
+                  "name": "anomalyLabel",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 40
+                  },
+                  "guidance": "REQUIRED verbatim flag, echoed here and on the KPI slide, e.g. \"NRR 96% — BELOW 100% FLOOR\"."
+                },
+                "guidance": "REQUIRED verbatim flag, echoed here and on the KPI slide, e.g. \"NRR 96% — BELOW 100% FLOOR\".",
+                "example": "NRR 96% — BELOW 100% FLOOR"
+              }
+            ]
+          },
+          {
+            "kind": "kpi",
+            "purpose": "The four headline metrics with a vs-plan mini-table; exactly one is flagged.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "kpis",
+                  "type": "metric",
+                  "required": true,
+                  "limits": {
+                    "minItems": 4,
+                    "maxItems": 4
+                  },
+                  "guidance": "Exactly four KPI tiles; exactly one carries status \"off-track\" — the single red figure in a green row. Values with unit \"percent\" are FRACTIONS (0.14 renders as 14.0%), and delta is ALWAYS a fraction of change whatever the unit (0.23 renders as +23.0%) — never an absolute."
+                },
+                "guidance": "Exactly four KPI tiles; exactly one carries status \"off-track\" — the single red figure in a green row. Values with unit \"percent\" are FRACTIONS (0.14 renders as 14.0%), and delta is ALWAYS a fraction of change whatever the unit (0.23 renders as +23.0%) — never an absolute.",
+                "example": "<4–4 metric>"
+              },
+              {
+                "spec": {
+                  "name": "kpiVsPlan",
+                  "type": "tableRows",
+                  "required": true,
+                  "limits": {
+                    "minItems": 4,
+                    "maxItems": 4
+                  },
+                  "guidance": "One vs-plan row per KPI: metric, actual, plan, delta — neutral ink so the flag stays the only red element."
+                },
+                "guidance": "One vs-plan row per KPI: metric, actual, plan, delta — neutral ink so the flag stays the only red element.",
+                "example": "<4–4 tableRows>"
+              },
+              {
+                "spec": {
+                  "name": "kpiNote",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 120
+                  },
+                  "guidance": "One-line reading of the row, e.g. \"Three are on track; net revenue retention is not.\"."
+                },
+                "guidance": "One-line reading of the row, e.g. \"Three are on track; net revenue retention is not.\".",
+                "example": "Three are on track; net revenue retention is not."
+              },
+              {
+                "spec": {
+                  "name": "anomalyLabel",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 40
+                  },
+                  "guidance": "REQUIRED verbatim flag shown in the pinned strip under the tiles."
+                },
+                "guidance": "REQUIRED verbatim flag shown in the pinned strip under the tiles.",
+                "example": "<text, ≤40 chars>"
+              }
+            ]
+          },
+          {
+            "kind": "trend",
+            "purpose": "The multi-quarter revenue trend (comp.trend-chart).",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "revenueSeries.id",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 24
+                  },
+                  "guidance": "Stable machine id for the revenue series, e.g. \"revenue\"."
+                },
+                "guidance": "Stable machine id for the revenue series, e.g. \"revenue\".",
+                "example": "revenue"
+              },
+              {
+                "spec": {
+                  "name": "revenueSeries.label",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 24
+                  },
+                  "guidance": "The series name for the revenue line — its accessible data-table column header, e.g. \"Recognised revenue\"."
+                },
+                "guidance": "The series name for the revenue line — its accessible data-table column header, e.g. \"Recognised revenue\".",
+                "example": "Recognised revenue"
+              },
+              {
+                "spec": {
+                  "name": "revenueSeries.points",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 6,
+                    "maxItems": 10
+                  },
+                  "guidance": "Six-to-ten period points on the revenueSeries object; each is { x: period label (≤16 chars), y: value | null }, and the last point is the reporting quarter."
+                },
+                "guidance": "Six-to-ten period points on the revenueSeries object; each is { x: period label (≤16 chars), y: value | null }, and the last point is the reporting quarter.",
+                "example": "<6–10 items>"
+              },
+              {
+                "spec": {
+                  "name": "revenueNote",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 140
+                  },
+                  "guidance": "Source note explaining the trend and any step, shown under the chart."
+                },
+                "guidance": "Source note explaining the trend and any step, shown under the chart.",
+                "example": "<text, ≤140 chars>"
+              }
+            ]
+          },
+          {
+            "kind": "segment",
+            "purpose": "Revenue by segment against plan (comp.category-bar-chart).",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "headlines.segment",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 40
+                  },
+                  "guidance": "The segment slide's editorial headline — a claim that must be TRUE of your segments, e.g. \"Where the growth came from.\"."
+                },
+                "guidance": "The segment slide's editorial headline — a claim that must be TRUE of your segments, e.g. \"Where the growth came from.\".",
+                "example": "Where the growth came from."
+              },
+              {
+                "spec": {
+                  "name": "segments",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 6
+                  },
+                  "guidance": "Three-to-six segments; each a value with an optional plan target (diamond marker)."
+                },
+                "guidance": "Three-to-six segments; each a value with an optional plan target (diamond marker).",
+                "example": "<3–6 items>"
+              },
+              {
+                "spec": {
+                  "name": "segmentNote",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 180
+                  },
+                  "guidance": "Which segments beat, which missed, and how that ties to the flag."
+                },
+                "guidance": "Which segments beat, which missed, and how that ties to the flag.",
+                "example": "<text, ≤180 chars>"
+              }
+            ]
+          },
+          {
+            "kind": "winsLosses",
+            "purpose": "Two columns — deals won and deals lost.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "wins",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 2,
+                    "maxItems": 4
+                  },
+                  "guidance": "Deals won; each has a name, a value, and a one-line note."
+                },
+                "guidance": "Deals won; each has a name, a value, and a one-line note.",
+                "example": "<2–4 items>"
+              },
+              {
+                "spec": {
+                  "name": "losses",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 2,
+                    "maxItems": 4
+                  },
+                  "guidance": "Deals lost; keep the count matched to wins so the two columns balance."
+                },
+                "guidance": "Deals lost; keep the count matched to wins so the two columns balance.",
+                "example": "<2–4 items>"
+              }
+            ]
+          },
+          {
+            "kind": "pipeline",
+            "purpose": "The weighted pipeline table by stage.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "pipeline",
+                  "type": "tableRows",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 6
+                  },
+                  "guidance": "Pipeline stages: stage, deal count, weighted value, coverage multiple."
+                },
+                "guidance": "Pipeline stages: stage, deal count, weighted value, coverage multiple.",
+                "example": "<3–6 tableRows>"
+              },
+              {
+                "spec": {
+                  "name": "pipelineNote",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 140
+                  },
+                  "guidance": "Coverage reading against the next-quarter target."
+                },
+                "guidance": "Coverage reading against the next-quarter target.",
+                "example": "<text, ≤140 chars>"
+              }
+            ]
+          },
+          {
+            "kind": "risks",
+            "purpose": "Risks and mitigations table.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "risks",
+                  "type": "tableRows",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 6
+                  },
+                  "guidance": "Each risk: a name, a severity (High | Medium | Low), and a mitigation."
+                },
+                "guidance": "Each risk: a name, a severity (High | Medium | Low), and a mitigation.",
+                "example": "<3–6 tableRows>"
+              }
+            ]
+          },
+          {
+            "kind": "priorities",
+            "purpose": "The numbered next-quarter priorities.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "priorities",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 5
+                  },
+                  "guidance": "Numbered priorities; each a short title (≤40 chars) and a one-line detail (≤160 chars)."
+                },
+                "guidance": "Numbered priorities; each a short title (≤40 chars) and a one-line detail (≤160 chars).",
+                "example": "<3–5 items>"
+              }
+            ]
+          },
+          {
+            "kind": "appendix",
+            "purpose": "The data-notes appendix declaring the figures synthetic.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "dataNotes",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 2,
+                    "maxItems": 6
+                  },
+                  "guidance": "Method notes; the first should declare every figure synthetic and illustrative."
+                },
+                "guidance": "Method notes; the first should declare every figure synthetic and illustrative.",
+                "example": "<2–6 items>"
+              }
+            ]
+          }
+        ],
+        "craftGuarantees": [
+          "Deliberately conventional slide anatomy: a persistent navy title bar, a 12-column content grid, a numbered agenda, and a footer rule — executed flawlessly, no world conceit.",
+          "Exactly one KPI carries the off-track anomaly status: the single red figure in an otherwise green row, echoed verbatim in the executive summary.",
+          "The synthetic-data notice is required and prints on the footer rule of every slide.",
+          "Restrained single fade/rise motion (motionLevel 1); the mood is locked light.",
+          "Slot char caps and item counts are sized so any schema-valid fill stays composed — headlines never overflow and grids stay balanced."
+        ]
+      }
+    },
+    "text": {
+      "worldTemplateId": "quarter",
+      "experienceId": "deck-quarterly-business-review",
+      "rationale": "Selected 'quarter' (deck-quarterly-business-review, conventional style); shares audience(s) [executive, business]; matched intent keyword(s) [review, quarterly, performance, the, board]; conventional style fits restricted corporate suitability; motion preference 1 noted (the template locks its own motion).",
+      "evidence": [
+        "quarter (deck-quarterly-business-review): audienceOverlap 2×2=4 + intentMatch 5 + corporateFit 2 = 11"
+      ],
+      "fillSkeleton": {
+        "sections": [
+          {
+            "kind": "title",
+            "purpose": "The cover — org, period, the one-line lead, confidentiality, and the synthetic notice.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "deck.title",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 30
+                  },
+                  "guidance": "The deck title, shown on the persistent title bar of every slide, e.g. \"Quarterly Business Review\"."
+                },
+                "guidance": "The deck title, shown on the persistent title bar of every slide, e.g. \"Quarterly Business Review\".",
+                "example": "Quarterly Business Review"
+              },
+              {
+                "spec": {
+                  "name": "deck.org",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 30
+                  },
+                  "guidance": "Organisation name, set in mono small-caps above the cover title."
+                },
+                "guidance": "Organisation name, set in mono small-caps above the cover title.",
+                "example": "<text, ≤30 chars>"
+              },
+              {
+                "spec": {
+                  "name": "deck.period",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 48
+                  },
+                  "guidance": "The reporting period and deck kind, e.g. \"Q3 FY26 · Quarterly Business Review\"."
+                },
+                "guidance": "The reporting period and deck kind, e.g. \"Q3 FY26 · Quarterly Business Review\".",
+                "example": "Q3 FY26 · Quarterly Business Review"
+              },
+              {
+                "spec": {
+                  "name": "deck.periodShort",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 16
+                  },
+                  "guidance": "The short reporting period composed into the title-bar tag and the vs-plan caption, e.g. \"Q3 FY26\"."
+                },
+                "guidance": "The short reporting period composed into the title-bar tag and the vs-plan caption, e.g. \"Q3 FY26\".",
+                "example": "Q3 FY26"
+              },
+              {
+                "spec": {
+                  "name": "deck.confidentiality",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 48
+                  },
+                  "guidance": "Distribution line, e.g. \"CONFIDENTIAL — BOARD DISTRIBUTION\"."
+                },
+                "guidance": "Distribution line, e.g. \"CONFIDENTIAL — BOARD DISTRIBUTION\".",
+                "example": "CONFIDENTIAL — BOARD DISTRIBUTION"
+              },
+              {
+                "spec": {
+                  "name": "deck.notice",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 52
+                  },
+                  "guidance": "REQUIRED synthetic-data notice printed on every footer rule."
+                },
+                "guidance": "REQUIRED synthetic-data notice printed on every footer rule.",
+                "example": "<text, ≤52 chars>"
+              },
+              {
+                "spec": {
+                  "name": "summary.lead",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 110
+                  },
+                  "guidance": "One sentence framing the quarter — the honest through-line, shown on the cover."
+                },
+                "guidance": "One sentence framing the quarter — the honest through-line, shown on the cover.",
+                "example": "<longtext, ≤110 chars>"
+              }
+            ]
+          },
+          {
+            "kind": "agenda",
+            "purpose": "The numbered agenda — the five sections the deck will walk.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "agenda",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 7
+                  },
+                  "guidance": "Numbered sections; each has a short title (≤20 chars) and a one-line detail (≤90 chars)."
+                },
+                "guidance": "Numbered sections; each has a short title (≤20 chars) and a one-line detail (≤90 chars).",
+                "example": "<3–7 items>"
+              }
+            ]
+          },
+          {
+            "kind": "summary",
+            "purpose": "The executive summary — three-to-five sentences, one of them naming the anomaly.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "summary.sentences",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 240,
+                    "minItems": 3,
+                    "maxItems": 5
+                  },
+                  "guidance": "Numbered summary sentences; one should name the flagged metric so the flag is not a surprise."
+                },
+                "guidance": "Numbered summary sentences; one should name the flagged metric so the flag is not a surprise.",
+                "example": "<3–5 items>"
+              },
+              {
+                "spec": {
+                  "name": "anomalyLabel",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 40
+                  },
+                  "guidance": "REQUIRED verbatim flag, echoed here and on the KPI slide, e.g. \"NRR 96% — BELOW 100% FLOOR\"."
+                },
+                "guidance": "REQUIRED verbatim flag, echoed here and on the KPI slide, e.g. \"NRR 96% — BELOW 100% FLOOR\".",
+                "example": "NRR 96% — BELOW 100% FLOOR"
+              }
+            ]
+          },
+          {
+            "kind": "kpi",
+            "purpose": "The four headline metrics with a vs-plan mini-table; exactly one is flagged.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "kpis",
+                  "type": "metric",
+                  "required": true,
+                  "limits": {
+                    "minItems": 4,
+                    "maxItems": 4
+                  },
+                  "guidance": "Exactly four KPI tiles; exactly one carries status \"off-track\" — the single red figure in a green row. Values with unit \"percent\" are FRACTIONS (0.14 renders as 14.0%), and delta is ALWAYS a fraction of change whatever the unit (0.23 renders as +23.0%) — never an absolute."
+                },
+                "guidance": "Exactly four KPI tiles; exactly one carries status \"off-track\" — the single red figure in a green row. Values with unit \"percent\" are FRACTIONS (0.14 renders as 14.0%), and delta is ALWAYS a fraction of change whatever the unit (0.23 renders as +23.0%) — never an absolute.",
+                "example": "<4–4 metric>"
+              },
+              {
+                "spec": {
+                  "name": "kpiVsPlan",
+                  "type": "tableRows",
+                  "required": true,
+                  "limits": {
+                    "minItems": 4,
+                    "maxItems": 4
+                  },
+                  "guidance": "One vs-plan row per KPI: metric, actual, plan, delta — neutral ink so the flag stays the only red element."
+                },
+                "guidance": "One vs-plan row per KPI: metric, actual, plan, delta — neutral ink so the flag stays the only red element.",
+                "example": "<4–4 tableRows>"
+              },
+              {
+                "spec": {
+                  "name": "kpiNote",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 120
+                  },
+                  "guidance": "One-line reading of the row, e.g. \"Three are on track; net revenue retention is not.\"."
+                },
+                "guidance": "One-line reading of the row, e.g. \"Three are on track; net revenue retention is not.\".",
+                "example": "Three are on track; net revenue retention is not."
+              },
+              {
+                "spec": {
+                  "name": "anomalyLabel",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 40
+                  },
+                  "guidance": "REQUIRED verbatim flag shown in the pinned strip under the tiles."
+                },
+                "guidance": "REQUIRED verbatim flag shown in the pinned strip under the tiles.",
+                "example": "<text, ≤40 chars>"
+              }
+            ]
+          },
+          {
+            "kind": "trend",
+            "purpose": "The multi-quarter revenue trend (comp.trend-chart).",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "revenueSeries.id",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 24
+                  },
+                  "guidance": "Stable machine id for the revenue series, e.g. \"revenue\"."
+                },
+                "guidance": "Stable machine id for the revenue series, e.g. \"revenue\".",
+                "example": "revenue"
+              },
+              {
+                "spec": {
+                  "name": "revenueSeries.label",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 24
+                  },
+                  "guidance": "The series name for the revenue line — its accessible data-table column header, e.g. \"Recognised revenue\"."
+                },
+                "guidance": "The series name for the revenue line — its accessible data-table column header, e.g. \"Recognised revenue\".",
+                "example": "Recognised revenue"
+              },
+              {
+                "spec": {
+                  "name": "revenueSeries.points",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 6,
+                    "maxItems": 10
+                  },
+                  "guidance": "Six-to-ten period points on the revenueSeries object; each is { x: period label (≤16 chars), y: value | null }, and the last point is the reporting quarter."
+                },
+                "guidance": "Six-to-ten period points on the revenueSeries object; each is { x: period label (≤16 chars), y: value | null }, and the last point is the reporting quarter.",
+                "example": "<6–10 items>"
+              },
+              {
+                "spec": {
+                  "name": "revenueNote",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 140
+                  },
+                  "guidance": "Source note explaining the trend and any step, shown under the chart."
+                },
+                "guidance": "Source note explaining the trend and any step, shown under the chart.",
+                "example": "<text, ≤140 chars>"
+              }
+            ]
+          },
+          {
+            "kind": "segment",
+            "purpose": "Revenue by segment against plan (comp.category-bar-chart).",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "headlines.segment",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 40
+                  },
+                  "guidance": "The segment slide's editorial headline — a claim that must be TRUE of your segments, e.g. \"Where the growth came from.\"."
+                },
+                "guidance": "The segment slide's editorial headline — a claim that must be TRUE of your segments, e.g. \"Where the growth came from.\".",
+                "example": "Where the growth came from."
+              },
+              {
+                "spec": {
+                  "name": "segments",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 6
+                  },
+                  "guidance": "Three-to-six segments; each a value with an optional plan target (diamond marker)."
+                },
+                "guidance": "Three-to-six segments; each a value with an optional plan target (diamond marker).",
+                "example": "<3–6 items>"
+              },
+              {
+                "spec": {
+                  "name": "segmentNote",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 180
+                  },
+                  "guidance": "Which segments beat, which missed, and how that ties to the flag."
+                },
+                "guidance": "Which segments beat, which missed, and how that ties to the flag.",
+                "example": "<text, ≤180 chars>"
+              }
+            ]
+          },
+          {
+            "kind": "winsLosses",
+            "purpose": "Two columns — deals won and deals lost.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "wins",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 2,
+                    "maxItems": 4
+                  },
+                  "guidance": "Deals won; each has a name, a value, and a one-line note."
+                },
+                "guidance": "Deals won; each has a name, a value, and a one-line note.",
+                "example": "<2–4 items>"
+              },
+              {
+                "spec": {
+                  "name": "losses",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 2,
+                    "maxItems": 4
+                  },
+                  "guidance": "Deals lost; keep the count matched to wins so the two columns balance."
+                },
+                "guidance": "Deals lost; keep the count matched to wins so the two columns balance.",
+                "example": "<2–4 items>"
+              }
+            ]
+          },
+          {
+            "kind": "pipeline",
+            "purpose": "The weighted pipeline table by stage.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "pipeline",
+                  "type": "tableRows",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 6
+                  },
+                  "guidance": "Pipeline stages: stage, deal count, weighted value, coverage multiple."
+                },
+                "guidance": "Pipeline stages: stage, deal count, weighted value, coverage multiple.",
+                "example": "<3–6 tableRows>"
+              },
+              {
+                "spec": {
+                  "name": "pipelineNote",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 140
+                  },
+                  "guidance": "Coverage reading against the next-quarter target."
+                },
+                "guidance": "Coverage reading against the next-quarter target.",
+                "example": "<text, ≤140 chars>"
+              }
+            ]
+          },
+          {
+            "kind": "risks",
+            "purpose": "Risks and mitigations table.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "risks",
+                  "type": "tableRows",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 6
+                  },
+                  "guidance": "Each risk: a name, a severity (High | Medium | Low), and a mitigation."
+                },
+                "guidance": "Each risk: a name, a severity (High | Medium | Low), and a mitigation.",
+                "example": "<3–6 tableRows>"
+              }
+            ]
+          },
+          {
+            "kind": "priorities",
+            "purpose": "The numbered next-quarter priorities.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "priorities",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 5
+                  },
+                  "guidance": "Numbered priorities; each a short title (≤40 chars) and a one-line detail (≤160 chars)."
+                },
+                "guidance": "Numbered priorities; each a short title (≤40 chars) and a one-line detail (≤160 chars).",
+                "example": "<3–5 items>"
+              }
+            ]
+          },
+          {
+            "kind": "appendix",
+            "purpose": "The data-notes appendix declaring the figures synthetic.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "dataNotes",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 2,
+                    "maxItems": 6
+                  },
+                  "guidance": "Method notes; the first should declare every figure synthetic and illustrative."
+                },
+                "guidance": "Method notes; the first should declare every figure synthetic and illustrative.",
+                "example": "<2–6 items>"
+              }
+            ]
+          }
+        ],
+        "craftGuarantees": [
+          "Deliberately conventional slide anatomy: a persistent navy title bar, a 12-column content grid, a numbered agenda, and a footer rule — executed flawlessly, no world conceit.",
+          "Exactly one KPI carries the off-track anomaly status: the single red figure in an otherwise green row, echoed verbatim in the executive summary.",
+          "The synthetic-data notice is required and prints on the footer rule of every slide.",
+          "Restrained single fade/rise motion (motionLevel 1); the mood is locked light.",
+          "Slot char caps and item counts are sized so any schema-valid fill stays composed — headlines never overflow and grids stay balanced."
+        ]
+      }
+    }
+  },
+  "validate": {
+    "tool": "validate_fill",
+    "arguments": {
+      "worldTemplateId": "deck-quarterly-business-review"
+    },
+    "structuredContent": {
+      "valid": true,
+      "worldTemplateId": "deck-quarterly-business-review",
+      "findings": []
+    },
+    "text": {
+      "valid": true,
+      "worldTemplateId": "deck-quarterly-business-review",
+      "findings": []
+    }
+  },
+  "checks": [
+    {
+      "name": "[gitlab-qbr] compose_slide_deck not isError",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[gitlab-qbr] compose output parses",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[gitlab-qbr] selection → deck-quarterly-business-review (quarter)",
+      "pass": true,
+      "detail": "quarter / deck-quarterly-business-review"
+    },
+    {
+      "name": "[gitlab-qbr] skeleton carries sections + craft guarantees",
+      "pass": true,
+      "detail": "11 sections"
+    },
+    {
+      "name": "[gitlab-qbr] validate_fill not isError",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[gitlab-qbr] validate_fill valid=true, no findings",
+      "pass": true,
+      "detail": "valid=true, 0 findings"
+    }
+  ]
+}

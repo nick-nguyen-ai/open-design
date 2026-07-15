@@ -1,0 +1,1147 @@
+{
+  "generatedAt": "2026-07-15T03:06:41.994Z",
+  "sample": "moderation-stack",
+  "brief": "One legible as-built drawing of our real-time trust-and-safety moderation stack: reports and the content firehose in, classifier serving with its model registry, the policy engine deciding, the enforcement log, quality watch, and the human review queue — with the review queue named honestly as the capacity constraint.",
+  "context": {
+    "surface": "technical-explainer",
+    "audience": [
+      "technical",
+      "mixed"
+    ],
+    "businessIntent": [
+      "support-architecture-review",
+      "onboard-new-engineers"
+    ],
+    "corporateSuitability": "standard",
+    "motionPreference": 2
+  },
+  "compose": {
+    "tool": "compose_explainer",
+    "arguments": {
+      "context": {
+        "surface": "technical-explainer",
+        "audience": [
+          "technical",
+          "mixed"
+        ],
+        "businessIntent": [
+          "support-architecture-review",
+          "onboard-new-engineers"
+        ],
+        "corporateSuitability": "standard",
+        "motionPreference": 2
+      },
+      "contentBrief": "One legible as-built drawing of our real-time trust-and-safety moderation stack: reports and the content firehose in, classifier serving with its model registry, the policy engine deciding, the enforcement log, quality watch, and the human review queue — with the review queue named honestly as the capacity constraint."
+    },
+    "structuredContent": {
+      "worldTemplateId": "drawing-office",
+      "experienceId": "exp-system-architecture",
+      "rationale": "Selected 'drawing-office' (exp-system-architecture, art-directed style); shares audience(s) [technical, mixed]; matched intent keyword(s) [onboard, new, engineers, support, architecture, review, built]; art-directed style fits standard corporate suitability; motion preference 2 noted (the template locks its own motion).",
+      "evidence": [
+        "drawing-office (exp-system-architecture): audienceOverlap 2×2=4 + intentMatch 7 + corporateFit 1 = 12"
+      ],
+      "fillSkeleton": {
+        "sections": [
+          {
+            "kind": "sheet",
+            "purpose": "The sheet identity — the drafting chrome, the title block, its revision table, and the required provenance notice.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "sheet.pageTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 70
+                  },
+                  "guidance": "The browser-tab title (assigned in JS, derived byte-identically from the fill), e.g. \"The Drawing Office — Model Decision Platform, As Built\"."
+                },
+                "guidance": "The browser-tab title (assigned in JS, derived byte-identically from the fill), e.g. \"The Drawing Office — Model Decision Platform, As Built\".",
+                "example": "The Drawing Office — Model Decision Platform, As Built"
+              },
+              {
+                "spec": {
+                  "name": "sheet.office",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 24
+                  },
+                  "guidance": "The drawing-office name on the top chrome, e.g. \"THE DRAWING OFFICE\"."
+                },
+                "guidance": "The drawing-office name on the top chrome, e.g. \"THE DRAWING OFFICE\".",
+                "example": "THE DRAWING OFFICE"
+              },
+              {
+                "spec": {
+                  "name": "sheet.project",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 42
+                  },
+                  "guidance": "The programme/project name on the chrome and title block, e.g. \"ENTERPRISE DECISION INTELLIGENCE\"."
+                },
+                "guidance": "The programme/project name on the chrome and title block, e.g. \"ENTERPRISE DECISION INTELLIGENCE\".",
+                "example": "ENTERPRISE DECISION INTELLIGENCE"
+              },
+              {
+                "spec": {
+                  "name": "sheet.title",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 60
+                  },
+                  "guidance": "The sheet title on the title block (and the lede prefix), e.g. \"MODEL DECISION PLATFORM — GENERAL ARRANGEMENT\"."
+                },
+                "guidance": "The sheet title on the title block (and the lede prefix), e.g. \"MODEL DECISION PLATFORM — GENERAL ARRANGEMENT\".",
+                "example": "MODEL DECISION PLATFORM — GENERAL ARRANGEMENT"
+              },
+              {
+                "spec": {
+                  "name": "sheet.drawingNo",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 18
+                  },
+                  "guidance": "The drawing number, e.g. \"EDI-ARCH-004\"."
+                },
+                "guidance": "The drawing number, e.g. \"EDI-ARCH-004\".",
+                "example": "EDI-ARCH-004"
+              },
+              {
+                "spec": {
+                  "name": "sheet.sheet",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 18
+                  },
+                  "guidance": "The sheet-of count, e.g. \"SHEET 1 OF 1\"."
+                },
+                "guidance": "The sheet-of count, e.g. \"SHEET 1 OF 1\".",
+                "example": "SHEET 1 OF 1"
+              },
+              {
+                "spec": {
+                  "name": "sheet.scale",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 18
+                  },
+                  "guidance": "The scale note, e.g. \"SCALE N.T.S.\"."
+                },
+                "guidance": "The scale note, e.g. \"SCALE N.T.S.\".",
+                "example": "SCALE N.T.S."
+              },
+              {
+                "spec": {
+                  "name": "sheet.revision",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 10
+                  },
+                  "guidance": "The current revision tag, e.g. \"REV A\"."
+                },
+                "guidance": "The current revision tag, e.g. \"REV A\".",
+                "example": "REV A"
+              },
+              {
+                "spec": {
+                  "name": "sheet.classification",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 48
+                  },
+                  "guidance": "The classification stamp in the title block; state the demonstration nature, e.g. \"SYNTHETIC DEMO — NOT FOR CONSTRUCTION\"."
+                },
+                "guidance": "The classification stamp in the title block; state the demonstration nature, e.g. \"SYNTHETIC DEMO — NOT FOR CONSTRUCTION\".",
+                "example": "SYNTHETIC DEMO — NOT FOR CONSTRUCTION"
+              },
+              {
+                "spec": {
+                  "name": "sheet.drawn",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 28
+                  },
+                  "guidance": "The DRAWN-BY name, e.g. \"S. NARAYANAN\"."
+                },
+                "guidance": "The DRAWN-BY name, e.g. \"S. NARAYANAN\".",
+                "example": "S. NARAYANAN"
+              },
+              {
+                "spec": {
+                  "name": "sheet.checked",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 28
+                  },
+                  "guidance": "The CHECKED-BY name, e.g. \"M. OKAFOR\"."
+                },
+                "guidance": "The CHECKED-BY name, e.g. \"M. OKAFOR\".",
+                "example": "M. OKAFOR"
+              },
+              {
+                "spec": {
+                  "name": "sheet.approved",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 28
+                  },
+                  "guidance": "The APPROVED-BY authority, e.g. \"PLATFORM REVIEW BOARD\"."
+                },
+                "guidance": "The APPROVED-BY authority, e.g. \"PLATFORM REVIEW BOARD\".",
+                "example": "PLATFORM REVIEW BOARD"
+              },
+              {
+                "spec": {
+                  "name": "sheet.dataNotice",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 68
+                  },
+                  "guidance": "REQUIRED provenance notice printed in the footer; must state the data is synthetic/sourced, e.g. \"SYNTHETIC DEMONSTRATION DATA · NOT A PRODUCTION RECORD\"."
+                },
+                "guidance": "REQUIRED provenance notice printed in the footer; must state the data is synthetic/sourced, e.g. \"SYNTHETIC DEMONSTRATION DATA · NOT A PRODUCTION RECORD\".",
+                "example": "SYNTHETIC DEMONSTRATION DATA · NOT A PRODUCTION RECORD"
+              },
+              {
+                "spec": {
+                  "name": "sheet.revisions",
+                  "type": "tableRows",
+                  "required": true,
+                  "limits": {
+                    "minItems": 1,
+                    "maxItems": 6
+                  },
+                  "guidance": "One-to-six revision rows (rev, date, description, by), oldest first, e.g. { rev: \"A\", date: \"2026-07-04\", description: \"ISSUED AS BUILT\", by: \"MO\" }."
+                },
+                "guidance": "One-to-six revision rows (rev, date, description, by), oldest first, e.g. { rev: \"A\", date: \"2026-07-04\", description: \"ISSUED AS BUILT\", by: \"MO\" }.",
+                "example": "<1–6 tableRows>"
+              }
+            ]
+          },
+          {
+            "kind": "masthead",
+            "purpose": "The editorial hero — the kicker, the multi-line display statement, and the one-line lede.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "masthead.kicker",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 48
+                  },
+                  "guidance": "The eyebrow above the display statement, e.g. \"AS-BUILT RECORD · CHECKED AND SIGNED\"."
+                },
+                "guidance": "The eyebrow above the display statement, e.g. \"AS-BUILT RECORD · CHECKED AND SIGNED\".",
+                "example": "AS-BUILT RECORD · CHECKED AND SIGNED"
+              },
+              {
+                "spec": {
+                  "name": "masthead.displayLines",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 56,
+                    "minItems": 1,
+                    "maxItems": 3
+                  },
+                  "guidance": "One-to-three display lines (one per array entry, rendered as broken lines), e.g. \"An architecture is a promise written down.\"."
+                },
+                "guidance": "One-to-three display lines (one per array entry, rendered as broken lines), e.g. \"An architecture is a promise written down.\".",
+                "example": "An architecture is a promise written down."
+              },
+              {
+                "spec": {
+                  "name": "masthead.lede",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 120
+                  },
+                  "guidance": "The lede tail; the template prefixes the sheet title (\"{title} — {lede}\"), e.g. \"the decision fabric behind ninety million daily answers, drawn the way it actually runs.\"."
+                },
+                "guidance": "The lede tail; the template prefixes the sheet title (\"{title} — {lede}\"), e.g. \"the decision fabric behind ninety million daily answers, drawn the way it actually runs.\".",
+                "example": "the decision fabric behind ninety million daily answers, drawn the way it actually runs."
+              }
+            ]
+          },
+          {
+            "kind": "drawing",
+            "purpose": "The general-arrangement drawing — the drawn parts, their connections, the zone boxes and dimension lines. The plan placement and routing are template-fixed; the fill carries the content and pins the id sets.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "drawing.figureHeading",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 40
+                  },
+                  "guidance": "The visually-hidden heading of the sheet region, e.g. \"The general-arrangement drawing\"."
+                },
+                "guidance": "The visually-hidden heading of the sheet region, e.g. \"The general-arrangement drawing\".",
+                "example": "The general-arrangement drawing"
+              },
+              {
+                "spec": {
+                  "name": "drawing.caption",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 270
+                  },
+                  "guidance": "The full accessible caption of the aria-hidden drawing, naming the parts, zones, and pointing to the schedule, e.g. \"General-arrangement drawing of the model decision platform: ten parts across a channel DMZ, a restricted core zone, and an overnight oversight band…\"."
+                },
+                "guidance": "The full accessible caption of the aria-hidden drawing, naming the parts, zones, and pointing to the schedule, e.g. \"General-arrangement drawing of the model decision platform: ten parts across a channel DMZ, a restricted core zone, and an overnight oversight band…\".",
+                "example": "General-arrangement drawing of the model decision platform: ten parts across a channel DMZ, a restricted core zone, and an overnight oversight band…"
+              },
+              {
+                "spec": {
+                  "name": "drawing.constraintFlag",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 12
+                  },
+                  "guidance": "The short flag label drawn beside the constrained part, e.g. \"NOTE 3\"."
+                },
+                "guidance": "The short flag label drawn beside the constrained part, e.g. \"NOTE 3\".",
+                "example": "NOTE 3"
+              },
+              {
+                "spec": {
+                  "name": "drawing.nodes",
+                  "type": "nodes",
+                  "required": true,
+                  "limits": {
+                    "minItems": 10,
+                    "maxItems": 10
+                  },
+                  "guidance": "Exactly ten parts. FIXED-SLOT: ids must be exactly the shipped plan set (edge-gateway, decision-api, stream-ingest, feature-store, model-serving, policy-engine, decision-log, drift-watch, model-registry, case-review) — the template's hand-drafted placement is keyed by id. Each: id, label, kind (start|process|data|decision|end), emphasis (standard|constrained). Exactly ONE part is \"constrained\" — the hatched capacity constraint, e.g. { id: \"feature-store\", label: \"FEATURE STORE\", kind: \"data\", emphasis: \"constrained\" }."
+                },
+                "guidance": "Exactly ten parts. FIXED-SLOT: ids must be exactly the shipped plan set (edge-gateway, decision-api, stream-ingest, feature-store, model-serving, policy-engine, decision-log, drift-watch, model-registry, case-review) — the template's hand-drafted placement is keyed by id. Each: id, label, kind (start|process|data|decision|end), emphasis (standard|constrained). Exactly ONE part is \"constrained\" — the hatched capacity constraint, e.g. { id: \"feature-store\", label: \"FEATURE STORE\", kind: \"data\", emphasis: \"constrained\" }.",
+                "example": "<10–10 nodes>"
+              },
+              {
+                "spec": {
+                  "name": "drawing.edges",
+                  "type": "edges",
+                  "required": true,
+                  "limits": {
+                    "minItems": 10,
+                    "maxItems": 10
+                  },
+                  "guidance": "Exactly ten connections. FIXED-SLOT: ids must be exactly the shipped routing set (e-edge-api, e-edge-ingest, e-ingest-fs, e-api-serving, e-fs-serving, e-registry-serving, e-serving-policy, e-policy-log, e-log-drift, e-drift-case). Each: id, from (node id), to (node id), label, e.g. { id: \"e-fs-serving\", from: \"feature-store\", to: \"model-serving\", label: \"≤ 12 ms p50 read\" }."
+                },
+                "guidance": "Exactly ten connections. FIXED-SLOT: ids must be exactly the shipped routing set (e-edge-api, e-edge-ingest, e-ingest-fs, e-api-serving, e-fs-serving, e-registry-serving, e-serving-policy, e-policy-log, e-log-drift, e-drift-case). Each: id, from (node id), to (node id), label, e.g. { id: \"e-fs-serving\", from: \"feature-store\", to: \"model-serving\", label: \"≤ 12 ms p50 read\" }.",
+                "example": "<10–10 edges>"
+              },
+              {
+                "spec": {
+                  "name": "drawing.zones",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 3
+                  },
+                  "guidance": "Exactly three zone boxes (id, label). FIXED-SLOT ids (channel-dmz, core-zone, oversight); geometry is template-fixed, e.g. { id: \"core-zone\", label: \"CORE ZONE — RESTRICTED · NOTE 1\" }."
+                },
+                "guidance": "Exactly three zone boxes (id, label). FIXED-SLOT ids (channel-dmz, core-zone, oversight); geometry is template-fixed, e.g. { id: \"core-zone\", label: \"CORE ZONE — RESTRICTED · NOTE 1\" }.",
+                "example": "<3–3 items>"
+              },
+              {
+                "spec": {
+                  "name": "drawing.dimensions",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  "guidance": "Exactly two dimension lines (id, label). FIXED-SLOT ids (hot-path, durable-record); geometry is template-fixed, e.g. { id: \"hot-path\", label: \"HOT PATH TRAVERSE ≤ 180 MS P99 · EDGE TO ANSWER\" }."
+                },
+                "guidance": "Exactly two dimension lines (id, label). FIXED-SLOT ids (hot-path, durable-record); geometry is template-fixed, e.g. { id: \"hot-path\", label: \"HOT PATH TRAVERSE ≤ 180 MS P99 · EDGE TO ANSWER\" }.",
+                "example": "<2–2 items>"
+              }
+            ]
+          },
+          {
+            "kind": "notes",
+            "purpose": "The general notes and the drawing legend — the constraint note is the single critical entry.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "notes.items",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 2,
+                    "maxItems": 8
+                  },
+                  "guidance": "Two-to-eight numbered general notes (no, text, optional critical flag). Mark the capacity-constraint note critical, e.g. { no: 3, text: \"FEATURE-STORE READ REPLICAS AT 78% OF RATED THROUGHPUT…\", critical: true }."
+                },
+                "guidance": "Two-to-eight numbered general notes (no, text, optional critical flag). Mark the capacity-constraint note critical, e.g. { no: 3, text: \"FEATURE-STORE READ REPLICAS AT 78% OF RATED THROUGHPUT…\", critical: true }.",
+                "example": "<2–8 items>"
+              },
+              {
+                "spec": {
+                  "name": "notes.legend",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 170
+                  },
+                  "guidance": "The drawing legend line explaining the encoding, e.g. \"LEGEND — DOUBLE LINE: PART · DASH: ZONE BOUNDARY · HATCH: CONSTRAINED PART · A–A / B–B: SECTION CUTS · DIM LINES CARRY LATENCY BUDGETS\"."
+                },
+                "guidance": "The drawing legend line explaining the encoding, e.g. \"LEGEND — DOUBLE LINE: PART · DASH: ZONE BOUNDARY · HATCH: CONSTRAINED PART · A–A / B–B: SECTION CUTS · DIM LINES CARRY LATENCY BUDGETS\".",
+                "example": "LEGEND — DOUBLE LINE: PART · DASH: ZONE BOUNDARY · HATCH: CONSTRAINED PART · A–A / B–B: SECTION CUTS · DIM LINES CARRY LATENCY BUDGETS"
+              }
+            ]
+          },
+          {
+            "kind": "narrative",
+            "purpose": "The measured editorial narrative — numbered sections with mono margin annotations.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "narrative.sections",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 7
+                  },
+                  "guidance": "Three-to-seven narrative sections (no, title, annotation, paragraphs 1–3, hostsFigure). Exactly ONE section carries hostsFigure: true — the capacity figure renders inside it (structural, not tied to the section number), e.g. { no: \"04\", title: \"Capacity\", annotation: \"NOTE 3 · CONSTRAINT — SEE FIG 4.1\", paragraphs: [\"One component on this sheet is drawn with a hatch…\"], hostsFigure: true }."
+                },
+                "guidance": "Three-to-seven narrative sections (no, title, annotation, paragraphs 1–3, hostsFigure). Exactly ONE section carries hostsFigure: true — the capacity figure renders inside it (structural, not tied to the section number), e.g. { no: \"04\", title: \"Capacity\", annotation: \"NOTE 3 · CONSTRAINT — SEE FIG 4.1\", paragraphs: [\"One component on this sheet is drawn with a hatch…\"], hostsFigure: true }.",
+                "example": "<3–7 items>"
+              }
+            ]
+          },
+          {
+            "kind": "figure",
+            "purpose": "FIG 4.1 — the capacity-headroom bar chart embedded in the capacity section; the constraint tier draws below the floor.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "figure.number",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 12
+                  },
+                  "guidance": "The figure number, e.g. \"FIG 4.1\"."
+                },
+                "guidance": "The figure number, e.g. \"FIG 4.1\".",
+                "example": "FIG 4.1"
+              },
+              {
+                "spec": {
+                  "name": "figure.title",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 40
+                  },
+                  "guidance": "The figure title, e.g. \"CAPACITY HEADROOM BY COMPONENT\"."
+                },
+                "guidance": "The figure title, e.g. \"CAPACITY HEADROOM BY COMPONENT\".",
+                "example": "CAPACITY HEADROOM BY COMPONENT"
+              },
+              {
+                "spec": {
+                  "name": "figure.chartTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 54
+                  },
+                  "guidance": "The chart's accessible title (assigned via prop), e.g. \"FIG 4.1 — Capacity headroom by component\"."
+                },
+                "guidance": "The chart's accessible title (assigned via prop), e.g. \"FIG 4.1 — Capacity headroom by component\".",
+                "example": "FIG 4.1 — Capacity headroom by component"
+              },
+              {
+                "spec": {
+                  "name": "figure.caption",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 300
+                  },
+                  "guidance": "The figure caption; state synthetic provenance and the floor, e.g. \"Remaining throughput headroom, percent of rated capacity… Diamond marks the 25% floor…\"."
+                },
+                "guidance": "The figure caption; state synthetic provenance and the floor, e.g. \"Remaining throughput headroom, percent of rated capacity… Diamond marks the 25% floor…\".",
+                "example": "Remaining throughput headroom, percent of rated capacity… Diamond marks the 25% floor…"
+              },
+              {
+                "spec": {
+                  "name": "figure.source",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 80
+                  },
+                  "guidance": "The chart source note; state synthetic provenance, e.g. \"SOURCE: CAPACITY REVIEW 2026-06 · SYNTHETIC DEMONSTRATION DATA\"."
+                },
+                "guidance": "The chart source note; state synthetic provenance, e.g. \"SOURCE: CAPACITY REVIEW 2026-06 · SYNTHETIC DEMONSTRATION DATA\".",
+                "example": "SOURCE: CAPACITY REVIEW 2026-06 · SYNTHETIC DEMONSTRATION DATA"
+              },
+              {
+                "spec": {
+                  "name": "figure.floorPct",
+                  "type": "number",
+                  "required": true,
+                  "limits": {},
+                  "guidance": "The headroom floor the review board requires, percent 0–100; tiers below it draw in the red ink, e.g. 25."
+                },
+                "guidance": "The headroom floor the review board requires, percent 0–100; tiers below it draw in the red ink, e.g. 25.",
+                "example": "<number>"
+              },
+              {
+                "spec": {
+                  "name": "figure.headroom",
+                  "type": "metric",
+                  "required": true,
+                  "limits": {
+                    "minItems": 4,
+                    "maxItems": 8
+                  },
+                  "guidance": "Four-to-eight capacity tiers (id, category, value percent 0–100, target = floorPct). Tiers whose value is below floorPct are the constraint, e.g. { category: \"Feature store (read)\", value: 22, target: 25 }."
+                },
+                "guidance": "Four-to-eight capacity tiers (id, category, value percent 0–100, target = floorPct). Tiers whose value is below floorPct are the constraint, e.g. { category: \"Feature store (read)\", value: 22, target: 25 }.",
+                "example": "<4–8 metric>"
+              }
+            ]
+          }
+        ],
+        "craftGuarantees": [
+          "A platform architecture staged as a SIGNED ENGINEERING DRAWING: the commanding visual is a hand-drafted general-arrangement plan — parts as double-lined boxes on a drafting-grid field, orthogonally routed connections, dimension lines carrying latency budgets, section cuts, zone boundaries, and a proper title block with a revision table.",
+          "THE LAYOUT IS FIXED-SLOT. The plan placement of every part, the routing of every connection, and the position of every zone box and dimension line are hand-drafted per shipped id and owned by the template. The fill re-labels the drawing (part labels/classes, connection endpoints/labels, zone and dimension captions); the schema pins the node, edge, zone, and dimension ID SETS to exactly the shipped ids, so a fill can never add a part the drawing has nowhere to place. Any schema-valid fill renders composed.",
+          "Exactly one part carries emphasis \"constrained\": the single hatched, flag-marked capacity constraint — echoed as the highlighted row of the schedule of parts, the critical general note, and the sub-floor tier of FIG 4.1.",
+          "The drawing SVG is decorative (aria-hidden); the REAL content is the visible SCHEDULE OF PARTS table and CONNECTIONS list (derived from the same nodes/edges) plus the title block — so the world is fully legible without the drawing.",
+          "The synthetic-data provenance notice (sheet.dataNotice) is required and prints in the footer; the title-block classification reinforces it.",
+          "FIG 4.1 colours any tier whose headroom is below the review-board floor (figure.floorPct) in the drawing's red ink — the encoding is derived from the data, never hardcoded to a tier id. The figure's placement is STRUCTURAL: it renders inside the one narrative section flagged hostsFigure: true (the schema requires exactly one), never by matching a section number.",
+          "Slot char caps and item counts are sized so any schema-valid fill stays composed — the display statement never overflows, the schedule and notes stay balanced, and the narrative paragraphs stay legible. Motion level 2 (data-ink-draw); the mood is locked light."
+        ]
+      }
+    },
+    "text": {
+      "worldTemplateId": "drawing-office",
+      "experienceId": "exp-system-architecture",
+      "rationale": "Selected 'drawing-office' (exp-system-architecture, art-directed style); shares audience(s) [technical, mixed]; matched intent keyword(s) [onboard, new, engineers, support, architecture, review, built]; art-directed style fits standard corporate suitability; motion preference 2 noted (the template locks its own motion).",
+      "evidence": [
+        "drawing-office (exp-system-architecture): audienceOverlap 2×2=4 + intentMatch 7 + corporateFit 1 = 12"
+      ],
+      "fillSkeleton": {
+        "sections": [
+          {
+            "kind": "sheet",
+            "purpose": "The sheet identity — the drafting chrome, the title block, its revision table, and the required provenance notice.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "sheet.pageTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 70
+                  },
+                  "guidance": "The browser-tab title (assigned in JS, derived byte-identically from the fill), e.g. \"The Drawing Office — Model Decision Platform, As Built\"."
+                },
+                "guidance": "The browser-tab title (assigned in JS, derived byte-identically from the fill), e.g. \"The Drawing Office — Model Decision Platform, As Built\".",
+                "example": "The Drawing Office — Model Decision Platform, As Built"
+              },
+              {
+                "spec": {
+                  "name": "sheet.office",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 24
+                  },
+                  "guidance": "The drawing-office name on the top chrome, e.g. \"THE DRAWING OFFICE\"."
+                },
+                "guidance": "The drawing-office name on the top chrome, e.g. \"THE DRAWING OFFICE\".",
+                "example": "THE DRAWING OFFICE"
+              },
+              {
+                "spec": {
+                  "name": "sheet.project",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 42
+                  },
+                  "guidance": "The programme/project name on the chrome and title block, e.g. \"ENTERPRISE DECISION INTELLIGENCE\"."
+                },
+                "guidance": "The programme/project name on the chrome and title block, e.g. \"ENTERPRISE DECISION INTELLIGENCE\".",
+                "example": "ENTERPRISE DECISION INTELLIGENCE"
+              },
+              {
+                "spec": {
+                  "name": "sheet.title",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 60
+                  },
+                  "guidance": "The sheet title on the title block (and the lede prefix), e.g. \"MODEL DECISION PLATFORM — GENERAL ARRANGEMENT\"."
+                },
+                "guidance": "The sheet title on the title block (and the lede prefix), e.g. \"MODEL DECISION PLATFORM — GENERAL ARRANGEMENT\".",
+                "example": "MODEL DECISION PLATFORM — GENERAL ARRANGEMENT"
+              },
+              {
+                "spec": {
+                  "name": "sheet.drawingNo",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 18
+                  },
+                  "guidance": "The drawing number, e.g. \"EDI-ARCH-004\"."
+                },
+                "guidance": "The drawing number, e.g. \"EDI-ARCH-004\".",
+                "example": "EDI-ARCH-004"
+              },
+              {
+                "spec": {
+                  "name": "sheet.sheet",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 18
+                  },
+                  "guidance": "The sheet-of count, e.g. \"SHEET 1 OF 1\"."
+                },
+                "guidance": "The sheet-of count, e.g. \"SHEET 1 OF 1\".",
+                "example": "SHEET 1 OF 1"
+              },
+              {
+                "spec": {
+                  "name": "sheet.scale",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 18
+                  },
+                  "guidance": "The scale note, e.g. \"SCALE N.T.S.\"."
+                },
+                "guidance": "The scale note, e.g. \"SCALE N.T.S.\".",
+                "example": "SCALE N.T.S."
+              },
+              {
+                "spec": {
+                  "name": "sheet.revision",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 10
+                  },
+                  "guidance": "The current revision tag, e.g. \"REV A\"."
+                },
+                "guidance": "The current revision tag, e.g. \"REV A\".",
+                "example": "REV A"
+              },
+              {
+                "spec": {
+                  "name": "sheet.classification",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 48
+                  },
+                  "guidance": "The classification stamp in the title block; state the demonstration nature, e.g. \"SYNTHETIC DEMO — NOT FOR CONSTRUCTION\"."
+                },
+                "guidance": "The classification stamp in the title block; state the demonstration nature, e.g. \"SYNTHETIC DEMO — NOT FOR CONSTRUCTION\".",
+                "example": "SYNTHETIC DEMO — NOT FOR CONSTRUCTION"
+              },
+              {
+                "spec": {
+                  "name": "sheet.drawn",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 28
+                  },
+                  "guidance": "The DRAWN-BY name, e.g. \"S. NARAYANAN\"."
+                },
+                "guidance": "The DRAWN-BY name, e.g. \"S. NARAYANAN\".",
+                "example": "S. NARAYANAN"
+              },
+              {
+                "spec": {
+                  "name": "sheet.checked",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 28
+                  },
+                  "guidance": "The CHECKED-BY name, e.g. \"M. OKAFOR\"."
+                },
+                "guidance": "The CHECKED-BY name, e.g. \"M. OKAFOR\".",
+                "example": "M. OKAFOR"
+              },
+              {
+                "spec": {
+                  "name": "sheet.approved",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 28
+                  },
+                  "guidance": "The APPROVED-BY authority, e.g. \"PLATFORM REVIEW BOARD\"."
+                },
+                "guidance": "The APPROVED-BY authority, e.g. \"PLATFORM REVIEW BOARD\".",
+                "example": "PLATFORM REVIEW BOARD"
+              },
+              {
+                "spec": {
+                  "name": "sheet.dataNotice",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 68
+                  },
+                  "guidance": "REQUIRED provenance notice printed in the footer; must state the data is synthetic/sourced, e.g. \"SYNTHETIC DEMONSTRATION DATA · NOT A PRODUCTION RECORD\"."
+                },
+                "guidance": "REQUIRED provenance notice printed in the footer; must state the data is synthetic/sourced, e.g. \"SYNTHETIC DEMONSTRATION DATA · NOT A PRODUCTION RECORD\".",
+                "example": "SYNTHETIC DEMONSTRATION DATA · NOT A PRODUCTION RECORD"
+              },
+              {
+                "spec": {
+                  "name": "sheet.revisions",
+                  "type": "tableRows",
+                  "required": true,
+                  "limits": {
+                    "minItems": 1,
+                    "maxItems": 6
+                  },
+                  "guidance": "One-to-six revision rows (rev, date, description, by), oldest first, e.g. { rev: \"A\", date: \"2026-07-04\", description: \"ISSUED AS BUILT\", by: \"MO\" }."
+                },
+                "guidance": "One-to-six revision rows (rev, date, description, by), oldest first, e.g. { rev: \"A\", date: \"2026-07-04\", description: \"ISSUED AS BUILT\", by: \"MO\" }.",
+                "example": "<1–6 tableRows>"
+              }
+            ]
+          },
+          {
+            "kind": "masthead",
+            "purpose": "The editorial hero — the kicker, the multi-line display statement, and the one-line lede.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "masthead.kicker",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 48
+                  },
+                  "guidance": "The eyebrow above the display statement, e.g. \"AS-BUILT RECORD · CHECKED AND SIGNED\"."
+                },
+                "guidance": "The eyebrow above the display statement, e.g. \"AS-BUILT RECORD · CHECKED AND SIGNED\".",
+                "example": "AS-BUILT RECORD · CHECKED AND SIGNED"
+              },
+              {
+                "spec": {
+                  "name": "masthead.displayLines",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 56,
+                    "minItems": 1,
+                    "maxItems": 3
+                  },
+                  "guidance": "One-to-three display lines (one per array entry, rendered as broken lines), e.g. \"An architecture is a promise written down.\"."
+                },
+                "guidance": "One-to-three display lines (one per array entry, rendered as broken lines), e.g. \"An architecture is a promise written down.\".",
+                "example": "An architecture is a promise written down."
+              },
+              {
+                "spec": {
+                  "name": "masthead.lede",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 120
+                  },
+                  "guidance": "The lede tail; the template prefixes the sheet title (\"{title} — {lede}\"), e.g. \"the decision fabric behind ninety million daily answers, drawn the way it actually runs.\"."
+                },
+                "guidance": "The lede tail; the template prefixes the sheet title (\"{title} — {lede}\"), e.g. \"the decision fabric behind ninety million daily answers, drawn the way it actually runs.\".",
+                "example": "the decision fabric behind ninety million daily answers, drawn the way it actually runs."
+              }
+            ]
+          },
+          {
+            "kind": "drawing",
+            "purpose": "The general-arrangement drawing — the drawn parts, their connections, the zone boxes and dimension lines. The plan placement and routing are template-fixed; the fill carries the content and pins the id sets.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "drawing.figureHeading",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 40
+                  },
+                  "guidance": "The visually-hidden heading of the sheet region, e.g. \"The general-arrangement drawing\"."
+                },
+                "guidance": "The visually-hidden heading of the sheet region, e.g. \"The general-arrangement drawing\".",
+                "example": "The general-arrangement drawing"
+              },
+              {
+                "spec": {
+                  "name": "drawing.caption",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 270
+                  },
+                  "guidance": "The full accessible caption of the aria-hidden drawing, naming the parts, zones, and pointing to the schedule, e.g. \"General-arrangement drawing of the model decision platform: ten parts across a channel DMZ, a restricted core zone, and an overnight oversight band…\"."
+                },
+                "guidance": "The full accessible caption of the aria-hidden drawing, naming the parts, zones, and pointing to the schedule, e.g. \"General-arrangement drawing of the model decision platform: ten parts across a channel DMZ, a restricted core zone, and an overnight oversight band…\".",
+                "example": "General-arrangement drawing of the model decision platform: ten parts across a channel DMZ, a restricted core zone, and an overnight oversight band…"
+              },
+              {
+                "spec": {
+                  "name": "drawing.constraintFlag",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 12
+                  },
+                  "guidance": "The short flag label drawn beside the constrained part, e.g. \"NOTE 3\"."
+                },
+                "guidance": "The short flag label drawn beside the constrained part, e.g. \"NOTE 3\".",
+                "example": "NOTE 3"
+              },
+              {
+                "spec": {
+                  "name": "drawing.nodes",
+                  "type": "nodes",
+                  "required": true,
+                  "limits": {
+                    "minItems": 10,
+                    "maxItems": 10
+                  },
+                  "guidance": "Exactly ten parts. FIXED-SLOT: ids must be exactly the shipped plan set (edge-gateway, decision-api, stream-ingest, feature-store, model-serving, policy-engine, decision-log, drift-watch, model-registry, case-review) — the template's hand-drafted placement is keyed by id. Each: id, label, kind (start|process|data|decision|end), emphasis (standard|constrained). Exactly ONE part is \"constrained\" — the hatched capacity constraint, e.g. { id: \"feature-store\", label: \"FEATURE STORE\", kind: \"data\", emphasis: \"constrained\" }."
+                },
+                "guidance": "Exactly ten parts. FIXED-SLOT: ids must be exactly the shipped plan set (edge-gateway, decision-api, stream-ingest, feature-store, model-serving, policy-engine, decision-log, drift-watch, model-registry, case-review) — the template's hand-drafted placement is keyed by id. Each: id, label, kind (start|process|data|decision|end), emphasis (standard|constrained). Exactly ONE part is \"constrained\" — the hatched capacity constraint, e.g. { id: \"feature-store\", label: \"FEATURE STORE\", kind: \"data\", emphasis: \"constrained\" }.",
+                "example": "<10–10 nodes>"
+              },
+              {
+                "spec": {
+                  "name": "drawing.edges",
+                  "type": "edges",
+                  "required": true,
+                  "limits": {
+                    "minItems": 10,
+                    "maxItems": 10
+                  },
+                  "guidance": "Exactly ten connections. FIXED-SLOT: ids must be exactly the shipped routing set (e-edge-api, e-edge-ingest, e-ingest-fs, e-api-serving, e-fs-serving, e-registry-serving, e-serving-policy, e-policy-log, e-log-drift, e-drift-case). Each: id, from (node id), to (node id), label, e.g. { id: \"e-fs-serving\", from: \"feature-store\", to: \"model-serving\", label: \"≤ 12 ms p50 read\" }."
+                },
+                "guidance": "Exactly ten connections. FIXED-SLOT: ids must be exactly the shipped routing set (e-edge-api, e-edge-ingest, e-ingest-fs, e-api-serving, e-fs-serving, e-registry-serving, e-serving-policy, e-policy-log, e-log-drift, e-drift-case). Each: id, from (node id), to (node id), label, e.g. { id: \"e-fs-serving\", from: \"feature-store\", to: \"model-serving\", label: \"≤ 12 ms p50 read\" }.",
+                "example": "<10–10 edges>"
+              },
+              {
+                "spec": {
+                  "name": "drawing.zones",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 3
+                  },
+                  "guidance": "Exactly three zone boxes (id, label). FIXED-SLOT ids (channel-dmz, core-zone, oversight); geometry is template-fixed, e.g. { id: \"core-zone\", label: \"CORE ZONE — RESTRICTED · NOTE 1\" }."
+                },
+                "guidance": "Exactly three zone boxes (id, label). FIXED-SLOT ids (channel-dmz, core-zone, oversight); geometry is template-fixed, e.g. { id: \"core-zone\", label: \"CORE ZONE — RESTRICTED · NOTE 1\" }.",
+                "example": "<3–3 items>"
+              },
+              {
+                "spec": {
+                  "name": "drawing.dimensions",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  "guidance": "Exactly two dimension lines (id, label). FIXED-SLOT ids (hot-path, durable-record); geometry is template-fixed, e.g. { id: \"hot-path\", label: \"HOT PATH TRAVERSE ≤ 180 MS P99 · EDGE TO ANSWER\" }."
+                },
+                "guidance": "Exactly two dimension lines (id, label). FIXED-SLOT ids (hot-path, durable-record); geometry is template-fixed, e.g. { id: \"hot-path\", label: \"HOT PATH TRAVERSE ≤ 180 MS P99 · EDGE TO ANSWER\" }.",
+                "example": "<2–2 items>"
+              }
+            ]
+          },
+          {
+            "kind": "notes",
+            "purpose": "The general notes and the drawing legend — the constraint note is the single critical entry.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "notes.items",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 2,
+                    "maxItems": 8
+                  },
+                  "guidance": "Two-to-eight numbered general notes (no, text, optional critical flag). Mark the capacity-constraint note critical, e.g. { no: 3, text: \"FEATURE-STORE READ REPLICAS AT 78% OF RATED THROUGHPUT…\", critical: true }."
+                },
+                "guidance": "Two-to-eight numbered general notes (no, text, optional critical flag). Mark the capacity-constraint note critical, e.g. { no: 3, text: \"FEATURE-STORE READ REPLICAS AT 78% OF RATED THROUGHPUT…\", critical: true }.",
+                "example": "<2–8 items>"
+              },
+              {
+                "spec": {
+                  "name": "notes.legend",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 170
+                  },
+                  "guidance": "The drawing legend line explaining the encoding, e.g. \"LEGEND — DOUBLE LINE: PART · DASH: ZONE BOUNDARY · HATCH: CONSTRAINED PART · A–A / B–B: SECTION CUTS · DIM LINES CARRY LATENCY BUDGETS\"."
+                },
+                "guidance": "The drawing legend line explaining the encoding, e.g. \"LEGEND — DOUBLE LINE: PART · DASH: ZONE BOUNDARY · HATCH: CONSTRAINED PART · A–A / B–B: SECTION CUTS · DIM LINES CARRY LATENCY BUDGETS\".",
+                "example": "LEGEND — DOUBLE LINE: PART · DASH: ZONE BOUNDARY · HATCH: CONSTRAINED PART · A–A / B–B: SECTION CUTS · DIM LINES CARRY LATENCY BUDGETS"
+              }
+            ]
+          },
+          {
+            "kind": "narrative",
+            "purpose": "The measured editorial narrative — numbered sections with mono margin annotations.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "narrative.sections",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 7
+                  },
+                  "guidance": "Three-to-seven narrative sections (no, title, annotation, paragraphs 1–3, hostsFigure). Exactly ONE section carries hostsFigure: true — the capacity figure renders inside it (structural, not tied to the section number), e.g. { no: \"04\", title: \"Capacity\", annotation: \"NOTE 3 · CONSTRAINT — SEE FIG 4.1\", paragraphs: [\"One component on this sheet is drawn with a hatch…\"], hostsFigure: true }."
+                },
+                "guidance": "Three-to-seven narrative sections (no, title, annotation, paragraphs 1–3, hostsFigure). Exactly ONE section carries hostsFigure: true — the capacity figure renders inside it (structural, not tied to the section number), e.g. { no: \"04\", title: \"Capacity\", annotation: \"NOTE 3 · CONSTRAINT — SEE FIG 4.1\", paragraphs: [\"One component on this sheet is drawn with a hatch…\"], hostsFigure: true }.",
+                "example": "<3–7 items>"
+              }
+            ]
+          },
+          {
+            "kind": "figure",
+            "purpose": "FIG 4.1 — the capacity-headroom bar chart embedded in the capacity section; the constraint tier draws below the floor.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "figure.number",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 12
+                  },
+                  "guidance": "The figure number, e.g. \"FIG 4.1\"."
+                },
+                "guidance": "The figure number, e.g. \"FIG 4.1\".",
+                "example": "FIG 4.1"
+              },
+              {
+                "spec": {
+                  "name": "figure.title",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 40
+                  },
+                  "guidance": "The figure title, e.g. \"CAPACITY HEADROOM BY COMPONENT\"."
+                },
+                "guidance": "The figure title, e.g. \"CAPACITY HEADROOM BY COMPONENT\".",
+                "example": "CAPACITY HEADROOM BY COMPONENT"
+              },
+              {
+                "spec": {
+                  "name": "figure.chartTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 54
+                  },
+                  "guidance": "The chart's accessible title (assigned via prop), e.g. \"FIG 4.1 — Capacity headroom by component\"."
+                },
+                "guidance": "The chart's accessible title (assigned via prop), e.g. \"FIG 4.1 — Capacity headroom by component\".",
+                "example": "FIG 4.1 — Capacity headroom by component"
+              },
+              {
+                "spec": {
+                  "name": "figure.caption",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 300
+                  },
+                  "guidance": "The figure caption; state synthetic provenance and the floor, e.g. \"Remaining throughput headroom, percent of rated capacity… Diamond marks the 25% floor…\"."
+                },
+                "guidance": "The figure caption; state synthetic provenance and the floor, e.g. \"Remaining throughput headroom, percent of rated capacity… Diamond marks the 25% floor…\".",
+                "example": "Remaining throughput headroom, percent of rated capacity… Diamond marks the 25% floor…"
+              },
+              {
+                "spec": {
+                  "name": "figure.source",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 80
+                  },
+                  "guidance": "The chart source note; state synthetic provenance, e.g. \"SOURCE: CAPACITY REVIEW 2026-06 · SYNTHETIC DEMONSTRATION DATA\"."
+                },
+                "guidance": "The chart source note; state synthetic provenance, e.g. \"SOURCE: CAPACITY REVIEW 2026-06 · SYNTHETIC DEMONSTRATION DATA\".",
+                "example": "SOURCE: CAPACITY REVIEW 2026-06 · SYNTHETIC DEMONSTRATION DATA"
+              },
+              {
+                "spec": {
+                  "name": "figure.floorPct",
+                  "type": "number",
+                  "required": true,
+                  "limits": {},
+                  "guidance": "The headroom floor the review board requires, percent 0–100; tiers below it draw in the red ink, e.g. 25."
+                },
+                "guidance": "The headroom floor the review board requires, percent 0–100; tiers below it draw in the red ink, e.g. 25.",
+                "example": "<number>"
+              },
+              {
+                "spec": {
+                  "name": "figure.headroom",
+                  "type": "metric",
+                  "required": true,
+                  "limits": {
+                    "minItems": 4,
+                    "maxItems": 8
+                  },
+                  "guidance": "Four-to-eight capacity tiers (id, category, value percent 0–100, target = floorPct). Tiers whose value is below floorPct are the constraint, e.g. { category: \"Feature store (read)\", value: 22, target: 25 }."
+                },
+                "guidance": "Four-to-eight capacity tiers (id, category, value percent 0–100, target = floorPct). Tiers whose value is below floorPct are the constraint, e.g. { category: \"Feature store (read)\", value: 22, target: 25 }.",
+                "example": "<4–8 metric>"
+              }
+            ]
+          }
+        ],
+        "craftGuarantees": [
+          "A platform architecture staged as a SIGNED ENGINEERING DRAWING: the commanding visual is a hand-drafted general-arrangement plan — parts as double-lined boxes on a drafting-grid field, orthogonally routed connections, dimension lines carrying latency budgets, section cuts, zone boundaries, and a proper title block with a revision table.",
+          "THE LAYOUT IS FIXED-SLOT. The plan placement of every part, the routing of every connection, and the position of every zone box and dimension line are hand-drafted per shipped id and owned by the template. The fill re-labels the drawing (part labels/classes, connection endpoints/labels, zone and dimension captions); the schema pins the node, edge, zone, and dimension ID SETS to exactly the shipped ids, so a fill can never add a part the drawing has nowhere to place. Any schema-valid fill renders composed.",
+          "Exactly one part carries emphasis \"constrained\": the single hatched, flag-marked capacity constraint — echoed as the highlighted row of the schedule of parts, the critical general note, and the sub-floor tier of FIG 4.1.",
+          "The drawing SVG is decorative (aria-hidden); the REAL content is the visible SCHEDULE OF PARTS table and CONNECTIONS list (derived from the same nodes/edges) plus the title block — so the world is fully legible without the drawing.",
+          "The synthetic-data provenance notice (sheet.dataNotice) is required and prints in the footer; the title-block classification reinforces it.",
+          "FIG 4.1 colours any tier whose headroom is below the review-board floor (figure.floorPct) in the drawing's red ink — the encoding is derived from the data, never hardcoded to a tier id. The figure's placement is STRUCTURAL: it renders inside the one narrative section flagged hostsFigure: true (the schema requires exactly one), never by matching a section number.",
+          "Slot char caps and item counts are sized so any schema-valid fill stays composed — the display statement never overflows, the schedule and notes stay balanced, and the narrative paragraphs stay legible. Motion level 2 (data-ink-draw); the mood is locked light."
+        ]
+      }
+    }
+  },
+  "validate": {
+    "tool": "validate_fill",
+    "arguments": {
+      "worldTemplateId": "exp-system-architecture"
+    },
+    "structuredContent": {
+      "valid": true,
+      "worldTemplateId": "exp-system-architecture",
+      "findings": []
+    },
+    "text": {
+      "valid": true,
+      "worldTemplateId": "exp-system-architecture",
+      "findings": []
+    }
+  },
+  "checks": [
+    {
+      "name": "[moderation-stack] compose_explainer not isError",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[moderation-stack] compose output parses",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[moderation-stack] selection → exp-system-architecture (drawing-office)",
+      "pass": true,
+      "detail": "drawing-office / exp-system-architecture"
+    },
+    {
+      "name": "[moderation-stack] skeleton carries sections + craft guarantees",
+      "pass": true,
+      "detail": "6 sections"
+    },
+    {
+      "name": "[moderation-stack] validate_fill not isError",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[moderation-stack] validate_fill valid=true, no findings",
+      "pass": true,
+      "detail": "valid=true, 0 findings"
+    }
+  ]
+}

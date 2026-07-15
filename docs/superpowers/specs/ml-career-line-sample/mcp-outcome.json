@@ -1,0 +1,1009 @@
+{
+  "generatedAt": "2026-07-15T03:06:42.022Z",
+  "sample": "ml-career",
+  "brief": "A personal page telling an applied-ML career as one continuous line riding the field’s real epochs — deep learning, transformers, LLMs, agents — stations with shipped outcomes, promotions where the line steps up, and the one deliberate reversal out of management back to the tools.",
+  "context": {
+    "surface": "personal-page",
+    "audience": [
+      "personal-internal"
+    ],
+    "businessIntent": [
+      "showcase-career-trajectory",
+      "connect-projects-to-outcomes"
+    ],
+    "corporateSuitability": "standard",
+    "motionPreference": 3
+  },
+  "compose": {
+    "tool": "compose_personal_page",
+    "arguments": {
+      "context": {
+        "surface": "personal-page",
+        "audience": [
+          "personal-internal"
+        ],
+        "businessIntent": [
+          "showcase-career-trajectory",
+          "connect-projects-to-outcomes"
+        ],
+        "corporateSuitability": "standard",
+        "motionPreference": 3
+      },
+      "contentBrief": "A personal page telling an applied-ML career as one continuous line riding the field’s real epochs — deep learning, transformers, LLMs, agents — stations with shipped outcomes, promotions where the line steps up, and the one deliberate reversal out of management back to the tools."
+    },
+    "structuredContent": {
+      "worldTemplateId": "the-line",
+      "experienceId": "home-career-project-timeline",
+      "rationale": "Selected 'the-line' (home-career-project-timeline, art-directed style); shares audience(s) [personal-internal]; matched intent keyword(s) [showcase, career, trajectory, connect, projects, outcomes, personal]; art-directed style fits standard corporate suitability; motion preference 3 noted (the template locks its own motion).",
+      "evidence": [
+        "the-line (home-career-project-timeline): audienceOverlap 1×2=2 + intentMatch 7 + corporateFit 1 = 10"
+      ],
+      "fillSkeleton": {
+        "sections": [
+          {
+            "kind": "chrome",
+            "purpose": "The sticky top chrome and footer identity of the personal page — the world label, the service line, and the REQUIRED synthetic-profile provenance notice.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "chrome.pageTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 24
+                  },
+                  "guidance": "The browser-tab title stem (assigned in JS, derived byte-identically; the template appends \" — {person name} — Live\"), e.g. \"The Line\"."
+                },
+                "guidance": "The browser-tab title stem (assigned in JS, derived byte-identically; the template appends \" — {person name} — Live\"), e.g. \"The Line\".",
+                "example": "The Line"
+              },
+              {
+                "spec": {
+                  "name": "chrome.world",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 34
+                  },
+                  "guidance": "The world label on the top chrome, e.g. \"THE LINE · PERSONAL PAGE\"."
+                },
+                "guidance": "The world label on the top chrome, e.g. \"THE LINE · PERSONAL PAGE\".",
+                "example": "THE LINE · PERSONAL PAGE"
+              },
+              {
+                "spec": {
+                  "name": "chrome.service",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 52
+                  },
+                  "guidance": "The service line on the top chrome, e.g. \"SERVICE · LINE OPEN 2014 · STILL RUNNING\"."
+                },
+                "guidance": "The service line on the top chrome, e.g. \"SERVICE · LINE OPEN 2014 · STILL RUNNING\".",
+                "example": "SERVICE · LINE OPEN 2014 · STILL RUNNING"
+              },
+              {
+                "spec": {
+                  "name": "chrome.syntheticMark",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 42
+                  },
+                  "guidance": "REQUIRED provenance notice — the synthetic-mark badge in the chrome (and echoed in the footer). Must state the profile is illustrative/synthetic where entries are not real, e.g. \"ILLUSTRATIVE PROFILE · SYNTHETIC\"."
+                },
+                "guidance": "REQUIRED provenance notice — the synthetic-mark badge in the chrome (and echoed in the footer). Must state the profile is illustrative/synthetic where entries are not real, e.g. \"ILLUSTRATIVE PROFILE · SYNTHETIC\".",
+                "example": "ILLUSTRATIVE PROFILE · SYNTHETIC"
+              },
+              {
+                "spec": {
+                  "name": "chrome.footerProvenance",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 88
+                  },
+                  "guidance": "The footer provenance line reinforcing the synthetic mark, e.g. \"ILLUSTRATIVE PROFILE · SYNTHETIC · SAMPLE CONTENT IS MARKED AS SUCH\"."
+                },
+                "guidance": "The footer provenance line reinforcing the synthetic mark, e.g. \"ILLUSTRATIVE PROFILE · SYNTHETIC · SAMPLE CONTENT IS MARKED AS SUCH\".",
+                "example": "ILLUSTRATIVE PROFILE · SYNTHETIC · SAMPLE CONTENT IS MARKED AS SUCH"
+              },
+              {
+                "spec": {
+                  "name": "chrome.footerService",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 40
+                  },
+                  "guidance": "The footer service line, e.g. \"LINE OPEN 2014 · STILL RUNNING\"."
+                },
+                "guidance": "The footer service line, e.g. \"LINE OPEN 2014 · STILL RUNNING\".",
+                "example": "LINE OPEN 2014 · STILL RUNNING"
+              }
+            ]
+          },
+          {
+            "kind": "hero",
+            "purpose": "The editorial hero — the kicker, the multi-line display statement, the person identity line, the subline, the accessible synthetic-profile notice, and the identity facts.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "hero.kicker",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 20
+                  },
+                  "guidance": "The hero eyebrow, e.g. \"THE LINE\"."
+                },
+                "guidance": "The hero eyebrow, e.g. \"THE LINE\".",
+                "example": "THE LINE"
+              },
+              {
+                "spec": {
+                  "name": "hero.statementLines",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 24,
+                    "minItems": 2,
+                    "maxItems": 4
+                  },
+                  "guidance": "Two-to-four display lines (one per array entry, rendered as broken lines) building the career thesis, e.g. \"One line,\" / \"twelve years,\" / \"no gaps hidden.\"."
+                },
+                "guidance": "Two-to-four display lines (one per array entry, rendered as broken lines) building the career thesis, e.g. \"One line,\" / \"twelve years,\" / \"no gaps hidden.\".",
+                "example": "One line,"
+              },
+              {
+                "spec": {
+                  "name": "hero.person.name",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 30
+                  },
+                  "guidance": "The person at the head of the line; a fact from the provided source (illustrative names are covered by the provenance notice), e.g. \"Marcus Adeyemi\"."
+                },
+                "guidance": "The person at the head of the line; a fact from the provided source (illustrative names are covered by the provenance notice), e.g. \"Marcus Adeyemi\".",
+                "example": "Marcus Adeyemi"
+              },
+              {
+                "spec": {
+                  "name": "hero.person.role",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 34
+                  },
+                  "guidance": "The person's current role, e.g. \"Principal ML Engineer\"."
+                },
+                "guidance": "The person's current role, e.g. \"Principal ML Engineer\".",
+                "example": "Principal ML Engineer"
+              },
+              {
+                "spec": {
+                  "name": "hero.person.team",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 34
+                  },
+                  "guidance": "The person's current team, e.g. \"Decisioning Platform\"."
+                },
+                "guidance": "The person's current team, e.g. \"Decisioning Platform\".",
+                "example": "Decisioning Platform"
+              },
+              {
+                "spec": {
+                  "name": "hero.person.location",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 24
+                  },
+                  "guidance": "The person's location, e.g. \"Melbourne\"."
+                },
+                "guidance": "The person's location, e.g. \"Melbourne\".",
+                "example": "Melbourne"
+              },
+              {
+                "spec": {
+                  "name": "hero.subline",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 270
+                  },
+                  "guidance": "One reading of the career under the statement, naming the honest detour, e.g. \"A career is not a list of job titles — it is a single line that thickens where I grew, branches where I gambled, and once doubled back on itself. This is that line, drawn honestly, with the detour left in.\"."
+                },
+                "guidance": "One reading of the career under the statement, naming the honest detour, e.g. \"A career is not a list of job titles — it is a single line that thickens where I grew, branches where I gambled, and once doubled back on itself. This is that line, drawn honestly, with the detour left in.\".",
+                "example": "A career is not a list of job titles — it is a single line that thickens where I grew, branches where I gambled, and once doubled back on itself. This is that line, drawn honestly, with the detour left in."
+              },
+              {
+                "spec": {
+                  "name": "hero.syntheticNotice",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 200
+                  },
+                  "guidance": "The accessible (visually hidden) provenance paragraph stating the profile is a demonstration, e.g. \"This entire profile is illustrative and synthetic — a demonstration person, not a real member of staff. Projects, dates and figures are sample content.\"."
+                },
+                "guidance": "The accessible (visually hidden) provenance paragraph stating the profile is a demonstration, e.g. \"This entire profile is illustrative and synthetic — a demonstration person, not a real member of staff. Projects, dates and figures are sample content.\".",
+                "example": "This entire profile is illustrative and synthetic — a demonstration person, not a real member of staff. Projects, dates and figures are sample content."
+              },
+              {
+                "spec": {
+                  "name": "hero.facts",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 6
+                  },
+                  "guidance": "Three-to-six identity facts (label, value) in the hero definition list, e.g. { label: \"GAUGE\", value: \"analyst → principal\" }."
+                },
+                "guidance": "Three-to-six identity facts (label, value) in the hero definition list, e.g. { label: \"GAUGE\", value: \"analyst → principal\" }.",
+                "example": "<3–6 items>"
+              }
+            ]
+          },
+          {
+            "kind": "line",
+            "purpose": "The commanding survey line — the stations top-to-bottom with the one honest switchback flagged, the four-rung gauge-role ladder, the origin marker, and the next-station-under-survey terminus. The gauge ladder is a template-fixed map over four rungs; the fill re-labels the rungs and writes the stations.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "line.sectionTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 20
+                  },
+                  "guidance": "The §1 section heading, e.g. \"THE LINE\"."
+                },
+                "guidance": "The §1 section heading, e.g. \"THE LINE\".",
+                "example": "THE LINE"
+              },
+              {
+                "spec": {
+                  "name": "line.sectionSub",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 108
+                  },
+                  "guidance": "The §1 section sub-line (the legend), true of the line you supply, e.g. \"STATION = PROJECT · GAUGE = GRADE · BRANCH = SIDE-PROJECT · ONE SWITCHBACK, LEFT IN\"."
+                },
+                "guidance": "The §1 section sub-line (the legend), true of the line you supply, e.g. \"STATION = PROJECT · GAUGE = GRADE · BRANCH = SIDE-PROJECT · ONE SWITCHBACK, LEFT IN\".",
+                "example": "STATION = PROJECT · GAUGE = GRADE · BRANCH = SIDE-PROJECT · ONE SWITCHBACK, LEFT IN"
+              },
+              {
+                "spec": {
+                  "name": "line.originLabel",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 28
+                  },
+                  "guidance": "The origin marker label where the line opens, e.g. \"LINE OPEN · 2014\"."
+                },
+                "guidance": "The origin marker label where the line opens, e.g. \"LINE OPEN · 2014\".",
+                "example": "LINE OPEN · 2014"
+              },
+              {
+                "spec": {
+                  "name": "line.gaugeRoles",
+                  "type": "metric",
+                  "required": true,
+                  "limits": {},
+                  "guidance": "The four grade-rung labels the gauge maps to (an object keyed 1..4, the line thickening as it climbs). FIXED-SLOT: exactly the four rungs, e.g. { \"1\": \"Analyst\", \"2\": \"Senior Analyst\", \"3\": \"Lead\", \"4\": \"Principal\" }."
+                },
+                "guidance": "The four grade-rung labels the gauge maps to (an object keyed 1..4, the line thickening as it climbs). FIXED-SLOT: exactly the four rungs, e.g. { \"1\": \"Analyst\", \"2\": \"Senior Analyst\", \"3\": \"Lead\", \"4\": \"Principal\" }.",
+                "example": "<0–0 metric>"
+              },
+              {
+                "spec": {
+                  "name": "line.nodes",
+                  "type": "tableRows",
+                  "required": true,
+                  "limits": {
+                    "minItems": 5,
+                    "maxItems": 14
+                  },
+                  "guidance": "Five-to-fourteen stations, earliest first (id, kind station|gauge-change|switchback|branch, code, year, name, gauge 1|2|3|4, outcome carrying a real number; promotion on a gauge-change; branch {fate terminated|rejoined, carried} on a branch; detour {span, lesson} on the switchback). Exactly ONE node is \"switchback\" — the single honest detour the page is arranged around, e.g. a two-year migration reversed out."
+                },
+                "guidance": "Five-to-fourteen stations, earliest first (id, kind station|gauge-change|switchback|branch, code, year, name, gauge 1|2|3|4, outcome carrying a real number; promotion on a gauge-change; branch {fate terminated|rejoined, carried} on a branch; detour {span, lesson} on the switchback). Exactly ONE node is \"switchback\" — the single honest detour the page is arranged around, e.g. a two-year migration reversed out.",
+                "example": "<5–14 tableRows>"
+              },
+              {
+                "spec": {
+                  "name": "line.terminus.code",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 14
+                  },
+                  "guidance": "The terminus station code, e.g. \"DP-10\"."
+                },
+                "guidance": "The terminus station code, e.g. \"DP-10\".",
+                "example": "DP-10"
+              },
+              {
+                "spec": {
+                  "name": "line.terminus.label",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 36
+                  },
+                  "guidance": "The terminus label, e.g. \"NEXT STATION · UNDER SURVEY\"."
+                },
+                "guidance": "The terminus label, e.g. \"NEXT STATION · UNDER SURVEY\".",
+                "example": "NEXT STATION · UNDER SURVEY"
+              },
+              {
+                "spec": {
+                  "name": "line.terminus.name",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 30
+                  },
+                  "guidance": "The next station under survey, e.g. \"Causal decisioning\"."
+                },
+                "guidance": "The next station under survey, e.g. \"Causal decisioning\".",
+                "example": "Causal decisioning"
+              },
+              {
+                "spec": {
+                  "name": "line.terminus.intent",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 214
+                  },
+                  "guidance": "The terminus intent — stated as intent, not a promise, e.g. \"Moving the bank from prediction to intervention — decisions that change outcomes, not just forecast them. Surveyed, not yet cut. Stated as intent, not as a promise.\"."
+                },
+                "guidance": "The terminus intent — stated as intent, not a promise, e.g. \"Moving the bank from prediction to intervention — decisions that change outcomes, not just forecast them. Surveyed, not yet cut. Stated as intent, not as a promise.\".",
+                "example": "Moving the bank from prediction to intervention — decisions that change outcomes, not just forecast them. Surveyed, not yet cut. Stated as intent, not as a promise."
+              }
+            ]
+          },
+          {
+            "kind": "interchange",
+            "purpose": "The §2 interchanges panel — where this line crossed other people's lines.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "interchange.sectionTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 20
+                  },
+                  "guidance": "The §2 section heading, e.g. \"INTERCHANGES\"."
+                },
+                "guidance": "The §2 section heading, e.g. \"INTERCHANGES\".",
+                "example": "INTERCHANGES"
+              },
+              {
+                "spec": {
+                  "name": "interchange.sectionSub",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 50
+                  },
+                  "guidance": "The §2 section sub-line, e.g. \"WHERE THIS LINE CROSSED OTHER PEOPLE'S\"."
+                },
+                "guidance": "The §2 section sub-line, e.g. \"WHERE THIS LINE CROSSED OTHER PEOPLE'S\".",
+                "example": "WHERE THIS LINE CROSSED OTHER PEOPLE"
+              },
+              {
+                "spec": {
+                  "name": "interchange.items",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 2,
+                    "maxItems": 6
+                  },
+                  "guidance": "Two-to-six interchanges (id, code, station, crossedWith, note), e.g. { code: \"IX-B\", station: \"DP-06 · ML guild\", crossedWith: \"Priya Menon — Streaming Platform\", note: \"Her pipelines under my models; we shared an on-call rotation for a year.\" }."
+                },
+                "guidance": "Two-to-six interchanges (id, code, station, crossedWith, note), e.g. { code: \"IX-B\", station: \"DP-06 · ML guild\", crossedWith: \"Priya Menon — Streaming Platform\", note: \"Her pipelines under my models; we shared an on-call rotation for a year.\" }.",
+                "example": "<2–6 items>"
+              }
+            ]
+          },
+          {
+            "kind": "register",
+            "purpose": "The §3 station register — the line as a dated table (rendered from line.nodes + terminus); this section carries only its heading and the accessible caption.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "register.sectionTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 24
+                  },
+                  "guidance": "The §3 section heading, e.g. \"STATION REGISTER\"."
+                },
+                "guidance": "The §3 section heading, e.g. \"STATION REGISTER\".",
+                "example": "STATION REGISTER"
+              },
+              {
+                "spec": {
+                  "name": "register.sectionSub",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 64
+                  },
+                  "guidance": "The §3 section sub-line, e.g. \"THE LINE AS A DATED TABLE — THE ACCESSIBLE MIRROR\"."
+                },
+                "guidance": "The §3 section sub-line, e.g. \"THE LINE AS A DATED TABLE — THE ACCESSIBLE MIRROR\".",
+                "example": "THE LINE AS A DATED TABLE — THE ACCESSIBLE MIRROR"
+              },
+              {
+                "spec": {
+                  "name": "register.caption",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 180
+                  },
+                  "guidance": "The accessible caption of the register table naming its columns, e.g. \"Every station on the line in date order: code, year, project, grade in force, and outcome. The dated equivalent of the drawn line above.\"."
+                },
+                "guidance": "The accessible caption of the register table naming its columns, e.g. \"Every station on the line in date order: code, year, project, grade in force, and outcome. The dated equivalent of the drawn line above.\".",
+                "example": "Every station on the line in date order: code, year, project, grade in force, and outcome. The dated equivalent of the drawn line above."
+              }
+            ]
+          }
+        ],
+        "craftGuarantees": [
+          "A career staged as ONE continuous survey line on a dark slate cartographic field — cold and vertical, a single luminous aqua rail that thickens with grade (gauge), branches for side-projects, and once doubles back on itself. Station typography is mono; project names are an editorial serif.",
+          "The commanding visual is THE LINE: every project placed as a STATION down the years, promotions drawn as GAUGE CHANGES where the rail visibly thickens, side-projects as BRANCH lines that terminate honestly or rejoin carrying something back. THE GAUGE LADDER IS FIXED-SLOT — line weight and dot size are a template-fixed map over four rungs, so the schema pins the gauge-role label map to exactly those four rungs; a fill re-labels the rungs (any four-rung ladder) but cannot add a fifth weight the geometry has nowhere to draw. Any schema-valid fill renders composed.",
+          "Exactly one line node carries kind \"switchback\": the single honest detour the whole page is arranged around — a reversed-out chapter drawn as a loop on the rail and labelled with what it taught, and flagged in the mirror table. The flag is STRUCTURAL (a kind field the schema requires exactly one of), never a match on free-form text.",
+          "PERSONAL-PAGE HONESTY: this surface presents a PERSON. The schema never forces invented biography — the facts (name, roles, projects, dates, figures) come from the source the fill author was given. Where entries are illustrative or synthetic, the REQUIRED provenance notice (chrome.syntheticMark) says so plainly; it prints as the chrome badge and is reinforced in the footer and the accessible hero notice. The one switchback is an honesty device — a career drawn with a real detour left in, not airbrushed.",
+          "The drawn line is decorative (aria-hidden rail); the REAL content is the visible §3 station-register TABLE — the line as a dated register — so the world is fully legible without the rail. The terminus states the next station as INTENT, not a promise.",
+          "Slot char caps and item counts are sized so any schema-valid fill stays composed — the display statement never overflows, the rail and its branches stay balanced, and the register table stays legible. Motion: the line draws in on a token easing (DataInkDraw, signature data-ink-draw); fully drawn and static under reduced motion. The mood is locked dark."
+        ]
+      }
+    },
+    "text": {
+      "worldTemplateId": "the-line",
+      "experienceId": "home-career-project-timeline",
+      "rationale": "Selected 'the-line' (home-career-project-timeline, art-directed style); shares audience(s) [personal-internal]; matched intent keyword(s) [showcase, career, trajectory, connect, projects, outcomes, personal]; art-directed style fits standard corporate suitability; motion preference 3 noted (the template locks its own motion).",
+      "evidence": [
+        "the-line (home-career-project-timeline): audienceOverlap 1×2=2 + intentMatch 7 + corporateFit 1 = 10"
+      ],
+      "fillSkeleton": {
+        "sections": [
+          {
+            "kind": "chrome",
+            "purpose": "The sticky top chrome and footer identity of the personal page — the world label, the service line, and the REQUIRED synthetic-profile provenance notice.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "chrome.pageTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 24
+                  },
+                  "guidance": "The browser-tab title stem (assigned in JS, derived byte-identically; the template appends \" — {person name} — Live\"), e.g. \"The Line\"."
+                },
+                "guidance": "The browser-tab title stem (assigned in JS, derived byte-identically; the template appends \" — {person name} — Live\"), e.g. \"The Line\".",
+                "example": "The Line"
+              },
+              {
+                "spec": {
+                  "name": "chrome.world",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 34
+                  },
+                  "guidance": "The world label on the top chrome, e.g. \"THE LINE · PERSONAL PAGE\"."
+                },
+                "guidance": "The world label on the top chrome, e.g. \"THE LINE · PERSONAL PAGE\".",
+                "example": "THE LINE · PERSONAL PAGE"
+              },
+              {
+                "spec": {
+                  "name": "chrome.service",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 52
+                  },
+                  "guidance": "The service line on the top chrome, e.g. \"SERVICE · LINE OPEN 2014 · STILL RUNNING\"."
+                },
+                "guidance": "The service line on the top chrome, e.g. \"SERVICE · LINE OPEN 2014 · STILL RUNNING\".",
+                "example": "SERVICE · LINE OPEN 2014 · STILL RUNNING"
+              },
+              {
+                "spec": {
+                  "name": "chrome.syntheticMark",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 42
+                  },
+                  "guidance": "REQUIRED provenance notice — the synthetic-mark badge in the chrome (and echoed in the footer). Must state the profile is illustrative/synthetic where entries are not real, e.g. \"ILLUSTRATIVE PROFILE · SYNTHETIC\"."
+                },
+                "guidance": "REQUIRED provenance notice — the synthetic-mark badge in the chrome (and echoed in the footer). Must state the profile is illustrative/synthetic where entries are not real, e.g. \"ILLUSTRATIVE PROFILE · SYNTHETIC\".",
+                "example": "ILLUSTRATIVE PROFILE · SYNTHETIC"
+              },
+              {
+                "spec": {
+                  "name": "chrome.footerProvenance",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 88
+                  },
+                  "guidance": "The footer provenance line reinforcing the synthetic mark, e.g. \"ILLUSTRATIVE PROFILE · SYNTHETIC · SAMPLE CONTENT IS MARKED AS SUCH\"."
+                },
+                "guidance": "The footer provenance line reinforcing the synthetic mark, e.g. \"ILLUSTRATIVE PROFILE · SYNTHETIC · SAMPLE CONTENT IS MARKED AS SUCH\".",
+                "example": "ILLUSTRATIVE PROFILE · SYNTHETIC · SAMPLE CONTENT IS MARKED AS SUCH"
+              },
+              {
+                "spec": {
+                  "name": "chrome.footerService",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 40
+                  },
+                  "guidance": "The footer service line, e.g. \"LINE OPEN 2014 · STILL RUNNING\"."
+                },
+                "guidance": "The footer service line, e.g. \"LINE OPEN 2014 · STILL RUNNING\".",
+                "example": "LINE OPEN 2014 · STILL RUNNING"
+              }
+            ]
+          },
+          {
+            "kind": "hero",
+            "purpose": "The editorial hero — the kicker, the multi-line display statement, the person identity line, the subline, the accessible synthetic-profile notice, and the identity facts.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "hero.kicker",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 20
+                  },
+                  "guidance": "The hero eyebrow, e.g. \"THE LINE\"."
+                },
+                "guidance": "The hero eyebrow, e.g. \"THE LINE\".",
+                "example": "THE LINE"
+              },
+              {
+                "spec": {
+                  "name": "hero.statementLines",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 24,
+                    "minItems": 2,
+                    "maxItems": 4
+                  },
+                  "guidance": "Two-to-four display lines (one per array entry, rendered as broken lines) building the career thesis, e.g. \"One line,\" / \"twelve years,\" / \"no gaps hidden.\"."
+                },
+                "guidance": "Two-to-four display lines (one per array entry, rendered as broken lines) building the career thesis, e.g. \"One line,\" / \"twelve years,\" / \"no gaps hidden.\".",
+                "example": "One line,"
+              },
+              {
+                "spec": {
+                  "name": "hero.person.name",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 30
+                  },
+                  "guidance": "The person at the head of the line; a fact from the provided source (illustrative names are covered by the provenance notice), e.g. \"Marcus Adeyemi\"."
+                },
+                "guidance": "The person at the head of the line; a fact from the provided source (illustrative names are covered by the provenance notice), e.g. \"Marcus Adeyemi\".",
+                "example": "Marcus Adeyemi"
+              },
+              {
+                "spec": {
+                  "name": "hero.person.role",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 34
+                  },
+                  "guidance": "The person's current role, e.g. \"Principal ML Engineer\"."
+                },
+                "guidance": "The person's current role, e.g. \"Principal ML Engineer\".",
+                "example": "Principal ML Engineer"
+              },
+              {
+                "spec": {
+                  "name": "hero.person.team",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 34
+                  },
+                  "guidance": "The person's current team, e.g. \"Decisioning Platform\"."
+                },
+                "guidance": "The person's current team, e.g. \"Decisioning Platform\".",
+                "example": "Decisioning Platform"
+              },
+              {
+                "spec": {
+                  "name": "hero.person.location",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 24
+                  },
+                  "guidance": "The person's location, e.g. \"Melbourne\"."
+                },
+                "guidance": "The person's location, e.g. \"Melbourne\".",
+                "example": "Melbourne"
+              },
+              {
+                "spec": {
+                  "name": "hero.subline",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 270
+                  },
+                  "guidance": "One reading of the career under the statement, naming the honest detour, e.g. \"A career is not a list of job titles — it is a single line that thickens where I grew, branches where I gambled, and once doubled back on itself. This is that line, drawn honestly, with the detour left in.\"."
+                },
+                "guidance": "One reading of the career under the statement, naming the honest detour, e.g. \"A career is not a list of job titles — it is a single line that thickens where I grew, branches where I gambled, and once doubled back on itself. This is that line, drawn honestly, with the detour left in.\".",
+                "example": "A career is not a list of job titles — it is a single line that thickens where I grew, branches where I gambled, and once doubled back on itself. This is that line, drawn honestly, with the detour left in."
+              },
+              {
+                "spec": {
+                  "name": "hero.syntheticNotice",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 200
+                  },
+                  "guidance": "The accessible (visually hidden) provenance paragraph stating the profile is a demonstration, e.g. \"This entire profile is illustrative and synthetic — a demonstration person, not a real member of staff. Projects, dates and figures are sample content.\"."
+                },
+                "guidance": "The accessible (visually hidden) provenance paragraph stating the profile is a demonstration, e.g. \"This entire profile is illustrative and synthetic — a demonstration person, not a real member of staff. Projects, dates and figures are sample content.\".",
+                "example": "This entire profile is illustrative and synthetic — a demonstration person, not a real member of staff. Projects, dates and figures are sample content."
+              },
+              {
+                "spec": {
+                  "name": "hero.facts",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 3,
+                    "maxItems": 6
+                  },
+                  "guidance": "Three-to-six identity facts (label, value) in the hero definition list, e.g. { label: \"GAUGE\", value: \"analyst → principal\" }."
+                },
+                "guidance": "Three-to-six identity facts (label, value) in the hero definition list, e.g. { label: \"GAUGE\", value: \"analyst → principal\" }.",
+                "example": "<3–6 items>"
+              }
+            ]
+          },
+          {
+            "kind": "line",
+            "purpose": "The commanding survey line — the stations top-to-bottom with the one honest switchback flagged, the four-rung gauge-role ladder, the origin marker, and the next-station-under-survey terminus. The gauge ladder is a template-fixed map over four rungs; the fill re-labels the rungs and writes the stations.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "line.sectionTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 20
+                  },
+                  "guidance": "The §1 section heading, e.g. \"THE LINE\"."
+                },
+                "guidance": "The §1 section heading, e.g. \"THE LINE\".",
+                "example": "THE LINE"
+              },
+              {
+                "spec": {
+                  "name": "line.sectionSub",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 108
+                  },
+                  "guidance": "The §1 section sub-line (the legend), true of the line you supply, e.g. \"STATION = PROJECT · GAUGE = GRADE · BRANCH = SIDE-PROJECT · ONE SWITCHBACK, LEFT IN\"."
+                },
+                "guidance": "The §1 section sub-line (the legend), true of the line you supply, e.g. \"STATION = PROJECT · GAUGE = GRADE · BRANCH = SIDE-PROJECT · ONE SWITCHBACK, LEFT IN\".",
+                "example": "STATION = PROJECT · GAUGE = GRADE · BRANCH = SIDE-PROJECT · ONE SWITCHBACK, LEFT IN"
+              },
+              {
+                "spec": {
+                  "name": "line.originLabel",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 28
+                  },
+                  "guidance": "The origin marker label where the line opens, e.g. \"LINE OPEN · 2014\"."
+                },
+                "guidance": "The origin marker label where the line opens, e.g. \"LINE OPEN · 2014\".",
+                "example": "LINE OPEN · 2014"
+              },
+              {
+                "spec": {
+                  "name": "line.gaugeRoles",
+                  "type": "metric",
+                  "required": true,
+                  "limits": {},
+                  "guidance": "The four grade-rung labels the gauge maps to (an object keyed 1..4, the line thickening as it climbs). FIXED-SLOT: exactly the four rungs, e.g. { \"1\": \"Analyst\", \"2\": \"Senior Analyst\", \"3\": \"Lead\", \"4\": \"Principal\" }."
+                },
+                "guidance": "The four grade-rung labels the gauge maps to (an object keyed 1..4, the line thickening as it climbs). FIXED-SLOT: exactly the four rungs, e.g. { \"1\": \"Analyst\", \"2\": \"Senior Analyst\", \"3\": \"Lead\", \"4\": \"Principal\" }.",
+                "example": "<0–0 metric>"
+              },
+              {
+                "spec": {
+                  "name": "line.nodes",
+                  "type": "tableRows",
+                  "required": true,
+                  "limits": {
+                    "minItems": 5,
+                    "maxItems": 14
+                  },
+                  "guidance": "Five-to-fourteen stations, earliest first (id, kind station|gauge-change|switchback|branch, code, year, name, gauge 1|2|3|4, outcome carrying a real number; promotion on a gauge-change; branch {fate terminated|rejoined, carried} on a branch; detour {span, lesson} on the switchback). Exactly ONE node is \"switchback\" — the single honest detour the page is arranged around, e.g. a two-year migration reversed out."
+                },
+                "guidance": "Five-to-fourteen stations, earliest first (id, kind station|gauge-change|switchback|branch, code, year, name, gauge 1|2|3|4, outcome carrying a real number; promotion on a gauge-change; branch {fate terminated|rejoined, carried} on a branch; detour {span, lesson} on the switchback). Exactly ONE node is \"switchback\" — the single honest detour the page is arranged around, e.g. a two-year migration reversed out.",
+                "example": "<5–14 tableRows>"
+              },
+              {
+                "spec": {
+                  "name": "line.terminus.code",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 14
+                  },
+                  "guidance": "The terminus station code, e.g. \"DP-10\"."
+                },
+                "guidance": "The terminus station code, e.g. \"DP-10\".",
+                "example": "DP-10"
+              },
+              {
+                "spec": {
+                  "name": "line.terminus.label",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 36
+                  },
+                  "guidance": "The terminus label, e.g. \"NEXT STATION · UNDER SURVEY\"."
+                },
+                "guidance": "The terminus label, e.g. \"NEXT STATION · UNDER SURVEY\".",
+                "example": "NEXT STATION · UNDER SURVEY"
+              },
+              {
+                "spec": {
+                  "name": "line.terminus.name",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 30
+                  },
+                  "guidance": "The next station under survey, e.g. \"Causal decisioning\"."
+                },
+                "guidance": "The next station under survey, e.g. \"Causal decisioning\".",
+                "example": "Causal decisioning"
+              },
+              {
+                "spec": {
+                  "name": "line.terminus.intent",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 214
+                  },
+                  "guidance": "The terminus intent — stated as intent, not a promise, e.g. \"Moving the bank from prediction to intervention — decisions that change outcomes, not just forecast them. Surveyed, not yet cut. Stated as intent, not as a promise.\"."
+                },
+                "guidance": "The terminus intent — stated as intent, not a promise, e.g. \"Moving the bank from prediction to intervention — decisions that change outcomes, not just forecast them. Surveyed, not yet cut. Stated as intent, not as a promise.\".",
+                "example": "Moving the bank from prediction to intervention — decisions that change outcomes, not just forecast them. Surveyed, not yet cut. Stated as intent, not as a promise."
+              }
+            ]
+          },
+          {
+            "kind": "interchange",
+            "purpose": "The §2 interchanges panel — where this line crossed other people's lines.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "interchange.sectionTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 20
+                  },
+                  "guidance": "The §2 section heading, e.g. \"INTERCHANGES\"."
+                },
+                "guidance": "The §2 section heading, e.g. \"INTERCHANGES\".",
+                "example": "INTERCHANGES"
+              },
+              {
+                "spec": {
+                  "name": "interchange.sectionSub",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 50
+                  },
+                  "guidance": "The §2 section sub-line, e.g. \"WHERE THIS LINE CROSSED OTHER PEOPLE'S\"."
+                },
+                "guidance": "The §2 section sub-line, e.g. \"WHERE THIS LINE CROSSED OTHER PEOPLE'S\".",
+                "example": "WHERE THIS LINE CROSSED OTHER PEOPLE"
+              },
+              {
+                "spec": {
+                  "name": "interchange.items",
+                  "type": "items",
+                  "required": true,
+                  "limits": {
+                    "minItems": 2,
+                    "maxItems": 6
+                  },
+                  "guidance": "Two-to-six interchanges (id, code, station, crossedWith, note), e.g. { code: \"IX-B\", station: \"DP-06 · ML guild\", crossedWith: \"Priya Menon — Streaming Platform\", note: \"Her pipelines under my models; we shared an on-call rotation for a year.\" }."
+                },
+                "guidance": "Two-to-six interchanges (id, code, station, crossedWith, note), e.g. { code: \"IX-B\", station: \"DP-06 · ML guild\", crossedWith: \"Priya Menon — Streaming Platform\", note: \"Her pipelines under my models; we shared an on-call rotation for a year.\" }.",
+                "example": "<2–6 items>"
+              }
+            ]
+          },
+          {
+            "kind": "register",
+            "purpose": "The §3 station register — the line as a dated table (rendered from line.nodes + terminus); this section carries only its heading and the accessible caption.",
+            "repeats": {
+              "min": 1,
+              "max": 1
+            },
+            "slots": [
+              {
+                "spec": {
+                  "name": "register.sectionTitle",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 24
+                  },
+                  "guidance": "The §3 section heading, e.g. \"STATION REGISTER\"."
+                },
+                "guidance": "The §3 section heading, e.g. \"STATION REGISTER\".",
+                "example": "STATION REGISTER"
+              },
+              {
+                "spec": {
+                  "name": "register.sectionSub",
+                  "type": "text",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 64
+                  },
+                  "guidance": "The §3 section sub-line, e.g. \"THE LINE AS A DATED TABLE — THE ACCESSIBLE MIRROR\"."
+                },
+                "guidance": "The §3 section sub-line, e.g. \"THE LINE AS A DATED TABLE — THE ACCESSIBLE MIRROR\".",
+                "example": "THE LINE AS A DATED TABLE — THE ACCESSIBLE MIRROR"
+              },
+              {
+                "spec": {
+                  "name": "register.caption",
+                  "type": "longtext",
+                  "required": true,
+                  "limits": {
+                    "maxChars": 180
+                  },
+                  "guidance": "The accessible caption of the register table naming its columns, e.g. \"Every station on the line in date order: code, year, project, grade in force, and outcome. The dated equivalent of the drawn line above.\"."
+                },
+                "guidance": "The accessible caption of the register table naming its columns, e.g. \"Every station on the line in date order: code, year, project, grade in force, and outcome. The dated equivalent of the drawn line above.\".",
+                "example": "Every station on the line in date order: code, year, project, grade in force, and outcome. The dated equivalent of the drawn line above."
+              }
+            ]
+          }
+        ],
+        "craftGuarantees": [
+          "A career staged as ONE continuous survey line on a dark slate cartographic field — cold and vertical, a single luminous aqua rail that thickens with grade (gauge), branches for side-projects, and once doubles back on itself. Station typography is mono; project names are an editorial serif.",
+          "The commanding visual is THE LINE: every project placed as a STATION down the years, promotions drawn as GAUGE CHANGES where the rail visibly thickens, side-projects as BRANCH lines that terminate honestly or rejoin carrying something back. THE GAUGE LADDER IS FIXED-SLOT — line weight and dot size are a template-fixed map over four rungs, so the schema pins the gauge-role label map to exactly those four rungs; a fill re-labels the rungs (any four-rung ladder) but cannot add a fifth weight the geometry has nowhere to draw. Any schema-valid fill renders composed.",
+          "Exactly one line node carries kind \"switchback\": the single honest detour the whole page is arranged around — a reversed-out chapter drawn as a loop on the rail and labelled with what it taught, and flagged in the mirror table. The flag is STRUCTURAL (a kind field the schema requires exactly one of), never a match on free-form text.",
+          "PERSONAL-PAGE HONESTY: this surface presents a PERSON. The schema never forces invented biography — the facts (name, roles, projects, dates, figures) come from the source the fill author was given. Where entries are illustrative or synthetic, the REQUIRED provenance notice (chrome.syntheticMark) says so plainly; it prints as the chrome badge and is reinforced in the footer and the accessible hero notice. The one switchback is an honesty device — a career drawn with a real detour left in, not airbrushed.",
+          "The drawn line is decorative (aria-hidden rail); the REAL content is the visible §3 station-register TABLE — the line as a dated register — so the world is fully legible without the rail. The terminus states the next station as INTENT, not a promise.",
+          "Slot char caps and item counts are sized so any schema-valid fill stays composed — the display statement never overflows, the rail and its branches stay balanced, and the register table stays legible. Motion: the line draws in on a token easing (DataInkDraw, signature data-ink-draw); fully drawn and static under reduced motion. The mood is locked dark."
+        ]
+      }
+    }
+  },
+  "validate": {
+    "tool": "validate_fill",
+    "arguments": {
+      "worldTemplateId": "home-career-project-timeline"
+    },
+    "structuredContent": {
+      "valid": true,
+      "worldTemplateId": "home-career-project-timeline",
+      "findings": []
+    },
+    "text": {
+      "valid": true,
+      "worldTemplateId": "home-career-project-timeline",
+      "findings": []
+    }
+  },
+  "checks": [
+    {
+      "name": "[ml-career] compose_personal_page not isError",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[ml-career] compose output parses",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[ml-career] selection → home-career-project-timeline (the-line)",
+      "pass": true,
+      "detail": "the-line / home-career-project-timeline"
+    },
+    {
+      "name": "[ml-career] skeleton carries sections + craft guarantees",
+      "pass": true,
+      "detail": "5 sections"
+    },
+    {
+      "name": "[ml-career] validate_fill not isError",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[ml-career] validate_fill valid=true, no findings",
+      "pass": true,
+      "detail": "valid=true, 0 findings"
+    }
+  ]
+}
