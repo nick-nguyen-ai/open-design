@@ -294,9 +294,13 @@ export function PartInspector() {
           }
         }}
         style={{
+          // Right edge, vertically centred: deck templates own the corners
+          // (footer nav arrows bottom-right, chrome top) and the toggle must
+          // never occlude them — live-decks-g's 'Next slide' click proved it.
           position: 'fixed',
-          right: 16,
-          bottom: 16,
+          right: 12,
+          top: '50%',
+          transform: 'translateY(-50%)',
           zIndex: 2147483002,
           width: 40,
           height: 40,
