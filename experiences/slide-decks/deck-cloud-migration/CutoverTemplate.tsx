@@ -18,6 +18,10 @@
  *
  * Deck mechanics via `useDeckNavigation`. Theme mood (light) is locked by
  * LiveExperience — not re-locked here.
+ *
+ * `data-part-id` values are a PUBLIC BORROW CONTRACT (surfaced by the gallery's
+ * part inspector and consumed by the design-borrow skill): never rename or
+ * remove one without updating LivePartIds.test.tsx.
  */
 import { useEffect, useMemo } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
@@ -571,14 +575,20 @@ function Build({
   children,
   className,
   as: Tag = 'div',
+  partId,
 }: {
   i: number;
   children: React.ReactNode;
   className?: string;
   as?: 'div' | 'li';
+  partId?: string;
 }) {
   return (
-    <Tag className={className ? `cu-build ${className}` : 'cu-build'} style={{ ['--cu-i' as string]: i }}>
+    <Tag
+      className={className ? `cu-build ${className}` : 'cu-build'}
+      style={{ ['--cu-i' as string]: i }}
+      data-part-id={partId}
+    >
       {children}
     </Tag>
   );
@@ -637,6 +647,7 @@ function EstateDiagram({
       role="img"
       aria-label={`${layout === 'current' ? 'Current' : 'Target'} estate diagram. ${nodes.map((n) => `${n.label}, ${DISPOSITION_LABEL[n.disposition]}`).join('; ')}. ${anomalyText}.`}
       data-testid={testid}
+      data-part-id={`deck-cloud-migration/${layout}/estate-diagram`}
     >
       {/* target estate: the on-prem zone that keeps the locked node — derived from
           the node's resolved position so it wraps the ledger under autolayout too */}
@@ -942,7 +953,7 @@ function SlideBody({ slide, fill, derived }: { slide: Slide; fill: CutoverFill; 
           <Build i={1}>
             <h2 className="cu-heading cu-heading-tight">{fill.headlines.waves}</h2>
           </Build>
-          <div className="cu-swimlanes">
+          <div className="cu-swimlanes" data-part-id="deck-cloud-migration/waves/swimlanes">
             {fill.waves.map((w, i) => (
               <Build key={w.id} i={i + 2} className="cu-lane">
                 <div className="cu-lane-head">
@@ -970,7 +981,7 @@ function SlideBody({ slide, fill, derived }: { slide: Slide; fill: CutoverFill; 
           <Build i={1}>
             <h2 className="cu-heading cu-heading-tight">{fill.headlines.cutover}</h2>
           </Build>
-          <Build i={2} className="cu-flow-frame">
+          <Build i={2} className="cu-flow-frame" partId="deck-cloud-migration/cutover/flow-frame">
             <FlowDiagram
               data={fill.cutoverFlow}
               title="Cutover-night sequence"
@@ -1009,7 +1020,7 @@ function SlideBody({ slide, fill, derived }: { slide: Slide; fill: CutoverFill; 
             <h2 className="cu-heading cu-heading-tight">{fill.headlines.rollback}</h2>
           </Build>
           <Build i={2} className="cu-canvas">
-            <svg className="cu-rollback-svg" viewBox={ROLLBACK_VIEW} role="img" aria-label="Rollback tree from the validation gate: pass opens to customers; fail freezes the target, repoints DNS to source, and unfreezes source writes." data-testid="rollback-tree">
+            <svg className="cu-rollback-svg" viewBox={ROLLBACK_VIEW} role="img" aria-label="Rollback tree from the validation gate: pass opens to customers; fail freezes the target, repoints DNS to source, and unfreezes source writes." data-testid="rollback-tree" data-part-id="deck-cloud-migration/rollback/rollback-tree">
               {fill.rollback.edges.map((e, i) => {
                 const a = derived.rollbackPositions.get(e.from)!;
                 const b = derived.rollbackPositions.get(e.to)!;
@@ -1176,6 +1187,7 @@ export default function CutoverTemplate({ fill }: { fill: CutoverFill }) {
                 className="cu-slide"
                 data-state={state}
                 data-slide-id={slide.id}
+                data-part-id={`deck-cloud-migration/${slide.kind}`}
                 aria-hidden={index === activeIndex ? undefined : 'true'}
                 inert={index === activeIndex ? undefined : true}
                 aria-label={`Slide ${index + 1} of ${SLIDE_COUNT}: ${slide.section}`}

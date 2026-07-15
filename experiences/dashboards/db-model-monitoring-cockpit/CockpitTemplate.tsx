@@ -19,6 +19,10 @@
  * experience-local art layer — raw colour values are permitted HERE (and only
  * here); shared components inside continue consuming tokens. The document theme
  * (dark) is locked by LiveExperience — not re-locked here.
+ *
+ * `data-part-id` values are a PUBLIC BORROW CONTRACT (surfaced by the gallery's
+ * part inspector and consumed by the design-borrow skill): never rename or
+ * remove one without updating LivePartIds.test.tsx.
  */
 import { useEffect, useMemo, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
@@ -172,7 +176,7 @@ function WatchClock({ reduced, base, timezone }: { reduced: boolean; base: numbe
     return () => window.clearInterval(id);
   }, [reduced]);
   return (
-    <span className="ck-clock" data-testid="watch-clock">
+    <span className="ck-clock" data-testid="watch-clock" data-part-id="db-model-monitoring-cockpit/watch/clock">
       {formatClock(base + elapsed)} {timezone}
     </span>
   );
@@ -249,7 +253,7 @@ export default function CockpitTemplate({ fill }: { fill: CockpitFill }) {
       data-reduced={reduced ? 'true' : undefined}
       data-paused={paused ? 'true' : undefined}
     >
-      <header className="ck-chrome" aria-label="Control room chrome">
+      <header className="ck-chrome" aria-label="Control room chrome" data-part-id="db-model-monitoring-cockpit/watch">
         <div className="ck-chrome-cell ck-chrome-tl">
           <RouterLink to="/" className="ck-back">
             ◄ GALLERY
@@ -298,7 +302,7 @@ export default function CockpitTemplate({ fill }: { fill: CockpitFill }) {
               <dd>{watch.sweepCadence}</dd>
             </div>
           </dl>
-          <div className="ck-statement-block">
+          <div className="ck-statement-block" data-part-id="db-model-monitoring-cockpit/statement">
             <p className="ck-kicker">{statement.kicker}</p>
             <h1 id="ck-statement" className="ck-statement">
               {statement.lines.map((line, i) => (
@@ -310,7 +314,7 @@ export default function CockpitTemplate({ fill }: { fill: CockpitFill }) {
             <p className="ck-subline">{statement.subline}</p>
           </div>
 
-          <figure className="ck-scope-figure">
+          <figure className="ck-scope-figure" data-part-id="db-model-monitoring-cockpit/scope">
             <DriftScope
               reduced={reduced}
               sectors={fleet.sectors}
@@ -358,13 +362,13 @@ export default function CockpitTemplate({ fill }: { fill: CockpitFill }) {
           </div>
         </section>
 
-        <section className="ck-band" aria-labelledby="ck-watchlist-heading">
+        <section className="ck-band" aria-labelledby="ck-watchlist-heading" data-part-id="db-model-monitoring-cockpit/fleet">
           <h2 id="ck-watchlist-heading" className="ck-band-heading">
             <span className="ck-band-index">01</span> {fleet.bandTitle}
             <span className="ck-band-sub">{fleet.bandSub}</span>
           </h2>
           <div className="ck-table-wrap">
-            <table className="ck-table" data-testid="fleet-watchlist">
+            <table className="ck-table" data-testid="fleet-watchlist" data-part-id="db-model-monitoring-cockpit/fleet/table">
               <caption>
                 <VisuallyHidden>{fleet.tableCaption}</VisuallyHidden>
               </caption>
@@ -405,7 +409,7 @@ export default function CockpitTemplate({ fill }: { fill: CockpitFill }) {
           </div>
         </section>
 
-        <section className="ck-band" aria-labelledby="ck-dossier-heading">
+        <section className="ck-band" aria-labelledby="ck-dossier-heading" data-part-id="db-model-monitoring-cockpit/dossier">
           <h2 id="ck-dossier-heading" className="ck-band-heading">
             <span className="ck-band-index">02</span> {dossier.bandTitle} — {breaching.name.toUpperCase()}
             <span className="ck-band-sub">
@@ -413,7 +417,7 @@ export default function CockpitTemplate({ fill }: { fill: CockpitFill }) {
             </span>
           </h2>
           <div className="ck-dossier-grid">
-            <div className="ck-panel ck-panel-trend">
+            <div className="ck-panel ck-panel-trend" data-part-id="db-model-monitoring-cockpit/dossier/trend-panel">
               <h3 className="ck-panel-heading">{dossier.trendHeading}</h3>
               <ChartFigure
                 title={dossier.trendChartTitle}
@@ -448,14 +452,14 @@ export default function CockpitTemplate({ fill }: { fill: CockpitFill }) {
                 ))}
               </dl>
             </div>
-            <div className="ck-panel ck-panel-log">
+            <div className="ck-panel ck-panel-log" data-part-id="db-model-monitoring-cockpit/log">
               <h3 className="ck-panel-heading">{log.heading}</h3>
               <StatusList title={log.listTitle} items={[...log.items]} />
             </div>
           </div>
         </section>
 
-        <section className="ck-band" aria-labelledby="ck-instruments-heading">
+        <section className="ck-band" aria-labelledby="ck-instruments-heading" data-part-id="db-model-monitoring-cockpit/instruments">
           <h2 id="ck-instruments-heading" className="ck-band-heading">
             <span className="ck-band-index">03</span> {instruments.bandTitle}
             <span className="ck-band-sub">{instruments.bandSub}</span>

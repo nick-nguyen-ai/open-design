@@ -12,6 +12,10 @@
  * experience-local art layer — raw colour values are permitted HERE only.
  * Motion easings/durations remain token-driven; reduced motion collapses
  * the sweep to ordered opacity steps and stills the field.
+ *
+ * `data-part-id` values are a PUBLIC BORROW CONTRACT (surfaced by the gallery's
+ * part inspector and consumed by the design-borrow skill): never rename or
+ * remove one without updating LivePartIds.test.tsx.
  */
 import { useEffect, useMemo } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
@@ -142,6 +146,7 @@ function Constellation() {
       role="img"
       aria-label="Skills constellation — mirrored by the list that follows"
       data-testid="skills-constellation"
+      data-part-id="home-data-scientist-studio/constellation/skill-map"
     >
       {CONSTELLATION_EDGES.map(([fromId, toId]) => {
         const from = starById(fromId);
@@ -187,8 +192,8 @@ function BenchRow({ reduced }: { reduced: boolean }) {
   const driftOption = useDriftOption(reduced);
   const driftTable = useMemo(() => buildTrendChartTable([...DRIFT_SERIES]), []);
   return (
-    <div className="st-row st-row-bench">
-      <section className="st-pane st-pane-now" aria-labelledby="st-now-heading">
+    <div className="st-row st-row-bench" data-part-id="home-data-scientist-studio/bench">
+      <section className="st-pane st-pane-now" aria-labelledby="st-now-heading" data-part-id="home-data-scientist-studio/bench/now-card">
         <h2 id="st-now-heading" className="st-pane-heading">
           NOW WORKING ON
         </h2>
@@ -206,7 +211,7 @@ function BenchRow({ reduced }: { reduced: boolean }) {
           ))}
         </dl>
       </section>
-      <section className="st-pane st-pane-drift" aria-labelledby="st-drift-heading">
+      <section className="st-pane st-pane-drift" aria-labelledby="st-drift-heading" data-part-id="home-data-scientist-studio/bench/drift-chart">
         <h2 id="st-drift-heading" className="st-pane-heading">
           THE MODEL I WATCH
         </h2>
@@ -231,12 +236,12 @@ function BenchRow({ reduced }: { reduced: boolean }) {
 
 function ExperimentShelf() {
   return (
-    <section className="st-shelf-section" aria-labelledby="st-shelf-heading">
+    <section className="st-shelf-section" aria-labelledby="st-shelf-heading" data-part-id="home-data-scientist-studio/shelf">
       <h2 id="st-shelf-heading" className="st-section-heading">
         THE EXPERIMENT SHELF
         <span className="st-section-sub">HYPOTHESIS → STATUS → METRIC · THE FAILURE STAYS ON THE SHELF</span>
       </h2>
-      <ul className="st-shelf" data-testid="experiment-shelf">
+      <ul className="st-shelf" data-testid="experiment-shelf" data-part-id="home-data-scientist-studio/shelf/cards">
         {EXPERIMENTS.map((experiment) => (
           <li
             key={experiment.id}
@@ -263,7 +268,7 @@ function ExperimentShelf() {
 function ConstellationRow() {
   return (
     <div className="st-row st-row-constellation">
-      <section className="st-pane st-pane-constellation" aria-labelledby="st-const-heading">
+      <section className="st-pane st-pane-constellation" aria-labelledby="st-const-heading" data-part-id="home-data-scientist-studio/constellation">
         <h2 id="st-const-heading" className="st-pane-heading">
           THE PRACTICE, AS A CONSTELLATION
         </h2>
@@ -281,7 +286,7 @@ function ConstellationRow() {
           ))}
         </dl>
       </section>
-      <section className="st-pane st-pane-shelf" aria-labelledby="st-notes-heading">
+      <section className="st-pane st-pane-shelf" aria-labelledby="st-notes-heading" data-part-id="home-data-scientist-studio/notes">
         <h2 id="st-notes-heading" className="st-pane-heading">
           TALKS & NOTES
         </h2>
@@ -305,7 +310,7 @@ function ConstellationRow() {
 
 function BenchLog() {
   return (
-    <section className="st-pane st-pane-log" aria-labelledby="st-log-heading">
+    <section className="st-pane st-pane-log" aria-labelledby="st-log-heading" data-part-id="home-data-scientist-studio/log">
       <h2 id="st-log-heading" className="st-pane-heading">
         BENCH LOG
       </h2>
@@ -338,7 +343,7 @@ export default function StudioPage() {
   return (
     <div className="st-root" data-testid="live-studio" data-reduced={reduced ? 'true' : undefined}>
       <div className="st-field" aria-hidden="true" />
-      <header className="st-chrome" aria-label="Studio chrome">
+      <header className="st-chrome" aria-label="Studio chrome" data-part-id="home-data-scientist-studio/chrome">
         <div className="st-chrome-cell">
           <RouterLink to="/" className="st-back">
             ◄ GALLERY
@@ -356,7 +361,7 @@ export default function StudioPage() {
       </header>
 
       <main className="st-main">
-        <section className="st-hero" aria-labelledby="st-statement">
+        <section className="st-hero" aria-labelledby="st-statement" data-part-id="home-data-scientist-studio/hero">
           <div className="st-identity">
             <p className="st-name">{PERSON.name}</p>
             <p className="st-role">
