@@ -1,6 +1,7 @@
 import { Suspense, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { MotionProvider } from '@enterprise-design/motion';
+import { PartInspector } from './components/PartInspector.js';
 import { RootLayout } from './components/RootLayout.js';
 import { RouteFallback } from './components/RouteFallback.js';
 import { Landing } from './routes/Landing.js';
@@ -147,6 +148,8 @@ export function App() {
             />
           </Route>
         </Routes>
+        {/* Self-gated to /live/* and /demo/* — renders nothing elsewhere. */}
+        <PartInspector />
       </PreferencesProvider>
     </MotionProvider>
   );
