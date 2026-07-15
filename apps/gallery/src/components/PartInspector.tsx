@@ -54,12 +54,11 @@ export function PartInspector() {
   const { pathname, search } = useLocation();
   const onInspectableRoute = /^\/(live|demo)\//.test(pathname);
   const { reduced } = useMotionPreference();
-  // Latest search, readable without depending on it: slide turns rewrite the
-  // query string and must not re-run the entry effect.
-  const searchRef = useRef(search);
-  searchRef.current = search;
 
-  const [active, setActive] = useState(false);
+  const armedByEntry = () =>
+    onInspectableRoute && new URLSearchParams(search).get('inspect') === '1';
+
+  const [active, setActive] = useState(armedByEntry);
   const [hovered, setHovered] = useState<HTMLElement | null>(null);
   const [selected, setSelected] = useState<HTMLElement | null>(null);
   const [hoverBox, setHoverBox] = useState<Box | null>(null);
@@ -75,19 +74,20 @@ export function PartInspector() {
     setCopied(false);
   }, []);
 
-  // Entry/exit per route: `?inspect=1` arms the inspector when a live/demo
-  // route mounts; leaving the zone disarms it. The search string is read via
-  // ref so slide-turn param rewrites never re-run this effect.
-  useEffect(() => {
-    if (onInspectableRoute) {
-      if (new URLSearchParams(searchRef.current).get('inspect') === '1') {
-        setActive(true);
-      }
-    } else {
-      setActive(false);
-    }
-    clear();
-  }, [pathname, onInspectableRoute, clear]);
+  // Entry/exit per PATH change (adjust-state-during-render pattern): a new
+  // live/demo path re-reads `?inspect=1`; leaving the zone disarms. Keyed on
+  // pathname alone — deck slide turns rewrite only the query string and must
+  // not re-arm or disarm the inspector mid-run.
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
+    setActive(armedByEntry());
+    setHovered(null);
+    setSelected(null);
+    setHoverBox(null);
+    setSelectedBox(null);
+    setCopied(false);
+  }
 
   // Pointer + click + Escape interception while ON.
   useEffect(() => {

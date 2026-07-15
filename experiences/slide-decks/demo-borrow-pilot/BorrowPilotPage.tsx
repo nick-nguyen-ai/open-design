@@ -106,8 +106,8 @@ export default function BorrowPilotPage() {
       <main className="bp-main">
         <h1 className="bp-heading">The borrow-a-part rollout, in borrowed swimlanes.</h1>
         <p className="bp-standfirst">
-          This grid — the lanes, the chips, the staggered rise — is the Cutover deck's wave board,
-          borrowed by part ID and re-inked for this page's own content.
+          This grid — the lanes, the chips, the staggered rise — is the Cutover deck’s wave board,
+          borrowed by part ID and re-inked for this page’s own content.
         </p>
         <div className="bp-swimlanes" data-testid="borrowed-swimlanes">
           {WAVES.map((w, i) => (
