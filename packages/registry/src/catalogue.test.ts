@@ -228,6 +228,7 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
       'cockpit',
       'cutover',
       'drawing-office',
+      'ledger',
       'quarter',
       'tminus',
     ]);
@@ -243,6 +244,10 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
     expect(byId.get('drawing-office')?.surface).toBe('technical-explainer');
     expect(byId.get('drawing-office')?.style).toBe('art-directed');
     expect(byId.get('drawing-office')?.mood).toBe('light');
+    expect(byId.get('ledger')?.experienceId).toBe('proj-ai-model-validation-hub');
+    expect(byId.get('ledger')?.surface).toBe('project-page');
+    expect(byId.get('ledger')?.style).toBe('art-directed');
+    expect(byId.get('ledger')?.mood).toBe('light');
   });
 
   it('every world-template reference resolves to a real experience, grammar, and components', async () => {

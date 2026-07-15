@@ -455,8 +455,8 @@ describe('mcp-server tools', () => {
     ['compose_explainer', 'technical-explainer'],
   ] as const;
 
-  /** The surfaces that still have NO live template published (dashboard + technical-explainer now do). */
-  const LIVE_SURFACES: readonly string[] = ['dashboard', 'technical-explainer'];
+  /** The surfaces that still have NO live template published (dashboard + technical-explainer + project-page now do). */
+  const LIVE_SURFACES: readonly string[] = ['dashboard', 'technical-explainer', 'project-page'];
   const EMPTY_SURFACE_TOOLS = NEW_SURFACE_TOOLS.filter(([, surface]) => !LIVE_SURFACES.includes(surface));
 
   /** A surface-lite context for a new-surface compose tool (mirrors deckContext). */
@@ -532,6 +532,23 @@ describe('mcp-server tools', () => {
     const out = ComposeSlideDeckOutput.parse(result.structuredContent);
     expect(out.worldTemplateId).toBe('drawing-office');
     expect(out.experienceId).toBe('exp-system-architecture');
+  });
+
+  it('compose_project_page selects the live ledger for a model-validation programme brief (project-page pilot)', async () => {
+    const result = (await h.client.callTool({
+      name: 'compose_project_page',
+      arguments: {
+        context: surfaceContextArgs('project-page', {
+          audience: ['technical', 'risk-and-governance'],
+          businessIntent: ['centralise-validation-evidence', 'track-sign-off-status'],
+        }),
+        contentBrief: 'The model-validation programme hub: every in-flight model on the pipeline from intake to sign-off, the one item stalled past its review threshold flagged up front, recent sign-off outcomes on file, and the decision log.',
+      },
+    })) as CallToolResult;
+    expect(result.isError).not.toBe(true);
+    const out = ComposeSlideDeckOutput.parse(result.structuredContent);
+    expect(out.worldTemplateId).toBe('ledger');
+    expect(out.experienceId).toBe('proj-ai-model-validation-hub');
   });
 });
 

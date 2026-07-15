@@ -94,4 +94,19 @@ export const CANONICAL_BRIEFS: CanonicalBrief[] = [
     brief:
       'Produce the canonical as-built explainer of our model-decision platform architecture: the components and services, how requests and data flow across trust boundaries, and where the system is capacity-constrained — one legible diagram new engineers and architecture reviewers can rely on.',
   },
+  // Model-validation programme hub — the first project-page pilot (Task 9).
+  // Locks the 'ledger' selection as the only live project-page template; the row
+  // guards Phase 2/3 regressions once more project pages go live.
+  {
+    surface: 'project-page',
+    expect: 'ledger',
+    context: {
+      audience: ['technical', 'risk-and-governance'],
+      businessIntent: ['centralise-validation-evidence', 'track-sign-off-status'],
+      corporateSuitability: 'restricted',
+      motionPreference: 1,
+    },
+    brief:
+      'Stand up the model-validation programme hub: one project page a validator, model owner, and committee can all point to — every in-flight model on the pipeline from intake to sign-off, the one item stalled past its review threshold flagged up front, the recent sign-off outcomes on file, and the decision log and programme status.',
+  },
 ];
