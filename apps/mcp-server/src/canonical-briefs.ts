@@ -109,4 +109,19 @@ export const CANONICAL_BRIEFS: CanonicalBrief[] = [
     brief:
       'Stand up the model-validation programme hub: one project page a validator, model owner, and committee can all point to — every in-flight model on the pipeline from intake to sign-off, the one item stalled past its review threshold flagged up front, the recent sign-off outcomes on file, and the decision log and programme status.',
   },
+  // Career-and-project timeline — the first personal-page pilot (Task 10). Locks
+  // the 'the-line' selection as the only live personal-page template; the row
+  // guards Phase 2/3 regressions once more personal pages go live.
+  {
+    surface: 'personal-page',
+    expect: 'the-line',
+    context: {
+      audience: ['personal-internal'],
+      businessIntent: ['showcase-career-trajectory', 'connect-projects-to-outcomes'],
+      corporateSuitability: 'standard',
+      motionPreference: 3,
+    },
+    brief:
+      'Build a personal page that tells the story of my twelve-year engineering career as one continuous line of projects — each station a shipped project with a real outcome, promotions where the line steps up, side-projects that branched off, and the one two-year detour I reversed out of left in honestly — connecting each project to the outcome it drove.',
+  },
 ];

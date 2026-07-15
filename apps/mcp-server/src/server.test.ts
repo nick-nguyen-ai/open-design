@@ -455,8 +455,8 @@ describe('mcp-server tools', () => {
     ['compose_explainer', 'technical-explainer'],
   ] as const;
 
-  /** The surfaces that still have NO live template published (dashboard + technical-explainer + project-page now do). */
-  const LIVE_SURFACES: readonly string[] = ['dashboard', 'technical-explainer', 'project-page'];
+  /** The surfaces that still have NO live template published (dashboard + technical-explainer + project-page + personal-page now do). */
+  const LIVE_SURFACES: readonly string[] = ['dashboard', 'technical-explainer', 'project-page', 'personal-page'];
   const EMPTY_SURFACE_TOOLS = NEW_SURFACE_TOOLS.filter(([, surface]) => !LIVE_SURFACES.includes(surface));
 
   /** A surface-lite context for a new-surface compose tool (mirrors deckContext). */
@@ -549,6 +549,23 @@ describe('mcp-server tools', () => {
     const out = ComposeSlideDeckOutput.parse(result.structuredContent);
     expect(out.worldTemplateId).toBe('ledger');
     expect(out.experienceId).toBe('proj-ai-model-validation-hub');
+  });
+
+  it('compose_personal_page selects the live the-line for a career-timeline brief (personal-page pilot)', async () => {
+    const result = (await h.client.callTool({
+      name: 'compose_personal_page',
+      arguments: {
+        context: surfaceContextArgs('personal-page', {
+          audience: ['personal-internal'],
+          businessIntent: ['showcase-career-trajectory', 'connect-projects-to-outcomes'],
+        }),
+        contentBrief: 'A personal page telling the story of a twelve-year engineering career as one continuous line of projects — each station a shipped project with a real outcome, promotions where the line steps up, side-projects that branched off, and the one detour reversed out of left in honestly.',
+      },
+    })) as CallToolResult;
+    expect(result.isError).not.toBe(true);
+    const out = ComposeSlideDeckOutput.parse(result.structuredContent);
+    expect(out.worldTemplateId).toBe('the-line');
+    expect(out.experienceId).toBe('home-career-project-timeline');
   });
 });
 

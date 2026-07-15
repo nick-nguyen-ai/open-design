@@ -230,6 +230,7 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
       'drawing-office',
       'ledger',
       'quarter',
+      'the-line',
       'tminus',
     ]);
     const byId = new Map(result.worldTemplates.map((w) => [w.id, w]));
