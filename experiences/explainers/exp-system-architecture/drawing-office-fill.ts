@@ -146,6 +146,9 @@ const DrawingEdge = z.object({
   label: z.string().min(1).max(28),
 });
 
+/** The pinned node id set, for cross-field endpoint validation. */
+const NODE_ID_SET: ReadonlySet<string> = new Set(DRAWING_NODE_IDS);
+
 /** A zone box on the plan — its caption is content; its geometry is template-fixed. */
 const DrawingZone = z.object({
   id: z.string().min(1),
@@ -179,9 +182,25 @@ const Drawing = z.object({
       message: 'Exactly one part must carry emphasis "constrained" (the single hatched capacity constraint).',
     }),
   /** The ten drawn connections. FIXED-SLOT: ids must be exactly the shipped set. */
-  edges: z.array(DrawingEdge).refine(exactIdSet(DRAWING_EDGE_IDS), {
-    message: `drawing.edges ids must be exactly the fixed routing set: ${DRAWING_EDGE_IDS.join(', ')}.`,
-  }),
+  edges: z
+    .array(DrawingEdge)
+    .refine(exactIdSet(DRAWING_EDGE_IDS), {
+      message: `drawing.edges ids must be exactly the fixed routing set: ${DRAWING_EDGE_IDS.join(', ')}.`,
+    })
+    .superRefine((rows, ctx) => {
+      // Every endpoint must be a member of the pinned node id set, so a fill
+      // can never draw a connection to a part the plan does not place.
+      for (const edge of rows) {
+        for (const endpoint of ['from', 'to'] as const) {
+          if (!NODE_ID_SET.has(edge[endpoint])) {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: `drawing.edges "${edge.id}": ${endpoint} "${edge[endpoint]}" is not one of the fixed plan node ids (${DRAWING_NODE_IDS.join(', ')}).`,
+            });
+          }
+        }
+      }
+    }),
   /** The three zone boxes. FIXED-SLOT: ids must be exactly the shipped set. */
   zones: z.array(DrawingZone).refine(exactIdSet(DRAWING_ZONE_IDS), {
     message: `drawing.zones ids must be exactly the fixed set: ${DRAWING_ZONE_IDS.join(', ')}.`,
@@ -210,10 +229,22 @@ const NarrativeSection = z.object({
   title: z.string().min(1).max(28),
   annotation: z.string().min(1).max(52),
   paragraphs: z.array(z.string().min(1).max(400)).min(1).max(3),
+  /**
+   * STRUCTURAL figure placement: exactly one section hosts the capacity figure
+   * (FIG 4.1). The template renders the figure in the section flagged here —
+   * never by matching the free-form section number.
+   */
+  hostsFigure: z.boolean(),
 });
 
 const Narrative = z.object({
-  sections: z.array(NarrativeSection).min(3).max(7),
+  sections: z
+    .array(NarrativeSection)
+    .min(3)
+    .max(7)
+    .refine((rows) => rows.filter((s) => s.hostsFigure).length === 1, {
+      message: 'Exactly one narrative section must carry hostsFigure: true (the section that hosts the capacity figure).',
+    }),
 });
 
 /** A capacity-headroom datum — remaining throughput headroom, percent of rated. */
@@ -320,7 +351,7 @@ export const DRAWING_OFFICE_SECTIONS: SectionSpec[] = [
     purpose: 'The measured editorial narrative — numbered sections with mono margin annotations.',
     repeats: { min: 1, max: 1 },
     slots: [
-      { name: 'narrative.sections', type: 'items', required: true, limits: { minItems: 3, maxItems: 7 }, guidance: 'Three-to-seven narrative sections (no, title, annotation, paragraphs 1–3). Section "04" hosts FIG 4.1, e.g. { no: "02", title: "The decision path", annotation: "SECTION A–A · ≤ 180 MS END TO END", paragraphs: ["The hot path reads left to right…"] }.' },
+      { name: 'narrative.sections', type: 'items', required: true, limits: { minItems: 3, maxItems: 7 }, guidance: 'Three-to-seven narrative sections (no, title, annotation, paragraphs 1–3, hostsFigure). Exactly ONE section carries hostsFigure: true — the capacity figure renders inside it (structural, not tied to the section number), e.g. { no: "04", title: "Capacity", annotation: "NOTE 3 · CONSTRAINT — SEE FIG 4.1", paragraphs: ["One component on this sheet is drawn with a hatch…"], hostsFigure: true }.' },
     ],
   },
   {
@@ -355,6 +386,6 @@ export const DRAWING_OFFICE_GUIDANCE: string[] = [
   'Exactly one part carries emphasis "constrained": the single hatched, flag-marked capacity constraint — echoed as the highlighted row of the schedule of parts, the critical general note, and the sub-floor tier of FIG 4.1.',
   'The drawing SVG is decorative (aria-hidden); the REAL content is the visible SCHEDULE OF PARTS table and CONNECTIONS list (derived from the same nodes/edges) plus the title block — so the world is fully legible without the drawing.',
   'The synthetic-data provenance notice (sheet.dataNotice) is required and prints in the footer; the title-block classification reinforces it.',
-  'FIG 4.1 colours any tier whose headroom is below the review-board floor (figure.floorPct) in the drawing\'s red ink — the encoding is derived from the data, never hardcoded to a tier id.',
+  'FIG 4.1 colours any tier whose headroom is below the review-board floor (figure.floorPct) in the drawing\'s red ink — the encoding is derived from the data, never hardcoded to a tier id. The figure\'s placement is STRUCTURAL: it renders inside the one narrative section flagged hostsFigure: true (the schema requires exactly one), never by matching a section number.',
   'Slot char caps and item counts are sized so any schema-valid fill stays composed — the display statement never overflows, the schedule and notes stay balanced, and the narrative paragraphs stay legible. Motion level 2 (data-ink-draw); the mood is locked light.',
 ];

@@ -293,7 +293,7 @@ export default function DrawingOfficeTemplate({ fill }: { fill: DrawingOfficeFil
                 {section.paragraphs.map((p, i) => (
                   <p key={i}>{p}</p>
                 ))}
-                {section.no === '04' ? (
+                {section.hostsFigure ? (
                   <figure className="dw-figure">
                     <div className="dw-figure-head">
                       <span className="dw-figure-no">{figure.number}</span>

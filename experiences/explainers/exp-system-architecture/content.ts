@@ -110,6 +110,7 @@ export const drawingOfficeFill: DrawingOfficeFill = DrawingOfficeFill.parse({
           'Every card swipe, login, and payment instruction that reaches the bank passes through one decision fabric: the model decision platform. It answers a single question at scale — should this go through? — roughly ninety million times a day, and it must answer inside the time a terminal is willing to wait.',
           'This sheet is the as-built general arrangement. It is drawn the way the platform actually runs in production today, not the way the programme slides said it would. Where the two differ, this drawing governs.',
         ],
+        hostsFigure: false,
       },
       {
         no: '02',
@@ -119,6 +120,7 @@ export const drawingOfficeFill: DrawingOfficeFill = DrawingOfficeFill.parse({
           'The hot path reads left to right across the sheet: the channel edge gateway authenticates and normalises traffic, the decision API assembles a scoring request, the model serving fleet evaluates the champion model, and the policy and rules engine has the final word — a model score is advice, policy is the decision.',
           'The whole traverse is budgeted at 180 milliseconds at the 99th percentile, measured edge to answer. Section A–A cuts this path; every component it crosses is deployed active-active across two regions.',
         ],
+        hostsFigure: false,
       },
       {
         no: '03',
@@ -127,6 +129,7 @@ export const drawingOfficeFill: DrawingOfficeFill = DrawingOfficeFill.parse({
         paragraphs: [
           'The stream ingest tier mirrors every edge event into the feature store, four seconds behind live. Features are computed once, versioned, and served to models from a single store — no model computes its own view of a customer. The model registry holds signed artefacts; serving loads from the registry alone, so what is running is always exactly what was approved.',
         ],
+        hostsFigure: false,
       },
       {
         no: '04',
@@ -136,6 +139,7 @@ export const drawingOfficeFill: DrawingOfficeFill = DrawingOfficeFill.parse({
           'One component on this sheet is drawn with a hatch: the feature store read-replica tier is at 78 percent of rated throughput, the platform’s only exhausted margin. FIG 4.1 plots remaining headroom by component against the 25 percent floor the review board requires; every other tier clears it.',
           'At current transaction growth the replicas cross the floor in the fourth quarter. Revision B of this drawing is expected to add a third replica set — the hold point on the title block tracks it.',
         ],
+        hostsFigure: true,
       },
       {
         no: '05',
@@ -145,6 +149,7 @@ export const drawingOfficeFill: DrawingOfficeFill = DrawingOfficeFill.parse({
           'The platform degrades in the order the drawing implies. If model serving is unreachable, the policy engine decides on rules alone and flags the decision for replay. If the feature store lags past ten seconds, models fall back to point-in-time defaults, and the drift and monitoring tier begins counting the exposure.',
           'Drift itself is the slowest failure and the best instrumented: nightly windows from the decision log feed the drift watch, and when a model leaves its envelope the breach dossier lands in the case review workbench before the morning stand-up. The night watch in the Model Risk Control Room sees it first.',
         ],
+        hostsFigure: false,
       },
     ],
   },
