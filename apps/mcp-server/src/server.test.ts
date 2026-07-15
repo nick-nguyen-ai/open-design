@@ -455,8 +455,9 @@ describe('mcp-server tools', () => {
     ['compose_explainer', 'technical-explainer'],
   ] as const;
 
-  /** The surfaces that still have NO live template published (dashboard now does). */
-  const EMPTY_SURFACE_TOOLS = NEW_SURFACE_TOOLS.filter(([, surface]) => surface !== 'dashboard');
+  /** The surfaces that still have NO live template published (dashboard + technical-explainer now do). */
+  const LIVE_SURFACES: readonly string[] = ['dashboard', 'technical-explainer'];
+  const EMPTY_SURFACE_TOOLS = NEW_SURFACE_TOOLS.filter(([, surface]) => !LIVE_SURFACES.includes(surface));
 
   /** A surface-lite context for a new-surface compose tool (mirrors deckContext). */
   function surfaceContextArgs(surface: string, overrides: Record<string, unknown> = {}): Record<string, unknown> {
@@ -514,6 +515,23 @@ describe('mcp-server tools', () => {
     const out = ComposeSlideDeckOutput.parse(result.structuredContent);
     expect(out.worldTemplateId).toBe('cockpit');
     expect(out.experienceId).toBe('db-model-monitoring-cockpit');
+  });
+
+  it('compose_explainer selects the live drawing-office for a system-architecture brief (technical-explainer pilot)', async () => {
+    const result = (await h.client.callTool({
+      name: 'compose_explainer',
+      arguments: {
+        context: surfaceContextArgs('technical-explainer', {
+          audience: ['technical', 'mixed'],
+          businessIntent: ['onboard-new-engineers', 'support-architecture-review'],
+        }),
+        contentBrief: 'The canonical as-built explainer of our model-decision platform architecture: components, data flow across trust boundaries, and where the system is capacity-constrained.',
+      },
+    })) as CallToolResult;
+    expect(result.isError).not.toBe(true);
+    const out = ComposeSlideDeckOutput.parse(result.structuredContent);
+    expect(out.worldTemplateId).toBe('drawing-office');
+    expect(out.experienceId).toBe('exp-system-architecture');
   });
 });
 

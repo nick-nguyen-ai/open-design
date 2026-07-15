@@ -79,4 +79,19 @@ export const CANONICAL_BRIEFS: CanonicalBrief[] = [
     brief:
       'Stand up a fleet-wide model-monitoring dashboard for the model-risk team: watch every production model’s drift (PSI) against its breach limit, flag the one model in breach, and drill into its latency and feature-level diagnostics with an overnight alert log.',
   },
+  // System-architecture explainer — the first technical-explainer pilot (Task 8).
+  // Locks the 'drawing-office' selection as the only live technical-explainer
+  // template; the row guards Phase 2/3 regressions once more explainers go live.
+  {
+    surface: 'technical-explainer',
+    expect: 'drawing-office',
+    context: {
+      audience: ['technical', 'mixed'],
+      businessIntent: ['onboard-new-engineers', 'support-architecture-review'],
+      corporateSuitability: 'standard',
+      motionPreference: 2,
+    },
+    brief:
+      'Produce the canonical as-built explainer of our model-decision platform architecture: the components and services, how requests and data flow across trust boundaries, and where the system is capacity-constrained — one legible diagram new engineers and architecture reviewers can rely on.',
+  },
 ];
