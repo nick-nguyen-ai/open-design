@@ -1,0 +1,758 @@
+{
+  "brief": "Onboard new joiners with a tour of the Kubernetes platform anatomy — control plane, nodes, pods, services, and the reconcile loop — as walkable dioramas.",
+  "context": {
+    "surface": "slide-deck",
+    "audience": [
+      "mixed",
+      "business"
+    ],
+    "businessIntent": [
+      "tour-platform-anatomy",
+      "onboard-into-infrastructure"
+    ],
+    "corporateSuitability": "expressive",
+    "motionPreference": 2
+  },
+  "compose": {
+    "worldTemplateId": "dgm-isometric",
+    "experienceId": "deck-dgm-isometric",
+    "rationale": "Selected 'dgm-isometric' (deck-dgm-isometric, art-directed style); shares audience(s) [mixed, business]; matched intent keyword(s) [tour, platform, anatomy, onboard, into, infrastructure]; art-directed style fits expressive corporate suitability; motion preference 2 noted (the template locks its own motion).",
+    "evidence": [
+      "dgm-isometric (deck-dgm-isometric): audienceOverlap 2×2=4 + intentMatch 6 + corporateFit 2 = 12",
+      "dgm-circuit (deck-dgm-circuit): audienceOverlap 1×2=2 + intentMatch 0 + corporateFit 2 = 4",
+      "dgm-gazette (deck-dgm-gazette): audienceOverlap 1×2=2 + intentMatch 0 + corporateFit 2 = 4",
+      "dgm-sketchnote (deck-dgm-sketchnote): audienceOverlap 1×2=2 + intentMatch 0 + corporateFit 2 = 4",
+      "tminus (deck-product-launch): audienceOverlap 1×2=2 + intentMatch 0 + corporateFit 2 = 4",
+      "quarter (deck-quarterly-business-review): audienceOverlap 1×2=2 + intentMatch 1 + corporateFit 0 = 3",
+      "cutover (deck-cloud-migration): audienceOverlap 0×2=0 + intentMatch 0 + corporateFit 2 = 2",
+      "dgm-blueprint (deck-dgm-blueprint): audienceOverlap 0×2=0 + intentMatch 0 + corporateFit 2 = 2"
+    ],
+    "fillSkeleton": {
+      "sections": [
+        {
+          "kind": "cover",
+          "purpose": "The tour cover — deck identity, thesis standfirst, and the provenance notice.",
+          "repeats": {
+            "min": 1,
+            "max": 1
+          },
+          "slots": [
+            {
+              "spec": {
+                "name": "deck.code",
+                "type": "text",
+                "required": true,
+                "limits": {
+                  "maxChars": 24
+                },
+                "guidance": "Short deck code shown in the chrome, e.g. \"DGM-01\"."
+              },
+              "guidance": "Short deck code shown in the chrome, e.g. \"DGM-01\".",
+              "example": "DGM-01"
+            },
+            {
+              "spec": {
+                "name": "deck.world",
+                "type": "text",
+                "required": true,
+                "limits": {
+                  "maxChars": 24
+                },
+                "guidance": "The world name paired with the code in the chrome."
+              },
+              "guidance": "The world name paired with the code in the chrome.",
+              "example": "<text, ≤24 chars>"
+            },
+            {
+              "spec": {
+                "name": "deck.title",
+                "type": "text",
+                "required": true,
+                "limits": {
+                  "maxChars": 60
+                },
+                "guidance": "The deck title set large on the cover."
+              },
+              "guidance": "The deck title set large on the cover.",
+              "example": "<text, ≤60 chars>"
+            },
+            {
+              "spec": {
+                "name": "deck.standfirst",
+                "type": "longtext",
+                "required": true,
+                "limits": {
+                  "maxChars": 240
+                },
+                "guidance": "One paragraph framing the whole story the eight diagrams tell."
+              },
+              "guidance": "One paragraph framing the whole story the eight diagrams tell.",
+              "example": "<longtext, ≤240 chars>"
+            },
+            {
+              "spec": {
+                "name": "deck.notice",
+                "type": "text",
+                "required": true,
+                "limits": {
+                  "maxChars": 56
+                },
+                "guidance": "REQUIRED data-provenance notice (synthetic or sourced), shown in the deck chrome."
+              },
+              "guidance": "REQUIRED data-provenance notice (synthetic or sourced), shown in the deck chrome.",
+              "example": "<text, ≤56 chars>"
+            }
+          ]
+        },
+        {
+          "kind": "flow-slide",
+          "purpose": "The step-by-step flow — how the thing actually works, in order.",
+          "repeats": {
+            "min": 1,
+            "max": 1
+          },
+          "slots": [
+            {
+              "spec": {
+                "name": "flow.heading",
+                "type": "text",
+                "required": true,
+                "limits": {
+                  "maxChars": 70
+                },
+                "guidance": "Editorial headline over the flow slide — a claim the diagram then proves."
+              },
+              "guidance": "Editorial headline over the flow slide — a claim the diagram then proves.",
+              "example": "<text, ≤70 chars>"
+            },
+            {
+              "spec": {
+                "name": "flow.caption",
+                "type": "longtext",
+                "required": true,
+                "limits": {
+                  "maxChars": 220
+                },
+                "guidance": "One paragraph under the headline: what to read in the flow diagram and why it matters."
+              },
+              "guidance": "One paragraph under the headline: what to read in the flow diagram and why it matters.",
+              "example": "<longtext, ≤220 chars>"
+            },
+            {
+              "spec": {
+                "name": "flow.title",
+                "type": "text",
+                "required": true,
+                "limits": {
+                  "maxChars": 80
+                },
+                "guidance": "The diagram's own figure title, rendered by the flow component's frame."
+              },
+              "guidance": "The diagram's own figure title, rendered by the flow component's frame.",
+              "example": "<text, ≤80 chars>"
+            },
+            {
+              "spec": {
+                "name": "flow.nodes",
+                "type": "nodes",
+                "required": true,
+                "limits": {
+                  "minItems": 3,
+                  "maxItems": 12
+                },
+                "guidance": "Flow nodes (id, label, kind start|process|decision|data|actor|end). Kind drives the silhouette."
+              },
+              "guidance": "Flow nodes (id, label, kind start|process|decision|data|actor|end). Kind drives the silhouette.",
+              "example": "<3–12 nodes>"
+            },
+            {
+              "spec": {
+                "name": "flow.edges",
+                "type": "edges",
+                "required": true,
+                "limits": {
+                  "minItems": 2,
+                  "maxItems": 16
+                },
+                "guidance": "Directed edges (from/to node ids, optional label, optional step number for the numbered walkthrough)."
+              },
+              "guidance": "Directed edges (from/to node ids, optional label, optional step number for the numbered walkthrough).",
+              "example": "<2–16 edges>"
+            }
+          ]
+        },
+        {
+          "kind": "sequence-slide",
+          "purpose": "The protocol walkthrough — who says what to whom, in order.",
+          "repeats": {
+            "min": 1,
+            "max": 1
+          },
+          "slots": [
+            {
+              "spec": {
+                "name": "sequence.heading",
+                "type": "text",
+                "required": true,
+                "limits": {
+                  "maxChars": 70
+                },
+                "guidance": "Editorial headline over the sequence slide — a claim the diagram then proves."
+              },
+              "guidance": "Editorial headline over the sequence slide — a claim the diagram then proves.",
+              "example": "<text, ≤70 chars>"
+            },
+            {
+              "spec": {
+                "name": "sequence.caption",
+                "type": "longtext",
+                "required": true,
+                "limits": {
+                  "maxChars": 220
+                },
+                "guidance": "One paragraph under the headline: what to read in the sequence diagram and why it matters."
+              },
+              "guidance": "One paragraph under the headline: what to read in the sequence diagram and why it matters.",
+              "example": "<longtext, ≤220 chars>"
+            },
+            {
+              "spec": {
+                "name": "sequence.title",
+                "type": "text",
+                "required": true,
+                "limits": {
+                  "maxChars": 80
+                },
+                "guidance": "The diagram's own figure title, rendered by the sequence component's frame."
+              },
+              "guidance": "The diagram's own figure title, rendered by the sequence component's frame.",
+              "example": "<text, ≤80 chars>"
+            },
+            {
+              "spec": {
+                "name": "sequence.actors",
+                "type": "nodes",
+                "required": true,
+                "limits": {
+                  "minItems": 2,
+                  "maxItems": 6
+                },
+                "guidance": "Participants (id, label, kind user|service|store|external)."
+              },
+              "guidance": "Participants (id, label, kind user|service|store|external).",
+              "example": "<2–6 nodes>"
+            },
+            {
+              "spec": {
+                "name": "sequence.messages",
+                "type": "edges",
+                "required": true,
+                "limits": {
+                  "minItems": 2,
+                  "maxItems": 14
+                },
+                "guidance": "Ordered messages (from/to actor ids, label; reply:true for returns; optional note)."
+              },
+              "guidance": "Ordered messages (from/to actor ids, label; reply:true for returns; optional note).",
+              "example": "<2–14 edges>"
+            }
+          ]
+        },
+        {
+          "kind": "layers-slide",
+          "purpose": "The level map — the stack from edge to metal (or equivalent).",
+          "repeats": {
+            "min": 1,
+            "max": 1
+          },
+          "slots": [
+            {
+              "spec": {
+                "name": "layers.heading",
+                "type": "text",
+                "required": true,
+                "limits": {
+                  "maxChars": 70
+                },
+                "guidance": "Editorial headline over the layers slide — a claim the diagram then proves."
+              },
+              "guidance": "Editorial headline over the layers slide — a claim the diagram then proves.",
+              "example": "<text, ≤70 chars>"
+            },
+            {
+              "spec": {
+                "name": "layers.caption",
+                "type": "longtext",
+                "required": true,
+                "limits": {
+                  "maxChars": 220
+                },
+                "guidance": "One paragraph under the headline: what to read in the layers diagram and why it matters."
+              },
+              "guidance": "One paragraph under the headline: what to read in the layers diagram and why it matters.",
+              "example": "<longtext, ≤220 chars>"
+            },
+            {
+              "spec": {
+                "name": "layers.title",
+                "type": "text",
+                "required": true,
+                "limits": {
+                  "maxChars": 80
+                },
+                "guidance": "The diagram's own figure title, rendered by the layers component's frame."
+              },
+              "guidance": "The diagram's own figure title, rendered by the layers component's frame.",
+              "example": "<text, ≤80 chars>"
+            },
+            {
+              "spec": {
+                "name": "layers.layers",
+                "type": "items",
+                "required": true,
+                "limits": {
+                  "minItems": 3,
+                  "maxItems": 9
+                },
+                "guidance": "Top-to-bottom layers (id, label, optional detail, optional items ≤6, optional tone base|accent|alert)."
+              },
+              "guidance": "Top-to-bottom layers (id, label, optional detail, optional items ≤6, optional tone base|accent|alert).",
+              "example": "<3–9 items>"
+            },
+            {
+              "spec": {
+                "name": "layers.sideLabel",
+                "type": "text",
+                "required": true,
+                "limits": {
+                  "maxChars": 80
+                },
+                "guidance": "The rotated axis caption beside the stack, e.g. \"request path\"."
+              },
+              "guidance": "The rotated axis caption beside the stack, e.g. \"request path\".",
+              "example": "request path"
+            }
+          ]
+        },
+        {
+          "kind": "zones-slide",
+          "purpose": "The estate map — where things run and what talks to what.",
+          "repeats": {
+            "min": 1,
+            "max": 1
+          },
+          "slots": [
+            {
+              "spec": {
+                "name": "zones.heading",
+                "type": "text",
+                "required": true,
+                "limits": {
+                  "maxChars": 70
+                },
+                "guidance": "Editorial headline over the zones slide — a claim the diagram then proves."
+              },
+              "guidance": "Editorial headline over the zones slide — a claim the diagram then proves.",
+              "example": "<text, ≤70 chars>"
+            },
+            {
+              "spec": {
+                "name": "zones.caption",
+                "type": "longtext",
+                "required": true,
+                "limits": {
+                  "maxChars": 220
+                },
+                "guidance": "One paragraph under the headline: what to read in the zones diagram and why it matters."
+              },
+              "guidance": "One paragraph under the headline: what to read in the zones diagram and why it matters.",
+              "example": "<longtext, ≤220 chars>"
+            },
+            {
+              "spec": {
+                "name": "zones.title",
+                "type": "text",
+                "required": true,
+                "limits": {
+                  "maxChars": 80
+                },
+                "guidance": "The diagram's own figure title, rendered by the zones component's frame."
+              },
+              "guidance": "The diagram's own figure title, rendered by the zones component's frame.",
+              "example": "<text, ≤80 chars>"
+            },
+            {
+              "spec": {
+                "name": "zones.zones",
+                "type": "items",
+                "required": true,
+                "limits": {
+                  "minItems": 2,
+                  "maxItems": 6
+                },
+                "guidance": "Zones (id, label, nodes[] of {id,label}, 1–8 nodes each)."
+              },
+              "guidance": "Zones (id, label, nodes[] of {id,label}, 1–8 nodes each).",
+              "example": "<2–6 items>"
+            },
+            {
+              "spec": {
+                "name": "zones.links",
+                "type": "edges",
+                "required": true,
+                "limits": {
+                  "minItems": 1,
+                  "maxItems": 14
+                },
+                "guidance": "Cross-zone links (from/to node ids, optional label such as a protocol or latency)."
+              },
+              "guidance": "Cross-zone links (from/to node ids, optional label such as a protocol or latency).",
+              "example": "<1–14 edges>"
+            }
+          ]
+        },
+        {
+          "kind": "cycle-slide",
+          "purpose": "The loop — the feedback cycle that keeps the system honest.",
+          "repeats": {
+            "min": 1,
+            "max": 1
+          },
+          "slots": [
+            {
+              "spec": {
+                "name": "cycle.heading",
+                "type": "text",
+                "required": true,
+                "limits": {
+                  "maxChars": 70
+                },
+                "guidance": "Editorial headline over the cycle slide — a claim the diagram then proves."
+              },
+              "guidance": "Editorial headline over the cycle slide — a claim the diagram then proves.",
+              "example": "<text, ≤70 chars>"
+            },
+            {
+              "spec": {
+                "name": "cycle.caption",
+                "type": "longtext",
+                "required": true,
+                "limits": {
+                  "maxChars": 220
+                },
+                "guidance": "One paragraph under the headline: what to read in the cycle diagram and why it matters."
+              },
+              "guidance": "One paragraph under the headline: what to read in the cycle diagram and why it matters.",
+              "example": "<longtext, ≤220 chars>"
+            },
+            {
+              "spec": {
+                "name": "cycle.title",
+                "type": "text",
+                "required": true,
+                "limits": {
+                  "maxChars": 80
+                },
+                "guidance": "The diagram's own figure title, rendered by the cycle component's frame."
+              },
+              "guidance": "The diagram's own figure title, rendered by the cycle component's frame.",
+              "example": "<text, ≤80 chars>"
+            },
+            {
+              "spec": {
+                "name": "cycle.stages",
+                "type": "items",
+                "required": true,
+                "limits": {
+                  "minItems": 3,
+                  "maxItems": 8
+                },
+                "guidance": "Clockwise stages (id, label, optional detail)."
+              },
+              "guidance": "Clockwise stages (id, label, optional detail).",
+              "example": "<3–8 items>"
+            },
+            {
+              "spec": {
+                "name": "cycle.hubLabel",
+                "type": "text",
+                "required": true,
+                "limits": {
+                  "maxChars": 80
+                },
+                "guidance": "The hub label at the centre of the ring, e.g. the loop's owner or engine."
+              },
+              "guidance": "The hub label at the centre of the ring, e.g. the loop's owner or engine.",
+              "example": "<text, ≤80 chars>"
+            }
+          ]
+        },
+        {
+          "kind": "compare-slide",
+          "purpose": "The versus panel — the trade-off, contrasted row by row.",
+          "repeats": {
+            "min": 1,
+            "max": 1
+          },
+          "slots": [
+            {
+              "spec": {
+                "name": "compare.heading",
+                "type": "text",
+                "required": true,
+                "limits": {
+                  "maxChars": 70
+                },
+                "guidance": "Editorial headline over the compare slide — a claim the diagram then proves."
+              },
+              "guidance": "Editorial headline over the compare slide — a claim the diagram then proves.",
+              "example": "<text, ≤70 chars>"
+            },
+            {
+              "spec": {
+                "name": "compare.caption",
+                "type": "longtext",
+                "required": true,
+                "limits": {
+                  "maxChars": 220
+                },
+                "guidance": "One paragraph under the headline: what to read in the compare diagram and why it matters."
+              },
+              "guidance": "One paragraph under the headline: what to read in the compare diagram and why it matters.",
+              "example": "<longtext, ≤220 chars>"
+            },
+            {
+              "spec": {
+                "name": "compare.title",
+                "type": "text",
+                "required": true,
+                "limits": {
+                  "maxChars": 80
+                },
+                "guidance": "The diagram's own figure title, rendered by the compare component's frame."
+              },
+              "guidance": "The diagram's own figure title, rendered by the compare component's frame.",
+              "example": "<text, ≤80 chars>"
+            },
+            {
+              "spec": {
+                "name": "compare.columns",
+                "type": "items",
+                "required": true,
+                "limits": {
+                  "minItems": 2,
+                  "maxItems": 4
+                },
+                "guidance": "Compared options (id, label, optional tone accent for the favoured one)."
+              },
+              "guidance": "Compared options (id, label, optional tone accent for the favoured one).",
+              "example": "<2–4 items>"
+            },
+            {
+              "spec": {
+                "name": "compare.rows",
+                "type": "tableRows",
+                "required": true,
+                "limits": {
+                  "minItems": 2,
+                  "maxItems": 8
+                },
+                "guidance": "Contrast rows (label + one value per column, values ≤120 chars)."
+              },
+              "guidance": "Contrast rows (label + one value per column, values ≤120 chars).",
+              "example": "<2–8 tableRows>"
+            },
+            {
+              "spec": {
+                "name": "compare.verdict",
+                "type": "longtext",
+                "required": true,
+                "limits": {
+                  "maxChars": 160
+                },
+                "guidance": "The honest verdict strip under the table."
+              },
+              "guidance": "The honest verdict strip under the table.",
+              "example": "<longtext, ≤160 chars>"
+            }
+          ]
+        },
+        {
+          "kind": "cells-slide",
+          "purpose": "The concept grid — the catalogue of named ideas.",
+          "repeats": {
+            "min": 1,
+            "max": 1
+          },
+          "slots": [
+            {
+              "spec": {
+                "name": "cells.heading",
+                "type": "text",
+                "required": true,
+                "limits": {
+                  "maxChars": 70
+                },
+                "guidance": "Editorial headline over the cells slide — a claim the diagram then proves."
+              },
+              "guidance": "Editorial headline over the cells slide — a claim the diagram then proves.",
+              "example": "<text, ≤70 chars>"
+            },
+            {
+              "spec": {
+                "name": "cells.caption",
+                "type": "longtext",
+                "required": true,
+                "limits": {
+                  "maxChars": 220
+                },
+                "guidance": "One paragraph under the headline: what to read in the cells diagram and why it matters."
+              },
+              "guidance": "One paragraph under the headline: what to read in the cells diagram and why it matters.",
+              "example": "<longtext, ≤220 chars>"
+            },
+            {
+              "spec": {
+                "name": "cells.title",
+                "type": "text",
+                "required": true,
+                "limits": {
+                  "maxChars": 80
+                },
+                "guidance": "The diagram's own figure title, rendered by the cells component's frame."
+              },
+              "guidance": "The diagram's own figure title, rendered by the cells component's frame.",
+              "example": "<text, ≤80 chars>"
+            },
+            {
+              "spec": {
+                "name": "cells.cells",
+                "type": "items",
+                "required": true,
+                "limits": {
+                  "minItems": 4,
+                  "maxItems": 12
+                },
+                "guidance": "Grid entries (id, label, optional detail ≤160, optional short badge)."
+              },
+              "guidance": "Grid entries (id, label, optional detail ≤160, optional short badge).",
+              "example": "<4–12 items>"
+            }
+          ]
+        },
+        {
+          "kind": "timeline-slide",
+          "purpose": "The evolution story — how we got here, era by era.",
+          "repeats": {
+            "min": 1,
+            "max": 1
+          },
+          "slots": [
+            {
+              "spec": {
+                "name": "timeline.heading",
+                "type": "text",
+                "required": true,
+                "limits": {
+                  "maxChars": 70
+                },
+                "guidance": "Editorial headline over the timeline slide — a claim the diagram then proves."
+              },
+              "guidance": "Editorial headline over the timeline slide — a claim the diagram then proves.",
+              "example": "<text, ≤70 chars>"
+            },
+            {
+              "spec": {
+                "name": "timeline.caption",
+                "type": "longtext",
+                "required": true,
+                "limits": {
+                  "maxChars": 220
+                },
+                "guidance": "One paragraph under the headline: what to read in the timeline diagram and why it matters."
+              },
+              "guidance": "One paragraph under the headline: what to read in the timeline diagram and why it matters.",
+              "example": "<longtext, ≤220 chars>"
+            },
+            {
+              "spec": {
+                "name": "timeline.title",
+                "type": "text",
+                "required": true,
+                "limits": {
+                  "maxChars": 80
+                },
+                "guidance": "The diagram's own figure title, rendered by the timeline component's frame."
+              },
+              "guidance": "The diagram's own figure title, rendered by the timeline component's frame.",
+              "example": "<text, ≤80 chars>"
+            },
+            {
+              "spec": {
+                "name": "timeline.eras",
+                "type": "items",
+                "required": true,
+                "limits": {
+                  "minItems": 3,
+                  "maxItems": 8
+                },
+                "guidance": "Eras in order (id, label, optional detail, optional short marker like a year). Set nowIndex on the fill to flag the current era."
+              },
+              "guidance": "Eras in order (id, label, optional detail, optional short marker like a year). Set nowIndex on the fill to flag the current era.",
+              "example": "<3–8 items>"
+            }
+          ]
+        },
+        {
+          "kind": "close",
+          "purpose": "The close — takeaways and the sign-off ask.",
+          "repeats": {
+            "min": 1,
+            "max": 1
+          },
+          "slots": [
+            {
+              "spec": {
+                "name": "close.takeaways",
+                "type": "items",
+                "required": true,
+                "limits": {
+                  "minItems": 3,
+                  "maxItems": 6
+                },
+                "guidance": "Three-to-six one-line takeaways, each earned by a diagram in the deck."
+              },
+              "guidance": "Three-to-six one-line takeaways, each earned by a diagram in the deck.",
+              "example": "<3–6 items>"
+            },
+            {
+              "spec": {
+                "name": "close.signoff",
+                "type": "longtext",
+                "required": true,
+                "limits": {
+                  "maxChars": 240
+                },
+                "guidance": "One paragraph: what the reader should do or decide next."
+              },
+              "guidance": "One paragraph: what the reader should do or decide next.",
+              "example": "<longtext, ≤240 chars>"
+            }
+          ]
+        }
+      ],
+      "craftGuarantees": [
+        "The deck is a grammar tour: cover, then EIGHT diagram slides (flow, sequence, layers, zones, cycle, compare, cells, timeline), then the close. Author every slide from one coherent topic so the deck reads as one story, not eight samples.",
+        "Diagram fields embed the diagram grammar directly: node/edge/item ids must cross-resolve (flow edges → node ids; messages → actor ids; zone links → zone-node ids; compare rows match column count; nowIndex inside eras).",
+        "Headings are claims, captions are the reading instructions, the diagram is the proof. Never caption a diagram with a restatement of its title.",
+        "deck.notice must state data provenance (synthetic or sourced) — it renders in the chrome on every slide.",
+        "timeline.nowIndex is optional in the schema but strongly encouraged: flag where the story stands today."
+      ]
+    }
+  },
+  "validate": {
+    "valid": true,
+    "worldTemplateId": "deck-dgm-isometric",
+    "findings": []
+  }
+}

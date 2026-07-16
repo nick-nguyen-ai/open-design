@@ -47,6 +47,26 @@ const BorrowPilotDemo = lazy(
   () => import('../../../experiences/slide-decks/demo-borrow-pilot/BorrowPilotPage.js'),
 );
 
+
+// Diagram-collections goal-test OUTPUTS (five grammar-tour samples, one per
+// family), composed via compose_slide_deck + validate_fill and rendered
+// content-only through the deck-dgm-* world-templates. Not catalogue templates.
+const HttpsHandshakeDemo = lazy(
+  () => import('../../../experiences/slide-decks/demo-dgm-https-handshake/HttpsHandshakePage.js'),
+);
+const PaymentRailsDemo = lazy(
+  () => import('../../../experiences/slide-decks/demo-dgm-payment-rails/PaymentRailsPage.js'),
+);
+const MillionUsersDemo = lazy(
+  () => import('../../../experiences/slide-decks/demo-dgm-million-users/MillionUsersPage.js'),
+);
+const KubernetesAnatomyDemo = lazy(
+  () => import('../../../experiences/slide-decks/demo-dgm-kubernetes-anatomy/KubernetesAnatomyPage.js'),
+);
+const CachingFieldGuideDemo = lazy(
+  () => import('../../../experiences/slide-decks/demo-dgm-caching-field-guide/CachingFieldGuidePage.js'),
+);
+
 // Experience-composer goal-test OUTPUTS (five-surface sample run, ledger Task 12).
 // Each is a fill composed via its surface's compose tool, rendered content-only
 // through the shipped world-template. Not catalogue templates.
@@ -126,6 +146,46 @@ export function App() {
             element={
               <Suspense fallback={<RouteFallback />}>
                 <OpenmodelCockpitDemo />
+              </Suspense>
+            }
+          />
+          <Route
+            path="demo/https-handshake"
+            element={
+              <Suspense fallback={<RouteFallback />}>
+                <HttpsHandshakeDemo />
+              </Suspense>
+            }
+          />
+          <Route
+            path="demo/payment-rails"
+            element={
+              <Suspense fallback={<RouteFallback />}>
+                <PaymentRailsDemo />
+              </Suspense>
+            }
+          />
+          <Route
+            path="demo/million-users"
+            element={
+              <Suspense fallback={<RouteFallback />}>
+                <MillionUsersDemo />
+              </Suspense>
+            }
+          />
+          <Route
+            path="demo/kubernetes-anatomy"
+            element={
+              <Suspense fallback={<RouteFallback />}>
+                <KubernetesAnatomyDemo />
+              </Suspense>
+            }
+          />
+          <Route
+            path="demo/caching-field-guide"
+            element={
+              <Suspense fallback={<RouteFallback />}>
+                <CachingFieldGuideDemo />
               </Suspense>
             }
           />

@@ -16,7 +16,8 @@
     "goalsamples": "corepack pnpm exec tsx src/goal-samples-outcome.ts",
     "pretest": "corepack pnpm -w run registry:build",
     "test": "vitest run --root ../.. apps/mcp-server",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "dgmsamples": "corepack pnpm exec tsx src/dgm-samples-outcome.ts"
   },
   "dependencies": {
     "@enterprise-design/composition": "workspace:*",

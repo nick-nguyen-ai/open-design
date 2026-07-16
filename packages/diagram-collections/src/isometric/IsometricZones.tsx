@@ -26,7 +26,7 @@ export function IsometricZones({ spec }: { spec: ZonesSpecT }) {
           {layout.zones.map((zone, i) => (
             <g key={zone.id} data-node-kind="zone">
               <IsoPad x={zone.x} y={zone.y} w={zone.w} d={zone.h} ink={isoInk(i)} />
-              <IsoLabel wx={zone.x + 40} wy={zone.y + 14} z={2} text={zone.label} className="iso-zone-label" maxChars={20} />
+              <IsoLabel wx={zone.x + 64} wy={zone.y + zone.h + 18} z={0} text={zone.label} className="iso-zone-label" maxChars={20} />
             </g>
           ))}
           {layout.links.map((link, i) => {

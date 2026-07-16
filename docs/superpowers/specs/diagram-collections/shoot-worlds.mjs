@@ -28,6 +28,12 @@ const ALL_WORLDS = [
   { id: 'deck-dgm-circuit', testId: 'live-dgm-circuit' },
   { id: 'deck-dgm-isometric', testId: 'live-dgm-isometric' },
   { id: 'deck-dgm-gazette', testId: 'live-dgm-gazette' },
+  // composed goal samples (demo routes)
+  { id: 'demo-https-handshake', route: '/demo/https-handshake', testId: 'live-dgm-sketchnote' },
+  { id: 'demo-payment-rails', route: '/demo/payment-rails', testId: 'live-dgm-blueprint' },
+  { id: 'demo-million-users', route: '/demo/million-users', testId: 'live-dgm-circuit' },
+  { id: 'demo-kubernetes-anatomy', route: '/demo/kubernetes-anatomy', testId: 'live-dgm-isometric' },
+  { id: 'demo-caching-field-guide', route: '/demo/caching-field-guide', testId: 'live-dgm-gazette' },
 ];
 
 const only = process.argv.slice(2);
@@ -40,7 +46,7 @@ for (const world of worlds) {
   const outDir = path.join(here, world.id);
   fs.mkdirSync(outDir, { recursive: true });
   for (let slide = 1; slide <= 10; slide += 1) {
-    await page.goto(`${BASE}/live/${world.id}?slide=${slide}`, { waitUntil: 'networkidle' });
+    await page.goto(`${BASE}${world.route ?? `/live/${world.id}`}?slide=${slide}`, { waitUntil: 'networkidle' });
     await page.waitForSelector(`[data-testid="${world.testId}"]`, { timeout: 15000 });
     await page.waitForTimeout(900); // let entrance motion finish
     const file = path.join(outDir, `slide-${String(slide).padStart(2, '0')}.png`);

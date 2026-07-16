@@ -1,6 +1,6 @@
 # Diagram Collections — five visual languages for one diagram grammar
 
-**Date:** 2026-07-16 · **Author:** Fable · **Status:** approved (user delegated design decisions)
+**Date:** 2026-07-16 · **Author:** Fable · **Status:** GOAL MET 2026-07-17 — see docs/superpowers/specs/diagram-collections/RUN-LOG.md
 
 ## Goal
 
