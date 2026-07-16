@@ -14,7 +14,7 @@ import { ComponentManifest } from '@enterprise-design/contracts';
 import { createServer } from './server.js';
 import { loadRegistryData } from './registry-data.js';
 import { createLogger } from './logger.js';
-import { SearchComponentsOutput } from './schemas.js';
+import { ComposeSlideDeckOutput, SearchComponentsOutput } from './schemas.js';
 
 const registry = loadRegistryData();
 
@@ -96,6 +96,57 @@ describe('diagram collections in the MCP registry', () => {
     const manifest = ComponentManifest.parse(textPayload(result));
     expect(manifest.exportName).toBe('IsometricLayers');
     expect(manifest.designGrammars).toEqual(['isometric-studio']);
+  });
+
+  it.each([
+    [
+      'dgm-sketchnote',
+      ['technical', 'mixed'],
+      ['teach-protocol-walkthrough'],
+      'Teach how the TLS handshake actually works, step by step, as a warm whiteboard walkthrough for engineers.',
+    ],
+    [
+      'dgm-blueprint',
+      ['technical', 'risk-and-governance'],
+      ['document-system-rails', 'specify-integration'],
+      'Specify the payment rails end to end: document every integration wire from authorisation to settlement as an engineering sheet.',
+    ],
+    [
+      'dgm-circuit',
+      ['technical', 'mixed'],
+      ['scale-architecture-story', 'plan-capacity-growth'],
+      'Tell the scale story of growing to a million users: capacity growth, caches, replicas, and queues on a live board.',
+    ],
+    [
+      'dgm-isometric',
+      ['mixed', 'business'],
+      ['tour-platform-anatomy', 'onboard-into-infrastructure'],
+      'Onboard new joiners with a tour of the Kubernetes platform anatomy — control plane, nodes, and workloads as a diorama.',
+    ],
+    [
+      'dgm-gazette',
+      ['business', 'technical'],
+      ['publish-field-guide', 'compare-technique-tradeoffs'],
+      'Publish a field guide to caching: compare the technique tradeoffs of strategies and eviction policies as an edited manual.',
+    ],
+  ] as const)('compose_slide_deck steers %s deterministically by intent', async (templateId, audience, businessIntent, contentBrief) => {
+    const result = (await h.client.callTool({
+      name: 'compose_slide_deck',
+      arguments: {
+        context: {
+          surface: 'slide-deck',
+          audience,
+          businessIntent,
+          corporateSuitability: 'expressive',
+          motionPreference: 2,
+        },
+        contentBrief,
+      },
+    })) as CallToolResult;
+    const payload = ComposeSlideDeckOutput.parse(textPayload(result));
+    expect(payload.worldTemplateId).toBe(templateId);
+    const slotNames = payload.fillSkeleton.sections.flatMap((s) => s.slots.map((slot) => slot.spec.name));
+    expect(slotNames).toEqual(expect.arrayContaining(['deck.notice', 'flow.nodes', 'timeline.eras', 'close.signoff']));
   });
 
   it('the five family grammars are compiled with their component rosters', () => {
