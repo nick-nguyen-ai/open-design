@@ -1,0 +1,122 @@
+/**
+ * Gazette family token sheet + styles.
+ *
+ * DELIBERATE ART-DIRECTION AMENDMENT (design spec 2026-07-16): raw colour
+ * values allowed in this file only; rules consume --dgm-gz-* tokens. Light
+ * print-atelier family: ink rules on cream paper with one vermilion spot.
+ * Contrast: ink #1c1a17 on cream #f7f2e7 = 15.4:1; vermilion #d0402b on
+ * cream = 4.9:1 (accents and medallion discs whose numerals are white at
+ * 4.6:1, always paired with position/silhouette).
+ */
+.dgm-gazette {
+  --dgm-gz-paper: #f7f2e7;
+  --dgm-gz-ink: #1c1a17;
+  --dgm-gz-ink-soft: #6f675a;
+  --dgm-gz-rule: #b9b0a0;
+  --dgm-gz-spot: #d0402b;
+  --dgm-gz-plate: #fffdf6;
+
+  background: var(--dgm-gz-paper);
+  color: var(--dgm-gz-ink);
+  font-family: 'Fraunces Variable', 'Fraunces', Georgia, serif;
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.dgm-gazette .dgm-title {
+  font-size: 1.35rem;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+}
+
+.dgm-gazette .dgm-title::first-letter {
+  color: var(--dgm-gz-spot);
+  font-size: 1.35em;
+  font-weight: 700;
+}
+
+.dgm-gazette .gz-rule-heavy { fill: none; stroke: var(--dgm-gz-ink); stroke-width: 1.6; }
+.dgm-gazette .gz-rule-fine { fill: none; stroke: var(--dgm-gz-ink); stroke-width: 0.7; }
+.dgm-gazette .gz-rule-hair { fill: none; stroke: var(--dgm-gz-rule); stroke-width: 0.7; }
+.dgm-gazette .gz-rule-column { fill: none; stroke: var(--dgm-gz-rule); stroke-width: 0.9; stroke-dasharray: 1 3; }
+.dgm-gazette .gz-hatch-line { stroke: var(--dgm-gz-spot); stroke-width: 0.9; opacity: 0.35; }
+
+.dgm-gazette .gz-plate { fill: var(--dgm-gz-plate); stroke: var(--dgm-gz-ink); stroke-width: 1; }
+.dgm-gazette .gz-plate-circle { fill: var(--dgm-gz-plate); stroke: var(--dgm-gz-ink); stroke-width: 1.2; }
+.dgm-gazette .gz-plate-outline { fill: none; stroke: var(--dgm-gz-ink); stroke-width: 1; }
+.dgm-gazette .gz-plate-now { stroke: var(--dgm-gz-spot); stroke-width: 1.8; }
+.dgm-gazette .gz-ink-fill { fill: var(--dgm-gz-ink); }
+.dgm-gazette .gz-spot-fill { fill: var(--dgm-gz-spot); }
+.dgm-gazette .gz-verdict { fill: var(--dgm-gz-ink); }
+
+.dgm-gazette .gz-medallion-disc { fill: var(--dgm-gz-spot); }
+.dgm-gazette .gz-medallion-num { fill: #ffffff; font-size: 11px; font-weight: 700; }
+
+.dgm-gazette .gz-wire { fill: none; stroke: var(--dgm-gz-ink); stroke-width: 1.1; }
+.dgm-gazette .gz-wire-spot { fill: none; stroke: var(--dgm-gz-spot); stroke-width: 1.3; }
+.dgm-gazette .gz-dashed { stroke-dasharray: 4 4; }
+.dgm-gazette .gz-head { fill: var(--dgm-gz-ink); }
+.dgm-gazette .gz-head-spot { fill: var(--dgm-gz-spot); }
+
+.dgm-gazette text { fill: var(--dgm-gz-ink); font-family: inherit; }
+.dgm-gazette .gz-label { font-size: 12px; }
+.dgm-gazette .gz-plate-label { font-size: 12px; font-weight: 600; }
+.dgm-gazette .gz-edge-label { font-size: 11px; font-style: italic; fill: var(--dgm-gz-ink-soft); }
+.dgm-gazette .gz-footnote { font-size: 10px; font-style: italic; fill: var(--dgm-gz-ink-soft); }
+.dgm-gazette .gz-footnote-left { font-size: 10.5px; fill: var(--dgm-gz-ink-soft); font-family: 'Inter Variable', 'Inter', sans-serif; }
+.dgm-gazette .gz-band-label { font-size: 14px; font-weight: 650; }
+.dgm-gazette .gz-band-label-mid { font-size: 13px; font-weight: 650; }
+.dgm-gazette .gz-row-label { font-size: 11.5px; font-weight: 650; font-style: italic; }
+.dgm-gazette .gz-zone-label { font-size: 12px; font-weight: 650; }
+.dgm-gazette .gz-cell-value { font-size: 10.5px; font-family: 'Inter Variable', 'Inter', sans-serif; }
+.dgm-gazette .gz-chip-label { font-size: 10px; font-family: 'Inter Variable', 'Inter', sans-serif; }
+.dgm-gazette .gz-badge { font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; }
+.dgm-gazette .gz-badge-spot { font-size: 12px; fill: var(--dgm-gz-spot); }
+.dgm-gazette .gz-side-label { font-size: 11px; letter-spacing: 0.22em; fill: var(--dgm-gz-ink-soft); text-transform: uppercase; }
+.dgm-gazette .gz-now { font-size: 11px; font-style: italic; fill: var(--dgm-gz-spot); }
+.dgm-gazette .gz-verdict-label { font-size: 12.5px; fill: var(--dgm-gz-paper); font-weight: 600; }
+
+/* Motion: plates settle like set type; rules draw. Tokens only. */
+.dgm-gazette .gz-node,
+.dgm-gazette .gz-msg {
+  opacity: 0;
+  animation: dgm-gz-set var(--dur-structure) var(--ease-settle) forwards;
+}
+
+.dgm-gazette .gz-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: dgm-gz-rule var(--dur-narrative) var(--ease-trace) forwards;
+}
+
+@keyframes dgm-gz-set {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes dgm-gz-rule {
+  to { stroke-dashoffset: 0; }
+}
+
+.dgm-gazette[data-reduced] .gz-node,
+.dgm-gazette[data-reduced] .gz-msg {
+  animation: none;
+  opacity: 1;
+}
+
+.dgm-gazette[data-reduced] .gz-draw {
+  animation: none;
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dgm-gazette .gz-node,
+  .dgm-gazette .gz-msg {
+    animation: none;
+    opacity: 1;
+  }
+
+  .dgm-gazette .gz-draw {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}

@@ -9,12 +9,20 @@ const REPO_ROOT = path.resolve(here, '..', '..', '..');
 
 /**
  * Catalogue integrity test (task 8): `compileRegistry` over the REAL
- * workspace (not a fixture) must discover exactly the 50 experiences, 10
- * grammars, 3 motion sequences, and 5 components authored across tasks 1-8,
- * with zero diagnostics, and every cross-manifest reference must resolve.
+ * workspace (not a fixture) must discover exactly the known experiences,
+ * grammars, motion sequences, and components, with zero diagnostics, and
+ * every cross-manifest reference must resolve.
+ *
+ * DELIBERATE AMENDMENT (diagram-collections, 2026-07-17): the five diagram
+ * collection families register 8 components each — 40 `comp.dgm.<family>.<kind>`
+ * ids alongside the original 5 — so the component census moves 5 → 45.
  */
+const DGM_FAMILIES = ['sketchnote', 'blueprint', 'circuit', 'isometric', 'gazette'] as const;
+const DGM_KINDS = ['flow', 'sequence', 'layers', 'zones', 'cycle', 'compare', 'cells', 'timeline'] as const;
+const DGM_COMPONENT_IDS = DGM_FAMILIES.flatMap((family) => DGM_KINDS.map((kind) => `comp.dgm.${family}.${kind}`));
+
 describe('catalogue integrity — compileRegistry over the real workspace', () => {
-  it('discovers exactly 50 experiences, 10 grammars, 3 motion sequences, 5 components, 0 errors', async () => {
+  it('discovers exactly 60 experiences, 10 grammars, 3 motion sequences, 45 components, 0 errors', async () => {
     const result = await compileRegistry({ cwd: REPO_ROOT });
 
     expect(result.diagnostics).toEqual([]);
@@ -22,21 +30,24 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
     expect(result.warningCount).toBe(0);
     expect(result.ok).toBe(true);
 
-    expect(result.components).toHaveLength(5);
+    expect(result.components).toHaveLength(45);
     expect(result.grammars).toHaveLength(10);
     expect(result.motionSequences).toHaveLength(3);
     expect(result.experiences).toHaveLength(60);
   });
 
-  it('discovers the 5 real component ids', async () => {
+  it('discovers the 45 real component ids', async () => {
     const result = await compileRegistry({ cwd: REPO_ROOT });
-    expect(result.components.map((c) => c.id).sort()).toEqual([
-      'comp.category-bar-chart',
-      'comp.flow-diagram',
-      'comp.kpi-tile',
-      'comp.status-list',
-      'comp.trend-chart',
-    ]);
+    expect(result.components.map((c) => c.id).sort()).toEqual(
+      [
+        'comp.category-bar-chart',
+        'comp.flow-diagram',
+        'comp.kpi-tile',
+        'comp.status-list',
+        'comp.trend-chart',
+        ...DGM_COMPONENT_IDS,
+      ].sort(),
+    );
   });
 
   it('discovers the 3 real motion sequence ids', async () => {
