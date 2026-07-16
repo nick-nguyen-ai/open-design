@@ -295,7 +295,7 @@ export function ResultCard({ result, onOpen }: ResultCardProps) {
         <RouterLink
           to={liveHref}
           aria-label={`Open live template: ${result.title}`}
-          className="absolute right-4 top-4 z-10 inline-flex items-center gap-1.5 border border-accent/40 bg-surface-raised/90 px-1.5 py-0.5 font-mono text-xs font-medium uppercase tracking-wide text-accent no-underline backdrop-blur-sm transition-colors duration-feedback ease-settle hover:bg-accent hover:text-text-on-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
+          className="absolute right-4 top-4 z-[1] inline-flex items-center gap-1.5 border border-accent/40 bg-surface-raised/90 px-1.5 py-0.5 font-mono text-xs font-medium uppercase tracking-wide text-accent no-underline backdrop-blur-sm transition-colors duration-feedback ease-settle hover:bg-accent hover:text-text-on-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
         >
           <span aria-hidden className="text-[0.6rem] leading-none">●</span> Live
         </RouterLink>

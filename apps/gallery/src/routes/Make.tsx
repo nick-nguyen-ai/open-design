@@ -106,14 +106,14 @@ export default function Make() {
             <p>
               Or take just one part you love — click the{' '}
               <span aria-hidden className="font-mono">⌖</span> inspector on any live page to get a
-              part's ID, then:
+              part’s ID, then:
             </p>
             <Snippet text={borrowPrompt} caption="Borrow a single component or animation" />
           </Step>
 
           <Step n="04" title="It composes, certifies, ships">
             <p>
-              The skill drafts your content into the template's fill schema, the MCP server
+              The skill drafts your content into the template’s fill schema, the MCP server
               composes and validates it, and a certifier holds the result to the same gates as the
               originals — theme parity, motion discipline, accessibility, zero template edits.
               Your design lands on its own page, ready to present.{' '}

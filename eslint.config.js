@@ -85,10 +85,10 @@ export default tseslint.config(
     },
   },
   {
-    // Standalone evidence-generation scripts under docs/ (e.g. the Phase B
-    // sample screenshot runner) execute in Node and drive a browser page, so
-    // they legitimately reference Node + DOM globals.
-    files: ['docs/**/*.mjs'],
+    // Standalone evidence/asset-generation scripts (the docs/ screenshot
+    // runners, the gallery preview shooter) execute in Node and drive a
+    // browser page, so they legitimately reference Node + DOM globals.
+    files: ['docs/**/*.mjs', 'apps/gallery/scripts/**/*.mjs'],
     languageOptions: {
       globals: { process: 'readonly', console: 'readonly', document: 'readonly' },
     },

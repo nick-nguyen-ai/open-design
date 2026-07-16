@@ -27,7 +27,7 @@ test('landing renders 60 templates, toggles theme + motion, opens a quick previe
 
   // Header + hero + search render.
   await expect(page.getByRole('banner')).toBeVisible();
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('bank-credible templates');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Every template here is');
   const search = page.getByRole('searchbox', {
     name: /search templates, components, and grammars/i,
   });

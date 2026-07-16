@@ -15,7 +15,7 @@ function SampleCard({ sample }: { sample: ShowcaseSample }) {
     <article className="group relative flex h-full flex-col border border-border-subtle bg-surface-raised p-2.5 shadow-sm transition-[transform,box-shadow] duration-structure ease-settle hover:-translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:translate-y-0">
       <RouterLink
         to={sampleRoute(sample)}
-        className="absolute inset-0 z-10 rounded-sm no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
+        className="absolute inset-0 z-[1] rounded-sm no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
         aria-label={`Open live sample: ${sample.title}`}
       />
       <div className="relative aspect-[16/10] overflow-hidden border border-border-subtle bg-surface-sunken">
@@ -43,7 +43,7 @@ function SampleCard({ sample }: { sample: ShowcaseSample }) {
           {source ? (
             <RouterLink
               to={`/templates/${source.id}`}
-              className="relative z-20 text-xs text-text-muted no-underline hover:text-text-primary hover:underline"
+              className="relative z-[2] text-xs text-text-muted no-underline hover:text-text-primary hover:underline"
             >
               from {sample.sourceName ?? source.title}
             </RouterLink>

@@ -65,7 +65,7 @@ export default function TemplateDetail() {
         {live && (
           <RouterLink
             to={live}
-            aria-label={`Open live template: ${exp.title}`}
+            aria-label={`Live preview of ${exp.title}`}
             className="group block border border-border-subtle bg-surface-raised p-2.5 no-underline shadow-sm transition-[transform,box-shadow] duration-structure ease-settle hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring motion-reduce:transition-none motion-reduce:hover:translate-y-0"
           >
             <div className="relative aspect-[16/9] overflow-hidden border border-border-subtle bg-surface-sunken">
