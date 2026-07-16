@@ -1,0 +1,16 @@
+/* Structural rules shared by every collection — no colour here. */
+.dgm {
+  margin: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.dgm svg {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+}
+
+.dgm .dgm-title {
+  line-height: 1.2;
+}

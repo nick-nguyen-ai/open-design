@@ -1,0 +1,8 @@
+/**
+ * Aggregated stylesheet for every diagram collection family. Consumers import
+ * `@enterprise-design/diagram-collections/styles.css` once; each family sheet
+ * is scoped under its `.dgm-<family>` class and defines its palette as a
+ * `--dgm-<family>-*` custom-property token sheet (the deliberate
+ * art-direction amendment documented in the design spec).
+ */
+@import './shared/frame.css';

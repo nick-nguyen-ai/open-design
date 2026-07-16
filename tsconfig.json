@@ -11,6 +11,7 @@
     { "path": "packages/content-components" },
     { "path": "packages/diagrams" },
     { "path": "packages/diagram-grammar" },
+    { "path": "packages/diagram-collections" },
     { "path": "packages/search" },
     { "path": "packages/composition" },
     { "path": "packages/validator" },

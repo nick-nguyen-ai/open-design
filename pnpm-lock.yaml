@@ -310,6 +310,49 @@ importers:
 
   packages/design-tokens: {}
 
+  packages/diagram-collections:
+    dependencies:
+      '@enterprise-design/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+      '@enterprise-design/diagram-grammar':
+        specifier: workspace:*
+        version: link:../diagram-grammar
+      '@enterprise-design/motion':
+        specifier: workspace:*
+        version: link:../motion
+      '@enterprise-design/primitives':
+        specifier: workspace:*
+        version: link:../primitives
+    devDependencies:
+      '@testing-library/jest-dom':
+        specifier: ^6.9.1
+        version: 6.9.1
+      '@testing-library/react':
+        specifier: ^16.3.2
+        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      '@types/jest-axe':
+        specifier: ^3.5.9
+        version: 3.5.9
+      '@types/react':
+        specifier: ^19.2.17
+        version: 19.2.17
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.17)
+      jest-axe:
+        specifier: ^10.0.0
+        version: 10.0.0
+      jsdom:
+        specifier: ^29.1.1
+        version: 29.1.1
+      react:
+        specifier: ^19.2.7
+        version: 19.2.7
+      react-dom:
+        specifier: ^19.2.7
+        version: 19.2.7(react@19.2.7)
+
   packages/diagram-grammar:
     dependencies:
       zod:
