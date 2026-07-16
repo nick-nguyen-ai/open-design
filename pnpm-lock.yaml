@@ -310,6 +310,12 @@ importers:
 
   packages/design-tokens: {}
 
+  packages/diagram-grammar:
+    dependencies:
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
+
   packages/diagrams:
     dependencies:
       '@enterprise-design/contracts':

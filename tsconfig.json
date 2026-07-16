@@ -10,6 +10,7 @@
     { "path": "packages/data-viz" },
     { "path": "packages/content-components" },
     { "path": "packages/diagrams" },
+    { "path": "packages/diagram-grammar" },
     { "path": "packages/search" },
     { "path": "packages/composition" },
     { "path": "packages/validator" },
