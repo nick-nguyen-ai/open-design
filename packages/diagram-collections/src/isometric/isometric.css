@@ -1,0 +1,143 @@
+/**
+ * Isometric family token sheet + styles.
+ *
+ * DELIBERATE ART-DIRECTION AMENDMENT (design spec 2026-07-16): raw colour
+ * values allowed in this file only; rules consume --dgm-iso-* tokens. Light
+ * 2.5D studio family: candy blocks with three-face shading on a mist floor.
+ * Each ink declares its top/left/right face shades (top full, left −14%,
+ * right −28%). Contrast: ink #2e3440 on mist #f2f4f8 = 12.1:1; labels always
+ * render in ink on light plates or floating over the floor, never on the
+ * saturated faces.
+ */
+.dgm-isometric {
+  --dgm-iso-floor: #f2f4f8;
+  --dgm-iso-ink: #2e3440;
+  --dgm-iso-ink-soft: #6a7284;
+  --dgm-iso-shadow: rgb(46 52 64 / 0.10);
+  --dgm-iso-violet-top: #8f7ff0;
+  --dgm-iso-violet-left: #7a6cd3;
+  --dgm-iso-violet-right: #6357b3;
+  --dgm-iso-mint-top: #6fd7b2;
+  --dgm-iso-mint-left: #5db998;
+  --dgm-iso-mint-right: #4a9a7e;
+  --dgm-iso-peach-top: #ffb38a;
+  --dgm-iso-peach-left: #dd9a75;
+  --dgm-iso-peach-right: #ba8060;
+  --dgm-iso-rose-top: #f78fb3;
+  --dgm-iso-rose-left: #d47a9a;
+  --dgm-iso-rose-right: #b16580;
+  --dgm-iso-neutral-top: #ffffff;
+  --dgm-iso-neutral-left: #dde2ec;
+  --dgm-iso-neutral-right: #c3cad9;
+
+  background: var(--dgm-iso-floor);
+  color: var(--dgm-iso-ink);
+  font-family: 'Inter Variable', 'Inter', sans-serif;
+  padding: 1rem 1.25rem 1.25rem;
+  border-radius: 12px;
+}
+
+.dgm-isometric .dgm-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.dgm-isometric .iso-face-top { stroke: none; }
+.dgm-isometric .iso-face-left { stroke: none; }
+.dgm-isometric .iso-face-right { stroke: none; }
+
+.dgm-isometric .iso-violet .iso-face-top { fill: var(--dgm-iso-violet-top); }
+.dgm-isometric .iso-violet .iso-face-left { fill: var(--dgm-iso-violet-left); }
+.dgm-isometric .iso-violet .iso-face-right { fill: var(--dgm-iso-violet-right); }
+.dgm-isometric .iso-mint .iso-face-top { fill: var(--dgm-iso-mint-top); }
+.dgm-isometric .iso-mint .iso-face-left { fill: var(--dgm-iso-mint-left); }
+.dgm-isometric .iso-mint .iso-face-right { fill: var(--dgm-iso-mint-right); }
+.dgm-isometric .iso-peach .iso-face-top { fill: var(--dgm-iso-peach-top); }
+.dgm-isometric .iso-peach .iso-face-left { fill: var(--dgm-iso-peach-left); }
+.dgm-isometric .iso-peach .iso-face-right { fill: var(--dgm-iso-peach-right); }
+.dgm-isometric .iso-rose .iso-face-top { fill: var(--dgm-iso-rose-top); }
+.dgm-isometric .iso-rose .iso-face-left { fill: var(--dgm-iso-rose-left); }
+.dgm-isometric .iso-rose .iso-face-right { fill: var(--dgm-iso-rose-right); }
+.dgm-isometric .iso-neutral .iso-face-top,
+.dgm-isometric .iso-neutral-block .iso-face-top { fill: var(--dgm-iso-neutral-top); }
+.dgm-isometric .iso-neutral .iso-face-left,
+.dgm-isometric .iso-neutral-block .iso-face-left { fill: var(--dgm-iso-neutral-left); }
+.dgm-isometric .iso-neutral .iso-face-right,
+.dgm-isometric .iso-neutral-block .iso-face-right { fill: var(--dgm-iso-neutral-right); }
+
+.dgm-isometric .iso-shadow { fill: var(--dgm-iso-shadow); }
+.dgm-isometric .iso-ring { fill: none; stroke: var(--dgm-iso-ink); stroke-width: 1; opacity: 0.55; }
+.dgm-isometric .iso-head { stroke: none; }
+.dgm-isometric .iso-violet.iso-head, .dgm-isometric .iso-mint.iso-head,
+.dgm-isometric .iso-peach.iso-head, .dgm-isometric .iso-rose.iso-head { fill: var(--dgm-iso-ink); opacity: 0.85; }
+
+.dgm-isometric .iso-pad { fill: none; stroke: var(--dgm-iso-ink-soft); stroke-width: 1; opacity: 0.8; }
+.dgm-isometric .iso-pad.iso-violet { fill: var(--dgm-iso-violet-top); fill-opacity: 0.14; stroke: var(--dgm-iso-violet-right); }
+.dgm-isometric .iso-pad.iso-mint { fill: var(--dgm-iso-mint-top); fill-opacity: 0.14; stroke: var(--dgm-iso-mint-right); }
+.dgm-isometric .iso-pad.iso-peach { fill: var(--dgm-iso-peach-top); fill-opacity: 0.14; stroke: var(--dgm-iso-peach-right); }
+.dgm-isometric .iso-pad.iso-rose { fill: var(--dgm-iso-rose-top); fill-opacity: 0.14; stroke: var(--dgm-iso-rose-right); }
+.dgm-isometric .iso-pad.iso-pad-fill { fill: #ffffff; fill-opacity: 0.75; stroke: var(--dgm-iso-neutral-right); }
+.dgm-isometric .iso-dashed { stroke-dasharray: 6 5; }
+
+.dgm-isometric .iso-wire { fill: none; stroke: var(--dgm-iso-ink); stroke-width: 1.5; stroke-linecap: round; }
+.dgm-isometric .iso-ring-ground { fill: none; stroke: var(--dgm-iso-ink-soft); stroke-width: 1; stroke-dasharray: 3 6; }
+
+.dgm-isometric text { fill: var(--dgm-iso-ink); font-family: inherit; }
+.dgm-isometric .iso-label { font-size: 12px; font-weight: 600; paint-order: stroke; stroke: var(--dgm-iso-floor); stroke-width: 3px; }
+.dgm-isometric .iso-band-label { font-size: 12.5px; font-weight: 700; paint-order: stroke; stroke: var(--dgm-iso-floor); stroke-width: 3px; }
+.dgm-isometric .iso-edge-label { font-size: 11px; fill: var(--dgm-iso-ink-soft); paint-order: stroke; stroke: var(--dgm-iso-floor); stroke-width: 3px; }
+.dgm-isometric .iso-note { font-size: 10.5px; fill: var(--dgm-iso-ink-soft); paint-order: stroke; stroke: var(--dgm-iso-floor); stroke-width: 3px; }
+.dgm-isometric .iso-chip-label { font-size: 10px; font-weight: 600; }
+.dgm-isometric .iso-cell-value { font-size: 11px; }
+.dgm-isometric .iso-row-label { font-size: 11.5px; font-weight: 700; }
+.dgm-isometric .iso-zone-label { font-size: 12px; font-weight: 700; letter-spacing: 0.03em; }
+.dgm-isometric .iso-step { font-size: 11px; font-weight: 700; }
+.dgm-isometric .iso-side-label { font-size: 11px; letter-spacing: 0.1em; fill: var(--dgm-iso-ink-soft); text-transform: uppercase; }
+.dgm-isometric .iso-now { font-size: 11px; font-weight: 700; fill: var(--dgm-iso-rose-right); }
+
+/* Motion: blocks rise onto the floor; ground wires draw. Tokens only. */
+.dgm-isometric .iso-node,
+.dgm-isometric .iso-msg {
+  opacity: 0;
+  animation: dgm-iso-rise var(--dur-structure) var(--ease-lift) forwards;
+}
+
+.dgm-isometric .iso-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: dgm-iso-trace var(--dur-narrative) var(--ease-trace) forwards;
+}
+
+@keyframes dgm-iso-rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes dgm-iso-trace {
+  to { stroke-dashoffset: 0; }
+}
+
+.dgm-isometric[data-reduced] .iso-node,
+.dgm-isometric[data-reduced] .iso-msg {
+  animation: none;
+  opacity: 1;
+}
+
+.dgm-isometric[data-reduced] .iso-draw {
+  animation: none;
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dgm-isometric .iso-node,
+  .dgm-isometric .iso-msg {
+    animation: none;
+    opacity: 1;
+  }
+
+  .dgm-isometric .iso-draw {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
