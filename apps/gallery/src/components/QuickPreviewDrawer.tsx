@@ -18,6 +18,7 @@ import {
 } from '../data/labels.js';
 import { useRecentlyViewed } from '../state/useRecentlyViewed.js';
 import { ArrowRightIcon } from './icons.js';
+import { PreviewImage } from './PreviewImage.js';
 
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
@@ -64,9 +65,10 @@ export interface QuickPreviewDrawerProps {
 
 /**
  * The quick-preview drawer. The primitives `Drawer` provides the focus trap,
- * Escape-to-close, and focus restoration; we add the item metadata plus links
- * to the full detail page and the Blueprint Lab handoff. Opening records the
- * item in recently-viewed.
+ * Escape-to-close, and focus restoration; we add a live-world preview image,
+ * the item metadata, and links to the full detail page, the live route, and —
+ * for templates — the Make-your-design handoff. Opening records the item in
+ * recently-viewed.
  */
 export function QuickPreviewDrawer({ result, onClose }: QuickPreviewDrawerProps) {
   const { record } = useRecentlyViewed();
@@ -87,6 +89,15 @@ export function QuickPreviewDrawer({ result, onClose }: QuickPreviewDrawerProps)
     <Drawer open={result !== null} onClose={onClose} side="right" title={result?.title ?? 'Preview'}>
       {result && (
         <div className="flex flex-col gap-4">
+          {result.entityType === 'experience' && liveRoute(result.id) && (
+            <div className="overflow-hidden rounded-md border border-border-subtle bg-surface-sunken">
+              <PreviewImage
+                id={result.id}
+                alt={`Preview of ${result.title}`}
+                className="block aspect-[16/10] w-full object-cover object-top"
+              />
+            </div>
+          )}
           <div className="flex items-center gap-2">
             <span className="inline-flex items-center gap-1.5 rounded-sm border border-border-subtle px-2 py-0.5 text-xs font-medium uppercase tracking-wide text-text-secondary">
               <span aria-hidden className="h-2 w-2 rounded-full" style={{ backgroundColor: accent }} />
@@ -156,13 +167,15 @@ export function QuickPreviewDrawer({ result, onClose }: QuickPreviewDrawerProps)
             >
               View full detail <ArrowRightIcon />
             </RouterLink>
-            <RouterLink
-              to={`/blueprint-lab?focus=${encodeURIComponent(result.id)}`}
-              onClick={onClose}
-              className="inline-flex h-10 items-center justify-center rounded-md border border-border-strong bg-surface-raised px-4 text-md font-medium text-text-primary no-underline transition-colors duration-feedback ease-settle hover:bg-surface-sunken focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
-            >
-              Use in Blueprint Lab
-            </RouterLink>
+            {result.entityType === 'experience' && (
+              <RouterLink
+                to={`/make?template=${encodeURIComponent(result.id)}`}
+                onClick={onClose}
+                className="inline-flex h-10 items-center justify-center rounded-md border border-border-strong bg-surface-raised px-4 text-md font-medium text-text-primary no-underline transition-colors duration-feedback ease-settle hover:bg-surface-sunken focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
+              >
+                Make your design with it
+              </RouterLink>
+            )}
           </div>
         </div>
       )}

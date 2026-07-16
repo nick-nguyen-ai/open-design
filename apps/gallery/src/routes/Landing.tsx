@@ -1,11 +1,8 @@
 import { useCallback, useRef, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import type { SurfaceType } from '@enterprise-design/contracts';
 import type { SearchResult } from '@enterprise-design/search';
 import { Drawer, SegmentedControl } from '@enterprise-design/primitives';
 import { Hero } from '../components/Hero.js';
-import { TemplateShortcuts } from '../components/TemplateShortcuts.js';
-import { FeaturedCollections, type CollectionPreset } from '../components/FeaturedCollections.js';
 import { RecentlyViewedRow } from '../components/RecentlyViewedRow.js';
 import { FacetFilters } from '../components/FacetFilters.js';
 import { ActiveFilters } from '../components/ActiveFilters.js';
@@ -14,7 +11,6 @@ import { QuickPreviewDrawer } from '../components/QuickPreviewDrawer.js';
 import { ArrowRightIcon, GridIcon } from '../components/icons.js';
 import {
   activeFilterCount,
-  browseStateToParams,
   SORT_LABEL,
   SORT_OPTIONS,
   type BrowseMode,
@@ -31,7 +27,7 @@ const MODE_LABELS: Record<BrowseMode, string> = {
 };
 
 export function Landing() {
-  const { state, queryInput, setQueryInput, setMode, setSort, setFilters, clearFilters, apply } =
+  const { state, queryInput, setQueryInput, setMode, setSort, setFilters, clearFilters } =
     useBrowseState();
   const { results, countsByMode } = useBrowseResults(state);
 
@@ -43,30 +39,11 @@ export function Landing() {
     resultsRef.current?.scrollIntoView({ block: 'start' });
   }, []);
 
-  const applyPreset = useCallback(
-    (preset: CollectionPreset) => {
-      apply({ query: preset.query, mode: preset.mode, filters: preset.filters, sort: state.sort });
-      scrollToResults();
-    },
-    [apply, scrollToResults, state.sort],
-  );
-
-  const selectSurface = useCallback(
-    (surface: SurfaceType) => {
-      const next = state.filters.surface === surface ? undefined : surface;
-      setFilters({ ...state.filters, surface: next });
-      if (state.mode === 'components') setMode('templates');
-      scrollToResults();
-    },
-    [setFilters, setMode, state.filters, state.mode, scrollToResults],
-  );
-
   const modeOptions = (Object.keys(MODE_LABELS) as BrowseMode[]).map((mode) => ({
     value: mode,
     label: `${MODE_LABELS[mode]} (${countsByMode[mode]})`,
   }));
 
-  const blueprintParams = browseStateToParams(state).toString();
   const filterCount = activeFilterCount(state.filters);
 
   return (
@@ -78,19 +55,9 @@ export function Landing() {
           setQueryInput(q);
           scrollToResults();
         }}
-        onBrowseTemplates={() => {
-          setMode('templates');
-          scrollToResults();
-        }}
-        onFindComponents={() => {
-          setMode('components');
-          scrollToResults();
-        }}
       />
 
       <div className="mx-auto flex w-full max-w-[80rem] flex-col gap-12 px-6 py-12">
-        <TemplateShortcuts activeSurface={state.filters.surface} onSelect={selectSurface} />
-        <FeaturedCollections onApply={applyPreset} />
         <RecentlyViewedRow />
 
         <section ref={resultsRef} aria-labelledby="results-heading" className="scroll-mt-20">
@@ -98,9 +65,9 @@ export function Landing() {
             <div className="flex flex-wrap items-center justify-between gap-4">
               <h2
                 id="results-heading"
-                className="font-heading text-xl font-semibold text-text-primary"
+                className="font-heading text-2xl font-semibold tracking-tight text-text-primary"
               >
-                Browse the catalogue
+                The catalogue
               </h2>
               <SegmentedControl
                 aria-label="Browse mode"
@@ -111,8 +78,12 @@ export function Landing() {
             </div>
 
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <p role="status" aria-live="polite" className="text-sm text-text-secondary">
-                {results.length} {results.length === 1 ? 'result' : 'results'}
+              <p
+                role="status"
+                aria-live="polite"
+                className="font-mono text-[0.62rem] font-medium uppercase tracking-[0.16em] text-text-muted"
+              >
+                {results.length} {results.length === 1 ? 'work' : 'works'}
               </p>
               <div className="flex items-center gap-2">
                 <label htmlFor="sort-select" className="text-sm text-text-muted">
@@ -156,20 +127,25 @@ export function Landing() {
               <div className="flex flex-col gap-8">
                 <ResultGrid results={results} onOpen={setSelected} onClearFilters={clearFilters} />
 
-                <div className="flex flex-col gap-4 rounded-lg border border-border-subtle bg-surface-raised p-6 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex flex-col gap-4 border border-border-subtle bg-surface-sunken p-6 sm:flex-row sm:items-center sm:justify-between">
                   <div>
-                    <h3 className="font-heading text-md font-semibold text-text-primary">
-                      Ready to compose a blueprint?
+                    <h3 className="font-heading text-lg font-semibold tracking-tight text-text-primary">
+                      Found your template?
                     </h3>
                     <p className="mt-1 text-sm text-text-secondary">
-                      Carry this query, filters, and shortlist into the Blueprint Lab.
+                      Hand it your content — the MCP server and skills compose the design for you.
+                      See what others made in the{' '}
+                      <RouterLink to="/showcase" className="text-accent no-underline hover:underline">
+                        Showcase
+                      </RouterLink>
+                      .
                     </p>
                   </div>
                   <RouterLink
-                    to={`/blueprint-lab${blueprintParams ? `?${blueprintParams}` : ''}`}
+                    to="/make"
                     className="inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-md bg-accent px-4 text-md font-medium text-text-on-accent no-underline transition-colors duration-feedback ease-settle hover:bg-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring"
                   >
-                    Open Blueprint Lab <ArrowRightIcon />
+                    Make your design <ArrowRightIcon />
                   </RouterLink>
                 </div>
               </div>

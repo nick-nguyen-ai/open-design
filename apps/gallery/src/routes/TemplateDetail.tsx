@@ -14,6 +14,7 @@ import {
   SURFACE_LABEL,
 } from '../data/labels.js';
 import { MetaGrid, Page, Section } from '../components/Page.js';
+import { PreviewImage } from '../components/PreviewImage.js';
 import { useRecentlyViewed } from '../state/useRecentlyViewed.js';
 
 export default function TemplateDetail() {
@@ -29,7 +30,7 @@ export default function TemplateDetail() {
 
   if (!exp) {
     return (
-      <Page title="Template not found" backTo="/browse" backLabel="Back to browse">
+      <Page title="Template not found" backTo="/" backLabel="Back to the gallery">
         <p className="text-text-secondary">No template exists with id “{experienceId}”.</p>
       </Page>
     );
@@ -44,8 +45,8 @@ export default function TemplateDetail() {
       eyebrow={grammarName(exp.grammarId)}
       title={exp.title}
       description={exp.designThesis}
-      backTo="/browse?mode=templates"
-      backLabel="Back to templates"
+      backTo="/?mode=templates"
+      backLabel="Back to the gallery"
       actions={
         <div className="flex items-center gap-3">
           {live && (
@@ -61,6 +62,27 @@ export default function TemplateDetail() {
       }
     >
       <div className="flex flex-col gap-10">
+        {live && (
+          <RouterLink
+            to={live}
+            aria-label={`Open live template: ${exp.title}`}
+            className="group block border border-border-subtle bg-surface-raised p-2.5 no-underline shadow-sm transition-[transform,box-shadow] duration-structure ease-settle hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+          >
+            <div className="relative aspect-[16/9] overflow-hidden border border-border-subtle bg-surface-sunken">
+              <div className="absolute inset-0 flex items-center justify-center font-mono text-[0.62rem] uppercase tracking-[0.2em] text-text-muted">
+                Live world
+              </div>
+              <PreviewImage
+                id={exp.id}
+                alt={`Preview of ${exp.title}`}
+                className="absolute inset-0 h-full w-full object-cover object-top"
+              />
+              <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 border border-accent/40 bg-surface-raised/90 px-2 py-1 font-mono text-xs font-medium uppercase tracking-wide text-accent backdrop-blur-sm transition-colors duration-feedback ease-settle group-hover:bg-accent group-hover:text-text-on-accent">
+                <span aria-hidden className="text-[0.6rem] leading-none">●</span> Open live →
+              </span>
+            </div>
+          </RouterLink>
+        )}
         {!live && (
           <aside
             aria-label="Specification status"

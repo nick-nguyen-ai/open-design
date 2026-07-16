@@ -1,5 +1,5 @@
 import { Suspense, lazy } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { MotionProvider } from '@enterprise-design/motion';
 import { PartInspector } from './components/PartInspector.js';
 import { RootLayout } from './components/RootLayout.js';
@@ -11,12 +11,11 @@ import { PreferencesProvider } from './state/PreferencesContext.js';
 // Route-split the heavier detail views (and the ECharts-backed component
 // previews) so the landing bundle stays lean.
 const TemplateDetail = lazy(() => import('./routes/TemplateDetail.js'));
-const Components = lazy(() => import('./routes/Components.js'));
 const ComponentDetail = lazy(() => import('./routes/ComponentDetail.js'));
-const Grammars = lazy(() => import('./routes/Grammars.js'));
 const GrammarDetail = lazy(() => import('./routes/GrammarDetail.js'));
-const BlueprintLab = lazy(() => import('./routes/BlueprintLab.js'));
-const Guide = lazy(() => import('./routes/Guide.js'));
+const Make = lazy(() => import('./routes/Make.js'));
+const Showcase = lazy(() => import('./routes/Showcase.js'));
+const Contribute = lazy(() => import('./routes/Contribute.js'));
 const NotFound = lazy(() => import('./routes/NotFound.js'));
 // Full-bleed live anchor experiences — rendered OUTSIDE RootLayout so the
 // page owns the viewport (no gallery header/nav; task 12).
@@ -47,9 +46,8 @@ const BorrowPilotDemo = lazy(
   () => import('../../../experiences/slide-decks/demo-borrow-pilot/BorrowPilotPage.js'),
 );
 
-// Experience-composer goal-test OUTPUTS (five-surface sample run, ledger Task 12).
-// Each is a fill composed via its surface's compose tool, rendered content-only
-// through the shipped world-template. Not catalogue templates.
+// Experience-composer skill OUTPUTS — one sample per surface (all-surfaces
+// Phase 1), each a content-only fill through its world template.
 const GitlabQbrDemo = lazy(
   () => import('../../../experiences/slide-decks/sample-gitlab-qbr/GitlabQbrPage.js'),
 );
@@ -66,6 +64,17 @@ const MlCareerDemo = lazy(
   () => import('../../../experiences/personal-pages/sample-ml-career/MlCareerPage.js'),
 );
 
+/** One route element: a lazy page inside the shared suspense fallback. */
+function suspended(node: React.ReactNode) {
+  return <Suspense fallback={<RouteFallback />}>{node}</Suspense>;
+}
+
+/** `/browse` lives on as the catalogue home — preserve any query it carried. */
+function BrowseRedirect() {
+  const { search } = useLocation();
+  return <Navigate to={`/${search}`} replace />;
+}
+
 export function App() {
   const preferences = usePreferences();
 
@@ -73,153 +82,33 @@ export function App() {
     <MotionProvider reducedMotion={preferences.reducedMotion}>
       <PreferencesProvider value={preferences}>
         <Routes>
-          <Route
-            path="live/:experienceId"
-            element={
-              <Suspense fallback={<RouteFallback />}>
-                <LiveExperience />
-              </Suspense>
-            }
-          />
-          <Route
-            path="demo/deepagents"
-            element={
-              <Suspense fallback={<RouteFallback />}>
-                <DeepAgentsDemo />
-              </Suspense>
-            }
-          />
-          <Route
-            path="demo/mcp-sample"
-            element={
-              <Suspense fallback={<RouteFallback />}>
-                <McpSampleDemo />
-              </Suspense>
-            }
-          />
-          <Route
-            path="demo/openwiki"
-            element={
-              <Suspense fallback={<RouteFallback />}>
-                <OpenWikiDemo />
-              </Suspense>
-            }
-          />
-          <Route
-            path="demo/borrow-pilot"
-            element={
-              <Suspense fallback={<RouteFallback />}>
-                <BorrowPilotDemo />
-              </Suspense>
-            }
-          />
-          <Route
-            path="demo/gitlab-qbr"
-            element={
-              <Suspense fallback={<RouteFallback />}>
-                <GitlabQbrDemo />
-              </Suspense>
-            }
-          />
-          <Route
-            path="demo/openmodel-cockpit"
-            element={
-              <Suspense fallback={<RouteFallback />}>
-                <OpenmodelCockpitDemo />
-              </Suspense>
-            }
-          />
-          <Route
-            path="demo/moderation-stack"
-            element={
-              <Suspense fallback={<RouteFallback />}>
-                <ModerationStackDemo />
-              </Suspense>
-            }
-          />
-          <Route
-            path="demo/agent-evals"
-            element={
-              <Suspense fallback={<RouteFallback />}>
-                <AgentEvalsDemo />
-              </Suspense>
-            }
-          />
-          <Route
-            path="demo/ml-career"
-            element={
-              <Suspense fallback={<RouteFallback />}>
-                <MlCareerDemo />
-              </Suspense>
-            }
-          />
+          <Route path="live/:experienceId" element={suspended(<LiveExperience />)} />
+          <Route path="demo/deepagents" element={suspended(<DeepAgentsDemo />)} />
+          <Route path="demo/mcp-sample" element={suspended(<McpSampleDemo />)} />
+          <Route path="demo/openwiki" element={suspended(<OpenWikiDemo />)} />
+          <Route path="demo/borrow-pilot" element={suspended(<BorrowPilotDemo />)} />
+          <Route path="demo/gitlab-qbr" element={suspended(<GitlabQbrDemo />)} />
+          <Route path="demo/openmodel-cockpit" element={suspended(<OpenmodelCockpitDemo />)} />
+          <Route path="demo/moderation-stack" element={suspended(<ModerationStackDemo />)} />
+          <Route path="demo/agent-evals" element={suspended(<AgentEvalsDemo />)} />
+          <Route path="demo/ml-career" element={suspended(<MlCareerDemo />)} />
           <Route element={<RootLayout />}>
             <Route index element={<Landing />} />
-            <Route path="browse" element={<Landing />} />
-            <Route
-              path="templates/:experienceId"
-              element={
-                <Suspense fallback={<RouteFallback />}>
-                  <TemplateDetail />
-                </Suspense>
-              }
-            />
-            <Route
-              path="components"
-              element={
-                <Suspense fallback={<RouteFallback />}>
-                  <Components />
-                </Suspense>
-              }
-            />
-            <Route
-              path="components/:componentId"
-              element={
-                <Suspense fallback={<RouteFallback />}>
-                  <ComponentDetail />
-                </Suspense>
-              }
-            />
-            <Route
-              path="grammars"
-              element={
-                <Suspense fallback={<RouteFallback />}>
-                  <Grammars />
-                </Suspense>
-              }
-            />
-            <Route
-              path="grammars/:grammarId"
-              element={
-                <Suspense fallback={<RouteFallback />}>
-                  <GrammarDetail />
-                </Suspense>
-              }
-            />
-            <Route
-              path="blueprint-lab"
-              element={
-                <Suspense fallback={<RouteFallback />}>
-                  <BlueprintLab />
-                </Suspense>
-              }
-            />
-            <Route
-              path="guide"
-              element={
-                <Suspense fallback={<RouteFallback />}>
-                  <Guide />
-                </Suspense>
-              }
-            />
-            <Route
-              path="*"
-              element={
-                <Suspense fallback={<RouteFallback />}>
-                  <NotFound />
-                </Suspense>
-              }
-            />
+            <Route path="browse" element={<BrowseRedirect />} />
+            <Route path="make" element={suspended(<Make />)} />
+            <Route path="showcase" element={suspended(<Showcase />)} />
+            <Route path="contribute" element={suspended(<Contribute />)} />
+            <Route path="templates/:experienceId" element={suspended(<TemplateDetail />)} />
+            {/* Legacy IA (pre-2026-07-17): the Components/Grammars/Guide index
+                pages folded into Contribute and the Blueprint Lab stub into
+                Make; their detail routes remain first-class. */}
+            <Route path="components" element={<Navigate to="/contribute" replace />} />
+            <Route path="components/:componentId" element={suspended(<ComponentDetail />)} />
+            <Route path="grammars" element={<Navigate to="/contribute" replace />} />
+            <Route path="grammars/:grammarId" element={suspended(<GrammarDetail />)} />
+            <Route path="guide" element={<Navigate to="/contribute" replace />} />
+            <Route path="blueprint-lab" element={<Navigate to="/make" replace />} />
+            <Route path="*" element={suspended(<NotFound />)} />
           </Route>
         </Routes>
         {/* Self-gated to /live/* and /demo/* — renders nothing elsewhere. */}

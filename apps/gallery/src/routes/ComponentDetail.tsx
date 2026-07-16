@@ -21,7 +21,7 @@ export default function ComponentDetail() {
 
   if (!comp) {
     return (
-      <Page title="Component not found" backTo="/components" backLabel="Back to components">
+      <Page title="Component not found" backTo="/contribute" backLabel="Back to Contribute">
         <p className="text-text-secondary">No component exists with id “{componentId}”.</p>
       </Page>
     );
@@ -40,8 +40,8 @@ export default function ComponentDetail() {
       eyebrow={comp.category}
       title={comp.name}
       description={comp.description}
-      backTo="/components"
-      backLabel="Back to components"
+      backTo="/contribute"
+      backLabel="Back to Contribute"
       actions={<Badge tone="success">{comp.approval.state}</Badge>}
     >
       <div className="flex flex-col gap-10">
