@@ -46,10 +46,10 @@ test('tour: template detail', async ({ page }) => {
   await page.screenshot({ path: shot('tour-template-detail.png'), fullPage: true });
 });
 
-test('tour: grammar explorer', async ({ page }) => {
-  await page.goto('/grammars');
+test('tour: contribute (doctrine, components, grammars)', async ({ page }) => {
+  await page.goto('/contribute');
   await settle(page);
-  await page.screenshot({ path: shot('tour-grammars.png') });
+  await page.screenshot({ path: shot('tour-contribute.png') });
 });
 
 test('tour: component detail with live chart', async ({ page }) => {

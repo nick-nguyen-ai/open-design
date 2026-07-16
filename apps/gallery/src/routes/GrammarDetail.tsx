@@ -34,7 +34,7 @@ export default function GrammarDetail() {
 
   if (!grammar) {
     return (
-      <Page title="Grammar not found" backTo="/grammars" backLabel="Back to grammars">
+      <Page title="Grammar not found" backTo="/contribute" backLabel="Back to Contribute">
         <p className="text-text-secondary">No grammar exists with id “{grammarId}”.</p>
       </Page>
     );
@@ -45,7 +45,7 @@ export default function GrammarDetail() {
     .filter((e): e is NonNullable<typeof e> => Boolean(e));
 
   return (
-    <Page eyebrow="Design grammar" title={grammar.name} description={grammar.intent} backTo="/grammars" backLabel="Back to grammars">
+    <Page eyebrow="Design grammar" title={grammar.name} description={grammar.intent} backTo="/contribute" backLabel="Back to Contribute">
       <span
         aria-hidden
         className="mb-8 block h-1 w-24 rounded-full"

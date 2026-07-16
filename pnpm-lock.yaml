@@ -74,6 +74,9 @@ importers:
       '@enterprise-design/themes':
         specifier: workspace:*
         version: link:../../packages/themes
+      '@fontsource-variable/fraunces':
+        specifier: ^5.2.9
+        version: 5.2.9
       react:
         specifier: ^19.2.0
         version: 19.2.7

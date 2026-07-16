@@ -184,18 +184,22 @@
   --transition-duration-narrative: var(--dur-narrative);
 
   /* ---- Stacking — packages/design-tokens/src/layout.ts `zIndex` (Dialog/
-     Drawer overlay + surface ordering) ---- */
-  --z-hide: var(--z-hide);
-  --z-base: var(--z-base);
-  --z-docked: var(--z-docked);
-  --z-dropdown: var(--z-dropdown);
-  --z-sticky: var(--z-sticky);
-  --z-banner: var(--z-banner);
-  --z-overlay: var(--z-overlay);
-  --z-modal: var(--z-modal);
-  --z-popover: var(--z-popover);
-  --z-toast: var(--z-toast);
-  --z-tooltip: var(--z-tooltip);
+     Drawer overlay + surface ordering). Tailwind v4 generates `z-<name>`
+     utilities from the `--z-index-*` namespace; the previous `--z-<name>:
+     var(--z-<name>)` form was BOTH the wrong namespace (no utility generated,
+     so `z-modal`/`z-sticky` silently resolved to `z-index: auto`) AND a cyclic
+     self-reference that invalidated the token values from tokens.css. ---- */
+  --z-index-hide: var(--z-hide);
+  --z-index-base: var(--z-base);
+  --z-index-docked: var(--z-docked);
+  --z-index-dropdown: var(--z-dropdown);
+  --z-index-sticky: var(--z-sticky);
+  --z-index-banner: var(--z-banner);
+  --z-index-overlay: var(--z-overlay);
+  --z-index-modal: var(--z-modal);
+  --z-index-popover: var(--z-popover);
+  --z-index-toast: var(--z-toast);
+  --z-index-tooltip: var(--z-tooltip);
 }
 
 /*

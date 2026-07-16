@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { describe, it, expect } from 'vitest';
 import { themedTokenNames } from '@enterprise-design/design-tokens';
-import { enterpriseNeutralLight, enterpriseNeutralDark } from './theme.js';
+import { enterpriseNeutralLight, enterpriseNeutralDark, themes } from './theme.js';
 import { buildThemeCss } from './css.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -55,17 +55,16 @@ describe('buildThemeCss — dark', () => {
 });
 
 describe('committed theme CSS files', () => {
-  it('light matches buildThemeCss (run `pnpm generate:css` if this fails)', () => {
-    expect(cssFile('enterprise-neutral-light.css')).toBe(buildThemeCss(enterpriseNeutralLight));
-  });
-
-  it('dark matches buildThemeCss (run `pnpm generate:css` if this fails)', () => {
-    expect(cssFile('enterprise-neutral-dark.css')).toBe(buildThemeCss(enterpriseNeutralDark));
-  });
+  for (const theme of themes) {
+    it(`${theme.id}.css matches buildThemeCss (run \`pnpm generate:css\` if this fails)`, () => {
+      expect(cssFile(`${theme.id}.css`)).toBe(buildThemeCss(theme));
+    });
+  }
 
   it('never emit a layout-dimension token in a themed file (colour-only switch)', () => {
     const forbidden = /--(space|radius|font-size|line-height|layout|density|z-|border-width)/;
-    expect(cssFile('enterprise-neutral-light.css')).not.toMatch(forbidden);
-    expect(cssFile('enterprise-neutral-dark.css')).not.toMatch(forbidden);
+    for (const theme of themes) {
+      expect(cssFile(`${theme.id}.css`)).not.toMatch(forbidden);
+    }
   });
 });

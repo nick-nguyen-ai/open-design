@@ -12,7 +12,7 @@ import { writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { buildThemeCss } from '../src/css.js';
-import { enterpriseNeutralLight, enterpriseNeutralDark } from '../src/theme.js';
+import { themes } from '../src/theme.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const write = (file: string, content: string) => {
@@ -21,5 +21,6 @@ const write = (file: string, content: string) => {
   console.log(`Wrote ${out}`);
 };
 
-write('enterprise-neutral-light.css', buildThemeCss(enterpriseNeutralLight));
-write('enterprise-neutral-dark.css', buildThemeCss(enterpriseNeutralDark));
+for (const theme of themes) {
+  write(`${theme.id}.css`, buildThemeCss(theme));
+}

@@ -10,6 +10,6 @@ export function detailRoute(entityType: EntityType, id: string): string {
     case 'grammar':
       return `/grammars/${id}`;
     default:
-      return '/browse';
+      return '/';
   }
 }

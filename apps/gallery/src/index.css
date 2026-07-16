@@ -12,9 +12,12 @@
  */
 @import 'tailwindcss';
 @import '@enterprise-design/design-tokens/tokens.css';
-@import '@enterprise-design/themes/enterprise-neutral-light.css';
-@import '@enterprise-design/themes/enterprise-neutral-dark.css';
+@import '@enterprise-design/themes/gallery-ink-light.css';
+@import '@enterprise-design/themes/gallery-ink-dark.css';
 @import '@enterprise-design/primitives/tailwind-theme.css';
+/* Gallery Ink display serif (chrome only — experiences load their own fonts). */
+@import '@fontsource-variable/fraunces/index.css';
+@import '@fontsource-variable/fraunces/wght-italic.css';
 
 /*
  * Tailwind scans these globs for the class names it must generate. The app's
@@ -35,6 +38,14 @@
 
 :root {
   color-scheme: light dark;
+  /*
+   * Gallery Ink type: display + headings move to Fraunces (an editorial serif);
+   * body stays the system sans. Safe at :root — no experience reads the font
+   * tokens (they load and declare their own families; verified by grep in the
+   * 2026-07-17 redesign spec).
+   */
+  --font-display: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
+  --font-heading: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
 }
 
 html,

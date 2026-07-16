@@ -43,7 +43,7 @@ afterEach(cleanup);
 describe('Landing', () => {
   it('shows all 65 templates in the default All mode', () => {
     renderLanding();
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('bank-credible templates');
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Every template here is');
     expect(templateCards()).toHaveLength(65);
   });
 
