@@ -22,7 +22,7 @@ const DGM_KINDS = ['flow', 'sequence', 'layers', 'zones', 'cycle', 'compare', 'c
 const DGM_COMPONENT_IDS = DGM_FAMILIES.flatMap((family) => DGM_KINDS.map((kind) => `comp.dgm.${family}.${kind}`));
 
 describe('catalogue integrity — compileRegistry over the real workspace', () => {
-  it('discovers exactly 60 experiences, 10 grammars, 3 motion sequences, 45 components, 0 errors', async () => {
+  it('discovers exactly 60 experiences, 15 grammars, 3 motion sequences, 45 components, 0 errors', async () => {
     const result = await compileRegistry({ cwd: REPO_ROOT });
 
     expect(result.diagnostics).toEqual([]);
@@ -31,7 +31,7 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
     expect(result.ok).toBe(true);
 
     expect(result.components).toHaveLength(45);
-    expect(result.grammars).toHaveLength(10);
+    expect(result.grammars).toHaveLength(15);
     expect(result.motionSequences).toHaveLength(3);
     expect(result.experiences).toHaveLength(60);
   });
@@ -59,17 +59,22 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
     ]);
   });
 
-  it('discovers all 10 grammar ids', async () => {
+  it('discovers all 15 grammar ids', async () => {
     const result = await compileRegistry({ cwd: REPO_ROOT });
     expect(result.grammars.map((g) => g.id).sort()).toEqual([
       'calm-command',
+      'drafting-board',
       'executive-editorial',
+      'isometric-studio',
       'kinetic-intelligence',
       'living-system',
       'monumental-type',
+      'neon-circuit',
       'precision-grid',
+      'print-gazette',
       'research-notebook',
       'signal-glass',
+      'sketchnote-journal',
       'spatial-canvas',
       'technical-blueprint',
     ]);
