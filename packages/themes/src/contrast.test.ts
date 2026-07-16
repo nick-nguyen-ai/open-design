@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import type { ThemeValueMap } from '@enterprise-design/design-tokens';
-import { enterpriseNeutralLight, enterpriseNeutralDark } from './theme.js';
+import { themes } from './theme.js';
 import { contrastRatio, parseHex } from './contrast.js';
 
 const AA_BODY = 4.5; // WCAG 2.2 §1.4.3 normal text
@@ -55,10 +55,9 @@ function pairs(v: ThemeValueMap): Array<[string, string, string, number]> {
   return list;
 }
 
-describe.each([
-  ['light', enterpriseNeutralLight.values],
-  ['dark', enterpriseNeutralDark.values],
-])('%s theme WCAG AA contrast', (_name, values) => {
+describe.each(themes.map((t) => [t.id, t.values] as const))(
+  '%s WCAG AA contrast',
+  (_name, values) => {
   for (const [label, fg, bg, min] of pairs(values)) {
     it(`${label} ≥ ${min}:1`, () => {
       const ratio = contrastRatio(fg, bg);

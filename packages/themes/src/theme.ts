@@ -1,6 +1,8 @@
 import type { ColorScheme, ThemeValueMap } from '@enterprise-design/design-tokens';
 import { lightValues } from './light.values.js';
 import { darkValues } from './dark.values.js';
+import { inkLightValues } from './ink.light.values.js';
+import { inkDarkValues } from './ink.dark.values.js';
 
 /** A named theme: an id, the `color-scheme` it presents as, and its value map. */
 export interface ThemeDefinition {
@@ -32,5 +34,24 @@ export const enterpriseNeutralDark: ThemeDefinition = {
   values: darkValues satisfies ThemeValueMap,
 };
 
-/** All shipped themes. */
-export const themes: readonly ThemeDefinition[] = [enterpriseNeutralLight, enterpriseNeutralDark];
+export const galleryInkLight: ThemeDefinition = {
+  id: 'gallery-ink-light',
+  label: 'Gallery Ink — Light',
+  colorScheme: 'light',
+  values: inkLightValues satisfies ThemeValueMap,
+};
+
+export const galleryInkDark: ThemeDefinition = {
+  id: 'gallery-ink-dark',
+  label: 'Gallery Ink — Dark',
+  colorScheme: 'dark',
+  values: inkDarkValues satisfies ThemeValueMap,
+};
+
+/** All shipped themes — two families, each with one light and one dark member. */
+export const themes: readonly ThemeDefinition[] = [
+  enterpriseNeutralLight,
+  enterpriseNeutralDark,
+  galleryInkLight,
+  galleryInkDark,
+];

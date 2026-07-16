@@ -1,11 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { themedTokenNames } from '@enterprise-design/design-tokens';
-import { enterpriseNeutralLight, enterpriseNeutralDark, themes } from './theme.js';
+import { themes } from './theme.js';
 
-describe.each([
-  ['light', enterpriseNeutralLight],
-  ['dark', enterpriseNeutralDark],
-])('%s theme completeness', (_name, theme) => {
+describe.each(themes.map((t) => [t.id, t] as const))('%s completeness', (_name, theme) => {
   const keys = Object.keys(theme.values);
 
   it('provides a value for every themed token name in the contract', () => {
@@ -31,8 +28,17 @@ describe.each([
 });
 
 describe('theme registry', () => {
-  it('ships exactly one light and one dark theme', () => {
-    expect(themes.map((t) => t.colorScheme).sort()).toEqual(['dark', 'light']);
+  it('ships each family as exactly one light and one dark theme', () => {
+    // Family = the id minus its trailing -light/-dark scheme suffix.
+    const families = new Map<string, string[]>();
+    for (const t of themes) {
+      const family = t.id.replace(/-(light|dark)$/, '');
+      expect(t.id.endsWith(`-${t.colorScheme}`), `${t.id} suffix matches colorScheme`).toBe(true);
+      families.set(family, [...(families.get(family) ?? []), t.colorScheme]);
+    }
+    for (const [family, schemes] of families) {
+      expect(schemes.sort(), family).toEqual(['dark', 'light']);
+    }
   });
 
   it('has unique theme ids', () => {

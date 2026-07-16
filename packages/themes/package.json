@@ -9,7 +9,9 @@
   "exports": {
     ".": "./src/index.ts",
     "./enterprise-neutral-light.css": "./enterprise-neutral-light.css",
-    "./enterprise-neutral-dark.css": "./enterprise-neutral-dark.css"
+    "./enterprise-neutral-dark.css": "./enterprise-neutral-dark.css",
+    "./gallery-ink-light.css": "./gallery-ink-light.css",
+    "./gallery-ink-dark.css": "./gallery-ink-dark.css"
   },
   "scripts": {
     "generate:css": "tsx scripts/generate-css.ts",

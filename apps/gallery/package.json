@@ -15,8 +15,8 @@
     "e2e": "playwright test"
   },
   "dependencies": {
-    "@enterprise-design/contracts": "workspace:*",
     "@enterprise-design/content-components": "workspace:*",
+    "@enterprise-design/contracts": "workspace:*",
     "@enterprise-design/data-viz": "workspace:*",
     "@enterprise-design/design-tokens": "workspace:*",
     "@enterprise-design/diagrams": "workspace:*",
@@ -25,6 +25,7 @@
     "@enterprise-design/registry": "workspace:*",
     "@enterprise-design/search": "workspace:*",
     "@enterprise-design/themes": "workspace:*",
+    "@fontsource-variable/fraunces": "^5.2.9",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.9.6"
