@@ -4,3 +4,12 @@ export { seededJitter, roughLine, roughRect, roughEllipse } from './shared/rough
 export { isoProject, isoBoxFaces } from './shared/iso.js';
 export { makeCollectionManifest } from './shared/manifest-factory.js';
 export type { CollectionManifestOptions } from './shared/manifest-factory.js';
+export { wrapLabel } from './shared/text.js';
+export { SketchnoteFlow } from './sketchnote/SketchnoteFlow.js';
+export { SketchnoteSequence } from './sketchnote/SketchnoteSequence.js';
+export { SketchnoteLayers } from './sketchnote/SketchnoteLayers.js';
+export { SketchnoteZones } from './sketchnote/SketchnoteZones.js';
+export { SketchnoteCycle } from './sketchnote/SketchnoteCycle.js';
+export { SketchnoteCompare } from './sketchnote/SketchnoteCompare.js';
+export { SketchnoteCells } from './sketchnote/SketchnoteCells.js';
+export { SketchnoteTimeline } from './sketchnote/SketchnoteTimeline.js';

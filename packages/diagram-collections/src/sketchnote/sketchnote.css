@@ -1,0 +1,129 @@
+/**
+ * Sketchnote family token sheet + styles.
+ *
+ * DELIBERATE ART-DIRECTION AMENDMENT (design spec 2026-07-16): a collection
+ * family defines its palette as a prefixed custom-property token sheet here —
+ * the collection is the art layer, exactly like a world-template's sibling
+ * CSS. Raw colour values are allowed in this file ONLY; every rule below
+ * consumes the --dgm-sk-* tokens. Light-mood family: ink on paper, four
+ * highlighter tints. Contrast: ink #2a2a33 on paper #fdfcf7 = 13.9:1; ink on
+ * every tint ≥ 7.4:1.
+ */
+.dgm-sketchnote {
+  --dgm-sk-paper: #fdfcf7;
+  --dgm-sk-ink: #2a2a33;
+  --dgm-sk-ink-faint: #8a8794;
+  --dgm-sk-amber: #ffd166;
+  --dgm-sk-coral: #f2a09b;
+  --dgm-sk-sky: #a8cfe4;
+  --dgm-sk-sage: #b5d4ba;
+
+  background: var(--dgm-sk-paper);
+  color: var(--dgm-sk-ink);
+  font-family: 'Caveat', 'Segoe Print', cursive;
+  padding: 1rem 1.25rem 1.25rem;
+  border-radius: 6px;
+}
+
+.dgm-sketchnote .dgm-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  display: inline-block;
+  /* marker swipe under the title */
+  background: linear-gradient(transparent 62%, var(--dgm-sk-amber) 62%, var(--dgm-sk-amber) 94%, transparent 94%);
+  inline-size: fit-content;
+  padding-inline: 0.15rem;
+}
+
+.dgm-sketchnote .sk-stroke {
+  stroke: var(--dgm-sk-ink);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  fill: none;
+}
+
+.dgm-sketchnote .sk-shape {
+  stroke: var(--dgm-sk-ink);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  fill-opacity: 0.85;
+}
+
+.dgm-sketchnote .sk-dashed {
+  stroke-dasharray: 7 5;
+}
+
+.dgm-sketchnote .sk-faint {
+  stroke: var(--dgm-sk-ink-faint);
+  stroke-width: 1.2;
+}
+
+.dgm-sketchnote .sk-tint-amber { fill: var(--dgm-sk-amber); }
+.dgm-sketchnote .sk-tint-coral { fill: var(--dgm-sk-coral); }
+.dgm-sketchnote .sk-tint-sky { fill: var(--dgm-sk-sky); }
+.dgm-sketchnote .sk-tint-sage { fill: var(--dgm-sk-sage); }
+.dgm-sketchnote .sk-paper-fill { fill: var(--dgm-sk-paper); }
+
+.dgm-sketchnote text {
+  fill: var(--dgm-sk-ink);
+  font-family: inherit;
+}
+
+.dgm-sketchnote .sk-label { font-size: 17px; }
+.dgm-sketchnote .sk-edge-label { font-size: 15px; fill: var(--dgm-sk-ink); }
+.dgm-sketchnote .sk-note { font-size: 13px; fill: var(--dgm-sk-ink-faint); }
+.dgm-sketchnote .sk-detail { font-size: 14px; fill: var(--dgm-sk-ink-faint); font-family: 'Inter Variable', 'Inter', sans-serif; }
+.dgm-sketchnote .sk-detail-center { font-size: 13px; fill: var(--dgm-sk-ink-faint); font-family: 'Inter Variable', 'Inter', sans-serif; }
+.dgm-sketchnote .sk-chip-label { font-size: 13px; font-family: 'Inter Variable', 'Inter', sans-serif; }
+.dgm-sketchnote .sk-cell-value { font-size: 13px; font-family: 'Inter Variable', 'Inter', sans-serif; }
+.dgm-sketchnote .sk-band-label { font-size: 19px; font-weight: 700; }
+.dgm-sketchnote .sk-band-label-mid { font-size: 17px; font-weight: 700; }
+.dgm-sketchnote .sk-step-num { font-size: 13px; font-weight: 700; }
+.dgm-sketchnote .sk-badge { font-size: 16px; font-weight: 700; }
+.dgm-sketchnote .sk-side-label { font-size: 15px; letter-spacing: 0.08em; fill: var(--dgm-sk-ink-faint); }
+
+/* Motion: nodes settle in, edges draw on — tokens only, three reduced legs. */
+.dgm-sketchnote .sk-node,
+.dgm-sketchnote .sk-msg {
+  opacity: 0;
+  animation: dgm-sk-settle var(--dur-structure) var(--ease-settle) forwards;
+}
+
+.dgm-sketchnote .sk-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: dgm-sk-trace var(--dur-narrative) var(--ease-trace) forwards;
+}
+
+@keyframes dgm-sk-settle {
+  from { opacity: 0; transform: translateY(3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes dgm-sk-trace {
+  to { stroke-dashoffset: 0; }
+}
+
+.dgm-sketchnote[data-reduced] .sk-node,
+.dgm-sketchnote[data-reduced] .sk-msg {
+  animation: none;
+  opacity: 1;
+}
+
+.dgm-sketchnote[data-reduced] .sk-draw {
+  animation: none;
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dgm-sketchnote .sk-node,
+  .dgm-sketchnote .sk-msg {
+    animation: none;
+    opacity: 1;
+  }
+
+  .dgm-sketchnote .sk-draw {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
