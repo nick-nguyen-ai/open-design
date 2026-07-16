@@ -1,0 +1,143 @@
+/**
+ * Circuit family token sheet + styles.
+ *
+ * DELIBERATE ART-DIRECTION AMENDMENT (design spec 2026-07-16): raw colour
+ * values allowed in this file only; rules consume --dgm-cx-* tokens. Dark
+ * neon-terminal family. Contrast: text #e8f4f0 on board #0a0e14 = 15.9:1;
+ * phosphor green #3ef2a5 on board = 11.6:1; cyan #41d6ff = 9.9:1; magenta
+ * #ff5ea8 = 6.5:1 (used with shape/letter pairing, never alone).
+ */
+.dgm-circuit {
+  --dgm-cx-board: #0a0e14;
+  --dgm-cx-grid: #1b2430;
+  --dgm-cx-text: #e8f4f0;
+  --dgm-cx-dim: #7d93a8;
+  --dgm-cx-green: #3ef2a5;
+  --dgm-cx-cyan: #41d6ff;
+  --dgm-cx-magenta: #ff5ea8;
+  --dgm-cx-glass: rgb(232 244 240 / 0.06);
+
+  background: var(--dgm-cx-board);
+  color: var(--dgm-cx-text);
+  font-family: 'Space Grotesk', 'Inter Variable', 'Inter', sans-serif;
+  padding: 1rem 1.25rem 1.25rem;
+  border-radius: 10px;
+}
+
+.dgm-circuit .dgm-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.dgm-circuit .dgm-title::before {
+  content: '▸ ';
+  color: var(--dgm-cx-green);
+}
+
+.dgm-circuit .cx-board { fill: var(--dgm-cx-board); }
+.dgm-circuit .cx-grid-line { fill: none; stroke: var(--dgm-cx-grid); stroke-width: 0.7; }
+.dgm-circuit .cx-scan path { stroke: var(--dgm-cx-grid); stroke-width: 2; }
+
+/* glass chips: translucent body, phosphor edge per ink */
+.dgm-circuit .cx-chip { fill: var(--dgm-cx-glass); stroke-width: 1.2; }
+.dgm-circuit .cx-chip.cx-green { stroke: var(--dgm-cx-green); }
+.dgm-circuit .cx-chip.cx-cyan { stroke: var(--dgm-cx-cyan); }
+.dgm-circuit .cx-chip.cx-magenta { stroke: var(--dgm-cx-magenta); }
+.dgm-circuit .cx-chip-inner { fill: none; stroke-width: 0.8; opacity: 0.75; }
+.dgm-circuit .cx-chip-inner.cx-green { stroke: var(--dgm-cx-green); }
+.dgm-circuit .cx-chip-inner.cx-cyan { stroke: var(--dgm-cx-cyan); }
+.dgm-circuit .cx-chip-inner.cx-magenta { stroke: var(--dgm-cx-magenta); }
+
+.dgm-circuit .cx-module { fill: var(--dgm-cx-glass); stroke: var(--dgm-cx-dim); stroke-width: 0.9; }
+.dgm-circuit .cx-sector { fill: none; stroke-width: 1; opacity: 0.65; stroke-dasharray: 10 6; }
+.dgm-circuit .cx-sector.cx-green { stroke: var(--dgm-cx-green); }
+.dgm-circuit .cx-sector.cx-cyan { stroke: var(--dgm-cx-cyan); }
+.dgm-circuit .cx-sector.cx-magenta { stroke: var(--dgm-cx-magenta); }
+.dgm-circuit .cx-sector-label { font-size: 10px; letter-spacing: 0.14em; font-family: 'IBM Plex Mono', monospace; }
+.dgm-circuit .cx-sector-label.cx-green { fill: var(--dgm-cx-green); }
+.dgm-circuit .cx-sector-label.cx-cyan { fill: var(--dgm-cx-cyan); }
+.dgm-circuit .cx-sector-label.cx-magenta { fill: var(--dgm-cx-magenta); }
+
+.dgm-circuit .cx-pin.cx-green { fill: var(--dgm-cx-green); }
+.dgm-circuit .cx-pin.cx-cyan { fill: var(--dgm-cx-cyan); }
+.dgm-circuit .cx-pin.cx-magenta { fill: var(--dgm-cx-magenta); }
+.dgm-circuit .cx-pin-line { fill: none; stroke-width: 1.4; }
+.dgm-circuit .cx-pin-line.cx-green { stroke: var(--dgm-cx-green); }
+.dgm-circuit .cx-pin-line.cx-cyan { stroke: var(--dgm-cx-cyan); }
+.dgm-circuit .cx-pin-line.cx-magenta { stroke: var(--dgm-cx-magenta); }
+.dgm-circuit .cx-pin-rail { stroke-width: 2.4; opacity: 0.9; }
+.dgm-circuit .cx-pin-rail.cx-green { stroke: var(--dgm-cx-green); }
+.dgm-circuit .cx-pin-rail.cx-cyan { stroke: var(--dgm-cx-cyan); }
+.dgm-circuit .cx-pin-rail.cx-magenta { stroke: var(--dgm-cx-magenta); }
+
+.dgm-circuit .cx-trace { stroke-width: 1.6; }
+.dgm-circuit .cx-trace.cx-green { stroke: var(--dgm-cx-green); }
+.dgm-circuit .cx-trace.cx-cyan { stroke: var(--dgm-cx-cyan); }
+.dgm-circuit .cx-trace.cx-magenta { stroke: var(--dgm-cx-magenta); }
+.dgm-circuit .cx-tip { stroke-width: 1.6; }
+.dgm-circuit .cx-tip.cx-green { stroke: var(--dgm-cx-green); }
+.dgm-circuit .cx-tip.cx-cyan { stroke: var(--dgm-cx-cyan); }
+.dgm-circuit .cx-tip.cx-magenta { stroke: var(--dgm-cx-magenta); }
+.dgm-circuit .cx-lifeline { fill: none; stroke: var(--dgm-cx-grid); stroke-width: 1.4; }
+.dgm-circuit .cx-hub-ring { fill: none; stroke: var(--dgm-cx-green); stroke-width: 0.8; stroke-dasharray: 3 4; }
+
+.dgm-circuit text { fill: var(--dgm-cx-text); font-family: inherit; }
+.dgm-circuit .cx-label { font-size: 12px; }
+.dgm-circuit .cx-trace-label { font-size: 10px; fill: var(--dgm-cx-cyan); font-family: 'IBM Plex Mono', monospace; }
+.dgm-circuit .cx-note { font-size: 10px; fill: var(--dgm-cx-dim); }
+.dgm-circuit .cx-note-left { font-size: 10.5px; fill: var(--dgm-cx-dim); }
+.dgm-circuit .cx-band-label { font-size: 13px; font-weight: 600; }
+.dgm-circuit .cx-band-label-mid { font-size: 12px; font-weight: 600; }
+.dgm-circuit .cx-row-label { font-size: 11px; fill: var(--dgm-cx-dim); }
+.dgm-circuit .cx-cell-value { font-size: 10.5px; }
+.dgm-circuit .cx-module-label { font-size: 10px; }
+.dgm-circuit .cx-step { font-size: 10px; fill: var(--dgm-cx-green); font-family: 'IBM Plex Mono', monospace; }
+.dgm-circuit .cx-live { font-size: 10px; fill: var(--dgm-cx-magenta); font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.2em; }
+.dgm-circuit .cx-side-label { font-size: 10px; letter-spacing: 0.16em; fill: var(--dgm-cx-dim); font-family: 'IBM Plex Mono', monospace; }
+
+/* Motion: chips power on; traces carry a slow dash current. Tokens only. */
+.dgm-circuit .cx-node,
+.dgm-circuit .cx-msg {
+  opacity: 0;
+  animation: dgm-cx-power var(--dur-structure) var(--ease-settle) forwards;
+}
+
+.dgm-circuit .cx-flow {
+  stroke-dasharray: 6 10;
+  animation: dgm-cx-current calc(var(--dur-narrative) * 2) linear infinite;
+}
+
+@keyframes dgm-cx-power {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes dgm-cx-current {
+  from { stroke-dashoffset: 32; }
+  to { stroke-dashoffset: 0; }
+}
+
+.dgm-circuit[data-reduced] .cx-node,
+.dgm-circuit[data-reduced] .cx-msg {
+  animation: none;
+  opacity: 1;
+}
+
+.dgm-circuit[data-reduced] .cx-flow {
+  animation: none;
+  stroke-dasharray: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dgm-circuit .cx-node,
+  .dgm-circuit .cx-msg {
+    animation: none;
+    opacity: 1;
+  }
+
+  .dgm-circuit .cx-flow {
+    animation: none;
+    stroke-dasharray: none;
+  }
+}
