@@ -1,0 +1,117 @@
+/**
+ * Blueprint family token sheet + styles.
+ *
+ * DELIBERATE ART-DIRECTION AMENDMENT (design spec 2026-07-16): raw colour
+ * values allowed in this file only; rules consume --dgm-bp-* tokens. Dark
+ * cyanotype family: off-white hairlines on deep blue. Contrast: hairline
+ * #dce9f7 on field #0e2a47 = 12.6:1; cyan #66d9e8 on field = 8.6:1; amber
+ * #f5b942 on field = 8.4:1; field-on-accent labels use the field ink.
+ */
+.dgm-blueprint {
+  --dgm-bp-field: #0e2a47;
+  --dgm-bp-line: #dce9f7;
+  --dgm-bp-line-faint: #6e89a8;
+  --dgm-bp-cyan: #66d9e8;
+  --dgm-bp-amber: #f5b942;
+  --dgm-bp-fill: #163a5f;
+
+  background: var(--dgm-bp-field);
+  color: var(--dgm-bp-line);
+  font-family: 'IBM Plex Mono', 'Consolas', monospace;
+  padding: 1rem 1.25rem 1.25rem;
+  border-radius: 4px;
+}
+
+.dgm-blueprint .dgm-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.dgm-blueprint .dgm-title::before {
+  content: '⌖ ';
+  color: var(--dgm-bp-cyan);
+}
+
+.dgm-blueprint .bp-field { fill: var(--dgm-bp-field); }
+.dgm-blueprint .bp-grid-dot { fill: var(--dgm-bp-line-faint); opacity: 0.45; }
+.dgm-blueprint .bp-frame { fill: none; stroke: var(--dgm-bp-line-faint); stroke-width: 0.8; }
+.dgm-blueprint .bp-stamp { fill: var(--dgm-bp-line-faint); font-size: 9px; letter-spacing: 0.1em; }
+
+.dgm-blueprint .bp-shape {
+  fill: var(--dgm-bp-fill);
+  stroke: var(--dgm-bp-line);
+  stroke-width: 1.1;
+}
+
+.dgm-blueprint .bp-shape.bp-unit { fill: var(--dgm-bp-field); }
+.dgm-blueprint .bp-shape.bp-accent { stroke: var(--dgm-bp-cyan); stroke-width: 1.6; }
+.dgm-blueprint .bp-shape.bp-alert { stroke: var(--dgm-bp-amber); fill: var(--dgm-bp-fill); }
+
+.dgm-blueprint .bp-stroke-only { fill: none; stroke: var(--dgm-bp-line); stroke-width: 0.9; }
+.dgm-blueprint .bp-construction { fill: none; stroke: var(--dgm-bp-line-faint); stroke-width: 0.7; stroke-dasharray: 2 6; }
+
+.dgm-blueprint .bp-wire { fill: none; stroke: var(--dgm-bp-cyan); stroke-width: 1.2; }
+.dgm-blueprint .bp-dashed { stroke-dasharray: 5 4; }
+.dgm-blueprint .bp-head { fill: var(--dgm-bp-cyan); stroke: none; }
+.dgm-blueprint .bp-tick { stroke: var(--dgm-bp-line); stroke-width: 1; }
+.dgm-blueprint .bp-tick-now { stroke: var(--dgm-bp-amber); stroke-width: 1.8; }
+
+.dgm-blueprint text { fill: var(--dgm-bp-line); font-family: inherit; }
+.dgm-blueprint .bp-label { font-size: 11px; }
+.dgm-blueprint .bp-wire-label { font-size: 10px; fill: var(--dgm-bp-cyan); }
+.dgm-blueprint .bp-note { font-size: 10px; fill: var(--dgm-bp-line-faint); }
+.dgm-blueprint .bp-band-label { font-size: 11px; letter-spacing: 0.1em; }
+.dgm-blueprint .bp-row-label { font-size: 10px; letter-spacing: 0.08em; }
+.dgm-blueprint .bp-zone-label { font-size: 10px; letter-spacing: 0.12em; }
+.dgm-blueprint .bp-cell-value { font-size: 10.5px; }
+.dgm-blueprint .bp-bay-label { font-size: 10px; }
+.dgm-blueprint .bp-step-num { font-size: 10px; fill: var(--dgm-bp-amber); font-weight: 600; }
+.dgm-blueprint .bp-side-label { font-size: 10px; letter-spacing: 0.14em; fill: var(--dgm-bp-line-faint); text-transform: uppercase; }
+
+/* Motion: stations settle, wires trace — tokens only, three reduced legs. */
+.dgm-blueprint .bp-node,
+.dgm-blueprint .bp-msg {
+  opacity: 0;
+  animation: dgm-bp-settle var(--dur-structure) var(--ease-settle) forwards;
+}
+
+.dgm-blueprint .bp-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: dgm-bp-trace var(--dur-narrative) var(--ease-trace) forwards;
+}
+
+@keyframes dgm-bp-settle {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes dgm-bp-trace {
+  to { stroke-dashoffset: 0; }
+}
+
+.dgm-blueprint[data-reduced] .bp-node,
+.dgm-blueprint[data-reduced] .bp-msg {
+  animation: none;
+  opacity: 1;
+}
+
+.dgm-blueprint[data-reduced] .bp-draw {
+  animation: none;
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dgm-blueprint .bp-node,
+  .dgm-blueprint .bp-msg {
+    animation: none;
+    opacity: 1;
+  }
+
+  .dgm-blueprint .bp-draw {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
