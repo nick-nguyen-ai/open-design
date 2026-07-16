@@ -10,7 +10,7 @@ import { PADDING } from './flow.js';
  */
 
 const STAGE_W = 128;
-const STAGE_H = 52;
+const STAGE_H = 60;
 const ARC_INSET_DEG = 26;
 
 export interface CycleLayout {

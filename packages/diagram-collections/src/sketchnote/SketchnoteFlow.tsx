@@ -34,7 +34,7 @@ export function SketchnoteFlow({ spec }: { spec: FlowSpecT }) {
         {layout.nodes.map((node, i) => (
           <g key={node.id} className="sk-node" style={reduced ? undefined : { animationDelay: `${i * 60}ms` }}>
             <SkShape kind={node.kind} x={node.x} y={node.y} w={node.w} h={node.h} seed={node.id} tint={skTint(node.rank)} />
-            <SkLabel x={node.x + node.w / 2} y={node.y + node.h / 2 + (node.kind === 'actor' ? 6 : 0)} text={node.label} />
+            <SkLabel x={node.x + node.w / 2} y={node.y + node.h / 2 + (node.kind === 'actor' ? 6 : node.kind === 'data' ? 5 : 0)} text={node.label} />
           </g>
         ))}
       </svg>

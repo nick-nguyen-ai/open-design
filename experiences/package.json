@@ -8,6 +8,8 @@
     "@enterprise-design/content-components": "workspace:*",
     "@enterprise-design/contracts": "workspace:*",
     "@enterprise-design/data-viz": "workspace:*",
+    "@enterprise-design/diagram-collections": "workspace:*",
+    "@enterprise-design/diagram-grammar": "workspace:*",
     "@enterprise-design/diagrams": "workspace:*",
     "@enterprise-design/motion": "workspace:*",
     "@enterprise-design/primitives": "workspace:*",
@@ -15,6 +17,7 @@
     "@fontsource-variable/inter": "^5.2.8",
     "@fontsource/caveat": "^5.2.8",
     "@fontsource/ibm-plex-mono": "^5.2.7",
+    "@fontsource/space-grotesk": "^5.2.8",
     "react": "^19.2.0",
     "react-router-dom": "^7.9.6",
     "zod": "^4.4.3"

@@ -149,6 +149,22 @@ const LongSignalPage = lazy(
   () => import('../../../../experiences/slide-decks/deck-analytics-deep-dive/LongSignalPage.js'),
 );
 
+const SketchnoteDeckPage = lazy(
+  () => import('../../../../experiences/slide-decks/deck-dgm-sketchnote/SketchnoteDeckPage.js'),
+);
+const BlueprintDeckPage = lazy(
+  () => import('../../../../experiences/slide-decks/deck-dgm-blueprint/BlueprintDeckPage.js'),
+);
+const CircuitDeckPage = lazy(
+  () => import('../../../../experiences/slide-decks/deck-dgm-circuit/CircuitDeckPage.js'),
+);
+const IsometricDeckPage = lazy(
+  () => import('../../../../experiences/slide-decks/deck-dgm-isometric/IsometricDeckPage.js'),
+);
+const GazetteDeckPage = lazy(
+  () => import('../../../../experiences/slide-decks/deck-dgm-gazette/GazetteDeckPage.js'),
+);
+
 const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: ComponentType }> = {
   'db-model-monitoring-cockpit': { mood: 'dark', Component: CockpitPage },
   'exp-system-architecture': { mood: 'light', Component: DrawingOfficePage },
@@ -183,6 +199,11 @@ const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: 
   'deck-sales-pitch': { mood: 'light', Component: StraightPitchPage },
   'deck-budget-planning': { mood: 'light', Component: AllocationPage },
   'deck-analytics-deep-dive': { mood: 'dark', Component: LongSignalPage },
+  'deck-dgm-sketchnote': { mood: 'light', Component: SketchnoteDeckPage },
+  'deck-dgm-blueprint': { mood: 'dark', Component: BlueprintDeckPage },
+  'deck-dgm-circuit': { mood: 'dark', Component: CircuitDeckPage },
+  'deck-dgm-isometric': { mood: 'light', Component: IsometricDeckPage },
+  'deck-dgm-gazette': { mood: 'light', Component: GazetteDeckPage },
 };
 
 /**

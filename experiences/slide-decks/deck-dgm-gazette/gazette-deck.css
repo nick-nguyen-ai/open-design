@@ -1,0 +1,326 @@
+/**
+ * "The Gazette" — experience-local art layer for deck-dgm-gazette.
+ * Raw colour licence: this file + the sibling template only. The deck chrome
+ * is a bound field manual: linen desk, cream folio pages with double rules,
+ * Fraunces display with a vermilion drop cap, folio running heads.
+ */
+
+.gzd-root {
+  --gzd-linen: #e9e2d2;
+  --gzd-paper: #f7f2e7;
+  --gzd-ink: #1c1a17;
+  --gzd-ink-soft: #6f675a;
+  --gzd-rule: #b9b0a0;
+  --gzd-spot: #d0402b;
+
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background:
+    radial-gradient(1000px 520px at 50% -20%, rgb(255 255 255 / 0.5), transparent 60%),
+    var(--gzd-linen);
+  color: var(--gzd-ink);
+  font-family: 'Fraunces Variable', 'Fraunces', Georgia, serif;
+  overflow: hidden;
+}
+
+.gzd-chrome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 1.6rem;
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--gzd-ink-soft);
+}
+
+.gzd-chrome-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.gzd-back {
+  color: var(--gzd-spot);
+  text-decoration: none;
+  border-bottom: 1px solid var(--gzd-spot);
+  font-style: normal;
+}
+
+.gzd-back:focus-visible,
+.gzd-nav-btn:focus-visible {
+  outline: 3px solid var(--gzd-ink);
+  outline-offset: 2px;
+}
+
+.gzd-chrome-rule {
+  inline-size: 34px;
+  block-size: 1px;
+  background: var(--gzd-rule);
+}
+
+.gzd-notice {
+  font-size: 0.76rem;
+  font-style: italic;
+  color: var(--gzd-ink-soft);
+}
+
+.gzd-footer-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.gzd-hint {
+  font-size: 0.76rem;
+  font-style: italic;
+  color: var(--gzd-ink-soft);
+}
+
+.gzd-nav-btn {
+  inline-size: 2.3rem;
+  block-size: 2.3rem;
+  border-radius: 50%;
+  border: 1.4px solid var(--gzd-ink);
+  background: var(--gzd-paper);
+  color: var(--gzd-ink);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.gzd-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.gzd-main {
+  position: relative;
+  min-block-size: 0;
+  display: grid;
+  /* row 1: the visually hidden h1 (content-sized); row 2: the stage */
+  grid-template-rows: auto 1fr;
+}
+
+.gzd-stage {
+  position: relative;
+  min-block-size: 0;
+}
+
+.gzd-slide {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  visibility: hidden;
+  padding: 0.4rem 1.2rem 1rem;
+}
+
+.gzd-slide[data-state='active'] {
+  visibility: visible;
+  z-index: 2;
+}
+
+.gzd-slide[data-state='leaving'] {
+  visibility: visible;
+  z-index: 3;
+  animation: gzd-leaf var(--dur-structure) var(--ease-shift) both;
+  pointer-events: none;
+}
+
+@keyframes gzd-leaf {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(1.3rem);
+  }
+}
+
+.gzd-page,
+.gzd-cover,
+.gzd-close {
+  position: relative;
+  inline-size: min(1060px, 96%);
+  max-block-size: 100%;
+  overflow: auto;
+  background: var(--gzd-paper);
+  border: 1.6px solid var(--gzd-ink);
+  outline: 1px solid var(--gzd-ink);
+  outline-offset: -6px;
+  padding: 1.8rem 2.2rem;
+  box-shadow: 0 10px 24px -16px rgb(28 26 23 / 0.45);
+}
+
+.gzd-slide[data-state='active'] .gzd-page,
+.gzd-slide[data-state='active'] .gzd-cover,
+.gzd-slide[data-state='active'] .gzd-close {
+  animation: gzd-set var(--dur-structure) var(--ease-settle) both;
+}
+
+@keyframes gzd-set {
+  from {
+    opacity: 0;
+    transform: translateX(-0.7rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* the folio colophon device */
+.gzd-device {
+  position: absolute;
+  inset-block-start: 14px;
+  inset-inline-end: 20px;
+  inline-size: 12px;
+  block-size: 12px;
+  border-radius: 50%;
+  background: var(--gzd-spot);
+  box-shadow: 0 0 0 3px var(--gzd-paper), 0 0 0 4px var(--gzd-rule);
+  pointer-events: none;
+}
+
+.gzd-kicker {
+  margin: 0 0 0.35rem;
+  font-size: 0.78rem;
+  font-style: italic;
+  letter-spacing: 0.08em;
+  color: var(--gzd-ink-soft);
+}
+
+.gzd-heading {
+  margin: 0 0 0.45rem;
+  font-size: 2rem;
+  line-height: 1.08;
+  font-weight: 600;
+  color: var(--gzd-ink);
+}
+
+.gzd-heading::first-letter {
+  color: var(--gzd-spot);
+}
+
+.gzd-caption {
+  margin: 0 0 1rem;
+  max-inline-size: 62ch;
+  font-family: 'Inter Variable', 'Inter', sans-serif;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--gzd-ink-soft);
+  border-block-end: 1px solid var(--gzd-rule);
+  padding-block-end: 0.8rem;
+}
+
+.gzd-figure {
+  display: grid;
+  justify-items: center;
+}
+
+/* Fit the drawing to the slide: never wider than the card, never taller
+   than the room the header leaves — the SVG keeps its own aspect. */
+.gzd-figure .dgm-gazette {
+  inline-size: 100%;
+}
+
+.gzd-figure .dgm-gazette svg {
+  inline-size: auto;
+  max-inline-size: 100%;
+  max-block-size: min(52vh, 560px);
+  margin-inline: auto;
+}
+
+.gzd-figure .dgm-gazette {
+  padding: 0.2rem 0 0;
+  background: transparent;
+}
+
+.gzd-cover,
+.gzd-close {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 0.75rem;
+  min-block-size: 70%;
+}
+
+.gzd-title {
+  margin: 0;
+  font-size: 4rem;
+  line-height: 1;
+  font-weight: 650;
+  color: var(--gzd-ink);
+  border-block-end: 3px double var(--gzd-ink);
+  padding-block-end: 0.7rem;
+}
+
+.gzd-title::first-letter {
+  color: var(--gzd-spot);
+  font-size: 1.25em;
+  font-weight: 700;
+}
+
+.gzd-standfirst {
+  margin: 0;
+  max-inline-size: 56ch;
+  font-size: 1.15rem;
+  line-height: 1.55;
+  color: var(--gzd-ink);
+}
+
+.gzd-notice-line {
+  margin: 0.4rem 0 0;
+  font-family: 'Inter Variable', 'Inter', sans-serif;
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gzd-ink-soft);
+}
+
+.gzd-takeaways {
+  margin: 0;
+  padding-inline-start: 1.4rem;
+  font-size: 1.15rem;
+  line-height: 1.85;
+}
+
+.gzd-takeaways li::marker {
+  content: '❧ ';
+  color: var(--gzd-spot);
+}
+
+.gzd-signoff {
+  margin: 0.4rem 0 0;
+  max-inline-size: 60ch;
+  font-family: 'Inter Variable', 'Inter', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--gzd-ink-soft);
+}
+
+.gzd-root[data-reduced='true'] .gzd-slide[data-state='leaving'] {
+  animation: none;
+  visibility: hidden;
+}
+
+.gzd-root[data-reduced='true'] .gzd-slide[data-state='active'] .gzd-page,
+.gzd-root[data-reduced='true'] .gzd-slide[data-state='active'] .gzd-cover,
+.gzd-root[data-reduced='true'] .gzd-slide[data-state='active'] .gzd-close {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gzd-slide[data-state='leaving'] {
+    animation: none;
+    visibility: hidden;
+  }
+
+  .gzd-slide[data-state='active'] .gzd-page,
+  .gzd-slide[data-state='active'] .gzd-cover,
+  .gzd-slide[data-state='active'] .gzd-close {
+    animation: none;
+  }
+}

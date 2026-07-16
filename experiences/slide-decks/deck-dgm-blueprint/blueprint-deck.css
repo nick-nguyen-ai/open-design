@@ -1,0 +1,313 @@
+/**
+ * "The Drafting Board" — experience-local art layer for deck-dgm-blueprint.
+ * Raw colour licence: this file + the sibling template only. The deck chrome
+ * is the drawing office: deep cyanotype desk, sheet cards with title-block
+ * corners, mono everything.
+ */
+
+.bpd-root {
+  --bpd-desk: #081c31;
+  --bpd-sheet: #0e2a47;
+  --bpd-line: #dce9f7;
+  --bpd-line-faint: #6e89a8;
+  --bpd-cyan: #66d9e8;
+  --bpd-amber: #f5b942;
+
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background:
+    radial-gradient(900px 500px at 20% -10%, rgb(102 217 232 / 0.08), transparent 60%),
+    var(--bpd-desk);
+  color: var(--bpd-line);
+  font-family: 'IBM Plex Mono', 'Consolas', monospace;
+  overflow: hidden;
+}
+
+.bpd-chrome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 1.4rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bpd-line-faint);
+}
+
+.bpd-chrome-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.bpd-back {
+  color: var(--bpd-cyan);
+  text-decoration: none;
+  border-bottom: 1px solid var(--bpd-cyan);
+}
+
+.bpd-back:focus-visible,
+.bpd-nav-btn:focus-visible {
+  outline: 2px solid var(--bpd-cyan);
+  outline-offset: 2px;
+}
+
+.bpd-chrome-rule {
+  inline-size: 34px;
+  block-size: 1px;
+  background: var(--bpd-line-faint);
+}
+
+.bpd-notice {
+  font-size: 0.72rem;
+  color: var(--bpd-line-faint);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.bpd-footer-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.bpd-hint {
+  font-size: 0.72rem;
+  color: var(--bpd-line-faint);
+}
+
+.bpd-nav-btn {
+  inline-size: 2.2rem;
+  block-size: 2.2rem;
+  border: 1px solid var(--bpd-line);
+  background: transparent;
+  color: var(--bpd-line);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.bpd-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.bpd-main {
+  position: relative;
+  min-block-size: 0;
+  display: grid;
+  /* row 1: the visually hidden h1 (content-sized); row 2: the stage */
+  grid-template-rows: auto 1fr;
+}
+
+.bpd-stage {
+  position: relative;
+  min-block-size: 0;
+}
+
+.bpd-slide {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  visibility: hidden;
+  padding: 0.4rem 1.2rem 1rem;
+}
+
+.bpd-slide[data-state='active'] {
+  visibility: visible;
+  z-index: 2;
+}
+
+.bpd-slide[data-state='leaving'] {
+  visibility: visible;
+  z-index: 3;
+  animation: bpd-sheet-out var(--dur-structure) var(--ease-shift) both;
+  pointer-events: none;
+}
+
+@keyframes bpd-sheet-out {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-1.4rem);
+  }
+}
+
+.bpd-page,
+.bpd-cover,
+.bpd-close {
+  position: relative;
+  inline-size: min(1060px, 96%);
+  max-block-size: 100%;
+  overflow: auto;
+  background: var(--bpd-sheet);
+  border: 1px solid var(--bpd-line-faint);
+  outline: 1px solid rgb(110 137 168 / 0.35);
+  outline-offset: 4px;
+  padding: 1.5rem 1.9rem;
+}
+
+.bpd-slide[data-state='active'] .bpd-page,
+.bpd-slide[data-state='active'] .bpd-cover,
+.bpd-slide[data-state='active'] .bpd-close {
+  animation: bpd-settle var(--dur-structure) var(--ease-settle) both;
+}
+
+@keyframes bpd-settle {
+  from {
+    opacity: 0;
+    transform: translateX(0.7rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* the title-block corner device */
+.bpd-device {
+  position: absolute;
+  inset-block-end: 10px;
+  inset-inline-end: 10px;
+  inline-size: 120px;
+  block-size: 26px;
+  border: 1px solid var(--bpd-line-faint);
+  background:
+    linear-gradient(to right, transparent 62%, rgb(110 137 168 / 0.4) 62%, rgb(110 137 168 / 0.4) 63%, transparent 63%),
+    transparent;
+  pointer-events: none;
+}
+
+.bpd-kicker {
+  margin: 0 0 0.3rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bpd-cyan);
+}
+
+.bpd-heading {
+  margin: 0 0 0.4rem;
+  font-size: 1.65rem;
+  line-height: 1.1;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--bpd-line);
+}
+
+.bpd-caption {
+  margin: 0 0 0.9rem;
+  max-inline-size: 68ch;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--bpd-line-faint);
+}
+
+.bpd-figure {
+  display: grid;
+  justify-items: center;
+}
+
+/* Fit the drawing to the slide: never wider than the card, never taller
+   than the room the header leaves — the SVG keeps its own aspect. */
+.bpd-figure .dgm-blueprint {
+  inline-size: 100%;
+}
+
+.bpd-figure .dgm-blueprint svg {
+  inline-size: auto;
+  max-inline-size: 100%;
+  max-block-size: min(52vh, 560px);
+  margin-inline: auto;
+}
+
+.bpd-figure .dgm-blueprint {
+  padding: 0.2rem 0 0;
+  background: transparent;
+}
+
+.bpd-cover,
+.bpd-close {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 0.7rem;
+  min-block-size: 70%;
+}
+
+.bpd-title {
+  margin: 0;
+  font-size: 3.2rem;
+  line-height: 1.02;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--bpd-line);
+  border-block-end: 2px solid var(--bpd-cyan);
+  padding-block-end: 0.5rem;
+}
+
+.bpd-standfirst {
+  margin: 0;
+  max-inline-size: 64ch;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--bpd-line);
+}
+
+.bpd-notice-line {
+  margin: 0.4rem 0 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bpd-amber);
+}
+
+.bpd-takeaways {
+  margin: 0;
+  padding-inline-start: 1.3rem;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.bpd-takeaways li::marker {
+  content: '▸ ';
+  color: var(--bpd-cyan);
+}
+
+.bpd-signoff {
+  margin: 0.4rem 0 0;
+  max-inline-size: 64ch;
+  font-size: 0.85rem;
+  line-height: 1.65;
+  color: var(--bpd-line-faint);
+}
+
+.bpd-root[data-reduced='true'] .bpd-slide[data-state='leaving'] {
+  animation: none;
+  visibility: hidden;
+}
+
+.bpd-root[data-reduced='true'] .bpd-slide[data-state='active'] .bpd-page,
+.bpd-root[data-reduced='true'] .bpd-slide[data-state='active'] .bpd-cover,
+.bpd-root[data-reduced='true'] .bpd-slide[data-state='active'] .bpd-close {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bpd-slide[data-state='leaving'] {
+    animation: none;
+    visibility: hidden;
+  }
+
+  .bpd-slide[data-state='active'] .bpd-page,
+  .bpd-slide[data-state='active'] .bpd-cover,
+  .bpd-slide[data-state='active'] .bpd-close {
+    animation: none;
+  }
+}

@@ -41,10 +41,10 @@ function templateCards() {
 afterEach(cleanup);
 
 describe('Landing', () => {
-  it('shows all 60 templates in the default All mode', () => {
+  it('shows all 65 templates in the default All mode', () => {
     renderLanding();
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('bank-credible templates');
-    expect(templateCards()).toHaveLength(60);
+    expect(templateCards()).toHaveLength(65);
   });
 
   it('switches modes and preserves the query', async () => {
@@ -68,7 +68,7 @@ describe('Landing', () => {
   it('narrows results as the query is typed', { timeout: 30_000 }, async () => {
     const user = userEvent.setup();
     renderLanding();
-    expect(templateCards()).toHaveLength(60);
+    expect(templateCards()).toHaveLength(65);
 
     await user.type(
       screen.getByRole('searchbox', { name: /search templates, components, and grammars/i }),
@@ -101,9 +101,10 @@ describe('Landing', () => {
 
   it('rehydrates browse state from the URL', () => {
     renderLanding(['/browse?mode=components']);
-    // Components mode ⇒ no template cards, but the 5 component cards render.
+    // Components mode ⇒ no template cards, but all 45 component cards render
+    // (5 originals + the 40 diagram-collection components).
     expect(screen.queryAllByRole('button', { name: /^Template:/ })).toHaveLength(0);
-    expect(screen.getAllByRole('button', { name: /^Component:/ })).toHaveLength(5);
+    expect(screen.getAllByRole('button', { name: /^Component:/ })).toHaveLength(45);
   });
 
   it('applies a sort, reflects it in the URL, and rehydrates it', async () => {

@@ -24,7 +24,7 @@ const grammar: DesignGrammar = {
   preferredComponents: ['comp.dgm.isometric.flow', 'comp.dgm.isometric.sequence', 'comp.dgm.isometric.layers', 'comp.dgm.isometric.zones', 'comp.dgm.isometric.cycle', 'comp.dgm.isometric.compare', 'comp.dgm.isometric.cells', 'comp.dgm.isometric.timeline'],
   prohibitedPatterns: ['Mixed camera angles or perspective foreshortening.', 'Skewed (non-billboarded) text on faces.', 'Shadowless blocks - grounding is part of legibility.'],
   accessibilityNotes: ['Ink on mist floor holds >= 12:1; labels carry floor-coloured halo strokes for guaranteed contrast over faces.', 'Height and structure encodings are restated in the outline text.', 'Reduced motion is a full-content render.'],
-  exampleExperienceIds: [],
+  exampleExperienceIds: ['deck-dgm-isometric'],
 };
 
 export default grammar;

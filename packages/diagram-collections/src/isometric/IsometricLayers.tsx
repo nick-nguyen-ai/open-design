@@ -19,7 +19,7 @@ export function IsometricLayers({ spec }: { spec: LayersSpecT }) {
   const n = spec.layers.length;
   const worldH = n * STEP_D + SLAB_D;
   const maxZ = n * 26 + 60;
-  const view = isoExtent(SLAB_W + 60, worldH, maxZ);
+  const view = isoExtent(SLAB_W + 220, worldH, maxZ);
 
   return (
     <DiagramFrame family="isometric" kind="layers" title={spec.title} outline={outline} reduced={reduced}>
@@ -43,9 +43,9 @@ export function IsometricLayers({ spec }: { spec: LayersSpecT }) {
               <g key={layer.id} className="iso-node" data-tone={layer.tone ?? 'base'} style={reduced ? undefined : { animationDelay: `${i * 90}ms` }}>
                 <IsoShadow x={0} y={wy} w={SLAB_W} d={SLAB_D} />
                 <IsoBox x={0} y={wy} z={z} w={SLAB_W} d={SLAB_D} h={SLAB_H} ink={layer.tone === 'alert' ? 'iso-rose' : isoInk(i)} />
-                <IsoLabel wx={SLAB_W / 2} wy={wy + SLAB_D / 2} z={z + SLAB_H + 26} text={`${layer.label} [${TONE_BADGE[layer.tone ?? 'base']}]`} maxChars={26} className="iso-band-label" />
+                <IsoLabel wx={SLAB_W + 96} wy={wy + SLAB_D / 2} z={z + SLAB_H + 10} text={`${layer.label} [${TONE_BADGE[layer.tone ?? 'base']}]`} maxChars={26} className="iso-band-label" />
                 {layer.detail !== undefined && (
-                  <IsoLabel wx={SLAB_W / 2} wy={wy + SLAB_D / 2} z={z + SLAB_H + 10} text={layer.detail} maxChars={34} className="iso-note" />
+                  <IsoLabel wx={SLAB_W + 96} wy={wy + SLAB_D / 2} z={z + SLAB_H - 8} text={layer.detail} maxChars={34} className="iso-note" />
                 )}
                 {items.map((item, j) => {
                   const padW = 86;

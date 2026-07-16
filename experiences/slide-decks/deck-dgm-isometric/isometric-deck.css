@@ -1,0 +1,326 @@
+/**
+ * "The Studio Floor" — experience-local art layer for deck-dgm-isometric.
+ * Raw colour licence: this file + the sibling template only. The deck chrome
+ * is a bright model studio: mist walls, floating floor cards with soft long
+ * shadows, confident Inter.
+ */
+
+.isd-root {
+  --isd-wall: #e6eaf2;
+  --isd-floor: #f2f4f8;
+  --isd-ink: #2e3440;
+  --isd-ink-soft: #6a7284;
+  --isd-violet: #8f7ff0;
+  --isd-mint: #6fd7b2;
+  --isd-rose: #f78fb3;
+
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.6), transparent 40%),
+    var(--isd-wall);
+  color: var(--isd-ink);
+  font-family: 'Inter Variable', 'Inter', sans-serif;
+  overflow: hidden;
+}
+
+.isd-chrome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 1.4rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--isd-ink-soft);
+}
+
+.isd-chrome-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.isd-back {
+  color: var(--isd-ink);
+  text-decoration: none;
+  border-bottom: 2px solid var(--isd-violet);
+}
+
+.isd-back:focus-visible,
+.isd-nav-btn:focus-visible {
+  outline: 3px solid var(--isd-ink);
+  outline-offset: 2px;
+}
+
+.isd-chrome-rule {
+  inline-size: 34px;
+  block-size: 2px;
+  border-radius: 2px;
+  background: rgb(106 114 132 / 0.35);
+}
+
+.isd-notice {
+  font-size: 0.74rem;
+  color: var(--isd-ink-soft);
+}
+
+.isd-footer-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.isd-hint {
+  font-size: 0.74rem;
+  color: var(--isd-ink-soft);
+}
+
+.isd-nav-btn {
+  inline-size: 2.3rem;
+  block-size: 2.3rem;
+  border-radius: 10px;
+  border: none;
+  background: var(--isd-ink);
+  color: #ffffff;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 0 rgb(46 52 64 / 0.25);
+}
+
+.isd-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.isd-main {
+  position: relative;
+  min-block-size: 0;
+  display: grid;
+  /* row 1: the visually hidden h1 (content-sized); row 2: the stage */
+  grid-template-rows: auto 1fr;
+}
+
+.isd-stage {
+  position: relative;
+  min-block-size: 0;
+}
+
+.isd-slide {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  visibility: hidden;
+  padding: 0.4rem 1.2rem 1rem;
+}
+
+.isd-slide[data-state='active'] {
+  visibility: visible;
+  z-index: 2;
+}
+
+.isd-slide[data-state='leaving'] {
+  visibility: visible;
+  z-index: 3;
+  animation: isd-lift-out var(--dur-structure) var(--ease-lift) both;
+  pointer-events: none;
+}
+
+@keyframes isd-lift-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-1.2rem) scale(1.01);
+  }
+}
+
+.isd-page,
+.isd-cover,
+.isd-close {
+  position: relative;
+  inline-size: min(1060px, 96%);
+  max-block-size: 100%;
+  overflow: auto;
+  background: var(--isd-floor);
+  border-radius: 18px;
+  box-shadow:
+    0 18px 34px -18px rgb(46 52 64 / 0.35),
+    0 2px 0 rgb(255 255 255 / 0.8) inset;
+  padding: 1.6rem 2rem;
+}
+
+.isd-slide[data-state='active'] .isd-page,
+.isd-slide[data-state='active'] .isd-cover,
+.isd-slide[data-state='active'] .isd-close {
+  animation: isd-rise var(--dur-structure) var(--ease-lift) both;
+}
+
+@keyframes isd-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.9rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* the corner cube-stack device */
+.isd-device {
+  position: absolute;
+  inset-block-start: 16px;
+  inset-inline-end: 18px;
+  inline-size: 26px;
+  block-size: 26px;
+  background:
+    conic-gradient(from 210deg at 50% 42%, var(--isd-violet) 0 120deg, var(--isd-mint) 120deg 240deg, var(--isd-rose) 240deg 360deg);
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.isd-kicker {
+  margin: 0 0 0.3rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--isd-ink-soft);
+}
+
+.isd-heading {
+  margin: 0 0 0.4rem;
+  font-size: 1.85rem;
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  color: var(--isd-ink);
+}
+
+.isd-caption {
+  margin: 0 0 0.9rem;
+  max-inline-size: 64ch;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--isd-ink-soft);
+}
+
+.isd-figure {
+  display: grid;
+  justify-items: center;
+}
+
+/* Fit the drawing to the slide: never wider than the card, never taller
+   than the room the header leaves — the SVG keeps its own aspect. */
+.isd-figure .dgm-isometric {
+  inline-size: 100%;
+}
+
+.isd-figure .dgm-isometric svg {
+  inline-size: auto;
+  max-inline-size: 100%;
+  max-block-size: min(52vh, 560px);
+  margin-inline: auto;
+}
+
+.isd-figure .dgm-isometric {
+  padding: 0.2rem 0 0;
+  background: transparent;
+}
+
+.isd-cover,
+.isd-close {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 0.7rem;
+  min-block-size: 70%;
+}
+
+.isd-title {
+  margin: 0;
+  font-size: 3.8rem;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--isd-ink);
+}
+
+.isd-title::after {
+  content: '';
+  display: block;
+  inline-size: 5.5rem;
+  block-size: 0.55rem;
+  margin-block-start: 0.6rem;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--isd-violet), var(--isd-mint), var(--isd-rose));
+}
+
+.isd-standfirst {
+  margin: 0;
+  max-inline-size: 58ch;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--isd-ink);
+}
+
+.isd-notice-line {
+  margin: 0.4rem 0 0;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--isd-ink-soft);
+}
+
+.isd-takeaways {
+  margin: 0;
+  padding-inline-start: 1.3rem;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  font-weight: 600;
+}
+
+.isd-takeaways li::marker {
+  content: '◆ ';
+  color: var(--isd-violet);
+}
+
+.isd-signoff {
+  margin: 0.4rem 0 0;
+  max-inline-size: 62ch;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--isd-ink-soft);
+}
+
+.isd-root[data-reduced='true'] .isd-slide[data-state='leaving'] {
+  animation: none;
+  visibility: hidden;
+}
+
+.isd-root[data-reduced='true'] .isd-slide[data-state='active'] .isd-page,
+.isd-root[data-reduced='true'] .isd-slide[data-state='active'] .isd-cover,
+.isd-root[data-reduced='true'] .isd-slide[data-state='active'] .isd-close {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .isd-slide[data-state='leaving'] {
+    animation: none;
+    visibility: hidden;
+  }
+
+  .isd-slide[data-state='active'] .isd-page,
+  .isd-slide[data-state='active'] .isd-cover,
+  .isd-slide[data-state='active'] .isd-close {
+    animation: none;
+  }
+}

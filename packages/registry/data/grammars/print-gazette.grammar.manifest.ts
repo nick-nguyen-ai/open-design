@@ -24,7 +24,7 @@ const grammar: DesignGrammar = {
   preferredComponents: ['comp.dgm.gazette.flow', 'comp.dgm.gazette.sequence', 'comp.dgm.gazette.layers', 'comp.dgm.gazette.zones', 'comp.dgm.gazette.cycle', 'comp.dgm.gazette.compare', 'comp.dgm.gazette.cells', 'comp.dgm.gazette.timeline'],
   prohibitedPatterns: ['A second accent colour - vermilion is the only spot ink.', 'Glow, gradients, or glass effects.', 'Sans-serif display headings.'],
   accessibilityNotes: ['Ink on cream holds >= 15:1; vermilion accents pair with silhouette, position, or numerals.', 'Medallion numerals are white on vermilion at >= 4.5:1 and restated in the outline.', 'Reduced motion is a full-content render.'],
-  exampleExperienceIds: [],
+  exampleExperienceIds: ['deck-dgm-gazette'],
 };
 
 export default grammar;

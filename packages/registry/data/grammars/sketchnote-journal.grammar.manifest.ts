@@ -24,7 +24,7 @@ const grammar: DesignGrammar = {
   preferredComponents: ['comp.dgm.sketchnote.flow', 'comp.dgm.sketchnote.sequence', 'comp.dgm.sketchnote.layers', 'comp.dgm.sketchnote.zones', 'comp.dgm.sketchnote.cycle', 'comp.dgm.sketchnote.compare', 'comp.dgm.sketchnote.cells', 'comp.dgm.sketchnote.timeline'],
   prohibitedPatterns: ['Corporate gradient fills or glassmorphism - the family is paper and ink.', 'Random (unseeded) jitter - every wobble must be reproducible.', 'Colour-only node distinction.'],
   accessibilityNotes: ['Ink on paper holds >= 13:1; sticky tints hold >= 7:1 under ink text.', 'The hidden outline lists every node, edge, and caption in reading order.', 'Reduced motion is a full-content render, not a cut-down one.'],
-  exampleExperienceIds: [],
+  exampleExperienceIds: ['deck-dgm-sketchnote'],
 };
 
 export default grammar;

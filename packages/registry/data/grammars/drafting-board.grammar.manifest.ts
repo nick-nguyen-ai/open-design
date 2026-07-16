@@ -24,7 +24,7 @@ const grammar: DesignGrammar = {
   preferredComponents: ['comp.dgm.blueprint.flow', 'comp.dgm.blueprint.sequence', 'comp.dgm.blueprint.layers', 'comp.dgm.blueprint.zones', 'comp.dgm.blueprint.cycle', 'comp.dgm.blueprint.compare', 'comp.dgm.blueprint.cells', 'comp.dgm.blueprint.timeline'],
   prohibitedPatterns: ['Hand-drawn or wobbled strokes - precision IS the craft.', 'Decorative isometric illustration standing in for the drawing.', 'More than the two accent inks (cyan, amber) on one sheet.'],
   accessibilityNotes: ['Hairlines on cyanotype hold >= 12:1; both accents hold >= 8:1.', 'Every diagram ships its textual outline; sheet stamps are decorative and aria-hidden.', 'Reduced motion is a full-content render.'],
-  exampleExperienceIds: [],
+  exampleExperienceIds: ['deck-dgm-blueprint'],
 };
 
 export default grammar;

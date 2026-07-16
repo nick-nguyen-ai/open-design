@@ -22,7 +22,7 @@ const DGM_KINDS = ['flow', 'sequence', 'layers', 'zones', 'cycle', 'compare', 'c
 const DGM_COMPONENT_IDS = DGM_FAMILIES.flatMap((family) => DGM_KINDS.map((kind) => `comp.dgm.${family}.${kind}`));
 
 describe('catalogue integrity — compileRegistry over the real workspace', () => {
-  it('discovers exactly 60 experiences, 15 grammars, 3 motion sequences, 45 components, 0 errors', async () => {
+  it('discovers exactly 65 experiences, 15 grammars, 3 motion sequences, 45 components, 0 errors', async () => {
     const result = await compileRegistry({ cwd: REPO_ROOT });
 
     expect(result.diagnostics).toEqual([]);
@@ -33,7 +33,7 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
     expect(result.components).toHaveLength(45);
     expect(result.grammars).toHaveLength(15);
     expect(result.motionSequences).toHaveLength(3);
-    expect(result.experiences).toHaveLength(60);
+    expect(result.experiences).toHaveLength(65);
   });
 
   it('discovers the 45 real component ids', async () => {
@@ -93,7 +93,7 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
     expect(bySurface.get('project-page')?.every((id) => id.startsWith('proj-'))).toBe(true);
     expect(bySurface.get('project-page')).toHaveLength(10);
     expect(bySurface.get('slide-deck')?.every((id) => id.startsWith('deck-'))).toBe(true);
-    expect(bySurface.get('slide-deck')).toHaveLength(20);
+    expect(bySurface.get('slide-deck')).toHaveLength(25);
     expect(bySurface.get('personal-page')?.every((id) => id.startsWith('home-'))).toBe(true);
     expect(bySurface.get('personal-page')).toHaveLength(10);
     expect(bySurface.get('technical-explainer')?.every((id) => id.startsWith('exp-'))).toBe(true);
@@ -156,8 +156,8 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
     // batch-2 deck worlds E (T-Minus, The Whiteboard, The Cutover), the three
     // batch-2 deck worlds F — the PowerPoint-familiar three (The Quarter, The
     // Straight Pitch, The Allocation), and the tenth and last batch-2 deck world
-    // G (The Long Signal, deck-analytics-deep-dive). Everything else remains
-    // reviewed/experimental.
+    // G (The Long Signal, deck-analytics-deep-dive), and the five diagram-collection
+    // grammar-tour decks (deck-dgm-*). Everything else remains reviewed/experimental.
     const approvedIds = result.experiences.filter((e) => e.approval.state === 'approved').map((e) => e.id);
     expect(approvedIds.sort()).toEqual([
       'db-model-monitoring-cockpit',
@@ -166,6 +166,11 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
       'deck-analytics-deep-dive',
       'deck-budget-planning',
       'deck-cloud-migration',
+      'deck-dgm-blueprint',
+      'deck-dgm-circuit',
+      'deck-dgm-gazette',
+      'deck-dgm-isometric',
+      'deck-dgm-sketchnote',
       'deck-executive-decision-proposal',
       'deck-experiment-results',
       'deck-genai-model-validation-report',
@@ -243,6 +248,11 @@ describe('catalogue integrity — compileRegistry over the real workspace', () =
     expect(result.worldTemplates.map((w) => w.id)).toEqual([
       'cockpit',
       'cutover',
+      'dgm-blueprint',
+      'dgm-circuit',
+      'dgm-gazette',
+      'dgm-isometric',
+      'dgm-sketchnote',
       'drawing-office',
       'ledger',
       'quarter',

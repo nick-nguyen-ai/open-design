@@ -24,7 +24,7 @@ const grammar: DesignGrammar = {
   preferredComponents: ['comp.dgm.circuit.flow', 'comp.dgm.circuit.sequence', 'comp.dgm.circuit.layers', 'comp.dgm.circuit.zones', 'comp.dgm.circuit.cycle', 'comp.dgm.circuit.compare', 'comp.dgm.circuit.cells', 'comp.dgm.circuit.timeline'],
   prohibitedPatterns: ['Neon ink as the only differentiator between node kinds.', 'Glow filters on text.', 'Light-mode rendering - the family is dark by construction.'],
   accessibilityNotes: ['Text on board holds >= 15:1; phosphor green and cyan >= 9:1; magenta is always paired with silhouette or tag.', 'The ambient dash current stops entirely under reduced motion (vestibular safety).', 'Every diagram ships its textual outline.'],
-  exampleExperienceIds: [],
+  exampleExperienceIds: ['deck-dgm-circuit'],
 };
 
 export default grammar;

@@ -47,3 +47,18 @@ export type {
   TimelineSpecT,
 } from './specs.js';
 export { buildOutline } from './outline.js';
+export {
+  FLOW_FIELDS,
+  SEQUENCE_FIELDS,
+  LAYERS_FIELDS,
+  ZONES_FIELDS,
+  CYCLE_FIELDS,
+  COMPARE_FIELDS,
+  CELLS_FIELDS,
+  TIMELINE_FIELDS,
+  flowRefsResolve,
+  sequenceRefsResolve,
+  zonesRefsResolve,
+  compareRowsMatchColumns,
+  timelineNowInRange,
+} from './fields.js';

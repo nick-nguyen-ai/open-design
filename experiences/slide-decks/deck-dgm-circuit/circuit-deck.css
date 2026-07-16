@@ -1,0 +1,317 @@
+/**
+ * "The Lit Board" — experience-local art layer for deck-dgm-circuit.
+ * Raw colour licence: this file + the sibling template only. The deck chrome
+ * is a powered rack: void-black room, glass slide panels with a phosphor
+ * edge, terminal status strips.
+ */
+
+.cxd-root {
+  --cxd-room: #05070b;
+  --cxd-board: #0a0e14;
+  --cxd-text: #e8f4f0;
+  --cxd-dim: #7d93a8;
+  --cxd-green: #3ef2a5;
+  --cxd-cyan: #41d6ff;
+  --cxd-magenta: #ff5ea8;
+
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background:
+    radial-gradient(1000px 520px at 80% -10%, rgb(65 214 255 / 0.07), transparent 60%),
+    var(--cxd-room);
+  color: var(--cxd-text);
+  font-family: 'Space Grotesk', 'Inter Variable', 'Inter', sans-serif;
+  overflow: hidden;
+}
+
+.cxd-chrome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 1.4rem;
+  font-size: 0.78rem;
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--cxd-dim);
+}
+
+.cxd-chrome-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.cxd-back {
+  color: var(--cxd-green);
+  text-decoration: none;
+  border-bottom: 1px solid var(--cxd-green);
+}
+
+.cxd-back:focus-visible,
+.cxd-nav-btn:focus-visible {
+  outline: 2px solid var(--cxd-green);
+  outline-offset: 2px;
+}
+
+.cxd-chrome-rule {
+  inline-size: 34px;
+  block-size: 1px;
+  background: var(--cxd-dim);
+  opacity: 0.5;
+}
+
+.cxd-notice {
+  font-size: 0.72rem;
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--cxd-dim);
+}
+
+.cxd-footer-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.cxd-hint {
+  font-size: 0.72rem;
+  color: var(--cxd-dim);
+}
+
+.cxd-nav-btn {
+  inline-size: 2.2rem;
+  block-size: 2.2rem;
+  border-radius: 8px;
+  border: 1px solid var(--cxd-cyan);
+  background: rgb(65 214 255 / 0.06);
+  color: var(--cxd-text);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.cxd-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.cxd-main {
+  position: relative;
+  min-block-size: 0;
+  display: grid;
+  /* row 1: the visually hidden h1 (content-sized); row 2: the stage */
+  grid-template-rows: auto 1fr;
+}
+
+.cxd-stage {
+  position: relative;
+  min-block-size: 0;
+}
+
+.cxd-slide {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  visibility: hidden;
+  padding: 0.4rem 1.2rem 1rem;
+}
+
+.cxd-slide[data-state='active'] {
+  visibility: visible;
+  z-index: 2;
+}
+
+.cxd-slide[data-state='leaving'] {
+  visibility: visible;
+  z-index: 3;
+  animation: cxd-power-down var(--dur-structure) var(--ease-shift) both;
+  pointer-events: none;
+}
+
+@keyframes cxd-power-down {
+  from {
+    opacity: 1;
+    filter: brightness(1);
+  }
+  to {
+    opacity: 0;
+    filter: brightness(1.6);
+  }
+}
+
+.cxd-page,
+.cxd-cover,
+.cxd-close {
+  position: relative;
+  inline-size: min(1060px, 96%);
+  max-block-size: 100%;
+  overflow: auto;
+  background: var(--cxd-board);
+  border: 1px solid rgb(65 214 255 / 0.35);
+  border-radius: 12px;
+  box-shadow:
+    0 0 0 1px rgb(10 14 20 / 0.9),
+    0 0 26px rgb(65 214 255 / 0.10);
+  padding: 1.5rem 1.9rem;
+}
+
+.cxd-slide[data-state='active'] .cxd-page,
+.cxd-slide[data-state='active'] .cxd-cover,
+.cxd-slide[data-state='active'] .cxd-close {
+  animation: cxd-power-on var(--dur-structure) var(--ease-settle) both;
+}
+
+@keyframes cxd-power-on {
+  from {
+    opacity: 0;
+    filter: brightness(1.8);
+  }
+  to {
+    opacity: 1;
+    filter: brightness(1);
+  }
+}
+
+/* the scanline corner device */
+.cxd-device {
+  position: absolute;
+  inset-block-start: 12px;
+  inset-inline-end: 14px;
+  inline-size: 40px;
+  block-size: 12px;
+  background:
+    repeating-linear-gradient(to bottom, rgb(125 147 168 / 0.5) 0 2px, transparent 2px 5px);
+  pointer-events: none;
+}
+
+.cxd-kicker {
+  margin: 0 0 0.3rem;
+  font-size: 0.74rem;
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cxd-green);
+}
+
+.cxd-kicker::before {
+  content: '> ';
+}
+
+.cxd-heading {
+  margin: 0 0 0.4rem;
+  font-size: 1.75rem;
+  line-height: 1.08;
+  font-weight: 600;
+  color: var(--cxd-text);
+}
+
+.cxd-caption {
+  margin: 0 0 0.9rem;
+  max-inline-size: 66ch;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--cxd-dim);
+}
+
+.cxd-figure {
+  display: grid;
+  justify-items: center;
+}
+
+/* Fit the drawing to the slide: never wider than the card, never taller
+   than the room the header leaves — the SVG keeps its own aspect. */
+.cxd-figure .dgm-circuit {
+  inline-size: 100%;
+}
+
+.cxd-figure .dgm-circuit svg {
+  inline-size: auto;
+  max-inline-size: 100%;
+  max-block-size: min(52vh, 560px);
+  margin-inline: auto;
+}
+
+.cxd-figure .dgm-circuit {
+  padding: 0.2rem 0 0;
+  background: transparent;
+}
+
+.cxd-cover,
+.cxd-close {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 0.7rem;
+  min-block-size: 70%;
+}
+
+.cxd-title {
+  margin: 0;
+  font-size: 3.6rem;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--cxd-text);
+  text-shadow: 0 0 22px rgb(62 242 165 / 0.35);
+}
+
+.cxd-standfirst {
+  margin: 0;
+  max-inline-size: 60ch;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--cxd-text);
+}
+
+.cxd-notice-line {
+  margin: 0.4rem 0 0;
+  font-size: 0.72rem;
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cxd-magenta);
+}
+
+.cxd-takeaways {
+  margin: 0;
+  padding-inline-start: 1.3rem;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.cxd-takeaways li::marker {
+  content: '▮ ';
+  color: var(--cxd-green);
+}
+
+.cxd-signoff {
+  margin: 0.4rem 0 0;
+  max-inline-size: 62ch;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--cxd-dim);
+}
+
+.cxd-root[data-reduced='true'] .cxd-slide[data-state='leaving'] {
+  animation: none;
+  visibility: hidden;
+}
+
+.cxd-root[data-reduced='true'] .cxd-slide[data-state='active'] .cxd-page,
+.cxd-root[data-reduced='true'] .cxd-slide[data-state='active'] .cxd-cover,
+.cxd-root[data-reduced='true'] .cxd-slide[data-state='active'] .cxd-close {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cxd-slide[data-state='leaving'] {
+    animation: none;
+    visibility: hidden;
+  }
+
+  .cxd-slide[data-state='active'] .cxd-page,
+  .cxd-slide[data-state='active'] .cxd-cover,
+  .cxd-slide[data-state='active'] .cxd-close {
+    animation: none;
+  }
+}
