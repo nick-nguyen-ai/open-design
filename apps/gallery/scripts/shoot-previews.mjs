@@ -69,6 +69,9 @@ const LIVE_IDS = [
   'db-incident-remediation-centre',
   'db-portfolio-performance-explorer',
   'db-scenario-stress-simulator',
+  'exp-api-integration-contract',
+  'exp-architecture-decision-record',
+  'exp-coding-agent-implementation-plan',
 ];
 
 /** Demo samples (mirrors data/samples.ts + the /demo/* routes). */

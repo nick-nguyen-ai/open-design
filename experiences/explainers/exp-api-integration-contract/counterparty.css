@@ -1,0 +1,496 @@
+/* "The Counterparty Agreement" — experience-local art layer
+   (exp-api-integration-contract). A bilateral agreement in legal print:
+   white bond paper, serif clauses, ruled schedules, and a witness block.
+   The recitals take their seats one by one (ledger-reveal). */
+
+.ca-root {
+  --ca-paper: #fdfdfa;
+  --ca-paper-deep: #f6f5ef;
+  --ca-ink: #17181a;
+  --ca-faint: #62646a;
+  --ca-rule: #d9d9d2;
+  --ca-rule-strong: #a9aaa0;
+  --ca-navy: #1f3a63;
+  --ca-wax: #8c2318;
+  --ca-serif: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
+  --ca-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  min-height: 100svh;
+  background: linear-gradient(180deg, var(--ca-paper) 0%, var(--ca-paper-deep) 100%);
+  color: var(--ca-ink);
+  font-family: var(--ca-serif);
+  font-variation-settings: 'opsz' 14, 'wght' 400;
+  font-size: 15.5px;
+  line-height: 1.62;
+}
+
+/* ---------------------------------------------------------------- */
+/* Chrome                                                             */
+/* ---------------------------------------------------------------- */
+
+.ca-chrome {
+  border-bottom: 1px solid var(--ca-ink);
+  padding: 14px clamp(20px, 5vw, 64px) 10px;
+}
+
+.ca-chrome-row {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-family: var(--ca-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  color: var(--ca-faint);
+}
+
+.ca-chrome-mast {
+  color: var(--ca-ink);
+  font-weight: 500;
+}
+
+.ca-chrome-row > span:last-child {
+  margin-left: auto;
+}
+
+.ca-chrome-row-sub {
+  margin-top: 6px;
+  font-size: 10px;
+  justify-content: flex-end;
+}
+
+.ca-provenance {
+  color: var(--ca-wax);
+}
+
+.ca-back {
+  color: var(--ca-ink);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.ca-back:hover,
+.ca-back:focus-visible {
+  color: var(--ca-navy);
+}
+
+/* ---------------------------------------------------------------- */
+/* Cover                                                              */
+/* ---------------------------------------------------------------- */
+
+.ca-main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 48px) 40px;
+}
+
+.ca-cover {
+  text-align: center;
+  padding: clamp(36px, 6vh, 70px) 0 26px;
+  border-bottom: 3px double var(--ca-ink);
+}
+
+.ca-kicker {
+  font-family: var(--ca-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.26em;
+  color: var(--ca-faint);
+  margin: 0 0 18px;
+}
+
+.ca-title {
+  font-variation-settings: 'opsz' 144, 'wght' 520;
+  font-size: clamp(38px, 6.4vw, 66px);
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.ca-subtitle {
+  font-style: italic;
+  font-variation-settings: 'opsz' 24, 'wght' 400;
+  font-size: 17px;
+  color: var(--ca-faint);
+  margin: 16px auto 0;
+  max-width: 52ch;
+}
+
+.ca-intent {
+  margin: 22px auto 0;
+  max-width: 58ch;
+  font-size: 15px;
+  border: 1px solid var(--ca-rule-strong);
+  padding: 12px 18px;
+  background: #fff;
+}
+
+/* ---------------------------------------------------------------- */
+/* Recitals — ledger-reveal                                           */
+/* ---------------------------------------------------------------- */
+
+.ca-recitals {
+  padding: 26px 0 8px;
+}
+
+.ca-recital {
+  margin: 0 0 12px;
+  padding-left: 28px;
+  text-indent: -28px;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: ca-seat 0.5s cubic-bezier(0.2, 0.6, 0.2, 1) forwards;
+  animation-delay: calc(var(--ca-row, 0) * 140ms + 100ms);
+}
+
+.ca-root[data-reduced] .ca-recital {
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-recital {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+@keyframes ca-seat {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ca-recital::first-letter {
+  font-variation-settings: 'opsz' 30, 'wght' 560;
+}
+
+/* ---------------------------------------------------------------- */
+/* Clauses                                                            */
+/* ---------------------------------------------------------------- */
+
+.ca-clause {
+  padding: 24px 0 10px;
+  border-top: 1px solid var(--ca-rule-strong);
+}
+
+.ca-clause-heading {
+  font-family: var(--ca-mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: var(--ca-navy);
+  margin: 0 0 16px;
+  font-weight: 500;
+}
+
+.ca-lead {
+  margin: 0 0 16px;
+  max-width: 74ch;
+}
+
+/* Definitions */
+
+.ca-terms {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 10px 34px;
+}
+
+.ca-term {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px dotted var(--ca-rule-strong);
+}
+
+.ca-term dt {
+  font-variation-settings: 'opsz' 20, 'wght' 560;
+}
+
+.ca-term dd {
+  margin: 0;
+  font-size: 14px;
+  color: var(--ca-faint);
+}
+
+/* Tables */
+
+.ca-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--ca-rule-strong);
+  background: #fff;
+}
+
+.ca-endpoints,
+.ca-remedies {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+.ca-endpoints th[scope='col'],
+.ca-remedies th[scope='col'] {
+  font-family: var(--ca-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  color: var(--ca-faint);
+  text-align: left;
+  font-weight: 500;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--ca-rule-strong);
+}
+
+.ca-endpoints td,
+.ca-endpoints th[scope='row'],
+.ca-remedies td,
+.ca-remedies th[scope='row'] {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--ca-rule);
+  text-align: left;
+  vertical-align: top;
+}
+
+.ca-endpoints tr:last-child td,
+.ca-endpoints tr:last-child th,
+.ca-remedies tr:last-child td,
+.ca-remedies tr:last-child th {
+  border-bottom: none;
+}
+
+.ca-endpoints th[scope='row'],
+.ca-remedies th[scope='row'] {
+  font-family: var(--ca-mono);
+  font-size: 12.5px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.ca-method {
+  font-family: var(--ca-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--ca-navy);
+  white-space: nowrap;
+}
+
+.ca-method[data-method='POST'] {
+  color: var(--ca-wax);
+}
+
+.ca-auth,
+.ca-rate {
+  font-family: var(--ca-mono);
+  font-size: 11px;
+  color: var(--ca-faint);
+  white-space: nowrap;
+}
+
+.ca-remedy {
+  font-variation-settings: 'opsz' 14, 'wght' 480;
+}
+
+.ca-retry {
+  font-family: var(--ca-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  color: #2f5d43;
+}
+
+.ca-retry[data-safe='no'] {
+  color: var(--ca-wax);
+}
+
+.ca-retry[data-safe='with backoff'] {
+  color: var(--ca-navy);
+}
+
+/* Exhibit */
+
+.ca-exhibit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.ca-wire {
+  margin: 0;
+  border: 1px solid var(--ca-rule-strong);
+  background: #fbfaf5;
+}
+
+.ca-wire figcaption {
+  font-family: var(--ca-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  color: var(--ca-navy);
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--ca-rule);
+  font-weight: 500;
+}
+
+.ca-wire pre {
+  margin: 0;
+  padding: 14px 16px;
+  font-family: var(--ca-mono);
+  font-size: 11.5px;
+  line-height: 1.6;
+  overflow-x: auto;
+}
+
+/* Amendments */
+
+.ca-amendments {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ca-amendment {
+  display: grid;
+  grid-template-columns: 130px 100px 1fr auto;
+  gap: 16px;
+  align-items: baseline;
+  padding: 10px 4px;
+  border-bottom: 1px dotted var(--ca-rule-strong);
+}
+
+.ca-amendment-version {
+  font-family: var(--ca-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ca-navy);
+}
+
+.ca-amendment-date {
+  font-family: var(--ca-mono);
+  font-size: 10.5px;
+  color: var(--ca-faint);
+}
+
+.ca-amendment-nature {
+  font-size: 14px;
+}
+
+.ca-amendment[data-sunset] .ca-amendment-nature {
+  color: var(--ca-faint);
+}
+
+.ca-amendment-sunset {
+  font-family: var(--ca-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  color: var(--ca-wax);
+  border: 1px solid var(--ca-wax);
+  padding: 2px 7px;
+  transform: rotate(-1.4deg);
+}
+
+/* Witness / signatures */
+
+.ca-witness {
+  border-top: 3px double var(--ca-ink);
+  margin-top: 26px;
+  padding-top: 22px;
+}
+
+.ca-witness-heading {
+  color: var(--ca-ink);
+  font-variation-settings: normal;
+}
+
+.ca-witness-lead {
+  font-style: italic;
+}
+
+.ca-signature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-top: 10px;
+}
+
+.ca-signature {
+  border-top: 1px solid var(--ca-ink);
+  padding-top: 10px;
+}
+
+.ca-signature-role {
+  font-family: var(--ca-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  color: var(--ca-faint);
+  margin: 0;
+}
+
+.ca-signature-name {
+  font-variation-settings: 'opsz' 40, 'wght' 500;
+  font-style: italic;
+  font-size: 24px;
+  margin: 8px 0 0;
+}
+
+.ca-signature-mark {
+  display: inline-block;
+  margin: 12px 0 0;
+  font-family: var(--ca-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  color: var(--ca-wax);
+  border: 1.5px solid var(--ca-wax);
+  padding: 5px 10px;
+  transform: rotate(-1.6deg);
+}
+
+/* ---------------------------------------------------------------- */
+/* Foot                                                               */
+/* ---------------------------------------------------------------- */
+
+.ca-foot {
+  border-top: 1px solid var(--ca-ink);
+  margin-top: 30px;
+  padding: 14px clamp(20px, 5vw, 64px) 36px;
+  color: var(--ca-faint);
+  font-size: 13px;
+}
+
+.ca-foot p {
+  max-width: 84ch;
+  margin: 0 auto;
+}
+
+.ca-foot-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-family: var(--ca-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  margin-top: 10px !important;
+}
+
+.ca-foot-line span:first-child {
+  color: var(--ca-wax);
+}
+
+/* ---------------------------------------------------------------- */
+/* Responsive                                                         */
+/* ---------------------------------------------------------------- */
+
+@media (max-width: 720px) {
+  .ca-term {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .ca-amendment {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}

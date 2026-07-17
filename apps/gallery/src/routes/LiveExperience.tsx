@@ -199,6 +199,22 @@ const WindTunnelPage = lazy(
   () =>
     import('../../../../experiences/dashboards/db-scenario-stress-simulator/WindTunnelPage.js'),
 );
+const CounterpartyAgreementPage = lazy(
+  () =>
+    import(
+      '../../../../experiences/explainers/exp-api-integration-contract/CounterpartyAgreementPage.js'
+    ),
+);
+const MinuteBookPage = lazy(
+  () =>
+    import('../../../../experiences/explainers/exp-architecture-decision-record/MinuteBookPage.js'),
+);
+const WorkOrderPage = lazy(
+  () =>
+    import(
+      '../../../../experiences/explainers/exp-coding-agent-implementation-plan/WorkOrderPage.js'
+    ),
+);
 
 const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: ComponentType }> = {
   'db-model-monitoring-cockpit': { mood: 'dark', Component: CockpitPage },
@@ -248,6 +264,9 @@ const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: 
   'db-incident-remediation-centre': { mood: 'dark', Component: TriageBayPage },
   'db-portfolio-performance-explorer': { mood: 'light', Component: LongReadPage },
   'db-scenario-stress-simulator': { mood: 'dark', Component: WindTunnelPage },
+  'exp-api-integration-contract': { mood: 'light', Component: CounterpartyAgreementPage },
+  'exp-architecture-decision-record': { mood: 'light', Component: MinuteBookPage },
+  'exp-coding-agent-implementation-plan': { mood: 'light', Component: WorkOrderPage },
 };
 
 /**

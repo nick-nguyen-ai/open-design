@@ -1,0 +1,457 @@
+/* "The Minute Book" — experience-local art layer
+   (exp-architecture-decision-record). Council minutes on laid paper: formal
+   serif, numbered minutes that take their seats in order, rejected options
+   struck through but legible, and a confirmation signature. */
+
+.mk-root {
+  --mk-paper: #f9f7f1;
+  --mk-paper-deep: #f1eee4;
+  --mk-ink: #1d1c18;
+  --mk-faint: #6a655a;
+  --mk-rule: #dcd6c7;
+  --mk-rule-strong: #b4ab94;
+  --mk-green: #2e5c45;
+  --mk-red: #96311f;
+  --mk-serif: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
+  --mk-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  min-height: 100svh;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 27px, rgba(106, 101, 90, 0.06) 27px 28px),
+    linear-gradient(180deg, var(--mk-paper) 0%, var(--mk-paper-deep) 100%);
+  color: var(--mk-ink);
+  font-family: var(--mk-serif);
+  font-variation-settings: 'opsz' 14, 'wght' 400;
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+
+/* ---------------------------------------------------------------- */
+/* Chrome                                                             */
+/* ---------------------------------------------------------------- */
+
+.mk-chrome {
+  border-bottom: 2px solid var(--mk-ink);
+  padding: 14px clamp(20px, 5vw, 64px) 10px;
+  background: rgba(249, 247, 241, 0.9);
+}
+
+.mk-chrome-row {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-family: var(--mk-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  color: var(--mk-faint);
+}
+
+.mk-chrome-mast {
+  color: var(--mk-ink);
+  font-weight: 500;
+}
+
+.mk-chrome-row > span:last-child {
+  margin-left: auto;
+}
+
+.mk-chrome-row-sub {
+  margin-top: 6px;
+  font-size: 10px;
+  justify-content: flex-end;
+}
+
+.mk-provenance {
+  color: var(--mk-red);
+}
+
+.mk-back {
+  color: var(--mk-ink);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.mk-back:hover,
+.mk-back:focus-visible {
+  color: var(--mk-green);
+}
+
+/* ---------------------------------------------------------------- */
+/* Sitting (title)                                                    */
+/* ---------------------------------------------------------------- */
+
+.mk-main {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 48px) 40px;
+}
+
+.mk-sitting {
+  padding: clamp(34px, 6vh, 64px) 0 24px;
+  border-bottom: 3px double var(--mk-ink);
+}
+
+.mk-kicker {
+  font-family: var(--mk-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.26em;
+  color: var(--mk-faint);
+  margin: 0 0 12px;
+}
+
+.mk-title {
+  font-variation-settings: 'opsz' 144, 'wght' 520;
+  font-size: clamp(34px, 5.6vw, 58px);
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+  margin: 0;
+  max-width: 26ch;
+}
+
+.mk-present {
+  font-family: var(--mk-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  color: var(--mk-faint);
+  margin: 18px 0 0;
+}
+
+.mk-status {
+  display: inline-block;
+  margin: 14px 0 0;
+  font-family: var(--mk-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--mk-green);
+  border: 1.5px solid var(--mk-green);
+  padding: 5px 11px;
+  transform: rotate(-0.8deg);
+}
+
+/* ---------------------------------------------------------------- */
+/* Minutes — ledger-reveal                                            */
+/* ---------------------------------------------------------------- */
+
+.mk-minute {
+  padding: 24px 0 10px;
+  border-bottom: 1px solid var(--mk-rule-strong);
+  opacity: 0;
+  transform: translateY(10px);
+  animation: mk-seat 0.55s cubic-bezier(0.2, 0.6, 0.2, 1) forwards;
+  animation-delay: calc(var(--mk-row, 0) * 150ms + 120ms);
+}
+
+.mk-root[data-reduced] .mk-minute {
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mk-minute {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+@keyframes mk-seat {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mk-minute-heading {
+  font-family: var(--mk-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.2em;
+  color: var(--mk-green);
+  margin: 0 0 14px;
+  font-weight: 500;
+}
+
+.mk-para {
+  margin: 0 0 16px;
+  max-width: 74ch;
+}
+
+.mk-note {
+  margin: 0 0 18px;
+  font-style: italic;
+  color: var(--mk-faint);
+  font-size: 14px;
+  max-width: 70ch;
+}
+
+/* Options */
+
+.mk-options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mk-option {
+  border: 1px solid var(--mk-rule-strong);
+  background: #fdfbf5;
+  padding: 16px 20px 12px;
+}
+
+.mk-option[data-outcome='carried'] {
+  border-left: 4px solid var(--mk-green);
+}
+
+.mk-option-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.mk-option-letter {
+  font-family: var(--mk-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  color: var(--mk-faint);
+}
+
+.mk-option-outcome {
+  font-family: var(--mk-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  border: 1.5px solid var(--mk-green);
+  color: var(--mk-green);
+  padding: 3px 9px;
+  transform: rotate(-1.6deg);
+}
+
+.mk-option-outcome[data-outcome='not-carried'] {
+  border-color: var(--mk-red);
+  color: var(--mk-red);
+  transform: rotate(1.2deg);
+}
+
+.mk-option-title {
+  font-variation-settings: 'opsz' 30, 'wght' 560;
+  font-size: 19px;
+  margin: 10px 0 0;
+}
+
+.mk-option-summary {
+  margin: 6px 0 0;
+  color: var(--mk-faint);
+  font-size: 14px;
+}
+
+/* Struck through but legible. */
+.mk-option[data-outcome='not-carried'] .mk-option-title,
+.mk-option[data-outcome='not-carried'] .mk-option-summary {
+  text-decoration: line-through;
+  text-decoration-color: rgba(150, 49, 31, 0.55);
+  text-decoration-thickness: 1.5px;
+  opacity: 0.82;
+}
+
+.mk-option-line {
+  margin: 10px 0 0;
+  font-size: 13.5px;
+  max-width: 76ch;
+}
+
+.mk-option-label {
+  font-family: var(--mk-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--mk-faint);
+  margin-right: 8px;
+}
+
+.mk-option-note {
+  margin: 12px 0 0;
+  padding-top: 10px;
+  border-top: 1px dotted var(--mk-rule-strong);
+  font-family: var(--mk-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--mk-faint);
+}
+
+.mk-option[data-outcome='carried'] .mk-option-note {
+  color: var(--mk-green);
+}
+
+/* Resolution */
+
+.mk-resolution {
+  margin: 0;
+  border: 1px solid var(--mk-rule-strong);
+  border-left: 4px solid var(--mk-ink);
+  background: #fdfbf5;
+  padding: 20px 24px;
+  font-variation-settings: 'opsz' 24, 'wght' 480;
+  font-size: 17px;
+  line-height: 1.7;
+  max-width: 78ch;
+}
+
+.mk-resolution::first-letter {
+  font-variation-settings: 'opsz' 144, 'wght' 600;
+  font-size: 2.4em;
+  line-height: 0.9;
+  float: left;
+  padding: 4px 8px 0 0;
+}
+
+/* Consequences */
+
+.mk-consequences {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mk-consequence {
+  display: grid;
+  grid-template-columns: 44px 1fr 190px 110px;
+  gap: 16px;
+  align-items: baseline;
+  padding: 12px 4px;
+  border-bottom: 1px dotted var(--mk-rule-strong);
+}
+
+.mk-consequence:last-child {
+  border-bottom: none;
+}
+
+.mk-consequence-num {
+  font-family: var(--mk-mono);
+  font-size: 12px;
+  color: var(--mk-green);
+  font-weight: 500;
+}
+
+.mk-consequence-text {
+  margin: 0;
+  font-size: 15px;
+}
+
+.mk-consequence-owner,
+.mk-consequence-review {
+  font-family: var(--mk-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  color: var(--mk-faint);
+  text-align: right;
+}
+
+/* Dissent */
+
+.mk-dissent {
+  margin: 0;
+  font-style: italic;
+  max-width: 74ch;
+  border-left: 3px solid var(--mk-red);
+  padding-left: 16px;
+}
+
+/* Closing */
+
+.mk-closing {
+  padding: 26px 0 6px;
+}
+
+.mk-confirm {
+  font-variation-settings: 'opsz' 24, 'wght' 480;
+  font-style: italic;
+  font-size: 17px;
+  margin: 0 0 20px;
+}
+
+.mk-closing-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.mk-signature {
+  border-top: 1px solid var(--mk-ink);
+  padding-top: 8px;
+  min-width: 240px;
+}
+
+.mk-signature-name {
+  font-variation-settings: 'opsz' 60, 'wght' 500;
+  font-style: italic;
+  font-size: 26px;
+  margin: 0;
+}
+
+.mk-signature-role {
+  font-family: var(--mk-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  color: var(--mk-faint);
+  margin: 6px 0 0;
+}
+
+.mk-next-review {
+  max-width: 44ch;
+  font-size: 13px;
+  color: var(--mk-faint);
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------- */
+/* Foot                                                               */
+/* ---------------------------------------------------------------- */
+
+.mk-foot {
+  border-top: 3px double var(--mk-ink);
+  margin-top: 26px;
+  padding: 14px clamp(20px, 5vw, 64px) 36px;
+  color: var(--mk-faint);
+  font-size: 13px;
+}
+
+.mk-foot p {
+  max-width: 84ch;
+  margin: 0 auto;
+}
+
+.mk-foot-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-family: var(--mk-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  margin-top: 10px !important;
+}
+
+.mk-foot-line span:first-child {
+  color: var(--mk-red);
+}
+
+/* ---------------------------------------------------------------- */
+/* Responsive                                                         */
+/* ---------------------------------------------------------------- */
+
+@media (max-width: 720px) {
+  .mk-consequence {
+    grid-template-columns: 36px 1fr;
+    row-gap: 6px;
+  }
+
+  .mk-consequence-owner,
+  .mk-consequence-review {
+    grid-column: 2;
+    text-align: left;
+  }
+}
