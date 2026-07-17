@@ -523,6 +523,49 @@ const PART_ID_WORLDS: readonly PartIdWorld[] = [
       'proj-platform-product-launch/notices',
     ],
   },
+  {
+    id: 'proj-model-lifecycle-workspace',
+    rootTestId: 'live-foundry',
+    expectedParts: [
+      'proj-model-lifecycle-workspace/chrome',
+      'proj-model-lifecycle-workspace/doctrine',
+      'proj-model-lifecycle-workspace/floor',
+      'proj-model-lifecycle-workspace/floor/hall-columns',
+      'proj-model-lifecycle-workspace/floor/process-rail',
+      'proj-model-lifecycle-workspace/shift',
+      'proj-model-lifecycle-workspace/shift/figures',
+      'proj-model-lifecycle-workspace/stamps',
+      'proj-model-lifecycle-workspace/stamps/stamp-entries',
+    ],
+  },
+  {
+    id: 'proj-research-innovation-initiative',
+    rootTestId: 'live-bet-book',
+    expectedParts: [
+      'proj-research-innovation-initiative/bets',
+      'proj-research-innovation-initiative/bets/bet-spreads',
+      'proj-research-innovation-initiative/chrome',
+      'proj-research-innovation-initiative/house-rules',
+      'proj-research-innovation-initiative/opening',
+      'proj-research-innovation-initiative/opening/figures',
+    ],
+  },
+  {
+    id: 'proj-vendor-assessment',
+    rootTestId: 'live-weighing-room',
+    expectedParts: [
+      'proj-vendor-assessment/balance',
+      'proj-vendor-assessment/balance/vendor-scales',
+      'proj-vendor-assessment/brief',
+      'proj-vendor-assessment/brief/figures',
+      'proj-vendor-assessment/chrome',
+      'proj-vendor-assessment/findings',
+      'proj-vendor-assessment/lenses',
+      'proj-vendor-assessment/lenses/acetate-bar',
+      'proj-vendor-assessment/lenses/reading-table',
+      'proj-vendor-assessment/protocol',
+    ],
+  },
 ];
 
 const WELL_FORMED = /^[a-z0-9-]+\/[a-z0-9-]+(\/[a-z0-9-]+)?$/;

@@ -259,6 +259,18 @@ const TownPlanPage = lazy(
 const MarqueePage = lazy(
   () => import('../../../../experiences/project-pages/proj-platform-product-launch/MarqueePage.js'),
 );
+const FoundryPage = lazy(
+  () => import('../../../../experiences/project-pages/proj-model-lifecycle-workspace/FoundryPage.js'),
+);
+const BetBookPage = lazy(
+  () =>
+    import(
+      '../../../../experiences/project-pages/proj-research-innovation-initiative/BetBookPage.js'
+    ),
+);
+const WeighingRoomPage = lazy(
+  () => import('../../../../experiences/project-pages/proj-vendor-assessment/WeighingRoomPage.js'),
+);
 
 const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: ComponentType }> = {
   'db-model-monitoring-cockpit': { mood: 'dark', Component: CockpitPage },
@@ -323,6 +335,9 @@ const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: 
   'proj-cloud-migration-programme': { mood: 'dark', Component: SlipwayPage },
   'proj-data-modernisation-programme': { mood: 'light', Component: TownPlanPage },
   'proj-platform-product-launch': { mood: 'dark', Component: MarqueePage },
+  'proj-model-lifecycle-workspace': { mood: 'dark', Component: FoundryPage },
+  'proj-research-innovation-initiative': { mood: 'light', Component: BetBookPage },
+  'proj-vendor-assessment': { mood: 'light', Component: WeighingRoomPage },
 };
 
 /**

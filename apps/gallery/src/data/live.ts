@@ -67,6 +67,9 @@ export const LIVE_EXPERIENCE_IDS = [
   'proj-cloud-migration-programme',
   'proj-data-modernisation-programme',
   'proj-platform-product-launch',
+  'proj-model-lifecycle-workspace',
+  'proj-research-innovation-initiative',
+  'proj-vendor-assessment',
 ] as const;
 
 export type LiveExperienceId = (typeof LIVE_EXPERIENCE_IDS)[number];

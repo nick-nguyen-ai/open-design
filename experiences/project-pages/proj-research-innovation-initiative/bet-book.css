@@ -1,0 +1,479 @@
+/* "The Bet Book" — experience-local art layer for
+   proj-research-innovation-initiative. A bookmaker's ledger kept by
+   researchers: warm ivory paper, Fraunces headings, mono odds, Caveat
+   margin notes, and a confidence track per bet that draws itself in ink
+   (data-ink-draw). Raw colours permitted here only. */
+
+.bb-root {
+  --bb-paper: #fbf7ed;
+  --bb-paper-deep: #f2ecdc;
+  --bb-ink: #26221b;
+  --bb-ink-soft: #5f584a;
+  --bb-faint: #8f8672;
+  --bb-rule: #ddd3ba;
+  --bb-rule-strong: #b7ab8a;
+  --bb-green: #2c6647;
+  --bb-red: #a3391f;
+  --bb-blue: #2c4f6b;
+  --bb-pencil: #7b6f56;
+  min-height: 100vh;
+  background: var(--bb-paper);
+  color: var(--bb-ink);
+  font-family: 'Inter Variable', system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ------------------------------------------------------------------ */
+/* Chrome                                                              */
+/* ------------------------------------------------------------------ */
+
+.bb-chrome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 2.2rem;
+  border-bottom: 2px solid var(--bb-ink);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+}
+
+.bb-chrome-left {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.bb-back {
+  color: var(--bb-ink-soft);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.bb-back:hover,
+.bb-back:focus-visible {
+  color: var(--bb-red);
+}
+
+.bb-chrome-rule {
+  width: 1px;
+  height: 0.95rem;
+  background: var(--bb-rule-strong);
+}
+
+.bb-chrome-mast {
+  font-weight: 500;
+}
+
+.bb-chrome-ref {
+  color: var(--bb-faint);
+}
+
+/* ------------------------------------------------------------------ */
+/* Opening                                                             */
+/* ------------------------------------------------------------------ */
+
+.bb-main {
+  flex: 1;
+  width: min(66rem, 100% - 3rem);
+  margin: 0 auto;
+  padding: 3rem 0 3.6rem;
+}
+
+.bb-opening {
+  padding-bottom: 2.3rem;
+  border-bottom: 2px solid var(--bb-ink);
+}
+
+.bb-kicker {
+  margin: 0 0 1.1rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  color: var(--bb-blue);
+}
+
+.bb-title {
+  margin: 0 0 1rem;
+  max-width: 24ch;
+  font-family: 'Fraunces Variable', serif;
+  font-variation-settings: 'opsz' 110;
+  font-weight: 560;
+  font-size: clamp(2rem, 4.4vw, 3.2rem);
+  line-height: 1.07;
+  letter-spacing: -0.012em;
+}
+
+.bb-subline {
+  margin: 0 0 1.7rem;
+  max-width: 68ch;
+  font-size: 0.95rem;
+  line-height: 1.62;
+  color: var(--bb-ink-soft);
+}
+
+.bb-figures {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  margin: 0 0 1.3rem;
+  max-width: 46rem;
+  border-top: 1px solid var(--bb-rule-strong);
+  border-bottom: 1px solid var(--bb-rule-strong);
+}
+
+.bb-figure {
+  padding: 0.8rem 0.9rem 0.85rem 0;
+}
+
+.bb-figure + .bb-figure {
+  padding-left: 0.9rem;
+  border-left: 1px solid var(--bb-rule);
+}
+
+.bb-figure dt {
+  margin: 0 0 0.32rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  color: var(--bb-faint);
+}
+
+.bb-figure dd {
+  margin: 0;
+  font-family: 'Fraunces Variable', serif;
+  font-variation-settings: 'opsz' 60;
+  font-weight: 580;
+  font-size: 1.45rem;
+}
+
+.bb-figure:nth-child(3) dd { color: var(--bb-green); }
+.bb-figure:nth-child(4) dd { color: var(--bb-red); }
+
+.bb-provenance {
+  margin: 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  color: var(--bb-red);
+}
+
+/* ------------------------------------------------------------------ */
+/* Bands                                                               */
+/* ------------------------------------------------------------------ */
+
+.bb-band {
+  padding: 2.5rem 0 0;
+}
+
+.bb-band-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.9rem;
+  margin: 0 0 1.3rem;
+  font-family: 'Fraunces Variable', serif;
+  font-variation-settings: 'opsz' 90;
+  font-weight: 580;
+  font-size: 1.4rem;
+}
+
+.bb-band-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.64rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  color: var(--bb-faint);
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------------ */
+/* The spreads                                                         */
+/* ------------------------------------------------------------------ */
+
+.bb-bets {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bb-bet {
+  display: grid;
+  grid-template-columns: 1fr 12rem;
+  gap: 1.6rem;
+  padding: 1.35rem 0 1.45rem;
+  border-bottom: 1px solid var(--bb-rule);
+}
+
+.bb-bet:first-child {
+  border-top: 1px solid var(--bb-rule-strong);
+}
+
+@media (max-width: 48rem) {
+  .bb-bet {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bb-bet[data-status='won'] {
+  background: linear-gradient(90deg, rgba(44, 102, 71, 0.05), transparent 60%);
+}
+
+.bb-bet[data-status='lost'] {
+  background: linear-gradient(90deg, rgba(163, 57, 31, 0.05), transparent 60%);
+}
+
+.bb-bet-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  margin-bottom: 0.55rem;
+}
+
+.bb-bet-no {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--bb-blue);
+}
+
+.bb-bet-status {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  padding: 0.16rem 0.55rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+}
+
+.bb-bet-status[data-status='open'] { color: var(--bb-blue); }
+.bb-bet-status[data-status='paying-out'] { color: var(--bb-green); border-style: dashed; }
+.bb-bet-status[data-status='won'] { color: var(--bb-green); }
+.bb-bet-status[data-status='lost'] { color: var(--bb-red); }
+
+.bb-bet-hypothesis {
+  margin: 0 0 0.6rem;
+  max-width: 62ch;
+  font-family: 'Fraunces Variable', serif;
+  font-variation-settings: 'opsz' 50;
+  font-weight: 480;
+  font-size: 1.08rem;
+  line-height: 1.55;
+}
+
+.bb-bet-line {
+  margin: 0 0 0.7rem;
+  font-size: 0.82rem;
+  color: var(--bb-ink-soft);
+}
+
+.bb-bet-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: var(--bb-faint);
+  margin-right: 0.35rem;
+}
+
+.bb-bet-label-gap {
+  margin-left: 1rem;
+}
+
+.bb-bet-odds {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--bb-ink);
+}
+
+.bb-evidence {
+  list-style: none;
+  margin: 0 0 0.6rem;
+  padding: 0;
+  max-width: 70ch;
+}
+
+.bb-evidence-entry {
+  position: relative;
+  padding: 0.2rem 0 0.2rem 1.1rem;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--bb-ink-soft);
+}
+
+.bb-evidence-entry::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--bb-rule-strong);
+}
+
+.bb-evidence-date {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--bb-faint);
+  margin-right: 0.45rem;
+}
+
+.bb-slip {
+  margin: 0;
+  max-width: 72ch;
+  padding: 0.5rem 0.75rem;
+  border-left: 3px solid var(--bb-blue);
+  background: var(--bb-paper-deep);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  line-height: 1.6;
+  color: var(--bb-ink-soft);
+}
+
+.bb-bet[data-status='won'] .bb-slip { border-left-color: var(--bb-green); }
+.bb-bet[data-status='lost'] .bb-slip { border-left-color: var(--bb-red); }
+
+/* Margin column: confidence track + handwritten note */
+
+.bb-bet-margin {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  align-items: flex-start;
+  padding-top: 0.4rem;
+}
+
+.bb-track {
+  width: 100%;
+  max-width: 11rem;
+  height: auto;
+}
+
+.bb-track-base {
+  stroke: var(--bb-rule);
+  stroke-width: 1;
+}
+
+.bb-track-ink {
+  fill: none;
+  stroke: var(--bb-blue);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: bb-ink 0.9s cubic-bezier(0.3, 0.5, 0.2, 1) forwards;
+  animation-delay: var(--bb-ink-delay, 200ms);
+}
+
+.bb-bet[data-status='won'] .bb-track-ink { stroke: var(--bb-green); }
+.bb-bet[data-status='lost'] .bb-track-ink { stroke: var(--bb-red); }
+.bb-bet[data-status='paying-out'] .bb-track-ink { stroke: var(--bb-green); }
+
+@keyframes bb-ink {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.bb-margin-note {
+  margin: 0;
+  font-family: 'Caveat', cursive;
+  font-weight: 500;
+  font-size: 1.15rem;
+  line-height: 1.2;
+  color: var(--bb-pencil);
+  transform: rotate(-2deg);
+}
+
+/* ------------------------------------------------------------------ */
+/* House rules                                                         */
+/* ------------------------------------------------------------------ */
+
+.bb-rules {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+  gap: 0 2.4rem;
+  max-width: 66rem;
+}
+
+.bb-rule {
+  display: grid;
+  grid-template-columns: 2.4rem 1fr;
+  gap: 0.9rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--bb-rule);
+}
+
+.bb-rule-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--bb-blue);
+}
+
+.bb-rule-text {
+  margin: 0 0 0.25rem;
+  font-size: 0.93rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.bb-rule-note {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--bb-ink-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+.bb-foot {
+  padding: 1.5rem 2.2rem 2rem;
+  border-top: 2px solid var(--bb-ink);
+  background: var(--bb-paper-deep);
+}
+
+.bb-foot p {
+  margin: 0 0 0.5rem;
+  max-width: 72ch;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--bb-ink-soft);
+}
+
+.bb-foot-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.8rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  color: var(--bb-faint);
+}
+
+/* ------------------------------------------------------------------ */
+/* Reduced motion                                                      */
+/* ------------------------------------------------------------------ */
+
+.bb-root[data-reduced] .bb-track-ink {
+  animation: none;
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bb-track-ink {
+    animation: none;
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
+}
