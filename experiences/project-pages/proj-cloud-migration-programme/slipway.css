@@ -1,0 +1,586 @@
+/* "The Slipway" — experience-local art layer for proj-cloud-migration-programme.
+   A shipyard board at night: deep harbour navy, cyan chart ink, sand ropes,
+   amber watch lamps. Mooring ropes draw themselves on arrival (data-ink-draw).
+   Raw colours permitted here only. */
+
+.sw-root {
+  --sw-night: #0b1620;
+  --sw-night-lift: #101f2c;
+  --sw-plate: #12222f;
+  --sw-ink: #d7e4ec;
+  --sw-ink-soft: #93a8b5;
+  --sw-faint: #5f7482;
+  --sw-line: #24394a;
+  --sw-cyan: #5fc1d4;
+  --sw-water: #16394a;
+  --sw-rope: #d9a866;
+  --sw-rope-slack: #3d5568;
+  --sw-amber: #e3a13d;
+  --sw-red: #e0684b;
+  --sw-green: #63c69b;
+  min-height: 100vh;
+  background: var(--sw-night);
+  color: var(--sw-ink);
+  font-family: 'Inter Variable', system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ------------------------------------------------------------------ */
+/* Chrome                                                              */
+/* ------------------------------------------------------------------ */
+
+.sw-chrome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 2.2rem;
+  border-bottom: 1px solid var(--sw-line);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+}
+
+.sw-chrome-left {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.sw-back {
+  color: var(--sw-ink-soft);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.sw-back:hover,
+.sw-back:focus-visible {
+  color: var(--sw-cyan);
+}
+
+.sw-chrome-rule {
+  width: 1px;
+  height: 0.95rem;
+  background: var(--sw-line);
+}
+
+.sw-chrome-mast {
+  font-weight: 600;
+  color: var(--sw-ink);
+}
+
+.sw-chrome-ref {
+  color: var(--sw-faint);
+}
+
+/* ------------------------------------------------------------------ */
+/* Launch hero                                                         */
+/* ------------------------------------------------------------------ */
+
+.sw-main {
+  flex: 1;
+  width: min(74rem, 100% - 3rem);
+  margin: 0 auto;
+  padding: 3rem 0 3.6rem;
+}
+
+.sw-launch {
+  padding-bottom: 2.4rem;
+  border-bottom: 1px solid var(--sw-line);
+}
+
+.sw-kicker {
+  margin: 0 0 1.1rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  color: var(--sw-cyan);
+}
+
+.sw-title {
+  margin: 0 0 1rem;
+  max-width: 24ch;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(2rem, 4.4vw, 3.2rem);
+  line-height: 1.07;
+  letter-spacing: -0.015em;
+}
+
+.sw-subline {
+  margin: 0 0 1.7rem;
+  max-width: 66ch;
+  font-size: 0.95rem;
+  line-height: 1.62;
+  color: var(--sw-ink-soft);
+}
+
+.sw-figures {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 1px;
+  margin: 0 0 1.3rem;
+  max-width: 46rem;
+  background: var(--sw-line);
+  border: 1px solid var(--sw-line);
+}
+
+.sw-figure {
+  padding: 0.8rem 1rem 0.85rem;
+  background: var(--sw-night-lift);
+}
+
+.sw-figure dt {
+  margin: 0 0 0.35rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  color: var(--sw-faint);
+}
+
+.sw-figure dd {
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--sw-cyan);
+}
+
+.sw-provenance {
+  margin: 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  color: var(--sw-amber);
+}
+
+/* ------------------------------------------------------------------ */
+/* Bands                                                               */
+/* ------------------------------------------------------------------ */
+
+.sw-band {
+  padding: 2.5rem 0 0;
+}
+
+.sw-band-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.9rem;
+  margin: 0 0 1.3rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: -0.01em;
+}
+
+.sw-band-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.64rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  color: var(--sw-faint);
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------------ */
+/* The yard board                                                      */
+/* ------------------------------------------------------------------ */
+
+.sw-board-figure {
+  margin: 0;
+  border: 1px solid var(--sw-line);
+  background: var(--sw-night-lift);
+  padding: 1.2rem 1rem 0.8rem;
+}
+
+.sw-board-scroll {
+  overflow-x: auto;
+}
+
+.sw-board {
+  display: block;
+  width: 100%;
+  min-width: 56rem;
+  height: auto;
+}
+
+.sw-zone-plate {
+  fill: var(--sw-plate);
+  stroke: var(--sw-line);
+  stroke-dasharray: 5 4;
+}
+
+.sw-zone-water {
+  fill: var(--sw-water);
+  fill-opacity: 0.45;
+}
+
+.sw-zone-label {
+  fill: var(--sw-faint);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+}
+
+.sw-wave {
+  fill: none;
+  stroke: var(--sw-cyan);
+  stroke-opacity: 0.22;
+  stroke-width: 1.4;
+}
+
+/* Mooring ropes — data-ink-draw */
+
+.sw-rope {
+  fill: none;
+  stroke-width: 1.8;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: sw-rope-draw 0.9s cubic-bezier(0.3, 0.5, 0.2, 1) forwards;
+  animation-delay: var(--sw-rope-delay, 0ms);
+}
+
+.sw-rope[data-state='fast'] {
+  stroke: var(--sw-rope);
+}
+
+.sw-rope[data-state='slipped'] {
+  stroke: var(--sw-rope-slack);
+  stroke-width: 1.3;
+}
+
+@keyframes sw-rope-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.sw-vessel .sw-hull {
+  fill: var(--sw-night);
+  stroke: var(--sw-cyan);
+  stroke-width: 1.6;
+}
+
+.sw-vessel .sw-house {
+  fill: var(--sw-plate);
+  stroke: var(--sw-cyan);
+  stroke-width: 1.2;
+}
+
+.sw-vessel[data-zone='open-water'] .sw-hull,
+.sw-vessel[data-zone='open-water'] .sw-house {
+  stroke: var(--sw-green);
+}
+
+.sw-risk-lamp {
+  fill: var(--sw-green);
+}
+
+.sw-vessel[data-risk='watch'] .sw-risk-lamp {
+  fill: var(--sw-amber);
+}
+
+.sw-vessel[data-risk='heavy-lift'] .sw-risk-lamp {
+  fill: var(--sw-red);
+}
+
+.sw-hull-no {
+  fill: var(--sw-faint);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+}
+
+.sw-hull-name {
+  fill: var(--sw-ink);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+
+.sw-board-caption {
+  padding-top: 0.7rem;
+}
+
+.sw-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  color: var(--sw-faint);
+}
+
+.sw-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sw-legend-rope {
+  width: 1.6rem;
+  height: 0;
+  border-top: 2px solid var(--sw-rope);
+}
+
+.sw-legend-slipped {
+  border-top: 1.5px solid var(--sw-rope-slack);
+}
+
+/* ------------------------------------------------------------------ */
+/* Vessel manifest                                                     */
+/* ------------------------------------------------------------------ */
+
+.sw-manifest {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(21rem, 1fr));
+  gap: 1rem;
+}
+
+.sw-card {
+  padding: 1rem 1.1rem 1.05rem;
+  border: 1px solid var(--sw-line);
+  background: var(--sw-night-lift);
+  border-left-width: 3px;
+}
+
+.sw-card[data-zone='open-water'] {
+  border-left-color: var(--sw-green);
+}
+
+.sw-card[data-zone='slipway'] {
+  border-left-color: var(--sw-cyan);
+}
+
+.sw-card[data-zone='dry-dock'] {
+  border-left-color: var(--sw-faint);
+}
+
+.sw-card-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  margin-bottom: 0.55rem;
+}
+
+.sw-card-hull {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  color: var(--sw-faint);
+}
+
+.sw-card-name {
+  flex: 1;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.02rem;
+}
+
+.sw-card-zone {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  padding: 0.14rem 0.5rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.sw-card-zone[data-zone='open-water'] { color: var(--sw-green); }
+.sw-card-zone[data-zone='slipway'] { color: var(--sw-cyan); }
+.sw-card-zone[data-zone='dry-dock'] { color: var(--sw-ink-soft); }
+
+.sw-card-line {
+  margin: 0 0 0.35rem;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--sw-ink-soft);
+}
+
+.sw-card-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.56rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: var(--sw-faint);
+  margin-right: 0.35rem;
+}
+
+.sw-card-label-gap {
+  margin-left: 0.9rem;
+}
+
+.sw-card-risk {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+}
+
+.sw-card-risk[data-risk='routine'] { color: var(--sw-green); }
+.sw-card-risk[data-risk='watch'] { color: var(--sw-amber); }
+.sw-card-risk[data-risk='heavy-lift'] { color: var(--sw-red); }
+
+.sw-card-note {
+  margin: 0.45rem 0 0;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--sw-ink);
+}
+
+/* ------------------------------------------------------------------ */
+/* Rigging rules + harbour log                                         */
+/* ------------------------------------------------------------------ */
+
+.sw-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.4rem;
+}
+
+@media (max-width: 56rem) {
+  .sw-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sw-rigging {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sw-rule {
+  display: grid;
+  grid-template-columns: 2.4rem 1fr;
+  gap: 0.9rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--sw-line);
+}
+
+.sw-rule:first-child {
+  border-top: 1px solid var(--sw-line);
+}
+
+.sw-rule-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--sw-cyan);
+}
+
+.sw-rule-text {
+  margin: 0 0 0.25rem;
+  font-size: 0.93rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.sw-rule-note {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--sw-ink-soft);
+}
+
+.sw-log {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sw-log-entry {
+  display: grid;
+  grid-template-columns: 6.2rem 1fr auto;
+  gap: 0.9rem;
+  align-items: baseline;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--sw-line);
+}
+
+.sw-log-entry:first-child {
+  border-top: 1px solid var(--sw-line);
+}
+
+.sw-log-date {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  color: var(--sw-faint);
+  white-space: nowrap;
+}
+
+.sw-log-text {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--sw-ink-soft);
+}
+
+.sw-log-kind {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.14em;
+  color: var(--sw-cyan);
+  white-space: nowrap;
+}
+
+.sw-log-entry[data-kind='watch-flag'] .sw-log-kind {
+  color: var(--sw-amber);
+}
+
+.sw-log-entry[data-kind='crossing'] .sw-log-kind {
+  color: var(--sw-green);
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+.sw-foot {
+  padding: 1.5rem 2.2rem 2rem;
+  border-top: 1px solid var(--sw-line);
+  background: var(--sw-night-lift);
+}
+
+.sw-foot p {
+  margin: 0 0 0.5rem;
+  max-width: 72ch;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--sw-ink-soft);
+}
+
+.sw-foot-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.8rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  color: var(--sw-faint);
+}
+
+/* ------------------------------------------------------------------ */
+/* Reduced motion                                                      */
+/* ------------------------------------------------------------------ */
+
+.sw-root[data-reduced] .sw-rope {
+  animation: none;
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sw-rope {
+    animation: none;
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
+}

@@ -1,0 +1,539 @@
+/* "The Marquee" — experience-local art layer for proj-platform-product-launch.
+   Opening night: warm near-black house, a bulb-lit marquee frame, gold
+   letterforms at monumental scale, and the working paperwork below in calm
+   mono. Raw colours permitted here only. */
+
+.mq-root {
+  --mq-house: #17121c;
+  --mq-house-lift: #1f1926;
+  --mq-velvet: #2a1f2e;
+  --mq-ink: #ece4d8;
+  --mq-ink-soft: #b3a898;
+  --mq-faint: #7d7367;
+  --mq-line: #372e3d;
+  --mq-gold: #e8b64c;
+  --mq-gold-deep: #b8862e;
+  --mq-red: #d96a4a;
+  --mq-green: #8fc79a;
+  min-height: 100vh;
+  background: var(--mq-house);
+  color: var(--mq-ink);
+  font-family: 'Inter Variable', system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ------------------------------------------------------------------ */
+/* Chrome                                                              */
+/* ------------------------------------------------------------------ */
+
+.mq-chrome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 2.2rem;
+  border-bottom: 1px solid var(--mq-line);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+}
+
+.mq-chrome-left {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.mq-back {
+  color: var(--mq-ink-soft);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.mq-back:hover,
+.mq-back:focus-visible {
+  color: var(--mq-gold);
+}
+
+.mq-chrome-rule {
+  width: 1px;
+  height: 0.95rem;
+  background: var(--mq-line);
+}
+
+.mq-chrome-mast {
+  font-weight: 500;
+}
+
+.mq-chrome-ref {
+  color: var(--mq-faint);
+}
+
+/* ------------------------------------------------------------------ */
+/* The marquee                                                         */
+/* ------------------------------------------------------------------ */
+
+.mq-main {
+  flex: 1;
+  width: min(68rem, 100% - 3rem);
+  margin: 0 auto;
+  padding: 3rem 0 3.6rem;
+}
+
+.mq-marquee-band {
+  padding-bottom: 2.4rem;
+  border-bottom: 1px solid var(--mq-line);
+  text-align: center;
+}
+
+.mq-marquee {
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto 1.8rem;
+  padding: 2.6rem 2rem 2.8rem;
+  border: 3px solid var(--mq-gold-deep);
+  border-radius: 6px;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 0%, rgba(232, 182, 76, 0.14), transparent 65%),
+    var(--mq-velvet);
+  box-shadow: 0 0 60px rgba(232, 182, 76, 0.12);
+}
+
+/* Bulbs: gold dots running inside the frame. */
+.mq-marquee::before {
+  content: '';
+  position: absolute;
+  inset: 9px;
+  border-radius: 3px;
+  padding: 1px;
+  background:
+    repeating-linear-gradient(90deg, var(--mq-gold) 0 4px, transparent 4px 26px) top / 100% 4px no-repeat,
+    repeating-linear-gradient(90deg, var(--mq-gold) 0 4px, transparent 4px 26px) bottom / 100% 4px no-repeat,
+    repeating-linear-gradient(0deg, var(--mq-gold) 0 4px, transparent 4px 26px) left / 4px 100% no-repeat,
+    repeating-linear-gradient(0deg, var(--mq-gold) 0 4px, transparent 4px 26px) right / 4px 100% no-repeat;
+  opacity: 0.85;
+  animation: mq-bulbs 2.4s steps(2) infinite;
+  pointer-events: none;
+}
+
+@keyframes mq-bulbs {
+  50% {
+    opacity: 0.45;
+  }
+}
+
+.mq-marquee-sweep {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(100deg, transparent 30%, rgba(232, 182, 76, 0.22) 50%, transparent 70%);
+  transform: translateX(-110%);
+  animation: mq-sweep 1.6s cubic-bezier(0.3, 0.5, 0.2, 1) 0.3s forwards;
+}
+
+@keyframes mq-sweep {
+  to {
+    transform: translateX(110%);
+  }
+}
+
+.mq-marquee-top {
+  margin: 0 0 1.2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.34em;
+  color: var(--mq-ink-soft);
+}
+
+.mq-marquee-name {
+  margin: 0 0 1.1rem;
+  font-family: 'Fraunces Variable', serif;
+  font-variation-settings: 'opsz' 144;
+  font-weight: 640;
+  font-size: clamp(2.8rem, 8.5vw, 6.2rem);
+  line-height: 0.98;
+  letter-spacing: 0.03em;
+  color: var(--mq-gold);
+  text-shadow: 0 0 34px rgba(232, 182, 76, 0.35);
+}
+
+.mq-marquee-sub {
+  margin: 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.26em;
+  color: var(--mq-ink-soft);
+}
+
+.mq-statement {
+  margin: 0 auto 1.8rem;
+  max-width: 62ch;
+  font-size: 0.97rem;
+  line-height: 1.65;
+  color: var(--mq-ink-soft);
+}
+
+.mq-figures {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  margin: 0 auto 1.4rem;
+  max-width: 46rem;
+  border-top: 1px solid var(--mq-line);
+  border-bottom: 1px solid var(--mq-line);
+}
+
+.mq-figure {
+  padding: 0.85rem 0.6rem;
+}
+
+.mq-figure + .mq-figure {
+  border-left: 1px solid var(--mq-line);
+}
+
+.mq-figure dt {
+  margin: 0 0 0.35rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  color: var(--mq-faint);
+}
+
+.mq-figure dd {
+  margin: 0;
+  font-family: 'Fraunces Variable', serif;
+  font-variation-settings: 'opsz' 80;
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: var(--mq-gold);
+}
+
+.mq-provenance {
+  margin: 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  color: var(--mq-red);
+}
+
+/* ------------------------------------------------------------------ */
+/* Bands                                                               */
+/* ------------------------------------------------------------------ */
+
+.mq-band {
+  padding: 2.5rem 0 0;
+}
+
+.mq-band-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.9rem;
+  margin: 0 0 1.3rem;
+  font-family: 'Fraunces Variable', serif;
+  font-variation-settings: 'opsz' 90;
+  font-weight: 580;
+  font-size: 1.4rem;
+  color: var(--mq-ink);
+}
+
+.mq-band-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  color: var(--mq-faint);
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------------ */
+/* The programme — three acts                                          */
+/* ------------------------------------------------------------------ */
+
+.mq-acts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: 1rem;
+}
+
+.mq-act {
+  padding: 1.2rem 1.3rem 1.3rem;
+  border: 1px solid var(--mq-line);
+  background: var(--mq-house-lift);
+  border-top: 3px solid var(--mq-line);
+}
+
+.mq-act[data-state='played'] {
+  border-top-color: var(--mq-faint);
+}
+
+.mq-act[data-state='playing'] {
+  border-top-color: var(--mq-gold);
+  background: linear-gradient(180deg, rgba(232, 182, 76, 0.07), transparent 45%), var(--mq-house-lift);
+}
+
+.mq-act[data-state='billed'] {
+  border-top-color: var(--mq-gold-deep);
+  border-top-style: dashed;
+}
+
+.mq-act-numeral {
+  margin: 0 0 0.4rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.24em;
+  color: var(--mq-gold);
+}
+
+.mq-act-name {
+  margin: 0 0 0.3rem;
+  font-family: 'Fraunces Variable', serif;
+  font-variation-settings: 'opsz' 90;
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+
+.mq-act-window {
+  margin: 0 0 0.7rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  color: var(--mq-ink-soft);
+}
+
+.mq-act-body {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--mq-ink-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* The call sheet                                                      */
+/* ------------------------------------------------------------------ */
+
+.mq-call-sheet {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mq-crew {
+  padding: 0.9rem 0 1rem;
+  border-bottom: 1px solid var(--mq-line);
+}
+
+.mq-crew:first-child {
+  border-top: 1px solid var(--mq-line);
+}
+
+.mq-crew-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.9rem;
+  margin-bottom: 0.35rem;
+}
+
+.mq-crew-workstream {
+  flex: 1;
+  min-width: 13rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.mq-crew-lead {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--mq-ink-soft);
+}
+
+.mq-crew-call {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  color: var(--mq-gold);
+}
+
+.mq-crew-status {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  padding: 0.16rem 0.55rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+}
+
+.mq-crew-status[data-status='ready'] { color: var(--mq-green); }
+.mq-crew-status[data-status='rehearsing'] { color: var(--mq-gold); }
+.mq-crew-status[data-status='attention'] { color: var(--mq-red); }
+
+.mq-crew-note {
+  margin: 0;
+  max-width: 78ch;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--mq-ink-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* House checklist + notices                                           */
+/* ------------------------------------------------------------------ */
+
+.mq-columns {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 2.6rem;
+}
+
+@media (max-width: 56rem) {
+  .mq-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mq-house {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mq-lamp-row {
+  display: grid;
+  grid-template-columns: 1.4rem 1fr auto;
+  gap: 0.8rem;
+  align-items: center;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--mq-line);
+}
+
+.mq-lamp-row:first-child {
+  border-top: 1px solid var(--mq-line);
+}
+
+.mq-lamp {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--mq-gold-deep);
+}
+
+.mq-lamp-row[data-lit='true'] .mq-lamp {
+  background: var(--mq-gold);
+  box-shadow: 0 0 10px rgba(232, 182, 76, 0.55);
+}
+
+.mq-lamp-row[data-lit='false'] .mq-lamp {
+  background: transparent;
+}
+
+.mq-lamp-item {
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.mq-lamp-row[data-lit='false'] .mq-lamp-item {
+  color: var(--mq-ink-soft);
+}
+
+.mq-lamp-state {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  color: var(--mq-faint);
+}
+
+.mq-lamp-row[data-lit='true'] .mq-lamp-state {
+  color: var(--mq-gold);
+}
+
+.mq-notices {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mq-notice {
+  display: grid;
+  grid-template-columns: 6.2rem 1fr;
+  gap: 0.9rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--mq-line);
+}
+
+.mq-notice:first-child {
+  border-top: 1px solid var(--mq-line);
+}
+
+.mq-notice-date {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  color: var(--mq-faint);
+  white-space: nowrap;
+}
+
+.mq-notice-text {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--mq-ink-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+.mq-foot {
+  padding: 1.5rem 2.2rem 2rem;
+  border-top: 1px solid var(--mq-line);
+  background: var(--mq-house-lift);
+}
+
+.mq-foot p {
+  margin: 0 0 0.5rem;
+  max-width: 72ch;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--mq-ink-soft);
+}
+
+.mq-foot-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.8rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  color: var(--mq-faint);
+}
+
+/* ------------------------------------------------------------------ */
+/* Reduced motion                                                      */
+/* ------------------------------------------------------------------ */
+
+.mq-root[data-reduced] .mq-marquee::before {
+  animation: none;
+}
+
+.mq-root[data-reduced] .mq-marquee-sweep {
+  animation: none;
+  transform: translateX(110%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mq-marquee::before {
+    animation: none;
+  }
+
+  .mq-marquee-sweep {
+    animation: none;
+    transform: translateX(110%);
+  }
+}

@@ -249,6 +249,16 @@ const UndertakingsRegisterPage = lazy(
       '../../../../experiences/project-pages/proj-regulatory-remediation-programme/RegisterPage.js'
     ),
 );
+const SlipwayPage = lazy(
+  () => import('../../../../experiences/project-pages/proj-cloud-migration-programme/SlipwayPage.js'),
+);
+const TownPlanPage = lazy(
+  () =>
+    import('../../../../experiences/project-pages/proj-data-modernisation-programme/TownPlanPage.js'),
+);
+const MarqueePage = lazy(
+  () => import('../../../../experiences/project-pages/proj-platform-product-launch/MarqueePage.js'),
+);
 
 const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: ComponentType }> = {
   'db-model-monitoring-cockpit': { mood: 'dark', Component: CockpitPage },
@@ -310,6 +320,9 @@ const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: 
   'proj-enterprise-transformation-programme': { mood: 'light', Component: AnnualReportPage },
   'proj-operating-model-redesign': { mood: 'light', Component: CharterPage },
   'proj-regulatory-remediation-programme': { mood: 'light', Component: UndertakingsRegisterPage },
+  'proj-cloud-migration-programme': { mood: 'dark', Component: SlipwayPage },
+  'proj-data-modernisation-programme': { mood: 'light', Component: TownPlanPage },
+  'proj-platform-product-launch': { mood: 'dark', Component: MarqueePage },
 };
 
 /**

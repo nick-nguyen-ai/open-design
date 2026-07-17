@@ -81,6 +81,9 @@ const LIVE_IDS = [
   'proj-enterprise-transformation-programme',
   'proj-operating-model-redesign',
   'proj-regulatory-remediation-programme',
+  'proj-cloud-migration-programme',
+  'proj-data-modernisation-programme',
+  'proj-platform-product-launch',
 ];
 
 /** Demo samples (mirrors data/samples.ts + the /demo/* routes). */
