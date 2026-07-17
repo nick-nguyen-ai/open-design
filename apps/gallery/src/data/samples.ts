@@ -109,6 +109,61 @@ export const SHOWCASE_SAMPLES: readonly ShowcaseSample[] = [
     surface: 'Slide deck',
   },
   {
+    slug: 'https-handshake',
+    previewId: 'demo-https-handshake',
+    title: 'How HTTPS actually works',
+    description:
+      'The TLS 1.3 handshake, certificates, and session keys as a whiteboard walkthrough, in the sketchnote diagram deck.',
+    tool: 'compose_slide_deck',
+    sourceExperienceId: 'deck-dgm-sketchnote',
+    sourceName: 'Field Notebook',
+    surface: 'Slide deck',
+  },
+  {
+    slug: 'payment-rails',
+    previewId: 'demo-payment-rails',
+    title: 'How a card payment moves',
+    description:
+      'Authorisation, clearing, and settlement drawn as engineering sheets, in the blueprint diagram deck.',
+    tool: 'compose_slide_deck',
+    sourceExperienceId: 'deck-dgm-blueprint',
+    sourceName: 'Drafting Board',
+    surface: 'Slide deck',
+  },
+  {
+    slug: 'million-users',
+    previewId: 'demo-million-users',
+    title: 'Scaling to a million users',
+    description:
+      'Load balancers, caches, replicas, and queues as a glowing system story, in the circuit diagram deck.',
+    tool: 'compose_slide_deck',
+    sourceExperienceId: 'deck-dgm-circuit',
+    sourceName: 'Lit Board',
+    surface: 'Slide deck',
+  },
+  {
+    slug: 'kubernetes-anatomy',
+    previewId: 'demo-kubernetes-anatomy',
+    title: 'Kubernetes, walkable',
+    description:
+      'Control plane, nodes, pods, and services as 2.5D dioramas for new joiners, in the isometric diagram deck.',
+    tool: 'compose_slide_deck',
+    sourceExperienceId: 'deck-dgm-isometric',
+    sourceName: 'Studio Floor',
+    surface: 'Slide deck',
+  },
+  {
+    slug: 'caching-field-guide',
+    previewId: 'demo-caching-field-guide',
+    title: 'A field guide to caching',
+    description:
+      'Strategies, eviction, and failure modes edited like a printed manual, in the gazette diagram deck.',
+    tool: 'compose_slide_deck',
+    sourceExperienceId: 'deck-dgm-gazette',
+    sourceName: 'Gazette',
+    surface: 'Slide deck',
+  },
+  {
     slug: 'deepagents',
     previewId: 'demo-deepagents',
     title: 'LangChain deep agents, explained',

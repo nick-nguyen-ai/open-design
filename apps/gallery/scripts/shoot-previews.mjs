@@ -54,6 +54,11 @@ const LIVE_IDS = [
   'deck-sales-pitch',
   'deck-budget-planning',
   'deck-analytics-deep-dive',
+  'deck-dgm-sketchnote',
+  'deck-dgm-blueprint',
+  'deck-dgm-circuit',
+  'deck-dgm-isometric',
+  'deck-dgm-gazette',
 ];
 
 /** Demo samples (mirrors data/samples.ts + the /demo/* routes). */
@@ -67,6 +72,11 @@ const DEMO_SLUGS = [
   'mcp-sample',
   'deepagents',
   'borrow-pilot',
+  'https-handshake',
+  'payment-rails',
+  'million-users',
+  'kubernetes-anatomy',
+  'caching-field-guide',
 ];
 
 /**
