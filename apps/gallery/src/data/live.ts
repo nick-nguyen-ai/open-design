@@ -55,6 +55,9 @@ export const LIVE_EXPERIENCE_IDS = [
   'exp-api-integration-contract',
   'exp-architecture-decision-record',
   'exp-coding-agent-implementation-plan',
+  'exp-agent-workflow',
+  'exp-algorithm-explanation',
+  'exp-data-lineage-map',
 ] as const;
 
 export type LiveExperienceId = (typeof LIVE_EXPERIENCE_IDS)[number];

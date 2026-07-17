@@ -1,0 +1,513 @@
+/* "The Assembly Line" — experience-local art layer (exp-algorithm-explanation).
+   A bright workshop: workshop-white walls, safety-yellow accents, a conveyor
+   rail the stations hang from, and in/out trays of real data per station. */
+
+.al-root {
+  --al-wall: #f6f6f2;
+  --al-wall-deep: #eeeee7;
+  --al-card: #ffffff;
+  --al-ink: #23241f;
+  --al-faint: #6d6e62;
+  --al-rule: #d9d9cd;
+  --al-rule-strong: #adaf9c;
+  --al-yellow: #d99a06;
+  --al-machine: #34576e;
+  --al-verdict: #2f5d43;
+  --al-sans: 'Space Grotesk', 'Segoe UI', sans-serif;
+  --al-body: 'Inter Variable', 'Segoe UI', sans-serif;
+  --al-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  min-height: 100svh;
+  background: linear-gradient(180deg, var(--al-wall) 0%, var(--al-wall-deep) 100%);
+  color: var(--al-ink);
+  font-family: var(--al-body);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+/* ---------------------------------------------------------------- */
+/* Chrome                                                             */
+/* ---------------------------------------------------------------- */
+
+.al-chrome {
+  border-bottom: 3px solid var(--al-yellow);
+  padding: 14px clamp(20px, 5vw, 64px) 10px;
+  background: var(--al-wall);
+}
+
+.al-chrome-row {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-family: var(--al-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--al-faint);
+}
+
+.al-chrome-mast {
+  color: var(--al-ink);
+  font-weight: 500;
+}
+
+.al-chrome-row > span:last-child {
+  margin-left: auto;
+}
+
+.al-chrome-row-sub {
+  margin-top: 6px;
+  font-size: 10px;
+  justify-content: flex-end;
+}
+
+.al-provenance {
+  color: var(--al-yellow);
+}
+
+.al-back {
+  color: var(--al-ink);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.al-back:hover,
+.al-back:focus-visible {
+  color: var(--al-machine);
+}
+
+/* ---------------------------------------------------------------- */
+/* Line (hero)                                                        */
+/* ---------------------------------------------------------------- */
+
+.al-main {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 56px) 40px;
+}
+
+.al-line {
+  padding: clamp(30px, 5vh, 52px) 0 26px;
+  border-bottom: 1px solid var(--al-rule-strong);
+}
+
+.al-kicker {
+  font-family: var(--al-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--al-faint);
+  margin: 0 0 12px;
+}
+
+.al-statement {
+  font-family: var(--al-sans);
+  font-size: clamp(34px, 5.4vw, 60px);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  margin: 0;
+  max-width: 24ch;
+}
+
+.al-subline {
+  max-width: 70ch;
+  margin: 16px 0 0;
+  font-size: 15.5px;
+  color: var(--al-faint);
+}
+
+.al-figures {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 24px 0 0;
+  border: 1px solid var(--al-rule-strong);
+  background: var(--al-card);
+  width: fit-content;
+}
+
+.al-figure {
+  padding: 12px 22px;
+  border-right: 1px solid var(--al-rule);
+}
+
+.al-figure:last-child {
+  border-right: none;
+}
+
+.al-figure dt {
+  font-family: var(--al-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  color: var(--al-faint);
+}
+
+.al-figure dd {
+  margin: 4px 0 0;
+  font-family: var(--al-mono);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--al-machine);
+}
+
+/* ---------------------------------------------------------------- */
+/* Bands                                                              */
+/* ---------------------------------------------------------------- */
+
+.al-band {
+  padding: 28px 0 8px;
+  position: relative;
+}
+
+.al-band-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-family: var(--al-sans);
+  font-size: 21px;
+  font-weight: 700;
+  margin: 0 0 18px;
+}
+
+.al-band-sub {
+  margin-left: auto;
+  font-family: var(--al-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--al-faint);
+  font-weight: 400;
+}
+
+/* ---------------------------------------------------------------- */
+/* The belt — stations hang from a conveyor rail                      */
+/* ---------------------------------------------------------------- */
+
+.al-belt-rail {
+  position: absolute;
+  left: 24px;
+  top: 84px;
+  bottom: 26px;
+  width: 4px;
+  background: repeating-linear-gradient(
+    180deg,
+    var(--al-yellow) 0 14px,
+    var(--al-ink) 14px 20px
+  );
+  border-radius: 2px;
+  opacity: 0.75;
+}
+
+.al-stations {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 62px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.al-station {
+  position: relative;
+  border: 1px solid var(--al-rule-strong);
+  background: var(--al-card);
+  padding: 18px 22px 14px;
+  box-shadow: 0 10px 26px rgba(35, 36, 31, 0.07);
+  opacity: 0;
+  transform: translateX(14px);
+  animation: al-arrive 0.5s cubic-bezier(0.2, 0.6, 0.2, 1) forwards;
+  animation-delay: calc(var(--al-station, 0) * 140ms + 100ms);
+}
+
+.al-root[data-reduced] .al-station {
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .al-station {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+@keyframes al-arrive {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Hanger from the rail to each station. */
+.al-station::before {
+  content: '';
+  position: absolute;
+  left: -38px;
+  top: 30px;
+  width: 38px;
+  height: 2px;
+  background: var(--al-rule-strong);
+}
+
+.al-station::after {
+  content: '';
+  position: absolute;
+  left: -44px;
+  top: 25px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--al-card);
+  border: 3px solid var(--al-yellow);
+}
+
+.al-station-head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.al-station-no {
+  font-family: var(--al-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--al-card);
+  background: var(--al-machine);
+  padding: 3px 9px;
+  font-weight: 600;
+}
+
+.al-station:first-child .al-station-no,
+.al-station:last-child .al-station-no {
+  background: var(--al-yellow);
+  color: var(--al-ink);
+}
+
+.al-station-name {
+  margin: 0;
+  font-family: var(--al-sans);
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.al-station-operation {
+  margin: 10px 0 0;
+  font-size: 14.5px;
+  max-width: 76ch;
+}
+
+.al-trays {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 34px minmax(0, 1fr);
+  gap: 12px;
+  align-items: stretch;
+  margin-top: 14px;
+}
+
+.al-tray {
+  border: 1px solid var(--al-rule);
+  background: #fbfbf6;
+  padding: 10px 14px;
+}
+
+.al-tray-label {
+  margin: 0 0 8px;
+  font-family: var(--al-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--al-faint);
+  border-bottom: 1px dotted var(--al-rule-strong);
+  padding-bottom: 6px;
+}
+
+.al-tray-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 10px;
+  font-family: var(--al-mono);
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+
+.al-tray-items li {
+  background: rgba(52, 87, 110, 0.07);
+  padding: 2px 7px;
+  border-radius: 3px;
+}
+
+.al-tray-arrow {
+  align-self: center;
+  text-align: center;
+  font-size: 18px;
+  color: var(--al-yellow);
+  font-weight: 700;
+}
+
+.al-station-why {
+  margin: 12px 0 0;
+  font-size: 13px;
+  color: var(--al-faint);
+  border-left: 3px solid var(--al-yellow);
+  padding-left: 12px;
+  max-width: 80ch;
+}
+
+.al-why-label {
+  font-family: var(--al-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--al-yellow);
+  margin-right: 8px;
+  font-weight: 600;
+}
+
+/* ---------------------------------------------------------------- */
+/* Why it works + shop notes                                          */
+/* ---------------------------------------------------------------- */
+
+.al-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 36px;
+  border-top: 1px solid var(--al-rule-strong);
+  margin-top: 28px;
+}
+
+.al-columns .al-band {
+  border-top: none;
+}
+
+.al-points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.al-point {
+  display: flex;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px dotted var(--al-rule-strong);
+}
+
+.al-point:last-child {
+  border-bottom: none;
+}
+
+.al-point-num {
+  font-family: var(--al-mono);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--al-yellow);
+}
+
+.al-point-head {
+  margin: 0;
+  font-weight: 650;
+  font-size: 15px;
+}
+
+.al-point-body {
+  margin: 5px 0 0;
+  font-size: 13.5px;
+  color: var(--al-faint);
+}
+
+.al-notes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.al-note {
+  border: 1px dashed var(--al-rule-strong);
+  background: #fbfbf6;
+  padding: 12px 16px;
+  font-size: 13px;
+  color: var(--al-faint);
+}
+
+.al-note::first-line {
+  color: var(--al-ink);
+}
+
+/* ---------------------------------------------------------------- */
+/* Foot                                                               */
+/* ---------------------------------------------------------------- */
+
+.al-foot {
+  border-top: 3px solid var(--al-yellow);
+  margin-top: 26px;
+  padding: 14px clamp(20px, 5vw, 64px) 34px;
+  color: var(--al-faint);
+  font-size: 12.5px;
+}
+
+.al-foot p {
+  max-width: 84ch;
+  margin: 0 auto;
+}
+
+.al-foot-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-family: var(--al-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  margin-top: 10px !important;
+}
+
+.al-foot-line span:first-child {
+  color: var(--al-yellow);
+}
+
+/* ---------------------------------------------------------------- */
+/* Responsive                                                         */
+/* ---------------------------------------------------------------- */
+
+@media (max-width: 1020px) {
+  .al-columns {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .al-belt-rail {
+    display: none;
+  }
+
+  .al-stations {
+    padding-left: 0;
+  }
+
+  .al-station::before,
+  .al-station::after {
+    display: none;
+  }
+
+  .al-trays {
+    grid-template-columns: 1fr;
+  }
+
+  .al-tray-arrow {
+    transform: rotate(90deg);
+  }
+
+  .al-figures {
+    width: 100%;
+  }
+
+  .al-figure {
+    flex: 1;
+    padding: 10px 14px;
+  }
+}

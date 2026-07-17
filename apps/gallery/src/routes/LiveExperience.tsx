@@ -215,6 +215,15 @@ const WorkOrderPage = lazy(
       '../../../../experiences/explainers/exp-coding-agent-implementation-plan/WorkOrderPage.js'
     ),
 );
+const SignalBoxPage = lazy(
+  () => import('../../../../experiences/explainers/exp-agent-workflow/SignalBoxPage.js'),
+);
+const AssemblyLinePage = lazy(
+  () => import('../../../../experiences/explainers/exp-algorithm-explanation/AssemblyLinePage.js'),
+);
+const RiverAtlasPage = lazy(
+  () => import('../../../../experiences/explainers/exp-data-lineage-map/RiverAtlasPage.js'),
+);
 
 const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: ComponentType }> = {
   'db-model-monitoring-cockpit': { mood: 'dark', Component: CockpitPage },
@@ -267,6 +276,9 @@ const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: 
   'exp-api-integration-contract': { mood: 'light', Component: CounterpartyAgreementPage },
   'exp-architecture-decision-record': { mood: 'light', Component: MinuteBookPage },
   'exp-coding-agent-implementation-plan': { mood: 'light', Component: WorkOrderPage },
+  'exp-agent-workflow': { mood: 'dark', Component: SignalBoxPage },
+  'exp-algorithm-explanation': { mood: 'light', Component: AssemblyLinePage },
+  'exp-data-lineage-map': { mood: 'light', Component: RiverAtlasPage },
 };
 
 /**

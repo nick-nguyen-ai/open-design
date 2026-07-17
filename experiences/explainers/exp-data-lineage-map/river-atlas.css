@@ -1,0 +1,536 @@
+/* "The River Atlas" — experience-local art layer (exp-data-lineage-map).
+   A cartographic atlas plate: cream survey paper, blue-green waterway inks
+   that flow in on arrival, lock gates, italic atlas labels, a gazetteer. */
+
+.ra-root {
+  --ra-paper: #f8f5ea;
+  --ra-paper-deep: #f0ecdc;
+  --ra-ink: #23241d;
+  --ra-faint: #6e6a58;
+  --ra-rule: #ddd5bd;
+  --ra-rule-strong: #b5ab8a;
+  --ra-water: #23667a;
+  --ra-water-deep: #174c5c;
+  --ra-earth: #8a6a3b;
+  --ra-red: #9c3123;
+  --ra-serif: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
+  --ra-sans: 'Inter Variable', 'Segoe UI', sans-serif;
+  --ra-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  min-height: 100svh;
+  background:
+    radial-gradient(900px 400px at 85% -5%, rgba(35, 102, 122, 0.05), transparent 60%),
+    linear-gradient(180deg, var(--ra-paper) 0%, var(--ra-paper-deep) 100%);
+  color: var(--ra-ink);
+  font-family: var(--ra-sans);
+  font-size: 15px;
+  line-height: 1.58;
+}
+
+/* ---------------------------------------------------------------- */
+/* Chrome                                                             */
+/* ---------------------------------------------------------------- */
+
+.ra-chrome {
+  border-bottom: 2px solid var(--ra-ink);
+  padding: 14px clamp(20px, 5vw, 64px) 10px;
+}
+
+.ra-chrome-row {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-family: var(--ra-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--ra-faint);
+}
+
+.ra-chrome-mast {
+  color: var(--ra-ink);
+  font-weight: 500;
+}
+
+.ra-chrome-row > span:last-child {
+  margin-left: auto;
+}
+
+.ra-chrome-row-sub {
+  margin-top: 6px;
+  font-size: 10px;
+  justify-content: flex-end;
+}
+
+.ra-provenance {
+  color: var(--ra-red);
+}
+
+.ra-back {
+  color: var(--ra-ink);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.ra-back:hover,
+.ra-back:focus-visible {
+  color: var(--ra-water);
+}
+
+/* ---------------------------------------------------------------- */
+/* Atlas (hero)                                                       */
+/* ---------------------------------------------------------------- */
+
+.ra-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 56px) 40px;
+}
+
+.ra-atlas {
+  padding: clamp(32px, 5vh, 56px) 0 28px;
+  border-bottom: 1px solid var(--ra-rule-strong);
+}
+
+.ra-kicker {
+  font-family: var(--ra-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--ra-faint);
+  margin: 0 0 12px;
+}
+
+.ra-statement {
+  font-family: var(--ra-serif);
+  font-variation-settings: 'opsz' 144, 'wght' 540;
+  font-size: clamp(36px, 5.8vw, 64px);
+  line-height: 1.03;
+  letter-spacing: -0.012em;
+  margin: 0;
+  max-width: 24ch;
+}
+
+.ra-subline {
+  max-width: 70ch;
+  margin: 18px 0 0;
+  font-size: 15.5px;
+}
+
+.ra-figures {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 26px 0 0;
+  border: 1px solid var(--ra-rule-strong);
+  background: rgba(255, 255, 255, 0.5);
+  width: fit-content;
+}
+
+.ra-figure {
+  padding: 12px 22px;
+  border-right: 1px solid var(--ra-rule);
+}
+
+.ra-figure:last-child {
+  border-right: none;
+}
+
+.ra-figure dt {
+  font-family: var(--ra-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  color: var(--ra-faint);
+}
+
+.ra-figure dd {
+  margin: 4px 0 0;
+  font-family: var(--ra-serif);
+  font-variation-settings: 'opsz' 60, 'wght' 520;
+  font-size: 30px;
+  color: var(--ra-water-deep);
+}
+
+/* ---------------------------------------------------------------- */
+/* Bands                                                              */
+/* ---------------------------------------------------------------- */
+
+.ra-band {
+  padding: 28px 0 8px;
+}
+
+.ra-band + .ra-band {
+  border-top: 1px solid var(--ra-rule-strong);
+}
+
+.ra-band-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-family: var(--ra-serif);
+  font-variation-settings: 'opsz' 40, 'wght' 540;
+  font-size: 23px;
+  margin: 0 0 16px;
+}
+
+.ra-band-sub {
+  margin-left: auto;
+  font-family: var(--ra-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--ra-faint);
+  font-weight: 400;
+}
+
+/* ---------------------------------------------------------------- */
+/* The plate                                                          */
+/* ---------------------------------------------------------------- */
+
+.ra-plate-figure {
+  margin: 0;
+  border: 1px solid var(--ra-rule-strong);
+  outline: 4px solid rgba(181, 171, 138, 0.25);
+  outline-offset: -10px;
+  background:
+    radial-gradient(600px 260px at 30% 30%, rgba(138, 106, 59, 0.05), transparent 60%),
+    #fdfbf2;
+  box-shadow: 0 14px 36px rgba(35, 36, 29, 0.09);
+}
+
+.ra-plate-scroll {
+  overflow-x: auto;
+}
+
+.ra-plate {
+  display: block;
+  width: 100%;
+  min-width: 860px;
+  height: auto;
+}
+
+.ra-water {
+  fill: none;
+  stroke: var(--ra-water);
+  stroke-linecap: round;
+  opacity: 0.85;
+  stroke-dasharray: 1400;
+  stroke-dashoffset: 1400;
+  animation: ra-flow 1.6s cubic-bezier(0.35, 0, 0.2, 1) forwards;
+  animation-delay: var(--ra-flow-delay, 0ms);
+}
+
+.ra-root[data-reduced] .ra-water {
+  stroke-dashoffset: 0;
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ra-water {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+}
+
+@keyframes ra-flow {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.ra-spring {
+  fill: #fdfbf2;
+  stroke: var(--ra-water-deep);
+  stroke-width: 2.5;
+}
+
+.ra-spring-ring {
+  fill: none;
+  stroke: var(--ra-water);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+}
+
+.ra-lock {
+  fill: none;
+  stroke: var(--ra-earth);
+  stroke-width: 2;
+}
+
+.ra-lock-gate {
+  fill: #fdfbf2;
+  stroke: var(--ra-earth);
+  stroke-width: 2;
+}
+
+.ra-label {
+  font-family: var(--ra-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  fill: var(--ra-faint);
+  paint-order: stroke;
+  stroke: #fdfbf2;
+  stroke-width: 4;
+}
+
+.ra-label-spring {
+  fill: var(--ra-water-deep);
+  font-weight: 600;
+}
+
+.ra-label-lock {
+  fill: var(--ra-earth);
+  font-weight: 600;
+}
+
+.ra-label-reach {
+  font-family: var(--ra-serif);
+  font-variation-settings: 'opsz' 30, 'wght' 480;
+  font-style: italic;
+  font-size: 15px;
+  letter-spacing: 0.06em;
+  fill: var(--ra-water-deep);
+}
+
+.ra-label-delta {
+  fill: var(--ra-ink);
+  font-weight: 600;
+}
+
+.ra-plate-caption {
+  border-top: 1px solid var(--ra-rule);
+  padding: 10px 16px;
+}
+
+.ra-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  font-family: var(--ra-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  color: var(--ra-faint);
+}
+
+.ra-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.ra-legend-spring {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #fdfbf2;
+  border: 2.5px solid var(--ra-water-deep);
+}
+
+.ra-legend-lock {
+  width: 18px;
+  height: 8px;
+  background: #fdfbf2;
+  border: 2px solid var(--ra-earth);
+  border-radius: 2px;
+}
+
+.ra-legend-river {
+  width: 20px;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--ra-water);
+}
+
+/* ---------------------------------------------------------------- */
+/* Gazetteer                                                          */
+/* ---------------------------------------------------------------- */
+
+.ra-gazetteer-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--ra-rule-strong);
+  background: #fdfbf2;
+}
+
+.ra-gazetteer {
+  width: 100%;
+  min-width: 820px;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.ra-gazetteer th[scope='col'] {
+  text-align: left;
+  font-family: var(--ra-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--ra-faint);
+  font-weight: 500;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--ra-rule-strong);
+}
+
+.ra-gazetteer td,
+.ra-gazetteer th[scope='row'] {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--ra-rule);
+  text-align: left;
+  vertical-align: top;
+}
+
+.ra-gazetteer tr:last-child td,
+.ra-gazetteer tr:last-child th {
+  border-bottom: none;
+}
+
+.ra-gazetteer th[scope='row'] {
+  font-family: var(--ra-serif);
+  font-variation-settings: 'opsz' 20, 'wght' 540;
+  font-size: 14.5px;
+  white-space: nowrap;
+}
+
+.ra-gazetteer-kind {
+  font-family: var(--ra-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  color: var(--ra-water-deep);
+  white-space: nowrap;
+}
+
+tr[data-kind='lock'] .ra-gazetteer-kind {
+  color: var(--ra-earth);
+}
+
+.ra-gazetteer-fresh {
+  font-family: var(--ra-mono);
+  font-size: 11px;
+  color: var(--ra-faint);
+  white-space: nowrap;
+}
+
+.ra-gazetteer-cert {
+  font-family: var(--ra-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  color: #2f5d43;
+  white-space: nowrap;
+}
+
+.ra-gazetteer-cert[data-certified='false'] {
+  color: var(--ra-red);
+}
+
+.ra-gazetteer-note {
+  color: var(--ra-faint);
+  font-size: 12.5px;
+}
+
+/* ---------------------------------------------------------------- */
+/* The trace                                                          */
+/* ---------------------------------------------------------------- */
+
+.ra-trace {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.ra-trace::before {
+  content: '';
+  position: absolute;
+  left: 55px;
+  top: 12px;
+  bottom: 12px;
+  width: 2px;
+  background: repeating-linear-gradient(180deg, var(--ra-water) 0 8px, transparent 8px 14px);
+  opacity: 0.6;
+}
+
+.ra-trace-step {
+  display: grid;
+  grid-template-columns: 112px 1fr;
+  gap: 20px;
+  padding: 12px 0;
+}
+
+.ra-trace-marker {
+  font-family: var(--ra-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: #fdfbf2;
+  background: var(--ra-water-deep);
+  align-self: start;
+  justify-self: start;
+  padding: 4px 10px;
+  border-radius: 999px;
+  position: relative;
+  z-index: 1;
+}
+
+.ra-trace-place {
+  margin: 0;
+  font-family: var(--ra-serif);
+  font-variation-settings: 'opsz' 24, 'wght' 560;
+  font-size: 16.5px;
+}
+
+.ra-trace-finding {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--ra-faint);
+  max-width: 78ch;
+}
+
+/* ---------------------------------------------------------------- */
+/* Foot                                                               */
+/* ---------------------------------------------------------------- */
+
+.ra-foot {
+  border-top: 2px solid var(--ra-ink);
+  margin-top: 26px;
+  padding: 14px clamp(20px, 5vw, 64px) 34px;
+  color: var(--ra-faint);
+  font-size: 12.5px;
+}
+
+.ra-foot p {
+  max-width: 84ch;
+  margin: 0 auto;
+}
+
+.ra-foot-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-family: var(--ra-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  margin-top: 10px !important;
+}
+
+.ra-foot-line span:first-child {
+  color: var(--ra-red);
+}
+
+/* ---------------------------------------------------------------- */
+/* Responsive                                                         */
+/* ---------------------------------------------------------------- */
+
+@media (max-width: 720px) {
+  .ra-figures {
+    width: 100%;
+  }
+
+  .ra-figure {
+    flex: 1;
+    padding: 10px 14px;
+  }
+
+  .ra-trace::before {
+    display: none;
+  }
+
+  .ra-trace-step {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}

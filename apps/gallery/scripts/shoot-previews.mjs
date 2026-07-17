@@ -72,6 +72,9 @@ const LIVE_IDS = [
   'exp-api-integration-contract',
   'exp-architecture-decision-record',
   'exp-coding-agent-implementation-plan',
+  'exp-agent-workflow',
+  'exp-algorithm-explanation',
+  'exp-data-lineage-map',
 ];
 
 /** Demo samples (mirrors data/samples.ts + the /demo/* routes). */

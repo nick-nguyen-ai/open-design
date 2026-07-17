@@ -341,6 +341,50 @@ const PART_ID_WORLDS: readonly PartIdWorld[] = [
       'exp-coding-agent-implementation-plan/traveler/operations',
     ],
   },
+  {
+    id: 'exp-agent-workflow',
+    rootTestId: 'live-signal-box',
+    expectedParts: [
+      'exp-agent-workflow/box',
+      'exp-agent-workflow/box/figures',
+      'exp-agent-workflow/chrome',
+      'exp-agent-workflow/diagram',
+      'exp-agent-workflow/diagram/interlocking',
+      'exp-agent-workflow/levers',
+      'exp-agent-workflow/levers/frame-table',
+      'exp-agent-workflow/run-log',
+      'exp-agent-workflow/sidings',
+    ],
+  },
+  {
+    id: 'exp-algorithm-explanation',
+    rootTestId: 'live-assembly-line',
+    expectedParts: [
+      'exp-algorithm-explanation/belt',
+      'exp-algorithm-explanation/belt/stations',
+      'exp-algorithm-explanation/chrome',
+      'exp-algorithm-explanation/line',
+      'exp-algorithm-explanation/line/figures',
+      'exp-algorithm-explanation/shop-notes',
+      'exp-algorithm-explanation/works',
+      'exp-algorithm-explanation/works/points',
+    ],
+  },
+  {
+    id: 'exp-data-lineage-map',
+    rootTestId: 'live-river-atlas',
+    expectedParts: [
+      'exp-data-lineage-map/atlas',
+      'exp-data-lineage-map/atlas/figures',
+      'exp-data-lineage-map/chrome',
+      'exp-data-lineage-map/gazetteer',
+      'exp-data-lineage-map/gazetteer/table',
+      'exp-data-lineage-map/plate',
+      'exp-data-lineage-map/plate/watershed',
+      'exp-data-lineage-map/trace',
+      'exp-data-lineage-map/trace/steps',
+    ],
+  },
 ];
 
 const WELL_FORMED = /^[a-z0-9-]+\/[a-z0-9-]+(\/[a-z0-9-]+)?$/;
