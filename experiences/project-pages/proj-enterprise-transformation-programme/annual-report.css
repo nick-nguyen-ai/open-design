@@ -1,0 +1,484 @@
+/* "The Annual Report" — experience-local art layer for
+   proj-enterprise-transformation-programme. A printed annual report:
+   cream paper, Fraunces serif, a statement table set like accounts,
+   numbered notes. Deliberately simple. Raw colours permitted here only. */
+
+.ar-root {
+  --ar-paper: #faf6ee;
+  --ar-paper-deep: #f3ecdd;
+  --ar-ink: #22201a;
+  --ar-ink-soft: #5c564a;
+  --ar-faint: #8a8272;
+  --ar-rule: #d8cfba;
+  --ar-rule-strong: #b4a888;
+  --ar-accent: #8c2f1b;
+  --ar-ahead: #1d5c3a;
+  --ar-behind: #8c2f1b;
+  --ar-on: #5c564a;
+  min-height: 100vh;
+  background: var(--ar-paper);
+  color: var(--ar-ink);
+  font-family: 'Inter Variable', system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ------------------------------------------------------------------ */
+/* Chrome                                                              */
+/* ------------------------------------------------------------------ */
+
+.ar-chrome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 2.2rem;
+  border-bottom: 2px solid var(--ar-ink);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+}
+
+.ar-chrome-left {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.ar-back {
+  color: var(--ar-ink-soft);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.ar-back:hover,
+.ar-back:focus-visible {
+  color: var(--ar-accent);
+}
+
+.ar-chrome-rule {
+  width: 1px;
+  height: 0.95rem;
+  background: var(--ar-rule-strong);
+}
+
+.ar-chrome-mast {
+  font-weight: 500;
+  color: var(--ar-ink);
+}
+
+.ar-chrome-ref {
+  color: var(--ar-faint);
+}
+
+/* ------------------------------------------------------------------ */
+/* Cover — horizon-sweep                                               */
+/* ------------------------------------------------------------------ */
+
+.ar-main {
+  flex: 1;
+  width: min(66rem, 100% - 3rem);
+  margin: 0 auto;
+  padding: 3.2rem 0 3.6rem;
+}
+
+.ar-cover {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 2.6rem;
+  border-bottom: 2px solid var(--ar-ink);
+}
+
+.ar-cover-sweep {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 20%, rgba(255, 252, 240, 0.9) 46%, rgba(180, 168, 136, 0.18) 52%, transparent 78%);
+  transform: translateX(-110%);
+  animation: ar-sweep 1.4s cubic-bezier(0.3, 0.5, 0.2, 1) 0.15s forwards;
+}
+
+@keyframes ar-sweep {
+  to {
+    transform: translateX(110%);
+  }
+}
+
+.ar-kicker {
+  margin: 0 0 1.2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  color: var(--ar-accent);
+}
+
+.ar-title {
+  margin: 0 0 1.1rem;
+  max-width: 21ch;
+  font-family: 'Fraunces Variable', serif;
+  font-variation-settings: 'opsz' 120;
+  font-weight: 560;
+  font-size: clamp(2.1rem, 4.6vw, 3.4rem);
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+}
+
+.ar-subline {
+  margin: 0 0 1.8rem;
+  max-width: 62ch;
+  font-size: 0.98rem;
+  line-height: 1.62;
+  color: var(--ar-ink-soft);
+}
+
+.ar-figures {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: 0;
+  margin: 0 0 1.4rem;
+  border-top: 1px solid var(--ar-rule-strong);
+  border-bottom: 1px solid var(--ar-rule-strong);
+}
+
+.ar-figure {
+  padding: 0.85rem 1rem 0.9rem 0;
+}
+
+.ar-figure + .ar-figure {
+  padding-left: 1rem;
+  border-left: 1px solid var(--ar-rule);
+}
+
+.ar-figure dt {
+  margin: 0 0 0.35rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  color: var(--ar-faint);
+}
+
+.ar-figure dd {
+  margin: 0;
+  font-family: 'Fraunces Variable', serif;
+  font-variation-settings: 'opsz' 60;
+  font-weight: 580;
+  font-size: 1.55rem;
+}
+
+.ar-provenance {
+  margin: 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  color: var(--ar-accent);
+}
+
+/* ------------------------------------------------------------------ */
+/* Bands                                                               */
+/* ------------------------------------------------------------------ */
+
+.ar-band {
+  padding: 2.5rem 0 0;
+}
+
+.ar-band-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.9rem;
+  margin: 0 0 1.4rem;
+  font-family: 'Fraunces Variable', serif;
+  font-variation-settings: 'opsz' 90;
+  font-weight: 580;
+  font-size: 1.45rem;
+  letter-spacing: -0.01em;
+}
+
+.ar-band-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.66rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  color: var(--ar-faint);
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------------ */
+/* Chairman's letter                                                   */
+/* ------------------------------------------------------------------ */
+
+.ar-letter {
+  max-width: 66ch;
+}
+
+.ar-letter-para {
+  margin: 0 0 1.1rem;
+  font-family: 'Fraunces Variable', serif;
+  font-variation-settings: 'opsz' 40;
+  font-weight: 420;
+  font-size: 1.06rem;
+  line-height: 1.7;
+}
+
+.ar-letter-para:first-of-type::first-letter {
+  font-size: 3.1em;
+  float: left;
+  line-height: 0.82;
+  padding: 0.06em 0.12em 0 0;
+  font-weight: 580;
+  color: var(--ar-accent);
+}
+
+.ar-letter-signoff {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  margin: 1.6rem 0 0;
+}
+
+.ar-signature {
+  font-family: 'Fraunces Variable', serif;
+  font-variation-settings: 'opsz' 80;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: var(--ar-ink);
+}
+
+.ar-signoff-role {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.15em;
+  color: var(--ar-faint);
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------------ */
+/* Statement of committed outcomes                                     */
+/* ------------------------------------------------------------------ */
+
+.ar-statement {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.ar-statement thead th {
+  padding: 0 0.9rem 0.55rem;
+  border-bottom: 2px solid var(--ar-ink);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: var(--ar-faint);
+  text-align: right;
+}
+
+.ar-statement thead th:first-child {
+  text-align: left;
+  padding-left: 0;
+}
+
+.ar-line th,
+.ar-line td {
+  padding: 0.8rem 0.9rem;
+  border-bottom: 1px solid var(--ar-rule);
+  vertical-align: baseline;
+}
+
+.ar-line th {
+  padding-left: 0;
+  text-align: left;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.ar-line {
+  opacity: 0;
+  animation: ar-seat 0.5s cubic-bezier(0.2, 0.6, 0.2, 1) forwards;
+}
+
+.ar-line:nth-child(1) { animation-delay: 0.25s; }
+.ar-line:nth-child(2) { animation-delay: 0.35s; }
+.ar-line:nth-child(3) { animation-delay: 0.45s; }
+.ar-line:nth-child(4) { animation-delay: 0.55s; }
+.ar-line:nth-child(5) { animation-delay: 0.65s; }
+.ar-line:nth-child(6) { animation-delay: 0.75s; }
+
+@keyframes ar-seat {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.ar-note-ref {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  color: var(--ar-accent);
+}
+
+.ar-num {
+  text-align: right;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.ar-variance {
+  font-weight: 500;
+}
+
+.ar-line[data-tone='ahead'] .ar-variance { color: var(--ar-ahead); }
+.ar-line[data-tone='behind'] .ar-variance { color: var(--ar-behind); }
+.ar-line[data-tone='on'] .ar-variance { color: var(--ar-on); }
+
+.ar-tone {
+  display: inline-block;
+  margin-left: 0.6rem;
+  padding: 0.1rem 0.45rem;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+}
+
+/* ------------------------------------------------------------------ */
+/* Notes to the accounts                                               */
+/* ------------------------------------------------------------------ */
+
+.ar-notes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+  max-width: 74ch;
+}
+
+.ar-note {
+  display: grid;
+  grid-template-columns: 5.4rem 1fr;
+  gap: 1.1rem;
+  padding: 1.05rem 0;
+  border-bottom: 1px solid var(--ar-rule);
+}
+
+.ar-note:first-child {
+  border-top: 1px solid var(--ar-rule-strong);
+}
+
+.ar-note-no {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: var(--ar-accent);
+  padding-top: 0.2rem;
+}
+
+.ar-note-title {
+  margin: 0 0 0.3rem;
+  font-family: 'Fraunces Variable', serif;
+  font-variation-settings: 'opsz' 70;
+  font-weight: 560;
+  font-size: 1.02rem;
+}
+
+.ar-note-body {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--ar-ink-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* Signatures                                                          */
+/* ------------------------------------------------------------------ */
+
+.ar-signers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3.5rem;
+  padding: 0.6rem 0 0.4rem;
+}
+
+.ar-signer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 15rem;
+}
+
+.ar-signer-rule {
+  height: 1px;
+  background: var(--ar-ink);
+}
+
+.ar-signer-role {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  color: var(--ar-faint);
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+.ar-foot {
+  padding: 1.5rem 2.2rem 2rem;
+  border-top: 2px solid var(--ar-ink);
+  background: var(--ar-paper-deep);
+}
+
+.ar-foot p {
+  margin: 0 0 0.5rem;
+  max-width: 72ch;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--ar-ink-soft);
+}
+
+.ar-foot-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.8rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  color: var(--ar-faint);
+}
+
+/* ------------------------------------------------------------------ */
+/* Reduced motion                                                      */
+/* ------------------------------------------------------------------ */
+
+.ar-root[data-reduced] .ar-cover-sweep {
+  animation: none;
+  transform: translateX(110%);
+}
+
+.ar-root[data-reduced] .ar-line {
+  animation: none;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ar-cover-sweep {
+    animation: none;
+    transform: translateX(110%);
+  }
+
+  .ar-line {
+    animation: none;
+    opacity: 1;
+  }
+}

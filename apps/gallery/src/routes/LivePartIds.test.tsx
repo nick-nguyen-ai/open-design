@@ -430,6 +430,51 @@ const PART_ID_WORLDS: readonly PartIdWorld[] = [
       'exp-testing-validation-strategy/stand/figures',
     ],
   },
+  {
+    id: 'proj-enterprise-transformation-programme',
+    rootTestId: 'live-annual-report',
+    expectedParts: [
+      'proj-enterprise-transformation-programme/chrome',
+      'proj-enterprise-transformation-programme/cover',
+      'proj-enterprise-transformation-programme/cover/figures',
+      'proj-enterprise-transformation-programme/letter',
+      'proj-enterprise-transformation-programme/notes',
+      'proj-enterprise-transformation-programme/notes/note-entries',
+      'proj-enterprise-transformation-programme/signatures',
+      'proj-enterprise-transformation-programme/statement',
+      'proj-enterprise-transformation-programme/statement/outcome-lines',
+    ],
+  },
+  {
+    id: 'proj-operating-model-redesign',
+    rootTestId: 'live-charter',
+    expectedParts: [
+      'proj-operating-model-redesign/articles',
+      'proj-operating-model-redesign/articles/article-entries',
+      'proj-operating-model-redesign/chrome',
+      'proj-operating-model-redesign/cover',
+      'proj-operating-model-redesign/cover/figures',
+      'proj-operating-model-redesign/custodians',
+      'proj-operating-model-redesign/preamble',
+      'proj-operating-model-redesign/transition',
+      'proj-operating-model-redesign/transition/schedule',
+    ],
+  },
+  {
+    id: 'proj-regulatory-remediation-programme',
+    rootTestId: 'live-undertakings-register',
+    expectedParts: [
+      'proj-regulatory-remediation-programme/attestation',
+      'proj-regulatory-remediation-programme/chrome',
+      'proj-regulatory-remediation-programme/cover',
+      'proj-regulatory-remediation-programme/cover/figures',
+      'proj-regulatory-remediation-programme/reading',
+      'proj-regulatory-remediation-programme/record',
+      'proj-regulatory-remediation-programme/record/on-time-chart',
+      'proj-regulatory-remediation-programme/register',
+      'proj-regulatory-remediation-programme/register/undertaking-rows',
+    ],
+  },
 ];
 
 const WELL_FORMED = /^[a-z0-9-]+\/[a-z0-9-]+(\/[a-z0-9-]+)?$/;

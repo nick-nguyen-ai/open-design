@@ -234,6 +234,21 @@ const TestStandPage = lazy(
   () =>
     import('../../../../experiences/explainers/exp-testing-validation-strategy/TestStandPage.js'),
 );
+const AnnualReportPage = lazy(
+  () =>
+    import(
+      '../../../../experiences/project-pages/proj-enterprise-transformation-programme/AnnualReportPage.js'
+    ),
+);
+const CharterPage = lazy(
+  () => import('../../../../experiences/project-pages/proj-operating-model-redesign/CharterPage.js'),
+);
+const UndertakingsRegisterPage = lazy(
+  () =>
+    import(
+      '../../../../experiences/project-pages/proj-regulatory-remediation-programme/RegisterPage.js'
+    ),
+);
 
 const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: ComponentType }> = {
   'db-model-monitoring-cockpit': { mood: 'dark', Component: CockpitPage },
@@ -292,6 +307,9 @@ const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: 
   'exp-incident-postmortem': { mood: 'light', Component: InquiryPage },
   'exp-migration-plan': { mood: 'dark', Component: LockSequencePage },
   'exp-testing-validation-strategy': { mood: 'dark', Component: TestStandPage },
+  'proj-enterprise-transformation-programme': { mood: 'light', Component: AnnualReportPage },
+  'proj-operating-model-redesign': { mood: 'light', Component: CharterPage },
+  'proj-regulatory-remediation-programme': { mood: 'light', Component: UndertakingsRegisterPage },
 };
 
 /**

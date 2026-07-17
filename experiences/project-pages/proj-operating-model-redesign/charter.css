@@ -1,0 +1,459 @@
+/* "The Charter" — experience-local art layer for proj-operating-model-redesign.
+   Articles of a charter on cool archival paper: Fraunces small headings,
+   numbered articles that take their seats in order (ledger-reveal), wax-red
+   and verdigris seals. Deliberately simple. Raw colours permitted here only. */
+
+.chr-root {
+  --chr-paper: #f7f7f2;
+  --chr-paper-deep: #edeee5;
+  --chr-ink: #1e2226;
+  --chr-ink-soft: #4e555c;
+  --chr-faint: #7d848b;
+  --chr-rule: #d4d6cb;
+  --chr-rule-strong: #a9ada0;
+  --chr-navy: #1f3a56;
+  --chr-force: #1d5c3a;
+  --chr-transit: #8a5a18;
+  min-height: 100vh;
+  background: var(--chr-paper);
+  color: var(--chr-ink);
+  font-family: 'Inter Variable', system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ------------------------------------------------------------------ */
+/* Chrome                                                              */
+/* ------------------------------------------------------------------ */
+
+.chr-chrome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 2.2rem;
+  border-bottom: 1px solid var(--chr-rule-strong);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+}
+
+.chr-chrome-left {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.chr-back {
+  color: var(--chr-ink-soft);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.chr-back:hover,
+.chr-back:focus-visible {
+  color: var(--chr-navy);
+}
+
+.chr-chrome-rule {
+  width: 1px;
+  height: 0.95rem;
+  background: var(--chr-rule-strong);
+}
+
+.chr-chrome-mast {
+  font-weight: 500;
+}
+
+.chr-chrome-ref {
+  color: var(--chr-faint);
+}
+
+/* ------------------------------------------------------------------ */
+/* Cover                                                               */
+/* ------------------------------------------------------------------ */
+
+.chr-main {
+  flex: 1;
+  width: min(62rem, 100% - 3rem);
+  margin: 0 auto;
+  padding: 3.2rem 0 3.6rem;
+}
+
+.chr-cover {
+  padding-bottom: 2.4rem;
+  border-bottom: 3px double var(--chr-rule-strong);
+  text-align: center;
+}
+
+.chr-kicker {
+  margin: 0 0 1.2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  color: var(--chr-navy);
+}
+
+.chr-title {
+  margin: 0 0 1rem;
+  font-family: 'Fraunces Variable', serif;
+  font-variation-settings: 'opsz' 120;
+  font-weight: 560;
+  font-size: clamp(2.2rem, 4.8vw, 3.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.chr-subline {
+  margin: 0 auto 1.8rem;
+  max-width: 64ch;
+  font-size: 0.96rem;
+  line-height: 1.62;
+  color: var(--chr-ink-soft);
+}
+
+.chr-figures {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  margin: 0 auto 1.4rem;
+  max-width: 42rem;
+  border-top: 1px solid var(--chr-rule-strong);
+  border-bottom: 1px solid var(--chr-rule-strong);
+}
+
+.chr-figure {
+  padding: 0.85rem 0.6rem;
+}
+
+.chr-figure + .chr-figure {
+  border-left: 1px solid var(--chr-rule);
+}
+
+.chr-figure dt {
+  margin: 0 0 0.35rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  color: var(--chr-faint);
+}
+
+.chr-figure dd {
+  margin: 0;
+  font-family: 'Fraunces Variable', serif;
+  font-variation-settings: 'opsz' 60;
+  font-weight: 580;
+  font-size: 1.45rem;
+}
+
+.chr-provenance {
+  margin: 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  color: var(--chr-transit);
+}
+
+/* ------------------------------------------------------------------ */
+/* Bands                                                               */
+/* ------------------------------------------------------------------ */
+
+.chr-band {
+  padding: 2.5rem 0 0;
+}
+
+.chr-band-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.9rem;
+  margin: 0 0 1.3rem;
+  font-family: 'Fraunces Variable', serif;
+  font-variation-settings: 'opsz' 90;
+  font-weight: 580;
+  font-size: 1.4rem;
+}
+
+.chr-band-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.64rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  color: var(--chr-faint);
+  text-transform: uppercase;
+}
+
+.chr-preamble {
+  margin: 0;
+  max-width: 66ch;
+  font-family: 'Fraunces Variable', serif;
+  font-variation-settings: 'opsz' 40;
+  font-weight: 420;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+/* ------------------------------------------------------------------ */
+/* Articles — ledger-reveal                                            */
+/* ------------------------------------------------------------------ */
+
+.chr-articles {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.chr-article {
+  padding: 1.4rem 0 1.5rem;
+  border-bottom: 1px solid var(--chr-rule);
+  opacity: 0;
+  animation: chr-seat 0.5s cubic-bezier(0.2, 0.6, 0.2, 1) forwards;
+}
+
+.chr-article:first-child {
+  border-top: 1px solid var(--chr-rule-strong);
+}
+
+.chr-article:nth-child(1) { animation-delay: 0.2s; }
+.chr-article:nth-child(2) { animation-delay: 0.3s; }
+.chr-article:nth-child(3) { animation-delay: 0.4s; }
+.chr-article:nth-child(4) { animation-delay: 0.5s; }
+.chr-article:nth-child(5) { animation-delay: 0.6s; }
+.chr-article:nth-child(6) { animation-delay: 0.7s; }
+.chr-article:nth-child(7) { animation-delay: 0.8s; }
+
+@keyframes chr-seat {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.chr-article-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.9rem;
+  margin-bottom: 0.7rem;
+}
+
+.chr-article-numeral {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--chr-navy);
+}
+
+.chr-article-title {
+  margin: 0;
+  font-family: 'Fraunces Variable', serif;
+  font-variation-settings: 'opsz' 70;
+  font-weight: 560;
+  font-size: 1.2rem;
+  flex: 1;
+  min-width: 14rem;
+}
+
+.chr-seal {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  padding: 0.22rem 0.6rem;
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+}
+
+.chr-seal[data-seal='in-force'] {
+  color: var(--chr-force);
+}
+
+.chr-seal[data-seal='transitioning'] {
+  color: var(--chr-transit);
+  border-style: dashed;
+}
+
+.chr-seal-ring {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  align-self: center;
+}
+
+.chr-seal[data-seal='in-force'] .chr-seal-ring {
+  background: currentColor;
+}
+
+.chr-seal-since {
+  color: inherit;
+  opacity: 0.75;
+}
+
+.chr-article-decision {
+  margin: 0 0 0.6rem;
+  max-width: 70ch;
+  font-size: 0.98rem;
+  line-height: 1.62;
+}
+
+.chr-article-rationale {
+  margin: 0;
+  max-width: 70ch;
+  font-size: 0.88rem;
+  line-height: 1.58;
+  color: var(--chr-ink-soft);
+}
+
+.chr-rationale-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: var(--chr-faint);
+  margin-right: 0.4rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Transition schedule + custodians                                    */
+/* ------------------------------------------------------------------ */
+
+.chr-columns {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 2.6rem;
+}
+
+@media (max-width: 56rem) {
+  .chr-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+.chr-transition {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.chr-transition thead th {
+  padding: 0 0.8rem 0.5rem 0;
+  border-bottom: 2px solid var(--chr-ink);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: var(--chr-faint);
+  text-align: left;
+}
+
+.chr-transition td {
+  padding: 0.7rem 0.8rem 0.7rem 0;
+  border-bottom: 1px solid var(--chr-rule);
+  vertical-align: baseline;
+  line-height: 1.5;
+}
+
+.chr-tr-article {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--chr-navy);
+}
+
+.chr-tr-window {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.76rem;
+  white-space: nowrap;
+  color: var(--chr-transit);
+}
+
+.chr-tr-state {
+  color: var(--chr-ink-soft);
+  font-size: 0.84rem;
+}
+
+.chr-custodians {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.chr-custodian {
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--chr-rule);
+}
+
+.chr-custodian:first-child {
+  border-top: 1px solid var(--chr-rule-strong);
+}
+
+.chr-custodian-role {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--chr-navy);
+}
+
+.chr-custodian-duty {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--chr-ink-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+.chr-foot {
+  padding: 1.5rem 2.2rem 2rem;
+  border-top: 3px double var(--chr-rule-strong);
+  background: var(--chr-paper-deep);
+}
+
+.chr-foot p {
+  margin: 0 0 0.5rem;
+  max-width: 72ch;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--chr-ink-soft);
+}
+
+.chr-foot-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.8rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  color: var(--chr-faint);
+}
+
+/* ------------------------------------------------------------------ */
+/* Reduced motion                                                      */
+/* ------------------------------------------------------------------ */
+
+.chr-root[data-reduced] .chr-article {
+  animation: none;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chr-article {
+    animation: none;
+    opacity: 1;
+  }
+}

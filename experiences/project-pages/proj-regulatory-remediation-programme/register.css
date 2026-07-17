@@ -1,0 +1,417 @@
+/* "The Undertakings Register" — experience-local art layer for
+   proj-regulatory-remediation-programme. A formal register on white ledger
+   paper: numbered rows that seat in order (ledger-reveal), three lozenge
+   colours that admit no ambiguity. Deliberately simple.
+   Raw colours permitted here only. */
+
+.ur-root {
+  --ur-paper: #fdfdfa;
+  --ur-paper-deep: #f2f2ec;
+  --ur-ink: #1c1f22;
+  --ur-ink-soft: #4b5157;
+  --ur-faint: #7c8288;
+  --ur-rule: #d9dad2;
+  --ur-rule-strong: #9ba099;
+  --ur-discharged: #1f4e37;
+  --ur-on-track: #1f3a56;
+  --ur-at-risk: #8c2f1b;
+  min-height: 100vh;
+  background: var(--ur-paper);
+  color: var(--ur-ink);
+  font-family: 'Inter Variable', system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ------------------------------------------------------------------ */
+/* Chrome                                                              */
+/* ------------------------------------------------------------------ */
+
+.ur-chrome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 2.2rem;
+  border-bottom: 2px solid var(--ur-ink);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+}
+
+.ur-chrome-left {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.ur-back {
+  color: var(--ur-ink-soft);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.ur-back:hover,
+.ur-back:focus-visible {
+  color: var(--ur-at-risk);
+}
+
+.ur-chrome-rule {
+  width: 1px;
+  height: 0.95rem;
+  background: var(--ur-rule-strong);
+}
+
+.ur-chrome-mast {
+  font-weight: 500;
+}
+
+.ur-chrome-ref {
+  color: var(--ur-faint);
+}
+
+/* ------------------------------------------------------------------ */
+/* Cover                                                               */
+/* ------------------------------------------------------------------ */
+
+.ur-main {
+  flex: 1;
+  width: min(64rem, 100% - 3rem);
+  margin: 0 auto;
+  padding: 3rem 0 3.6rem;
+}
+
+.ur-cover {
+  padding-bottom: 2.3rem;
+  border-bottom: 2px solid var(--ur-ink);
+}
+
+.ur-kicker {
+  margin: 0 0 1.1rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  color: var(--ur-on-track);
+}
+
+.ur-title {
+  margin: 0 0 1rem;
+  font-family: 'Fraunces Variable', serif;
+  font-variation-settings: 'opsz' 120;
+  font-weight: 560;
+  font-size: clamp(2.1rem, 4.6vw, 3.3rem);
+  line-height: 1.06;
+  letter-spacing: -0.012em;
+}
+
+.ur-subline {
+  margin: 0 0 1.7rem;
+  max-width: 64ch;
+  font-size: 0.96rem;
+  line-height: 1.62;
+  color: var(--ur-ink-soft);
+}
+
+.ur-figures {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  margin: 0 0 1.3rem;
+  max-width: 44rem;
+  border-top: 1px solid var(--ur-rule-strong);
+  border-bottom: 1px solid var(--ur-rule-strong);
+}
+
+.ur-figure {
+  padding: 0.8rem 0.9rem 0.85rem 0;
+}
+
+.ur-figure + .ur-figure {
+  padding-left: 0.9rem;
+  border-left: 1px solid var(--ur-rule);
+}
+
+.ur-figure dt {
+  margin: 0 0 0.32rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  color: var(--ur-faint);
+}
+
+.ur-figure dd {
+  margin: 0;
+  font-family: 'Fraunces Variable', serif;
+  font-variation-settings: 'opsz' 60;
+  font-weight: 580;
+  font-size: 1.45rem;
+}
+
+.ur-figure:nth-child(2) dd { color: var(--ur-discharged); }
+.ur-figure:nth-child(3) dd { color: var(--ur-on-track); }
+.ur-figure:nth-child(4) dd { color: var(--ur-at-risk); }
+
+.ur-provenance {
+  margin: 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  color: var(--ur-at-risk);
+}
+
+/* ------------------------------------------------------------------ */
+/* Bands                                                               */
+/* ------------------------------------------------------------------ */
+
+.ur-band {
+  padding: 2.4rem 0 0;
+}
+
+.ur-band-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.9rem;
+  margin: 0 0 1.2rem;
+  font-family: 'Fraunces Variable', serif;
+  font-variation-settings: 'opsz' 90;
+  font-weight: 580;
+  font-size: 1.4rem;
+}
+
+.ur-band-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.64rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  color: var(--ur-faint);
+  text-transform: uppercase;
+}
+
+.ur-reading {
+  margin: 0;
+  max-width: 70ch;
+  font-size: 0.94rem;
+  line-height: 1.65;
+  color: var(--ur-ink-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* The register — ledger-reveal                                        */
+/* ------------------------------------------------------------------ */
+
+.ur-register {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ur-row {
+  display: grid;
+  gap: 0.45rem;
+  padding: 1rem 0 1.05rem;
+  border-bottom: 1px solid var(--ur-rule);
+  opacity: 0;
+  animation: ur-seat 0.45s cubic-bezier(0.2, 0.6, 0.2, 1) forwards;
+}
+
+.ur-row:first-child {
+  border-top: 2px solid var(--ur-ink);
+}
+
+.ur-row:nth-child(1) { animation-delay: 0.15s; }
+.ur-row:nth-child(2) { animation-delay: 0.23s; }
+.ur-row:nth-child(3) { animation-delay: 0.31s; }
+.ur-row:nth-child(4) { animation-delay: 0.39s; }
+.ur-row:nth-child(5) { animation-delay: 0.47s; }
+.ur-row:nth-child(6) { animation-delay: 0.55s; }
+.ur-row:nth-child(7) { animation-delay: 0.63s; }
+.ur-row:nth-child(8) { animation-delay: 0.71s; }
+.ur-row:nth-child(9) { animation-delay: 0.79s; }
+.ur-row:nth-child(10) { animation-delay: 0.87s; }
+
+@keyframes ur-seat {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.ur-row[data-status='at-risk'] {
+  background: linear-gradient(90deg, rgba(140, 47, 27, 0.05), transparent 55%);
+}
+
+.ur-row-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+}
+
+.ur-row-no {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--ur-on-track);
+  min-width: 2.9rem;
+}
+
+.ur-row-undertaking {
+  margin: 0;
+  flex: 1;
+  font-size: 0.98rem;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.ur-lozenge {
+  padding: 0.18rem 0.62rem;
+  border-radius: 999px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+  color: #fdfdfa;
+}
+
+.ur-lozenge[data-status='discharged'] { background: var(--ur-discharged); }
+.ur-lozenge[data-status='on-track'] { background: var(--ur-on-track); }
+.ur-lozenge[data-status='at-risk'] { background: var(--ur-at-risk); }
+
+.ur-row-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+  padding-left: 3.8rem;
+  font-size: 0.82rem;
+  color: var(--ur-ink-soft);
+}
+
+.ur-meta-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: var(--ur-faint);
+  margin-right: 0.35rem;
+}
+
+.ur-row-evidence {
+  margin: 0;
+  padding-left: 3.8rem;
+  max-width: 78ch;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--ur-ink-soft);
+}
+
+@media (max-width: 44rem) {
+  .ur-row-meta,
+  .ur-row-evidence {
+    padding-left: 0;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Record + attestation                                                */
+/* ------------------------------------------------------------------ */
+
+.ur-columns {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 2.6rem;
+  align-items: start;
+}
+
+@media (max-width: 56rem) {
+  .ur-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ur-attestation {
+  margin: 0;
+  padding: 1.3rem 1.4rem;
+  border: 1px solid var(--ur-rule-strong);
+  border-left: 4px solid var(--ur-discharged);
+  background: var(--ur-paper-deep);
+}
+
+.ur-attestation p {
+  margin: 0 0 1.1rem;
+  font-family: 'Fraunces Variable', serif;
+  font-variation-settings: 'opsz' 40;
+  font-weight: 430;
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.ur-attestation-signer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.ur-signature {
+  font-family: 'Fraunces Variable', serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.35rem;
+}
+
+.ur-signer-role {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  color: var(--ur-faint);
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+.ur-foot {
+  padding: 1.5rem 2.2rem 2rem;
+  border-top: 2px solid var(--ur-ink);
+  background: var(--ur-paper-deep);
+}
+
+.ur-foot p {
+  margin: 0 0 0.5rem;
+  max-width: 72ch;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--ur-ink-soft);
+}
+
+.ur-foot-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.8rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  color: var(--ur-faint);
+}
+
+/* ------------------------------------------------------------------ */
+/* Reduced motion                                                      */
+/* ------------------------------------------------------------------ */
+
+.ur-root[data-reduced] .ur-row {
+  animation: none;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ur-row {
+    animation: none;
+    opacity: 1;
+  }
+}

@@ -78,6 +78,9 @@ const LIVE_IDS = [
   'exp-incident-postmortem',
   'exp-migration-plan',
   'exp-testing-validation-strategy',
+  'proj-enterprise-transformation-programme',
+  'proj-operating-model-redesign',
+  'proj-regulatory-remediation-programme',
 ];
 
 /** Demo samples (mirrors data/samples.ts + the /demo/* routes). */
