@@ -165,6 +165,18 @@ const GazetteDeckPage = lazy(
   () => import('../../../../experiences/slide-decks/deck-dgm-gazette/GazetteDeckPage.js'),
 );
 
+const MorningBriefPage = lazy(
+  () =>
+    import('../../../../experiences/dashboards/db-ai-risk-command-centre/MorningBriefPage.js'),
+);
+const DeparturesBoardPage = lazy(
+  () =>
+    import('../../../../experiences/dashboards/db-delivery-control-tower/DeparturesBoardPage.js'),
+);
+const RegistryPage = lazy(
+  () => import('../../../../experiences/dashboards/db-regulatory-control-hub/RegistryPage.js'),
+);
+
 const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: ComponentType }> = {
   'db-model-monitoring-cockpit': { mood: 'dark', Component: CockpitPage },
   'exp-system-architecture': { mood: 'light', Component: DrawingOfficePage },
@@ -204,6 +216,9 @@ const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: 
   'deck-dgm-circuit': { mood: 'dark', Component: CircuitDeckPage },
   'deck-dgm-isometric': { mood: 'light', Component: IsometricDeckPage },
   'deck-dgm-gazette': { mood: 'light', Component: GazetteDeckPage },
+  'db-ai-risk-command-centre': { mood: 'light', Component: MorningBriefPage },
+  'db-delivery-control-tower': { mood: 'dark', Component: DeparturesBoardPage },
+  'db-regulatory-control-hub': { mood: 'light', Component: RegistryPage },
 };
 
 /**

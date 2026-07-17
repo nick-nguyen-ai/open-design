@@ -6,7 +6,8 @@
  *   corepack pnpm --filter gallery dev            # or: build && vite preview
  *   node apps/gallery/scripts/shoot-previews.mjs  # from anywhere
  *
- * Options via env: BASE (default http://localhost:5173).
+ * Options via env: BASE (default http://localhost:5173); ONLY (comma-separated
+ * id list — shoot just those, e.g. ONLY=db-regulatory-control-hub,demo-openwiki).
  * Re-run whenever a template's look changes; the images are the gallery's
  * "framed print" pixels, so stale previews are a design bug.
  */
@@ -59,6 +60,9 @@ const LIVE_IDS = [
   'deck-dgm-circuit',
   'deck-dgm-isometric',
   'deck-dgm-gazette',
+  'db-ai-risk-command-centre',
+  'db-delivery-control-tower',
+  'db-regulatory-control-hub',
 ];
 
 /** Demo samples (mirrors data/samples.ts + the /demo/* routes). */
@@ -87,10 +91,12 @@ const ROUTE_OVERRIDES = {
   'deck-cloud-migration': '/live/deck-cloud-migration?slide=2',
 };
 
+const ONLY = process.env.ONLY ? new Set(process.env.ONLY.split(',')) : null;
+
 const SHOTS = [
   ...LIVE_IDS.map((id) => ({ id, route: ROUTE_OVERRIDES[id] ?? `/live/${id}` })),
   ...DEMO_SLUGS.map((slug) => ({ id: `demo-${slug}`, route: `/demo/${slug}` })),
-];
+].filter((shot) => !ONLY || ONLY.has(shot.id));
 
 async function main() {
   mkdirSync(OUT_DIR, { recursive: true });

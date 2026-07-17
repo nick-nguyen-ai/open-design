@@ -43,6 +43,9 @@ export const LIVE_EXPERIENCE_IDS = [
   'deck-dgm-circuit',
   'deck-dgm-isometric',
   'deck-dgm-gazette',
+  'db-ai-risk-command-centre',
+  'db-delivery-control-tower',
+  'db-regulatory-control-hub',
 ] as const;
 
 export type LiveExperienceId = (typeof LIVE_EXPERIENCE_IDS)[number];

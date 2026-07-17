@@ -158,6 +158,51 @@ const PART_ID_WORLDS: readonly PartIdWorld[] = [
       'deck-dgm-gazette/zones-slide',
     ],
   },
+  {
+    id: 'db-ai-risk-command-centre',
+    rootTestId: 'live-morning-brief',
+    expectedParts: [
+      'db-ai-risk-command-centre/actions',
+      'db-ai-risk-command-centre/brief',
+      'db-ai-risk-command-centre/brief/figures',
+      'db-ai-risk-command-centre/brief/posture-statement',
+      'db-ai-risk-command-centre/chrome',
+      'db-ai-risk-command-centre/evidence',
+      'db-ai-risk-command-centre/evidence/register',
+      'db-ai-risk-command-centre/evidence/trend-chart',
+      'db-ai-risk-command-centre/ledger',
+    ],
+  },
+  {
+    id: 'db-delivery-control-tower',
+    rootTestId: 'live-departures-board',
+    expectedParts: [
+      'db-delivery-control-tower/board',
+      'db-delivery-control-tower/chrome',
+      'db-delivery-control-tower/confidence',
+      'db-delivery-control-tower/confidence/meters',
+      'db-delivery-control-tower/connections',
+      'db-delivery-control-tower/horizon',
+      'db-delivery-control-tower/horizon/figures',
+      'db-delivery-control-tower/stops',
+    ],
+  },
+  {
+    id: 'db-regulatory-control-hub',
+    rootTestId: 'live-registry',
+    expectedParts: [
+      'db-regulatory-control-hub/chrome',
+      'db-regulatory-control-hub/coverage',
+      'db-regulatory-control-hub/coverage/family-chart',
+      'db-regulatory-control-hub/evidence',
+      'db-regulatory-control-hub/evidence/control-table',
+      'db-regulatory-control-hub/exceptions',
+      'db-regulatory-control-hub/index',
+      'db-regulatory-control-hub/posture',
+      'db-regulatory-control-hub/posture/headline-figure',
+      'db-regulatory-control-hub/requests',
+    ],
+  },
 ];
 
 const WELL_FORMED = /^[a-z0-9-]+\/[a-z0-9-]+(\/[a-z0-9-]+)?$/;
