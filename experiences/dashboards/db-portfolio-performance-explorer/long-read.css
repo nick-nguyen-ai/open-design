@@ -1,0 +1,334 @@
+/* "The Long Read" — experience-local art layer (db-portfolio-performance-explorer).
+   A magazine feature: warm gallery paper, Fraunces editorial type, a measured
+   single column with numbered figure plates and one pull-quote. */
+
+.lr-root {
+  --lr-paper: #faf8f2;
+  --lr-paper-deep: #f3f0e6;
+  --lr-ink: #1e1c18;
+  --lr-faint: #6b655a;
+  --lr-rule: #ddd7c8;
+  --lr-rule-strong: #b9b09a;
+  --lr-burgundy: #6d1f2c;
+  --lr-serif: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
+  --lr-sans: 'Inter Variable', 'Segoe UI', sans-serif;
+  --lr-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  min-height: 100svh;
+  background: linear-gradient(180deg, var(--lr-paper) 0%, var(--lr-paper-deep) 100%);
+  color: var(--lr-ink);
+  font-family: var(--lr-sans);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ---------------------------------------------------------------- */
+/* Chrome                                                             */
+/* ---------------------------------------------------------------- */
+
+.lr-chrome {
+  border-bottom: 3px double var(--lr-ink);
+  padding: 14px clamp(20px, 5vw, 64px) 10px;
+}
+
+.lr-chrome-row {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-family: var(--lr-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--lr-faint);
+}
+
+.lr-chrome-mast {
+  color: var(--lr-ink);
+  font-weight: 500;
+}
+
+.lr-chrome-mast em {
+  font-style: normal;
+  color: var(--lr-burgundy);
+}
+
+.lr-chrome-row > span:last-child {
+  margin-left: auto;
+}
+
+.lr-chrome-row-sub {
+  margin-top: 6px;
+  font-size: 10px;
+  justify-content: flex-end;
+}
+
+.lr-provenance {
+  color: var(--lr-burgundy);
+}
+
+.lr-back {
+  color: var(--lr-ink);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.lr-back:hover,
+.lr-back:focus-visible {
+  color: var(--lr-burgundy);
+}
+
+/* ---------------------------------------------------------------- */
+/* Title block                                                        */
+/* ---------------------------------------------------------------- */
+
+.lr-main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 48px) 40px;
+}
+
+.lr-title {
+  padding: clamp(38px, 7vh, 80px) 0 26px;
+  border-bottom: 1px solid var(--lr-rule-strong);
+  text-align: center;
+}
+
+.lr-kicker {
+  font-family: var(--lr-mono);
+  font-size: 11px;
+  letter-spacing: 0.26em;
+  color: var(--lr-burgundy);
+  margin: 0 0 18px;
+}
+
+.lr-headline {
+  font-family: var(--lr-serif);
+  font-variation-settings: 'opsz' 144, 'wght' 540;
+  font-size: clamp(40px, 7vw, 78px);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+.lr-standfirst {
+  font-family: var(--lr-serif);
+  font-variation-settings: 'opsz' 24, 'wght' 400;
+  font-style: italic;
+  font-size: 19px;
+  line-height: 1.55;
+  color: var(--lr-faint);
+  max-width: 56ch;
+  margin: 24px auto 0;
+}
+
+.lr-byline {
+  font-family: var(--lr-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--lr-faint);
+  margin: 22px 0 0;
+}
+
+/* ---------------------------------------------------------------- */
+/* Story                                                              */
+/* ---------------------------------------------------------------- */
+
+.lr-story {
+  padding: 34px 0 8px;
+}
+
+.lr-para {
+  font-family: var(--lr-serif);
+  font-variation-settings: 'opsz' 16, 'wght' 400;
+  font-size: 17.5px;
+  line-height: 1.72;
+  margin: 0 0 22px;
+}
+
+.lr-para-drop::first-letter {
+  font-family: var(--lr-serif);
+  font-variation-settings: 'opsz' 144, 'wght' 600;
+  font-size: 4.1em;
+  line-height: 0.82;
+  float: left;
+  padding: 6px 10px 0 0;
+  color: var(--lr-burgundy);
+}
+
+.lr-crosshead {
+  font-family: var(--lr-mono);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  color: var(--lr-burgundy);
+  text-transform: uppercase;
+  margin: 34px 0 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-weight: 500;
+}
+
+.lr-crosshead::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--lr-rule-strong);
+}
+
+.lr-pull {
+  font-family: var(--lr-serif);
+  font-variation-settings: 'opsz' 60, 'wght' 480;
+  font-style: italic;
+  font-size: clamp(22px, 3vw, 30px);
+  line-height: 1.35;
+  color: var(--lr-burgundy);
+  border-top: 3px solid var(--lr-burgundy);
+  border-bottom: 1px solid var(--lr-rule-strong);
+  margin: 30px 0;
+  padding: 20px 8px;
+  text-align: center;
+}
+
+/* ---------------------------------------------------------------- */
+/* Figure plates                                                      */
+/* ---------------------------------------------------------------- */
+
+.lr-plate {
+  margin: 30px 0;
+  border: 1px solid var(--lr-rule-strong);
+  background: #fffdf7;
+  padding: 16px 18px 12px;
+  box-shadow: 0 10px 28px rgba(30, 28, 24, 0.06);
+}
+
+.lr-plate-caption {
+  font-family: var(--lr-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  color: var(--lr-faint);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--lr-rule);
+}
+
+.lr-plate-num {
+  color: var(--lr-burgundy);
+  font-weight: 600;
+  margin-right: 6px;
+}
+
+/* ---------------------------------------------------------------- */
+/* The numbers, plainly                                               */
+/* ---------------------------------------------------------------- */
+
+.lr-numbers {
+  border-top: 3px double var(--lr-ink);
+  margin-top: 26px;
+  padding-top: 22px;
+}
+
+.lr-numbers-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-family: var(--lr-serif);
+  font-variation-settings: 'opsz' 40, 'wght' 540;
+  font-size: 23px;
+  margin: 0 0 16px;
+}
+
+.lr-numbers-sub {
+  margin-left: auto;
+  font-family: var(--lr-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--lr-faint);
+  font-weight: 400;
+}
+
+.lr-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.lr-table th[scope='col'] {
+  font-family: var(--lr-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  color: var(--lr-faint);
+  text-align: left;
+  font-weight: 500;
+  padding: 8px 12px 8px 0;
+  border-bottom: 1px solid var(--lr-rule-strong);
+}
+
+.lr-table td,
+.lr-table th[scope='row'] {
+  padding: 10px 12px 10px 0;
+  border-bottom: 1px solid var(--lr-rule);
+  text-align: left;
+}
+
+.lr-table th[scope='row'] {
+  font-weight: 550;
+}
+
+.lr-table-value {
+  font-family: var(--lr-mono);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--lr-burgundy);
+}
+
+.lr-table-versus {
+  color: var(--lr-faint);
+  font-size: 13px;
+}
+
+/* ---------------------------------------------------------------- */
+/* Foot                                                               */
+/* ---------------------------------------------------------------- */
+
+.lr-foot {
+  border-top: 3px double var(--lr-ink);
+  margin-top: 30px;
+  padding: 14px clamp(20px, 5vw, 64px) 36px;
+  color: var(--lr-faint);
+  font-size: 12.5px;
+}
+
+.lr-foot p {
+  max-width: 84ch;
+  margin: 0 auto;
+}
+
+.lr-foot-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-family: var(--lr-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  margin-top: 10px !important;
+}
+
+.lr-foot-line span:first-child {
+  color: var(--lr-burgundy);
+}
+
+/* ---------------------------------------------------------------- */
+/* Responsive                                                         */
+/* ---------------------------------------------------------------- */
+
+@media (max-width: 640px) {
+  .lr-headline {
+    font-size: clamp(34px, 10vw, 44px);
+  }
+
+  .lr-para {
+    font-size: 16.5px;
+  }
+}

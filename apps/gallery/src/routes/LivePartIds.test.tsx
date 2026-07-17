@@ -248,6 +248,51 @@ const PART_ID_WORLDS: readonly PartIdWorld[] = [
       'db-experiment-analysis-workspace/runs/ledger',
     ],
   },
+  {
+    id: 'db-incident-remediation-centre',
+    rootTestId: 'live-triage-bay',
+    expectedParts: [
+      'db-incident-remediation-centre/bay',
+      'db-incident-remediation-centre/bay/lanes',
+      'db-incident-remediation-centre/case',
+      'db-incident-remediation-centre/case/interventions',
+      'db-incident-remediation-centre/case/vitals-chart',
+      'db-incident-remediation-centre/chrome',
+      'db-incident-remediation-centre/protocol',
+      'db-incident-remediation-centre/triage',
+      'db-incident-remediation-centre/triage/figures',
+    ],
+  },
+  {
+    id: 'db-portfolio-performance-explorer',
+    rootTestId: 'live-long-read',
+    expectedParts: [
+      'db-portfolio-performance-explorer/chrome',
+      'db-portfolio-performance-explorer/numbers',
+      'db-portfolio-performance-explorer/numbers/table',
+      'db-portfolio-performance-explorer/story',
+      'db-portfolio-performance-explorer/story/attribution-chart',
+      'db-portfolio-performance-explorer/story/pull-quote',
+      'db-portfolio-performance-explorer/story/return-chart',
+      'db-portfolio-performance-explorer/title',
+      'db-portfolio-performance-explorer/title/headline',
+    ],
+  },
+  {
+    id: 'db-scenario-stress-simulator',
+    rootTestId: 'live-wind-tunnel',
+    expectedParts: [
+      'db-scenario-stress-simulator/chrome',
+      'db-scenario-stress-simulator/drivers',
+      'db-scenario-stress-simulator/drivers/tornado-chart',
+      'db-scenario-stress-simulator/reading',
+      'db-scenario-stress-simulator/rigs',
+      'db-scenario-stress-simulator/rigs/gauge-cluster',
+      'db-scenario-stress-simulator/trace-table',
+      'db-scenario-stress-simulator/tunnel',
+      'db-scenario-stress-simulator/tunnel/figures',
+    ],
+  },
 ];
 
 const WELL_FORMED = /^[a-z0-9-]+\/[a-z0-9-]+(\/[a-z0-9-]+)?$/;

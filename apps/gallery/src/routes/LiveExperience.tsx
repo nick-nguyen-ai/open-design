@@ -187,6 +187,18 @@ const LabBenchPage = lazy(
   () =>
     import('../../../../experiences/dashboards/db-experiment-analysis-workspace/LabBenchPage.js'),
 );
+const TriageBayPage = lazy(
+  () =>
+    import('../../../../experiences/dashboards/db-incident-remediation-centre/TriageBayPage.js'),
+);
+const LongReadPage = lazy(
+  () =>
+    import('../../../../experiences/dashboards/db-portfolio-performance-explorer/LongReadPage.js'),
+);
+const WindTunnelPage = lazy(
+  () =>
+    import('../../../../experiences/dashboards/db-scenario-stress-simulator/WindTunnelPage.js'),
+);
 
 const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: ComponentType }> = {
   'db-model-monitoring-cockpit': { mood: 'dark', Component: CockpitPage },
@@ -233,6 +245,9 @@ const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: 
   'db-data-quality-operations': { mood: 'light', Component: WaterWorksPage },
   'db-dependency-network-explorer': { mood: 'dark', Component: InterchangePage },
   'db-experiment-analysis-workspace': { mood: 'light', Component: LabBenchPage },
+  'db-incident-remediation-centre': { mood: 'dark', Component: TriageBayPage },
+  'db-portfolio-performance-explorer': { mood: 'light', Component: LongReadPage },
+  'db-scenario-stress-simulator': { mood: 'dark', Component: WindTunnelPage },
 };
 
 /**

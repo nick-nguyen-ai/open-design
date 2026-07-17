@@ -49,6 +49,9 @@ export const LIVE_EXPERIENCE_IDS = [
   'db-data-quality-operations',
   'db-dependency-network-explorer',
   'db-experiment-analysis-workspace',
+  'db-incident-remediation-centre',
+  'db-portfolio-performance-explorer',
+  'db-scenario-stress-simulator',
 ] as const;
 
 export type LiveExperienceId = (typeof LIVE_EXPERIENCE_IDS)[number];
