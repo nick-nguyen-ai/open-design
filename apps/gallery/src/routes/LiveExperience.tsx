@@ -377,15 +377,10 @@ export default function LiveExperience() {
           No live experience here
         </h1>
         <p className="text-text-secondary">
-          “{experienceId}” has no live rendering yet. Thirty-three worlds are live: the Model
-          Monitoring Cockpit, the System Architecture explainer, the AI Strategy board deck, the
-          Model Validation Hub, the Data Scientist Studio, nineteen deck worlds — the Committee
-          Paper, the Lab Report, the Control Frame, the River, the Readout, the Gallery Floor,
-          the Manifesto, the Sectional, the Field Manual, the Planning Wall, the Preprint, the
-          Campaign Room, T-Minus, the Whiteboard, the Cutover, the Quarter, the Straight Pitch,
-          the Allocation, and the Long Signal — and nine personal pages: the Annual Letter, the Bench Journal, the
-          Greenhouse, the Line, the Dawn Wall, the Reading Room, the Atlas, the Specimen Book, and
-          the Playbill.
+          “{experienceId}” has no live rendering. All {Object.keys(LIVE_PAGES).length} worlds in
+          the collection are live — every slide deck, dashboard, technical explainer, project
+          page, and personal page — so this id is either misspelled or from an older link. Browse
+          the gallery to find the world you were after.
         </p>
         <RouterLink to="/browse" className="text-accent hover:underline">
           ◄ Back to the gallery

@@ -1,9 +1,11 @@
 // @vitest-environment jsdom
 /**
- * Task 13 — specification framing: the 45 non-live template detail pages
- * declare themselves catalogue specifications and point at the nearest live
- * world (their own surface's), so nobody expects liveness and hits a flat
- * page. Live templates keep their primary "Open live template" action.
+ * Template detail actions — with all 65 worlds live, no detail page frames
+ * itself as a pending catalogue specification any more: every template
+ * carries the primary "Open live template" action pointing at its own
+ * /live route. (TemplateDetail keeps the specification-framing branch for
+ * any future spec-only addition; these tests lock that it never renders
+ * for the shipped collection.)
  */
 import { afterEach, describe, expect, it } from 'vitest';
 import { cleanup, render, screen } from '@testing-library/react';
@@ -27,23 +29,20 @@ function renderDetail(experienceId: string) {
 
 afterEach(cleanup);
 
-describe('TemplateDetail — specification framing (task 13)', () => {
-  it('frames a non-live dashboard as a specification linking to the live cockpit', () => {
-    renderDetail('db-ai-risk-command-centre');
-    const framing = screen.getByTestId('spec-framing');
-    expect(framing).toHaveTextContent(/Catalogue specification — live build pending/i);
-    const link = screen.getByRole('link', { name: /see a live template/i });
-    expect(link).toHaveAttribute('href', '/live/db-model-monitoring-cockpit');
-  });
+/** One world per surface, drawn from the formerly spec-only set. */
+const NEWLY_LIVE = [
+  'db-ai-risk-command-centre',
+  'exp-incident-postmortem',
+  'proj-vendor-assessment',
+] as const;
 
-  // All ten slide decks are live after task 17, so the non-live specification
-  // example is an explainer (its surface's live world is the Drawing Office).
-  it('frames a non-live explainer as a specification linking to the live drawing office', () => {
-    renderDetail('exp-incident-postmortem');
-    expect(screen.getByTestId('spec-framing')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /see a live template/i })).toHaveAttribute(
+describe('TemplateDetail — live actions across the full collection', () => {
+  it.each(NEWLY_LIVE)('"%s" carries the primary live action and no specification framing', (id) => {
+    renderDetail(id);
+    expect(screen.queryByTestId('spec-framing')).toBeNull();
+    expect(screen.getByRole('link', { name: /open live template/i })).toHaveAttribute(
       'href',
-      '/live/exp-system-architecture',
+      `/live/${id}`,
     );
   });
 

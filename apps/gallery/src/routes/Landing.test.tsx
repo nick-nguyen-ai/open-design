@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes, useLocation } from 'react-router-dom';
@@ -7,6 +7,11 @@ import { MotionProvider } from '@enterprise-design/motion';
 import { axe } from '../test/axe-setup.js';
 import '../test/jest-dom-setup.js';
 import { Landing } from './Landing.js';
+
+// Every interaction re-renders 65 template cards under jsdom; on a loaded
+// machine a single keystroke can exceed the 1s waitFor / 5s test defaults.
+vi.setConfig({ testTimeout: 30_000 });
+const WAIT = { timeout: 10_000 } as const;
 
 function LocationProbe() {
   const location = useLocation();
@@ -59,8 +64,11 @@ describe('Landing', () => {
     await user.click(screen.getByRole('radio', { name: /^Components/ }));
 
     // Query survives the mode switch (input + URL both retain it).
-    await waitFor(() => expect(search).toHaveValue('risk'));
-    await waitFor(() => expect(screen.getByTestId('location-search')).toHaveTextContent('mode=components'));
+    await waitFor(() => expect(search).toHaveValue('risk'), WAIT);
+    await waitFor(
+      () => expect(screen.getByTestId('location-search')).toHaveTextContent('mode=components'),
+      WAIT,
+    );
     expect(screen.getByTestId('location-search')).toHaveTextContent('q=risk');
   });
 
@@ -112,7 +120,10 @@ describe('Landing', () => {
     const { unmount } = renderLanding();
 
     await user.selectOptions(screen.getByLabelText('Sort'), 'name');
-    await waitFor(() => expect(screen.getByTestId('location-search')).toHaveTextContent('sort=name'));
+    await waitFor(
+      () => expect(screen.getByTestId('location-search')).toHaveTextContent('sort=name'),
+      WAIT,
+    );
 
     // Name (A–Z): the first template card is alphabetically first.
     const titles = templateCards().map((c) => c.querySelector('h3')?.textContent ?? '');
@@ -133,11 +144,11 @@ describe('Landing', () => {
     const card = templateCards()[0]!;
     await user.click(card);
 
-    const dialog = await screen.findByRole('dialog');
+    const dialog = await screen.findByRole('dialog', {}, WAIT);
     expect(within(dialog).getByRole('link', { name: /view full detail/i })).toBeInTheDocument();
 
     await user.keyboard('{Escape}');
-    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument(), WAIT);
     expect(card).toHaveFocus();
   });
 
