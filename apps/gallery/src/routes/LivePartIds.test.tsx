@@ -203,6 +203,51 @@ const PART_ID_WORLDS: readonly PartIdWorld[] = [
       'db-regulatory-control-hub/requests',
     ],
   },
+  {
+    id: 'db-data-quality-operations',
+    rootTestId: 'live-water-works',
+    expectedParts: [
+      'db-data-quality-operations/checks',
+      'db-data-quality-operations/checks/suite-chart',
+      'db-data-quality-operations/chrome',
+      'db-data-quality-operations/dockets',
+      'db-data-quality-operations/run-log',
+      'db-data-quality-operations/sheet',
+      'db-data-quality-operations/sheet/schematic',
+      'db-data-quality-operations/works',
+      'db-data-quality-operations/works/figures',
+    ],
+  },
+  {
+    id: 'db-dependency-network-explorer',
+    rootTestId: 'live-interchange',
+    expectedParts: [
+      'db-dependency-network-explorer/chrome',
+      'db-dependency-network-explorer/dossier',
+      'db-dependency-network-explorer/dossier/blast-list',
+      'db-dependency-network-explorer/index',
+      'db-dependency-network-explorer/map',
+      'db-dependency-network-explorer/map/metro-map',
+      'db-dependency-network-explorer/network',
+      'db-dependency-network-explorer/network/figures',
+    ],
+  },
+  {
+    id: 'db-experiment-analysis-workspace',
+    rootTestId: 'live-lab-bench',
+    expectedParts: [
+      'db-experiment-analysis-workspace/bench',
+      'db-experiment-analysis-workspace/bench/figures',
+      'db-experiment-analysis-workspace/chrome',
+      'db-experiment-analysis-workspace/decisions',
+      'db-experiment-analysis-workspace/evidence',
+      'db-experiment-analysis-workspace/evidence/uplift-chart',
+      'db-experiment-analysis-workspace/hypotheses',
+      'db-experiment-analysis-workspace/hypotheses/cards',
+      'db-experiment-analysis-workspace/runs',
+      'db-experiment-analysis-workspace/runs/ledger',
+    ],
+  },
 ];
 
 const WELL_FORMED = /^[a-z0-9-]+\/[a-z0-9-]+(\/[a-z0-9-]+)?$/;

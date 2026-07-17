@@ -1,0 +1,525 @@
+/* "The Lab Bench" — experience-local art layer (db-experiment-analysis-workspace).
+   A publication-standard lab notebook: cream graph paper, taped-in hypothesis
+   cards with earned stamps, a pencil-blue evidence line, and one honest
+   hand-written margin note per card. */
+
+.lb-root {
+  --lb-paper: #f8f6ee;
+  --lb-paper-deep: #f1eee2;
+  --lb-ink: #26251f;
+  --lb-faint: #6e6a5c;
+  --lb-rule: #ddd7c6;
+  --lb-rule-strong: #bcb49c;
+  --lb-green: #2f5d43;
+  --lb-red: #a03123;
+  --lb-blue: #31548e;
+  --lb-sans: 'Inter Variable', 'Segoe UI', sans-serif;
+  --lb-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --lb-hand: 'Caveat', cursive;
+
+  min-height: 100svh;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 21px, rgba(49, 84, 142, 0.055) 21px 22px),
+    repeating-linear-gradient(90deg, transparent 0 21px, rgba(49, 84, 142, 0.055) 21px 22px),
+    linear-gradient(180deg, var(--lb-paper) 0%, var(--lb-paper-deep) 100%);
+  color: var(--lb-ink);
+  font-family: var(--lb-sans);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+/* ---------------------------------------------------------------- */
+/* Chrome                                                             */
+/* ---------------------------------------------------------------- */
+
+.lb-chrome {
+  border-bottom: 2px solid var(--lb-ink);
+  padding: 14px clamp(20px, 5vw, 64px) 10px;
+  background: rgba(248, 246, 238, 0.85);
+}
+
+.lb-chrome-row {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-family: var(--lb-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--lb-faint);
+}
+
+.lb-chrome-mast {
+  color: var(--lb-ink);
+  font-weight: 500;
+}
+
+.lb-chrome-row > span:last-child {
+  margin-left: auto;
+}
+
+.lb-chrome-row-sub {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--lb-rule);
+  font-size: 10px;
+  justify-content: space-between;
+}
+
+.lb-provenance {
+  color: var(--lb-red);
+}
+
+.lb-back {
+  color: var(--lb-ink);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.lb-back:hover,
+.lb-back:focus-visible {
+  color: var(--lb-blue);
+}
+
+/* ---------------------------------------------------------------- */
+/* Bench (hero)                                                       */
+/* ---------------------------------------------------------------- */
+
+.lb-main {
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 64px) 40px;
+}
+
+.lb-bench {
+  padding: clamp(32px, 5vh, 56px) 0 28px;
+  border-bottom: 1px solid var(--lb-rule-strong);
+}
+
+.lb-kicker {
+  font-family: var(--lb-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--lb-faint);
+  margin: 0 0 12px;
+}
+
+.lb-statement {
+  font-size: clamp(34px, 5.6vw, 64px);
+  font-weight: 750;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  margin: 0;
+  max-width: 24ch;
+}
+
+.lb-subline {
+  max-width: 70ch;
+  margin: 18px 0 0;
+  font-size: 15.5px;
+}
+
+.lb-figures {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 26px 0 0;
+  border: 1px solid var(--lb-rule-strong);
+  background: rgba(255, 255, 255, 0.6);
+  width: fit-content;
+}
+
+.lb-figure {
+  padding: 12px 22px;
+  border-right: 1px solid var(--lb-rule);
+}
+
+.lb-figure:last-child {
+  border-right: none;
+}
+
+.lb-figure dt {
+  font-family: var(--lb-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  color: var(--lb-faint);
+}
+
+.lb-figure dd {
+  margin: 4px 0 0;
+  font-size: 30px;
+  font-weight: 750;
+}
+
+/* ---------------------------------------------------------------- */
+/* Bands                                                              */
+/* ---------------------------------------------------------------- */
+
+.lb-band {
+  padding: 28px 0 8px;
+}
+
+.lb-band + .lb-band,
+.lb-columns + .lb-band {
+  border-top: 1px solid var(--lb-rule-strong);
+}
+
+.lb-band-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-size: 21px;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+
+.lb-band-index {
+  font-family: var(--lb-mono);
+  font-size: 12px;
+  color: var(--lb-blue);
+  letter-spacing: 0.08em;
+}
+
+.lb-band-sub {
+  margin-left: auto;
+  font-family: var(--lb-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--lb-faint);
+  font-weight: 400;
+}
+
+/* ---------------------------------------------------------------- */
+/* Hypothesis cards                                                   */
+/* ---------------------------------------------------------------- */
+
+.lb-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 26px;
+}
+
+.lb-card {
+  position: relative;
+  border: 1px solid var(--lb-rule-strong);
+  background: #fffdf6;
+  padding: 20px 20px 14px;
+  box-shadow: 0 10px 26px rgba(38, 37, 31, 0.09);
+  transform: rotate(calc((var(--lb-card, 0) - 1) * 0.7deg));
+}
+
+.lb-card-tape {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 84px;
+  height: 20px;
+  transform: translateX(-50%) rotate(-2deg);
+  background: rgba(214, 205, 175, 0.55);
+  border-left: 1px dashed rgba(38, 37, 31, 0.18);
+  border-right: 1px dashed rgba(38, 37, 31, 0.18);
+}
+
+.lb-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.lb-card-ref {
+  font-family: var(--lb-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--lb-blue);
+  font-weight: 600;
+}
+
+.lb-card-stamp {
+  font-family: var(--lb-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  border: 2px solid var(--lb-faint);
+  color: var(--lb-faint);
+  padding: 3px 9px;
+  transform: rotate(2deg);
+}
+
+.lb-card-stamp[data-state='supported'] {
+  border-color: var(--lb-green);
+  color: var(--lb-green);
+  transform: rotate(-2.5deg);
+}
+
+.lb-card-stamp[data-state='refuted'] {
+  border-color: var(--lb-red);
+  color: var(--lb-red);
+  transform: rotate(1.8deg);
+}
+
+.lb-card-statement {
+  margin: 14px 0 0;
+  font-size: 15.5px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.lb-card-evidence {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: var(--lb-faint);
+}
+
+.lb-card-foot {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--lb-rule-strong);
+  font-family: var(--lb-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--lb-faint);
+}
+
+.lb-card-margin {
+  position: absolute;
+  right: 14px;
+  bottom: -14px;
+  margin: 0;
+  font-family: var(--lb-hand);
+  font-size: 19px;
+  color: var(--lb-blue);
+  transform: rotate(-3deg);
+}
+
+/* ---------------------------------------------------------------- */
+/* Run ledger + evidence                                              */
+/* ---------------------------------------------------------------- */
+
+.lb-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 40px;
+  border-top: 1px solid var(--lb-rule-strong);
+  margin-top: 28px;
+}
+
+.lb-columns .lb-band {
+  border-top: none;
+}
+
+.lb-ledger-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--lb-rule-strong);
+  background: #fffdf6;
+}
+
+.lb-ledger {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+
+.lb-ledger th[scope='col'] {
+  text-align: left;
+  font-family: var(--lb-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: var(--lb-faint);
+  font-weight: 500;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--lb-rule-strong);
+}
+
+.lb-ledger td,
+.lb-ledger th[scope='row'] {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--lb-rule);
+  text-align: left;
+}
+
+.lb-ledger tr:last-child td,
+.lb-ledger tr:last-child th[scope='row'] {
+  border-bottom: none;
+}
+
+.lb-ledger th[scope='row'] {
+  font-family: var(--lb-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--lb-blue);
+}
+
+.lb-ledger-delta {
+  font-family: var(--lb-mono);
+  font-size: 11.5px;
+}
+
+.lb-ledger-metric {
+  font-weight: 600;
+}
+
+.lb-ledger-ci,
+.lb-ledger-date {
+  font-family: var(--lb-mono);
+  font-size: 11px;
+  color: var(--lb-faint);
+}
+
+.lb-verdict {
+  font-family: var(--lb-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--lb-green);
+  font-weight: 600;
+}
+
+.lb-verdict[data-verdict='flat'] {
+  color: var(--lb-faint);
+}
+
+.lb-verdict[data-verdict='regression'] {
+  color: var(--lb-red);
+}
+
+.lb-reading {
+  margin: 16px 0 0;
+  font-size: 13.5px;
+  color: var(--lb-faint);
+  border-left: 3px solid var(--lb-blue);
+  padding-left: 14px;
+}
+
+/* ---------------------------------------------------------------- */
+/* Decisions filed                                                    */
+/* ---------------------------------------------------------------- */
+
+.lb-decisions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lb-decision {
+  display: grid;
+  grid-template-columns: 84px 1fr 120px 90px;
+  gap: 18px;
+  align-items: baseline;
+  padding: 13px 6px;
+  border-top: 1px solid var(--lb-rule);
+}
+
+.lb-decision:last-child {
+  border-bottom: 1px solid var(--lb-rule);
+}
+
+.lb-decision-ref {
+  font-family: var(--lb-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--lb-blue);
+  font-weight: 600;
+}
+
+.lb-decision-text {
+  margin: 0;
+  font-size: 14.5px;
+  font-weight: 600;
+}
+
+.lb-decision-basis {
+  margin: 4px 0 0;
+  font-family: var(--lb-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--lb-faint);
+}
+
+.lb-decision-outcome {
+  font-family: var(--lb-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  border: 1.5px solid var(--lb-green);
+  color: var(--lb-green);
+  padding: 2px 8px;
+  justify-self: start;
+  transform: rotate(-1.5deg);
+}
+
+.lb-decision-outcome[data-outcome='closed'] {
+  border-color: var(--lb-faint);
+  color: var(--lb-faint);
+  transform: rotate(1deg);
+}
+
+.lb-decision-filed {
+  font-family: var(--lb-mono);
+  font-size: 10.5px;
+  color: var(--lb-faint);
+  text-align: right;
+}
+
+/* ---------------------------------------------------------------- */
+/* Foot                                                               */
+/* ---------------------------------------------------------------- */
+
+.lb-foot {
+  border-top: 2px solid var(--lb-ink);
+  margin-top: 26px;
+  padding: 14px clamp(20px, 5vw, 64px) 34px;
+  color: var(--lb-faint);
+  font-size: 12.5px;
+}
+
+.lb-foot p {
+  max-width: 84ch;
+  margin: 0 auto;
+}
+
+.lb-foot-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-family: var(--lb-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  margin-top: 10px !important;
+}
+
+.lb-foot-line span:first-child {
+  color: var(--lb-red);
+}
+
+/* ---------------------------------------------------------------- */
+/* Responsive                                                         */
+/* ---------------------------------------------------------------- */
+
+@media (max-width: 1080px) {
+  .lb-columns {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .lb-figures {
+    width: 100%;
+  }
+
+  .lb-figure {
+    flex: 1;
+    padding: 10px 14px;
+  }
+
+  .lb-decision {
+    grid-template-columns: 70px 1fr;
+    row-gap: 6px;
+  }
+
+  .lb-decision-outcome,
+  .lb-decision-filed {
+    grid-column: 2;
+    text-align: left;
+    justify-self: start;
+  }
+}

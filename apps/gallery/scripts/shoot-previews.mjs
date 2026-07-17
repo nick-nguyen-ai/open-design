@@ -63,6 +63,9 @@ const LIVE_IDS = [
   'db-ai-risk-command-centre',
   'db-delivery-control-tower',
   'db-regulatory-control-hub',
+  'db-data-quality-operations',
+  'db-dependency-network-explorer',
+  'db-experiment-analysis-workspace',
 ];
 
 /** Demo samples (mirrors data/samples.ts + the /demo/* routes). */

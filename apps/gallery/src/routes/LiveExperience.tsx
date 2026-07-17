@@ -176,6 +176,17 @@ const DeparturesBoardPage = lazy(
 const RegistryPage = lazy(
   () => import('../../../../experiences/dashboards/db-regulatory-control-hub/RegistryPage.js'),
 );
+const WaterWorksPage = lazy(
+  () => import('../../../../experiences/dashboards/db-data-quality-operations/WaterWorksPage.js'),
+);
+const InterchangePage = lazy(
+  () =>
+    import('../../../../experiences/dashboards/db-dependency-network-explorer/InterchangePage.js'),
+);
+const LabBenchPage = lazy(
+  () =>
+    import('../../../../experiences/dashboards/db-experiment-analysis-workspace/LabBenchPage.js'),
+);
 
 const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: ComponentType }> = {
   'db-model-monitoring-cockpit': { mood: 'dark', Component: CockpitPage },
@@ -219,6 +230,9 @@ const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: 
   'db-ai-risk-command-centre': { mood: 'light', Component: MorningBriefPage },
   'db-delivery-control-tower': { mood: 'dark', Component: DeparturesBoardPage },
   'db-regulatory-control-hub': { mood: 'light', Component: RegistryPage },
+  'db-data-quality-operations': { mood: 'light', Component: WaterWorksPage },
+  'db-dependency-network-explorer': { mood: 'dark', Component: InterchangePage },
+  'db-experiment-analysis-workspace': { mood: 'light', Component: LabBenchPage },
 };
 
 /**

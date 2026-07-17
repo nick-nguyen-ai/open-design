@@ -1,0 +1,598 @@
+/* "The Water Works" — experience-local art layer (db-data-quality-operations).
+   A works department as-built: pale drafting paper, water-blue mains that ink
+   themselves in (data-ink-draw), and red-line markups pinned to failures. */
+
+.ww-root {
+  --ww-paper: #f3f4f0;
+  --ww-paper-deep: #eceee7;
+  --ww-ink: #243138;
+  --ww-faint: #5f6d74;
+  --ww-rule: #d3d6cc;
+  --ww-rule-strong: #aeb4a6;
+  --ww-water: #20647e;
+  --ww-redline: #b3271e;
+  --ww-sans: 'Inter Variable', 'Segoe UI', sans-serif;
+  --ww-display: 'Space Grotesk', 'Segoe UI', sans-serif;
+  --ww-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  min-height: 100svh;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 23px, rgba(32, 100, 126, 0.045) 23px 24px),
+    repeating-linear-gradient(90deg, transparent 0 23px, rgba(32, 100, 126, 0.045) 23px 24px),
+    linear-gradient(180deg, var(--ww-paper) 0%, var(--ww-paper-deep) 100%);
+  color: var(--ww-ink);
+  font-family: var(--ww-sans);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+/* ---------------------------------------------------------------- */
+/* Chrome                                                             */
+/* ---------------------------------------------------------------- */
+
+.ww-chrome {
+  border-bottom: 2px solid var(--ww-ink);
+  padding: 14px clamp(20px, 5vw, 64px) 10px;
+  background: rgba(243, 244, 240, 0.85);
+}
+
+.ww-chrome-row {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-family: var(--ww-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--ww-faint);
+}
+
+.ww-chrome-mast {
+  color: var(--ww-ink);
+  font-weight: 500;
+}
+
+.ww-chrome-row > span:last-child {
+  margin-left: auto;
+}
+
+.ww-chrome-row-sub {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--ww-rule);
+  font-size: 10px;
+  justify-content: space-between;
+}
+
+.ww-provenance {
+  color: var(--ww-redline);
+}
+
+.ww-back {
+  color: var(--ww-ink);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.ww-back:hover,
+.ww-back:focus-visible {
+  color: var(--ww-water);
+}
+
+/* ---------------------------------------------------------------- */
+/* Works (hero)                                                       */
+/* ---------------------------------------------------------------- */
+
+.ww-main {
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 64px) 40px;
+}
+
+.ww-works {
+  padding: clamp(32px, 5vh, 58px) 0 28px;
+  border-bottom: 1px solid var(--ww-rule-strong);
+}
+
+.ww-kicker {
+  font-family: var(--ww-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--ww-faint);
+  margin: 0 0 12px;
+}
+
+.ww-statement {
+  font-family: var(--ww-display);
+  font-size: clamp(38px, 6.2vw, 72px);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+.ww-statement::first-letter {
+  color: var(--ww-redline);
+}
+
+.ww-subline {
+  max-width: 68ch;
+  margin: 18px 0 0;
+  font-size: 15.5px;
+  color: var(--ww-ink);
+}
+
+.ww-figures {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 26px 0 0;
+  border: 1px solid var(--ww-rule-strong);
+  background: rgba(255, 255, 255, 0.55);
+  width: fit-content;
+}
+
+.ww-figure {
+  padding: 12px 22px;
+  border-right: 1px solid var(--ww-rule);
+}
+
+.ww-figure:last-child {
+  border-right: none;
+}
+
+.ww-figure dt {
+  font-family: var(--ww-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  color: var(--ww-faint);
+}
+
+.ww-figure dd {
+  margin: 4px 0 0;
+  font-family: var(--ww-display);
+  font-size: 30px;
+  font-weight: 700;
+}
+
+/* ---------------------------------------------------------------- */
+/* Bands                                                              */
+/* ---------------------------------------------------------------- */
+
+.ww-band {
+  padding: 28px 0 8px;
+}
+
+.ww-band + .ww-band,
+.ww-columns + .ww-band {
+  border-top: 1px solid var(--ww-rule-strong);
+}
+
+.ww-band-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-family: var(--ww-display);
+  font-size: 21px;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+
+.ww-band-index {
+  font-family: var(--ww-mono);
+  font-size: 11px;
+  color: var(--ww-water);
+  letter-spacing: 0.1em;
+}
+
+.ww-band-sub {
+  margin-left: auto;
+  font-family: var(--ww-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--ww-faint);
+  font-weight: 400;
+}
+
+/* ---------------------------------------------------------------- */
+/* The as-built sheet                                                 */
+/* ---------------------------------------------------------------- */
+
+.ww-sheet-figure {
+  margin: 0;
+  border: 1px solid var(--ww-rule-strong);
+  background: #fbfcf8;
+  box-shadow: 0 12px 34px rgba(36, 49, 56, 0.08);
+}
+
+.ww-sheet-scroll {
+  overflow-x: auto;
+}
+
+.ww-sheet {
+  display: block;
+  width: 100%;
+  min-width: 860px;
+  height: auto;
+}
+
+.ww-pipe {
+  fill: none;
+  stroke: var(--ww-water);
+  stroke-linejoin: round;
+  opacity: 0.85;
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  animation: ww-ink 1.1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: var(--ww-draw-delay, 0ms);
+}
+
+.ww-pipe[data-state='affected'] {
+  stroke: var(--ww-redline);
+  stroke-dasharray: 7 4;
+  stroke-dashoffset: 0;
+  animation: none;
+  opacity: 0.9;
+}
+
+.ww-root[data-reduced] .ww-pipe {
+  stroke-dashoffset: 0;
+  animation: none;
+}
+
+.ww-root[data-reduced] .ww-pipe[data-state='affected'] {
+  stroke-dasharray: 7 4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ww-pipe {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+}
+
+@keyframes ww-ink {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.ww-node-box {
+  fill: #ffffff;
+  stroke: var(--ww-ink);
+  stroke-width: 1.2;
+}
+
+.ww-node[data-kind='source'] .ww-node-box {
+  fill: #eef3f5;
+}
+
+.ww-node[data-kind='treatment'] .ww-node-box {
+  fill: #e7eef1;
+  stroke: var(--ww-water);
+}
+
+.ww-node[data-kind='main'] .ww-node-box {
+  fill: #dfeaee;
+  stroke: var(--ww-water);
+  stroke-width: 2;
+}
+
+.ww-node[data-kind='consumer'] .ww-node-box {
+  fill: #ffffff;
+  stroke-dasharray: 4 3;
+}
+
+.ww-node-label {
+  font-family: var(--ww-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  fill: var(--ww-ink);
+  text-anchor: middle;
+}
+
+.ww-node-sub {
+  font-family: var(--ww-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  fill: var(--ww-faint);
+  text-anchor: middle;
+}
+
+.ww-markup-ring {
+  fill: none;
+  stroke: var(--ww-redline);
+  stroke-width: 1.6;
+  stroke-dasharray: 5 4;
+  transform-origin: center;
+}
+
+.ww-markup-leader {
+  stroke: var(--ww-redline);
+  stroke-width: 1;
+}
+
+.ww-markup-ref {
+  font-family: var(--ww-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  fill: var(--ww-redline);
+}
+
+.ww-sheet-caption {
+  border-top: 1px solid var(--ww-rule);
+  padding: 10px 16px;
+}
+
+.ww-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-family: var(--ww-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  color: var(--ww-faint);
+}
+
+.ww-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ww-legend-swatch {
+  width: 14px;
+  height: 10px;
+  border: 1px solid var(--ww-ink);
+  display: inline-block;
+}
+
+.ww-legend-source {
+  background: #eef3f5;
+  border-radius: 5px;
+}
+
+.ww-legend-treatment {
+  background: #e7eef1;
+  border-color: var(--ww-water);
+}
+
+.ww-legend-main {
+  background: #dfeaee;
+  border-color: var(--ww-water);
+}
+
+.ww-legend-consumer {
+  background: #fff;
+  border-style: dashed;
+}
+
+.ww-legend-redline {
+  background: none;
+  border: 1.5px dashed var(--ww-redline);
+  border-radius: 50%;
+}
+
+/* ---------------------------------------------------------------- */
+/* Dockets                                                            */
+/* ---------------------------------------------------------------- */
+
+.ww-dockets {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 22px;
+}
+
+.ww-docket {
+  border: 1px solid var(--ww-rule-strong);
+  border-left: 4px solid var(--ww-redline);
+  background: #fdfdfa;
+  padding: 16px 18px 14px;
+  box-shadow: 0 8px 22px rgba(36, 49, 56, 0.06);
+}
+
+.ww-docket-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-family: var(--ww-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+
+.ww-docket-ref {
+  color: var(--ww-redline);
+  font-weight: 600;
+}
+
+.ww-docket-where {
+  color: var(--ww-faint);
+}
+
+.ww-docket-state {
+  margin-left: auto;
+  border: 1px solid var(--ww-water);
+  color: var(--ww-water);
+  padding: 2px 7px;
+}
+
+.ww-docket[data-state='repaired'] .ww-docket-state {
+  border-color: #2f5d43;
+  color: #2f5d43;
+}
+
+.ww-docket-title {
+  margin: 10px 0 0;
+  font-size: 15.5px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.ww-docket-found {
+  margin: 6px 0 0;
+  font-family: var(--ww-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--ww-faint);
+}
+
+.ww-docket-blast {
+  margin: 10px 0 0;
+  font-size: 13px;
+}
+
+.ww-docket-label {
+  font-family: var(--ww-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  color: var(--ww-redline);
+  margin-right: 6px;
+}
+
+.ww-docket-note {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: var(--ww-faint);
+}
+
+.ww-docket-foot {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--ww-rule-strong);
+}
+
+.ww-docket-stamp {
+  display: inline-block;
+  font-family: var(--ww-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  color: var(--ww-water);
+  border: 1px solid var(--ww-water);
+  padding: 4px 9px;
+  transform: rotate(-1.2deg);
+}
+
+/* ---------------------------------------------------------------- */
+/* Checks board + run log                                             */
+/* ---------------------------------------------------------------- */
+
+.ww-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 40px;
+  border-top: 1px solid var(--ww-rule-strong);
+  margin-top: 28px;
+}
+
+.ww-columns .ww-band {
+  border-top: none;
+}
+
+.ww-log {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ww-run {
+  display: grid;
+  grid-template-columns: 26px 1fr 52px;
+  gap: 12px;
+  align-items: baseline;
+  padding: 10px 4px;
+  border-top: 1px solid var(--ww-rule);
+}
+
+.ww-run:last-child {
+  border-bottom: 1px solid var(--ww-rule);
+}
+
+.ww-run-result {
+  font-family: var(--ww-mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: #2f5d43;
+}
+
+.ww-run[data-result='warn'] .ww-run-result {
+  color: #a06a1f;
+}
+
+.ww-run[data-result='fail'] .ww-run-result {
+  color: var(--ww-redline);
+}
+
+.ww-run-label {
+  margin: 0;
+  font-family: var(--ww-mono);
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.ww-run-detail {
+  margin: 3px 0 0;
+  font-size: 12.5px;
+  color: var(--ww-faint);
+}
+
+.ww-run-at {
+  font-family: var(--ww-mono);
+  font-size: 11px;
+  color: var(--ww-faint);
+  text-align: right;
+}
+
+/* ---------------------------------------------------------------- */
+/* Foot                                                               */
+/* ---------------------------------------------------------------- */
+
+.ww-foot {
+  border-top: 2px solid var(--ww-ink);
+  margin-top: 26px;
+  padding: 14px clamp(20px, 5vw, 64px) 34px;
+  color: var(--ww-faint);
+  font-size: 12.5px;
+}
+
+.ww-foot p {
+  max-width: 84ch;
+  margin: 0 auto;
+}
+
+.ww-foot-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-family: var(--ww-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  margin-top: 10px !important;
+}
+
+.ww-foot-line span:first-child {
+  color: var(--ww-redline);
+}
+
+/* ---------------------------------------------------------------- */
+/* Responsive                                                         */
+/* ---------------------------------------------------------------- */
+
+@media (max-width: 1020px) {
+  .ww-columns {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .ww-figures {
+    width: 100%;
+  }
+
+  .ww-figure {
+    flex: 1;
+    padding: 10px 14px;
+  }
+}
