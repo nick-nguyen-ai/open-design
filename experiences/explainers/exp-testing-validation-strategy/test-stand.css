@@ -1,0 +1,505 @@
+/* "The Test Stand" — experience-local art layer
+   (exp-testing-validation-strategy). Layered signal-glass: near-black lab,
+   three translucent panes stacked with restrained depth, and claim lamps
+   that are lit by evidence or honestly dark. */
+
+.ts-root {
+  --ts-lab: #0f1318;
+  --ts-lab-lift: #141a21;
+  --ts-glass: rgba(159, 189, 214, 0.055);
+  --ts-edge: rgba(159, 189, 214, 0.18);
+  --ts-text: #dae2ea;
+  --ts-faint: #81909e;
+  --ts-lit: #8fe3b4;
+  --ts-dark-lamp: #4a5561;
+  --ts-cyan: #85c6e0;
+  --ts-red: #ff6a5e;
+  --ts-sans: 'Space Grotesk', 'Segoe UI', sans-serif;
+  --ts-body: 'Inter Variable', 'Segoe UI', sans-serif;
+  --ts-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  min-height: 100svh;
+  background:
+    radial-gradient(1000px 460px at 70% -10%, rgba(133, 198, 224, 0.06), transparent 60%),
+    linear-gradient(180deg, var(--ts-lab) 0%, #0a0e12 100%);
+  color: var(--ts-text);
+  font-family: var(--ts-body);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+/* ---------------------------------------------------------------- */
+/* Chrome                                                             */
+/* ---------------------------------------------------------------- */
+
+.ts-chrome {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 14px clamp(20px, 5vw, 64px);
+  border-bottom: 1px solid var(--ts-edge);
+  font-family: var(--ts-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--ts-faint);
+}
+
+.ts-chrome-left,
+.ts-chrome-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ts-chrome-mast {
+  color: var(--ts-text);
+  font-weight: 500;
+}
+
+.ts-chrome-rule {
+  width: 1px;
+  height: 12px;
+  background: var(--ts-edge);
+}
+
+.ts-back {
+  color: var(--ts-text);
+  text-decoration: none;
+}
+
+.ts-back:hover,
+.ts-back:focus-visible {
+  color: var(--ts-cyan);
+}
+
+/* ---------------------------------------------------------------- */
+/* Stand (hero) — horizon sweep                                       */
+/* ---------------------------------------------------------------- */
+
+.ts-main {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 56px) 44px;
+}
+
+.ts-stand {
+  position: relative;
+  padding: clamp(30px, 5vh, 54px) 0 26px;
+  border-bottom: 1px solid var(--ts-edge);
+  overflow: hidden;
+}
+
+.ts-stand-sweep {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(133, 198, 224, 0.7), transparent);
+  background-size: 40% 100%;
+  background-repeat: no-repeat;
+  animation: ts-sweep 8s linear infinite;
+}
+
+.ts-root[data-reduced] .ts-stand-sweep {
+  animation: none;
+  background-size: 100% 100%;
+  opacity: 0.3;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ts-stand-sweep {
+    animation: none;
+    background-size: 100% 100%;
+    opacity: 0.3;
+  }
+}
+
+@keyframes ts-sweep {
+  from {
+    background-position: -60% 0;
+  }
+  to {
+    background-position: 170% 0;
+  }
+}
+
+.ts-kicker {
+  font-family: var(--ts-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--ts-faint);
+  margin: 0 0 14px;
+}
+
+.ts-statement {
+  font-family: var(--ts-sans);
+  font-size: clamp(34px, 5.2vw, 58px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin: 0;
+  max-width: 24ch;
+}
+
+.ts-subline {
+  max-width: 68ch;
+  margin: 16px 0 0;
+  color: var(--ts-faint);
+  font-size: 15.5px;
+}
+
+.ts-figures {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 24px 0 0;
+  border: 1px solid var(--ts-edge);
+  background: var(--ts-glass);
+  backdrop-filter: blur(4px);
+  width: fit-content;
+}
+
+.ts-figure {
+  padding: 12px 22px;
+  border-right: 1px solid var(--ts-edge);
+}
+
+.ts-figure:last-child {
+  border-right: none;
+}
+
+.ts-figure dt {
+  font-family: var(--ts-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  color: var(--ts-faint);
+}
+
+.ts-figure dd {
+  margin: 4px 0 0;
+  font-family: var(--ts-mono);
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--ts-lit);
+}
+
+.ts-provenance {
+  margin: 16px 0 0;
+  font-family: var(--ts-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--ts-red);
+}
+
+/* ---------------------------------------------------------------- */
+/* Bands                                                              */
+/* ---------------------------------------------------------------- */
+
+.ts-band {
+  padding: 28px 0 6px;
+}
+
+.ts-band-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-family: var(--ts-sans);
+  font-size: 21px;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+
+.ts-band-sub {
+  margin-left: auto;
+  font-family: var(--ts-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--ts-faint);
+  font-weight: 400;
+}
+
+/* ---------------------------------------------------------------- */
+/* The glass stack — validation on top, unit at the bottom            */
+/* ---------------------------------------------------------------- */
+
+.ts-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.ts-pane {
+  position: relative;
+  border: 1px solid var(--ts-edge);
+  background: var(--ts-glass);
+  backdrop-filter: blur(7px);
+  padding: 18px 22px 14px;
+  margin-left: calc(var(--ts-pane, 0) * 26px);
+  margin-right: calc((2 - var(--ts-pane, 0)) * 26px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+}
+
+.ts-pane + .ts-pane {
+  margin-top: -6px;
+}
+
+.ts-pane-head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.ts-pane-layer {
+  font-family: var(--ts-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--ts-faint);
+}
+
+.ts-pane-name {
+  margin: 0;
+  font-family: var(--ts-sans);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.ts-pane-meta {
+  margin-left: auto;
+  font-family: var(--ts-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--ts-faint);
+}
+
+.ts-pane-proves {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: var(--ts-faint);
+  max-width: 74ch;
+}
+
+.ts-lamps {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 10px 26px;
+}
+
+.ts-lamp {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 8px 0;
+  border-top: 1px solid rgba(159, 189, 214, 0.1);
+}
+
+.ts-lamp-bulb {
+  flex: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-top: 4px;
+  background: var(--ts-lit);
+  box-shadow: 0 0 10px rgba(143, 227, 180, 0.7);
+}
+
+.ts-lamp[data-lit='false'] .ts-lamp-bulb {
+  background: var(--ts-dark-lamp);
+  box-shadow: inset 0 0 0 1.5px rgba(159, 189, 214, 0.3);
+}
+
+.ts-lamp-claim {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.ts-lamp[data-lit='false'] .ts-lamp-claim {
+  color: var(--ts-faint);
+}
+
+.ts-lamp-evidence {
+  margin: 3px 0 0;
+  font-family: var(--ts-mono);
+  font-size: 10.5px;
+  color: var(--ts-faint);
+}
+
+.ts-lamp[data-lit='false'] .ts-lamp-evidence {
+  color: var(--ts-red);
+}
+
+/* ---------------------------------------------------------------- */
+/* Dark lamps + doctrine                                              */
+/* ---------------------------------------------------------------- */
+
+.ts-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 30px;
+  border-top: 1px solid var(--ts-edge);
+  margin-top: 28px;
+}
+
+.ts-columns .ts-band {
+  border-top: none;
+}
+
+.ts-dark-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ts-dark-item {
+  border: 1px dashed rgba(255, 106, 94, 0.45);
+  background: rgba(255, 106, 94, 0.05);
+  padding: 14px 18px;
+}
+
+.ts-dark-head {
+  display: flex;
+  gap: 14px;
+  font-family: var(--ts-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--ts-faint);
+}
+
+.ts-dark-ref {
+  color: var(--ts-red);
+  font-weight: 600;
+}
+
+.ts-dark-due {
+  margin-left: auto;
+}
+
+.ts-dark-claim {
+  margin: 8px 0 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.ts-dark-lights {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: var(--ts-faint);
+}
+
+.ts-dark-label {
+  font-family: var(--ts-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--ts-lit);
+  margin-right: 8px;
+}
+
+.ts-dark-owner {
+  margin: 8px 0 0;
+  font-family: var(--ts-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  color: var(--ts-cyan);
+}
+
+.ts-doctrine {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ts-rule {
+  display: flex;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(159, 189, 214, 0.1);
+}
+
+.ts-rule:last-child {
+  border-bottom: none;
+}
+
+.ts-rule-num {
+  font-family: var(--ts-mono);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--ts-cyan);
+}
+
+.ts-rule-text {
+  margin: 0;
+  font-weight: 650;
+  font-size: 15px;
+}
+
+.ts-rule-note {
+  margin: 5px 0 0;
+  font-size: 13px;
+  color: var(--ts-faint);
+}
+
+/* ---------------------------------------------------------------- */
+/* Foot                                                               */
+/* ---------------------------------------------------------------- */
+
+.ts-foot {
+  border-top: 1px solid var(--ts-edge);
+  padding: 16px clamp(20px, 5vw, 64px) 34px;
+  color: var(--ts-faint);
+  font-size: 12.5px;
+}
+
+.ts-foot p {
+  max-width: 84ch;
+  margin: 0 auto;
+}
+
+.ts-foot-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-family: var(--ts-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  margin-top: 10px !important;
+}
+
+.ts-foot-line span:first-child {
+  color: var(--ts-red);
+}
+
+/* ---------------------------------------------------------------- */
+/* Responsive                                                         */
+/* ---------------------------------------------------------------- */
+
+@media (max-width: 1020px) {
+  .ts-columns {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .ts-pane {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .ts-figures {
+    width: 100%;
+  }
+
+  .ts-figure {
+    flex: 1;
+    padding: 10px 14px;
+  }
+}

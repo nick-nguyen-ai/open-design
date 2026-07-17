@@ -385,6 +385,51 @@ const PART_ID_WORLDS: readonly PartIdWorld[] = [
       'exp-data-lineage-map/trace/steps',
     ],
   },
+  {
+    id: 'exp-incident-postmortem',
+    rootTestId: 'live-inquiry',
+    expectedParts: [
+      'exp-incident-postmortem/actions',
+      'exp-incident-postmortem/actions/register',
+      'exp-incident-postmortem/chain',
+      'exp-incident-postmortem/chrome',
+      'exp-incident-postmortem/cover',
+      'exp-incident-postmortem/cover/facts',
+      'exp-incident-postmortem/findings',
+      'exp-incident-postmortem/findings/list',
+      'exp-incident-postmortem/recorder',
+      'exp-incident-postmortem/recorder/trace',
+      'exp-incident-postmortem/timeline',
+    ],
+  },
+  {
+    id: 'exp-migration-plan',
+    rootTestId: 'live-lock-sequence',
+    expectedParts: [
+      'exp-migration-plan/chambers',
+      'exp-migration-plan/chambers/schedule',
+      'exp-migration-plan/chrome',
+      'exp-migration-plan/doctrine',
+      'exp-migration-plan/passage',
+      'exp-migration-plan/passage-log',
+      'exp-migration-plan/passage/figures',
+      'exp-migration-plan/section',
+      'exp-migration-plan/section/lock-stairs',
+    ],
+  },
+  {
+    id: 'exp-testing-validation-strategy',
+    rootTestId: 'live-test-stand',
+    expectedParts: [
+      'exp-testing-validation-strategy/chrome',
+      'exp-testing-validation-strategy/dark-lamps',
+      'exp-testing-validation-strategy/doctrine',
+      'exp-testing-validation-strategy/panes',
+      'exp-testing-validation-strategy/panes/glass-stack',
+      'exp-testing-validation-strategy/stand',
+      'exp-testing-validation-strategy/stand/figures',
+    ],
+  },
 ];
 
 const WELL_FORMED = /^[a-z0-9-]+\/[a-z0-9-]+(\/[a-z0-9-]+)?$/;

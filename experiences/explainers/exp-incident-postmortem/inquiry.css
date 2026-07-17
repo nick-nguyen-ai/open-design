@@ -1,0 +1,586 @@
+/* "The Inquiry" — experience-local art layer (exp-incident-postmortem).
+   An investigation dossier: manila folder stock, a recorder-strip exhibit,
+   source-attributed timeline, numbered findings, and an action register. */
+
+.iq-root {
+  --iq-manila: #f2ead6;
+  --iq-manila-deep: #e9dfc4;
+  --iq-page: #fbf7ec;
+  --iq-ink: #24211a;
+  --iq-faint: #71695a;
+  --iq-rule: #d8cdae;
+  --iq-rule-strong: #ab9d78;
+  --iq-red: #a02c1e;
+  --iq-amber: #b07716;
+  --iq-green: #2f5d43;
+  --iq-serif: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
+  --iq-sans: 'Inter Variable', 'Segoe UI', sans-serif;
+  --iq-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  min-height: 100svh;
+  background: linear-gradient(180deg, var(--iq-manila) 0%, var(--iq-manila-deep) 100%);
+  color: var(--iq-ink);
+  font-family: var(--iq-sans);
+  font-size: 15px;
+  line-height: 1.58;
+}
+
+/* ---------------------------------------------------------------- */
+/* Chrome                                                             */
+/* ---------------------------------------------------------------- */
+
+.iq-chrome {
+  border-bottom: 2px solid var(--iq-ink);
+  padding: 14px clamp(20px, 5vw, 64px) 10px;
+}
+
+.iq-chrome-row {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-family: var(--iq-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--iq-faint);
+}
+
+.iq-chrome-mast {
+  color: var(--iq-ink);
+  font-weight: 500;
+}
+
+.iq-chrome-row > span:last-child {
+  margin-left: auto;
+}
+
+.iq-chrome-row-sub {
+  margin-top: 6px;
+  font-size: 10px;
+  justify-content: flex-end;
+}
+
+.iq-provenance {
+  color: var(--iq-red);
+}
+
+.iq-back {
+  color: var(--iq-ink);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.iq-back:hover,
+.iq-back:focus-visible {
+  color: var(--iq-red);
+}
+
+/* ---------------------------------------------------------------- */
+/* Cover                                                              */
+/* ---------------------------------------------------------------- */
+
+.iq-main {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 48px) 40px;
+}
+
+.iq-cover {
+  padding: clamp(32px, 5vh, 56px) 0 26px;
+  border-bottom: 2px solid var(--iq-ink);
+}
+
+.iq-kicker {
+  font-family: var(--iq-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.26em;
+  color: var(--iq-faint);
+  margin: 0 0 12px;
+}
+
+.iq-title {
+  font-family: var(--iq-serif);
+  font-variation-settings: 'opsz' 144, 'wght' 540;
+  font-size: clamp(34px, 5.4vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin: 0;
+  max-width: 28ch;
+}
+
+.iq-standfirst {
+  max-width: 70ch;
+  margin: 18px 0 0;
+  font-size: 15.5px;
+}
+
+.iq-facts {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 24px 0 0;
+  border: 1px solid var(--iq-rule-strong);
+  background: var(--iq-page);
+  width: fit-content;
+}
+
+.iq-fact {
+  padding: 12px 22px;
+  border-right: 1px solid var(--iq-rule);
+}
+
+.iq-fact:last-child {
+  border-right: none;
+}
+
+.iq-fact dt {
+  font-family: var(--iq-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  color: var(--iq-faint);
+}
+
+.iq-fact dd {
+  margin: 4px 0 0;
+  font-family: var(--iq-mono);
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* ---------------------------------------------------------------- */
+/* Bands                                                              */
+/* ---------------------------------------------------------------- */
+
+.iq-band {
+  padding: 26px 0 8px;
+}
+
+.iq-band + .iq-band {
+  border-top: 1px solid var(--iq-rule-strong);
+}
+
+.iq-band-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-family: var(--iq-serif);
+  font-variation-settings: 'opsz' 40, 'wght' 540;
+  font-size: 22px;
+  margin: 0 0 16px;
+}
+
+.iq-band-sub {
+  margin-left: auto;
+  font-family: var(--iq-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--iq-faint);
+  font-weight: 400;
+}
+
+/* ---------------------------------------------------------------- */
+/* Exhibit A — the recorder strip                                     */
+/* ---------------------------------------------------------------- */
+
+.iq-recorder-figure {
+  margin: 0;
+  border: 1px solid var(--iq-rule-strong);
+  background: var(--iq-page);
+}
+
+.iq-recorder {
+  display: flex;
+  height: 92px;
+}
+
+.iq-recorder-segment {
+  position: relative;
+  border-right: 1px solid var(--iq-rule);
+  background:
+    repeating-linear-gradient(90deg, transparent 0 7px, rgba(36, 33, 26, 0.05) 7px 8px),
+    rgba(47, 93, 67, 0.16);
+}
+
+.iq-recorder-segment[data-band='degraded'] {
+  background:
+    repeating-linear-gradient(90deg, transparent 0 7px, rgba(36, 33, 26, 0.05) 7px 8px),
+    rgba(176, 119, 22, 0.26);
+}
+
+.iq-recorder-segment[data-band='outage'] {
+  background:
+    repeating-linear-gradient(90deg, transparent 0 7px, rgba(36, 33, 26, 0.06) 7px 8px),
+    rgba(160, 44, 30, 0.34);
+}
+
+.iq-recorder-time {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  font-family: var(--iq-mono);
+  font-size: 10px;
+  color: var(--iq-faint);
+}
+
+.iq-recorder-band {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  font-family: var(--iq-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  color: var(--iq-green);
+}
+
+.iq-recorder-segment[data-band='degraded'] .iq-recorder-band {
+  color: var(--iq-amber);
+}
+
+.iq-recorder-segment[data-band='outage'] .iq-recorder-band {
+  color: var(--iq-red);
+}
+
+.iq-recorder-caption {
+  border-top: 1px solid var(--iq-rule);
+  padding: 8px 14px;
+}
+
+.iq-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-family: var(--iq-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  color: var(--iq-faint);
+}
+
+.iq-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.iq-legend-swatch {
+  width: 14px;
+  height: 10px;
+  display: inline-block;
+  background: rgba(47, 93, 67, 0.3);
+}
+
+.iq-legend-swatch[data-band='degraded'] {
+  background: rgba(176, 119, 22, 0.4);
+}
+
+.iq-legend-swatch[data-band='outage'] {
+  background: rgba(160, 44, 30, 0.45);
+}
+
+/* ---------------------------------------------------------------- */
+/* Exhibit B — timeline                                               */
+/* ---------------------------------------------------------------- */
+
+.iq-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.iq-entry {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 18px;
+  padding: 11px 0;
+  border-bottom: 1px dotted var(--iq-rule-strong);
+}
+
+.iq-entry:last-child {
+  border-bottom: none;
+}
+
+.iq-entry-at {
+  font-family: var(--iq-mono);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.iq-entry-text {
+  margin: 0;
+  font-size: 14.5px;
+  max-width: 80ch;
+}
+
+.iq-entry-source {
+  margin: 4px 0 0;
+  font-family: var(--iq-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  color: var(--iq-faint);
+}
+
+/* ---------------------------------------------------------------- */
+/* Findings                                                           */
+/* ---------------------------------------------------------------- */
+
+.iq-findings {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.iq-finding {
+  display: grid;
+  grid-template-columns: 128px 1fr;
+  gap: 18px;
+  border: 1px solid var(--iq-rule-strong);
+  background: var(--iq-page);
+  padding: 14px 18px;
+}
+
+.iq-finding[data-kind='root-cause'] {
+  border-left: 4px solid var(--iq-red);
+}
+
+.iq-finding[data-kind='mitigating'] {
+  border-left: 4px solid var(--iq-green);
+}
+
+.iq-finding[data-kind='contributing'] {
+  border-left: 4px solid var(--iq-amber);
+}
+
+.iq-finding-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.iq-finding-no {
+  font-family: var(--iq-mono);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.iq-finding-kind {
+  font-family: var(--iq-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.14em;
+  color: var(--iq-red);
+}
+
+.iq-finding-kind[data-kind='contributing'] {
+  color: var(--iq-amber);
+}
+
+.iq-finding-kind[data-kind='mitigating'] {
+  color: var(--iq-green);
+}
+
+.iq-finding-text {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+  max-width: 76ch;
+}
+
+.iq-finding-evidence {
+  margin: 8px 0 0;
+  font-family: var(--iq-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--iq-faint);
+}
+
+/* ---------------------------------------------------------------- */
+/* Causal chain                                                       */
+/* ---------------------------------------------------------------- */
+
+.iq-chain {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 0;
+  align-items: stretch;
+}
+
+.iq-chain-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.iq-chain-label {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1.5px solid var(--iq-ink);
+  background: var(--iq-page);
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 550;
+  max-width: 24ch;
+  min-height: 58px;
+}
+
+.iq-chain-ref {
+  font-family: var(--iq-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--iq-red);
+  margin-left: -4px;
+  align-self: flex-start;
+  padding-top: 4px;
+}
+
+.iq-chain-arrow {
+  font-size: 20px;
+  color: var(--iq-red);
+  padding: 0 8px;
+}
+
+/* ---------------------------------------------------------------- */
+/* Action register                                                    */
+/* ---------------------------------------------------------------- */
+
+.iq-register-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--iq-rule-strong);
+  background: var(--iq-page);
+}
+
+.iq-register {
+  width: 100%;
+  min-width: 700px;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+.iq-register th[scope='col'] {
+  text-align: left;
+  font-family: var(--iq-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--iq-faint);
+  font-weight: 500;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--iq-rule-strong);
+}
+
+.iq-register td,
+.iq-register th[scope='row'] {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--iq-rule);
+  text-align: left;
+  vertical-align: top;
+}
+
+.iq-register tr:last-child td,
+.iq-register tr:last-child th {
+  border-bottom: none;
+}
+
+.iq-register th[scope='row'] {
+  font-family: var(--iq-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--iq-red);
+  white-space: nowrap;
+}
+
+.iq-register-action {
+  font-weight: 500;
+}
+
+.iq-register-due {
+  font-family: var(--iq-mono);
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+
+.iq-register-state {
+  font-family: var(--iq-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  border: 1px solid var(--iq-amber);
+  color: var(--iq-amber);
+  padding: 2px 7px;
+  display: inline-block;
+  transform: rotate(-1deg);
+}
+
+.iq-register-state[data-state='closed'] {
+  border-color: var(--iq-green);
+  color: var(--iq-green);
+}
+
+.iq-register-state[data-state='in-review'] {
+  border-color: var(--iq-ink);
+  color: var(--iq-ink);
+}
+
+/* ---------------------------------------------------------------- */
+/* Foot                                                               */
+/* ---------------------------------------------------------------- */
+
+.iq-foot {
+  border-top: 2px solid var(--iq-ink);
+  margin-top: 26px;
+  padding: 14px clamp(20px, 5vw, 64px) 34px;
+  color: var(--iq-faint);
+  font-size: 12.5px;
+}
+
+.iq-foot p {
+  max-width: 84ch;
+  margin: 0 auto;
+}
+
+.iq-foot-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-family: var(--iq-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  margin-top: 10px !important;
+}
+
+.iq-foot-line span:first-child {
+  color: var(--iq-red);
+}
+
+/* ---------------------------------------------------------------- */
+/* Responsive                                                         */
+/* ---------------------------------------------------------------- */
+
+@media (max-width: 720px) {
+  .iq-facts {
+    width: 100%;
+  }
+
+  .iq-fact {
+    flex: 1;
+    padding: 10px 14px;
+  }
+
+  .iq-finding {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .iq-finding-rail {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .iq-recorder-band {
+    display: none;
+  }
+}

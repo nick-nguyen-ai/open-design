@@ -224,6 +224,16 @@ const AssemblyLinePage = lazy(
 const RiverAtlasPage = lazy(
   () => import('../../../../experiences/explainers/exp-data-lineage-map/RiverAtlasPage.js'),
 );
+const InquiryPage = lazy(
+  () => import('../../../../experiences/explainers/exp-incident-postmortem/InquiryPage.js'),
+);
+const LockSequencePage = lazy(
+  () => import('../../../../experiences/explainers/exp-migration-plan/LockSequencePage.js'),
+);
+const TestStandPage = lazy(
+  () =>
+    import('../../../../experiences/explainers/exp-testing-validation-strategy/TestStandPage.js'),
+);
 
 const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: ComponentType }> = {
   'db-model-monitoring-cockpit': { mood: 'dark', Component: CockpitPage },
@@ -279,6 +289,9 @@ const LIVE_PAGES: Record<LiveExperienceId, { mood: 'light' | 'dark'; Component: 
   'exp-agent-workflow': { mood: 'dark', Component: SignalBoxPage },
   'exp-algorithm-explanation': { mood: 'light', Component: AssemblyLinePage },
   'exp-data-lineage-map': { mood: 'light', Component: RiverAtlasPage },
+  'exp-incident-postmortem': { mood: 'light', Component: InquiryPage },
+  'exp-migration-plan': { mood: 'dark', Component: LockSequencePage },
+  'exp-testing-validation-strategy': { mood: 'dark', Component: TestStandPage },
 };
 
 /**

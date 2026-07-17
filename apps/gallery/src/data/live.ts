@@ -58,6 +58,9 @@ export const LIVE_EXPERIENCE_IDS = [
   'exp-agent-workflow',
   'exp-algorithm-explanation',
   'exp-data-lineage-map',
+  'exp-incident-postmortem',
+  'exp-migration-plan',
+  'exp-testing-validation-strategy',
 ] as const;
 
 export type LiveExperienceId = (typeof LIVE_EXPERIENCE_IDS)[number];

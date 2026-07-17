@@ -75,6 +75,9 @@ const LIVE_IDS = [
   'exp-agent-workflow',
   'exp-algorithm-explanation',
   'exp-data-lineage-map',
+  'exp-incident-postmortem',
+  'exp-migration-plan',
+  'exp-testing-validation-strategy',
 ];
 
 /** Demo samples (mirrors data/samples.ts + the /demo/* routes). */
