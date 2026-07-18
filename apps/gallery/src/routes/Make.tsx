@@ -54,8 +54,8 @@ export default function Make() {
   const templateId = chosen?.id ?? 'deck-cloud-migration';
   const surfaceWord = (chosen?.surface ? SURFACE_LABEL[chosen.surface] : 'Slide Deck').toLowerCase();
 
-  const composePrompt = `Compose a ${surfaceWord} about <your content> into the ${templateId} world using the design skill.`;
-  const borrowPrompt = 'Borrow part deck-cloud-migration/waves/swimlanes using the design skill.';
+  const composePrompt = `Compose a ${surfaceWord} about <your content> into the ${templateId} world using the open-design skill.`;
+  const borrowPrompt = 'Borrow part deck-cloud-migration/waves/swimlanes using the open-design skill.';
 
   const proof = SHOWCASE_SAMPLES.slice(0, 3);
 

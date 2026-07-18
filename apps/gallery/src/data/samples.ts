@@ -9,8 +9,8 @@
 export type SampleTool =
   | 'compose_slide_deck'
   | 'compose_design'
-  | 'design skill (compose)'
-  | 'design skill (borrow)';
+  | 'open-design skill (compose)'
+  | 'open-design skill (borrow)';
 
 export interface ShowcaseSample {
   /** Demo route slug — the live page is `/demo/<slug>`. */
@@ -36,7 +36,7 @@ export const SHOWCASE_SAMPLES: readonly ShowcaseSample[] = [
     title: 'GitLab — quarterly business review',
     description:
       'A Q1 FY27 board review built from GitLab’s public filings, composed into "The Quarter" deck.',
-    tool: 'design skill (compose)',
+    tool: 'open-design skill (compose)',
     sourceExperienceId: 'deck-quarterly-business-review',
     sourceName: 'The Quarter',
     surface: 'Slide deck',
@@ -47,7 +47,7 @@ export const SHOWCASE_SAMPLES: readonly ShowcaseSample[] = [
     title: 'OpenModel — overnight drift watch',
     description:
       'An ML-platform team’s fleet of open-weight models under overnight watch, in "The Cockpit" dashboard.',
-    tool: 'design skill (compose)',
+    tool: 'open-design skill (compose)',
     sourceExperienceId: 'db-model-monitoring-cockpit',
     sourceName: 'The Cockpit',
     surface: 'Dashboard',
@@ -58,7 +58,7 @@ export const SHOWCASE_SAMPLES: readonly ShowcaseSample[] = [
     title: 'A content-moderation stack, explained',
     description:
       'A real-time trust-&-safety decisioning pipeline staged as "The Drawing Office" signed engineering drawing.',
-    tool: 'design skill (compose)',
+    tool: 'open-design skill (compose)',
     sourceExperienceId: 'exp-system-architecture',
     sourceName: 'The Drawing Office',
     surface: 'Explainer',
@@ -69,7 +69,7 @@ export const SHOWCASE_SAMPLES: readonly ShowcaseSample[] = [
     title: 'Agent evaluation programme',
     description:
       'An agent-evals programme recorded as evidence, challengers, and sign-offs in "The Validation Ledger".',
-    tool: 'design skill (compose)',
+    tool: 'open-design skill (compose)',
     sourceExperienceId: 'proj-ai-model-validation-hub',
     sourceName: 'The Validation Ledger',
     surface: 'Project page',
@@ -80,7 +80,7 @@ export const SHOWCASE_SAMPLES: readonly ShowcaseSample[] = [
     title: 'An ML career, drawn as one line',
     description:
       'A personal page that walks a decade of ML work as a single continuous timeline, in "The Line".',
-    tool: 'design skill (compose)',
+    tool: 'open-design skill (compose)',
     sourceExperienceId: 'home-career-project-timeline',
     sourceName: 'The Line',
     surface: 'Personal page',
@@ -91,7 +91,7 @@ export const SHOWCASE_SAMPLES: readonly ShowcaseSample[] = [
     title: 'Introducing LangChain OpenWiki',
     description:
       'A launch countdown for an open documentation project, composed into "The T-Minus" deck.',
-    tool: 'design skill (compose)',
+    tool: 'open-design skill (compose)',
     sourceExperienceId: 'deck-product-launch',
     sourceName: 'The T-Minus',
     surface: 'Slide deck',
@@ -177,7 +177,7 @@ export const SHOWCASE_SAMPLES: readonly ShowcaseSample[] = [
     title: 'The borrow-a-part rollout',
     description:
       'One part — the Cutover deck’s swimlane board — borrowed by part ID and re-inked for a new page.',
-    tool: 'design skill (borrow)',
+    tool: 'open-design skill (borrow)',
     sourceExperienceId: 'deck-cloud-migration',
     sourceName: 'The Cutover (waves/swimlanes part)',
     surface: 'Slide deck',

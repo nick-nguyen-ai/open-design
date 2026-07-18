@@ -1,6 +1,6 @@
 # BORROW workflow — one part of a live world → adapted into another experience
 
-Take one identified part of a shipped live world — a diagram, a chart treatment, an animation wrapper — and adapt its craft into a target experience in this repo. **The part ID is the contract:** `<experienceId>/<sectionKind>[/<partName>]`, anchored as a `data-part-id` attribute in the source template, surfaced by the gallery's part inspector (toggle on any `/live/*` or `/demo/*` page), and locked by `apps/gallery/src/routes/LivePartIds.test.tsx`. The canonical request shape is `Borrow part <id> using the design skill.`
+Take one identified part of a shipped live world — a diagram, a chart treatment, an animation wrapper — and adapt its craft into a target experience in this repo. **The part ID is the contract:** `<experienceId>/<sectionKind>[/<partName>]`, anchored as a `data-part-id` attribute in the source template, surfaced by the gallery's part inspector (toggle on any `/live/*` or `/demo/*` page), and locked by `apps/gallery/src/routes/LivePartIds.test.tsx`. The canonical request shape is `Borrow part <id> using the open-design skill.`
 
 **Hard boundaries (read first):**
 - **Never edit the source world.** The borrow is a copy-and-adapt; `git status` under the source experience directory must stay empty for the whole run. If the part cannot be adapted without changing its source, stop and report it as template work.

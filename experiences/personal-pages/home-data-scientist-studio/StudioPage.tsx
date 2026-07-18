@@ -14,7 +14,7 @@
  * the sweep to ordered opacity steps and stills the field.
  *
  * `data-part-id` values are a PUBLIC BORROW CONTRACT (surfaced by the gallery's
- * part inspector and consumed by the design skill): never rename or
+ * part inspector and consumed by the open-design skill): never rename or
  * remove one without updating LivePartIds.test.tsx.
  */
 import { useEffect, useMemo } from 'react';

@@ -7,7 +7,7 @@
  * `cu-` → `bp-`. The deck's `data-state="active"` animation trigger is
  * replaced by a mount-armed `data-armed` attribute (this is not a deck), and
  * chip kinds are re-semanticized to this page's own content. Source world
- * untouched — see .claude/skills/design/workflows/borrow.md.
+ * untouched — see .claude/skills/open-design/workflows/borrow.md.
  */
 import { useEffect, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';

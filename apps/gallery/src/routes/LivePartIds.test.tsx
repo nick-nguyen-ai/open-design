@@ -2,7 +2,7 @@
 /**
  * Rendered part-id CONTRACT for the pilot worlds. The expected arrays below
  * are the public borrow contract: the gallery's part inspector surfaces these
- * IDs and the design skill resolves them, so removing or renaming one
+ * IDs and the open-design skill resolves them, so removing or renaming one
  * is a deliberate, reviewed change — update the world AND this list together.
  *
  * Future worlds join by adding one PART_ID_WORLDS entry.

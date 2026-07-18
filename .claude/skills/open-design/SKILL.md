@@ -1,9 +1,9 @@
 ---
-name: design
+name: open-design
 description: Use for any design work in this repo. Three routes — (a) COMPOSE, turning source content (docs, notes, URLs, briefs) into a finished rendered experience (slide deck, dashboard, project page, personal page, technical explainer) via the enterprise-design MCP server; (b) BORROW, reusing the UI or animation of a part of a live world identified by a data-part-id from the gallery's part inspector; (c) AUDIT, grading an existing experience or route for design quality. Triggers on "create/make/build a slide deck / presentation / dashboard / project page / profile page / explainer from …", "Borrow part <experienceId>/<section>[/<part>] …", "audit/review the design of …", and any request naming the retired experience-composer, deck-composer, or design-borrow skills (this skill replaced all three).
 ---
 
-# Design
+# Open Design
 
 One skill, three workflows. Read the ONE workflow file that matches the request and follow it exactly — the workflow files are the skill; this page only routes.
 

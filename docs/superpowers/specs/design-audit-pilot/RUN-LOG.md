@@ -1,6 +1,6 @@
 # design skill AUDIT route — pilot run, 2026-07-18
 
-First run of `.claude/skills/design/workflows/audit.md` (Hallmark-derived punch-list
+First run of `.claude/skills/open-design/workflows/audit.md` (Hallmark-derived punch-list
 verb). Two targets: one shipped live world, one composed demo. Rubric:
 `references/quality-gates.md`. **No edits were made** — findings are reported here.
 

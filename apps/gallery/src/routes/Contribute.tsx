@@ -50,7 +50,7 @@ export default function Contribute() {
             <Term term="Part IDs">
               Notable parts inside live worlds carry stable <code className="font-mono text-xs">data-part-id</code>{' '}
               anchors — a public contract locked by tests. The <span aria-hidden className="font-mono">⌖</span>{' '}
-              inspector on any live page reveals them, and the design skill can slice
+              inspector on any live page reveals them, and the open-design skill can slice
               exactly that part into another design without touching its source.
             </Term>
           </dl>
