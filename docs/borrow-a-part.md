@@ -2,7 +2,7 @@
 
 Component-level "inspect element" for the live worlds: every notable part of a
 pilot template carries a stable ID, the gallery reveals it on click, and the
-`design-borrow` skill turns that ID into an adapted copy of the part's code in
+`design` skill (BORROW route) turns that ID into an adapted copy of the part's code in
 another experience. It complements the MCP compose pipeline — compose fills a
 *whole* template with content; borrow lifts *one* visual/animation treatment
 across templates.
@@ -47,7 +47,7 @@ anchored part, click selects it (the click is swallowed, devtools-style) and a
 popover shows the ID plus a one-click copy of:
 
 ```
-Borrow part <id> using the design-borrow skill.
+Borrow part <id> using the design skill.
 ```
 
 Escape exits; arrow-key deck navigation keeps working. Zero per-template
@@ -55,7 +55,7 @@ wiring — templates only carry attributes.
 
 ## The skill
 
-`.claude/skills/design-borrow/` — Resolve → Classify → Slice → Adapt → Verify.
+`.claude/skills/design/workflows/borrow.md` (one route of the `design` skill) — Resolve → Classify → Slice → Adapt → Verify.
 Hard boundaries: never edit the source world; borrow structure/animation,
 never shipped content; repo-internal only; no cross-experience imports.
 Registered `comp.*` components are imported, not copied. Proof run:

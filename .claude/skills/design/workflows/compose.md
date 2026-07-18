@@ -1,11 +1,6 @@
----
-name: experience-composer
-description: Use when the user wants to turn source content (docs, notes, URLs, briefs) into a finished, rendered experience in this repo — a slide deck, a dashboard, a project page, a personal page, or a technical explainer. Orchestrates the enterprise-design MCP server (compose_slide_deck / compose_dashboard / compose_project_page / compose_personal_page / compose_explainer, plus validate_fill) from intake through a rendered /demo route. Triggers on "create/make/build a slide deck / presentation / dashboard / project page / profile page / explainer / diagram from …".
----
+# COMPOSE workflow — source content → finished rendered experience
 
-# Experience Composer
-
-Turn a user's source content into a finished, rendered experience — on any of five surfaces (slide deck, dashboard, project page, personal page, technical explainer). **Division of labor is the whole design:** this skill (you, the LLM) carries the judgment — content selection, narrative/section flow, slot authoring. The enterprise-design MCP server carries the craft — template selection, fill skeleton, validation. You never write CSS, layout, motion, or geometry; an experience is one world-template filled with content, and the template guarantees the design quality.
+Turn a user's source content into a finished, rendered experience — on any of five surfaces (slide deck, dashboard, project page, personal page, technical explainer). **Division of labor is the whole design:** this workflow (you, the LLM) carries the judgment — content selection, narrative/section flow, slot authoring. The enterprise-design MCP server carries the craft — template selection, fill skeleton, validation. You never write CSS, layout, motion, or geometry; an experience is one world-template filled with content, and the template guarantees the design quality.
 
 **Hard boundaries (read first):**
 - One compose call per experience — pick the tool by surface (Phase 2). Never mix UIs from different worlds; per-section/per-slide freedom lives INSIDE the template (which kinds, how many repeats, what order — within the skeleton's bounds).
@@ -85,4 +80,6 @@ Call `validate_fill`. Fix findings **content-side only** (tighten copy, drop an 
 
 Follow `references/scaffold-and-verify.md`: scaffold the fill + a thin wrapper page, register the `/demo/<slug>` route in the gallery, typecheck + build, screenshot (every slide for decks; one viewport + one full-page for single-page surfaces), run the content-fit checklist, fix content findings via Phase 4/5.
 
-**Exit:** report to the user — the route URL, screenshot locations, and the content-fit result. The experience is done when the checklist is clean.
+**Quality gate (before reporting done):** with the screenshots in front of you, run the pre-emit self-critique from `references/quality-gates.md` (six axes, 1–5; any axis < 3 → revise via Phase 4/5 before showing the user) and the honest-copy gate on the fill (scan every quantitative claim — each number must trace to the source or be covered by the synthetic-provenance notice; an invented "10× faster" is a blocking finding). The template guarantees the visual craft, but the fill can still ship slop copy or a bad content fit — this gate is about YOUR half of the division of labor. Record the six scores in the run log.
+
+**Exit:** report to the user — the route URL, screenshot locations, the content-fit result, and the critique scores. The experience is done when the checklist is clean.

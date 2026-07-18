@@ -1,5 +1,5 @@
 /**
- * BORROW PILOT — design-borrow skill run evidence, not a catalogue template.
+ * BORROW PILOT — design skill run evidence, not a catalogue template.
  *
  * Borrowed part: `deck-cloud-migration/waves/swimlanes` (the Cutover deck's
  * staggered swimlane grid). Slice = the swimlanes JSX subtree + the `Build`
@@ -7,7 +7,7 @@
  * `cu-` → `bp-`. The deck's `data-state="active"` animation trigger is
  * replaced by a mount-armed `data-armed` attribute (this is not a deck), and
  * chip kinds are re-semanticized to this page's own content. Source world
- * untouched — see .claude/skills/design-borrow/SKILL.md.
+ * untouched — see .claude/skills/design/workflows/borrow.md.
  */
 import { useEffect, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
@@ -78,7 +78,7 @@ export default function BorrowPilotPage() {
   const [armed, setArmed] = useState(false);
 
   useEffect(() => {
-    document.title = 'Borrow Pilot — design-borrow run evidence';
+    document.title = 'Borrow Pilot — design skill run evidence';
   }, []);
 
   // Mount-armed replacement for the deck's slide-activation trigger: arm on

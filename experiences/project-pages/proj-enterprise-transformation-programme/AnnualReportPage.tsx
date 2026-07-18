@@ -14,7 +14,7 @@
  * experience-local art layer — raw colour values are permitted HERE only.
  *
  * `data-part-id` values are a PUBLIC BORROW CONTRACT (surfaced by the gallery's
- * part inspector, consumed by the design-borrow skill): never rename or remove
+ * part inspector, consumed by the design skill): never rename or remove
  * one without updating LivePartIds.test.tsx.
  */
 import { Link as RouterLink } from 'react-router-dom';

@@ -39,7 +39,7 @@ const OpenWikiDemo = lazy(
   () => import('../../../experiences/slide-decks/sample-openwiki/OpenWikiPage.js'),
 );
 
-// design-borrow skill run EVIDENCE — the Cutover swimlanes part
+// design skill run EVIDENCE — the Cutover swimlanes part
 // (deck-cloud-migration/waves/swimlanes) borrowed into a standalone page.
 // Not a catalogue template.
 const BorrowPilotDemo = lazy(

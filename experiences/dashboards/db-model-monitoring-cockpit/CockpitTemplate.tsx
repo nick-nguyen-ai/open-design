@@ -21,7 +21,7 @@
  * (dark) is locked by LiveExperience — not re-locked here.
  *
  * `data-part-id` values are a PUBLIC BORROW CONTRACT (surfaced by the gallery's
- * part inspector and consumed by the design-borrow skill): never rename or
+ * part inspector and consumed by the design skill): never rename or
  * remove one without updating LivePartIds.test.tsx.
  */
 import { useEffect, useMemo, useState } from 'react';

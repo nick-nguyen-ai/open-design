@@ -28,7 +28,7 @@ const POPOVER_HEIGHT = 132;
 const EDGE = 8;
 
 function borrowInstruction(partId: string): string {
-  return `Borrow part ${partId} using the design-borrow skill.`;
+  return `Borrow part ${partId} using the design skill.`;
 }
 
 /** The nearest part anchor for an event target, ignoring the inspector's own UI. */

@@ -27,7 +27,8 @@ experiences/<surface>/<experienceId>/   The 30+ live worlds — the actual craft
 - The **fill** carries ALL the content. `content.ts` exports `SHIPPED_FILL`;
   `<id>-fill.ts` exports `FILL_SCHEMA` + `SECTIONS` in lockstep with the descriptor.
 - **MCP compose tools** select one template deterministically and hand back a fill
-  skeleton. **Skills** (`experience-composer`, `design-borrow`) orchestrate runs.
+  skeleton. **The `design` skill** (`.claude/skills/design/` — one router, three
+  workflow files: COMPOSE, BORROW, AUDIT) orchestrates runs.
 - During a compose or borrow run you NEVER write CSS/layout/motion and NEVER edit a
   shipped world's TSX/CSS. A design flaw found mid-run is template work: stop, report.
 
@@ -132,7 +133,7 @@ short run log in `docs/superpowers/specs/<run-slug>/` (see
 `docs/superpowers/specs/borrow-pilot/RUN-LOG.md` for the shape: what was resolved,
 what was adapted, which gates passed). Future-you reconstructs decisions from these.
 
-**g. Report honestly.** The deck-composer "honesty rule" applies to everything: if a
+**g. Report honestly.** The compose workflow's "honesty rule" applies to everything: if a
 fit is weak, a gate was skipped, or a flake was tolerated — say so plainly in the
 commit/report. Never force a bad fit silently.
 
@@ -226,12 +227,14 @@ descriptor; certify to 0 findings; leak-allowlist only genuine chrome; then add
 `deck-cloud-migration/` as the reference world.
 
 ### c. Composing a sample experience
-Use the `experience-composer` skill (`.claude/skills/`). One compose call per
-experience; author every slot from source content; `validate_fill` loop max 3
-rounds; scaffold a `/demo/<slug>` route; screenshot every state.
+Use the `design` skill's COMPOSE route (`.claude/skills/design/workflows/compose.md`).
+One compose call per experience; author every slot from source content;
+`validate_fill` loop max 3 rounds; scaffold a `/demo/<slug>` route; screenshot every
+state; pre-emit critique + honest-copy gates before reporting done.
 
 ### d. Borrowing a part
-Use the `design-borrow` skill: Resolve → Classify (registered `comp.*` components
+Use the `design` skill's BORROW route (`.claude/skills/design/workflows/borrow.md`):
+Resolve → Classify (registered `comp.*` components
 are IMPORTED, bespoke code is SLICED) → Slice (closure walk: JSX subtree +
 transitive helpers + CSS blocks incl. keyframes and reduced-motion legs) → Adapt
 (prefix rename, ink re-tune, target-owned content, keep motion gates) → Verify
@@ -241,6 +244,13 @@ rig pattern: `docs/superpowers/specs/borrow-pilot/shoot.mjs`.
 ### e. Inspecting parts in the browser
 Any `/live/*` or `/demo/*` route → the ⌖ toggle (right-center) or `?inspect=1` →
 click a part → copy the borrow command. Escape exits; arrow keys still turn slides.
+
+### f. Auditing design quality
+Use the `design` skill's AUDIT route (`.claude/skills/design/workflows/audit.md`):
+grade any experience/route against `references/quality-gates.md` (pre-emit critique
+axes + slop gates, distilled from Hallmark, MIT) → severity-ranked punch list
+(`critical / major / minor`), no edits. This is the repeatable "is it at the Fable
+bar?" check; the same gate file is the quality hook inside COMPOSE and BORROW.
 
 ---
 
@@ -297,8 +307,8 @@ f. **Git hygiene in a multi-session repo:** never bare `git stash` (the stash st
 
 Reading list, in order: `packages/contracts/src/world-template.ts` →
 `packages/registry/src/certify.ts` → `experiences/slide-decks/deck-cloud-migration/`
-(the reference world) → `.claude/skills/design-borrow/SKILL.md` +
-`.claude/skills/deck-composer/SKILL.md` → `docs/borrow-a-part.md` →
+(the reference world) → `.claude/skills/design/SKILL.md` + its `workflows/` and
+`references/quality-gates.md` → `docs/borrow-a-part.md` →
 `docs/superpowers/specs/*.md` (the design specs that grew this repo).
 
 Have a good run. Leave it greener than you found it. — Fable

@@ -1,11 +1,6 @@
----
-name: design-borrow
-description: Use when the user wants to reuse the UI or animation of a specific part of a live template in another experience IN THIS REPO, identified by a part ID from the gallery's part inspector. Triggers on "Borrow part <experienceId>/<section>[/<part>] using the design-borrow skill", or any "borrow / copy / reuse that <diagram|animation|treatment> from <world>" request that names or implies a data-part-id.
----
+# BORROW workflow — one part of a live world → adapted into another experience
 
-# Design Borrow
-
-Take one identified part of a shipped live world — a diagram, a chart treatment, an animation wrapper — and adapt its craft into a target experience in this repo. **The part ID is the contract:** `<experienceId>/<sectionKind>[/<partName>]`, anchored as a `data-part-id` attribute in the source template, surfaced by the gallery's part inspector (toggle on any `/live/*` or `/demo/*` page), and locked by `apps/gallery/src/routes/LivePartIds.test.tsx`.
+Take one identified part of a shipped live world — a diagram, a chart treatment, an animation wrapper — and adapt its craft into a target experience in this repo. **The part ID is the contract:** `<experienceId>/<sectionKind>[/<partName>]`, anchored as a `data-part-id` attribute in the source template, surfaced by the gallery's part inspector (toggle on any `/live/*` or `/demo/*` page), and locked by `apps/gallery/src/routes/LivePartIds.test.tsx`. The canonical request shape is `Borrow part <id> using the design skill.`
 
 **Hard boundaries (read first):**
 - **Never edit the source world.** The borrow is a copy-and-adapt; `git status` under the source experience directory must stay empty for the whole run. If the part cannot be adapted without changing its source, stop and report it as template work.
@@ -59,11 +54,12 @@ Fit the slice to the target experience:
 
 ## Phase 4 — Verify
 
-Follow `references/verify.md`. Non-negotiable gates:
+Follow `references/borrow-verify.md`. Non-negotiable gates:
 
 1. `corepack pnpm typecheck` clean.
 2. `corepack pnpm --filter gallery exec vitest run src/test/part-ids-static.test.ts src/routes/LivePartIds.test.tsx` green (the borrow must not disturb the contract).
 3. **Source untouched:** `git status --porcelain experiences/<surface>/<experienceId>` prints nothing.
 4. Build + preview + screenshot the target route; compare the borrowed part side-by-side with the source (`/live/<experienceId>?inspect=1` finds it again).
+5. **Quality gate:** the adaptation is where slop creeps in, so check the gates from `references/quality-gates.md` that adaptation can break — contrast of every re-tuned colour against the target mood (ink-on-ink, text ≈ fill), motion collapses correctly under reduced-motion, and token discipline (no stray one-off hex introduced during the re-tune; new values join the target's token/variable block). Then run the pre-emit self-critique (six axes, 1–5) on the side-by-side screenshot — any axis < 3 → revisit Phase 3 before reporting.
 
-**Exit:** report — target route, screenshot paths, the three gate results, and any adaptation notes (what was re-tuned and why).
+**Exit:** report — target route, screenshot paths, the gate results, the critique scores, and any adaptation notes (what was re-tuned and why).

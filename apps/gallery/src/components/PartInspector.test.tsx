@@ -98,7 +98,7 @@ describe('PartInspector — selection and copy', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Copy borrow command' }));
     expect(await screen.findByRole('button', { name: 'Copied' })).toBeInTheDocument();
     expect(navigator.clipboard.writeText).toHaveBeenCalledWith(
-      'Borrow part fake-world/hero/diagram using the design-borrow skill.',
+      'Borrow part fake-world/hero/diagram using the design skill.',
     );
   });
 
