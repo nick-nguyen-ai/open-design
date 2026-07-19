@@ -443,6 +443,23 @@ describe('mcp-server tools', () => {
     expect(McpError.parse(textPayload(result)).code).toBe('INVALID_INPUT');
   });
 
+  it('validate_fill advertises fill as "type":"object" on the wire (stringified-fill regression)', async () => {
+    // z.unknown() emits a property with NO "type", and at least one client
+    // transport stringified the whole fill object because of it. The record
+    // schema must advertise an object type so SDKs pass the object through.
+    const { tools } = await h.client.listTools();
+    const tool = tools.find((t) => t.name === 'validate_fill');
+    expect(tool).toBeDefined();
+    const fillSchema = (tool?.inputSchema as { properties?: Record<string, { type?: unknown }> }).properties?.fill;
+    expect(fillSchema?.type).toBe('object');
+  });
+
+  it('validate_fill rejects a stringified fill with INVALID_INPUT instead of validating garbage', async () => {
+    const result = await validateFill({ worldTemplateId: 'quarter', fill: '{"deck":{}}' });
+    expect(result.isError).toBe(true);
+    expect(McpError.parse(textPayload(result)).code).toBe('INVALID_INPUT');
+  });
+
   // === Four per-surface compose tools (Task 4) ===
   // Post dashboard pilot (Task 7): the registry publishes templates for
   // slide-deck AND dashboard (the 'cockpit'); the remaining three surfaces are

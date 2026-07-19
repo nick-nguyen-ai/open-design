@@ -298,17 +298,23 @@ export const ComposeExplainerOutput = ComposeSlideDeckOutput;
 // ---- validate_fill ----------------------------------------------------------
 
 /**
- * Tight input schema for `validate_fill`. The `fill` is deliberately `unknown`:
- * the tool validates it against the WORLD-TEMPLATE DESCRIPTOR contract (required
- * slots, char caps, item counts, and the declared craft rules), NOT the
- * world-specific Zod fill schema — full Zod validation stays a client-side step.
+ * Tight input schema for `validate_fill`. The `fill` is a free-shape OBJECT
+ * (`z.record`, not `z.unknown`): the tool validates it against the
+ * WORLD-TEMPLATE DESCRIPTOR contract (required slots, char caps, item counts,
+ * and the declared craft rules), NOT the world-specific Zod fill schema — full
+ * Zod validation stays a client-side step. The record type matters on the
+ * wire: `z.unknown()` emits a JSON Schema property with no "type", and at
+ * least one client transport stringified the whole fill because of it; the
+ * record emits `"type":"object"` so every SDK passes the object through.
  */
 export const ValidateFillInput = z.object({
   worldTemplateId: z
     .string()
     .min(1)
     .describe("The template id or experienceId returned by compose_slide_deck, e.g. 'quarter' or 'deck-cloud-migration'."),
-  fill: z.unknown().describe('The candidate fill object to check against the template descriptor contract.'),
+  fill: z
+    .record(z.string(), z.unknown())
+    .describe('The candidate fill object (slot values keyed by section) to check against the template descriptor contract.'),
 });
 export type ValidateFillInput = z.infer<typeof ValidateFillInput>;
 
