@@ -59,6 +59,11 @@ export type SlotSpec = z.infer<typeof SlotSpec>;
  *   equals `equals` (the single flagged anomaly/blocker/tension).
  * - `required-nonempty`: the string at `path` is present and non-empty after
  *   trimming (the provenance notice).
+ * - `no-back-edges`: the array at `path`, read as directed edges via literal
+ *   `from`/`to` string fields, is acyclic. Declared by templates whose diagram
+ *   auto-layout is designed around a DAG (a back-edge lays out as a stranded
+ *   node with orphaned step markers). An empty/missing array passes — presence
+ *   is the slot's `required` flag's job, not this rule's.
  * New kinds join the union only when a template needs one.
  */
 export const CraftRule = z.discriminatedUnion('kind', [
@@ -71,6 +76,11 @@ export const CraftRule = z.discriminatedUnion('kind', [
   }),
   z.object({
     kind: z.literal('required-nonempty'),
+    path: z.string().min(1),
+    description: z.string().min(1),
+  }),
+  z.object({
+    kind: z.literal('no-back-edges'),
     path: z.string().min(1),
     description: z.string().min(1),
   }),
@@ -122,11 +132,18 @@ export function resolveFillPath(root: unknown, path: string): unknown {
  * - `required-nonempty`: the string at `path` is present and non-empty (trimmed).
  * - `exactly-one`: the array at `path` has exactly one element whose `field`
  *   equals `equals`.
+ * - `no-back-edges`: the `from`/`to` edge list at `path` forms no cycle.
+ *   Malformed elements (missing/non-string endpoints) are skipped rather than
+ *   failed — shape validation belongs to the world's Zod fill schema; a
+ *   non-array value passes for the same reason.
  */
 export function evaluateCraftRule(rule: CraftRule, fill: unknown): boolean {
   const value = resolveFillPath(fill, rule.path);
   if (rule.kind === 'required-nonempty') {
     return typeof value === 'string' && value.trim().length > 0;
+  }
+  if (rule.kind === 'no-back-edges') {
+    return !hasCycle(value);
   }
   const count = Array.isArray(value)
     ? value.filter(
@@ -134,6 +151,46 @@ export function evaluateCraftRule(rule: CraftRule, fill: unknown): boolean {
       ).length
     : 0;
   return count === 1;
+}
+
+/** True when the `from`/`to` edge list contains a directed cycle (incl. self-loops). */
+function hasCycle(edges: unknown): boolean {
+  if (!Array.isArray(edges)) return false;
+  const adjacency = new Map<string, string[]>();
+  for (const edge of edges) {
+    if (typeof edge !== 'object' || edge === null) continue;
+    const { from, to } = edge as Record<string, unknown>;
+    if (typeof from !== 'string' || typeof to !== 'string') continue;
+    const targets = adjacency.get(from);
+    if (targets) targets.push(to);
+    else adjacency.set(from, [to]);
+  }
+  // Iterative DFS with a three-state visit map: absent = unvisited,
+  // false = on the current path, true = fully explored.
+  const state = new Map<string, boolean>();
+  for (const start of adjacency.keys()) {
+    if (state.get(start) === true) continue;
+    const stack: Array<{ node: string; nextIndex: number }> = [{ node: start, nextIndex: 0 }];
+    state.set(start, false);
+    while (stack.length > 0) {
+      const frame = stack[stack.length - 1]!;
+      const targets = adjacency.get(frame.node) ?? [];
+      if (frame.nextIndex >= targets.length) {
+        state.set(frame.node, true);
+        stack.pop();
+        continue;
+      }
+      const next = targets[frame.nextIndex]!;
+      frame.nextIndex += 1;
+      const seen = state.get(next);
+      if (seen === false) return true; // back-edge onto the current path
+      if (seen === undefined) {
+        state.set(next, false);
+        stack.push({ node: next, nextIndex: 0 });
+      }
+    }
+  }
+  return false;
 }
 
 export const WorldTemplateDescriptor = z.object({

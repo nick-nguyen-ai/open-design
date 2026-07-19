@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { CraftRule, WorldTemplateDescriptor, SectionSpec, SlotSpec } from './world-template.js';
+import { CraftRule, WorldTemplateDescriptor, SectionSpec, SlotSpec, evaluateCraftRule } from './world-template.js';
 
 const validSlot = {
   name: 'notice',
@@ -162,6 +162,15 @@ describe('WorldTemplateDescriptor', () => {
     expect(bad.success).toBe(false);
   });
 
+  it('accepts a no-back-edges rule', () => {
+    const rule = CraftRule.parse({
+      kind: 'no-back-edges',
+      path: 'flow.edges',
+      description: 'The flow lays out as a DAG; a return edge strands its node.',
+    });
+    expect(rule.kind).toBe('no-back-edges');
+  });
+
   it('is JSON-serializable and round-trips stable (no functions)', () => {
     const parsed = WorldTemplateDescriptor.parse(validDescriptor);
     const json = JSON.stringify(parsed);
@@ -169,5 +178,84 @@ describe('WorldTemplateDescriptor', () => {
     expect(roundTripped).toEqual(parsed);
     // A second serialization is byte-identical — the descriptor holds no functions/undefined.
     expect(JSON.stringify(roundTripped)).toBe(json);
+  });
+});
+
+describe('evaluateCraftRule — no-back-edges', () => {
+  const rule = CraftRule.parse({
+    kind: 'no-back-edges',
+    path: 'flow.edges',
+    description: 'The flow must be acyclic.',
+  });
+  const fillWith = (edges: unknown) => ({ flow: { edges } });
+
+  it('passes a linear chain', () => {
+    const edges = [
+      { from: 'a', to: 'b' },
+      { from: 'b', to: 'c' },
+      { from: 'c', to: 'd' },
+    ];
+    expect(evaluateCraftRule(rule, fillWith(edges))).toBe(true);
+  });
+
+  it('passes a branching DAG (diamond)', () => {
+    const edges = [
+      { from: 'a', to: 'b' },
+      { from: 'a', to: 'c' },
+      { from: 'b', to: 'd' },
+      { from: 'c', to: 'd' },
+    ];
+    expect(evaluateCraftRule(rule, fillWith(edges))).toBe(true);
+  });
+
+  it('fails a two-node cycle', () => {
+    const edges = [
+      { from: 'a', to: 'b' },
+      { from: 'b', to: 'a' },
+    ];
+    expect(evaluateCraftRule(rule, fillWith(edges))).toBe(false);
+  });
+
+  it('fails a self-loop', () => {
+    expect(evaluateCraftRule(rule, fillWith([{ from: 'a', to: 'a' }]))).toBe(false);
+  });
+
+  it('fails a longer cycle reached from a linear prefix', () => {
+    const edges = [
+      { from: 'start', to: 'a' },
+      { from: 'a', to: 'b' },
+      { from: 'b', to: 'c' },
+      { from: 'c', to: 'a' },
+    ];
+    expect(evaluateCraftRule(rule, fillWith(edges))).toBe(false);
+  });
+
+  it('skips malformed elements rather than failing them', () => {
+    const edges = [
+      { from: 'a', to: 'b' },
+      { from: 'b' }, // missing `to`
+      null,
+      'not-an-edge',
+      { from: 42, to: 'c' }, // non-string endpoint
+    ];
+    expect(evaluateCraftRule(rule, fillWith(edges))).toBe(true);
+  });
+
+  it('passes an empty array and a non-array value (presence is required’s job)', () => {
+    expect(evaluateCraftRule(rule, fillWith([]))).toBe(true);
+    expect(evaluateCraftRule(rule, fillWith(undefined))).toBe(true);
+    expect(evaluateCraftRule(rule, {})).toBe(true);
+  });
+
+  it('does not false-positive on a node revisited via two DAG paths', () => {
+    // d is reachable twice (via b and via c) but there is no cycle.
+    const edges = [
+      { from: 'a', to: 'b' },
+      { from: 'a', to: 'c' },
+      { from: 'b', to: 'd' },
+      { from: 'c', to: 'd' },
+      { from: 'd', to: 'e' },
+    ];
+    expect(evaluateCraftRule(rule, fillWith(edges))).toBe(true);
   });
 });

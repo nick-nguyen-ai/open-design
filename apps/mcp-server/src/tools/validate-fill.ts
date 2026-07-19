@@ -112,6 +112,12 @@ function checkCraftRules(fill: unknown, descriptor: WorldTemplateDescriptor, fin
         rule: 'craft',
         message: `Craft rule (required-nonempty at "${rule.path}"): ${rule.description}`,
       });
+    } else if (rule.kind === 'no-back-edges') {
+      findings.push({
+        path: rule.path,
+        rule: 'craft',
+        message: `Craft rule (no-back-edges at "${rule.path}" — the edge list contains a directed cycle): ${rule.description}`,
+      });
     } else {
       const value = resolvePath(fill, rule.path);
       const count = Array.isArray(value)
