@@ -1,5 +1,15 @@
 import { describe, expect, it } from 'vitest';
-import { CraftRule, WorldTemplateDescriptor, SectionSpec, SlotSpec, evaluateCraftRule } from './world-template.js';
+import {
+  CraftRule,
+  MAXCHARS_DRIFT_FACTOR,
+  RENDER_BUDGET_HEADROOM,
+  SectionSpec,
+  ShippedMagnitudes,
+  SlotMagnitude,
+  SlotSpec,
+  WorldTemplateDescriptor,
+  evaluateCraftRule,
+} from './world-template.js';
 
 const validSlot = {
   name: 'notice',
@@ -178,6 +188,32 @@ describe('WorldTemplateDescriptor', () => {
     expect(roundTripped).toEqual(parsed);
     // A second serialization is byte-identical — the descriptor holds no functions/undefined.
     expect(JSON.stringify(roundTripped)).toBe(json);
+  });
+});
+
+describe('ShippedMagnitudes', () => {
+  it('parses the templateId → slot-path → magnitude shape and round-trips', () => {
+    const magnitudes = {
+      'dgm-circuit': {
+        'deck.title': { chars: 25 },
+        'close.takeaways': { itemChars: 88 },
+        'cells.cells': { fields: { label: 17, detail: 40 } },
+      },
+    };
+    const parsed = ShippedMagnitudes.parse(magnitudes);
+    expect(parsed['dgm-circuit']?.['cells.cells']?.fields?.detail).toBe(40);
+    expect(ShippedMagnitudes.parse(JSON.parse(JSON.stringify(parsed)))).toEqual(parsed);
+  });
+
+  it('rejects negative and non-integer magnitudes', () => {
+    expect(SlotMagnitude.safeParse({ chars: -1 }).success).toBe(false);
+    expect(SlotMagnitude.safeParse({ itemChars: 1.5 }).success).toBe(false);
+    expect(SlotMagnitude.safeParse({ fields: { label: -3 } }).success).toBe(false);
+  });
+
+  it('exports the shared headroom constants', () => {
+    expect(RENDER_BUDGET_HEADROOM).toBeGreaterThan(1);
+    expect(MAXCHARS_DRIFT_FACTOR).toBeGreaterThan(RENDER_BUDGET_HEADROOM);
   });
 });
 

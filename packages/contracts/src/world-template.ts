@@ -193,6 +193,48 @@ function hasCycle(edges: unknown): boolean {
   return false;
 }
 
+/**
+ * Headroom factor `validate_fill` applies over a slot's SHIPPED magnitude: a
+ * candidate value longer than `shipped × RENDER_BUDGET_HEADROOM` earns a
+ * `renderBudget` finding even when it is inside the descriptor's `maxChars`.
+ * The shipped world is the proven-to-render corpus; the descriptor cap is only
+ * the hard envelope.
+ */
+export const RENDER_BUDGET_HEADROOM = 1.25;
+
+/**
+ * Drift factor the certifier applies between a slot's declared `maxChars` and
+ * its shipped magnitude: a cap more than `shipped × MAXCHARS_DRIFT_FACTOR` is a
+ * `budget-drift` finding — the contract has drifted from what the template
+ * actually renders without ellipsis (maxChars is documented as shipped + ~30%).
+ */
+export const MAXCHARS_DRIFT_FACTOR = 2;
+
+/**
+ * The shipped magnitude of one slot, derived at registry build time from the
+ * world's `SHIPPED_FILL` (never hand-authored):
+ * - `chars` — length of a string slot's shipped value.
+ * - `itemChars` — max element length of a string-array slot.
+ * - `fields` — for object-array slots (`items`/`nodes`/`edges`/`tableRows`),
+ *   max shipped length per string field across elements. Fields absent from
+ *   every shipped element get no entry (and therefore no budget).
+ */
+export const SlotMagnitude = z.object({
+  chars: z.number().int().nonnegative().optional(),
+  itemChars: z.number().int().nonnegative().optional(),
+  fields: z.record(z.string(), z.number().int().nonnegative()).optional(),
+});
+export type SlotMagnitude = z.infer<typeof SlotMagnitude>;
+
+/**
+ * templateId → slot dot-path → shipped magnitude. Compiled into
+ * `generated/shipped-magnitudes.json` as a parallel artefact (NOT part of the
+ * descriptor, so the SECTIONS⇄descriptor lockstep stays untouched) and loaded
+ * by the MCP server to enforce render budgets in `validate_fill`.
+ */
+export const ShippedMagnitudes = z.record(z.string(), z.record(z.string(), SlotMagnitude));
+export type ShippedMagnitudes = z.infer<typeof ShippedMagnitudes>;
+
 export const WorldTemplateDescriptor = z.object({
   schemaVersion: z.literal('1.1'),
   id: z.string().min(1),
