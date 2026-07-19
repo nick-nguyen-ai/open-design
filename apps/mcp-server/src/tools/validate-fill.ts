@@ -22,8 +22,12 @@
  * is not in the registry.
  */
 import {
+  RENDER_BUDGET_HEADROOM,
+  RENDER_BUDGET_MIN_SLACK,
   evaluateCraftRule,
   resolveFillPath as resolvePath,
+  type ShippedMagnitudes,
+  type SlotMagnitude,
   type SlotSpec,
   type WorldTemplateDescriptor,
 } from '@enterprise-design/contracts';
@@ -95,6 +99,74 @@ function checkSlot(fill: unknown, slot: SlotSpec, findings: FillFinding[]): void
       });
     }
   }
+}
+
+/** The render budget for one shipped magnitude: headroom with an absolute floor. */
+function budget(shipped: number): number {
+  return Math.max(Math.ceil(shipped * RENDER_BUDGET_HEADROOM), shipped + RENDER_BUDGET_MIN_SLACK);
+}
+
+/**
+ * Machine/reference fields that are never rendered as prose (ids and edge
+ * endpoints) or carry enum-like tokens: exempt from render budgets.
+ */
+const NON_PROSE_FIELDS = new Set(['id', 'from', 'to', 'kind', 'tone', 'reply', 'step']);
+
+/**
+ * Budget candidate values against the SHIPPED world's magnitudes (derived at
+ * registry build — the proven-to-render corpus).
+ *
+ * SCOPE — object-array string fields ONLY (plus one nested level of
+ * string-array fields like tableRows `values`): those are the values no
+ * `maxChars` governs, and where every real truncation in the pilot runs
+ * happened (cells detail, era labels, stage labels). Plain string and
+ * string-array slots are governed by their descriptor caps, which the
+ * certifier's budget-drift check keeps honest — budgeting them against a
+ * single shipped SAMPLE double-polices and rejects known-good fills (a
+ * 55-char heading renders fine over a 26-char shipped sample).
+ * Machine fields (ids, edge endpoints, enum tokens) are exempt. The verify
+ * rig's ellipsis probe remains the precise, rendered-pixels catcher; this is
+ * the cheap static layer that stops egregious overshoot before a render.
+ */
+function checkRenderBudget(
+  fill: unknown,
+  slot: SlotSpec,
+  magnitudes: Record<string, SlotMagnitude> | undefined,
+  findings: FillFinding[],
+): void {
+  if (!magnitudes) return;
+  const path = slot.name.replace(/\[\]$/, '');
+  const magnitude = magnitudes[path];
+  if (magnitude?.fields === undefined) return;
+  const value = resolvePath(fill, path);
+  if (!Array.isArray(value)) return;
+
+  const push = (where: string, actual: number, shipped: number) => {
+    findings.push({
+      path: where,
+      rule: 'renderBudget',
+      message: `"${where}" is ${actual} chars; the shipped world renders ${shipped} here (budget ${budget(shipped)} = shipped × ${RENDER_BUDGET_HEADROOM}, floor +${RENDER_BUDGET_MIN_SLACK}). Longer values ellipsize or overlap in the template's frame — tighten toward the shipped magnitude.`,
+      guidance: slot.guidance,
+    });
+  };
+
+  value.forEach((element, index) => {
+    if (element === null || typeof element !== 'object' || Array.isArray(element)) return;
+    for (const [field, fieldValue] of Object.entries(element as Record<string, unknown>)) {
+      if (NON_PROSE_FIELDS.has(field)) continue;
+      const shipped = magnitude.fields?.[field];
+      if (shipped === undefined || shipped === 0) continue;
+      if (typeof fieldValue === 'string') {
+        if (fieldValue.length > budget(shipped)) push(`${path}[${index}].${field}`, fieldValue.length, shipped);
+      } else if (Array.isArray(fieldValue)) {
+        fieldValue.forEach((sub, subIndex) => {
+          if (typeof sub === 'string' && sub.length > budget(shipped)) {
+            push(`${path}[${index}].${field}[${subIndex}]`, sub.length, shipped);
+          }
+        });
+      }
+    }
+  });
 }
 
 /**
@@ -190,9 +262,11 @@ export function validateFillTool(registry: RegistryData, rawInput: unknown): Too
   }
 
   const findings: FillFinding[] = [];
+  const magnitudes: ShippedMagnitudes[string] | undefined = registry.shippedMagnitudes[descriptor.id];
   for (const section of descriptor.sections) {
     for (const slot of section.slots) {
       checkSlot(fill, slot, findings);
+      checkRenderBudget(fill, slot, magnitudes, findings);
     }
   }
   checkCraftRules(fill, descriptor, findings);

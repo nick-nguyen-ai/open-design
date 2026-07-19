@@ -23,6 +23,7 @@ import {
   DesignGrammar,
   MotionSequence,
   SearchDocument,
+  ShippedMagnitudes,
   WorldTemplateDescriptor,
 } from '@enterprise-design/contracts';
 import { createSearchIndex } from '@enterprise-design/search';
@@ -50,6 +51,14 @@ export interface RegistryData {
   readonly domain: DomainRegistry;
   /** Compiled world-template descriptors, for `compose_slide_deck` + `validate_fill`. */
   readonly worldTemplates: readonly WorldTemplateDescriptor[];
+  /**
+   * Per-template shipped slot magnitudes (templateId → slot dot-path →
+   * magnitude), derived at registry build from each world's SHIPPED_FILL.
+   * `validate_fill` budgets candidate values against shipped ×
+   * RENDER_BUDGET_HEADROOM — the proven-to-render corpus, tighter than the
+   * descriptor's hard caps.
+   */
+  readonly shippedMagnitudes: ShippedMagnitudes;
   /**
    * World-templates keyed by BOTH their descriptor id (`quarter`/`cutover`) and
    * their `experienceId` (`deck-quarterly-business-review`/`deck-cloud-migration`),
@@ -80,6 +89,7 @@ export function loadRegistryData(): RegistryData {
   const grammars = readGenerated('grammars.json', z.array(DesignGrammar));
   const motionSequences = readGenerated('motion-sequences.json', z.array(MotionSequence));
   const worldTemplates = readGenerated('world-templates.json', z.array(WorldTemplateDescriptor));
+  const shippedMagnitudes = readGenerated('shipped-magnitudes.json', ShippedMagnitudes);
 
   const worldTemplateById = new Map<string, WorldTemplateDescriptor>();
   for (const worldTemplate of worldTemplates) {
@@ -94,6 +104,7 @@ export function loadRegistryData(): RegistryData {
     searchIndex: createSearchIndex([...searchDocuments]),
     domain: { components, grammars, motionSequences },
     worldTemplates,
+    shippedMagnitudes,
     worldTemplateById,
   };
 }

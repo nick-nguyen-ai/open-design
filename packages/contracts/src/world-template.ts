@@ -203,6 +203,16 @@ function hasCycle(edges: unknown): boolean {
 export const RENDER_BUDGET_HEADROOM = 1.25;
 
 /**
+ * Absolute floor added to a shipped magnitude when computing its render
+ * budget: `budget = max(ceil(shipped × HEADROOM), shipped + MIN_SLACK)`. The
+ * multiplicative headroom alone is absurd on tiny values (a 4-char timeline
+ * marker would budget 5) and noisy near the boundary; the floor keeps the
+ * gate aimed at egregious overshoot — the 120-char detail in a 37-char
+ * field — while the verify rig's ellipsis probe owns the precise cases.
+ */
+export const RENDER_BUDGET_MIN_SLACK = 14;
+
+/**
  * Drift factor the certifier applies between a slot's declared `maxChars` and
  * its shipped magnitude: a cap more than `shipped × MAXCHARS_DRIFT_FACTOR` is a
  * `budget-drift` finding — the contract has drifted from what the template

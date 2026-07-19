@@ -321,7 +321,7 @@ export type ValidateFillInput = z.infer<typeof ValidateFillInput>;
 /** One validation finding: the slot/craft path, the rule violated, a message, and the guidance echoed. */
 export const FillFinding = z.object({
   path: z.string(),
-  rule: z.enum(['required', 'maxChars', 'minItems', 'maxItems', 'craft']),
+  rule: z.enum(['required', 'maxChars', 'minItems', 'maxItems', 'renderBudget', 'craft']),
   message: z.string(),
   guidance: z.string().optional(),
 });
