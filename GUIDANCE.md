@@ -192,9 +192,12 @@ descriptor; certify to 0 findings; leak-allowlist only genuine chrome; then add
 
 ### c. Composing a sample experience
 Use the `open-design` skill's COMPOSE route (`.claude/skills/open-design/workflows/compose.md`).
-One compose call per experience; author every slot from source content;
-`validate_fill` loop max 3 rounds; scaffold a `/demo/<slug>` route; screenshot every
-state; pre-emit critique + honest-copy gates before reporting done.
+Intake is at most three questions; ONE unpinned compose call returns the top-3
+`alternatives` — the user picks (each previews at its shipped `/live/<experienceId>`
+world), a non-winner is fetched with `pinTemplateId`. Author every slot from source
+content; `validate_fill` loop max 3 rounds (render budgets + craft rules incl.
+no-back-edges live there); scaffold a `/demo/<slug>` route; then DESIGN.md Part 2:
+verify rig → content-fit read → fresh-context screenshot judge → honest-copy gate.
 
 ### d. Borrowing a part
 Use the `open-design` skill's BORROW route (`.claude/skills/open-design/workflows/borrow.md`):
@@ -202,8 +205,8 @@ Resolve → Classify (registered `comp.*` components
 are IMPORTED, bespoke code is SLICED) → Slice (closure walk: JSX subtree +
 transitive helpers + CSS blocks incl. keyframes and reduced-motion legs) → Adapt
 (prefix rename, ink re-tune, target-owned content, keep motion gates) → Verify
-(four gates incl. `git status --porcelain` EMPTY on the source world). Screenshot
-rig pattern: `docs/superpowers/specs/borrow-pilot/shoot.mjs`.
+(four gates incl. `git status --porcelain` EMPTY on the source world, then the
+verify rig + screenshot judge per DESIGN.md Part 2).
 
 ### e. Inspecting parts in the browser
 Any `/live/*` or `/demo/*` route → the ⌖ toggle (right-center) or `?inspect=1` →
@@ -211,10 +214,12 @@ click a part → copy the borrow command. Escape exits; arrow keys still turn sl
 
 ### f. Auditing design quality
 Use the `open-design` skill's AUDIT route (`.claude/skills/open-design/workflows/audit.md`):
-grade any experience/route against `references/quality-gates.md` (pre-emit critique
-axes + slop gates, distilled from Hallmark, MIT) → severity-ranked punch list
-(`critical / major / minor`), no edits. This is the repeatable "is it at the Fable
-bar?" check; the same gate file is the quality hook inside COMPOSE and BORROW.
+the verify rig pre-answers the mechanical gates (`findings.json`), then grade against
+`references/quality-gates.md` (pre-emit critique axes + slop gates, distilled from
+Hallmark, MIT) → severity-ranked punch list (`critical / major / minor`), no edits.
+This is the repeatable "is it at the Fable bar?" check; the same gate file is the
+quality hook inside COMPOSE and BORROW, and DESIGN.md Part 2 is the procedure that
+runs it everywhere.
 
 ---
 
