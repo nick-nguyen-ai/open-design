@@ -14,8 +14,8 @@ import { SHIPPED_FILL } from '../../../../experiences/slide-decks/deck-dgm-circu
 const registry = loadRegistryData();
 
 /** Deep-clone the shipped circuit fill so each test can tamper independently. */
-function circuitFill(): Record<string, never> {
-  return JSON.parse(JSON.stringify(SHIPPED_FILL)) as Record<string, never>;
+function circuitFill<T = unknown>(): T {
+  return JSON.parse(JSON.stringify(SHIPPED_FILL)) as T;
 }
 
 function findingsFor(fill: unknown) {
@@ -32,7 +32,7 @@ describe('validate_fill — renderBudget', () => {
   });
 
   it('flags an object-array string field exceeding shipped × headroom while under the hard cap', () => {
-    const fill = circuitFill() as { cells: { cells: Array<{ detail?: string }> } };
+    const fill = circuitFill<{ cells: { cells: Array<{ detail?: string }> } }>();
     // 120 chars: inside the 160-char descriptor cap, far over the shipped ~37.
     fill.cells.cells[0]!.detail = 'x'.repeat(120);
     const result = findingsFor(fill);
@@ -48,7 +48,7 @@ describe('validate_fill — renderBudget', () => {
     // A 55-char heading over a 26-char shipped sample rendered fine in the
     // opendesign-intro run; budgeting capped slots against one sample rejects
     // known-good fills. The heading cap (64) is the contract there.
-    const fill = circuitFill() as { flow: { heading: string } };
+    const fill = circuitFill<{ flow: { heading: string } }>();
     fill.flow.heading = 'Compose: a doc goes in, a rendered experience comes out'; // 55 chars, cap 64
     const result = findingsFor(fill);
     expect(result.valid).toBe(true);
@@ -56,10 +56,10 @@ describe('validate_fill — renderBudget', () => {
   });
 
   it('exempts machine fields (ids, edge endpoints) and stays quiet within budget', () => {
-    const fill = circuitFill() as {
+    const fill = circuitFill<{
       timeline: { eras: Array<{ id: string }> };
       cells: { cells: Array<{ detail?: string }> };
-    };
+    }>();
     // Long machine id: never rendered as prose, must not be budgeted.
     fill.timeline.eras[0]!.id = 'a-very-long-machine-identifier';
     // Field value inside budget (shipped + floor).
