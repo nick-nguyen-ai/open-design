@@ -130,6 +130,140 @@ describe('composeForSurface', () => {
     expect(result.ok).toBe(true);
     if (result.ok) expect(result.data.worldTemplateId).toBe('aaa');
   });
+
+  it('returns ranked alternatives: winner first, zero-score excluded, capped at 3', () => {
+    const registry = fakeRegistry([
+      // score 5: audience overlap (2) + corporateFit 1... executive overlap ×2 + restricted/conventional fit 2 = 4.
+      descriptor({ id: 'winner', experienceId: 'exp-winner' }),
+      // Same score as winner, later id -> second by tie-break.
+      descriptor({ id: 'zecond', experienceId: 'exp-zecond' }),
+      // Lower score: no audience overlap, art-directed under restricted = 0 + intent match only.
+      descriptor({
+        id: 'third',
+        experienceId: 'exp-third',
+        audiences: ['technical'],
+        briefKeywords: ['quarterly'],
+      }),
+      // Zero score: nothing matches at all.
+      descriptor({
+        id: 'zero',
+        experienceId: 'exp-zero',
+        audiences: ['personal-internal'],
+        businessIntents: ['nothing-shared'],
+        style: 'art-directed',
+      }),
+      // A fourth positive candidate that must be cut by the cap of 3.
+      descriptor({ id: 'zfourth', experienceId: 'exp-zfourth', audiences: ['technical'], briefKeywords: ['review'] }),
+    ]);
+
+    const result = composeForSurface(registry, 'slide-deck', baseContext, 'quarterly review', 'compose_slide_deck');
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      const ids = result.data.alternatives.map((a) => a.worldTemplateId);
+      expect(ids).toHaveLength(3);
+      expect(ids[0]).toBe(result.data.worldTemplateId);
+      expect(ids).not.toContain('zero');
+      const first = result.data.alternatives[0]!;
+      expect(first.scoreBreakdown).toContain('audienceOverlap');
+      expect(first.style).toBe('conventional');
+      expect(first.guidance.length).toBeGreaterThan(0);
+    }
+  });
+
+  it('a surface with a single template degrades to one alternative', () => {
+    const registry = fakeRegistry([descriptor({ id: 'only', experienceId: 'exp-only', surface: 'dashboard' })]);
+    const result = composeForSurface(registry, 'dashboard', baseContext, 'quarterly review', 'compose_dashboard');
+    expect(result.ok).toBe(true);
+    if (result.ok) expect(result.data.alternatives.map((a) => a.worldTemplateId)).toEqual(['only']);
+  });
+
+  it('pinTemplateId short-circuits scoring: a losing candidate wins with its own skeleton', () => {
+    const registry = fakeRegistry([
+      descriptor({ id: 'aaa', experienceId: 'exp-aaa' }),
+      descriptor({
+        id: 'loser',
+        experienceId: 'exp-loser',
+        audiences: ['personal-internal'],
+        businessIntents: ['nothing-shared'],
+        style: 'art-directed',
+        sections: [
+          {
+            kind: 'pinned-kind',
+            purpose: 'Prove the pinned skeleton is returned.',
+            slots: [{ name: 'pinned.slot', type: 'text', required: true, limits: {}, guidance: 'g' }],
+          },
+        ],
+      }),
+    ]);
+
+    const result = composeForSurface(
+      registry,
+      'slide-deck',
+      { ...baseContext, pinTemplateId: 'loser' },
+      'quarterly review',
+      'compose_slide_deck',
+    );
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.data.worldTemplateId).toBe('loser');
+      expect(result.data.rationale).toContain('Pinned');
+      expect(result.data.alternatives.map((a) => a.worldTemplateId)).toEqual(['loser']);
+      expect(result.data.fillSkeleton.sections[0]?.kind).toBe('pinned-kind');
+    }
+  });
+
+  it('pinTemplateId resolves by experienceId and bypasses NO_TEMPLATE_FIT for zero scores', () => {
+    const registry = fakeRegistry([
+      descriptor({
+        id: 'zero',
+        experienceId: 'exp-zero',
+        audiences: ['personal-internal'],
+        businessIntents: ['nothing-shared'],
+        style: 'art-directed',
+      }),
+    ]);
+    // Unpinned, this pool is a zero-score NO_TEMPLATE_FIT…
+    const unpinned = composeForSurface(registry, 'slide-deck', baseContext, 'quarterly review', 'compose_slide_deck');
+    expect(unpinned.ok).toBe(false);
+    // …but an explicit pick is honoured, resolved via the experienceId form.
+    const pinned = composeForSurface(
+      registry,
+      'slide-deck',
+      { ...baseContext, pinTemplateId: 'exp-zero' },
+      'quarterly review',
+      'compose_slide_deck',
+    );
+    expect(pinned.ok).toBe(true);
+    if (pinned.ok) expect(pinned.data.worldTemplateId).toBe('zero');
+  });
+
+  it('an unknown or cross-surface pin is UNKNOWN_TEMPLATE', () => {
+    const registry = fakeRegistry([
+      descriptor({ id: 'deck-1', experienceId: 'exp-deck', surface: 'slide-deck' }),
+      descriptor({ id: 'dash-1', experienceId: 'exp-dash', surface: 'dashboard' }),
+    ]);
+
+    const unknown = composeForSurface(
+      registry,
+      'slide-deck',
+      { ...baseContext, pinTemplateId: 'no-such-template' },
+      'quarterly review',
+      'compose_slide_deck',
+    );
+    expect(unknown.ok).toBe(false);
+    if (!unknown.ok) expect(unknown.error.code).toBe('UNKNOWN_TEMPLATE');
+
+    // A dashboard template pinned from the slide-deck tool must not leak across surfaces.
+    const crossSurface = composeForSurface(
+      registry,
+      'slide-deck',
+      { ...baseContext, pinTemplateId: 'dash-1' },
+      'quarterly review',
+      'compose_slide_deck',
+    );
+    expect(crossSurface.ok).toBe(false);
+    if (!crossSurface.ok) expect(crossSurface.error.code).toBe('UNKNOWN_TEMPLATE');
+  });
 });
 
 // Type-only assertion that the fixture surface list stays in the enum.

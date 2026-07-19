@@ -28,6 +28,7 @@
 import { z } from 'zod';
 import type { CorporateSuitability, SlotSpec, SurfaceType, WorldTemplateDescriptor } from '@enterprise-design/contracts';
 import {
+  type ComposeAlternative,
   type ComposeSlideDeckOutput,
   type FillSkeleton,
   type FillSkeletonSection,
@@ -125,6 +126,32 @@ function slotExample(slot: SlotSpec): string {
   }
 }
 
+/** Maximum candidates surfaced in `alternatives` (winner included). */
+const MAX_ALTERNATIVES = 3;
+
+/** The evidence-format score line for one scored candidate. */
+function scoreBreakdown(entry: Scored): string {
+  return (
+    `${entry.descriptor.id} (${entry.descriptor.experienceId}): audienceOverlap ${entry.audienceOverlap}×2=${entry.audienceOverlap * 2}` +
+    ` + intentMatch ${entry.intentMatch} + corporateFit ${entry.corporateFit} = ${entry.score}`
+  );
+}
+
+/** Map a scored candidate to the client-facing alternative shape. */
+function toAlternative(entry: Scored): ComposeAlternative {
+  const { descriptor } = entry;
+  return {
+    worldTemplateId: descriptor.id,
+    experienceId: descriptor.experienceId,
+    score: entry.score,
+    scoreBreakdown: scoreBreakdown(entry),
+    style: descriptor.style,
+    mood: descriptor.mood,
+    grammarId: descriptor.grammarId,
+    guidance: descriptor.guidance,
+  };
+}
+
 function buildFillSkeleton(descriptor: WorldTemplateDescriptor): FillSkeleton {
   const sections: FillSkeletonSection[] = descriptor.sections.map((section) => ({
     kind: section.kind,
@@ -212,21 +239,59 @@ export function composeForSurface(
     return noTemplateFit(surface, requestId, [], []);
   }
 
+  // 3. Optional explicit pin: an id/experienceId from a previous call's
+  //    alternatives short-circuits scoring entirely (an explicit pick is never
+  //    NO_TEMPLATE_FIT and overrides the styleHint filter). Resolution is
+  //    scoped to THIS surface's pool so a cross-surface pin cannot leak.
+  if (ctx.pinTemplateId !== undefined) {
+    const pin = ctx.pinTemplateId;
+    const pinned = surfaceTemplates.find((t) => t.id === pin || t.experienceId === pin);
+    if (!pinned) {
+      return {
+        ok: false,
+        error: makeError('UNKNOWN_TEMPLATE', `pinTemplateId "${pin}" is not a live ${surface} template.`, {
+          requestId,
+          details: [
+            `Live ${surface} templates: ${surfaceTemplates.map((t) => `${t.id} (${t.experienceId})`).join(', ') || '(none)'}.`,
+          ],
+          remediation: [
+            "Pin one of this surface's template ids/experienceIds (typically from a previous call's alternatives), or drop pinTemplateId to let scoring decide.",
+          ],
+        }),
+      };
+    }
+    const pinnedScored = scoreTemplate(pinned, ctx, contentBrief);
+    return {
+      ok: true,
+      data: {
+        worldTemplateId: pinned.id,
+        experienceId: pinned.experienceId,
+        rationale: `Pinned '${pinned.id}' (${pinned.experienceId}, ${pinned.style} style) by explicit pinTemplateId — scoring bypassed; score shown for transparency.`,
+        evidence: [scoreBreakdown(pinnedScored)],
+        alternatives: [toAlternative(pinnedScored)],
+        fillSkeleton: buildFillSkeleton(pinned),
+      },
+    };
+  }
+
   const scored = candidates
     .map((descriptor) => scoreTemplate(descriptor, ctx, contentBrief))
     // Sort by score desc, then id asc — a fully deterministic ranking + tie-break.
     .sort((a, b) => (b.score - a.score) || (a.descriptor.id < b.descriptor.id ? -1 : a.descriptor.id > b.descriptor.id ? 1 : 0));
 
-  const evidence = scored.map(
-    (entry) =>
-      `${entry.descriptor.id} (${entry.descriptor.experienceId}): audienceOverlap ${entry.audienceOverlap}×2=${entry.audienceOverlap * 2}` +
-      ` + intentMatch ${entry.intentMatch} + corporateFit ${entry.corporateFit} = ${entry.score}`,
-  );
+  const evidence = scored.map(scoreBreakdown);
 
   const winner = scored[0]!;
   if (winner.score === 0) {
     return noTemplateFit(surface, requestId, scored, evidence);
   }
+
+  // Top-ranked candidates for the client's pick-list: winner first, zero-score
+  // excluded (a zero-score "alternative" is not a genuine fit), capped at 3.
+  const alternatives = scored
+    .filter((entry) => entry.score > 0)
+    .slice(0, MAX_ALTERNATIVES)
+    .map(toAlternative);
 
   const descriptor = winner.descriptor;
   const rationaleParts = [
@@ -249,6 +314,7 @@ export function composeForSurface(
       experienceId: descriptor.experienceId,
       rationale,
       evidence,
+      alternatives,
       fillSkeleton: buildFillSkeleton(descriptor),
     },
   };

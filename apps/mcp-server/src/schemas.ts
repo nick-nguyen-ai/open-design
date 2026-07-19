@@ -202,6 +202,13 @@ const surfaceContext = <S extends string>(surface: S) =>
       .enum(['art-directed', 'conventional'])
       .optional()
       .describe('Optional HARD filter on template style.'),
+    pinTemplateId: z
+      .string()
+      .min(1)
+      .optional()
+      .describe(
+        "Optional explicit template pick (id or experienceId, e.g. 'dgm-sketchnote' or 'deck-dgm-sketchnote') — typically one of a previous call's alternatives. Short-circuits scoring; an id not published for this surface is UNKNOWN_TEMPLATE.",
+      ),
   });
 
 /** Slide-deck context: `surfaceContext('slide-deck')`. Retained as a named export the compose core reuses. */
@@ -275,12 +282,33 @@ export const FillSkeleton = z.object({
 });
 export type FillSkeleton = z.infer<typeof FillSkeleton>;
 
-/** `compose_slide_deck` structured output: the chosen template, why, the scoring evidence, and the fill skeleton. */
+/**
+ * One ranked template candidate: enough for a client to present a pick-list
+ * (blurb from style/mood/grammar/guidance, score transparency from
+ * scoreBreakdown) and to follow up with `pinTemplateId`. The winner is always
+ * `alternatives[0]`; a gallery client can preview each candidate at its
+ * shipped world's route (`/live/<experienceId>`).
+ */
+export const ComposeAlternative = z.object({
+  worldTemplateId: z.string(),
+  experienceId: z.string(),
+  score: z.number(),
+  scoreBreakdown: z.string(),
+  style: z.enum(['art-directed', 'conventional']),
+  mood: ThemeMode,
+  grammarId: z.string(),
+  guidance: z.array(z.string()),
+});
+export type ComposeAlternative = z.infer<typeof ComposeAlternative>;
+
+/** `compose_slide_deck` structured output: the chosen template, why, the scoring evidence, the ranked alternatives, and the fill skeleton. */
 export const ComposeSlideDeckOutput = z.object({
   worldTemplateId: z.string(),
   experienceId: z.string(),
   rationale: z.string(),
   evidence: z.array(z.string()),
+  /** Top-ranked candidates (≤3, winner first, zero-score excluded; exactly the pin when pinned). */
+  alternatives: z.array(ComposeAlternative),
   fillSkeleton: FillSkeleton,
 });
 export type ComposeSlideDeckOutput = z.infer<typeof ComposeSlideDeckOutput>;

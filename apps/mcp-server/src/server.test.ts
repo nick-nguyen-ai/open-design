@@ -443,6 +443,39 @@ describe('mcp-server tools', () => {
     expect(McpError.parse(textPayload(result)).code).toBe('INVALID_INPUT');
   });
 
+  it('compose_slide_deck returns winner-first alternatives and honours pinTemplateId', async () => {
+    const args = {
+      context: {
+        surface: 'slide-deck',
+        audience: ['technical', 'mixed'],
+        businessIntent: ['internal-enablement'],
+        corporateSuitability: 'standard',
+        motionPreference: 2,
+      },
+      contentBrief: 'Internal walkthrough of our design system tooling for engineers and PMs.',
+    };
+    const first = (await h.client.callTool({ name: 'compose_slide_deck', arguments: args })) as CallToolResult;
+    expect(first.isError).not.toBe(true);
+    const out = ComposeSlideDeckOutput.parse(first.structuredContent);
+    expect(out.alternatives.length).toBeGreaterThan(0);
+    expect(out.alternatives.length).toBeLessThanOrEqual(3);
+    expect(out.alternatives[0]?.worldTemplateId).toBe(out.worldTemplateId);
+    for (const alt of out.alternatives) expect(alt.score).toBeGreaterThan(0);
+
+    // Pick a NON-winning alternative (when one exists) and pin it.
+    const other = out.alternatives.find((a) => a.worldTemplateId !== out.worldTemplateId);
+    if (other) {
+      const pinned = (await h.client.callTool({
+        name: 'compose_slide_deck',
+        arguments: { ...args, context: { ...args.context, pinTemplateId: other.worldTemplateId } },
+      })) as CallToolResult;
+      expect(pinned.isError).not.toBe(true);
+      const pinnedOut = ComposeSlideDeckOutput.parse(pinned.structuredContent);
+      expect(pinnedOut.worldTemplateId).toBe(other.worldTemplateId);
+      expect(pinnedOut.rationale).toContain('Pinned');
+    }
+  });
+
   it('validate_fill advertises fill as "type":"object" on the wire (stringified-fill regression)', async () => {
     // z.unknown() emits a property with NO "type", and at least one client
     // transport stringified the whole fill object because of it. The record
