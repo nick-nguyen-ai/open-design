@@ -50,7 +50,9 @@ severity · tell-name · where (file:line, or "screenshot: <region>") · one-lin
   deliberately includes simple, conventional worlds; conventional ≠ slop.
 - End with the count line: `N critical · M major · K minor` and the six critique scores.
 - If the target is a **shipped live world** (in `LIVE_EXPERIENCE_IDS`), remind the reader
-  that fixes are template work requiring the usual gates (tests, previews, screenshot judge)
-  — an audit finding is not a licence to hot-patch a shipped world.
+  that fixes are template work requiring the usual gates (tests, previews, and the
+  screenshot judge of `references/screenshot-judge.md`) — an audit finding is not a licence
+  to hot-patch a shipped world. (AUDIT itself needs no separate judge: this route IS the
+  full rubric run fresh against the pixels.)
 
 **Exit:** the punch list, delivered. Nothing edited, `git status` clean.
