@@ -1,0 +1,997 @@
+{
+  "route": "/demo/opendesign-intro-fable",
+  "generatedAt": "2026-07-19T12:04:57.828Z",
+  "viewports": [
+    1440,
+    1280,
+    375
+  ],
+  "probeViewports": [
+    1440,
+    1280
+  ],
+  "states": 10,
+  "findings": [],
+  "unverifiable": [
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.cxd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-01 · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"01 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-notice · \"sourced from repo docs and pilot run log\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"←\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"→\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.cxd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-01 · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"02 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-notice · \"sourced from repo docs and pilot run log\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"←\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"→\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.cxd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-01 · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"03 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-notice · \"sourced from repo docs and pilot run log\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"←\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"→\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.cxd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-01 · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"04 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-notice · \"sourced from repo docs and pilot run log\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"←\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"→\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.cxd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-01 · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"05 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-notice · \"sourced from repo docs and pilot run log\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"←\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"→\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.cxd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-01 · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"06 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-notice · \"sourced from repo docs and pilot run log\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"←\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"→\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.cxd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-01 · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"07 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-notice · \"sourced from repo docs and pilot run log\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"←\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"→\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.cxd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-01 · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"08 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-notice · \"sourced from repo docs and pilot run log\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"←\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"→\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.cxd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-01 · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"09 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-notice · \"sourced from repo docs and pilot run log\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"←\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"→\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.cxd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-01 · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"10 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-notice · \"sourced from repo docs and pilot run log\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"←\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"→\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.cxd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-01 · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"01 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-notice · \"sourced from repo docs and pilot run log\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"←\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"→\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.cxd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-01 · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"02 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-notice · \"sourced from repo docs and pilot run log\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"←\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"→\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.cxd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-01 · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"03 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-notice · \"sourced from repo docs and pilot run log\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"←\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"→\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.cxd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-01 · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"04 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-notice · \"sourced from repo docs and pilot run log\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"←\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"→\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.cxd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-01 · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"05 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-notice · \"sourced from repo docs and pilot run log\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"←\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"→\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.cxd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-01 · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"06 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-notice · \"sourced from repo docs and pilot run log\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"←\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"→\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.cxd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-01 · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"07 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-notice · \"sourced from repo docs and pilot run log\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"←\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"→\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.cxd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-01 · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"08 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-notice · \"sourced from repo docs and pilot run log\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"←\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"→\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.cxd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-01 · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"09 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-notice · \"sourced from repo docs and pilot run log\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"←\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"→\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.cxd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-01 · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"10 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-notice · \"sourced from repo docs and pilot run log\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.cxd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"←\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "button.cxd-nav-btn · \"→\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    }
+  ]
+}
