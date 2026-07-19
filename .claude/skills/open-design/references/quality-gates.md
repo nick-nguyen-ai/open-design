@@ -6,6 +6,12 @@ theme tokens (`@enterprise-design/themes`), locked per-world moods
 (`apps/gallery/src/data/live.ts`), motion gated by `useMotionPreference()` +
 `[data-reduced]` + `@media (prefers-reduced-motion: reduce)`.
 
+This file is the GATE LIST; the step-by-step procedure that runs it — the
+verify rig, the findings table, the judge dispatch — is Part 2 of the root
+`DESIGN.md`. Gates marked ⚙ below are automated by the rig's DOM probes
+(`scripts/probes.mjs`): F1 root overflow, text overflow/ellipsis, text overlap,
+and the C1 contrast math (with `unverifiable` over images/gradients).
+
 Who runs what:
 - **COMPOSE Phase 6** — pre-emit critique + honest-copy gates (the template owns the visual gates).
 - **BORROW Phase 4** — pre-emit critique + the adaptation-sensitive gates (contrast, motion collapse, token discipline).

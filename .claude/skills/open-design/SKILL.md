@@ -17,6 +17,10 @@ Requests phrased against the retired skill names route the same way: experience-
 
 **Ambiguous requests.** "Rebuild X like Y" is a compose that wants a borrow: run COMPOSE first, then BORROW the named part into the result. If the route is genuinely unclear, ask one question before reading any workflow.
 
+The repo-wide craft principles and the full verification procedure live in the
+root **`DESIGN.md`** — every route's "done" is defined there (Part 2); the gate
+list it references is `references/quality-gates.md`.
+
 ## Invariants (hold on every route)
 
 1. **Never edit shipped template/world source to satisfy a run.** A design flaw found mid-run is template work — report it, don't patch around it. (BORROW additionally proves this with a `git status` gate on the source directory.)

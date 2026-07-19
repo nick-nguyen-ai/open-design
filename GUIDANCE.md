@@ -160,51 +160,15 @@ provenance, report. Known pre-existing conditions are listed in §7.
 
 ## 5. The design quality bar (the craft rules)
 
-This is where "Fable-level output" lives. The gallery's worlds are art-directed to a
-bank-credible standard; hold the line.
-
-a. **Art-direction licence.** Raw colour values are permitted ONLY in a world's own
-   `*Template.tsx` / `*Page.tsx` + sibling `.css` (the "experience-local art
-   layer"). Everything else — shared components, chrome, overlays — consumes theme
-   tokens (`var(--…)`). When borrowing across moods, re-tune raw inks deliberately,
-   in one `INK`-style map, never scattered.
-
-b. **Motion comes from tokens.** Durations/easings are `var(--dur-*)` /
-   `var(--ease-*)` from `packages/motion` + `packages/primitives/src/tailwind-theme.css`.
-   Never ad-hoc cubic-beziers. Signature sequences respect
-   `SIGNATURE_SEQUENCE_CAP_MS` (1200ms) and `REDUCED_MOTION_CAP_MS` (400ms).
-
-c. **Reduced motion is part of every animation, not an afterthought.** Every
-   animated pattern has three legs: the `useMotionPreference()` gate in JSX, a
-   `data-reduced` attribute hook, and a `@media (prefers-reduced-motion: reduce)`
-   override. Tests assert the reduced variant renders the FULL content (no
-   information lives only in motion).
-
-d. **Accessibility is asserted, not aspired to.** Every world has an axe suite.
-   Charts/diagrams carry text mirrors (`VisuallyHidden`, table mirrors); status is
-   letter-coded, never colour-alone; interactive things have real roles and
-   accessible names (note: a glyph child becomes the accessible name — use
-   `aria-label` on icon buttons).
-
-e. **Worlds lock their mood.** `LiveExperience` pins `data-theme` per world.
-   Anything global that floats above worlds (like the PartInspector) must be
-   **theme-independent** (hardcoded, contrast-checked on both moods) — and must be
-   verified on a dark world AND a light world.
-
-f. **Template chrome owns the page corners.** Deck nav arrows, notices, and counters
-   live in the corners of live pages. Global floating UI goes to the right edge,
-   vertically centred. (Learned the hard way — see §3d.)
-
-g. **React discipline the linter enforces:** no ref writes during render; no
-   synchronous `setState` in effects — use lazy `useState` initializers and the
-   adjust-state-during-render pattern (see `PartInspector.tsx` for a worked
-   example); everything keyed properly. Also: `useDeckNavigation` **rewrites the
-   query string on every slide turn** — never treat the URL as state storage on live
-   pages; read params once on entry.
-
-h. **Anchor conventions:** `data-testid` for behavior/test anchors, `data-part-id`
-   for borrow anchors, `data-*` state attributes (`data-state`, `data-status`,
-   `data-reduced`) for styling hooks. All three are load-bearing; keep them stable.
+This is where "Fable-level output" lives — and it now lives in **`DESIGN.md`**
+at the repo root: Part 1 is the craft principles (art-direction licence, motion
+tokens, reduced motion, asserted accessibility, mood locks, chrome placement,
+React discipline, anchor conventions, division of labor, honest content); Part 2
+is the step-by-step verification procedure every design run walks before "done"
+(the verify rig, the findings table, the content-fit read, the screenshot judge,
+the honest-copy sweep). Read DESIGN.md before any design-facing change; the
+gate list + severity ladder stay in
+`.claude/skills/open-design/references/quality-gates.md`.
 
 ---
 
