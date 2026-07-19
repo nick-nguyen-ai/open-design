@@ -22,22 +22,19 @@ Scripted fallback (CI, or a session without the MCP attached): call the same dom
 
 **Exit:** tools reachable (or fallback chosen and stated).
 
-## Phase 1 — Intake
+## Phase 1 — Intake (at most THREE questions)
 
 1. **Source context.** Ask the user for their clean source content: file paths, pasted text, or already-distilled URL extracts. If they hand you raw URLs, extract the substance first and show them what you captured. If the source is huge, distill a working summary but keep the original for slot-level facts.
-2. **Standard question set** — one AskUserQuestion batch. Skip any the brief already answers; record every answer (asked or inferred) in the run log:
-   - **Content fidelity:** retain as much of the original as possible, or make it concise?
-   - **Audience:** executives / engineers / mixed / general?
-   - **Technical depth:** how deep into internals may the experience go?
-   - **Timing/length:** how long is the talk / how much does the reader want to take in (→ target slide count or section count)?
-   - **Style:** art-directed, conventional (PowerPoint-familiar), or no preference?
-   - **Surface — ASK ONLY when it is not already given** (the user didn't name a surface and the brief doesn't fix one): *"Is this a document to present (a slide deck) or a destination to visit (a page or dashboard)?"* Use the answer plus the source shape to choose the surface: a talk → slide-deck; a live monitoring view → dashboard; a story about one piece of work → project-page; a page about a person → personal-page; one central diagram of a system/concept → technical-explainer.
+2. **The question batch** — ONE AskUserQuestion batch of AT MOST three questions. Skip any the brief already answers; infer the rest from the source and record every answer (asked or inferred) in the run log. There is NO style question — the Phase 2 candidate pick replaces it (the user chooses a look by choosing a world).
+   - **Q1 — Audience + depth (one question):** who is this for, and how deep into internals may it go? (executives–outcomes / engineers–mechanisms / mixed–both / general–plain language)
+   - **Q2 — Fidelity + length (one question):** keep as much of the source as possible, or cut to the arc — and roughly how long (minutes of talk / reading depth → slide or section count)?
+   - **Q3 — Surface, ONLY if genuinely ambiguous** (the user didn't name one and the source doesn't fix one): *"Is this a document to present (a slide deck) or a destination to visit (a page or dashboard)?"* A talk → slide-deck; a live monitoring view → dashboard; a story about one piece of work → project-page; a page about a person → personal-page; one central diagram → technical-explainer. When the surface IS clear, use the third slot (if anything still blocks you) for the single most load-bearing unknown — or ask only two.
 
-**Exit:** source captured + all answers recorded + surface fixed.
+**Exit:** source captured + answers recorded + surface fixed.
 
-## Phase 2 — Compose
+## Phase 2 — Candidates, pick, compose
 
-Build the surface context from the answers (the correct `surface` literal, audience list, businessIntent list, corporateSuitability, motionPreference, styleHint only if the user chose a style) and distill the source into a one-paragraph `contentBrief`. **Call the one compose tool that matches the surface, once:**
+Build the surface context from the answers (the correct `surface` literal, audience list, businessIntent list, corporateSuitability, motionPreference — no styleHint unless the user volunteered a hard style constraint) and distill the source into a one-paragraph `contentBrief`. **Call the one compose tool that matches the surface, once (unpinned):**
 
 | Surface | Tool | Skeleton is | Phase 3 map |
 | --- | --- | --- | --- |
@@ -47,11 +44,17 @@ Build the surface context from the answers (the correct `surface` literal, audie
 | personal-page | `compose_personal_page` | scroll sections (who → what → work → contact) | section map |
 | technical-explainer | `compose_explainer` | one drawing + legend/annotation sections | section map |
 
-Every tool returns the same shape: `worldTemplateId`, `experienceId`, a rationale, scoring evidence, and `fillSkeleton.sections` (each section/kind carries its slots' `spec` + `guidance` + `example`).
+Every tool returns `worldTemplateId`, `experienceId`, a rationale, scoring evidence, **`alternatives` (the top-3 positive-score candidates, winner first)**, and the winner's `fillSkeleton`.
 
-Report to the user: selected template, its style/mood, and the rationale. **Honesty rule:** if the rationale shows a weak fit (no real intent overlap, score carried by generic keywords), say so plainly, name the closest-fitting world that is NOT yet templatized, and let the user decide (proceed with the best available, or stop). Never force a bad fit silently. **For fixed-topology surfaces** (explainer `drawing-office`, project-page `ledger`) this check is stricter: verify the source's structure actually maps onto the template's pinned nodes/stages before proceeding — if it doesn't, that's a wrong-template signal, not something to solve in the fill.
+**Present the candidates.** When `alternatives` has more than one entry, put the choice to the user as one AskUserQuestion — one option per candidate (winner first, marked "(Recommended)"), each described from the data: display name (from the experience catalogue) + `style`/`mood`/`grammarId`, one line from its `guidance`, the `scoreBreakdown`, and the live preview URL `/live/<experienceId>` (every templatized world ships a full example there — that IS the preview; render nothing speculative). With exactly one candidate (most non-deck surfaces today), skip the question, state the fit, and proceed — degrade honestly, never pad the list.
 
-**Exit:** template selected and user informed (with fit assessment).
+**On the pick:** the winner → proceed with the skeleton already in hand. A non-winner → ONE follow-up call to the same tool with `pinTemplateId: <their pick>` to fetch that template's skeleton (an explicit pin never returns NO_TEMPLATE_FIT). Record pick + reason in the run log.
+
+**"Can I mix them?"** One experience = one world-template — that invariant holds (never blend section UIs across worlds). The sanctioned mix: COMPOSE on the picked template, then BORROW a specific part's treatment from a non-picked candidate via its `data-part-id` (route the borrow workflow after this run ships). Special case — the five `deck-dgm-*` tour decks share ONE fill contract: switching among them later is a re-compose with a different `pinTemplateId` and the same fill, zero rewriting.
+
+**Honesty rule (unchanged, applies to whichever candidate wins the pick):** if the rationale shows a weak fit (no real intent overlap, score carried by generic keywords), say so plainly, name the closest-fitting world that is NOT yet templatized, and let the user decide. Never force a bad fit silently. **For fixed-topology surfaces** (explainer `drawing-office`, project-page `ledger`) this check is stricter: verify the source's structure actually maps onto the template's pinned nodes/stages before proceeding — if it doesn't, that's a wrong-template signal, not something to solve in the fill.
+
+**Exit:** template picked (by the user when there was a real choice) and fit assessment delivered.
 
 ## Phase 3 — Narrative map (decks) / Section map (single-page)
 
