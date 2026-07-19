@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>verify-rig probe fixture — four planted defects + one clean region</title>
+<style>
+  /* Keep the page itself from scrolling horizontally EXCEPT via the planted
+     overflow strip, so root-overflow attribution is unambiguous. */
+  body { margin: 0; font-family: sans-serif; background: #ffffff; color: #111111; }
+  section { padding: 16px; }
+
+  /* DEFECT 1 — root overflow (F1): a strip wider than any viewport. */
+  #defect-root-overflow { width: 3000px; height: 12px; background: #eee; }
+
+  /* DEFECT 2 — ellipsized text: box far narrower than its text. */
+  #defect-ellipsis {
+    width: 90px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* DEFECT 3 — overlapping text: two absolutely positioned lines on top of each other. */
+  #overlap-zone { position: relative; height: 60px; }
+  #defect-overlap-a, #defect-overlap-b { position: absolute; top: 10px; left: 20px; width: 220px; }
+  #defect-overlap-b { top: 16px; left: 40px; }
+
+  /* DEFECT 4 — low contrast: mid-grey on mid-grey, normal-size text. */
+  #defect-contrast { background-color: #8a8a8a; color: #9a9a9a; font-size: 16px; }
+
+  /* CLEAN region: black on white, roomy, no overlap, deliberate scroller allowed. */
+  #clean { color: #111111; background: #ffffff; }
+  #clean-scroller { overflow-x: auto; width: 200px; white-space: nowrap; }
+</style>
+</head>
+<body>
+  <div id="defect-root-overflow"></div>
+
+  <section>
+    <p id="defect-ellipsis">This sentence is far longer than its ninety-pixel box allows.</p>
+  </section>
+
+  <section id="overlap-zone">
+    <p id="defect-overlap-a">First overlapping line of fixture text.</p>
+    <p id="defect-overlap-b">Second overlapping line of fixture text.</p>
+  </section>
+
+  <section>
+    <p id="defect-contrast">Low-contrast grey-on-grey body text.</p>
+  </section>
+
+  <section id="clean">
+    <h1>Clean heading, black on white.</h1>
+    <p>A roomy paragraph that fits its container comfortably.</p>
+    <div id="clean-scroller">A deliberate horizontal scroller is not a text-overflow finding.</div>
+  </section>
+</body>
+</html>

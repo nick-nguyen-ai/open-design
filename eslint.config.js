@@ -86,11 +86,19 @@ export default tseslint.config(
   },
   {
     // Standalone evidence/asset-generation scripts (the docs/ screenshot
-    // runners, the gallery preview shooter) execute in Node and drive a
-    // browser page, so they legitimately reference Node + DOM globals.
-    files: ['docs/**/*.mjs', 'apps/gallery/scripts/**/*.mjs'],
+    // runners, the gallery preview shooter, the open-design skill's verify
+    // rig) execute in Node and drive a browser page — the rig's probes are
+    // additionally SERIALIZED into page context — so they legitimately
+    // reference Node + DOM globals.
+    files: ['docs/**/*.mjs', 'apps/gallery/scripts/**/*.mjs', '.claude/skills/open-design/scripts/**/*.mjs'],
     languageOptions: {
-      globals: { process: 'readonly', console: 'readonly', document: 'readonly' },
+      globals: {
+        process: 'readonly',
+        console: 'readonly',
+        document: 'readonly',
+        Node: 'readonly',
+        getComputedStyle: 'readonly',
+      },
     },
   },
   prettierConfig,
