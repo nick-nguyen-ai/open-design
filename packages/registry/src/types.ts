@@ -5,6 +5,7 @@ import type {
   MotionSequence,
   SearchDocument,
   CompositionRole,
+  ShippedMagnitudes,
   WorldTemplateDescriptor,
 } from '@enterprise-design/contracts';
 
@@ -45,6 +46,8 @@ export interface CompileResult {
   grammars: DesignGrammar[];
   motionSequences: MotionSequence[];
   worldTemplates: WorldTemplateDescriptor[];
+  /** Per-template shipped slot magnitudes, derived from each world's SHIPPED_FILL. */
+  shippedMagnitudes: ShippedMagnitudes;
   compatibility: CompatibilityGraphData;
   searchDocuments: SearchDocument[];
   diagnostics: Diagnostic[];

@@ -1,5 +1,6 @@
 import path from 'node:path';
 import { discover } from './discovery.js';
+import { deriveAllShippedMagnitudes } from './magnitudes.js';
 import { runValidationRules } from './validation.js';
 import { buildCompatibilityGraph } from './compatibility.js';
 import { buildSearchDocuments } from './search.js';
@@ -49,6 +50,8 @@ export async function compileRegistry(options: CompileOptions = {}): Promise<Com
     (worldTemplate) => worldTemplate.id,
   );
 
+  const shippedMagnitudes = await deriveAllShippedMagnitudes(discovered.worldTemplates, diagnostics);
+
   const compatibility = buildCompatibilityGraph(components);
   const searchDocuments = buildSearchDocuments({
     components,
@@ -66,6 +69,7 @@ export async function compileRegistry(options: CompileOptions = {}): Promise<Com
     grammars,
     motionSequences,
     worldTemplates,
+    shippedMagnitudes,
     compatibility,
     searchDocuments,
     diagnostics,

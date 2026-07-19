@@ -3,13 +3,14 @@ import path from 'node:path';
 import type { CompileResult } from './types.js';
 import { stableStringify } from './util.js';
 
-/** Filenames of the six generated artefacts, in a stable order. */
+/** Filenames of the generated artefacts, in a stable order. */
 export const ARTEFACT_FILES = {
   components: 'components.json',
   experiences: 'experiences.json',
   grammars: 'grammars.json',
   motionSequences: 'motion-sequences.json',
   worldTemplates: 'world-templates.json',
+  shippedMagnitudes: 'shipped-magnitudes.json',
   compatibility: 'compatibility.json',
   searchDocuments: 'search-documents.json',
 } as const;
@@ -26,6 +27,7 @@ export function serializeArtefacts(result: CompileResult): Record<string, string
     [ARTEFACT_FILES.grammars]: stableStringify(result.grammars),
     [ARTEFACT_FILES.motionSequences]: stableStringify(result.motionSequences),
     [ARTEFACT_FILES.worldTemplates]: stableStringify(result.worldTemplates),
+    [ARTEFACT_FILES.shippedMagnitudes]: stableStringify(result.shippedMagnitudes),
     [ARTEFACT_FILES.compatibility]: stableStringify(result.compatibility),
     [ARTEFACT_FILES.searchDocuments]: stableStringify(result.searchDocuments),
   };
