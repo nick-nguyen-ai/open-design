@@ -12,9 +12,12 @@ Accept any of: a route (`/live/<id>`, `/demo/<slug>`), an experienceId, or a dir
 
 1. **The code** — the experience directory (`content.ts` / `fill.ts`, `*Page.tsx` /
    `*Template.tsx`, sibling `.css`).
-2. **The rendered page** — start the gallery dev server (or reuse a verified-running one on
-   the right build), screenshot the route at 1280×800 and one full-page capture; for decks,
-   every slide. Add a 375px-wide capture when grading the mobile gates.
+2. **The rendered page** — build, serve, and run the verify rig
+   (`node .claude/skills/open-design/scripts/verify.mjs --route <route> --testid <testid>
+   [--slides N] --out <evidence-dir>`): it captures every state at 1440/1280/375 (plus a
+   full-page shot for single-page surfaces) and runs the ⚙ DOM probes — its `findings.json`
+   pre-answers gates F1, the overflow/overlap tells, and the C1 contrast math, so the sweep
+   in Phase 1 starts from mechanical findings instead of re-deriving them.
 
 Never grade from code alone: half the gates are visual and only fail on the rendered page.
 

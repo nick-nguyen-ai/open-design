@@ -16,21 +16,24 @@ git status --porcelain experiences/<surface>/<experienceId>
 corepack pnpm --filter gallery build
 ```
 
-## Screenshot the target
+## Screenshot + probe the target (the verify rig)
 
-Copy the screenshot rig pattern from
-`docs/superpowers/specs/phase-b-sample/shoot.mjs` (Playwright against
-`vite preview`): serve the built gallery on a fixed port, `page.goto` the
-target route, screenshot each state you borrowed into (for decks: the slide
-carrying the part; use `?slide=N`).
+Serve the built gallery, then run the skill's ONE rig against the target route
+— it shoots every state at 1440/1280/375 AND runs the DOM probes (root
+overflow, text overflow/overlap, contrast — the gates a borrow's re-tune most
+often breaks), writing `findings.json` beside the PNGs:
 
 ```powershell
 corepack pnpm --filter gallery exec vite preview --port 4318   # background
-node <your-shoot-script>.mjs                                   # writes PNGs
+node .claude/skills/open-design/scripts/verify.mjs `
+  --route /demo/<target-slug> --testid <target-root-testid> [--slides N] `
+  --out docs/superpowers/specs/<run-slug>
 ```
 
-Keep run evidence (screenshots + a short run log: ID resolved, classification,
-slice list, adaptations) under `docs/superpowers/specs/<run-slug>/`.
+Zero actionable findings is the exit condition (see the reading table in
+`DESIGN.md` Part 2 Step 3). Keep run evidence (screenshots + `findings.json` +
+a short run log: ID resolved, classification, slice list, adaptations) under
+`docs/superpowers/specs/<run-slug>/`.
 
 ## Visual comparison
 

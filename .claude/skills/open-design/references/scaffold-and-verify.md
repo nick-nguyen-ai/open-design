@@ -60,27 +60,20 @@ corepack pnpm --filter gallery build
 corepack pnpm --filter gallery exec vite preview --port 4318
 ```
 
-## 3. Screenshot the experience
+## 3. Screenshot + probe the experience (the verify rig)
 
-Copy `docs/superpowers/specs/phase-b-sample/shoot.mjs` beside your run's evidence directory and adjust `ROUTE` and the template root's stable `data-testid` (e.g. `live-cutover` for a deck, `live-studio` for a personal page). It resolves Playwright through `apps/gallery`'s manifest (do not change that part — a bare import resolves to the wrong workspace), waits for fonts + a 900ms motion settle, and shoots at 1440×900. Run from repo root: `node <evidence-dir>/shoot.mjs`.
+Run the skill's ONE rig — never hand-write a shoot script (the old per-run `shoot.mjs` copies under `docs/superpowers/specs/` are historical evidence, not templates):
 
-**Screenshot count depends on the surface:**
+```
+node .claude/skills/open-design/scripts/verify.mjs \
+  --route /demo/<slug> --testid <template-root-testid> \
+  --slides <N>                # decks only; omit for single-page surfaces \
+  --out docs/superpowers/specs/<slug>-sample
+```
 
-- **Slide decks:** keep the `?slide=1..N` loop — set `SLIDE_COUNT` to the deck's slide count and shoot `slide-NN.png` per slide.
-- **Single-page surfaces (dashboard / project-page / personal-page / explainer):** there are no slides. Replace the loop with **two shots** of `/demo/<slug>`:
-  1. **Viewport** at 1440×900 (`fullPage: false`) → `viewport.png` — the above-the-fold first impression.
-  2. **Full page** at full scroll height (`fullPage: true`) → `full-page.png` — the whole visit end to end.
+The rig resolves Playwright through `apps/gallery`'s manifest, waits for fonts + a 900ms motion settle, shoots every state at 1440/1280/375 (plus a full-page shot for single-page surfaces), runs the DOM probes (root overflow at every viewport; text overflow/overlap + contrast at the probe viewports), and writes `findings.json` beside the PNGs. It warns when `dist/` is older than the sources — rebuild if it does. Read the findings per the table in `DESIGN.md` Part 2 Step 3; **zero actionable findings is the exit condition** (fill-side fixes loop through Phase 4/5; template-side findings are reported, never patched).
 
-  ```js
-  await page.goto(`${BASE}${ROUTE}`, { waitUntil: 'networkidle' });
-  await page.waitForSelector('[data-testid="<template-root-testid>"]', { timeout: 15_000 });
-  await page.evaluate(() => document.fonts.ready);
-  await page.waitForTimeout(900);
-  await page.screenshot({ path: path.join(here, 'viewport.png') });
-  await page.screenshot({ path: path.join(here, 'full-page.png'), fullPage: true });
-  ```
-
-Evidence directory convention: `docs/superpowers/specs/<slug>-sample/` — holds `source-context.md`, `mcp-outcome.json`, the validate result, `shoot.mjs`, and the screenshots.
+Evidence directory convention: `docs/superpowers/specs/<slug>-sample/` — holds `source-context.md`, `mcp-outcome.json`, the validate result, `findings.json`, and the screenshots.
 
 ## 4. Content-fit checklist (read every screenshot)
 
