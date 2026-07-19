@@ -29,7 +29,7 @@ import {
  * discriminant when handing a slide's fields to its family renderer.
  */
 
-const heading = z.string().min(1).max(70);
+const heading = z.string().min(1).max(64);
 const caption = z.string().min(1).max(220);
 
 export const DgmFill = z.object({
@@ -70,9 +70,9 @@ const slideSlots = (
   key: string,
   kindSlots: SectionSpec['slots'],
 ): SectionSpec['slots'] => [
-  { name: `${key}.heading`, type: 'text', required: true, limits: { maxChars: 70 }, guidance: `Editorial headline over the ${key} slide — a claim the diagram then proves.` },
+  { name: `${key}.heading`, type: 'text', required: true, limits: { maxChars: 64 }, guidance: `Editorial headline over the ${key} slide — a claim the diagram then proves.` },
   { name: `${key}.caption`, type: 'longtext', required: true, limits: { maxChars: 220 }, guidance: `One paragraph under the headline: what to read in the ${key} diagram and why it matters.` },
-  { name: `${key}.title`, type: 'text', required: true, limits: { maxChars: 80 }, guidance: `The diagram's own figure title, rendered by the ${key} component's frame.` },
+  { name: `${key}.title`, type: 'text', required: true, limits: { maxChars: 48 }, guidance: `The diagram's own figure title, rendered by the ${key} component's frame.` },
   ...kindSlots,
 ];
 
@@ -113,7 +113,7 @@ export const DGM_SECTIONS: SectionSpec[] = [
     repeats: { min: 1, max: 1 },
     slots: slideSlots('layers', [
       { name: 'layers.layers', type: 'items', required: true, limits: { minItems: 3, maxItems: 9 }, guidance: 'Top-to-bottom layers (id, label, optional detail, optional items ≤6, optional tone base|accent|alert).' },
-      { name: 'layers.sideLabel', type: 'text', required: true, limits: { maxChars: 80 }, guidance: 'The rotated axis caption beside the stack, e.g. "request path".' },
+      { name: 'layers.sideLabel', type: 'text', required: true, limits: { maxChars: 32 }, guidance: 'The rotated axis caption beside the stack, e.g. "request path".' },
     ]),
   },
   {
@@ -131,7 +131,7 @@ export const DGM_SECTIONS: SectionSpec[] = [
     repeats: { min: 1, max: 1 },
     slots: slideSlots('cycle', [
       { name: 'cycle.stages', type: 'items', required: true, limits: { minItems: 3, maxItems: 8 }, guidance: 'Clockwise stages (id, label, optional detail).' },
-      { name: 'cycle.hubLabel', type: 'text', required: true, limits: { maxChars: 80 }, guidance: 'The hub label at the centre of the ring, e.g. the loop\'s owner or engine.' },
+      { name: 'cycle.hubLabel', type: 'text', required: true, limits: { maxChars: 14 }, guidance: 'The hub label at the centre of the ring, e.g. the loop\'s owner or engine.' },
     ]),
   },
   {

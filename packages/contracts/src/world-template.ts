@@ -208,7 +208,15 @@ export const RENDER_BUDGET_HEADROOM = 1.25;
  * `budget-drift` finding — the contract has drifted from what the template
  * actually renders without ellipsis (maxChars is documented as shipped + ~30%).
  */
-export const MAXCHARS_DRIFT_FACTOR = 2;
+export const MAXCHARS_DRIFT_FACTOR = 4;
+
+/**
+ * Absolute slack that must ALSO be exceeded before `budget-drift` fires: tiny
+ * slots (a 9-char deck code under a 24-char cap) trip a pure ratio test while
+ * being harmless — drift is only worth a finding when the cap is both >factor×
+ * shipped AND more than this many characters above it.
+ */
+export const MAXCHARS_DRIFT_SLACK = 40;
 
 /**
  * The shipped magnitude of one slot, derived at registry build time from the

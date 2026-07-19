@@ -26,6 +26,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import {
+  MAXCHARS_DRIFT_FACTOR,
+  MAXCHARS_DRIFT_SLACK,
   WorldTemplateDescriptor,
   SectionSpec,
   evaluateCraftRule,
@@ -33,12 +35,14 @@ import {
   type SlotSpec,
 } from '@enterprise-design/contracts';
 import { z } from 'zod';
+import { deriveSlotMagnitude } from './magnitudes.js';
 
 export type CertCheck =
   | 'lockstep'
   | 'shipped-parses'
   | 'slot-resolves'
   | 'craft-holds'
+  | 'budget-drift'
   | 'leak'
   | 'author-marker';
 
@@ -121,6 +125,28 @@ function slotLimitViolations(slot: SlotSpec, value: unknown): string[] {
 /** A descriptor slot name with any trailing `[]` stripped to a plain dot-path. */
 function slotPath(name: string): string {
   return name.replace(/\[\]$/, '');
+}
+
+/**
+ * `maxChars` is documented as "shipped magnitude + ~30% headroom". A cap that
+ * drifts far beyond what the shipped world actually renders lets a candidate
+ * fill validate clean and then ellipsize on screen (the dgm-circuit cells
+ * detail shipped 37 chars under a 160 cap). Drift fires only when the cap
+ * exceeds BOTH shipped × {@link MAXCHARS_DRIFT_FACTOR} AND shipped +
+ * {@link MAXCHARS_DRIFT_SLACK}, so tiny slots with generous-looking-but-
+ * harmless caps stay quiet. Applies to the magnitudes `maxChars` governs:
+ * string slots (`chars`) and string-array elements (`itemChars`).
+ */
+export function budgetDriftViolation(slot: SlotSpec, shipped: unknown): string | undefined {
+  const { maxChars } = slot.limits;
+  if (maxChars === undefined) return undefined;
+  const magnitude = deriveSlotMagnitude(shipped);
+  const shippedChars = magnitude?.chars ?? magnitude?.itemChars;
+  if (shippedChars === undefined || shippedChars === 0) return undefined;
+  if (maxChars > shippedChars * MAXCHARS_DRIFT_FACTOR && maxChars - shippedChars > MAXCHARS_DRIFT_SLACK) {
+    return `"${slot.name}" declares maxChars ${maxChars} but ships ${shippedChars} chars — cap has drifted beyond ${MAXCHARS_DRIFT_FACTOR}× shipped (+${MAXCHARS_DRIFT_SLACK} slack); retune toward shipped + ~30%.`;
+  }
+  return undefined;
 }
 
 /**
@@ -261,6 +287,10 @@ export async function certifyWorld(manifestPath: string): Promise<CertFinding[]>
       } else {
         for (const violation of slotLimitViolations(slot, resolved)) {
           findings.push({ templateId, check: 'craft-holds', message: `Slot limit violated: ${violation}` });
+        }
+        const drift = budgetDriftViolation(slot, resolved);
+        if (drift !== undefined) {
+          findings.push({ templateId, check: 'budget-drift', message: drift });
         }
       }
     }
