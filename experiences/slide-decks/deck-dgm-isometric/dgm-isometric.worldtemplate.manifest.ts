@@ -34,6 +34,11 @@ const descriptor: WorldTemplateDescriptor = WorldTemplateDescriptor.parse({
   guidance: GUIDANCE,
   craftRules: [
     {
+      kind: 'no-back-edges',
+      path: 'flow.edges',
+      description: 'The flow diagram lays out as a DAG; a return edge strands its target node — express loops in the caption instead.',
+    },
+    {
       kind: 'required-nonempty',
       path: 'deck.notice',
       description: 'deck.notice must state data provenance (synthetic or sourced).',
