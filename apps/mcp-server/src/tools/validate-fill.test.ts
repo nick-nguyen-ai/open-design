@@ -69,6 +69,22 @@ describe('validate_fill — renderBudget', () => {
     expect(result.findings.filter((f) => f.rule === 'renderBudget')).toEqual([]);
   });
 
+  it('tripwire: the committed bad fixture yields exactly its three planted findings; the good twin none', async () => {
+    const { BAD_DGM_FILL, GOOD_TWIN_FILL, PLANTED_DEFECTS } = await import('./__fixtures__/bad-dgm-fill.js');
+
+    const good = findingsFor(GOOD_TWIN_FILL);
+    expect(good.valid).toBe(true);
+    expect(good.findings).toEqual([]);
+
+    const bad = findingsFor(BAD_DGM_FILL);
+    expect(bad.valid).toBe(false);
+    const got = bad.findings.map((f) => ({ path: f.path, rule: f.rule })).sort((a, b) => a.path.localeCompare(b.path));
+    const want = [...PLANTED_DEFECTS].sort((a, b) => a.path.localeCompare(b.path));
+    // Exactly the planted set — a missing entry names the regressed guard,
+    // an extra entry names a false positive.
+    expect(got).toEqual(want);
+  });
+
   it('does not crash for a template with no derived magnitudes', () => {
     // Simulate a registry whose artefact lacks this template's magnitudes.
     const stripped = { ...registry, shippedMagnitudes: {} };
