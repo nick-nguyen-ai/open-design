@@ -39,6 +39,33 @@ const OpenWikiDemo = lazy(
   () => import('../../../experiences/slide-decks/sample-openwiki/OpenWikiPage.js'),
 );
 
+// open-design skill COMPOSE output — the internal OpenDesign system intro,
+// composed via compose_slide_deck → deck-dgm-circuit, rendered content-only
+// through CircuitDeckTemplate. Not a catalogue template.
+const OpenDesignIntroDemo = lazy(
+  () => import('../../../experiences/slide-decks/sample-opendesign-intro/OpenDesignIntroPage.js'),
+);
+
+// Same compose run, isolated copy (this session's authored fill kept apart from
+// the parallel session working in sample-opendesign-intro). Not a catalogue template.
+const OpenDesignIntroFableDemo = lazy(
+  () => import('../../../experiences/slide-decks/sample-opendesign-intro-fable/OpenDesignIntroFablePage.js'),
+);
+
+// Same compose run, isolated copy (this session's authored fill kept apart from
+// the concurrent sessions working in sample-opendesign-intro and
+// sample-opendesign-intro-fable). Not a catalogue template.
+const OpenDesignIntroSonnetDemo = lazy(
+  () => import('../../../experiences/slide-decks/sample-opendesign-intro-sonnet/OpenDesignIntroSonnetPage.js'),
+);
+
+// Same compose run, durable Opus-owned copy (kept apart from the concurrent
+// sessions rewriting sample-opendesign-intro / -fable / -sonnet). Not a
+// catalogue template.
+const OpenDesignIntroOpusDemo = lazy(
+  () => import('../../../experiences/slide-decks/sample-opendesign-intro-opus/OpenDesignIntroOpusPage.js'),
+);
+
 // design skill run EVIDENCE — the Cutover swimlanes part
 // (deck-cloud-migration/waves/swimlanes) borrowed into a standalone page.
 // Not a catalogue template.
@@ -63,6 +90,9 @@ const KubernetesAnatomyDemo = lazy(
 );
 const CachingFieldGuideDemo = lazy(
   () => import('../../../experiences/slide-decks/demo-dgm-caching-field-guide/CachingFieldGuidePage.js'),
+);
+const HarnessEngineeringDemo = lazy(
+  () => import('../../../experiences/slide-decks/demo-harness-engineering/HarnessEngineeringPage.js'),
 );
 
 // Experience-composer skill OUTPUTS — one sample per surface (all-surfaces
@@ -105,6 +135,10 @@ export function App() {
           <Route path="demo/deepagents" element={suspended(<DeepAgentsDemo />)} />
           <Route path="demo/mcp-sample" element={suspended(<McpSampleDemo />)} />
           <Route path="demo/openwiki" element={suspended(<OpenWikiDemo />)} />
+          <Route path="demo/opendesign-intro" element={suspended(<OpenDesignIntroDemo />)} />
+          <Route path="demo/opendesign-intro-fable" element={suspended(<OpenDesignIntroFableDemo />)} />
+          <Route path="demo/opendesign-intro-sonnet" element={suspended(<OpenDesignIntroSonnetDemo />)} />
+          <Route path="demo/opendesign-intro-opus" element={suspended(<OpenDesignIntroOpusDemo />)} />
           <Route path="demo/borrow-pilot" element={suspended(<BorrowPilotDemo />)} />
           <Route path="demo/gitlab-qbr" element={suspended(<GitlabQbrDemo />)} />
           <Route path="demo/openmodel-cockpit" element={suspended(<OpenmodelCockpitDemo />)} />
@@ -116,6 +150,7 @@ export function App() {
           <Route path="demo/million-users" element={suspended(<MillionUsersDemo />)} />
           <Route path="demo/kubernetes-anatomy" element={suspended(<KubernetesAnatomyDemo />)} />
           <Route path="demo/caching-field-guide" element={suspended(<CachingFieldGuideDemo />)} />
+          <Route path="demo/harness-engineering" element={suspended(<HarnessEngineeringDemo />)} />
           <Route element={<RootLayout />}>
             <Route index element={<Landing />} />
             <Route path="browse" element={<BrowseRedirect />} />

@@ -1,0 +1,858 @@
+{
+  "route": "/demo/harness-engineering",
+  "generatedAt": "2026-07-19T13:36:19.011Z",
+  "viewports": [
+    1440,
+    1280,
+    375
+  ],
+  "probeViewports": [
+    1440,
+    1280
+  ],
+  "states": 10,
+  "findings": [
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-10"
+    }
+  ],
+  "unverifiable": [
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.gzd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"DGM-HE-01 · THE GAZETTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"01 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-notice · \"Sourced from cited harness-engineering w\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.gzd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"DGM-HE-01 · THE GAZETTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"02 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-notice · \"Sourced from cited harness-engineering w\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.gzd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"DGM-HE-01 · THE GAZETTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"03 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-notice · \"Sourced from cited harness-engineering w\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.gzd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"DGM-HE-01 · THE GAZETTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"04 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-notice · \"Sourced from cited harness-engineering w\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.gzd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"DGM-HE-01 · THE GAZETTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"05 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-notice · \"Sourced from cited harness-engineering w\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.gzd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"DGM-HE-01 · THE GAZETTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"06 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-notice · \"Sourced from cited harness-engineering w\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.gzd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"DGM-HE-01 · THE GAZETTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"07 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-notice · \"Sourced from cited harness-engineering w\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.gzd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"DGM-HE-01 · THE GAZETTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"08 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-notice · \"Sourced from cited harness-engineering w\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.gzd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"DGM-HE-01 · THE GAZETTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"09 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-notice · \"Sourced from cited harness-engineering w\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.gzd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"DGM-HE-01 · THE GAZETTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"10 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-notice · \"Sourced from cited harness-engineering w\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.gzd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"DGM-HE-01 · THE GAZETTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"01 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-notice · \"Sourced from cited harness-engineering w\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.gzd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"DGM-HE-01 · THE GAZETTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"02 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-notice · \"Sourced from cited harness-engineering w\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.gzd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"DGM-HE-01 · THE GAZETTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"03 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-notice · \"Sourced from cited harness-engineering w\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.gzd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"DGM-HE-01 · THE GAZETTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"04 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-notice · \"Sourced from cited harness-engineering w\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.gzd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"DGM-HE-01 · THE GAZETTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"05 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-notice · \"Sourced from cited harness-engineering w\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.gzd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"DGM-HE-01 · THE GAZETTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"06 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-notice · \"Sourced from cited harness-engineering w\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.gzd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"DGM-HE-01 · THE GAZETTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"07 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-notice · \"Sourced from cited harness-engineering w\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.gzd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"DGM-HE-01 · THE GAZETTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"08 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-notice · \"Sourced from cited harness-engineering w\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.gzd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"DGM-HE-01 · THE GAZETTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"09 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-notice · \"Sourced from cited harness-engineering w\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.gzd-back · \"← gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"DGM-HE-01 · THE GAZETTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"10 / 10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-notice · \"Sourced from cited harness-engineering w\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.gzd-hint · \"← → · home/end\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    }
+  ]
+}
