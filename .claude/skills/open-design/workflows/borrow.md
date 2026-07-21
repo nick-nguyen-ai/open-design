@@ -20,6 +20,23 @@ If the ID resolves nowhere, the contract is broken — stop and report (check `L
 
 **Exit:** source file, anchor element, and CSS file named.
 
+**External client (no repo access):** resolve the part with the MCP tool
+`get_part_reference` - it returns the implementing source files as
+`opendesign://parts/` URIs (+ the experience stylesheets). At strict
+fidelity, dispatch the porting subagent per `references/porting.md`; at
+free fidelity, request only the part's intent (describe it from the gallery)
+and reinterpret. The in-repo borrow path below is unchanged.
+
+**Known limitation - dynamic part ids.** `get_part_reference` matches a
+part id by its literal text or its tail segment. A part id whose LAST
+segment is dynamic (a template literal like
+`` deck-cloud-migration/${slide.kind} ``) has no literal tail to match and
+will not resolve; a dynamic MIDDLE segment (e.g.
+`deck-cloud-migration/${layout}/estate-diagram`) still resolves, since the
+tail (`estate-diagram`) is static. When a part id will not resolve,
+identify a neighbouring static part id from the gallery part inspector and
+retry, or fall back to free fidelity for that part.
+
 ## Phase 1 — Classify
 
 Look at what the anchored subtree actually is:

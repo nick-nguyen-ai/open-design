@@ -22,6 +22,13 @@ Scripted fallback (CI, or a session without the MCP attached): call the same dom
 
 **Exit:** tools reachable (or fallback chosen and stated).
 
+**Fidelity.** Ask once (skip if already stated), default strict:
+`templateFidelity` - strict: the compose response includes a `reference`
+manifest and, for EXTERNAL targets (output outside this repo), the port
+follows `references/porting.md`; free: contract-only, today's flow. Pass the
+choice to every compose call. In-repo demo routes ignore the manifest - the
+template code is already here; scaffold as before.
+
 ## Phase 1 — Intake (at most THREE questions)
 
 1. **Source context.** Ask the user for their clean source content: file paths, pasted text, or already-distilled URL extracts. If they hand you raw URLs, extract the substance first and show them what you captured. If the source is huge, distill a working summary but keep the original for slot-level facts.
@@ -82,6 +89,15 @@ Call `validate_fill`. Fix findings **content-side only** (tighten copy, drop an 
 ## Phase 6 — Ship & verify
 
 Follow `references/scaffold-and-verify.md`: scaffold the fill + a thin wrapper page, register the `/demo/<slug>` route in the gallery, typecheck + build, screenshot (every slide for decks; one viewport + one full-page for single-page surfaces), run the content-fit checklist, fix content findings via Phase 4/5.
+
+**External target (client repo, strict):** there is no gallery to scaffold
+into. Dispatch the porting subagent (`references/porting.md`) with the
+`reference` manifest + validated fill; alternatively, when the client only
+needs the artifact as-is, call `render_experience` with the winning
+`worldTemplateId` (not `experienceId` - `render_experience` only accepts the
+canonical template id) and the validated fill, and hand over the `entryUri`
+bundle. Verify with screenshots of the ported result in the client's own
+environment.
 
 **Quality gate (before reporting done):** walk `DESIGN.md` Part 2 verbatim — the verify rig + findings table (Steps 2–3), contract checks, interaction smoke, then the content-fit read (Step 6, yours) and the honest-copy gate on the fill (scan every quantitative claim — each number must trace to the source or be covered by the synthetic-provenance notice; an invented "10× faster" is a blocking finding). Then dispatch the **screenshot judge** (Step 7, `references/screenshot-judge.md`) — a fresh-context subagent that sees only the screenshots and the rubric; its six-axis scores are the run's scores. Any axis < 3 or any critical/major judge finding → revise via Phase 4/5 and re-judge (two rounds is normal; a third means the template choice is wrong). The template guarantees the visual craft, but the fill can still ship slop copy or a bad content fit — Steps 6 and 8 are about YOUR half of the division of labor.
 
