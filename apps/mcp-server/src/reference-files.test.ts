@@ -31,6 +31,21 @@ describe('reference-files', () => {
     expect(readExperienceFile('db-model-monitoring-cockpit', 'missing.tsx')).toBeUndefined();
   });
 
+  it('refuses an experienceId that is itself a traversal', () => {
+    // The id is client-controlled (opendesign://parts/{experienceId}/{+file}).
+    // Joined unchecked, each of these escapes experiences/ BEFORE the relPath
+    // guard runs - `../../apps/mcp-server` resolves to a real directory whose
+    // package.json would then be readable.
+    for (const id of ['..', '../..', '../slide-decks', '../../apps/mcp-server', 'a/../..', 'a\\..\\..', '']) {
+      expect(experienceDir(id)).toBeUndefined();
+      expect(listExperienceFiles(id)).toBeUndefined();
+      expect(readExperienceFile(id, 'package.json')).toBeUndefined();
+    }
+    // The legitimate neighbour of that escape still resolves exactly as before.
+    expect(experienceDir('deck-cloud-migration')).toBeDefined();
+    expect(readExperienceFile('db-model-monitoring-cockpit', 'CockpitTemplate.tsx')).toBeDefined();
+  });
+
   it('builds the spec URI shapes', () => {
     expect(templateSourceUri('cockpit', 'CockpitTemplate.tsx')).toBe(
       'opendesign://templates/cockpit/source/CockpitTemplate.tsx',

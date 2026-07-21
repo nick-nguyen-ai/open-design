@@ -62,11 +62,27 @@ export async function renderExperienceTool(
     };
   }
 
-  const built = await runRender(worldTemplateId, fill);
+  // `runRender` is total (it converts its own throws into `ok: false`), but the
+  // await is guarded anyway: an unstructured rejection here would reach the SDK
+  // as a bare Error.message, breaking the invariant that EVERY isError result
+  // carries a JSON-serialized McpError.
+  let built;
+  try {
+    built = await runRender(worldTemplateId, fill);
+  } catch (err) {
+    return {
+      ok: false,
+      error: makeError('INTERNAL_ERROR', 'Render failed; no bundle was kept.', {
+        requestId,
+        details: [err instanceof Error ? err.message : String(err)],
+        remediation: ['Retry the render; if it persists, inspect apps/mcp-server/render-out/ for a stuck bundle.'],
+      }),
+    };
+  }
   if (!built.ok) {
     return {
       ok: false,
-      error: makeError('INTERNAL_ERROR', 'Vite build failed; no bundle was kept.', {
+      error: makeError('INTERNAL_ERROR', 'Render failed; no bundle was kept.', {
         requestId,
         details: [built.logTail],
         remediation: [
@@ -76,7 +92,22 @@ export async function renderExperienceTool(
     };
   }
 
-  const files = listRenderFiles(built.renderId) ?? [];
+  // A just-built render that is already gone means the store is inconsistent
+  // (e.g. a second server process evicted it concurrently). Reporting an empty
+  // file list plus an entryUri that will 404 would be a silent lie.
+  const files = listRenderFiles(built.renderId);
+  if (!files) {
+    return {
+      ok: false,
+      error: makeError('INTERNAL_ERROR', `Render ${built.renderId} vanished from the store right after building.`, {
+        requestId,
+        details: ['listRenderFiles returned nothing for a render that had just been built.'],
+        remediation: [
+          'Re-run render_experience; concurrent eviction by a second server process is the usual cause.',
+        ],
+      }),
+    };
+  }
   return {
     ok: true,
     data: {

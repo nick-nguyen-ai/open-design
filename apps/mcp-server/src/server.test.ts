@@ -6,7 +6,7 @@
  * JSON-RPC frames while logs go to stderr — the classic stdio-MCP bug.
  */
 import { spawn } from 'node:child_process';
-import { mkdirSync, readdirSync, readFileSync, utimesSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readdirSync, readFileSync, rmSync, utimesSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
@@ -29,7 +29,7 @@ import {
 } from './resources.js';
 import { loadRegistryData } from './registry-data.js';
 import { createLogger } from './logger.js';
-import { MAX_RENDERS, readRenderFile } from './render-store.js';
+import { listRenderFiles, MAX_RENDERS, readRenderFile, renderFs } from './render-store.js';
 import {
   ComposeSlideDeckOutput,
   RenderExperienceOutput,
@@ -841,31 +841,39 @@ describe('mcp-server tools', () => {
         // by mtime so the ordering is deterministic without extra builds.
         const outRoot = path.join(appRoot, 'render-out');
         const planted: string[] = [];
-        for (let i = 0; i < MAX_RENDERS + 2; i += 1) {
-          const id = `test-evict-${i}`;
-          const dir = path.join(outRoot, id);
-          mkdirSync(dir, { recursive: true });
-          writeFileSync(path.join(dir, 'index.html'), '<div id="root"></div>');
-          const aged = new Date(Date.now() - (MAX_RENDERS + 2 - i) * 60_000);
-          utimesSync(dir, aged, aged);
-          planted.push(id);
+        try {
+          for (let i = 0; i < MAX_RENDERS + 2; i += 1) {
+            // Placeholders carry UUID-shaped ids because that is the only id
+            // shape the store will touch (see the traversal guard).
+            const id = `00000000-0000-4000-8000-00000000000${i}`;
+            const dir = path.join(outRoot, id);
+            mkdirSync(dir, { recursive: true });
+            writeFileSync(path.join(dir, 'index.html'), '<div id="root"></div>');
+            const aged = new Date(Date.now() - (MAX_RENDERS + 2 - i) * 60_000);
+            utimesSync(dir, aged, aged);
+            planted.push(id);
+          }
+          const oldest = planted[0]!;
+          expect(readRenderFile(oldest, 'index.html')).toBeDefined();
+
+          const result = (await h.client.callTool({
+            name: 'render_experience',
+            arguments: { worldTemplateId: 'cockpit', fill: cockpitFill },
+          })) as CallToolResult;
+          expect(result.isError).toBeFalsy();
+
+          expect(readdirSync(outRoot, { withFileTypes: true }).filter((e) => e.isDirectory())).toHaveLength(
+            MAX_RENDERS,
+          );
+          expect(readRenderFile(oldest, 'index.html')).toBeUndefined();
+          await expect(
+            h.client.readResource({ uri: `opendesign://renders/${oldest}/index.html` }),
+          ).rejects.toThrow(/re-run render_experience/);
+        } finally {
+          // Self-contained: survivors of the evict pass must not linger in
+          // render-out/ for the next run to trip over.
+          for (const id of planted) rmSync(path.join(outRoot, id), { recursive: true, force: true });
         }
-        const oldest = planted[0]!;
-        expect(readRenderFile(oldest, 'index.html')).toBeDefined();
-
-        const result = (await h.client.callTool({
-          name: 'render_experience',
-          arguments: { worldTemplateId: 'cockpit', fill: cockpitFill },
-        })) as CallToolResult;
-        expect(result.isError).toBeFalsy();
-
-        expect(readdirSync(outRoot, { withFileTypes: true }).filter((e) => e.isDirectory())).toHaveLength(
-          MAX_RENDERS,
-        );
-        expect(readRenderFile(oldest, 'index.html')).toBeUndefined();
-        await expect(
-          h.client.readResource({ uri: `opendesign://renders/${oldest}/index.html` }),
-        ).rejects.toThrow(/re-run render_experience/);
       },
       240_000,
     );
@@ -874,6 +882,70 @@ describe('mcp-server tools', () => {
       await expect(
         h.client.readResource({ uri: 'opendesign://renders/not-a-render/index.html' }),
       ).rejects.toThrow(/re-run render_experience/);
+    });
+
+    it('refuses a renderId that is itself a traversal', async () => {
+      // The id is client-controlled and arrives un-decoded from
+      // opendesign://renders/{renderId}/{+file}. Joined unchecked it escapes
+      // render-out/ BEFORE the relPath guard runs: `../..` puts the base at
+      // apps/mcp-server, making its package.json readable.
+      const realFile = path.join(appRoot, 'package.json');
+      expect(readFileSync(realFile, 'utf8')).toContain('"name": "mcp-server"');
+      for (const id of ['..', '../..', '../../..', 'a/../..', 'a\\..\\..', '']) {
+        expect(readRenderFile(id, 'package.json')).toBeUndefined();
+        expect(readRenderFile(id, 'apps/mcp-server/package.json')).toBeUndefined();
+        expect(listRenderFiles(id)).toBeUndefined();
+      }
+      // ...and no traversal URI can reach content through resources/read.
+      await expect(
+        h.client.readResource({ uri: 'opendesign://renders/../package.json' }),
+      ).rejects.toThrow();
+    });
+
+    it('refuses a traversal experienceId on the parts resource', async () => {
+      // `opendesign:` is not a special scheme, so backslashes survive URL
+      // parsing intact and reach experienceDir verbatim - on win32 that id
+      // resolves to apps/mcp-server and served its package.json before the
+      // guard. (The store-level proof lives in reference-files.test.ts.)
+      for (const uri of [
+        'opendesign://parts/..\\..\\apps\\mcp-server/package.json',
+        'opendesign://parts/../../apps/mcp-server/package.json',
+      ]) {
+        await expect(h.client.readResource({ uri })).rejects.toThrow();
+      }
+    });
+
+    it('reports an fs failure as a structured McpError and still restores the tracked inputs', async () => {
+      // No vite build: the injected failure fires at the second generated
+      // write, so this exercises the FAILURE-path restore (and the
+      // structured-error contract) in milliseconds.
+      const generated = path.join(appRoot, 'render-host', 'generated');
+      const realWrite = renderFs.writeFileSync;
+      writeFileSync(path.join(generated, 'render-config.json'), '{"templateId":"DIRTY"}');
+      renderFs.writeFileSync = ((file: string, data: string, ...rest: unknown[]) => {
+        // Only the client-fill write fails; the restore's default write (which
+        // is byte-identical to the committed default) goes through.
+        if (String(file).endsWith('fill.json') && String(data) !== '{}\n') {
+          throw Object.assign(new Error('EPERM: operation not permitted, open fill.json'), { code: 'EPERM' });
+        }
+        return (realWrite as (...a: unknown[]) => unknown)(file, data, ...rest);
+      }) as typeof realWrite;
+      try {
+        const result = (await h.client.callTool({
+          name: 'render_experience',
+          arguments: { worldTemplateId: 'cockpit', fill: cockpitFill },
+        })) as CallToolResult;
+        expect(result.isError).toBe(true);
+        const err = McpError.parse(JSON.parse((result.content as Array<{ text: string }>)[0]!.text));
+        expect(err.code).toBe('INTERNAL_ERROR');
+        expect(err.details.join('\n')).toContain('EPERM');
+      } finally {
+        renderFs.writeFileSync = realWrite;
+      }
+      expect(readFileSync(path.join(generated, 'render-config.json'), 'utf8')).toBe(
+        '{\n  "templateId": "cockpit"\n}\n',
+      );
+      expect(readFileSync(path.join(generated, 'fill.json'), 'utf8')).toBe('{}\n');
     });
   });
 });

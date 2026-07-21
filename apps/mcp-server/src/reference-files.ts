@@ -21,9 +21,24 @@ const SURFACE_DIRS = ['dashboards', 'slide-decks', 'explainers', 'project-pages'
 
 const EXCLUDED = new Set(['node_modules', 'dist']);
 
+/**
+ * An experience id is ONE directory name, never a path. It arrives from a
+ * client-supplied `opendesign://parts/{experienceId}/{+file}` URI, and the SDK
+ * does not percent-decode that segment - so without this check a literal `..`
+ * (or a `\` on win32) would be normalised INTO the joined path, escaping
+ * experiences/ before any traversal guard downstream could see it.
+ */
+function isIdSegment(id: string): boolean {
+  if (id === '' || id === '.' || id === '..') return false;
+  return !/[\\/]/.test(id) && !id.includes('\0');
+}
+
 export function experienceDir(experienceId: string): string | undefined {
+  if (!isIdSegment(experienceId)) return undefined;
   for (const surface of SURFACE_DIRS) {
-    const dir = path.join(repoRoot(), 'experiences', surface, experienceId);
+    const surfaceRoot = path.join(repoRoot(), 'experiences', surface);
+    const dir = path.join(surfaceRoot, experienceId);
+    if (path.dirname(dir) !== surfaceRoot) continue;
     if (existsSync(dir) && statSync(dir).isDirectory()) return dir;
   }
   return undefined;
