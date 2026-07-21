@@ -17,7 +17,8 @@
     "pretest": "corepack pnpm -w run registry:build",
     "test": "vitest run --root ../.. apps/mcp-server",
     "typecheck": "tsc --noEmit",
-    "dgmsamples": "corepack pnpm exec tsx src/dgm-samples-outcome.ts"
+    "dgmsamples": "corepack pnpm exec tsx src/dgm-samples-outcome.ts",
+    "render-host:sample": "node --import tsx render-host/scripts/prepare-sample.mts"
   },
   "dependencies": {
     "@enterprise-design/composition": "workspace:*",
@@ -27,5 +28,25 @@
     "@enterprise-design/validator": "workspace:*",
     "@modelcontextprotocol/sdk": "^1.29.0",
     "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@enterprise-design/content-components": "workspace:*",
+    "@enterprise-design/data-viz": "workspace:*",
+    "@enterprise-design/design-tokens": "workspace:*",
+    "@enterprise-design/diagram-collections": "workspace:*",
+    "@enterprise-design/diagram-grammar": "workspace:*",
+    "@enterprise-design/diagrams": "workspace:*",
+    "@enterprise-design/motion": "workspace:*",
+    "@enterprise-design/primitives": "workspace:*",
+    "@enterprise-design/themes": "workspace:*",
+    "@tailwindcss/vite": "^4.1.16",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^7.9.6",
+    "tailwindcss": "^4.1.16",
+    "vite": "^8.1.4"
   }
 }

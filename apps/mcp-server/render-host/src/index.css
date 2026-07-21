@@ -1,0 +1,57 @@
+/*
+ * render-host entry stylesheet.
+ *
+ * Mirrors apps/gallery/src/index.css (the working reference) minus the gallery
+ * chrome. Import order is load-bearing (see packages/primitives/src/tailwind-theme.css):
+ *   1. Tailwind itself.
+ *   2. The raw token custom properties (`--surface-base`, `--space-4`, ...).
+ *   3. Both theme layers - light is the default `:root`, dark activates under
+ *      `[data-theme="dark"]`; main.tsx locks that attribute to the template's mood.
+ *   4. The token->utility bridge that teaches Tailwind the utility NAMES
+ *      (bg-surface-base, text-text-primary, rounded-md, ...) used by the
+ *      primitives and components.
+ *
+ * No display-serif import here: every world template loads its own fonts.
+ */
+@import 'tailwindcss';
+@import '@enterprise-design/design-tokens/tokens.css';
+@import '@enterprise-design/themes/gallery-ink-light.css';
+@import '@enterprise-design/themes/gallery-ink-dark.css';
+@import '@enterprise-design/primitives/tailwind-theme.css';
+
+/*
+ * Tailwind scans these globs for the class names it must generate. The host's
+ * own source AND every workspace package whose components render inside a
+ * template must be listed, or their utility classes are tree-shaken out and the
+ * page renders unstyled. Paths are relative to this file
+ * (apps/mcp-server/render-host/src/).
+ */
+@source './';
+@source '../../../../packages/primitives/src';
+@source '../../../../packages/data-viz/src';
+@source '../../../../packages/content-components/src';
+@source '../../../../packages/diagrams/src';
+@source '../../../../packages/diagram-collections/src';
+@source '../../../../packages/motion/src';
+/* The world templates themselves - utilities unique to a template (e.g. a
+ * responsive slide grid) must survive the build. */
+@source '../../../../experiences';
+
+:root {
+  color-scheme: light dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--surface-base);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}

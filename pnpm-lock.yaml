@@ -159,6 +159,61 @@ importers:
       zod:
         specifier: ^4.4.3
         version: 4.4.3
+    devDependencies:
+      '@enterprise-design/content-components':
+        specifier: workspace:*
+        version: link:../../packages/content-components
+      '@enterprise-design/data-viz':
+        specifier: workspace:*
+        version: link:../../packages/data-viz
+      '@enterprise-design/design-tokens':
+        specifier: workspace:*
+        version: link:../../packages/design-tokens
+      '@enterprise-design/diagram-collections':
+        specifier: workspace:*
+        version: link:../../packages/diagram-collections
+      '@enterprise-design/diagram-grammar':
+        specifier: workspace:*
+        version: link:../../packages/diagram-grammar
+      '@enterprise-design/diagrams':
+        specifier: workspace:*
+        version: link:../../packages/diagrams
+      '@enterprise-design/motion':
+        specifier: workspace:*
+        version: link:../../packages/motion
+      '@enterprise-design/primitives':
+        specifier: workspace:*
+        version: link:../../packages/primitives
+      '@enterprise-design/themes':
+        specifier: workspace:*
+        version: link:../../packages/themes
+      '@tailwindcss/vite':
+        specifier: ^4.1.16
+        version: 4.3.2(vite@8.1.4(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.23.0))
+      '@types/react':
+        specifier: ^19.2.17
+        version: 19.2.17
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.17)
+      '@vitejs/plugin-react':
+        specifier: ^5.1.0
+        version: 5.2.0(vite@8.1.4(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.23.0))
+      react:
+        specifier: ^19.2.0
+        version: 19.2.7
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.2.7(react@19.2.7)
+      react-router-dom:
+        specifier: ^7.9.6
+        version: 7.18.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      tailwindcss:
+        specifier: ^4.1.16
+        version: 4.3.2
+      vite:
+        specifier: ^8.1.4
+        version: 8.1.4(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.23.0)
 
   experiences:
     dependencies:
