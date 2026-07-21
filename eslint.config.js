@@ -21,6 +21,7 @@ export default tseslint.config(
       '**/*.tsbuildinfo',
       '**/.superpowers/**',
       'packages/registry/generated/**',
+      'apps/mcp-server/render-out/**',
       'pnpm-lock.yaml',
     ],
   },
