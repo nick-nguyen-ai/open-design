@@ -147,6 +147,7 @@ describe('mcp-server tools', () => {
       'compose_project_page',
       'compose_slide_deck',
       'get_component',
+      'get_part_reference',
       'search_components',
       'validate_composition',
       'validate_fill',

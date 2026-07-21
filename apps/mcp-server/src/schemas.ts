@@ -240,6 +240,25 @@ export const TemplateReference = z.object({
 });
 export type TemplateReference = z.infer<typeof TemplateReference>;
 
+// ---- get_part_reference ------------------------------------------------------
+
+export const GetPartReferenceInput = z.object({
+  partId: z
+    .string()
+    .min(3)
+    .describe("A data-part-id from the gallery part inspector: '<experienceId>/<section>[/<part>]'."),
+});
+export type GetPartReferenceInput = z.infer<typeof GetPartReferenceInput>;
+
+export const GetPartReferenceOutput = z.object({
+  partId: z.string(),
+  experienceId: z.string(),
+  /** Source files implementing the part (matching TSX/TS) plus the experience's stylesheets. */
+  files: z.array(ReferenceFile),
+  note: z.string(),
+});
+export type GetPartReferenceOutput = z.infer<typeof GetPartReferenceOutput>;
+
 /** Slide-deck context: `surfaceContext('slide-deck')`. Retained as a named export the compose core reuses. */
 export const SlideDeckContext = surfaceContext('slide-deck');
 export type SlideDeckContext = z.infer<typeof SlideDeckContext>;

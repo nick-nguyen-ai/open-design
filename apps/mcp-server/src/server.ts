@@ -44,6 +44,8 @@ import {
   ComposeSlideDeckInput,
   ComposeSlideDeckOutput,
   GetComponentInput,
+  GetPartReferenceInput,
+  GetPartReferenceOutput,
   SearchComponentsInput,
   SearchComponentsOutput,
   ValidateCompositionInput,
@@ -63,6 +65,7 @@ import {
   composeProjectPageTool,
 } from './tools/compose-surface.js';
 import { validateFillTool } from './tools/validate-fill.js';
+import { getPartReferenceTool } from './tools/get-part-reference.js';
 import { registerReferenceResources } from './resources.js';
 
 /** Read-only posture, identical for both tools (plus a per-tool `title`). */
@@ -359,6 +362,29 @@ export function createServer(registry: RegistryData, logger: Logger): McpServer 
         logger.audit({ tool: 'validate_fill', status: 'ok', durationMs, count: outcome.data.findings.length });
       } else {
         logger.audit({ tool: 'validate_fill', status: 'error', durationMs, code: outcome.error.code });
+      }
+      return toCallToolResult(outcome);
+    },
+  );
+
+  server.registerTool(
+    'get_part_reference',
+    {
+      title: 'Get part source reference',
+      description:
+        "Resolve a data-part-id ('<experienceId>/<section>[/<part>]', from the gallery part inspector) to the source files implementing it, as opendesign://parts/ resource URIs with byte sizes. Content is fetched via resources/read, never inline.",
+      inputSchema: GetPartReferenceInput.shape,
+      outputSchema: GetPartReferenceOutput.shape,
+      annotations: { title: 'Get part source reference', ...READ_ONLY_ANNOTATIONS },
+    },
+    (args) => {
+      const startedAt = performance.now();
+      const outcome = getPartReferenceTool(args);
+      const durationMs = Math.round(performance.now() - startedAt);
+      if (outcome.ok) {
+        logger.audit({ tool: 'get_part_reference', status: 'ok', durationMs, count: outcome.data.files.length });
+      } else {
+        logger.audit({ tool: 'get_part_reference', status: 'error', durationMs, code: outcome.error.code });
       }
       return toCallToolResult(outcome);
     },
