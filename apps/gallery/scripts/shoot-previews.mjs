@@ -115,11 +115,25 @@ const ROUTE_OVERRIDES = {
   'deck-cloud-migration': '/live/deck-cloud-migration?slide=2',
 };
 
+/**
+ * Grammar specimens backed by a live world — shot from the world's route and
+ * saved under the grammar key. Offline-composed specimens (the other 11) are
+ * committed assets; see docs/superpowers/specs/grammar-specimens/.
+ */
+const GRAMMAR_SPECIMENS = {
+  'sketchnote-journal': '/live/deck-dgm-sketchnote',
+  'drafting-board': '/live/deck-dgm-blueprint',
+  'neon-circuit': '/live/deck-dgm-circuit',
+  'isometric-studio': '/live/deck-dgm-isometric',
+  'print-gazette': '/live/deck-dgm-gazette',
+};
+
 const ONLY = process.env.ONLY ? new Set(process.env.ONLY.split(',')) : null;
 
 const SHOTS = [
   ...LIVE_IDS.map((id) => ({ id, route: ROUTE_OVERRIDES[id] ?? `/live/${id}` })),
   ...DEMO_SLUGS.map((slug) => ({ id: `demo-${slug}`, route: `/demo/${slug}` })),
+  ...Object.entries(GRAMMAR_SPECIMENS).map(([g, route]) => ({ id: `grammar-${g}`, route })),
 ].filter((shot) => !ONLY || ONLY.has(shot.id));
 
 async function main() {
