@@ -10,6 +10,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
+import { ResourceTemplate } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 import {
@@ -20,6 +21,7 @@ import {
   type DesignContext,
 } from '@enterprise-design/contracts';
 import { createServer } from './server.js';
+import { PART_SOURCE_URI_TEMPLATE, TEMPLATE_SOURCE_URI_TEMPLATE } from './resources.js';
 import { loadRegistryData } from './registry-data.js';
 import { createLogger } from './logger.js';
 import { ComposeSlideDeckOutput, SearchComponentResult, SearchComponentsOutput, ValidateFillOutput } from './schemas.js';
@@ -674,6 +676,60 @@ describe('mcp-server tools', () => {
       await expect(
         h.client.readResource({ uri: 'opendesign://templates/cockpit/source/../../package.json' }),
       ).rejects.toThrow();
+    });
+
+    it('keeps the templates/ and parts/ id-namespaces distinct: an experienceId in the templates/ slot is unknown', async () => {
+      // 'cutover' is the canonical world-template id; 'deck-cloud-migration' is
+      // its experienceId. Only the canonical id may resolve under templates/ -
+      // the experienceId belongs to parts/, not templates/.
+      await expect(
+        h.client.readResource({
+          uri: 'opendesign://templates/deck-cloud-migration/source/CutoverTemplate.tsx',
+        }),
+      ).rejects.toThrow(/Unknown world template/);
+
+      const res = await h.client.readResource({
+        uri: 'opendesign://templates/cutover/source/CutoverTemplate.tsx',
+      });
+      const first = res.contents[0]!;
+      if (!('text' in first)) throw new Error('expected text content');
+      expect(first.text).toContain('CutoverTemplate');
+    });
+
+    it('distinguishes an unknown experienceId from a known experience missing a file, for part-source', async () => {
+      await expect(
+        h.client.readResource({ uri: 'opendesign://parts/does-not-exist/whatever.tsx' }),
+      ).rejects.toThrow(/Unknown experience/);
+      await expect(
+        h.client.readResource({ uri: 'opendesign://parts/deck-cloud-migration/does-not-exist.tsx' }),
+      ).rejects.toThrow(/No source file/);
+    });
+  });
+
+  describe('resource URI templates', () => {
+    // The entire opendesign:// scheme depends on RFC 6570 reserved expansion
+    // ({+file}) matching file segments that contain '/'. A future SDK bump or
+    // a template-string typo (e.g. {+file} -> {file}) would silently break
+    // nested-path resources without touching any fixture, since no experience
+    // directory in this repo currently has subdirectories. Assert directly on
+    // the matcher so that regression is caught without a fixture.
+    it('matches a nested file path via {+file} reserved expansion', () => {
+      // Uses the SAME template string constant the server registers with
+      // (exported from resources.ts) - not a hand-copied literal - so a typo
+      // there (e.g. {+file} -> {file}) fails this test.
+      const template = new ResourceTemplate(TEMPLATE_SOURCE_URI_TEMPLATE, { list: undefined });
+      const variables = template.uriTemplate.match(
+        'opendesign://templates/cockpit/source/sections/Foo.tsx',
+      );
+      expect(variables).toEqual({ templateId: 'cockpit', file: 'sections/Foo.tsx' });
+    });
+
+    it('matches a nested file path for parts/ too', () => {
+      const template = new ResourceTemplate(PART_SOURCE_URI_TEMPLATE, { list: undefined });
+      const variables = template.uriTemplate.match(
+        'opendesign://parts/deck-cloud-migration/sections/Foo.tsx',
+      );
+      expect(variables).toEqual({ experienceId: 'deck-cloud-migration', file: 'sections/Foo.tsx' });
     });
   });
 });
