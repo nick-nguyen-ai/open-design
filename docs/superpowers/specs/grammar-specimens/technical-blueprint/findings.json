@@ -1,0 +1,997 @@
+{
+  "route": "/demo/spec-technical-blueprint",
+  "generatedAt": "2026-07-21T04:29:58.522Z",
+  "viewports": [
+    1440,
+    1280,
+    375
+  ],
+  "probeViewports": [
+    1440,
+    1280
+  ],
+  "states": 10,
+  "findings": [
+    {
+      "probe": "contrast",
+      "selector": "span · \"OPENDESIGN-INTRO · OpenDesign\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"01 / 10 · CUTOVER PLAN\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-file · \"CLAUDE AGENTS · OPEN-DESIGN SKILL\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-notice · \"Synthetic estate — drawn from repo docs,\"",
+      "detail": "ratio 4.33 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"OPENDESIGN-INTRO · OpenDesign\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"02 / 10 · CURRENT ESTATE\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-file · \"opendesign-estate.drawio · rev 1\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-notice · \"Synthetic estate — drawn from repo docs,\"",
+      "detail": "ratio 4.33 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"OPENDESIGN-INTRO · OpenDesign\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"03 / 10 · TARGET ESTATE\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-file · \"opendesign-estate.drawio · rev 1\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-notice · \"Synthetic estate — drawn from repo docs,\"",
+      "detail": "ratio 4.33 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"OPENDESIGN-INTRO · OpenDesign\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"04 / 10 · THE DELTA\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-file · \"opendesign-estate.drawio · rev 1\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-notice · \"Synthetic estate — drawn from repo docs,\"",
+      "detail": "ratio 4.33 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"OPENDESIGN-INTRO · OpenDesign\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"05 / 10 · MIGRATION WAVES\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-file · \"opendesign-estate.drawio · rev 1\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-lane-when · \"hand era\"",
+      "detail": "ratio 3.03 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-lane-when · \"contracts era\"",
+      "detail": "ratio 3.03 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-lane-when · \"compose era\"",
+      "detail": "ratio 3.03 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-lane-when · \"Jul 15–19, 2026\"",
+      "detail": "ratio 3.03 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-lane-when · \"today\"",
+      "detail": "ratio 3.03 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-notice · \"Synthetic estate — drawn from repo docs,\"",
+      "detail": "ratio 4.33 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"OPENDESIGN-INTRO · OpenDesign\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"06 / 10 · CUTOVER NIGHT\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-file · \"opendesign-estate.drawio · rev 1\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-notice · \"Synthetic estate — drawn from repo docs,\"",
+      "detail": "ratio 4.33 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"OPENDESIGN-INTRO · OpenDesign\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"07 / 10 · DATA SYNC\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-file · \"opendesign-estate.drawio · rev 1\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-notice · \"Synthetic estate — drawn from repo docs,\"",
+      "detail": "ratio 4.33 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"OPENDESIGN-INTRO · OpenDesign\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"08 / 10 · ROLLBACK\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-file · \"opendesign-estate.drawio · rev 1\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-notice · \"Synthetic estate — drawn from repo docs,\"",
+      "detail": "ratio 4.33 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"OPENDESIGN-INTRO · OpenDesign\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"09 / 10 · RISK REGISTER\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-file · \"opendesign-estate.drawio · rev 1\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-notice · \"Synthetic estate — drawn from repo docs,\"",
+      "detail": "ratio 4.33 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"OPENDESIGN-INTRO · OpenDesign\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"10 / 10 · SIGN-OFF\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-signoff-rev · \"rev 1 · READY FOR SIGN-OFF\"",
+      "detail": "ratio 3.03 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-notice · \"Synthetic estate — drawn from repo docs,\"",
+      "detail": "ratio 4.33 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"OPENDESIGN-INTRO · OpenDesign\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"01 / 10 · CUTOVER PLAN\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-file · \"CLAUDE AGENTS · OPEN-DESIGN SKILL\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-notice · \"Synthetic estate — drawn from repo docs,\"",
+      "detail": "ratio 4.33 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"OPENDESIGN-INTRO · OpenDesign\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"02 / 10 · CURRENT ESTATE\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-file · \"opendesign-estate.drawio · rev 1\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-notice · \"Synthetic estate — drawn from repo docs,\"",
+      "detail": "ratio 4.33 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"OPENDESIGN-INTRO · OpenDesign\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"03 / 10 · TARGET ESTATE\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-file · \"opendesign-estate.drawio · rev 1\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-notice · \"Synthetic estate — drawn from repo docs,\"",
+      "detail": "ratio 4.33 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"OPENDESIGN-INTRO · OpenDesign\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"04 / 10 · THE DELTA\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-file · \"opendesign-estate.drawio · rev 1\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-notice · \"Synthetic estate — drawn from repo docs,\"",
+      "detail": "ratio 4.33 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"OPENDESIGN-INTRO · OpenDesign\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"05 / 10 · MIGRATION WAVES\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-file · \"opendesign-estate.drawio · rev 1\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-lane-when · \"hand era\"",
+      "detail": "ratio 3.03 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-lane-when · \"contracts era\"",
+      "detail": "ratio 3.03 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-lane-when · \"compose era\"",
+      "detail": "ratio 3.03 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-lane-when · \"Jul 15–19, 2026\"",
+      "detail": "ratio 3.03 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-lane-when · \"today\"",
+      "detail": "ratio 3.03 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-notice · \"Synthetic estate — drawn from repo docs,\"",
+      "detail": "ratio 4.33 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"OPENDESIGN-INTRO · OpenDesign\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"06 / 10 · CUTOVER NIGHT\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-file · \"opendesign-estate.drawio · rev 1\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-notice · \"Synthetic estate — drawn from repo docs,\"",
+      "detail": "ratio 4.33 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"OPENDESIGN-INTRO · OpenDesign\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"07 / 10 · DATA SYNC\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-file · \"opendesign-estate.drawio · rev 1\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-notice · \"Synthetic estate — drawn from repo docs,\"",
+      "detail": "ratio 4.33 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"OPENDESIGN-INTRO · OpenDesign\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"08 / 10 · ROLLBACK\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-file · \"opendesign-estate.drawio · rev 1\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-notice · \"Synthetic estate — drawn from repo docs,\"",
+      "detail": "ratio 4.33 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"OPENDESIGN-INTRO · OpenDesign\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"09 / 10 · RISK REGISTER\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-file · \"opendesign-estate.drawio · rev 1\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-notice · \"Synthetic estate — drawn from repo docs,\"",
+      "detail": "ratio 4.33 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"OPENDESIGN-INTRO · OpenDesign\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"10 / 10 · SIGN-OFF\"",
+      "detail": "ratio 2.93 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-signoff-rev · \"rev 1 · READY FOR SIGN-OFF\"",
+      "detail": "ratio 3.03 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-notice · \"Synthetic estate — drawn from repo docs,\"",
+      "detail": "ratio 4.33 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.cu-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.93 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 210px",
+      "viewport": 375,
+      "state": "slide-01"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 227px",
+      "viewport": 375,
+      "state": "slide-02"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 219px",
+      "viewport": 375,
+      "state": "slide-03"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 186px",
+      "viewport": 375,
+      "state": "slide-04"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 235px",
+      "viewport": 375,
+      "state": "slide-05"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 219px",
+      "viewport": 375,
+      "state": "slide-06"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 186px",
+      "viewport": 375,
+      "state": "slide-07"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 178px",
+      "viewport": 375,
+      "state": "slide-08"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 219px",
+      "viewport": 375,
+      "state": "slide-09"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 178px",
+      "viewport": 375,
+      "state": "slide-10"
+    }
+  ],
+  "unverifiable": []
+}

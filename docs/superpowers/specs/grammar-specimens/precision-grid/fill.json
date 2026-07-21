@@ -1,0 +1,493 @@
+{
+  "watch": {
+    "pageTitle": "The OpenDesign Estate Watch, Jul 2026",
+    "commandLine": "OPENDESIGN ESTATE COMMAND · QUALITY WATCH · EST. 2026",
+    "environment": "GALLERY",
+    "refreshCadence": "PER COMMIT",
+    "lastRefresh": "LAST SWEEP 2026-07-21",
+    "nextRefresh": "NEXT ON MERGE",
+    "timezone": "UTC",
+    "clockLabel": "07:21:00",
+    "sweepCadence": "9 S / REV",
+    "dataNotice": "SYNTHETIC DRIFT INDEX & TIMES · EVENTS TRACE TO RUN LOGS",
+    "keyboardHint": "TAB — INSTRUMENTS · P — HOLD SWEEP"
+  },
+  "statement": {
+    "kicker": "THE OPENDESIGN ESTATE WATCH · JUL 2026",
+    "lines": [
+      "Sixty-five worlds. Five surfaces. One doctrine.",
+      "Twelve templates on the scope. Gates green.",
+      "One deck is why this room is lit."
+    ],
+    "subline": "TMINUS CROSSED F1 AT 375PX · SCROLLWIDTH 529PX · AUDIT 2026-07-18 · TEMPLATE WORK OPEN"
+  },
+  "thresholds": {
+    "watch": 0.1,
+    "breach": 0.25
+  },
+  "scope": {
+    "caption": "Estate drift scope: twelve published world-templates plotted by a synthetic quality-drift index inside their surface sector. tminus sits past the 0.25 limit after the Jul 18 audit’s mobile-overflow finding; dgm-circuit and quarter ride the watch band. Full data in the template watchlist table.",
+    "encodingNote": "RADIUS = DRIFT INDEX · SECTOR = SURFACE",
+    "breachCalloutNote": "OPEN SINCE JUL 18 · TEMPLATE WORK QUEUED"
+  },
+  "fleet": {
+    "bandTitle": "TEMPLATE WATCHLIST",
+    "bandSub": "TEXTUAL MIRROR OF THE SCOPE · 12 CONTACTS",
+    "tableCaption": "Template watchlist — the drift scope’s contents as a table. Twelve published world-templates with surface, synthetic drift index, limit, status, grammar, and certify date.",
+    "sectors": [
+      {
+        "id": "slide-deck",
+        "label": "SLIDE DECKS"
+      },
+      {
+        "id": "dashboard",
+        "label": "DASHBOARDS"
+      },
+      {
+        "id": "explainer",
+        "label": "EXPLAINERS"
+      },
+      {
+        "id": "project-page",
+        "label": "PROJECT PAGES"
+      },
+      {
+        "id": "personal-page",
+        "label": "PERSONAL PAGES"
+      }
+    ],
+    "models": [
+      {
+        "id": "tminus",
+        "name": "tminus",
+        "sectorId": "slide-deck",
+        "psi": 0.31,
+        "status": "breach",
+        "owner": "monumental-type",
+        "lastRetrain": "2026-07-21"
+      },
+      {
+        "id": "dgm-circuit",
+        "name": "dgm-circuit",
+        "sectorId": "slide-deck",
+        "psi": 0.16,
+        "status": "watch",
+        "owner": "neon-circuit",
+        "lastRetrain": "2026-07-21"
+      },
+      {
+        "id": "quarter",
+        "name": "quarter",
+        "sectorId": "slide-deck",
+        "psi": 0.14,
+        "status": "watch",
+        "owner": "precision-grid",
+        "lastRetrain": "2026-07-21"
+      },
+      {
+        "id": "cutover",
+        "name": "cutover",
+        "sectorId": "slide-deck",
+        "psi": 0.05,
+        "status": "stable",
+        "owner": "technical-blueprint",
+        "lastRetrain": "2026-07-21"
+      },
+      {
+        "id": "dgm-blueprint",
+        "name": "dgm-blueprint",
+        "sectorId": "slide-deck",
+        "psi": 0.04,
+        "status": "stable",
+        "owner": "drafting-board",
+        "lastRetrain": "2026-07-21"
+      },
+      {
+        "id": "dgm-gazette",
+        "name": "dgm-gazette",
+        "sectorId": "slide-deck",
+        "psi": 0.06,
+        "status": "stable",
+        "owner": "print-gazette",
+        "lastRetrain": "2026-07-21"
+      },
+      {
+        "id": "dgm-isometric",
+        "name": "dgm-isometric",
+        "sectorId": "slide-deck",
+        "psi": 0.07,
+        "status": "stable",
+        "owner": "isometric-studio",
+        "lastRetrain": "2026-07-21"
+      },
+      {
+        "id": "dgm-sketchnote",
+        "name": "dgm-sketchnote",
+        "sectorId": "slide-deck",
+        "psi": 0.05,
+        "status": "stable",
+        "owner": "sketchnote-journal",
+        "lastRetrain": "2026-07-21"
+      },
+      {
+        "id": "cockpit",
+        "name": "cockpit",
+        "sectorId": "dashboard",
+        "psi": 0.03,
+        "status": "stable",
+        "owner": "precision-grid",
+        "lastRetrain": "2026-07-21"
+      },
+      {
+        "id": "drawing-office",
+        "name": "drawing-office",
+        "sectorId": "explainer",
+        "psi": 0.05,
+        "status": "stable",
+        "owner": "technical-blueprint",
+        "lastRetrain": "2026-07-21"
+      },
+      {
+        "id": "ledger",
+        "name": "ledger",
+        "sectorId": "project-page",
+        "psi": 0.06,
+        "status": "stable",
+        "owner": "research-notebook",
+        "lastRetrain": "2026-07-21"
+      },
+      {
+        "id": "the-line",
+        "name": "the-line",
+        "sectorId": "personal-page",
+        "psi": 0.04,
+        "status": "stable",
+        "owner": "kinetic-intelligence",
+        "lastRetrain": "2026-07-21"
+      }
+    ]
+  },
+  "dossier": {
+    "bandTitle": "THE DOSSIER",
+    "bandSub": "WHY THE SCOPE IS POINTING AT IT",
+    "trendHeading": "DRIFT · 40 DAYS VS LIMIT",
+    "trendChartTitle": "tminus — synthetic drift index, 40 days",
+    "trendChartSource": "Daily synthetic drift index vs the 0.25 limit; the crossing is the 2026-07-18 audit catch.",
+    "trendPoints": [
+      {
+        "x": "2026-06-12",
+        "y": 0.055
+      },
+      {
+        "x": "2026-06-13",
+        "y": 0.058
+      },
+      {
+        "x": "2026-06-14",
+        "y": 0.061
+      },
+      {
+        "x": "2026-06-15",
+        "y": 0.063
+      },
+      {
+        "x": "2026-06-16",
+        "y": 0.065
+      },
+      {
+        "x": "2026-06-17",
+        "y": 0.065
+      },
+      {
+        "x": "2026-06-18",
+        "y": 0.065
+      },
+      {
+        "x": "2026-06-19",
+        "y": 0.065
+      },
+      {
+        "x": "2026-06-20",
+        "y": 0.065
+      },
+      {
+        "x": "2026-06-21",
+        "y": 0.065
+      },
+      {
+        "x": "2026-06-22",
+        "y": 0.066
+      },
+      {
+        "x": "2026-06-23",
+        "y": 0.068
+      },
+      {
+        "x": "2026-06-24",
+        "y": 0.071
+      },
+      {
+        "x": "2026-06-25",
+        "y": 0.074
+      },
+      {
+        "x": "2026-06-26",
+        "y": 0.077
+      },
+      {
+        "x": "2026-06-27",
+        "y": 0.081
+      },
+      {
+        "x": "2026-06-28",
+        "y": 0.083
+      },
+      {
+        "x": "2026-06-29",
+        "y": 0.084
+      },
+      {
+        "x": "2026-06-30",
+        "y": 0.077
+      },
+      {
+        "x": "2026-07-01",
+        "y": 0.086
+      },
+      {
+        "x": "2026-07-02",
+        "y": 0.096
+      },
+      {
+        "x": "2026-07-03",
+        "y": 0.106
+      },
+      {
+        "x": "2026-07-04",
+        "y": 0.117
+      },
+      {
+        "x": "2026-07-05",
+        "y": 0.127
+      },
+      {
+        "x": "2026-07-06",
+        "y": 0.137
+      },
+      {
+        "x": "2026-07-07",
+        "y": 0.146
+      },
+      {
+        "x": "2026-07-08",
+        "y": 0.153
+      },
+      {
+        "x": "2026-07-09",
+        "y": 0.16
+      },
+      {
+        "x": "2026-07-10",
+        "y": 0.168
+      },
+      {
+        "x": "2026-07-11",
+        "y": 0.176
+      },
+      {
+        "x": "2026-07-12",
+        "y": 0.19
+      },
+      {
+        "x": "2026-07-13",
+        "y": 0.204
+      },
+      {
+        "x": "2026-07-14",
+        "y": 0.217
+      },
+      {
+        "x": "2026-07-15",
+        "y": 0.231
+      },
+      {
+        "x": "2026-07-16",
+        "y": 0.235
+      },
+      {
+        "x": "2026-07-17",
+        "y": 0.246
+      },
+      {
+        "x": "2026-07-18",
+        "y": 0.253
+      },
+      {
+        "x": "2026-07-19",
+        "y": 0.272
+      },
+      {
+        "x": "2026-07-20",
+        "y": 0.292
+      },
+      {
+        "x": "2026-07-21",
+        "y": 0.31
+      }
+    ],
+    "featureHeading": "FINDING CONTRIBUTIONS TO DRIFT",
+    "featureChartTitle": "tminus — contribution by finding class",
+    "featureChartSource": "Synthetic decomposition of the drift score by finding class; the F1 overflow is the real one.",
+    "featureDrift": [
+      {
+        "id": "f1-overflow",
+        "category": "mobile overflow (F1)",
+        "value": 0.19
+      },
+      {
+        "id": "chrome-nowrap",
+        "category": "nowrap chrome cells",
+        "value": 0.07
+      },
+      {
+        "id": "root-clip",
+        "category": "missing root clip",
+        "value": 0.03
+      },
+      {
+        "id": "motion-legs",
+        "category": "reduced-motion legs",
+        "value": 0.02
+      }
+    ],
+    "registerHeading": "REGISTER ENTRY",
+    "facts": [
+      {
+        "label": "TEMPLATE",
+        "value": "tminus · deck-product-launch"
+      },
+      {
+        "label": "FINDING",
+        "value": "F1 HORIZONTAL SCROLL AT 375PX"
+      },
+      {
+        "label": "MEASURED",
+        "value": "SCROLLWIDTH ≈ 529PX AT A 375PX VIEWPORT"
+      },
+      {
+        "label": "LOCUS",
+        "value": "t-minus.css:153 · .tm-chrome-cell NOWRAP"
+      },
+      {
+        "label": "SOURCE",
+        "value": "DESIGN-AUDIT-PILOT RUN-LOG · 2026-07-18"
+      },
+      {
+        "label": "SEVERITY",
+        "value": "CRITICAL · THE ESTATE’S ONLY OPEN CRITICAL"
+      },
+      {
+        "label": "REMEDY",
+        "value": "COLLAPSE CENTRE CELL <30REM · CLIP DECK ROOT"
+      },
+      {
+        "label": "STATUS",
+        "value": "TEMPLATE WORK · NOT HOT-PATCHED BY DESIGN"
+      }
+    ]
+  },
+  "log": {
+    "heading": "ESTATE LOG",
+    "listTitle": "Estate event log",
+    "items": [
+      {
+        "id": "judge-quarter",
+        "label": "Specimen judge returns the quarter fill",
+        "status": "warning",
+        "description": "Hardcoded revenue chrome mislabels counts; re-selected to cockpit.",
+        "timestamp": "2026-07-21T09:00:00Z"
+      },
+      {
+        "id": "estate-65",
+        "label": "Estate reaches 65 live worlds",
+        "status": "info",
+        "description": "Registry compiles 65 experiences across five surfaces.",
+        "timestamp": "2026-07-21T08:00:00Z"
+      },
+      {
+        "id": "compose-clean",
+        "label": "Compose sample validates clean",
+        "status": "success",
+        "description": "opendesign-intro deck; validate_fill round one, zero findings.",
+        "timestamp": "2026-07-19T10:00:00Z"
+      },
+      {
+        "id": "cap-drift",
+        "label": "Descriptor cap drift logged",
+        "status": "warning",
+        "description": "dgm-circuit slots validate above what the render shows.",
+        "timestamp": "2026-07-19T09:00:00Z"
+      },
+      {
+        "id": "audit-catch",
+        "label": "Audit pilot catches T-Minus overflow",
+        "status": "danger",
+        "description": "375px viewport scrolls to 529px; reported as template work.",
+        "timestamp": "2026-07-18T09:41:00Z"
+      },
+      {
+        "id": "borrow-ship",
+        "label": "Borrow pilot ships",
+        "status": "success",
+        "description": "Three worlds part-ID anchored; /demo/borrow-pilot live.",
+        "timestamp": "2026-07-15T17:00:00Z"
+      }
+    ]
+  },
+  "instruments": {
+    "bandTitle": "SUPPORTING INSTRUMENTATION",
+    "bandSub": "ESTATE-LEVEL GAUGES · SUBORDINATE TO THE SCOPE",
+    "kpiTitle": "Estate gauges",
+    "kpis": [
+      {
+        "id": "live-worlds",
+        "label": "Live worlds",
+        "value": 65,
+        "unit": "count",
+        "status": "on-track"
+      },
+      {
+        "id": "surfaces",
+        "label": "Surfaces",
+        "value": 5,
+        "unit": "count",
+        "status": "neutral"
+      },
+      {
+        "id": "mcp-templates",
+        "label": "MCP templates",
+        "value": 12,
+        "unit": "count",
+        "status": "on-track"
+      },
+      {
+        "id": "certifier-findings",
+        "label": "Certifier findings",
+        "value": 0,
+        "unit": "count",
+        "target": 0,
+        "deltaGoodDirection": "down",
+        "status": "on-track"
+      },
+      {
+        "id": "open-criticals",
+        "label": "Open critical findings",
+        "value": 1,
+        "unit": "count",
+        "target": 0,
+        "deltaGoodDirection": "down",
+        "status": "off-track"
+      }
+    ]
+  }
+}

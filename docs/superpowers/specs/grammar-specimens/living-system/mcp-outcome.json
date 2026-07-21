@@ -1,0 +1,30 @@
+{
+  "tool": "mcp__enterprise-design__compose_slide_deck",
+  "calledAt": "2026-07-21",
+  "request": {
+    "context": {
+      "surface": "slide-deck",
+      "audience": ["mixed"],
+      "businessIntent": ["explain-design-system", "enable-adoption"],
+      "corporateSuitability": "standard",
+      "motionPreference": 1,
+      "pinTemplateId": "deck-transformation-roadmap"
+    },
+    "contentBrief": "An introduction to OpenDesign, a pnpm monorepo that turns one design system into five composable surfaces (slide decks, dashboards, project pages, personal pages, technical explainers). The deck explains the division-of-labor doctrine — world-templates carry all the craft (layout, color, motion), typed fills carry all the content, MCP compose tools select a template deterministically and hand back a fill skeleton, and the open-design skill orchestrates three routes: COMPOSE (source content to finished experience), BORROW (lift one part's treatment across worlds via public data-part-id contracts), and AUDIT (severity-ranked design-quality punch lists). It walks the growth timeline from hand-built worlds to Zod contracts to MCP tools to the July 2026 pilots and a 65-world live gallery estate, and the quality loop of certifier, validate_fill rounds, verify rig, and screenshot judge that keeps every world at the bar."
+  },
+  "result": {
+    "isError": true,
+    "error": {
+      "code": "UNKNOWN_TEMPLATE",
+      "message": "pinTemplateId \"deck-transformation-roadmap\" is not a live slide-deck template.",
+      "details": [
+        "Live slide-deck templates: cutover (deck-cloud-migration), dgm-blueprint (deck-dgm-blueprint), dgm-circuit (deck-dgm-circuit), dgm-gazette (deck-dgm-gazette), dgm-isometric (deck-dgm-isometric), dgm-sketchnote (deck-dgm-sketchnote), quarter (deck-quarterly-business-review), tminus (deck-product-launch)."
+      ],
+      "remediation": [
+        "Pin one of this surface's template ids/experienceIds (typically from a previous call's alternatives), or drop pinTemplateId to let scoring decide."
+      ],
+      "requestId": "360c9d51-8939-417d-93d8-448d8c4170a9"
+    }
+  },
+  "runVerdict": "BLOCKED — the pinned world is not published as a compose template; no fillSkeleton exists to author against. Cross-checked against the filesystem and generated registry (see notes.md): deck-transformation-roadmap has no *.worldtemplate.manifest.ts, no *-fill.ts (no FILL_SCHEMA / SECTIONS / SHIPPED_FILL), and no entry in packages/registry/generated/world-templates.json. Templatizing a world is template work (GUIDANCE §6b, parity-oracle protected) and out of scope for a compose run."
+}

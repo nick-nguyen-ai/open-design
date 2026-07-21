@@ -1,0 +1,27 @@
+{
+  "call": "mcp__enterprise-design__compose_slide_deck",
+  "calledAt": "2026-07-21",
+  "arguments": {
+    "context": {
+      "surface": "slide-deck",
+      "audience": ["mixed"],
+      "businessIntent": ["explain-design-system", "enable-adoption"],
+      "corporateSuitability": "standard",
+      "motionPreference": 1,
+      "pinTemplateId": "deck-genai-model-validation-report"
+    },
+    "contentBrief": "An introduction to OpenDesign, the enterprise design system that turns one design language into five composable surfaces (slide decks, dashboards, project pages, personal pages, technical explainers) rendered as a gallery of 65 live worlds. The core doctrine is division of labor: world-templates carry all the craft (layout, color, motion, geometry) while typed fills carry all the content, and MCP compose tools deterministically select a template and hand back a fill skeleton the author writes from source material. Three routes cover the work: COMPOSE turns source docs into a finished experience, BORROW lifts one part's visual or animation treatment across worlds via public data-part-id contracts, and AUDIT grades an existing experience against the quality gates. Quality is enforced like validation evidence: a certifier over every world, a validate-fill loop capped at three rounds, part-id contract tests, and a screenshot-judged verification rig - evidence over assertion, the rendered pixels are the truth. The deck walks a mixed audience of engineers and design-minded PMs through the system, its quality loop, and the audit pilot's real findings."
+  },
+  "result": "ERROR",
+  "error": {
+    "code": "UNKNOWN_TEMPLATE",
+    "message": "pinTemplateId \"deck-genai-model-validation-report\" is not a live slide-deck template.",
+    "details": [
+      "Live slide-deck templates: cutover (deck-cloud-migration), dgm-blueprint (deck-dgm-blueprint), dgm-circuit (deck-dgm-circuit), dgm-gazette (deck-dgm-gazette), dgm-isometric (deck-dgm-isometric), dgm-sketchnote (deck-dgm-sketchnote), quarter (deck-quarterly-business-review), tminus (deck-product-launch)."
+    ],
+    "remediation": [
+      "Pin one of this surface's template ids/experienceIds (typically from a previous call's alternatives), or drop pinTemplateId to let scoring decide."
+    ],
+    "requestId": "6dc81e55-0d83-489a-ad1e-220a5d049a65"
+  }
+}

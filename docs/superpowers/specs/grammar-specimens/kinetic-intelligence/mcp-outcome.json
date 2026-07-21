@@ -1,0 +1,62 @@
+{
+  "run": "grammar-specimen compose — kinetic-intelligence / opendesign-intro",
+  "date": "2026-07-21",
+  "outcome": "BLOCKED — pinTemplateId 'deck-experiment-results' is not a published world-template",
+  "composeAttempt": {
+    "tool": "mcp__enterprise-design__compose_slide_deck",
+    "arguments": {
+      "context": {
+        "surface": "slide-deck",
+        "audience": ["mixed"],
+        "businessIntent": ["explain-design-system", "enable-adoption"],
+        "corporateSuitability": "standard",
+        "motionPreference": 1,
+        "pinTemplateId": "deck-experiment-results"
+      },
+      "contentBrief": "An introduction to OpenDesign, a pnpm monorepo that turns one design system into five composable surfaces (slide decks, dashboards, project pages, personal pages, technical explainers) rendered as 65 live gallery worlds. The core doctrine is division of labor: world-templates carry all the craft (layout, color, motion) while typed fills carry all the content, and MCP compose tools deterministically select a template and return a fill skeleton the author fills from source material. Three routes cover the design lifecycle — COMPOSE turns source docs into a finished rendered experience, BORROW lifts one part's visual treatment across templates via public data-part-id contracts, and AUDIT grades existing experiences against quality gates. Quality is enforced by a certifier, a validate_fill loop (max 3 rounds), and a verification rig with screenshot judging; the July 2026 audit pilot caught a real mobile overflow defect in a shipped template on its first outing. The deck walks the system, the compose flow, the skill/MCP handshake, the division-of-labor stack, the gallery estate, the quality loop, the three routes compared, the lexicon, and the timeline from hand-built pages to 65 live worlds."
+    },
+    "result": {
+      "error": {
+        "code": "UNKNOWN_TEMPLATE",
+        "message": "pinTemplateId \"deck-experiment-results\" is not a live slide-deck template.",
+        "details": [
+          "Live slide-deck templates: cutover (deck-cloud-migration), dgm-blueprint (deck-dgm-blueprint), dgm-circuit (deck-dgm-circuit), dgm-gazette (deck-dgm-gazette), dgm-isometric (deck-dgm-isometric), dgm-sketchnote (deck-dgm-sketchnote), quarter (deck-quarterly-business-review), tminus (deck-product-launch)."
+        ],
+        "remediation": [
+          "Pin one of this surface's template ids/experienceIds (typically from a previous call's alternatives), or drop pinTemplateId to let scoring decide."
+        ],
+        "requestId": "365debd0-032c-485e-9bc6-f289cb0d468a"
+      }
+    }
+  },
+  "validateProbe": {
+    "tool": "mcp__enterprise-design__validate_fill",
+    "purpose": "Confirm the blocker is registry-wide, not compose-tool-specific",
+    "arguments": { "worldTemplateId": "deck-experiment-results", "fill": { "probe": true } },
+    "result": {
+      "error": {
+        "code": "UNKNOWN_TEMPLATE",
+        "message": "Unknown world-template \"deck-experiment-results\".",
+        "details": [
+          "Known templates: cockpit (db-model-monitoring-cockpit), cutover (deck-cloud-migration), dgm-blueprint (deck-dgm-blueprint), dgm-circuit (deck-dgm-circuit), dgm-gazette (deck-dgm-gazette), dgm-isometric (deck-dgm-isometric), dgm-sketchnote (deck-dgm-sketchnote), drawing-office (exp-system-architecture), ledger (proj-ai-model-validation-hub), quarter (deck-quarterly-business-review), the-line (home-career-project-timeline), tminus (deck-product-launch)."
+        ],
+        "remediation": ["Use the worldTemplateId returned by compose_slide_deck (its id or experienceId)."],
+        "requestId": "08fb19a5-6d3f-41f8-920f-c5462a69ad23"
+      }
+    }
+  },
+  "sourceVerification": {
+    "staleRegistryRuledOut": "The server's 8 live deck templates match exactly the 8 *.worldtemplate.manifest.ts files present under experiences/slide-decks/ in the current checkout.",
+    "worldDirContents": [
+      "experiences/slide-decks/deck-experiment-results/ReadoutDeckPage.tsx",
+      "experiences/slide-decks/deck-experiment-results/content.ts",
+      "experiences/slide-decks/deck-experiment-results/readout.css",
+      "experiences/slide-decks/deck-experiment-results/deck-experiment-results.experience.manifest.ts"
+    ],
+    "missingForTemplatization": [
+      "*.worldtemplate.manifest.ts (descriptor)",
+      "*-fill.ts (FILL_SCHEMA + SECTIONS)",
+      "extracted Template component (world ships as a plain page with hardcoded SHIPPED content in content.ts)"
+    ]
+  }
+}

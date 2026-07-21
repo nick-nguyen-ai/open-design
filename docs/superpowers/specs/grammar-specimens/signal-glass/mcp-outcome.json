@@ -1,0 +1,30 @@
+{
+  "tool": "mcp__enterprise-design__compose_slide_deck",
+  "calledAt": "2026-07-21",
+  "request": {
+    "context": {
+      "surface": "slide-deck",
+      "audience": ["mixed"],
+      "businessIntent": ["explain-design-system", "enable-adoption"],
+      "corporateSuitability": "standard",
+      "motionPreference": 1,
+      "pinTemplateId": "deck-analytics-deep-dive"
+    },
+    "contentBrief": "Introduce OpenDesign, an internal design-system platform: one design system compiled into five composable surfaces (slide decks, dashboards, project pages, personal pages, technical explainers) rendered as 65 live gallery worlds. The deck explains the division-of-labor doctrine (world-templates carry all craft — layout, color, motion; typed fills carry all content), the COMPOSE flow from source content to a validated fill via MCP tools (deterministic template selection, fill skeleton, validate_fill loop with render budgets and craft rules), the skill/MCP handshake, the three routes — COMPOSE a whole experience, BORROW one part via public data-part-id contracts, AUDIT design quality against gate files — and the quality loop (certifier, part-id tests, verify rig, screenshot judge) proven in the July 2026 pilot runs."
+  },
+  "result": {
+    "isError": true,
+    "error": {
+      "code": "UNKNOWN_TEMPLATE",
+      "message": "pinTemplateId \"deck-analytics-deep-dive\" is not a live slide-deck template.",
+      "details": [
+        "Live slide-deck templates: cutover (deck-cloud-migration), dgm-blueprint (deck-dgm-blueprint), dgm-circuit (deck-dgm-circuit), dgm-gazette (deck-dgm-gazette), dgm-isometric (deck-dgm-isometric), dgm-sketchnote (deck-dgm-sketchnote), quarter (deck-quarterly-business-review), tminus (deck-product-launch)."
+      ],
+      "remediation": [
+        "Pin one of this surface's template ids/experienceIds (typically from a previous call's alternatives), or drop pinTemplateId to let scoring decide."
+      ],
+      "requestId": "63288a34-cdab-4b33-bf39-5c2c703bedc3"
+    }
+  },
+  "crossCheck": "Repo-side confirmation that the server registry is NOT stale: experiences/slide-decks/deck-analytics-deep-dive/ contains only LongSignalPage.tsx, content.ts, long-signal.css and the experience manifest — no *.worldtemplate.manifest.ts and no *-fill.ts exist for this world. A recursive listing of experiences/**/*.worldtemplate.manifest.ts finds exactly 12 templatized worlds, of which the 8 slide-deck ones are precisely the templates the error names; deck-analytics-deep-dive is absent. packages/registry/generated/world-templates.json carries the same 8. The world shipped hand-built (batch-2 deck G, approved 2026-07-14) with editorial content baked into typed Slide objects in content.ts — there is no descriptor contract for validate_fill to enforce and no fillSkeleton to author against."
+}

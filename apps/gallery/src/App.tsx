@@ -66,6 +66,19 @@ const OpenDesignIntroOpusDemo = lazy(
   () => import('../../../experiences/slide-decks/sample-opendesign-intro-opus/OpenDesignIntroOpusPage.js'),
 );
 
+// Grammar-specimen bake-off runs — the opendesign-intro content composed into
+// each grammar's live world-template (quarter / cutover / tminus), shot for the
+// grammar tab's specimen images. Not catalogue templates.
+const SpecPrecisionGridDemo = lazy(
+  () => import('../../../experiences/slide-decks/spec-precision-grid/SpecPrecisionGridPage.js'),
+);
+const SpecTechnicalBlueprintDemo = lazy(
+  () => import('../../../experiences/slide-decks/spec-technical-blueprint/SpecTechnicalBlueprintPage.js'),
+);
+const SpecMonumentalTypeDemo = lazy(
+  () => import('../../../experiences/slide-decks/spec-monumental-type/SpecMonumentalTypePage.js'),
+);
+
 // design skill run EVIDENCE — the Cutover swimlanes part
 // (deck-cloud-migration/waves/swimlanes) borrowed into a standalone page.
 // Not a catalogue template.
@@ -139,6 +152,9 @@ export function App() {
           <Route path="demo/opendesign-intro-fable" element={suspended(<OpenDesignIntroFableDemo />)} />
           <Route path="demo/opendesign-intro-sonnet" element={suspended(<OpenDesignIntroSonnetDemo />)} />
           <Route path="demo/opendesign-intro-opus" element={suspended(<OpenDesignIntroOpusDemo />)} />
+          <Route path="demo/spec-precision-grid" element={suspended(<SpecPrecisionGridDemo />)} />
+          <Route path="demo/spec-technical-blueprint" element={suspended(<SpecTechnicalBlueprintDemo />)} />
+          <Route path="demo/spec-monumental-type" element={suspended(<SpecMonumentalTypeDemo />)} />
           <Route path="demo/borrow-pilot" element={suspended(<BorrowPilotDemo />)} />
           <Route path="demo/gitlab-qbr" element={suspended(<GitlabQbrDemo />)} />
           <Route path="demo/openmodel-cockpit" element={suspended(<OpenmodelCockpitDemo />)} />

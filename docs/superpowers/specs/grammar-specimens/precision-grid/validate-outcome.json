@@ -1,0 +1,13 @@
+{
+  "worldTemplateId": "cockpit",
+  "supersedes": "The quarter-template loop (2 rounds, ending valid true) is recorded in notes.md history; the quarter fill was retired after the independent screenshot judge failed it on honest-copy grounds (QuarterTemplate hardcodes the revenue conceit: the 'Revenue, N quarters.' trend title and $NM value formatting render world-counts as dollars regardless of fill — unfixable content-side).",
+  "loop": [
+    {
+      "round": 1,
+      "valid": true,
+      "findingCount": 0
+    }
+  ],
+  "clientSideZod": "FILL_SCHEMA (CockpitFill) safeParse OK before the MCP call (tsx import of cockpit-fill.ts), plus a belt-and-braces per-slot cap assertion over every display string (all OK) and the exactly-one-breach refinement.",
+  "final": { "valid": true, "worldTemplateId": "cockpit", "findings": [] }
+}

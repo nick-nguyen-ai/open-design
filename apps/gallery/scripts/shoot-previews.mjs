@@ -126,6 +126,9 @@ const GRAMMAR_SPECIMENS = {
   'neon-circuit': '/live/deck-dgm-circuit',
   'isometric-studio': '/live/deck-dgm-isometric',
   'print-gazette': '/live/deck-dgm-gazette',
+  'precision-grid': '/demo/spec-precision-grid',
+  'technical-blueprint': '/demo/spec-technical-blueprint',
+  'monumental-type': '/demo/spec-monumental-type',
 };
 
 const ONLY = process.env.ONLY ? new Set(process.env.ONLY.split(',')) : null;

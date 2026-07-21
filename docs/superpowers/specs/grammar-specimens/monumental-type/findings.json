@@ -1,0 +1,2867 @@
+{
+  "route": "/demo/spec-monumental-type",
+  "generatedAt": "2026-07-21T04:08:11.270Z",
+  "viewports": [
+    1440,
+    1280,
+    375
+  ],
+  "probeViewports": [
+    1440,
+    1280
+  ],
+  "states": 10,
+  "findings": [
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-30\" × span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "text rects intersect 184×9px",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-30\" × button.tm-nav-btn · \"←\"",
+      "detail": "text rects intersect 34×18px",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-24\" × h2.tm-oneliner · \"OpenDesign compiles one design system in\"",
+      "detail": "text rects intersect 186×16px",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-24\" × span.tm-fact-stat · \"3 routes\"",
+      "detail": "text rects intersect 50×42px",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-24\" × span.tm-fact-cap · \"COMPOSE · BORROW · AUDIT\"",
+      "detail": "text rects intersect 50×16px",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-24\" × span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "text rects intersect 184×9px",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-24\" × button.tm-nav-btn · \"←\"",
+      "detail": "text rects intersect 34×18px",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-21\" × span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "text rects intersect 184×9px",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-21\" × button.tm-nav-btn · \"←\"",
+      "detail": "text rects intersect 34×18px",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-14\" × span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "text rects intersect 184×9px",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-14\" × button.tm-nav-btn · \"←\"",
+      "detail": "text rects intersect 34×18px",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-10\" × span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "text rects intersect 184×9px",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-10\" × button.tm-nav-btn · \"←\"",
+      "detail": "text rects intersect 34×18px",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-7\" × span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "text rects intersect 184×9px",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-7\" × button.tm-nav-btn · \"←\"",
+      "detail": "text rects intersect 34×18px",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.tm-price-name · \"COMPOSE\"",
+      "detail": "ratio 4.11 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.tm-price-unit · \"per experience\"",
+      "detail": "ratio 4.11 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.tm-price-name · \"BORROW\"",
+      "detail": "ratio 4.11 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.tm-price-unit · \"per lifted part\"",
+      "detail": "ratio 4.11 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.tm-price-name · \"AUDIT\"",
+      "detail": "ratio 4.11 below 4.5:1 (11px)",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.tm-price-unit · \"per graded target\"",
+      "detail": "ratio 4.11 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-3\" × span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "text rects intersect 184×9px",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-3\" × button.tm-nav-btn · \"←\"",
+      "detail": "text rects intersect 34×18px",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-2\" × span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "text rects intersect 184×9px",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-2\" × button.tm-nav-btn · \"←\"",
+      "detail": "text rects intersect 34×18px",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-1\" × span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "text rects intersect 184×9px",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-1\" × button.tm-nav-btn · \"←\"",
+      "detail": "text rects intersect 34×18px",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-0\" × span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "text rects intersect 184×9px",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-0\" × button.tm-nav-btn · \"←\"",
+      "detail": "text rects intersect 34×18px",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-30\" × span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "text rects intersect 184×12px",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-30\" × button.tm-nav-btn · \"←\"",
+      "detail": "text rects intersect 34×21px",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-24\" × h2.tm-oneliner · \"OpenDesign compiles one design system in\"",
+      "detail": "text rects intersect 258×37px",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-24\" × span.tm-fact-stat · \"3 routes\"",
+      "detail": "text rects intersect 126×42px",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-24\" × span.tm-fact-cap · \"COMPOSE · BORROW · AUDIT\"",
+      "detail": "text rects intersect 126×16px",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-24\" × span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "text rects intersect 184×12px",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-24\" × button.tm-nav-btn · \"←\"",
+      "detail": "text rects intersect 34×21px",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-21\" × span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "text rects intersect 184×12px",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-21\" × button.tm-nav-btn · \"←\"",
+      "detail": "text rects intersect 34×21px",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-14\" × span.text-sm.text-text-secondary · \"The Jul 18 audit pilot found this very t\"",
+      "detail": "text rects intersect 218×9px",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-14\" × span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "text rects intersect 184×12px",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-14\" × button.tm-nav-btn · \"←\"",
+      "detail": "text rects intersect 34×21px",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-10\" × span.tm-comms-detail · \"renders the fill through the shipped tem\"",
+      "detail": "text rects intersect 378×13px",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-10\" × span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "text rects intersect 184×12px",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-10\" × button.tm-nav-btn · \"←\"",
+      "detail": "text rects intersect 34×21px",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-7\" × span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "text rects intersect 184×12px",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-7\" × button.tm-nav-btn · \"←\"",
+      "detail": "text rects intersect 34×21px",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.tm-price-name · \"COMPOSE\"",
+      "detail": "ratio 4.11 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.tm-price-unit · \"per experience\"",
+      "detail": "ratio 4.11 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.tm-price-name · \"BORROW\"",
+      "detail": "ratio 4.11 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.tm-price-unit · \"per lifted part\"",
+      "detail": "ratio 4.11 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.tm-price-name · \"AUDIT\"",
+      "detail": "ratio 4.11 below 4.5:1 (11px)",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.tm-price-unit · \"per graded target\"",
+      "detail": "ratio 4.11 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-3\" × p.tm-runbook-cap · \"The one go/no-go is validation: three fa\"",
+      "detail": "text rects intersect 62×75px",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-3\" × span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "text rects intersect 184×12px",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-3\" × button.tm-nav-btn · \"←\"",
+      "detail": "text rects intersect 34×21px",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-2\" × span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "text rects intersect 184×12px",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-2\" × button.tm-nav-btn · \"←\"",
+      "detail": "text rects intersect 34×21px",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-1\" × span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "text rects intersect 184×12px",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-1\" × button.tm-nav-btn · \"←\"",
+      "detail": "text rects intersect 34×21px",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-0\" × span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "text rects intersect 184×12px",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "span.tm-stamp · \"T-0\" × button.tm-nav-btn · \"←\"",
+      "detail": "text rects intersect 34×21px",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 154px",
+      "viewport": 375,
+      "state": "slide-01"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 196px",
+      "viewport": 375,
+      "state": "slide-02"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 212px",
+      "viewport": 375,
+      "state": "slide-03"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 229px",
+      "viewport": 375,
+      "state": "slide-04"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 187px",
+      "viewport": 375,
+      "state": "slide-05"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 154px",
+      "viewport": 375,
+      "state": "slide-06"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 204px",
+      "viewport": 375,
+      "state": "slide-07"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 221px",
+      "viewport": 375,
+      "state": "slide-08"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 154px",
+      "viewport": 375,
+      "state": "slide-09"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 112px",
+      "viewport": 375,
+      "state": "slide-10"
+    }
+  ],
+  "unverifiable": [
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.tm-back · \"◄ GALLERY\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-INTRO · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"01 / 10 · T-30 · LAUNCH\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-stamp · \"T-30\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-kicker · \"PRODUCT LAUNCH\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-war · \"ONE DESIGN SYSTEM · FIVE SURFACES\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.tm-product · \"OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-line · \"Every template\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-line.tm-accent · \"is a live world.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.tm-standfirst · \"One design system, five surfaces, 65 liv\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-notice · \"SOURCED FROM REPO DOCS & PILOT RUN LOGS \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.tm-back · \"◄ GALLERY\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-INTRO · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"02 / 10 · T-24 · THE PRODUCT\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-stamp · \"T-24\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-kicker · \"01 · IN ONE SENTENCE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-war · \"GALLERY ESTATE · 65 LIVE WORLDS\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-eyebrow · \"The system in one sentence\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.tm-oneliner · \"OpenDesign compiles one design system in\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-fact-stat · \"5 surfaces\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-fact-cap · \"decks, dashboards, pages, explainers\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-fact-stat · \"65 worlds\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-fact-cap · \"live, full-bleed, borrowable\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-fact-stat · \"3 routes\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-fact-cap · \"COMPOSE · BORROW · AUDIT\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-notice · \"SOURCED FROM REPO DOCS & PILOT RUN LOGS \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.tm-back · \"◄ GALLERY\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-INTRO · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"03 / 10 · T-21 · LAUNCH THESIS\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-stamp · \"T-21\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-kicker · \"02 · THE THESIS\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-line · \"Templates carry craft.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-line.tm-accent · \"Fills carry content.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.tm-standfirst.tm-standfirst-wide · \"The whole architecture is division of la\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-notice · \"SOURCED FROM REPO DOCS & PILOT RUN LOGS \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.tm-back · \"◄ GALLERY\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-INTRO · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"04 / 10 · T-14 · READINESS BOARD\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-stamp · \"T-14\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-kicker · \"03 · ARE WE READY\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-war · \"GALLERY ESTATE · 65 LIVE WORLDS\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.tm-heading · \"Five gates. Four green — the audit lit o\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.font-medium.text-text-primary · \"Certifier — all worlds\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.text-sm.text-text-secondary · \"Descriptor, fill schema and SECTIONS in \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.font-medium.text-text-primary · \"Part-ID contract\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.text-sm.text-text-secondary · \"data-part-id anchors are a public borrow\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.font-medium.text-text-primary · \"validate_fill loop\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.text-sm.text-text-secondary · \"Slot caps, item bounds and craft rules e\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.font-medium.text-text-primary · \"Drive the real thing\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.text-sm.text-text-secondary · \"Green units are not enough: the borrow p\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.font-medium.text-text-primary · \"T-Minus mobile chrome\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.text-sm.text-text-secondary · \"The Jul 18 audit pilot found this very t\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.tm-gate-note · \"HOLDT-MINUS MOBILE CHROME — 529PX AT 375\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-gate-flag · \"HOLD\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-notice · \"SOURCED FROM REPO DOCS & PILOT RUN LOGS \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.tm-back · \"◄ GALLERY\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-INTRO · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"05 / 10 · T-10 · COMMS PLAN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-stamp · \"T-10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-kicker · \"04 · WHO HEARS, WHEN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-war · \"GALLERY ESTATE · 65 LIVE WORLDS\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.tm-heading · \"The handshake: who speaks when a doc bec\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-when · \"intake\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-ch · \"open-design skill\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-detail · \"routes the run — at most three questions\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-when · \"one call\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-ch · \"MCP compose tool\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-detail · \"deterministically scores every template \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-when · \"authoring\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-ch · \"fill author\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-detail · \"writes content only, slot by slot, again\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-when · \"max 3 rounds\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-ch · \"validate_fill\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-detail · \"echoes slot path, violated limit and gui\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-when · \"/demo route\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-ch · \"gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-detail · \"renders the fill through the shipped tem\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-notice · \"SOURCED FROM REPO DOCS & PILOT RUN LOGS \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.tm-back · \"◄ GALLERY\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-INTRO · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"06 / 10 · T-7 · PRICING\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-stamp · \"T-7\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-kicker · \"05 · PRICING & PACKAGING\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-war · \"GALLERY ESTATE · 65 LIVE WORLDS\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.tm-heading · \"Three routes, priced in edits to shipped\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-notice · \"SOURCED FROM REPO DOCS & PILOT RUN LOGS \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.tm-back · \"◄ GALLERY\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-INTRO · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"07 / 10 · T-3 · DAY-0 RUNBOOK\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-stamp · \"T-3\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-kicker · \"06 · THE SEQUENCE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-war · \"ONE DAY · STEP 1 → SHIP\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.tm-heading.tm-heading-tight · \"One compose run, intake to shipped pixel\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"STEP 1\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"Intake\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"STEP 2\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"Select\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"STEP 3\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"Author\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"STEP 4\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"Validate\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"STEP 5\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"Scaffold\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"STEP 6\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"Verify rig\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"STEP 7\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"Judge\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"STEP 8\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"Ship\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.tm-runbook-cap · \"The one go/no-go is validation: three fa\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-notice · \"SOURCED FROM REPO DOCS & PILOT RUN LOGS \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.tm-back · \"◄ GALLERY\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-INTRO · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"08 / 10 · T-2 · RISK & ROLLBACK\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-stamp · \"T-2\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-kicker · \"07 · WHAT ABORTS IT\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-war · \"GALLERY ESTATE · 65 LIVE WORLDS\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.tm-heading · \"What stops a run — and what may never be\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"Signal\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"Abort threshold\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"Action\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"certifier findings\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.tm-abort-th · \"> 0\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td · \"the world does not ship; fix the contrac\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"validate_fill rounds\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.tm-abort-th · \"> 3\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td · \"structural misfit — go back one phase in\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"design flaw found mid-run\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.tm-abort-th · \"any\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td · \"template work: stop and report; fills ne\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"horizontal scroll at 375px\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.tm-abort-th · \"scrollWidth > clientWidth\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td · \"critical finding — reported against the \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.tm-rollback · \"ROLLBACKRollback is git-shaped: a borrow\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-rollback-flag · \"ROLLBACK\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-notice · \"SOURCED FROM REPO DOCS & PILOT RUN LOGS \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.tm-back · \"◄ GALLERY\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-INTRO · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"09 / 10 · T-1 · METRICS\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-stamp · \"T-1\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-kicker · \"08 · DAY 7 / DAY 30\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-war · \"GALLERY ESTATE · 65 LIVE WORLDS\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.tm-heading · \"Five numbers hold the whole system.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.tm-metrics-note · \"Every figure traces: 65 worlds and 5 sur\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-notice · \"SOURCED FROM REPO DOCS & PILOT RUN LOGS \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.tm-back · \"◄ GALLERY\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-INTRO · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"10 / 10 · T-0 · GO\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-stamp · \"T-0\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.tm-go · \"GREEN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.tm-closing-line · \"Leave the estate greener than you found \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.tm-standfirst.tm-standfirst-wide · \"One gate stays amber on this very templa\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-kicker.tm-ask-head · \"DECISIONS WE NEED TODAY\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "li · \"Compose the next internal deck from sour\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "li · \"Borrow one shipped part via its data-par\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "li · \"Run the AUDIT route on one live route an\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "li · \"Schedule the T-Minus mobile-chrome fix a\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-notice · \"SOURCED FROM REPO DOCS & PILOT RUN LOGS \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.tm-back · \"◄ GALLERY\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-INTRO · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"01 / 10 · T-30 · LAUNCH\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-stamp · \"T-30\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-kicker · \"PRODUCT LAUNCH\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-war · \"ONE DESIGN SYSTEM · FIVE SURFACES\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.tm-product · \"OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-line · \"Every template\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-line.tm-accent · \"is a live world.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.tm-standfirst · \"One design system, five surfaces, 65 liv\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-notice · \"SOURCED FROM REPO DOCS & PILOT RUN LOGS \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.tm-back · \"◄ GALLERY\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-INTRO · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"02 / 10 · T-24 · THE PRODUCT\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-stamp · \"T-24\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-kicker · \"01 · IN ONE SENTENCE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-war · \"GALLERY ESTATE · 65 LIVE WORLDS\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-eyebrow · \"The system in one sentence\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.tm-oneliner · \"OpenDesign compiles one design system in\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-fact-stat · \"5 surfaces\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-fact-cap · \"decks, dashboards, pages, explainers\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-fact-stat · \"65 worlds\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-fact-cap · \"live, full-bleed, borrowable\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-fact-stat · \"3 routes\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-fact-cap · \"COMPOSE · BORROW · AUDIT\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-notice · \"SOURCED FROM REPO DOCS & PILOT RUN LOGS \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.tm-back · \"◄ GALLERY\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-INTRO · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"03 / 10 · T-21 · LAUNCH THESIS\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-stamp · \"T-21\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-kicker · \"02 · THE THESIS\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-line · \"Templates carry craft.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-line.tm-accent · \"Fills carry content.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.tm-standfirst.tm-standfirst-wide · \"The whole architecture is division of la\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-notice · \"SOURCED FROM REPO DOCS & PILOT RUN LOGS \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.tm-back · \"◄ GALLERY\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-INTRO · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"04 / 10 · T-14 · READINESS BOARD\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-stamp · \"T-14\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-kicker · \"03 · ARE WE READY\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-war · \"GALLERY ESTATE · 65 LIVE WORLDS\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.tm-heading · \"Five gates. Four green — the audit lit o\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.font-medium.text-text-primary · \"Certifier — all worlds\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.text-sm.text-text-secondary · \"Descriptor, fill schema and SECTIONS in \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.font-medium.text-text-primary · \"Part-ID contract\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.text-sm.text-text-secondary · \"data-part-id anchors are a public borrow\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.font-medium.text-text-primary · \"validate_fill loop\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.text-sm.text-text-secondary · \"Slot caps, item bounds and craft rules e\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.font-medium.text-text-primary · \"Drive the real thing\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.text-sm.text-text-secondary · \"Green units are not enough: the borrow p\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.font-medium.text-text-primary · \"T-Minus mobile chrome\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.text-sm.text-text-secondary · \"The Jul 18 audit pilot found this very t\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.tm-gate-note · \"HOLDT-MINUS MOBILE CHROME — 529PX AT 375\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-gate-flag · \"HOLD\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-notice · \"SOURCED FROM REPO DOCS & PILOT RUN LOGS \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.tm-back · \"◄ GALLERY\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-INTRO · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"05 / 10 · T-10 · COMMS PLAN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-stamp · \"T-10\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-kicker · \"04 · WHO HEARS, WHEN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-war · \"GALLERY ESTATE · 65 LIVE WORLDS\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.tm-heading · \"The handshake: who speaks when a doc bec\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-when · \"intake\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-ch · \"open-design skill\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-detail · \"routes the run — at most three questions\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-when · \"one call\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-ch · \"MCP compose tool\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-detail · \"deterministically scores every template \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-when · \"authoring\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-ch · \"fill author\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-detail · \"writes content only, slot by slot, again\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-when · \"max 3 rounds\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-ch · \"validate_fill\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-detail · \"echoes slot path, violated limit and gui\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-when · \"/demo route\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-ch · \"gallery\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-comms-detail · \"renders the fill through the shipped tem\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-notice · \"SOURCED FROM REPO DOCS & PILOT RUN LOGS \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.tm-back · \"◄ GALLERY\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-INTRO · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"06 / 10 · T-7 · PRICING\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-stamp · \"T-7\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-kicker · \"05 · PRICING & PACKAGING\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-war · \"GALLERY ESTATE · 65 LIVE WORLDS\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.tm-heading · \"Three routes, priced in edits to shipped\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-notice · \"SOURCED FROM REPO DOCS & PILOT RUN LOGS \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.tm-back · \"◄ GALLERY\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-INTRO · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"07 / 10 · T-3 · DAY-0 RUNBOOK\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-stamp · \"T-3\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-kicker · \"06 · THE SEQUENCE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-war · \"ONE DAY · STEP 1 → SHIP\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.tm-heading.tm-heading-tight · \"One compose run, intake to shipped pixel\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"STEP 1\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"Intake\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"STEP 2\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"Select\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"STEP 3\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"Author\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"STEP 4\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"Validate\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"STEP 5\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"Scaffold\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"STEP 6\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"Verify rig\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"STEP 7\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"Judge\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"STEP 8\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "text · \"Ship\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.tm-runbook-cap · \"The one go/no-go is validation: three fa\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-notice · \"SOURCED FROM REPO DOCS & PILOT RUN LOGS \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.tm-back · \"◄ GALLERY\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-INTRO · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"08 / 10 · T-2 · RISK & ROLLBACK\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-stamp · \"T-2\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-kicker · \"07 · WHAT ABORTS IT\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-war · \"GALLERY ESTATE · 65 LIVE WORLDS\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.tm-heading · \"What stops a run — and what may never be\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"Signal\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"Abort threshold\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"Action\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"certifier findings\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.tm-abort-th · \"> 0\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td · \"the world does not ship; fix the contrac\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"validate_fill rounds\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.tm-abort-th · \"> 3\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td · \"structural misfit — go back one phase in\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"design flaw found mid-run\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.tm-abort-th · \"any\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td · \"template work: stop and report; fills ne\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"horizontal scroll at 375px\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.tm-abort-th · \"scrollWidth > clientWidth\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td · \"critical finding — reported against the \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.tm-rollback · \"ROLLBACKRollback is git-shaped: a borrow\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-rollback-flag · \"ROLLBACK\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-notice · \"SOURCED FROM REPO DOCS & PILOT RUN LOGS \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.tm-back · \"◄ GALLERY\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-INTRO · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"09 / 10 · T-1 · METRICS\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-stamp · \"T-1\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-kicker · \"08 · DAY 7 / DAY 30\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-war · \"GALLERY ESTATE · 65 LIVE WORLDS\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.tm-heading · \"Five numbers hold the whole system.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.tm-metrics-note · \"Every figure traces: 65 worlds and 5 sur\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-notice · \"SOURCED FROM REPO DOCS & PILOT RUN LOGS \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "a.tm-back · \"◄ GALLERY\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"OD-INTRO · OPENDESIGN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"10 / 10 · T-0 · GO\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-stamp · \"T-0\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.tm-go · \"GREEN\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.tm-closing-line · \"Leave the estate greener than you found \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.tm-standfirst.tm-standfirst-wide · \"One gate stays amber on this very templa\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-kicker.tm-ask-head · \"DECISIONS WE NEED TODAY\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "li · \"Compose the next internal deck from sour\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "li · \"Borrow one shipped part via its data-par\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "li · \"Run the AUDIT route on one live route an\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "li · \"Schedule the T-Minus mobile-chrome fix a\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-notice · \"SOURCED FROM REPO DOCS & PILOT RUN LOGS \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.tm-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    }
+  ]
+}

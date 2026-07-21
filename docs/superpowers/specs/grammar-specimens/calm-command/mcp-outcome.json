@@ -1,0 +1,28 @@
+{
+  "tool": "mcp__enterprise-design__compose_dashboard",
+  "calledAt": "2026-07-21",
+  "request": {
+    "context": {
+      "surface": "dashboard",
+      "audience": ["mixed"],
+      "businessIntent": ["monitor-design-system-quality", "communicate-adoption"],
+      "corporateSuitability": "standard",
+      "motionPreference": 1,
+      "pinTemplateId": "db-ai-risk-command-centre"
+    },
+    "contentBrief": "An operations view of the OpenDesign template estate: one design system rendered across 5 surfaces with 65 live worlds, monitored for quality. KPI row covers worlds live, surfaces, quality-gate pass rate, and open audit findings. Panels track compose-run activity across the three routes (COMPOSE, BORROW, AUDIT), quality-gate pipeline outcomes (certifier, validate_fill rounds, verify rig), per-surface world counts, and audit findings by severity from the design-audit pilot. The one flagged anomaly is a real tension from the run logs (the validate_fill transport serialization issue that forced a domain-function fallback). Synthetic illustrative series expected; real anchors are 65 worlds, 5 surfaces, the Jul 15 borrow pilot and Jul 18 audit pilot dates, and the audit pilot's finding counts (1 critical, 0 major, 1 minor across two targets)."
+  },
+  "result": {
+    "isError": true,
+    "error": {
+      "code": "UNKNOWN_TEMPLATE",
+      "message": "pinTemplateId \"db-ai-risk-command-centre\" is not a live dashboard template.",
+      "details": ["Live dashboard templates: cockpit (db-model-monitoring-cockpit)."],
+      "remediation": [
+        "Pin one of this surface's template ids/experienceIds (typically from a previous call's alternatives), or drop pinTemplateId to let scoring decide."
+      ],
+      "requestId": "1aa3cd23-ed28-420e-aeed-90b7209b102a"
+    }
+  },
+  "disposition": "BLOCKED — the pinned world exists as a shipped live world but has never been templatized (no *.worldtemplate.manifest.ts, no fill schema, no Template component in experiences/dashboards/db-ai-risk-command-centre/). The only live dashboard template is cockpit (db-model-monitoring-cockpit), whose grammar is precision-grid, so composing on it would misrepresent calm-command in the bake-off. No skeleton was returned, therefore no fill was authored and no validate_fill loop was run. See notes.md."
+}

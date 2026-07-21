@@ -1,0 +1,27 @@
+{
+  "call": "mcp__enterprise-design__compose_slide_deck",
+  "calledAt": "2026-07-21",
+  "arguments": {
+    "context": {
+      "surface": "slide-deck",
+      "audience": ["mixed"],
+      "businessIntent": ["explain-design-system", "enable-adoption"],
+      "corporateSuitability": "standard",
+      "motionPreference": 1,
+      "pinTemplateId": "deck-ai-strategy"
+    },
+    "contentBrief": "An introduction to OpenDesign, the enterprise design system that turns one design language into five composable surfaces (slide decks, dashboards, project pages, personal pages, technical explainers) rendered as a gallery of 65 live worlds. The core doctrine is division of labor: world-templates carry all the craft (layout, color, motion) while typed fills carry all the content, and MCP compose tools deterministically select a template and hand back a fill skeleton the author fills from source material. Three routes cover the work: COMPOSE turns source docs into a finished experience, BORROW lifts one part's visual treatment across worlds via public data-part-id contracts, and AUDIT grades an existing experience against the quality gates. Quality is enforced by a certifier, a validate-fill loop (max 3 rounds), part-id contract tests, and a screenshot-judged verification rig - evidence over assertion, with the rendered pixels as the truth. The deck argues the case for adopting this system to a mixed audience of engineers and design-minded PMs."
+  },
+  "result": "ERROR",
+  "error": {
+    "code": "UNKNOWN_TEMPLATE",
+    "message": "pinTemplateId \"deck-ai-strategy\" is not a live slide-deck template.",
+    "details": [
+      "Live slide-deck templates: cutover (deck-cloud-migration), dgm-blueprint (deck-dgm-blueprint), dgm-circuit (deck-dgm-circuit), dgm-gazette (deck-dgm-gazette), dgm-isometric (deck-dgm-isometric), dgm-sketchnote (deck-dgm-sketchnote), quarter (deck-quarterly-business-review), tminus (deck-product-launch)."
+    ],
+    "remediation": [
+      "Pin one of this surface's template ids/experienceIds (typically from a previous call's alternatives), or drop pinTemplateId to let scoring decide."
+    ],
+    "requestId": "3c9304a0-227b-482f-b20f-bae044dff83c"
+  }
+}

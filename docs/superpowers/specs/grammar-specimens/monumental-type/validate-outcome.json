@@ -1,0 +1,31 @@
+{
+  "tool": "mcp__enterprise-design__validate_fill",
+  "worldTemplateId": "tminus",
+  "calledAt": "2026-07-21",
+  "rounds": [
+    {
+      "round": 1,
+      "valid": false,
+      "findings": [
+        {
+          "path": "pricing[1].includes",
+          "rule": "renderBudget",
+          "message": "\"pricing[1].includes\" is 74 chars; the shipped world renders 58 here (budget 73 = shipped × 1.25, floor +14). Longer values ellipsize or overlap in the template's frame — tighten toward the shipped magnitude.",
+          "guidance": "Two-to-four price tiers; each a name, price, unit, an includes line, and a boolean \"feature\" (the launch-focus card).",
+          "fixApplied": "BORROW tier includes line tightened 74 → 69 chars: \"resolve, classify, slice, adapt, verify; source world stays untouched\""
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "valid": true,
+      "findings": []
+    }
+  ],
+  "final": {
+    "valid": true,
+    "worldTemplateId": "tminus",
+    "findings": []
+  },
+  "clientSideZod": "FILL_SCHEMA.safeParse(fill.json) via tsx against experiences/slide-decks/deck-product-launch/tminus-fill.ts — success (full Zod contract incl. the exactly-one-warning gates refinement and status/unit enums)."
+}

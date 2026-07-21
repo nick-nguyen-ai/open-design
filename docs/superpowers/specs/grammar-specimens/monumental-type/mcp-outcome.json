@@ -1,0 +1,87 @@
+{
+  "calledAt": "2026-07-21",
+  "note": "Two compose calls. Call 1 is the plan-mandated pin (deck-product-vision) which failed UNKNOWN_TEMPLATE — that world was never templatized. Call 2 re-pins the SAME grammar's live template (tminus / deck-product-launch, descriptor grammarId 'monumental-type') so the specimen still renders genuine monumental-type pixels. Divergence documented in notes.md.",
+  "calls": [
+    {
+      "tool": "mcp__enterprise-design__compose_slide_deck",
+      "request": {
+        "context": {
+          "surface": "slide-deck",
+          "audience": ["mixed"],
+          "businessIntent": ["explain-design-system", "enable-adoption"],
+          "corporateSuitability": "standard",
+          "motionPreference": 1,
+          "pinTemplateId": "deck-product-vision"
+        },
+        "contentBrief": "Introduce OpenDesign, an internal design-system platform: one design system compiled into five composable surfaces (slide decks, dashboards, project pages, personal pages, technical explainers) rendered as 65 live gallery worlds. The deck explains the division-of-labor doctrine — world-templates carry all the craft (layout, color, motion) while typed fills carry only content — the COMPOSE flow from source docs to a validated fill via MCP tools (deterministic template selection, fill skeleton, validate_fill loop, max 3 rounds), the skill/MCP handshake, the three routes (COMPOSE a whole experience, BORROW one part via public data-part-id contracts, AUDIT design quality against gate files), and the quality loop (certifier to 0 findings, part-id tests, verify rig, screenshot judge) proven in the July 2026 pilot runs."
+      },
+      "result": {
+        "isError": true,
+        "error": {
+          "code": "UNKNOWN_TEMPLATE",
+          "message": "pinTemplateId \"deck-product-vision\" is not a live slide-deck template.",
+          "details": [
+            "Live slide-deck templates: cutover (deck-cloud-migration), dgm-blueprint (deck-dgm-blueprint), dgm-circuit (deck-dgm-circuit), dgm-gazette (deck-dgm-gazette), dgm-isometric (deck-dgm-isometric), dgm-sketchnote (deck-dgm-sketchnote), quarter (deck-quarterly-business-review), tminus (deck-product-launch)."
+          ],
+          "remediation": [
+            "Pin one of this surface's template ids/experienceIds (typically from a previous call's alternatives), or drop pinTemplateId to let scoring decide."
+          ],
+          "requestId": "d3b94a19-0308-41dd-9e83-fb81809eea8e"
+        }
+      }
+    },
+    {
+      "tool": "mcp__enterprise-design__compose_slide_deck",
+      "request": {
+        "context": {
+          "surface": "slide-deck",
+          "audience": ["mixed"],
+          "businessIntent": ["explain-design-system", "enable-adoption"],
+          "corporateSuitability": "standard",
+          "motionPreference": 1,
+          "pinTemplateId": "tminus"
+        },
+        "contentBrief": "(identical brief to call 1)"
+      },
+      "result": {
+        "worldTemplateId": "tminus",
+        "experienceId": "deck-product-launch",
+        "rationale": "Pinned 'tminus' (deck-product-launch, art-directed style) by explicit pinTemplateId — scoring bypassed; score shown for transparency.",
+        "evidence": [
+          "tminus (deck-product-launch): audienceOverlap 1×2=2 + intentMatch 0 + corporateFit 1 = 3"
+        ],
+        "alternatives": [
+          {
+            "worldTemplateId": "tminus",
+            "experienceId": "deck-product-launch",
+            "score": 3,
+            "scoreBreakdown": "tminus (deck-product-launch): audienceOverlap 1×2=2 + intentMatch 0 + corporateFit 1 = 3",
+            "style": "art-directed",
+            "mood": "dark",
+            "grammarId": "monumental-type",
+            "guidance": [
+              "A launch plan staged as a COUNTDOWN SEQUENCE: every slide carries a monumental T-minus stamp (T-30 → T-0) over a midnight field, with a single thin amber horizon line that RISES slide by slide and, at T-0, reaches the top as the field turns GO-green.",
+              "Exactly one readiness gate carries the \"warning\" flagged-blocker status: the single amber square in an otherwise green board, its verbatim text echoed in anomalyLabel under the board and in the accessible summary.",
+              "The synthetic-launch notice is required and prints on every slide’s print foot and the footer.",
+              "The day-0 runbook is the commanding bespoke visual — a local SVG rail with a go/no-go diamond gate — and exposes a hidden ordered-list mirror derived from the same runbook data.",
+              "Slot char caps and item counts are sized so any schema-valid fill stays composed — the runbook rail, the price grid, and the readiness board stay balanced and headlines never overflow.",
+              "Motion level 2 (staggered build + horizon-sweep); the mood is locked dark."
+            ]
+          }
+        ],
+        "fillSkeleton": {
+          "note": "Verbatim per-slot skeleton omitted here for size; it is byte-identical to the descriptor view compiled from TMINUS_SECTIONS in experiences/slide-decks/deck-product-launch/tminus-fill.ts (10 sections: title, one-sentence, thesis, readiness, comms, pricing, runbook, risk, metrics, closing — each repeats exactly 1; slot names, types, caps and guidance as in that file), plus a descriptor-drawn example per slot from the shipped MERIDIAN INSTANT fill.",
+          "sectionsKinds": ["title", "one-sentence", "thesis", "readiness", "comms", "pricing", "runbook", "risk", "metrics", "closing"],
+          "craftGuarantees": [
+            "A launch plan staged as a COUNTDOWN SEQUENCE: every slide carries a monumental T-minus stamp (T-30 → T-0) over a midnight field, with a single thin amber horizon line that RISES slide by slide and, at T-0, reaches the top as the field turns GO-green.",
+            "Exactly one readiness gate carries the \"warning\" flagged-blocker status: the single amber square in an otherwise green board, its verbatim text echoed in anomalyLabel under the board and in the accessible summary.",
+            "The synthetic-launch notice is required and prints on every slide’s print foot and the footer.",
+            "The day-0 runbook is the commanding bespoke visual — a local SVG rail with a go/no-go diamond gate — and exposes a hidden ordered-list mirror derived from the same runbook data.",
+            "Slot char caps and item counts are sized so any schema-valid fill stays composed — the runbook rail, the price grid, and the readiness board stay balanced and headlines never overflow.",
+            "Motion level 2 (staggered build + horizon-sweep); the mood is locked dark."
+          ]
+        }
+      }
+    }
+  ]
+}

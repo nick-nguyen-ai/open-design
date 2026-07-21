@@ -1,0 +1,30 @@
+{
+  "tool": "mcp__enterprise-design__compose_slide_deck",
+  "calledAt": "2026-07-21",
+  "arguments": {
+    "context": {
+      "surface": "slide-deck",
+      "audience": ["mixed"],
+      "businessIntent": ["explain-design-system", "enable-adoption"],
+      "corporateSuitability": "standard",
+      "motionPreference": 1,
+      "pinTemplateId": "deck-innovation-showcase"
+    },
+    "contentBrief": "An introduction to OpenDesign, an internal design-system platform: one design system compiled into five composable surfaces (slide decks, dashboards, project pages, personal pages, technical explainers), served from a gallery of 65 live worlds. World-templates carry all the craft (layout, color, motion); typed fills carry all the content; MCP compose tools deterministically select a template and hand back a fill skeleton, and the open-design skill orchestrates three routes - COMPOSE (source content to finished experience), BORROW (lift one part's treatment across worlds via public data-part-id anchors), and AUDIT (severity-ranked design-quality punch list). Quality is enforced by contracts: a certifier, part-id tests, a validate_fill loop with render budgets, and a verification rig with screenshot judging. The deck explains the division of labor, the three routes, the gallery estate, and the quality loop so engineers and design-minded PMs can adopt the system."
+  },
+  "result": {
+    "isError": true,
+    "error": {
+      "code": "UNKNOWN_TEMPLATE",
+      "message": "pinTemplateId \"deck-innovation-showcase\" is not a live slide-deck template.",
+      "details": [
+        "Live slide-deck templates: cutover (deck-cloud-migration), dgm-blueprint (deck-dgm-blueprint), dgm-circuit (deck-dgm-circuit), dgm-gazette (deck-dgm-gazette), dgm-isometric (deck-dgm-isometric), dgm-sketchnote (deck-dgm-sketchnote), quarter (deck-quarterly-business-review), tminus (deck-product-launch)."
+      ],
+      "remediation": [
+        "Pin one of this surface's template ids/experienceIds (typically from a previous call's alternatives), or drop pinTemplateId to let scoring decide."
+      ],
+      "requestId": "bfd6f0d4-fd2e-4f7b-ac49-841d9cbd8ab2"
+    }
+  },
+  "disposition": "BLOCKED - the fill target named for the spatial-canvas grammar specimen (deck-innovation-showcase) is a hand-built world, not a composable world-template. No fill was authored; see notes.md."
+}

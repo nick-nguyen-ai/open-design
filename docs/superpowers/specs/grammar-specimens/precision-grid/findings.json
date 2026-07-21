@@ -1,0 +1,2762 @@
+{
+  "route": "/demo/spec-precision-grid",
+  "generatedAt": "2026-07-21T04:09:07.270Z",
+  "viewports": [
+    1440,
+    1280,
+    375
+  ],
+  "probeViewports": [
+    1440,
+    1280
+  ],
+  "states": 11,
+  "findings": [
+    {
+      "probe": "contrast",
+      "selector": "span.q-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.60 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.q-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.60 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.q-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.60 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.q-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.60 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"Jul 12\"",
+      "detail": "text exceeds box by 20px (clipped)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"Jul 14\"",
+      "detail": "text exceeds box by 20px (clipped)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"Jul 15\"",
+      "detail": "text exceeds box by 20px (clipped)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"Jul 16\"",
+      "detail": "text exceeds box by 20px (clipped)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"Jul 17\"",
+      "detail": "text exceeds box by 20px (clipped)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"Jul 18\"",
+      "detail": "text exceeds box by 20px (clipped)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"Jul 19\"",
+      "detail": "text exceeds box by 20px (clipped)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"Jul 21\"",
+      "detail": "text exceeds box by 20px (clipped)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"30\"",
+      "detail": "text exceeds box by 6px (clipped)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"34\"",
+      "detail": "text exceeds box by 6px (clipped)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"38\"",
+      "detail": "text exceeds box by 6px (clipped)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"44\"",
+      "detail": "text exceeds box by 6px (clipped)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"52\"",
+      "detail": "text exceeds box by 6px (clipped)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"58\"",
+      "detail": "text exceeds box by 6px (clipped)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"62\"",
+      "detail": "text exceeds box by 6px (clipped)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"65\"",
+      "detail": "text exceeds box by 6px (clipped)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "caption · \"Recognised revenue by quarter — data tab\" × figcaption.mt-2.text-xs.text-text-muted · \"Recognised revenue by quarter — Live wor\"",
+      "detail": "text rects intersect 315×14px",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.q-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.60 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"Slide decks\"",
+      "detail": "text exceeds box by 37px (clipped)",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"Dashboards\"",
+      "detail": "text exceeds box by 33px (clipped)",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"Explainers\"",
+      "detail": "text exceeds box by 33px (clipped)",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"Project pages\"",
+      "detail": "text exceeds box by 43px (clipped)",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"Personal pages\"",
+      "detail": "text exceeds box by 46px (clipped)",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"$25M\"",
+      "detail": "text exceeds box by 13px (clipped)",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"$10M\"",
+      "detail": "text exceeds box by 13px (clipped)",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"$10M\"",
+      "detail": "text exceeds box by 13px (clipped)",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"$10M\"",
+      "detail": "text exceeds box by 13px (clipped)",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"$10M\"",
+      "detail": "text exceeds box by 13px (clipped)",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "caption · \"Revenue by segment — data table\" × figcaption.mt-2.text-xs.text-text-muted · \"Revenue by segment — Worlds by surface, \"",
+      "detail": "text rects intersect 241×14px",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.q-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.60 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.q-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.60 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.q-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.60 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.q-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.60 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.q-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.60 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.q-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.60 below 4.5:1 (10px)",
+      "viewport": 1440,
+      "state": "slide-11"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1440,
+      "state": "slide-11"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.q-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.60 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.q-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.60 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.q-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.60 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.q-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.60 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"Jul 12\"",
+      "detail": "text exceeds box by 20px (clipped)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"Jul 14\"",
+      "detail": "text exceeds box by 20px (clipped)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"Jul 15\"",
+      "detail": "text exceeds box by 20px (clipped)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"Jul 16\"",
+      "detail": "text exceeds box by 20px (clipped)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"Jul 17\"",
+      "detail": "text exceeds box by 20px (clipped)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"Jul 18\"",
+      "detail": "text exceeds box by 20px (clipped)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"Jul 19\"",
+      "detail": "text exceeds box by 20px (clipped)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"Jul 21\"",
+      "detail": "text exceeds box by 20px (clipped)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"30\"",
+      "detail": "text exceeds box by 6px (clipped)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"34\"",
+      "detail": "text exceeds box by 6px (clipped)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"38\"",
+      "detail": "text exceeds box by 6px (clipped)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"44\"",
+      "detail": "text exceeds box by 6px (clipped)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"52\"",
+      "detail": "text exceeds box by 6px (clipped)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"58\"",
+      "detail": "text exceeds box by 6px (clipped)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"62\"",
+      "detail": "text exceeds box by 6px (clipped)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"65\"",
+      "detail": "text exceeds box by 6px (clipped)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "caption · \"Recognised revenue by quarter — data tab\" × figcaption.mt-2.text-xs.text-text-muted · \"Recognised revenue by quarter — Live wor\"",
+      "detail": "text rects intersect 315×14px",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "td · \"Jul 19\" × span.q-footer-page · \"05 / 11\"",
+      "detail": "text rects intersect 39×9px",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "td · \"Jul 19\" × span.q-footer-conf · \"INTERNAL — ENGINEERING & DESIGN DISTRIBU\"",
+      "detail": "text rects intersect 42×9px",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "td · \"62\" × span.q-footer-conf · \"INTERNAL — ENGINEERING & DESIGN DISTRIBU\"",
+      "detail": "text rects intersect 212×9px",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.q-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.60 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"Slide decks\"",
+      "detail": "text exceeds box by 37px (clipped)",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"Dashboards\"",
+      "detail": "text exceeds box by 33px (clipped)",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"Explainers\"",
+      "detail": "text exceeds box by 33px (clipped)",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"Project pages\"",
+      "detail": "text exceeds box by 43px (clipped)",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"Personal pages\"",
+      "detail": "text exceeds box by 46px (clipped)",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"$25M\"",
+      "detail": "text exceeds box by 13px (clipped)",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"$10M\"",
+      "detail": "text exceeds box by 13px (clipped)",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"$10M\"",
+      "detail": "text exceeds box by 13px (clipped)",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"$10M\"",
+      "detail": "text exceeds box by 13px (clipped)",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "text-overflow",
+      "selector": "text · \"$10M\"",
+      "detail": "text exceeds box by 13px (clipped)",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "text-overlap",
+      "selector": "caption · \"Revenue by segment — data table\" × figcaption.mt-2.text-xs.text-text-muted · \"Revenue by segment — Worlds by surface, \"",
+      "detail": "text rects intersect 241×14px",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.q-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.60 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.q-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.60 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.q-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.60 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.q-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.60 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.q-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.60 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span.q-hint · \"← → NAVIGATE · HOME/END\"",
+      "detail": "ratio 2.60 below 4.5:1 (10px)",
+      "viewport": 1280,
+      "state": "slide-11"
+    },
+    {
+      "probe": "contrast",
+      "selector": "span · \"⌖\"",
+      "detail": "ratio 1.39 below 4.5:1 (18px)",
+      "viewport": 1280,
+      "state": "slide-11"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 49px",
+      "viewport": 375,
+      "state": "slide-01"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 33px",
+      "viewport": 375,
+      "state": "slide-02"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 114px",
+      "viewport": 375,
+      "state": "slide-03"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 114px",
+      "viewport": 375,
+      "state": "slide-04"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 114px",
+      "viewport": 375,
+      "state": "slide-05"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 90px",
+      "viewport": 375,
+      "state": "slide-06"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 98px",
+      "viewport": 375,
+      "state": "slide-07"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 98px",
+      "viewport": 375,
+      "state": "slide-08"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 57px",
+      "viewport": 375,
+      "state": "slide-09"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 81px",
+      "viewport": 375,
+      "state": "slide-10"
+    },
+    {
+      "probe": "root-overflow",
+      "selector": "html",
+      "detail": "scrollWidth exceeds clientWidth by 49px",
+      "viewport": 375,
+      "state": "slide-11"
+    }
+  ],
+  "unverifiable": [
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.q-cover-org · \"OPENDESIGN PLATFORM\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-cover-line · \"The Quarter.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-cover-line.q-cover-sub · \"JUL 2026 · One system, five surfaces\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.q-cover-lead · \"One system, five surfaces, 65 live world\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"INTERNAL — ENGINEERING & DESIGN DISTRIBU\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"PARTLY SYNTHETIC FIGURES — SEE DATA NOTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-page · \"01 / 11\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-conf · \"INTERNAL — ENGINEERING & DESIGN DISTRIBU\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-notice · \"PARTLY SYNTHETIC FIGURES — SEE DATA NOTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-kicker · \"AGENDA\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.q-heading · \"What we will cover.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-no · \"01\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-title · \"The system\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-detail · \"One design system, five surfaces; craft \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-no · \"02\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-title · \"The estate\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-detail · \"65 live worlds: the growth line since mi\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-no · \"03\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-title · \"The routes\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-detail · \"COMPOSE, BORROW, AUDIT — wins, honest lo\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-no · \"04\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-title · \"Quality\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-detail · \"The gate loop, the open risks, and the o\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-no · \"05\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-title · \"Outlook\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-detail · \"Four priorities that close the gaps befo\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-page · \"02 / 11\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-conf · \"INTERNAL — ENGINEERING & DESIGN DISTRIBU\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-notice · \"PARTLY SYNTHETIC FIGURES — SEE DATA NOTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-kicker · \"01 · PERFORMANCE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.q-heading · \"Executive summary.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-summary-mark · \"01\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"The doctrine held all quarter: world-tem\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-summary-mark · \"02\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"The estate closed at 65 live worlds acro\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-summary-mark · \"03\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"All three routes shipped proof runs: bor\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-summary-mark · \"04\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"The audit route earned its keep on day o\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.q-summary-flag · \"1 CRITICAL OPEN — T-MINUS MOBILE F1\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-page · \"03 / 11\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-conf · \"INTERNAL — ENGINEERING & DESIGN DISTRIBU\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-notice · \"PARTLY SYNTHETIC FIGURES — SEE DATA NOTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-kicker · \"01 · PERFORMANCE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.q-heading · \"The quarter, in four numbers.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.q-kpi-flag · \"1 CRITICAL OPEN — T-MINUS MOBILE F1\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.q-note · \"Estate health at the July close: three g\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "caption.q-vsplan-cap · \"JUL 2026 actual vs. operating plan\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"Metric\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th.q-num · \"Actual\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th.q-num · \"Plan\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th.q-num · \"Δ vs plan\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"Live worlds\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"65\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"65\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"0\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"Surfaces\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"5\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"5\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"0\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"Certifier findings\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"0\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"0\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"0\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"Critical findings\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"1\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"0\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"+1\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-page · \"04 / 11\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-conf · \"INTERNAL — ENGINEERING & DESIGN DISTRIBU\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-notice · \"PARTLY SYNTHETIC FIGURES — SEE DATA NOTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-kicker · \"01 · PERFORMANCE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.q-heading · \"Revenue, eight quarters.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-page · \"05 / 11\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-conf · \"INTERNAL — ENGINEERING & DESIGN DISTRIBU\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-notice · \"PARTLY SYNTHETIC FIGURES — SEE DATA NOTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-kicker · \"02 · SEGMENTS\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.q-heading · \"Where the sixty-five worlds live.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-page · \"06 / 11\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-conf · \"INTERNAL — ENGINEERING & DESIGN DISTRIBU\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-notice · \"PARTLY SYNTHETIC FIGURES — SEE DATA NOTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-kicker · \"03 · EXECUTION\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.q-heading · \"Wins and losses.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-page · \"07 / 11\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-conf · \"INTERNAL — ENGINEERING & DESIGN DISTRIBU\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-notice · \"PARTLY SYNTHETIC FIGURES — SEE DATA NOTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-kicker · \"03 · EXECUTION\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.q-heading · \"The pipeline.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"Live worlds\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"65\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"5 surfaces\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"65/65\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"MCP templates\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"12\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"5 surfaces\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"12/65\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"Deck templates\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"8\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"1 surface\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"8/25\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"Part-ID pilots\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"3\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"borrowable\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"3/65\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.q-note · \"Composability funnel: 12 of 65 worlds ar\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-page · \"08 / 11\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-conf · \"INTERNAL — ENGINEERING & DESIGN DISTRIBU\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-notice · \"PARTLY SYNTHETIC FIGURES — SEE DATA NOTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-kicker · \"04 · RISK\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.q-heading · \"Risks and mitigations.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"T-Minus mobile critical (F1) open\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-sev · \"High\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td · \"Template work scoped on deck-product-lau\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"Descriptor caps exceed render budgets\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-sev · \"Medium\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td · \"Tighten dgm-circuit caps or budgets so c\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"Parallel sessions outrun any plan\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-sev · \"Medium\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td · \"Re-verify from source before acting; pre\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"CRLF smudge breaks parity tests\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-sev · \"Low\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td · \"Re-run the token and theme CSS generator\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-page · \"09 / 11\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-conf · \"INTERNAL — ENGINEERING & DESIGN DISTRIBU\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-notice · \"PARTLY SYNTHETIC FIGURES — SEE DATA NOTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-kicker · \"05 · OUTLOOK\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.q-heading · \"Next quarter, four priorities.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-page · \"10 / 11\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-conf · \"INTERNAL — ENGINEERING & DESIGN DISTRIBU\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-notice · \"PARTLY SYNTHETIC FIGURES — SEE DATA NOTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-kicker · \"APPENDIX\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-11"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.q-heading · \"Data notes & method.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-11"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "li.q-build · \"Partly synthetic: the trend's intermedia\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-11"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "li.q-build · \"Estate: 65 experiences across 5 surfaces\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-11"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "li.q-build · \"Quality events: borrow pilot 2026-07-15 \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-11"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "li.q-build · \"No real company, customer, or revenue fi\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-11"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-page · \"11 / 11\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-11"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-conf · \"INTERNAL — ENGINEERING & DESIGN DISTRIBU\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-11"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-notice · \"PARTLY SYNTHETIC FIGURES — SEE DATA NOTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1440,
+      "state": "slide-11"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.q-cover-org · \"OPENDESIGN PLATFORM\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-cover-line · \"The Quarter.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-cover-line.q-cover-sub · \"JUL 2026 · One system, five surfaces\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.q-cover-lead · \"One system, five surfaces, 65 live world\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"INTERNAL — ENGINEERING & DESIGN DISTRIBU\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"PARTLY SYNTHETIC FIGURES — SEE DATA NOTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-page · \"01 / 11\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-conf · \"INTERNAL — ENGINEERING & DESIGN DISTRIBU\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-notice · \"PARTLY SYNTHETIC FIGURES — SEE DATA NOTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-01"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-kicker · \"AGENDA\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.q-heading · \"What we will cover.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-no · \"01\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-title · \"The system\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-detail · \"One design system, five surfaces; craft \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-no · \"02\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-title · \"The estate\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-detail · \"65 live worlds: the growth line since mi\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-no · \"03\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-title · \"The routes\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-detail · \"COMPOSE, BORROW, AUDIT — wins, honest lo\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-no · \"04\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-title · \"Quality\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-detail · \"The gate loop, the open risks, and the o\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-no · \"05\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-title · \"Outlook\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-agenda-detail · \"Four priorities that close the gaps befo\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-page · \"02 / 11\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-conf · \"INTERNAL — ENGINEERING & DESIGN DISTRIBU\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-notice · \"PARTLY SYNTHETIC FIGURES — SEE DATA NOTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-02"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-kicker · \"01 · PERFORMANCE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.q-heading · \"Executive summary.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-summary-mark · \"01\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"The doctrine held all quarter: world-tem\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-summary-mark · \"02\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"The estate closed at 65 live worlds acro\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-summary-mark · \"03\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"All three routes shipped proof runs: bor\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-summary-mark · \"04\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span · \"The audit route earned its keep on day o\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.q-summary-flag · \"1 CRITICAL OPEN — T-MINUS MOBILE F1\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-page · \"03 / 11\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-conf · \"INTERNAL — ENGINEERING & DESIGN DISTRIBU\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-notice · \"PARTLY SYNTHETIC FIGURES — SEE DATA NOTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-03"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-kicker · \"01 · PERFORMANCE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.q-heading · \"The quarter, in four numbers.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.q-kpi-flag · \"1 CRITICAL OPEN — T-MINUS MOBILE F1\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.q-note · \"Estate health at the July close: three g\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "caption.q-vsplan-cap · \"JUL 2026 actual vs. operating plan\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"Metric\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th.q-num · \"Actual\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th.q-num · \"Plan\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th.q-num · \"Δ vs plan\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"Live worlds\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"65\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"65\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"0\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"Surfaces\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"5\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"5\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"0\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"Certifier findings\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"0\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"0\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"0\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"Critical findings\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"1\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"0\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"+1\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-page · \"04 / 11\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-conf · \"INTERNAL — ENGINEERING & DESIGN DISTRIBU\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-notice · \"PARTLY SYNTHETIC FIGURES — SEE DATA NOTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-04"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-kicker · \"01 · PERFORMANCE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.q-heading · \"Revenue, eight quarters.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-page · \"05 / 11\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-conf · \"INTERNAL — ENGINEERING & DESIGN DISTRIBU\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-notice · \"PARTLY SYNTHETIC FIGURES — SEE DATA NOTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-05"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-kicker · \"02 · SEGMENTS\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.q-heading · \"Where the sixty-five worlds live.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-page · \"06 / 11\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-conf · \"INTERNAL — ENGINEERING & DESIGN DISTRIBU\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-notice · \"PARTLY SYNTHETIC FIGURES — SEE DATA NOTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-06"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-kicker · \"03 · EXECUTION\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.q-heading · \"Wins and losses.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-page · \"07 / 11\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-conf · \"INTERNAL — ENGINEERING & DESIGN DISTRIBU\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-notice · \"PARTLY SYNTHETIC FIGURES — SEE DATA NOTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-07"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-kicker · \"03 · EXECUTION\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.q-heading · \"The pipeline.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"Live worlds\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"65\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"5 surfaces\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"65/65\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"MCP templates\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"12\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"5 surfaces\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"12/65\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"Deck templates\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"8\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"1 surface\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"8/25\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"Part-ID pilots\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"3\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"borrowable\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td.q-num · \"3/65\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "p.q-note · \"Composability funnel: 12 of 65 worlds ar\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-page · \"08 / 11\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-conf · \"INTERNAL — ENGINEERING & DESIGN DISTRIBU\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-notice · \"PARTLY SYNTHETIC FIGURES — SEE DATA NOTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-08"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-kicker · \"04 · RISK\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.q-heading · \"Risks and mitigations.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"T-Minus mobile critical (F1) open\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-sev · \"High\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td · \"Template work scoped on deck-product-lau\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"Descriptor caps exceed render budgets\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-sev · \"Medium\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td · \"Tighten dgm-circuit caps or budgets so c\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"Parallel sessions outrun any plan\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-sev · \"Medium\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td · \"Re-verify from source before acting; pre\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "th · \"CRLF smudge breaks parity tests\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-sev · \"Low\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "td · \"Re-run the token and theme CSS generator\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-page · \"09 / 11\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-conf · \"INTERNAL — ENGINEERING & DESIGN DISTRIBU\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-notice · \"PARTLY SYNTHETIC FIGURES — SEE DATA NOTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-09"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-kicker · \"05 · OUTLOOK\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.q-heading · \"Next quarter, four priorities.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-page · \"10 / 11\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-conf · \"INTERNAL — ENGINEERING & DESIGN DISTRIBU\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-notice · \"PARTLY SYNTHETIC FIGURES — SEE DATA NOTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-10"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-kicker · \"APPENDIX\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-11"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "h2.q-heading · \"Data notes & method.\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-11"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "li.q-build · \"Partly synthetic: the trend's intermedia\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-11"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "li.q-build · \"Estate: 65 experiences across 5 surfaces\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-11"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "li.q-build · \"Quality events: borrow pilot 2026-07-15 \"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-11"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "li.q-build · \"No real company, customer, or revenue fi\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-11"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-page · \"11 / 11\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-11"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-conf · \"INTERNAL — ENGINEERING & DESIGN DISTRIBU\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-11"
+    },
+    {
+      "probe": "contrast-unverifiable",
+      "selector": "span.q-footer-notice · \"PARTLY SYNTHETIC FIGURES — SEE DATA NOTE\"",
+      "detail": "background carries an image/gradient — verify by eye",
+      "viewport": 1280,
+      "state": "slide-11"
+    }
+  ]
+}

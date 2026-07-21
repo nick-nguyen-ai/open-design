@@ -1,0 +1,115 @@
+{
+  "tool": "mcp__enterprise-design__compose_slide_deck",
+  "calledAt": "2026-07-21",
+  "attempt1_blocked": {
+    "request": {
+      "context": {
+        "surface": "slide-deck",
+        "audience": ["mixed"],
+        "businessIntent": ["explain-design-system", "enable-adoption"],
+        "corporateSuitability": "standard",
+        "motionPreference": 1,
+        "pinTemplateId": "deck-ai-governance-and-controls"
+      }
+    },
+    "result": {
+      "isError": true,
+      "error": {
+        "code": "UNKNOWN_TEMPLATE",
+        "message": "pinTemplateId \"deck-ai-governance-and-controls\" is not a live slide-deck template.",
+        "details": [
+          "Live slide-deck templates: cutover (deck-cloud-migration), dgm-blueprint (deck-dgm-blueprint), dgm-circuit (deck-dgm-circuit), dgm-gazette (deck-dgm-gazette), dgm-isometric (deck-dgm-isometric), dgm-sketchnote (deck-dgm-sketchnote), quarter (deck-quarterly-business-review), tminus (deck-product-launch)."
+        ],
+        "remediation": [
+          "Pin one of this surface's template ids/experienceIds (typically from a previous call's alternatives), or drop pinTemplateId to let scoring decide."
+        ],
+        "requestId": "c89d8605-2f79-44d5-ae77-0ef26da6bb97"
+      }
+    },
+    "crossCheck": "Repo-side confirmation that the server registry is NOT stale: experiences/slide-decks/deck-ai-governance-and-controls/ contains only ControlFramePage.tsx, content.ts, frame.css and the experience manifest — no *.worldtemplate.manifest.ts and no *-fill.ts exist anywhere in the repo for this world, and packages/registry/generated/world-templates.json lists exactly the 8 slide-deck templates the error names."
+  },
+  "attempt2_quarter": {
+    "request": {
+      "context": {
+        "surface": "slide-deck",
+        "audience": ["mixed"],
+        "businessIntent": ["explain-design-system", "enable-adoption"],
+        "corporateSuitability": "standard",
+        "motionPreference": 1,
+        "pinTemplateId": "quarter"
+      },
+      "contentBrief": "Introduction to OpenDesign, an internal design system that turns one set of contracts into five composable surfaces (slide decks, dashboards, project pages, personal pages, technical explainers) backed by a gallery of 65 live worlds. The core doctrine is division of labor: world-templates carry all craft (layout, color, motion), typed fills carry all content, and MCP compose tools deterministically select a template and hand back a fill skeleton that the open-design skill authors against. Three routes cover the work: COMPOSE turns source docs into a finished rendered experience, BORROW lifts one part's visual treatment across templates via public data-part-id contracts, and AUDIT grades an existing experience against quality gates. Quality is enforced as a loop of gates: certifier (schema lockstep, leak scan), validate_fill (max 3 rounds), verify rig, content-fit read, screenshot judge, and honest-copy sweep — evidence over assertion at every step, with real pilot catches (an audit found a mobile horizontal-scroll defect on its first run) proving the controls work."
+    },
+    "result": {
+      "worldTemplateId": "quarter",
+      "experienceId": "deck-quarterly-business-review",
+      "rationale": "Pinned 'quarter' (deck-quarterly-business-review, conventional style) by explicit pinTemplateId — scoring bypassed; score shown for transparency.",
+      "evidence": ["quarter (deck-quarterly-business-review): audienceOverlap 0×2=0 + intentMatch 1 + corporateFit 1 = 2"],
+      "alternatives": [
+        {
+          "worldTemplateId": "quarter",
+          "experienceId": "deck-quarterly-business-review",
+          "score": 2,
+          "scoreBreakdown": "quarter (deck-quarterly-business-review): audienceOverlap 0×2=0 + intentMatch 1 + corporateFit 1 = 2",
+          "style": "conventional",
+          "mood": "light",
+          "grammarId": "precision-grid",
+          "guidance": [
+            "Deliberately conventional slide anatomy: a persistent navy title bar, a 12-column content grid, a numbered agenda, and a footer rule — executed flawlessly, no world conceit.",
+            "Exactly one KPI carries the off-track anomaly status: the single red figure in an otherwise green row, echoed verbatim in the executive summary.",
+            "The synthetic-data notice is required and prints on the footer rule of every slide.",
+            "Restrained single fade/rise motion (motionLevel 1); the mood is locked light.",
+            "Slot char caps and item counts are sized so any schema-valid fill stays composed — headlines never overflow and grids stay balanced."
+          ]
+        }
+      ],
+      "fillSkeleton": {
+        "note": "Eleven sections, each repeats 1..1: title, agenda, summary, kpi, trend, segment, winsLosses, pipeline, risks, priorities, appendix. Full per-slot specs mirror experiences/slide-decks/deck-quarterly-business-review/quarter-fill.ts (QUARTER_SECTIONS) verbatim — slot names deck.title(30)/org(30)/period(48)/periodShort(16)/confidentiality(48)/notice(52), summary.lead(110), agenda(3-7), summary.sentences(3-5, 240), anomalyLabel(40, echoed on summary + kpi), kpis(4 exactly, one off-track; percent values are FRACTIONS, deltas always fractions), kpiVsPlan(4), kpiNote(120), revenueSeries(id/label 24, points 6-10, x<=16), revenueNote(140), headlines.segment(40, must be TRUE of the segments), segments(3-6), segmentNote(180), wins(2-4)/losses(2-4) name/value/note, pipeline(3-6) stage/deals/value/coverage, pipelineNote(140), risks(3-6) risk/severity/mitigation, priorities(3-5) no/title/detail, dataNotes(2-6, first declares synthetic).",
+        "craftGuarantees": [
+          "Deliberately conventional slide anatomy: a persistent navy title bar, a 12-column content grid, a numbered agenda, and a footer rule — executed flawlessly, no world conceit.",
+          "Exactly one KPI carries the off-track anomaly status: the single red figure in an otherwise green row, echoed verbatim in the executive summary.",
+          "The synthetic-data notice is required and prints on the footer rule of every slide.",
+          "Restrained single fade/rise motion (motionLevel 1); the mood is locked light.",
+          "Slot char caps and item counts are sized so any schema-valid fill stays composed — headlines never overflow and grids stay balanced."
+        ]
+      }
+    },
+    "postscript": "Fill validated (2 rounds) but RETIRED before shipping: the independent screenshot judge failed the render on honest-copy grounds — QuarterTemplate.tsx hardcodes the revenue conceit (line 426 'Revenue, N quarters.' trend title; lines 179/223/457 '$NM' value formatting), so world-counts render as dollars regardless of fill. Unfixable content-side; per the workflow, wrong template fit → back to selection."
+  },
+  "attempt3_cockpit": {
+    "calledAt": "2026-07-21",
+    "tool": "mcp__enterprise-design__compose_dashboard",
+    "request": {
+      "context": {
+        "surface": "dashboard",
+        "audience": ["mixed"],
+        "businessIntent": ["monitor-design-system-quality", "communicate-adoption"],
+        "corporateSuitability": "standard",
+        "motionPreference": 1,
+        "pinTemplateId": "cockpit"
+      },
+      "contentBrief": "An operations view of the OpenDesign estate — the internal design system that turns one set of contracts into five composable surfaces (slide decks, dashboards, project pages, personal pages, technical explainers) backed by a gallery of 65 live worlds. The cockpit monitors estate health and adoption: headline KPIs (65 live worlds, 5 surfaces, 12 MCP-published world-templates, certifier findings at zero, one open critical), the growth of the estate over July 2026, worlds by surface, the fleet of published templates with their quality states, and the quality loop's real events: the borrow pilot (Jul 15), the audit pilot's genuine catch (Jul 18: T-Minus deck template scrolls to 529px at a 375px viewport — the single flagged anomaly, open template work), and the compose sample (Jul 19, validate round one clean). Division of labor doctrine: templates carry all craft, typed fills carry all content, MCP compose tools select deterministically; quality gates (certifier, validate_fill, verify rig, screenshot judge, honest-copy sweep) hold the line."
+    },
+    "result": {
+      "worldTemplateId": "cockpit",
+      "experienceId": "db-model-monitoring-cockpit",
+      "rationale": "Pinned 'cockpit' (db-model-monitoring-cockpit, art-directed style) by explicit pinTemplateId — scoring bypassed; score shown for transparency.",
+      "evidence": ["cockpit (db-model-monitoring-cockpit): audienceOverlap 0×2=0 + intentMatch 3 + corporateFit 1 = 4"],
+      "style": "art-directed",
+      "mood": "dark",
+      "grammarId": "precision-grid",
+      "fillSkeleton": {
+        "note": "Seven sections, each repeats 1..1: watch (dealing-floor chrome + REQUIRED dataNotice), statement (hero kicker + 2-4 display lines + breach subline), scope (thresholds.watch < thresholds.breach on the fixed 0-0.34 scale, caption 300, encodingNote 58, breachCalloutNote 42), fleet (sectors 2-6, models 6-16 with exactly ONE status 'breach', psi 0-0.34), dossier (trendPoints 30-120 daily, y 0-0.35; featureDrift 3-8; facts 5-12), log (items 3-8, newest first), instruments (kpis 3-6; percent values are FRACTIONS). Full per-slot specs mirror experiences/dashboards/db-model-monitoring-cockpit/cockpit-fill.ts (COCKPIT_SECTIONS) verbatim.",
+        "craftGuarantees": [
+          "A model-risk night watch staged as a DEALING-FLOOR INSTRUMENT: the commanding visual is a radial DRIFT SCOPE — every production model is a contact placed at its 30-day-PSI radius inside its business-line sector, with threshold rings at the watch and breach limits and a slow phosphor sweep that holds on demand and never renders under reduced motion.",
+          "Exactly one fleet model carries the \"breach\" status: the single contact past the limit ring, marked with a crosshair + halo and a callout, echoed as the breach row of the watchlist and as the climax of the hero statement.",
+          "The synthetic-data provenance notice (watch.dataNotice) is required and prints in the hero and the footer.",
+          "The scope is decorative (aria-hidden); the REAL content is the fleet watchlist table — the scope's textual mirror — so the world is fully legible without the instrument.",
+          "The dossier auto-titles the breaching model and derives its breach callout, trend series labels, and ring labels from the fleet + thresholds, so the diagnosis always names whichever model is flagged.",
+          "Slot char caps and item counts are sized so any schema-valid fill stays composed — the statement never overflows, the watchlist and scope stay balanced, and the dossier panels stay legible. Every PSI value is bounded to the instrument's fixed scale (contacts and thresholds 0–0.34, trend points 0–0.35, watch strictly below breach), so no fill can pin a contact to the rim or clip the trend.",
+          "Motion level 1 (data-ink-draw + phosphor sweep); the mood is locked dark."
+        ]
+      }
+    }
+  }
+}
