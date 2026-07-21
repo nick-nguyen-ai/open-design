@@ -2,12 +2,20 @@
  * SDK adapter — the ONLY module that imports `@modelcontextprotocol/sdk`.
  *
  * It owns transport/registration concerns: creating the `McpServer`,
- * registering the two tools with their tight advertised schemas + annotations,
- * and translating a domain {@link ToolOutcome} into an MCP `CallToolResult`
+ * registering the tools with their tight advertised schemas + annotations,
+ * registering the `opendesign://` resources that serve reference source, and
+ * translating a domain {@link ToolOutcome} into an MCP `CallToolResult`
  * (structured content + a JSON text fallback, or an `isError` result carrying
  * the structured `McpError`). Domain logic lives in adapter-independent
  * modules; an SDK major upgrade should touch this file (plus the transport
  * import in `index.ts`) and nothing else.
+ *
+ * Filesystem posture: the registry JSON is read once at startup
+ * (`registry-data.ts`); read-only experience source is served exclusively
+ * through resources (`resources.ts`, backed by `reference-files.ts`) - tools
+ * never return file content, only `opendesign://` pointers and byte sizes.
+ * Writes (arriving in a later task) are confined to a dedicated `render-out/`
+ * directory outside the experience source tree.
  *
  * Error-contract invariant: EVERY `isError: true` result — whether produced by
  * our domain handlers or by the SDK's own pre-handler argument validation —
@@ -15,7 +23,9 @@
  * The SDK, left alone, returns its argument-validation failures as a plain
  * string; {@link installStructuredErrorWrapper} intercepts that single choke
  * point so a client can always `JSON.parse(result.content[0].text)` into an
- * `McpError`.
+ * `McpError`. Resource reads signal failure by throwing instead - the SDK
+ * surfaces that as a `resources/read` protocol error, not an `isError` tool
+ * result, since resources are not tools.
  */
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import type { CallToolResult, ToolAnnotations } from '@modelcontextprotocol/sdk/types.js';
@@ -53,6 +63,7 @@ import {
   composeProjectPageTool,
 } from './tools/compose-surface.js';
 import { validateFillTool } from './tools/validate-fill.js';
+import { registerReferenceResources } from './resources.js';
 
 /** Read-only posture, identical for both tools (plus a per-tool `title`). */
 const READ_ONLY_ANNOTATIONS: Omit<ToolAnnotations, 'title'> = {
@@ -107,9 +118,10 @@ function installStructuredErrorWrapper(server: McpServer): void {
 export function createServer(registry: RegistryData, logger: Logger): McpServer {
   const server = new McpServer(
     { name: 'design-mcp-server', version: '0.1.0' },
-    { capabilities: { tools: {} } },
+    { capabilities: { tools: {}, resources: {} } },
   );
   installStructuredErrorWrapper(server);
+  registerReferenceResources(server, registry);
 
   server.registerTool(
     'get_component',

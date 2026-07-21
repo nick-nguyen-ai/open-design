@@ -646,6 +646,36 @@ describe('mcp-server tools', () => {
       expect(out.reference).toBeUndefined();
     });
   });
+
+  describe('reference resources', () => {
+    it('serves template source by URI', async () => {
+      const res = await h.client.readResource({
+        uri: 'opendesign://templates/cockpit/source/CockpitTemplate.tsx',
+      });
+      const first = res.contents[0]!;
+      expect(first.mimeType).toBe('text/plain');
+      if (!('text' in first)) throw new Error('expected text content');
+      expect(first.text).toContain('CockpitTemplate');
+    });
+
+    it('serves part source by URI', async () => {
+      const res = await h.client.readResource({
+        uri: 'opendesign://parts/deck-cloud-migration/CutoverTemplate.tsx',
+      });
+      const first = res.contents[0]!;
+      if (!('text' in first)) throw new Error('expected text content');
+      expect(first.text).toContain('data-part-id');
+    });
+
+    it('rejects unknown template ids and traversal', async () => {
+      await expect(
+        h.client.readResource({ uri: 'opendesign://templates/nope/source/x.tsx' }),
+      ).rejects.toThrow();
+      await expect(
+        h.client.readResource({ uri: 'opendesign://templates/cockpit/source/../../package.json' }),
+      ).rejects.toThrow();
+    });
+  });
 });
 
 describe('stdio protocol hygiene', () => {
