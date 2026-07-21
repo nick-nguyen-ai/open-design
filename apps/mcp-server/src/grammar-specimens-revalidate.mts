@@ -21,10 +21,15 @@ const RUNS = [
   { grammar: 'monumental-type', handle: 'deck-product-launch' },
 ];
 
-function textPayload(result: CallToolResult): any {
-  const first = result.content[0] as any;
+interface ValidatePayload {
+  valid?: boolean;
+  findings?: unknown[];
+}
+
+function textPayload(result: CallToolResult): ValidatePayload | undefined {
+  const first = result.content[0];
   if (!first || first.type !== 'text') return undefined;
-  return JSON.parse(first.text);
+  return JSON.parse(first.text) as ValidatePayload;
 }
 
 const transport = new StdioClientTransport({
@@ -39,7 +44,7 @@ await client.connect(transport);
 let failed = false;
 for (const run of RUNS) {
   const fillPath = path.join(repo, 'docs', 'superpowers', 'specs', 'grammar-specimens', run.grammar, 'fill.json');
-  const fill = JSON.parse(readFileSync(fillPath, 'utf8').replace(/^﻿/, ''));
+  const fill = JSON.parse(readFileSync(fillPath, 'utf8').replace(/^\uFEFF/, ''));
   const result = (await client.callTool({
     name: 'validate_fill',
     arguments: { worldTemplateId: run.handle, fill },

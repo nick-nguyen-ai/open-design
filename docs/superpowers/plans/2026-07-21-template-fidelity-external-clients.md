@@ -18,7 +18,7 @@
 - Renders: keep the **5** most recent, evict older; evicted read → `NOT_FOUND` with remediation "re-run render_experience".
 - Every `isError` result must carry a JSON-serialized contracts `McpError` (existing invariant - use `makeError` from `errors.ts`).
 - AUDIT workflow untouched. No `guided` level. No HTTP hosting.
-- Repo commands run from `design-mcp-fable/` root; mcp-server tests: `corepack pnpm --filter design-mcp-server test` (wired with a registry prebuild). Commit after every task.
+- Repo commands run from `design-mcp-fable/` root; mcp-server tests: `corepack pnpm --filter mcp-server test` (wired with a registry prebuild). Commit after every task.
 - The working tree may contain ANOTHER session's uncommitted grammar-specimen files (`spec-*` decks, `docs/superpowers/specs/grammar-specimens/`, `grammar-specimens-revalidate.mts`, `App.tsx`, `shoot-previews.mjs`). **Stage only files this plan touches - never `git add -A`. Do not push.**
 
 ## File Structure
@@ -121,7 +121,7 @@ describe('reference-files', () => {
 
 - [ ] **Step 2: Run test to verify it fails**
 
-Run: `corepack pnpm --filter design-mcp-server exec vitest run src/reference-files.test.ts`
+Run: `corepack pnpm --filter mcp-server exec vitest run src/reference-files.test.ts`
 Expected: FAIL - cannot resolve `./reference-files.js`.
 
 - [ ] **Step 3: Write the implementation**
@@ -198,7 +198,7 @@ export function partFileUri(experienceId: string, relPath: string): string {
 
 - [ ] **Step 4: Run test to verify it passes**
 
-Run: `corepack pnpm --filter design-mcp-server exec vitest run src/reference-files.test.ts`
+Run: `corepack pnpm --filter mcp-server exec vitest run src/reference-files.test.ts`
 Expected: PASS (4 tests).
 
 - [ ] **Step 5: Commit**
@@ -311,7 +311,7 @@ describe('templateFidelity', () => {
 
 - [ ] **Step 3: Run to verify failure**
 
-Run: `corepack pnpm --filter design-mcp-server exec vitest run src/server.test.ts -t templateFidelity`
+Run: `corepack pnpm --filter mcp-server exec vitest run src/server.test.ts -t templateFidelity`
 Expected: FAIL - `reference` undefined (and unknown-argument rejection until schemas land).
 
 - [ ] **Step 4: Implement**
@@ -343,7 +343,7 @@ Thread `fidelity: TemplateFidelity` as the sixth parameter of `composeForSurface
 
 - [ ] **Step 5: Run the full mcp-server suite**
 
-Run: `corepack pnpm --filter design-mcp-server test`
+Run: `corepack pnpm --filter mcp-server test`
 Expected: PASS - new tests green; existing sample-outcome/compose tests unaffected (additive optional field).
 
 - [ ] **Step 6: Commit**
@@ -399,7 +399,7 @@ describe('reference resources', () => {
 
 - [ ] **Step 2: Run to verify failure**
 
-Run: `corepack pnpm --filter design-mcp-server exec vitest run src/server.test.ts -t "reference resources"`
+Run: `corepack pnpm --filter mcp-server exec vitest run src/server.test.ts -t "reference resources"`
 Expected: FAIL - server has no resources capability.
 
 - [ ] **Step 3: Implement `resources.ts`**
@@ -463,7 +463,7 @@ In `server.ts`: change capabilities to `{ capabilities: { tools: {}, resources: 
 
 - [ ] **Step 4: Run tests**
 
-Run: `corepack pnpm --filter design-mcp-server exec vitest run src/server.test.ts -t "reference resources"`
+Run: `corepack pnpm --filter mcp-server exec vitest run src/server.test.ts -t "reference resources"`
 Expected: PASS.
 
 - [ ] **Step 5: Commit**
@@ -555,7 +555,7 @@ describe('get_part_reference', () => {
 
 - [ ] **Step 3: Run to verify failure**
 
-Run: `corepack pnpm --filter design-mcp-server exec vitest run src/tools/get-part-reference.test.ts`
+Run: `corepack pnpm --filter mcp-server exec vitest run src/tools/get-part-reference.test.ts`
 Expected: FAIL - module not found.
 
 - [ ] **Step 4: Implement**
@@ -667,7 +667,7 @@ Register in `server.ts` (after the `validate_fill` block, same shape as `get_com
 
 - [ ] **Step 5: Run tool tests + full suite**
 
-Run: `corepack pnpm --filter design-mcp-server test`
+Run: `corepack pnpm --filter mcp-server test`
 Expected: PASS.
 
 - [ ] **Step 6: Commit**
@@ -904,7 +904,7 @@ describe('render_experience', () => {
 
 (Verify the cockpit fill export name before writing; adjust if it differs.)
 
-- [ ] **Step 3: Run to verify failure** - `corepack pnpm --filter design-mcp-server exec vitest run src/server.test.ts -t render_experience` → FAIL (unknown tool).
+- [ ] **Step 3: Run to verify failure** - `corepack pnpm --filter mcp-server exec vitest run src/server.test.ts -t render_experience` → FAIL (unknown tool).
 
 - [ ] **Step 4: Implement `render-store.ts`**
 
@@ -1117,7 +1117,7 @@ Check `ValidateFillOutput`'s finding shape first and use its real field (adjust 
   );
 ```
 
-- [ ] **Step 7: Run the integration tests** - `corepack pnpm --filter design-mcp-server exec vitest run src/server.test.ts -t render_experience` (allow ~4 min) → PASS. Then the full suite: `corepack pnpm --filter design-mcp-server test` → PASS.
+- [ ] **Step 7: Run the integration tests** - `corepack pnpm --filter mcp-server exec vitest run src/server.test.ts -t render_experience` (allow ~4 min) → PASS. Then the full suite: `corepack pnpm --filter mcp-server test` → PASS.
 
 - [ ] **Step 8: Commit**
 
@@ -1317,7 +1317,7 @@ git commit -m "feat(skill): strict/free fidelity branches + porting reference fo
 corepack pnpm run typecheck
 corepack pnpm run lint
 corepack pnpm run test
-corepack pnpm --filter design-mcp-server test
+corepack pnpm --filter mcp-server test
 ```
 Expected: all PASS. (Root lint may still fail on the OTHER session's uncommitted `grammar-specimens-revalidate.mts` - a pre-existing failure outside this plan's files; confirm the failure list contains ONLY that file and record it in the report.)
 
