@@ -20,10 +20,10 @@ import { useBrowseState } from '../state/useBrowseState.js';
 import { useBrowseResults } from '../state/useBrowseResults.js';
 
 const MODE_LABELS: Record<BrowseMode, string> = {
-  all: 'All',
   templates: 'Templates',
   components: 'Components',
   grammars: 'Grammars',
+  all: 'All',
 };
 
 export function Landing() {

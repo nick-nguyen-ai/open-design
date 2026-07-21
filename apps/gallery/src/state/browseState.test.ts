@@ -77,7 +77,14 @@ describe('URL round-trip', () => {
   it('drops unknown mode and motion values', () => {
     const params = new URLSearchParams('mode=bogus&motion=9');
     const state = browseStateFromParams(params);
-    expect(state.mode).toBe('all');
+    expect(state.mode).toBe('templates');
     expect(state.filters.motionLevel).toBeUndefined();
+  });
+
+  it('defaults to templates mode and omits it from the URL', () => {
+    expect(emptyBrowseState().mode).toBe('templates');
+    expect(browseStateFromParams(new URLSearchParams()).mode).toBe('templates');
+    expect(browseStateToParams(emptyBrowseState()).toString()).toBe('');
+    expect(browseStateToParams(emptyBrowseState('all')).toString()).toBe('mode=all');
   });
 });

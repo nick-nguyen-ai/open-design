@@ -17,7 +17,10 @@ import type { FacetFilter } from '@enterprise-design/search';
 
 export type BrowseMode = 'all' | 'templates' | 'components' | 'grammars';
 
-export const BROWSE_MODES: BrowseMode[] = ['all', 'templates', 'components', 'grammars'];
+export const BROWSE_MODES: BrowseMode[] = ['templates', 'components', 'grammars', 'all'];
+
+/** The catalogue opens on Templates; the other modes are opt-in views. */
+export const DEFAULT_BROWSE_MODE: BrowseMode = 'templates';
 
 /** Result ordering. `relevance` keeps the search package's ranked order. */
 export type SortOption = 'relevance' | 'name' | 'motion';
@@ -56,7 +59,7 @@ export const EMPTY_FILTERS: FilterState = {
   corporateSuitability: [],
 };
 
-export function emptyBrowseState(mode: BrowseMode = 'all'): BrowseState {
+export function emptyBrowseState(mode: BrowseMode = DEFAULT_BROWSE_MODE): BrowseState {
   return { query: '', mode, filters: { ...EMPTY_FILTERS }, sort: 'relevance' };
 }
 
@@ -117,7 +120,7 @@ export function browseStateFromParams(params: URLSearchParams): BrowseState {
   const modeParam = params.get('mode');
   const mode: BrowseMode = BROWSE_MODES.includes(modeParam as BrowseMode)
     ? (modeParam as BrowseMode)
-    : 'all';
+    : DEFAULT_BROWSE_MODE;
 
   const motionRaw = params.get('motion');
   const motionLevel =
@@ -146,13 +149,13 @@ export function browseStateFromParams(params: URLSearchParams): BrowseState {
 }
 
 /**
- * Serialize browse state to URL params. Defaults (empty query, `all` mode, no
- * filters) are omitted so a pristine browse produces a clean `/` URL.
+ * Serialize browse state to URL params. Defaults (empty query, default mode,
+ * no filters) are omitted so a pristine browse produces a clean `/` URL.
  */
 export function browseStateToParams(state: BrowseState): URLSearchParams {
   const params = new URLSearchParams();
   if (state.query.trim()) params.set('q', state.query);
-  if (state.mode !== 'all') params.set('mode', state.mode);
+  if (state.mode !== DEFAULT_BROWSE_MODE) params.set('mode', state.mode);
   if (state.sort !== 'relevance') params.set('sort', state.sort);
 
   const f = state.filters;

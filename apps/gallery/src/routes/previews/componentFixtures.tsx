@@ -3,10 +3,22 @@
  * explorer/detail routes. Frozen fixtures keep the previews (and their
  * Playwright smoke) stable — no random values, no live data.
  */
-import type { ReactNode } from 'react';
+import type { ComponentType, ReactNode } from 'react';
 import { KpiTile, StatusList } from '@enterprise-design/content-components';
 import { CategoryBarChart, TrendChart } from '@enterprise-design/data-viz';
 import { FlowDiagram } from '@enterprise-design/diagrams';
+import * as Collections from '@enterprise-design/diagram-collections';
+import '@enterprise-design/diagram-collections/styles.css';
+import {
+  CELLS_FIXTURE,
+  COMPARE_FIXTURE,
+  CYCLE_FIXTURE,
+  FLOW_FIXTURE,
+  LAYERS_FIXTURE,
+  SEQUENCE_FIXTURE,
+  TIMELINE_FIXTURE,
+  ZONES_FIXTURE,
+} from '@enterprise-design/diagram-grammar';
 
 export const PREVIEWABLE_COMPONENT_IDS = [
   'comp.kpi-tile',
@@ -106,12 +118,48 @@ function FlowPreview() {
   );
 }
 
+/**
+ * The 40 diagram-collection components are 5 visual families × 8 diagram
+ * kinds, every renderer taking the same `{ spec }` prop — so their previews
+ * are generated from this table using the grammar's canonical fixtures
+ * (the same specs the collections' own tests render).
+ */
+const DGM_FAMILIES = ['blueprint', 'circuit', 'gazette', 'isometric', 'sketchnote'] as const;
+
+const DGM_KIND_SPECS = {
+  cells: CELLS_FIXTURE,
+  compare: COMPARE_FIXTURE,
+  cycle: CYCLE_FIXTURE,
+  flow: FLOW_FIXTURE,
+  layers: LAYERS_FIXTURE,
+  sequence: SEQUENCE_FIXTURE,
+  timeline: TIMELINE_FIXTURE,
+  zones: ZONES_FIXTURE,
+} as const;
+
+const capitalise = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
+function dgmPreviews(): Record<string, () => ReactNode> {
+  const out: Record<string, () => ReactNode> = {};
+  for (const family of DGM_FAMILIES) {
+    for (const [kind, spec] of Object.entries(DGM_KIND_SPECS)) {
+      const exportName = `${capitalise(family)}${capitalise(kind)}`;
+      const Renderer = Collections[exportName as keyof typeof Collections] as ComponentType<{
+        spec: typeof spec;
+      }>;
+      out[`comp.dgm.${family}.${kind}`] = () => <Renderer spec={spec} />;
+    }
+  }
+  return out;
+}
+
 const PREVIEWS: Record<string, () => ReactNode> = {
   'comp.kpi-tile': KpiPreview,
   'comp.trend-chart': TrendPreview,
   'comp.category-bar-chart': CategoryBarPreview,
   'comp.status-list': StatusPreview,
   'comp.flow-diagram': FlowPreview,
+  ...dgmPreviews(),
 };
 
 /** Render the live preview for a component id, or `null` if none is wired. */

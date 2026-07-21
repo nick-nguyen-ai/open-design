@@ -56,6 +56,12 @@ importers:
       '@enterprise-design/design-tokens':
         specifier: workspace:*
         version: link:../../packages/design-tokens
+      '@enterprise-design/diagram-collections':
+        specifier: workspace:*
+        version: link:../../packages/diagram-collections
+      '@enterprise-design/diagram-grammar':
+        specifier: workspace:*
+        version: link:../../packages/diagram-grammar
       '@enterprise-design/diagrams':
         specifier: workspace:*
         version: link:../../packages/diagrams

@@ -19,6 +19,8 @@
     "@enterprise-design/contracts": "workspace:*",
     "@enterprise-design/data-viz": "workspace:*",
     "@enterprise-design/design-tokens": "workspace:*",
+    "@enterprise-design/diagram-collections": "workspace:*",
+    "@enterprise-design/diagram-grammar": "workspace:*",
     "@enterprise-design/diagrams": "workspace:*",
     "@enterprise-design/motion": "workspace:*",
     "@enterprise-design/primitives": "workspace:*",

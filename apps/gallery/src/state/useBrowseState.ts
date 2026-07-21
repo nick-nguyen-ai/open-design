@@ -108,7 +108,7 @@ export function useBrowseState(): UseBrowseState {
 
   const clearAll = useCallback(() => {
     setQueryInputState('');
-    commit(emptyBrowseState('all'));
+    commit(emptyBrowseState());
   }, [commit]);
 
   return {

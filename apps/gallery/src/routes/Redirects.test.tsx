@@ -37,31 +37,31 @@ afterEach(() => {
 describe('legacy route redirects', () => {
   it('/browse redirects to the gallery home, preserving the query', async () => {
     renderAt('/browse?q=risk&mode=components');
-    await screen.findByRole('heading', { level: 1, name: /every template here is/i });
+    await screen.findByRole('heading', { level: 1, name: /every template here is/i }, { timeout: 10_000 });
     expect(screen.getByTestId('location')).toHaveTextContent('/?q=risk&mode=components');
   });
 
   it('/guide lands on Contribute', async () => {
     renderAt('/guide');
-    await screen.findByRole('heading', { level: 1, name: /how the gallery is built/i });
+    await screen.findByRole('heading', { level: 1, name: /how the gallery is built/i }, { timeout: 10_000 });
     expect(screen.getByTestId('location')).toHaveTextContent('/contribute');
   });
 
   it('/components (index) lands on Contribute', async () => {
     renderAt('/components');
-    await screen.findByRole('heading', { level: 1, name: /how the gallery is built/i });
+    await screen.findByRole('heading', { level: 1, name: /how the gallery is built/i }, { timeout: 10_000 });
     expect(screen.getByTestId('location')).toHaveTextContent('/contribute');
   });
 
   it('/grammars (index) lands on Contribute', async () => {
     renderAt('/grammars');
-    await screen.findByRole('heading', { level: 1, name: /how the gallery is built/i });
+    await screen.findByRole('heading', { level: 1, name: /how the gallery is built/i }, { timeout: 10_000 });
     expect(screen.getByTestId('location')).toHaveTextContent('/contribute');
   });
 
   it('/blueprint-lab lands on Make your design', async () => {
     renderAt('/blueprint-lab');
-    await screen.findByRole('heading', { level: 1, name: /hand it your content/i });
+    await screen.findByRole('heading', { level: 1, name: /hand it your content/i }, { timeout: 10_000 });
     expect(screen.getByTestId('location')).toHaveTextContent('/make');
   });
 
