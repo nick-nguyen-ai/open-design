@@ -8,7 +8,7 @@ Turn a user's source content into a finished, rendered experience — on any of 
 - Never exceed a slot limit "by a little", never fabricate data silently (the notice slot states provenance), never invent geometry (fills are content-only).
 - **Fixed-topology honesty (explainers especially).** Some templates pin a node/edge structure and the fill only relabels it (`drawing-office`: a fixed drawing; `ledger`: a pinned 4-stage pipeline). If the source system does NOT map onto that fixed structure, say so and name the closest-fitting world — a different architecture needs a different template. Never force-fit a system into a topology it doesn't have.
 - **Personal pages: facts only.** Never invent biography. Every real-person fact must come from the provided source; if the source is thin, keep the page thin — do not pad with plausible-sounding life details.
-- The output is a **demo route**, not a catalogue template: no experience manifest, no live.ts entry, no approval flag.
+- The output is a **demo route**, not a catalogue template: no experience manifest, no live.ts entry, no approval flag. Exception: an EXTERNAL target (output outside this repo) has no gallery to route into, so it ships as a port or a render bundle instead (Phase 6, "External target"); everything else on this list still binds.
 
 ## Phase 0 — Preflight
 
@@ -20,21 +20,23 @@ claude mcp add enterprise-design -- corepack pnpm --filter mcp-server start
 
 Scripted fallback (CI, or a session without the MCP attached): call the same domain functions via a tsx script following `apps/mcp-server/src/sample-outcome.ts` — identical inputs/outputs, still the real tool code paths. The certifier (`corepack pnpm --filter @enterprise-design/registry certify`) and the canonical-brief matrix (`apps/mcp-server/src/canonical-briefs.ts`) are the outcome scripts to reference when you need a reproducible, MCP-less path.
 
-**Exit:** tools reachable (or fallback chosen and stated).
-
-**Fidelity.** Ask once (skip if already stated), default strict:
+**Template fidelity.** Ask once (skip if already stated), default strict:
 `templateFidelity` - strict: the compose response includes a `reference`
 manifest and, for EXTERNAL targets (output outside this repo), the port
 follows `references/porting.md`; free: contract-only, today's flow. Pass the
 choice to every compose call. In-repo demo routes ignore the manifest - the
-template code is already here; scaffold as before.
+template code is already here; scaffold as before. (This is about template
+CODE, not about how much of the source content survives - that is Phase 1's
+Q2.)
+
+**Exit:** tools reachable (or fallback chosen and stated) + `templateFidelity` fixed.
 
 ## Phase 1 — Intake (at most THREE questions)
 
 1. **Source context.** Ask the user for their clean source content: file paths, pasted text, or already-distilled URL extracts. If they hand you raw URLs, extract the substance first and show them what you captured. If the source is huge, distill a working summary but keep the original for slot-level facts.
 2. **The question batch** — ONE AskUserQuestion batch of AT MOST three questions. Skip any the brief already answers; infer the rest from the source and record every answer (asked or inferred) in the run log. There is NO style question — the Phase 2 candidate pick replaces it (the user chooses a look by choosing a world).
    - **Q1 — Audience + depth (one question):** who is this for, and how deep into internals may it go? (executives–outcomes / engineers–mechanisms / mixed–both / general–plain language)
-   - **Q2 — Fidelity + length (one question):** keep as much of the source as possible, or cut to the arc — and roughly how long (minutes of talk / reading depth → slide or section count)?
+   - **Q2 — Content fidelity + length (one question; unrelated to Phase 0's `templateFidelity`):** keep as much of the source as possible (**retain**), or cut to the arc (**condense**) — and roughly how long (minutes of talk / reading depth → slide or section count)?
    - **Q3 — Surface, ONLY if genuinely ambiguous** (the user didn't name one and the source doesn't fix one): *"Is this a document to present (a slide deck) or a destination to visit (a page or dashboard)?"* A talk → slide-deck; a live monitoring view → dashboard; a story about one piece of work → project-page; a page about a person → personal-page; one central diagram → technical-explainer. When the surface IS clear, use the third slot (if anything still blocks you) for the single most load-bearing unknown — or ask only two.
 
 **Exit:** source captured + answers recorded + surface fixed.
@@ -65,7 +67,7 @@ Every tool returns `worldTemplateId`, `experienceId`, a rationale, scoring evide
 
 ## Phase 3 — Narrative map (decks) / Section map (single-page)
 
-Break the source into beats/facts and map them onto the skeleton's sections, within each section's `repeats`/`minItems`/`maxItems` bounds from the fillSkeleton. Apply the fidelity answer here: **retain** → use repeatable kinds/sections up to their descriptor max so more source survives; **condense** → the fewest beats that keep the arc.
+Break the source into beats/facts and map them onto the skeleton's sections, within each section's `repeats`/`minItems`/`maxItems` bounds from the fillSkeleton. Apply the Q2 CONTENT-fidelity answer here (not Phase 0's `templateFidelity`, which never affects this map): **retain** → use repeatable kinds/sections up to their descriptor max so more source survives; **condense** → the fewest beats that keep the arc.
 
 - **Slide decks → narrative map.** Order beats for the template's narrative arc, not the source's section order. Present one line per slide: `slide N — <kind> — <working title> — <source sections consumed>`, plus a kept/cut list when condensing.
 - **Single-page surfaces (dashboard / project-page / personal-page / explainer) → section map.** Map which section carries which source facts; **every section earns its place** — a section with no real source fact behind it is a section to cut, not to pad. Present one line per section: `section — <name> — <source facts it carries>`, plus a kept/cut list. For **fixed-slot topologies** (drawing-office nodes/edges, ledger stages), the map is a matching exercise: each pinned node/stage must be claimed by a real part of the source system; if a pinned slot has nothing to hold, revisit the template choice (Phase 2), don't invent filler.

@@ -5,37 +5,53 @@ Take one identified part of a shipped live world — a diagram, a chart treatmen
 **Hard boundaries (read first):**
 - **Never edit the source world.** The borrow is a copy-and-adapt; `git status` under the source experience directory must stay empty for the whole run. If the part cannot be adapted without changing its source, stop and report it as template work.
 - **Borrow structure, animation, and treatment — never shipped content.** The source world's text, data, and figures stay behind; the target supplies its own. (Copying editorial content trips the certifier's leak scan and misrepresents the shipped world.)
-- **Repo-internal only.** Source and target both live in this repo's `experiences/` tree.
+- **Repo-internal by default.** Source and target normally both live in this repo's `experiences/` tree. One carve-out: an EXTERNAL client with no repo access resolves the part through the `get_part_reference` MCP tool and ports it into their own project (see the external path in Phase 0). Every other boundary above still binds on that path.
 - **Never cross-import between experience directories.** Copy the code into the target; the only shared code is packages (`@enterprise-design/*`) and, within slide-decks, `_deck-kit`.
 
 ## Phase 0 — Resolve
 
-Parse the part ID: segment 1 is the `experienceId`. Locate the source:
+**Pick your path first.** Running INSIDE this repo (you can Glob
+`experiences/`): follow steps 1-3 below. Running as an EXTERNAL client with no
+repo access: skip the numbered steps and the stop instruction that follows them
+(they are in-repo only) and go straight to "External client" further down this
+phase.
+
+Parse the part ID: segment 1 is the `experienceId`. Locate the source in-repo:
 
 1. Glob `experiences/*/<experienceId>/` — its surface directory and file set.
 2. Grep that directory's `.tsx` files for the ID: either the exact literal (`data-part-id="<id>"` or `partId="<id>"`) or, for section roots, the dynamic site (`` data-part-id={`<experienceId>/${...}`} `` — the anchor is the element rendering that section kind).
 3. Identify the anchored JSX element and the sibling CSS file (`<xxx>.css`).
 
-If the ID resolves nowhere, the contract is broken — stop and report (check `LivePartIds.test.tsx` for the current contracted list).
-
-**Exit:** source file, anchor element, and CSS file named.
+On an IN-REPO run only: if the ID resolves nowhere, the contract is broken — stop and report (check `LivePartIds.test.tsx` for the current contracted list). An external client never reaches this check; use the path below instead.
 
 **External client (no repo access):** resolve the part with the MCP tool
-`get_part_reference` - it returns the implementing source files as
-`opendesign://parts/` URIs (+ the experience stylesheets). At strict
-fidelity, dispatch the porting subagent per `references/porting.md`; at
-free fidelity, request only the part's intent (describe it from the gallery)
-and reinterpret. The in-repo borrow path below is unchanged.
+`get_part_reference` (input `{ partId }`) - it returns the implementing source
+files as `opendesign://parts/<experienceId>/<file>` URIs (+ the experience
+stylesheets). At strict fidelity, dispatch the porting subagent per
+`references/porting.md`; at free fidelity, request only the part's intent
+(describe it from the live page) and reinterpret. The in-repo borrow path is
+unchanged. From here, Phases 1-3 apply as judgment (classify, slice, adapt);
+Phase 4's repo gates are replaced by verification in the client's own
+environment.
 
-**Known limitation - dynamic part ids.** `get_part_reference` matches a
-part id by its literal text or its tail segment. A part id whose LAST
-segment is dynamic (a template literal like
-`` deck-cloud-migration/${slide.kind} ``) has no literal tail to match and
-will not resolve; a dynamic MIDDLE segment (e.g.
-`deck-cloud-migration/${layout}/estate-diagram`) still resolves, since the
-tail (`estate-diagram`) is static. When a part id will not resolve,
-identify a neighbouring static part id from the gallery part inspector and
-retry, or fall back to free fidelity for that part.
+**Known limitation - dynamic part ids.**
+*Symptom:* a part id that looks perfectly valid comes back `NOT_FOUND` from
+`get_part_reference`.
+*Mechanism:* the tool matches a part id by its literal text or by its tail
+segment, so an id whose LAST segment is a template literal (e.g.
+`` deck-cloud-migration/${slide.kind} ``) has no literal tail to match; a
+dynamic MIDDLE segment (e.g.
+`` deck-cloud-migration/${layout}/estate-diagram ``) still resolves, because the
+tail (`estate-diagram`) is static.
+*Recovery, in this order:* (1) read the `NOT_FOUND` error's own `details` array
+- it lists up to ten static `data-part-id` literals known in that experience;
+pick the nearest one and retry; (2) in-repo runs only, look up a neighbouring
+static part id in the gallery part inspector; (3) last resort, fall back to free
+fidelity and reinterpret the part from its intent.
+
+**Exit:** in-repo - source file, anchor element, and CSS file named; external -
+the `get_part_reference` file manifest in hand (or the fallback chosen and
+stated).
 
 ## Phase 1 — Classify
 

@@ -16,7 +16,7 @@ One skill, four workflows. Read the ONE workflow file that matches the request a
 
 Requests phrased against the retired skill names route the same way: experience-composer / deck-composer → COMPOSE, design-borrow → BORROW.
 
-**Ambiguous requests.** "Rebuild X like Y" is a compose that wants a borrow: run COMPOSE first, then BORROW the named part into the result. If the route is genuinely unclear, ask one question before reading any workflow.
+**Ambiguous requests.** "Rebuild X like Y" splits on what X is: X is an in-repo catalogue world or fresh source content → COMPOSE first, then BORROW the named part of Y into the result; X is the user's OWN existing artifact (their deck, page, document) → ADAPT, with Y as the template to select. If the route is genuinely unclear, ask one question before reading any workflow.
 
 The repo-wide craft principles and the full verification procedure live in the
 root **`DESIGN.md`** — every route's "done" is defined there (Part 2); the gate

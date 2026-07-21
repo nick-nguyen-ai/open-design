@@ -23,8 +23,14 @@ the consistency warning in Phase 4 needs it.
 
 ## Phase 2 - Select via MCP
 
+First run COMPOSE's Phase 0 preflight (`workflows/compose.md`) to confirm the
+compose tools are reachable, or to choose its scripted fallback; the fidelity
+question there is already answered by Phase 0 above.
+
 Call the surface's compose tool with a context built from the artifact
-(audience, intent, suitability) and a contentBrief summarizing its content.
+(audience, intent, suitability) and a contentBrief summarizing its content, and
+pass the Phase 0 `templateFidelity` answer on that call (and on any follow-up
+pin call) - at free fidelity it will not reach MCP otherwise.
 Present alternatives exactly as COMPOSE Phase 2 does (one AskUserQuestion,
 winner recommended). At strict fidelity the response carries `reference`
 (source-file URIs + sizes) - do NOT fetch any of them yourself.
