@@ -69,8 +69,32 @@ Re-validation evidence: `apps/mcp-server/src/grammar-specimens-revalidate.mts`
 ## Judge scores (fresh-context screenshot judges, 1440 sets)
 
 <!-- filled when the three judge agents return -->
-- precision-grid: PENDING
-- technical-blueprint: PENDING
+- precision-grid: quarter render REJECTED round 1 (**P4 H4 E2 S3 R3 V4**) —
+  judge caught the template's HARDCODED revenue conceit (QuarterTemplate.tsx
+  formats "$NM" values and titles "Revenue, N quarters." regardless of fill);
+  unfixable content-side → re-selected onto the grammar's other live template,
+  the `cockpit` dashboard (fill valid round 1). Round-2 fill pass spread the
+  radar cluster radii + shortened sector labels; residual sector-anchor
+  collision is template-side (the wrap-adjacent sector's label anchor
+  coincides with the dominant sector's under a skewed 8/12 distribution —
+  collision follows whichever sector wraps, data-independent). Judge rounds 2
+  and 3 on cockpit both scored **E=2** with the round-3 judge's own attribution:
+  "all four criticals are template-side work" (radar sector-label anchors
+  collide at every width, stable-tier blip ink 3.6:1, stat grid does not
+  reflow at 375, F1 overflow at 375). Three rounds exhausted + no alternative
+  precision-grid template → **specimen NOT shipped** per the fit-wrong rule.
+  The grammar tab keeps its example fallback (the same cockpit template
+  rendering its own balanced shipped content). The validated cockpit fill +
+  `/demo/spec-precision-grid` route stay as the regeneration source; template
+  work filed: sector-label collision handling, blip-label ink floor, mobile
+  stat-grid reflow + root clip.
+- technical-blueprint: round 1 **P4 H3 E2 S5 R4 V4** → fill pass (node/edge
+  labels tightened, one edge label dropped per the dgm sample-run precedent,
+  register prose trimmed) → round 3 judge **P4 H4 E3 S4 R4 V4 — all axes ≥3**.
+  Remaining critical/majors verified by the judge against cutover.css tokens:
+  muted-ink contrast, provenance red at 4.33:1, Inter display face, emoji
+  padlock for locked nodes, pure-#FFF panels — all template work (identical
+  classes measured in the shipped world's 137-finding baseline).
 - monumental-type: **P5 H5 E3 S5 R4 V4** — pass (no axis < 3). Critical =
   the template's own documented 375px chrome defect (specimen ships at 1280);
   majors are template-side (horizon hairline strikes copy on 3 slides, ~10px

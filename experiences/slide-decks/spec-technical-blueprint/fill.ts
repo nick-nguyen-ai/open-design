@@ -52,7 +52,7 @@ export const specTechnicalBlueprintFill: CutoverFill = FILL_SCHEMA.parse({
     },
     {
       "id": "schema",
-      "label": "Fill schema + SECTIONS",
+      "label": "Fill schema",
       "kind": "data",
       "zone": "cloud",
       "disposition": "refactor"
@@ -66,7 +66,7 @@ export const specTechnicalBlueprintFill: CutoverFill = FILL_SCHEMA.parse({
     },
     {
       "id": "registry",
-      "label": "Compiled registry JSON",
+      "label": "Registry JSON",
       "kind": "data",
       "zone": "cloud",
       "disposition": "replatform"
@@ -312,12 +312,12 @@ export const specTechnicalBlueprintFill: CutoverFill = FILL_SCHEMA.parse({
     "nodes": [
       {
         "id": "intake",
-        "label": "Intake — at most three questions",
+        "label": "Intake — 3 questions max",
         "kind": "start"
       },
       {
         "id": "call",
-        "label": "One compose call → skeleton",
+        "label": "Compose → skeleton",
         "kind": "process"
       },
       {
@@ -327,7 +327,7 @@ export const specTechnicalBlueprintFill: CutoverFill = FILL_SCHEMA.parse({
       },
       {
         "id": "gate",
-        "label": "validate_fill OK?",
+        "label": "validate OK?",
         "kind": "decision"
       },
       {
@@ -337,7 +337,7 @@ export const specTechnicalBlueprintFill: CutoverFill = FILL_SCHEMA.parse({
       },
       {
         "id": "ship",
-        "label": "Judge → ship with evidence",
+        "label": "Judge → ship",
         "kind": "end"
       },
       {
@@ -432,12 +432,12 @@ export const specTechnicalBlueprintFill: CutoverFill = FILL_SCHEMA.parse({
       },
       {
         "id": "r3",
-        "label": "Three failed rounds → go back a phase",
+        "label": "3 fails → back a phase",
         "tone": "abort"
       },
       {
         "id": "r4",
-        "label": "Template flaw → stop, report, no patch",
+        "label": "Template flaw → report",
         "tone": "abort"
       }
     ],
@@ -478,13 +478,13 @@ export const specTechnicalBlueprintFill: CutoverFill = FILL_SCHEMA.parse({
       "id": "k3",
       "label": "Green tests, real bug",
       "status": "success",
-      "description": "The borrow inspector button occluded a deck control past 7 unit tests and 3 screenshots; a full e2e click caught it — fixed by moving the button."
+      "description": "The borrow inspector button occluded a deck control; only a full e2e click caught it. Fixed by moving the button."
     },
     {
       "id": "k4",
       "label": "Compose coverage: 8 deck templates",
       "status": "info",
-      "description": "The gallery holds 65 worlds but only eight slide-deck templates are live compose targets — this run's pinned first choice, The Sectional, isn't one yet."
+      "description": "65 worlds, but only eight deck templates are live compose targets — this run's pinned first choice wasn't one yet."
     }
   ],
   "signoff": {

@@ -533,15 +533,15 @@ Each run follows the open-design skill COMPOSE route with the same source conten
 
 Steps per grammar: compose â†’ validate loop â†’ render locally â†’ screenshot cover frame at 1280Ã—800 jpeg q75 â†’ save as `grammar-<id>.jpg` â†’ log in RUN-LOG.md. Scaffold/working artifacts stay in the evidence dir; only the jpg ships. **Each run is a full QC pipeline pass (the sample run took multiple validate/critique rounds) â€” budget accordingly; these can run as separate sessions or subagents.**
 
-- [ ] technical-blueprint
-- [ ] signal-glass
-- [ ] spatial-canvas
-- [ ] research-notebook
-- [ ] living-system
-- [ ] precision-grid
-- [ ] executive-editorial
-- [ ] kinetic-intelligence
-- [ ] monumental-type
-- [ ] calm-command
-- [ ] Final: reload localhost grammar tab â€” 15/15 specimen-backed cards; commit jpgs + RUN-LOG.
+- [x] technical-blueprint — SHIPPED via cutover (judge P4 H4 E3 S4 R4 V4; template work filed)
+- [x] signal-glass — BLOCKED, no templatized world (evidence logged)
+- [x] spatial-canvas — BLOCKED, no templatized world (evidence logged)
+- [x] research-notebook — BLOCKED, no templatized world (evidence logged)
+- [x] living-system — BLOCKED, no templatized world (evidence logged)
+- [x] precision-grid — NOT SHIPPED: quarter rejected (hardcoded revenue conceit), cockpit failed 3 judge rounds on template-side criticals; fill + demo route kept as regeneration source
+- [x] executive-editorial — BLOCKED, no templatized world (evidence logged)
+- [x] kinetic-intelligence — BLOCKED, no templatized world (evidence logged)
+- [x] monumental-type — SHIPPED via tminus (judge P5 H5 E3 S5 R4 V4)
+- [x] calm-command — BLOCKED, no templatized world (evidence logged)
+- [x] Final (partial by blocks): 7/15 same-content specimens live (5 dgm + monumental-type + technical-blueprint), 8 on example fallback; grammar tab verified on localhost â€” 15/15 specimen-backed cards; commit jpgs + RUN-LOG.
 

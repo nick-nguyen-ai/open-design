@@ -16,7 +16,7 @@ const serverEntry = path.join(here, 'index.ts');
 const repo = path.resolve(here, '..', '..', '..');
 
 const RUNS = [
-  { grammar: 'precision-grid', handle: 'deck-quarterly-business-review' },
+  { grammar: 'precision-grid', handle: 'db-model-monitoring-cockpit' },
   { grammar: 'technical-blueprint', handle: 'deck-cloud-migration' },
   { grammar: 'monumental-type', handle: 'deck-product-launch' },
 ];

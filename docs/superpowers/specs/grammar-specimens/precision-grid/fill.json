@@ -37,11 +37,11 @@
     "sectors": [
       {
         "id": "slide-deck",
-        "label": "SLIDE DECKS"
+        "label": "DECKS"
       },
       {
-        "id": "dashboard",
-        "label": "DASHBOARDS"
+        "id": "personal-page",
+        "label": "PERSONAL"
       },
       {
         "id": "explainer",
@@ -49,11 +49,11 @@
       },
       {
         "id": "project-page",
-        "label": "PROJECT PAGES"
+        "label": "PROJECTS"
       },
       {
-        "id": "personal-page",
-        "label": "PERSONAL PAGES"
+        "id": "dashboard",
+        "label": "DASHBOARDS"
       }
     ],
     "models": [
@@ -68,7 +68,7 @@
       },
       {
         "id": "dgm-circuit",
-        "name": "dgm-circuit",
+        "name": "circuit",
         "sectorId": "slide-deck",
         "psi": 0.16,
         "status": "watch",
@@ -88,43 +88,43 @@
         "id": "cutover",
         "name": "cutover",
         "sectorId": "slide-deck",
-        "psi": 0.05,
+        "psi": 0.085,
         "status": "stable",
         "owner": "technical-blueprint",
         "lastRetrain": "2026-07-21"
       },
       {
         "id": "dgm-blueprint",
-        "name": "dgm-blueprint",
+        "name": "blueprint",
         "sectorId": "slide-deck",
-        "psi": 0.04,
+        "psi": 0.02,
         "status": "stable",
         "owner": "drafting-board",
         "lastRetrain": "2026-07-21"
       },
       {
         "id": "dgm-gazette",
-        "name": "dgm-gazette",
+        "name": "gazette",
         "sectorId": "slide-deck",
-        "psi": 0.06,
+        "psi": 0.045,
         "status": "stable",
         "owner": "print-gazette",
         "lastRetrain": "2026-07-21"
       },
       {
         "id": "dgm-isometric",
-        "name": "dgm-isometric",
+        "name": "isometric",
         "sectorId": "slide-deck",
-        "psi": 0.07,
+        "psi": 0.095,
         "status": "stable",
         "owner": "isometric-studio",
         "lastRetrain": "2026-07-21"
       },
       {
         "id": "dgm-sketchnote",
-        "name": "dgm-sketchnote",
+        "name": "sketchnote",
         "sectorId": "slide-deck",
-        "psi": 0.05,
+        "psi": 0.07,
         "status": "stable",
         "owner": "sketchnote-journal",
         "lastRetrain": "2026-07-21"
@@ -133,7 +133,7 @@
         "id": "cockpit",
         "name": "cockpit",
         "sectorId": "dashboard",
-        "psi": 0.03,
+        "psi": 0.06,
         "status": "stable",
         "owner": "precision-grid",
         "lastRetrain": "2026-07-21"
@@ -142,7 +142,7 @@
         "id": "drawing-office",
         "name": "drawing-office",
         "sectorId": "explainer",
-        "psi": 0.05,
+        "psi": 0.04,
         "status": "stable",
         "owner": "technical-blueprint",
         "lastRetrain": "2026-07-21"
@@ -160,7 +160,7 @@
         "id": "the-line",
         "name": "the-line",
         "sectorId": "personal-page",
-        "psi": 0.04,
+        "psi": 0.075,
         "status": "stable",
         "owner": "kinetic-intelligence",
         "lastRetrain": "2026-07-21"
