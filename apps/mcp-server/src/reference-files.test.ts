@@ -2,6 +2,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   experienceDir,
+  isDesignBearingFile,
   listExperienceFiles,
   partFileUri,
   readExperienceFile,
@@ -23,6 +24,22 @@ describe('reference-files', () => {
     expect(paths.every((p) => !p.includes('\\'))).toBe(true);
     expect(files.every((f) => f.bytes > 0)).toBe(true);
     expect([...paths].sort()).toEqual(paths);
+  });
+
+  it('withholds shipped editorial content and registry metadata, and nothing else', () => {
+    // `content.ts` exports the world's SHIPPED_FILL - the actual words - and
+    // the manifests are registry bookkeeping. `*-fill.ts` is NEITHER: it is
+    // the Zod fill schema, the section specs and the guidance list, i.e. the
+    // type contract `CockpitTemplate.tsx` imports. Withholding it left that
+    // import dangling with no pointer to the file it names.
+    const design = listExperienceFiles('db-model-monitoring-cockpit')!
+      .map((f) => f.path)
+      .filter(isDesignBearingFile);
+    expect(design).toContain('CockpitTemplate.tsx');
+    expect(design).toContain('cockpit.css');
+    expect(design).toContain('cockpit-fill.ts');
+    expect(design).not.toContain('content.ts');
+    expect(design.filter((p) => p.endsWith('.manifest.ts'))).toEqual([]);
   });
 
   it('reads a file and refuses traversal', () => {

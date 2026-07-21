@@ -678,15 +678,19 @@ describe('mcp-server tools', () => {
         expect(f.bytes).toBeGreaterThan(0);
       }
       // BORROW invariant: the manifest points at DESIGN, never at shipped
-      // editorial content. Listing content.ts / *fill.ts under a note that
-      // says "port this design faithfully" told the porter to reproduce the
-      // words too. Registry manifests carry no design either.
+      // editorial content. Listing content.ts under a note that says "port
+      // this design faithfully" told the porter to reproduce the words too.
+      // Registry manifests carry no design either.
       const paths = out.reference!.sourceFiles.map((f) => f.path);
       expect(paths.some((p) => /\.(tsx|css)$/.test(p))).toBe(true);
       for (const p of paths) {
         expect(p).toMatch(/\.(tsx|ts|css)$/);
-        expect(p).not.toMatch(/(^|\/)(content\.ts|[^/]*fill\.ts|[^/]*\.manifest\.ts)$/);
+        expect(p).not.toMatch(/(^|\/)(content\.ts|[^/]*\.manifest\.ts)$/);
       }
+      // ...and the fill module IS listed: it is the schema and section specs
+      // the template's `import type ... from './quarter-fill.js'` resolves to,
+      // not copy. Withholding it left that import dangling for the porter.
+      expect(paths.some((p) => /(^|\/)[^/]*fill\.ts$/.test(p))).toBe(true);
 
       // by-reference contract: no file content anywhere in the payload
       expect(JSON.stringify(out)).not.toContain('import ');
@@ -1019,57 +1023,49 @@ describe('mcp-server tools', () => {
     });
 
     it(
-      'gives concurrent renders of different templates their own inputs (cross-process race)',
+      'gives every render its own build inputs',
       async () => {
-        // The bug this closes: both builds used to write the caller's template
-        // id and fill into the SHARED tracked render-host/generated/*.json,
-        // then shell out. Interleaved, one caller got a green build of the
-        // other caller's template and fill. Inputs are now per-render, so each
-        // bundle can only contain its own.
+        // The bug this guards: builds used to write the caller's template id
+        // and fill into the SHARED tracked render-host/generated/*.json before
+        // shelling out. Inputs are now PER-RENDER, under
+        // render-out/<renderId>/input/, so a bundle can only contain its own.
+        //
+        // This is a plumbing guard, NOT a race detector: both calls would go
+        // through one process and the in-process render queue serializes them,
+        // so the interleaving window a cross-process race needs never opens.
+        // One build is therefore all it takes - and it is deliberately a
+        // DIFFERENT template from the cockpit render above, so a leak from the
+        // shared file that render would have written shows up here.
         //
         // The proof is the FILL, not the template id: vite inlines the imported
-        // fill JSON into the entry chunk, so an interleaved render would show
-        // up as bundle A carrying B's editorial strings.
-        const [cockpitRes, quarterRes] = await Promise.all([
-          h.client.callTool({
-            name: 'render_experience',
-            arguments: { worldTemplateId: 'cockpit', fill: cockpitFill },
-          }) as Promise<CallToolResult>,
-          h.client.callTool({
-            name: 'render_experience',
-            arguments: { worldTemplateId: 'quarter', fill: quarterFill },
-          }) as Promise<CallToolResult>,
-        ]);
-        expect(cockpitRes.isError).toBeFalsy();
-        expect(quarterRes.isError).toBeFalsy();
-        const a = RenderExperienceOutput.parse(cockpitRes.structuredContent);
-        const b = RenderExperienceOutput.parse(quarterRes.structuredContent);
-        expect(a.renderId).not.toBe(b.renderId);
+        // fill JSON into the entry chunk, so a leak shows up as this bundle
+        // carrying the other render's editorial strings.
+        const res = (await h.client.callTool({
+          name: 'render_experience',
+          arguments: { worldTemplateId: 'quarter', fill: quarterFill },
+        })) as CallToolResult;
+        expect(res.isError).toBeFalsy();
+        const out = RenderExperienceOutput.parse(res.structuredContent);
 
-        // Each render's own input file names its own template.
-        const configOf = (out: { outDir: string }) =>
-          JSON.parse(readFileSync(path.join(path.dirname(out.outDir), 'input', 'render-config.json'), 'utf8'));
-        expect(configOf(a).templateId).toBe('cockpit');
-        expect(configOf(b).templateId).toBe('quarter');
+        // The render's own input file names its own template.
+        const config = JSON.parse(
+          readFileSync(path.join(path.dirname(out.outDir), 'input', 'render-config.json'), 'utf8'),
+        );
+        expect(config.templateId).toBe('quarter');
 
-        // ...and each BUNDLE carries its own fill and not the other's. The
-        // marker strings are pulled from the real fills so they cannot drift.
-        const jsOf = (out: { renderId: string }) =>
-          listRenderFiles(out.renderId)!
-            .filter((f) => f.path.endsWith('.js'))
-            .map((f) => readRenderFile(out.renderId, f.path)!.toString('utf8'))
-            .join('\n');
+        // ...and the BUNDLE carries its own fill and not the cockpit render's.
+        // The marker strings are pulled from the real fills so they cannot drift.
+        const js = listRenderFiles(out.renderId)!
+          .filter((f) => f.path.endsWith('.js'))
+          .map((f) => readRenderFile(out.renderId, f.path)!.toString('utf8'))
+          .join('\n');
         const cockpitMarker = fillMarker(cockpitFill);
         const quarterMarker = fillMarker(quarterFill);
         expect(cockpitMarker).not.toBe(quarterMarker);
-        const jsA = jsOf(a);
-        const jsB = jsOf(b);
-        expect(jsA).toContain(cockpitMarker);
-        expect(jsA).not.toContain(quarterMarker);
-        expect(jsB).toContain(quarterMarker);
-        expect(jsB).not.toContain(cockpitMarker);
+        expect(js).toContain(quarterMarker);
+        expect(js).not.toContain(cockpitMarker);
       },
-      480_000,
+      240_000,
     );
   });
 });

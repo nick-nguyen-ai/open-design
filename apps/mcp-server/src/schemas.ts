@@ -449,7 +449,7 @@ export const RenderExperienceOutput = z.object({
   files: z
     .array(ReferenceFile)
     .describe(
-      'Pointers to emitted files, capped at MAX_LISTED_FILES. `index.html` is always included. When fileCount exceeds the cap, filesTruncated is true and the full artifact is only available via outDir.',
+      'Pointers to emitted files, capped at 50 and ordered entry document first, then js/css/other code assets, then fonts. `index.html` is always included. When fileCount exceeds the cap, filesTruncated is true, what is dropped is fonts, and the full artifact is only available via outDir.',
     ),
   fileCount: z.number().int().describe('Total number of files emitted, whether or not `files` lists them all.'),
   filesTruncated: z.boolean().describe('True when `files` is a capped subset of the emitted files.'),

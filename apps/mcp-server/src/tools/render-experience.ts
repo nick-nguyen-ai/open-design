@@ -13,16 +13,48 @@ import { BUILD_TIMEOUT_MS, listRenderFiles, runRender } from '../render-store.js
 /** The bundle's entry document - always present in `files`, whatever the cap. */
 const ENTRY_FILE = 'index.html';
 
+/** The code/style/markup graph: what a caller must mirror for the page to work. */
+const NON_FONT_ASSET = /\.(m?js|css|html|json|svg)$/i;
+
+/** Fonts: the part of the artifact a caller never addresses individually. */
+const FONT_ASSET = /\.(woff2?|ttf|otf|eot)$/i;
+
 /**
  * Cap on the `files` pointer list.
  *
  * 50 covers a current bundle's ENTIRE non-font asset graph (1 html + 20 js +
- * 19 css = 40 today) with headroom for a template or two more, so the truncated
- * tail is fonts - the part of the artifact a caller never addresses
- * individually. That keeps the result around 5 kB of JSON instead of 13 kB,
- * and any caller that wants the complete artifact copies `outDir`.
+ * 19 css = 40 today) with headroom for a template or two more. It is the
+ * RANKING, not the count, that makes the truncated tail fonts: vite emits
+ * fonts into the same `assets/` directory as js and css, so a plain
+ * lexicographic order interleaves them and a cap would drop entry chunks.
+ * Ranking by class first keeps the result around 5 kB of JSON instead of
+ * 13 kB, and any caller that wants the complete artifact copies `outDir`.
  */
 const MAX_LISTED_FILES = 50;
+
+/**
+ * Ranking class: entry document, then the code graph, then anything else that
+ * is not a font (images and the like - addressable, so ahead of fonts), then
+ * fonts. Ties break lexicographically so the order is stable.
+ */
+function rankClass(relPath: string): number {
+  if (relPath === ENTRY_FILE) return 0;
+  if (NON_FONT_ASSET.test(relPath)) return 1;
+  return FONT_ASSET.test(relPath) ? 3 : 2;
+}
+
+/**
+ * Order the emitted files so that truncation at any cap sheds fonts first.
+ *
+ * Exported for the test that pins the invariant: no `.js` or `.css` may be
+ * dropped while a font is kept - a client that mirrors only the listed
+ * pointers must never get a blank page.
+ */
+export function rankRenderFiles<T extends { path: string }>(files: readonly T[]): T[] {
+  return [...files].sort(
+    (a, b) => rankClass(a.path) - rankClass(b.path) || (a.path < b.path ? -1 : a.path > b.path ? 1 : 0),
+  );
+}
 
 export async function renderExperienceTool(
   registry: RegistryData,
@@ -43,7 +75,8 @@ export async function renderExperienceTool(
   const { worldTemplateId, fill } = parsed.data;
 
   // Strict: only the CANONICAL world-template id is buildable. The id is
-  // written into render-host/generated/render-config.json and looked up in the
+  // written into this render's own input file
+  // (render-out/<renderId>/input/render-config.json) and looked up in the
   // host's TEMPLATES map, which is keyed by canonical id alone - so
   // `worldTemplateById` (keyed by BOTH id and experienceId, for validate_fill's
   // more forgiving contract) is deliberately NOT used here. An experienceId
@@ -138,15 +171,12 @@ export async function renderExperienceTool(
   // Cap the pointer list. A bundle is ~117 files today (12 lazy template
   // chunks + 19 css + 77 fonts), and the design's own constraint is "pointers
   // + small metadata" - an uncapped list scales with the font set, not with
-  // anything the caller can act on. The entry is pinned first so it survives
-  // any cap, and `fileCount` / `filesTruncated` make the truncation visible
-  // rather than silent. The whole artifact is still retrievable: that is what
-  // `outDir` is for.
-  const ranked = [...files].sort((a, b) => {
-    if (a.path === ENTRY_FILE) return -1;
-    if (b.path === ENTRY_FILE) return 1;
-    return a.path < b.path ? -1 : a.path > b.path ? 1 : 0;
-  });
+  // anything the caller can act on. `rankRenderFiles` puts the entry document
+  // first and fonts last, so what truncation sheds is fonts and never the
+  // entry chunk or the stylesheet, and `fileCount` / `filesTruncated` make the
+  // truncation visible rather than silent. The whole artifact is still
+  // retrievable: that is what `outDir` is for.
+  const ranked = rankRenderFiles(files);
   return {
     ok: true,
     data: {

@@ -30,11 +30,18 @@ and porting happens in ONE dispatched subagent per port:
 The strict reference manifest (`reference.sourceFiles` from a compose call,
 and the `files` from `get_part_reference`) lists DESIGN-BEARING files only:
 `.tsx` / `.ts` / `.css`, minus the experience's shipped editorial content
-(`content.ts`, `*fill.ts`) and its registry metadata (`*.manifest.ts`). Those
-are deliberately withheld, so a port that reproduces the design has nothing of
-the source world's copy to reproduce. Write the target's own words from the
-target's own content; if a slot's copy seems to be missing from the reference,
-that is the withholding working, not a gap to go hunting for.
+(`content.ts`, which exports its SHIPPED_FILL - the actual words) and its
+registry metadata (`*.manifest.ts`). Those two are deliberately withheld, so a
+port that reproduces the design has nothing of the source world's copy to
+reproduce. Write the target's own words from the target's own content; if a
+slot's copy seems to be missing from the reference, that is the withholding
+working, not a gap to go hunting for.
+
+The world's `*fill.ts` IS listed and you should read it: it is the Zod fill
+schema, the section specs and the guidance list - the type contract the
+template imports (`import type { ... } from './<world>-fill.js'`), carrying no
+editorial values. It tells you the shape each section expects; you supply the
+words.
 
 ## What "faithful" means
 

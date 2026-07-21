@@ -1,8 +1,9 @@
 /**
  * render-host template-map parity.
  *
- * `render_experience` writes a canonical world-template id into
- * `render-host/generated/render-config.json`; the host looks that id up in
+ * `render_experience` writes a canonical world-template id into that render's
+ * own input file, `render-out/<renderId>/input/render-config.json`; the host
+ * (pointed at that directory for the build) looks that id up in
  * `TEMPLATES`. A world template added to the registry but not to that map
  * fails at RUNTIME with "unknown templateId" - deep inside a shelled vite
  * build, surfaced only as a build-log tail. This test turns that into a plain

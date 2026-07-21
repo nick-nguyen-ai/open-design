@@ -118,9 +118,11 @@ bytes:
 - `entryUri` (`opendesign://renders/<renderId>/index.html`) and the `files[]`
   URIs - for hosts that fetch resources out of band; a per-file
   `resources/read` fallback, not the headline path.
-- `files` is CAPPED. Read `fileCount` (total emitted) and `filesTruncated`
-  (true when `files` is a subset); the truncated tail is fonts. Mirroring only
-  the listed pointers when `filesTruncated` is true ships a page that 404s on
+- `files` is CAPPED at 50 and ordered by class: the entry document first, then
+  the js/css/markup graph, then fonts - so what a cap drops is fonts, never the
+  entry chunk or the stylesheet. Read `fileCount` (total emitted) and
+  `filesTruncated` (true when `files` is a subset). Mirroring only the listed
+  pointers when `filesTruncated` is true ships a page that renders but 404s on
   its fonts - copy `outDir` instead. `totalBytes` covers ALL emitted files,
   not just the listed ones.
 - Renders are ephemeral (the 5 most recent are kept); a read of an evicted

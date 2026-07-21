@@ -49,9 +49,16 @@ const DESIGN_SOURCE_EXT = /\.(tsx|ts|css)$/;
 
 /**
  * Files inside an experience that are NOT design: shipped editorial content
- * (`content.ts`, `*fill.ts`) and registry metadata (`*.manifest.ts`).
+ * (`content.ts`, which exports the world's SHIPPED_FILL - the actual words)
+ * and registry metadata (`*.manifest.ts`).
+ *
+ * `*fill.ts` is deliberately NOT excluded: in this repo it is the Zod fill
+ * SCHEMA plus the section specs and guidance list - the type contract the
+ * template's own `import type { ... } from './<x>-fill.js'` points at, with no
+ * editorial values in it. Withholding it left that import dangling, so the
+ * porter had to guess the resource path off the import line.
  */
-const NON_DESIGN_FILE = /(^|\/)(content\.ts|[^/]*fill\.ts|[^/]*\.manifest\.ts)$/;
+const NON_DESIGN_FILE = /(^|\/)(content\.ts|[^/]*\.manifest\.ts)$/;
 
 /**
  * The one definition of "worth pointing a porting subagent at".
@@ -59,8 +66,8 @@ const NON_DESIGN_FILE = /(^|\/)(content\.ts|[^/]*fill\.ts|[^/]*\.manifest\.ts)$/
  * This repo's BORROW invariant is "borrow structure, animation and treatment -
  * never shipped content", so a reference manifest that says "port this design
  * faithfully" must not also hand over the words. For the cockpit that removes
- * `content.ts` (~10.5 kB), `cockpit-fill.ts` (~21.6 kB) and both manifests:
- * roughly half the bytes, none of the design.
+ * `content.ts` (~10.5 kB) and both manifests: the words and the registry
+ * bookkeeping, none of the design.
  */
 export function isDesignBearingFile(relPath: string): boolean {
   return DESIGN_SOURCE_EXT.test(relPath) && !NON_DESIGN_FILE.test(relPath);
