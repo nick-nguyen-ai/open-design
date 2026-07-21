@@ -19,6 +19,7 @@ import {
 import { useRecentlyViewed } from '../state/useRecentlyViewed.js';
 import { ArrowRightIcon } from './icons.js';
 import { PreviewImage } from './PreviewImage.js';
+import { GrammarSpecimen } from './GrammarSpecimen.js';
 
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
@@ -94,6 +95,15 @@ export function QuickPreviewDrawer({ result, onClose }: QuickPreviewDrawerProps)
               <PreviewImage
                 id={result.id}
                 alt={`Preview of ${result.title}`}
+                className="block aspect-[16/10] w-full object-cover object-top"
+              />
+            </div>
+          )}
+          {result.entityType === 'grammar' && (
+            <div className="overflow-hidden rounded-md border border-border-subtle bg-surface-sunken">
+              <GrammarSpecimen
+                grammarId={result.id}
+                alt={`Specimen design rendered in ${result.title}`}
                 className="block aspect-[16/10] w-full object-cover object-top"
               />
             </div>
