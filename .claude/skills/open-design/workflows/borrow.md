@@ -30,9 +30,16 @@ files as `opendesign://parts/<experienceId>/<file>` URIs (+ the experience
 stylesheets). At strict fidelity, dispatch the porting subagent per
 `references/porting.md`; at free fidelity, request only the part's intent
 (describe it from the live page) and reinterpret. The in-repo borrow path is
-unchanged. From here, Phases 1-3 apply as judgment (classify, slice, adapt);
-Phase 4's repo gates are replaced by verification in the client's own
-environment.
+unchanged. From here, Phases 1-3 apply as judgment (classify, slice, adapt),
+with the repo-only steps dropped: Phase 1's "Import, not copy" branch does NOT
+apply externally (every `@enterprise-design/*` package is `"private": true` and
+unpublished, so such an import can never resolve) - the external path always
+ports the code per `references/porting.md`, so skip the
+`packages/registry/generated/components.json` lookup and every repo-only mood
+lookup (Phase 3's `LIVE_PAGES`, and the same lookup in
+`references/slicing-and-adapting.md` §4) - take the target's mood from the
+target's own design instead. Phase 4's repo gates are replaced by
+verification in the client's own environment.
 
 **Known limitation - dynamic part ids.**
 *Symptom:* a part id that looks perfectly valid comes back `NOT_FOUND` from

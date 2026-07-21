@@ -14,7 +14,12 @@ A pnpm monorepo that turns one design system into five composable surfaces:
 
 ```
 apps/gallery          React 19 + Vite gallery; catalogue routes + full-bleed /live/* worlds + /demo/* outputs
-apps/mcp-server       MCP tools: search/get/compose/validate over the compiled registry
+apps/mcp-server       MCP tools: search/get/compose/validate over the compiled registry, plus the
+                      external-client surface: get_part_reference, render_experience, and a
+                      RESOURCES capability serving opendesign:// template source, part source
+                      and render bundles
+apps/mcp-server/render-host   the Vite app render_experience builds a standalone bundle from
+                              (per-render inputs + bundle under render-out/<renderId>/)
 packages/contracts    Zod contracts: ComponentManifest, WorldTemplateDescriptor (sections, slots, craft rules)
 packages/registry     Compiles *.manifest.ts → generated/*.json; certifier; scaffolder CLIs
 packages/design-tokens, themes, primitives, motion, content-components, data-viz, diagrams

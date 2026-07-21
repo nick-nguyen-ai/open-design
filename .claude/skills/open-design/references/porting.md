@@ -14,6 +14,27 @@ and porting happens in ONE dispatched subagent per port:
 - The subagent fetches resources ONE AT A TIME via resources/read, largest
   files only as needed, ports, writes output files, and reports back a file
   list + a ≤20-line summary - never the code itself.
+- **If the subagent cannot read MCP resources directly** (whether a dispatched
+  subagent gets a callable resources/read affordance is host- and
+  version-dependent; some hosts surface resources only as user-turn
+  mentions), do NOT dead-end: the orchestrator fetches on its behalf and
+  attaches the file to the subagent's turn, still ONE file at a time and the
+  largest only when the port actually needs them. The context rule above is
+  unchanged - the orchestrator passes each file straight through and never
+  reads the reference source into its own context wholesale.
+- **On an IN-REPO run there is no fetch at all**: the source is on disk under
+  `experiences/<surface>/<experienceId>/`, so hand the subagent the paths.
+
+## What the manifest contains (and what it does not)
+
+The strict reference manifest (`reference.sourceFiles` from a compose call,
+and the `files` from `get_part_reference`) lists DESIGN-BEARING files only:
+`.tsx` / `.ts` / `.css`, minus the experience's shipped editorial content
+(`content.ts`, `*fill.ts`) and its registry metadata (`*.manifest.ts`). Those
+are deliberately withheld, so a port that reproduces the design has nothing of
+the source world's copy to reproduce. Write the target's own words from the
+target's own content; if a slot's copy seems to be missing from the reference,
+that is the withholding working, not a gap to go hunting for.
 
 ## What "faithful" means
 

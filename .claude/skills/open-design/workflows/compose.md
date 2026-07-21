@@ -92,14 +92,39 @@ Call `validate_fill`. Fix findings **content-side only** (tighten copy, drop an 
 
 Follow `references/scaffold-and-verify.md`: scaffold the fill + a thin wrapper page, register the `/demo/<slug>` route in the gallery, typecheck + build, screenshot (every slide for decks; one viewport + one full-page for single-page surfaces), run the content-fit checklist, fix content findings via Phase 4/5.
 
-**External target (client repo, strict):** there is no gallery to scaffold
-into. Dispatch the porting subagent (`references/porting.md`) with the
-`reference` manifest + validated fill; alternatively, when the client only
-needs the artifact as-is, call `render_experience` with the winning
-`worldTemplateId` (not `experienceId` - `render_experience` only accepts the
-canonical template id) and the validated fill, and hand over the `entryUri`
-bundle. Verify with screenshots of the ported result in the client's own
+**External target (client repo, either fidelity):** there is no gallery to
+scaffold into.
+
+- *strict*: dispatch the porting subagent (`references/porting.md`) with the
+  `reference` manifest + validated fill; alternatively, when the client only
+  needs the artifact as-is, call `render_experience` (see below).
+- *free*: there is no manifest and no repo scaffold - hand over the validated
+  fill plus the `fillSkeleton` (the contract the client builds against), or a
+  `render_experience` bundle when they want the artifact as-is.
+
+In both cases verify with screenshots of the result in the client's own
 environment.
+
+**Retrieving a `render_experience` bundle.** Call it with the winning
+`worldTemplateId` (not `experienceId` - `render_experience` only accepts the
+canonical template id) and the validated fill. The result is pointers, never
+bytes:
+
+- `outDir` - the ABSOLUTE path of the built bundle directory on the SERVER
+  filesystem. When the server shares a filesystem with the client (always true
+  over stdio, which is how this server runs), this is the retrieval path: copy
+  that directory with your own file tools. The bundle uses relative asset URLs,
+  so a copied directory opens straight from `file://`. Prefer this.
+- `entryUri` (`opendesign://renders/<renderId>/index.html`) and the `files[]`
+  URIs - for hosts that fetch resources out of band; a per-file
+  `resources/read` fallback, not the headline path.
+- `files` is CAPPED. Read `fileCount` (total emitted) and `filesTruncated`
+  (true when `files` is a subset); the truncated tail is fonts. Mirroring only
+  the listed pointers when `filesTruncated` is true ships a page that 404s on
+  its fonts - copy `outDir` instead. `totalBytes` covers ALL emitted files,
+  not just the listed ones.
+- Renders are ephemeral (the 5 most recent are kept); a read of an evicted
+  render is an error telling you to re-run the tool.
 
 **Quality gate (before reporting done):** walk `DESIGN.md` Part 2 verbatim — the verify rig + findings table (Steps 2–3), contract checks, interaction smoke, then the content-fit read (Step 6, yours) and the honest-copy gate on the fill (scan every quantitative claim — each number must trace to the source or be covered by the synthetic-provenance notice; an invented "10× faster" is a blocking finding). Then dispatch the **screenshot judge** (Step 7, `references/screenshot-judge.md`) — a fresh-context subagent that sees only the screenshots and the rubric; its six-axis scores are the run's scores. Any axis < 3 or any critical/major judge finding → revise via Phase 4/5 and re-judge (two rounds is normal; a third means the template choice is wrong). The template guarantees the visual craft, but the fill can still ship slop copy or a bad content fit — Steps 6 and 8 are about YOUR half of the division of labor.
 
