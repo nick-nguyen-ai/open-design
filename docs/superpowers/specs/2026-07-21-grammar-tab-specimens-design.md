@@ -129,7 +129,7 @@ bake-off decks (`deck-dgm-*`) already prove the effect for 5 of 15 grammars.
 
 ## Acceptance
 
-- Grammar tab shows 16 image-bearing cards of the same content rendered in
+- Grammar tab shows 15 image-bearing cards of the same content rendered in
   each grammar; no typographic-plate-only cards remain.
 - Every grammar detail page shows its specimen, the sibling comparison
   strip, and a visual example grid.
