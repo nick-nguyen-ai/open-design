@@ -6,6 +6,7 @@
  * JSON-RPC frames while logs go to stderr — the classic stdio-MCP bug.
  */
 import { spawn } from 'node:child_process';
+import { mkdirSync, readdirSync, readFileSync, utimesSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
@@ -21,11 +22,23 @@ import {
   type DesignContext,
 } from '@enterprise-design/contracts';
 import { createServer } from './server.js';
-import { PART_SOURCE_URI_TEMPLATE, TEMPLATE_SOURCE_URI_TEMPLATE } from './resources.js';
+import {
+  PART_SOURCE_URI_TEMPLATE,
+  RENDER_FILE_URI_TEMPLATE,
+  TEMPLATE_SOURCE_URI_TEMPLATE,
+} from './resources.js';
 import { loadRegistryData } from './registry-data.js';
 import { createLogger } from './logger.js';
-import { ComposeSlideDeckOutput, SearchComponentResult, SearchComponentsOutput, ValidateFillOutput } from './schemas.js';
+import { MAX_RENDERS, readRenderFile } from './render-store.js';
+import {
+  ComposeSlideDeckOutput,
+  RenderExperienceOutput,
+  SearchComponentResult,
+  SearchComponentsOutput,
+  ValidateFillOutput,
+} from './schemas.js';
 import { quarterFill } from '../../../experiences/slide-decks/deck-quarterly-business-review/content.js';
+import { cockpitFill } from '../../../experiences/dashboards/db-model-monitoring-cockpit/content.js';
 
 /** A slide-deck DesignContext-lite for compose_slide_deck. */
 function deckContext(overrides: Record<string, unknown> = {}): Record<string, unknown> {
@@ -121,6 +134,13 @@ async function makeHarness(): Promise<Harness> {
   };
 }
 
+/** The first content block of a resources/read result, as text (fails if it came back as a blob). */
+function resourceText(read: { contents: Array<{ text?: string; blob?: string }> }): string {
+  const first = read.contents[0];
+  if (!first || typeof first.text !== 'string') throw new Error('resource did not return text content');
+  return first.text;
+}
+
 function textPayload(result: CallToolResult): unknown {
   const first = result.content[0];
   if (!first || first.type !== 'text') return undefined;
@@ -148,17 +168,19 @@ describe('mcp-server tools', () => {
       'compose_slide_deck',
       'get_component',
       'get_part_reference',
+      'render_experience',
       'search_components',
       'validate_composition',
       'validate_fill',
     ]);
     for (const tool of tools) {
-      expect(tool.annotations).toMatchObject({
-        readOnlyHint: true,
-        destructiveHint: false,
-        idempotentHint: true,
-        openWorldHint: false,
-      });
+      // render_experience is the ONE writing tool: it builds a bundle into
+      // render-out/, so it is neither read-only nor idempotent.
+      expect(tool.annotations).toMatchObject(
+        tool.name === 'render_experience'
+          ? { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: false }
+          : { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
+      );
       expect(typeof tool.annotations?.title).toBe('string');
       // Structured output schema is advertised.
       expect(tool.outputSchema).toBeTypeOf('object');
@@ -731,6 +753,127 @@ describe('mcp-server tools', () => {
         'opendesign://parts/deck-cloud-migration/sections/Foo.tsx',
       );
       expect(variables).toEqual({ experienceId: 'deck-cloud-migration', file: 'sections/Foo.tsx' });
+    });
+
+    it('matches a nested file path for renders/ too', () => {
+      const template = new ResourceTemplate(RENDER_FILE_URI_TEMPLATE, { list: undefined });
+      const variables = template.uriTemplate.match(
+        'opendesign://renders/11111111-2222-3333-4444-555555555555/assets/index-abc.js',
+      );
+      expect(variables).toEqual({
+        renderId: '11111111-2222-3333-4444-555555555555',
+        file: 'assets/index-abc.js',
+      });
+    });
+  });
+
+  describe('render_experience', () => {
+    it(
+      'builds a standalone bundle and serves it via renders resources',
+      async () => {
+        const result = (await h.client.callTool({
+          name: 'render_experience',
+          arguments: { worldTemplateId: 'cockpit', fill: cockpitFill },
+        })) as CallToolResult;
+        expect(result.isError).toBeFalsy();
+        const out = RenderExperienceOutput.parse(result.structuredContent);
+        expect(out.entryUri).toBe(`opendesign://renders/${out.renderId}/index.html`);
+        expect(out.files.map((f) => f.path)).toContain('index.html');
+        expect(out.totalBytes).toBeGreaterThan(10_000);
+        expect(out.buildMs).toBeGreaterThan(0);
+
+        const entry = await h.client.readResource({ uri: out.entryUri });
+        expect(resourceText(entry)).toContain('<div id="root">');
+
+        // A nested asset is readable through the same template, and its byte
+        // size matches the pointer the tool handed back.
+        const asset = out.files.find((f) => f.path.endsWith('.js'))!;
+        const assetRead = await h.client.readResource({ uri: asset.uri });
+        expect(Buffer.byteLength(resourceText(assetRead), 'utf8')).toBe(asset.bytes);
+
+        // Contract: a render NEVER leaves the tracked render-host inputs dirty
+        // (no client-supplied fill sitting in the working tree).
+        const generated = path.join(appRoot, 'render-host', 'generated');
+        expect(readFileSync(path.join(generated, 'render-config.json'), 'utf8')).toBe(
+          '{\n  "templateId": "cockpit"\n}\n',
+        );
+        expect(readFileSync(path.join(generated, 'fill.json'), 'utf8')).toBe('{}\n');
+      },
+      240_000,
+    );
+
+    it('rejects an invalid fill without building', async () => {
+      const result = (await h.client.callTool({
+        name: 'render_experience',
+        arguments: { worldTemplateId: 'cockpit', fill: { nonsense: true } },
+      })) as CallToolResult;
+      expect(result.isError).toBe(true);
+      const err = JSON.parse((result.content as Array<{ text: string }>)[0]!.text) as McpError;
+      expect(err.code).toBe('INVALID_INPUT');
+      expect(err.details.length).toBeGreaterThan(0);
+    });
+
+    it('unknown template is UNKNOWN_TEMPLATE-style NOT_FOUND', async () => {
+      const result = (await h.client.callTool({
+        name: 'render_experience',
+        arguments: { worldTemplateId: 'nope', fill: {} },
+      })) as CallToolResult;
+      expect(result.isError).toBe(true);
+      const err = JSON.parse((result.content as Array<{ text: string }>)[0]!.text) as McpError;
+      expect(err.code).toBe('UNKNOWN_TEMPLATE');
+    });
+
+    it('rejects an experienceId in the worldTemplateId slot (render-host is keyed by canonical id)', async () => {
+      const result = (await h.client.callTool({
+        name: 'render_experience',
+        arguments: { worldTemplateId: 'db-model-monitoring-cockpit', fill: {} },
+      })) as CallToolResult;
+      expect(result.isError).toBe(true);
+      const err = JSON.parse((result.content as Array<{ text: string }>)[0]!.text) as McpError;
+      expect(err.code).toBe('UNKNOWN_TEMPLATE');
+    });
+
+    it(
+      'keeps only the MAX_RENDERS most recent bundles and fails reads of evicted ones',
+      async () => {
+        // Plant MAX_RENDERS + 2 older placeholder bundles, then build: the
+        // build's evict pass must drop the oldest ones. Placeholders are aged
+        // by mtime so the ordering is deterministic without extra builds.
+        const outRoot = path.join(appRoot, 'render-out');
+        const planted: string[] = [];
+        for (let i = 0; i < MAX_RENDERS + 2; i += 1) {
+          const id = `test-evict-${i}`;
+          const dir = path.join(outRoot, id);
+          mkdirSync(dir, { recursive: true });
+          writeFileSync(path.join(dir, 'index.html'), '<div id="root"></div>');
+          const aged = new Date(Date.now() - (MAX_RENDERS + 2 - i) * 60_000);
+          utimesSync(dir, aged, aged);
+          planted.push(id);
+        }
+        const oldest = planted[0]!;
+        expect(readRenderFile(oldest, 'index.html')).toBeDefined();
+
+        const result = (await h.client.callTool({
+          name: 'render_experience',
+          arguments: { worldTemplateId: 'cockpit', fill: cockpitFill },
+        })) as CallToolResult;
+        expect(result.isError).toBeFalsy();
+
+        expect(readdirSync(outRoot, { withFileTypes: true }).filter((e) => e.isDirectory())).toHaveLength(
+          MAX_RENDERS,
+        );
+        expect(readRenderFile(oldest, 'index.html')).toBeUndefined();
+        await expect(
+          h.client.readResource({ uri: `opendesign://renders/${oldest}/index.html` }),
+        ).rejects.toThrow(/re-run render_experience/);
+      },
+      240_000,
+    );
+
+    it('reading an unknown render id fails with a re-run instruction', async () => {
+      await expect(
+        h.client.readResource({ uri: 'opendesign://renders/not-a-render/index.html' }),
+      ).rejects.toThrow(/re-run render_experience/);
     });
   });
 });

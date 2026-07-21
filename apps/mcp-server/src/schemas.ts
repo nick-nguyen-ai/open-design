@@ -427,3 +427,22 @@ export const ValidateFillOutput = z.object({
   findings: z.array(FillFinding),
 });
 export type ValidateFillOutput = z.infer<typeof ValidateFillOutput>;
+
+// ---- render_experience ------------------------------------------------------
+
+export const RenderExperienceInput = z.object({
+  worldTemplateId: z.string().min(1).describe('A compiled world-template id (see compose alternatives).'),
+  fill: z
+    .record(z.string(), z.unknown())
+    .describe('The complete fill object; validated with validate_fill semantics before building.'),
+});
+export type RenderExperienceInput = z.infer<typeof RenderExperienceInput>;
+
+export const RenderExperienceOutput = z.object({
+  renderId: z.string(),
+  entryUri: z.string().describe('opendesign://renders/<renderId>/index.html'),
+  files: z.array(ReferenceFile),
+  totalBytes: z.number().int(),
+  buildMs: z.number().int(),
+});
+export type RenderExperienceOutput = z.infer<typeof RenderExperienceOutput>;
