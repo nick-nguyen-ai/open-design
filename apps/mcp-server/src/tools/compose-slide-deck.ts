@@ -28,6 +28,6 @@ export function composeSlideDeckTool(registry: RegistryData, rawInput: unknown):
     };
   }
 
-  const { context, contentBrief } = parsed.data;
-  return composeForSurface(registry, 'slide-deck', context, contentBrief, 'compose_slide_deck');
+  const { context, contentBrief, templateFidelity } = parsed.data;
+  return composeForSurface(registry, 'slide-deck', context, contentBrief, 'compose_slide_deck', templateFidelity ?? 'strict');
 }

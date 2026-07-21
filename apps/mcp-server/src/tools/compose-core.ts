@@ -34,9 +34,12 @@ import {
   type FillSkeletonSection,
   type FillSkeletonSlot,
   SlideDeckContext,
+  type TemplateFidelity,
+  type TemplateReference,
 } from '../schemas.js';
 import { makeError, newRequestId, type ToolOutcome } from '../errors.js';
 import type { RegistryData } from '../registry-data.js';
+import { listExperienceFiles, templateSourceUri } from '../reference-files.js';
 
 /**
  * The selection-driving facets, surface-neutral: everything a `compose_<surface>`
@@ -164,6 +167,18 @@ function buildFillSkeleton(descriptor: WorldTemplateDescriptor): FillSkeleton {
   return { sections, craftGuarantees: descriptor.guidance };
 }
 
+/** Build the strict-fidelity reference manifest: source-file URIs + byte sizes, never content. */
+function buildReference(descriptor: WorldTemplateDescriptor): TemplateReference | undefined {
+  const files = listExperienceFiles(descriptor.experienceId);
+  if (!files) return undefined;
+  return {
+    templateId: descriptor.id,
+    sourceFiles: files.map((f) => ({ uri: templateSourceUri(descriptor.id, f.path), path: f.path, bytes: f.bytes })),
+    note:
+      'Strict fidelity: port this design faithfully - adjust only for content and consistency with the existing design. Fetch files individually via resources/read; do NOT load them into the orchestrating agent context (dispatch a subagent to read and port).',
+  };
+}
+
 /** Build the `NO_TEMPLATE_FIT` outcome (empty surface pool or a zero-score winner). */
 function noTemplateFit(
   surface: SurfaceType,
@@ -197,6 +212,7 @@ export function composeForSurface(
   context: ComposeContext,
   contentBrief: string,
   toolName: string,
+  fidelity: TemplateFidelity,
 ): ToolOutcome<ComposeOutput> {
   const requestId = newRequestId();
 
@@ -270,6 +286,7 @@ export function composeForSurface(
         evidence: [scoreBreakdown(pinnedScored)],
         alternatives: [toAlternative(pinnedScored)],
         fillSkeleton: buildFillSkeleton(pinned),
+        ...(fidelity === 'strict' ? { reference: buildReference(pinned) } : {}),
       },
     };
   }
@@ -316,6 +333,7 @@ export function composeForSurface(
       evidence,
       alternatives,
       fillSkeleton: buildFillSkeleton(descriptor),
+      ...(fidelity === 'strict' ? { reference: buildReference(descriptor) } : {}),
     },
   };
 }

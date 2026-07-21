@@ -16,6 +16,7 @@ import {
   ComposePersonalPageInput,
   ComposeProjectPageInput,
   type ComposeSlideDeckOutput,
+  type TemplateFidelity,
 } from '../schemas.js';
 import { makeError, newRequestId, type ToolOutcome } from '../errors.js';
 import type { RegistryData } from '../registry-data.js';
@@ -26,7 +27,7 @@ import { type ComposeContext, composeForSurface } from './compose-core.js';
  * a {@link ComposeContext} plus its fixed `surface` literal, so a successful parse
  * hands straight to the core (which re-derives the surface-neutral context).
  */
-function delegate<T extends { context: ComposeContext; contentBrief: string }>(
+function delegate<T extends { context: ComposeContext; contentBrief: string; templateFidelity?: TemplateFidelity }>(
   registry: RegistryData,
   surface: SurfaceType,
   toolName: string,
@@ -45,8 +46,8 @@ function delegate<T extends { context: ComposeContext; contentBrief: string }>(
       }),
     };
   }
-  const { context, contentBrief } = parsed.data;
-  return composeForSurface(registry, surface, context, contentBrief, toolName);
+  const { context, contentBrief, templateFidelity } = parsed.data;
+  return composeForSurface(registry, surface, context, contentBrief, toolName, templateFidelity ?? 'strict');
 }
 
 export function composeDashboardTool(registry: RegistryData, rawInput: unknown): ToolOutcome<ComposeSlideDeckOutput> {

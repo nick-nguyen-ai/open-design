@@ -18,7 +18,7 @@ describe('canonical-brief matrix', () => {
   it.each(CANONICAL_BRIEFS.map((row) => [`${row.surface} → ${row.expect}`, row] as const))(
     'selects the locked template for %s',
     (_label, row) => {
-      const result = composeForSurface(registry, row.surface, row.context, row.brief, 'canonical-briefs');
+      const result = composeForSurface(registry, row.surface, row.context, row.brief, 'canonical-briefs', 'strict');
       expect(result.ok).toBe(true);
       if (result.ok) expect(result.data.worldTemplateId).toBe(row.expect);
     },

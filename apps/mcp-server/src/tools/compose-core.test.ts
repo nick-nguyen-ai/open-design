@@ -57,7 +57,7 @@ describe('composeForSurface', () => {
       descriptor({ id: 'dash-1', experienceId: 'exp-dash', surface: 'dashboard' }),
     ]);
 
-    const dashboard = composeForSurface(registry, 'dashboard', baseContext, 'quarterly review', 'compose_dashboard');
+    const dashboard = composeForSurface(registry, 'dashboard', baseContext, 'quarterly review', 'compose_dashboard', 'strict');
     expect(dashboard.ok).toBe(true);
     if (dashboard.ok) expect(dashboard.data.worldTemplateId).toBe('dash-1');
 
@@ -68,6 +68,7 @@ describe('composeForSurface', () => {
       baseContext,
       'quarterly review',
       'compose_dashboard',
+      'strict',
     );
     expect(noneForSurface.ok).toBe(false);
     if (!noneForSurface.ok) expect(noneForSurface.error.code).toBe('NO_TEMPLATE_FIT');
@@ -88,6 +89,7 @@ describe('composeForSurface', () => {
       baseContext,
       'A review of model drift over the quarter.',
       'compose_slide_deck',
+      'strict',
     );
     expect(result.ok).toBe(true);
     if (result.ok) expect(result.data.worldTemplateId).toBe('b-keyword');
@@ -112,6 +114,7 @@ describe('composeForSurface', () => {
       { audience: ['executive'], businessIntent: ['unrelated-topic'], corporateSuitability: 'restricted', motionPreference: 0 },
       'Nothing here overlaps whatsoever.',
       'compose_slide_deck',
+      'strict',
     );
     expect(result.ok).toBe(false);
     if (!result.ok) {
@@ -126,7 +129,7 @@ describe('composeForSurface', () => {
       descriptor({ id: 'aaa', experienceId: 'exp-aaa' }),
     ]);
 
-    const result = composeForSurface(registry, 'slide-deck', baseContext, 'quarterly review', 'compose_slide_deck');
+    const result = composeForSurface(registry, 'slide-deck', baseContext, 'quarterly review', 'compose_slide_deck', 'strict');
     expect(result.ok).toBe(true);
     if (result.ok) expect(result.data.worldTemplateId).toBe('aaa');
   });
@@ -156,7 +159,7 @@ describe('composeForSurface', () => {
       descriptor({ id: 'zfourth', experienceId: 'exp-zfourth', audiences: ['technical'], briefKeywords: ['review'] }),
     ]);
 
-    const result = composeForSurface(registry, 'slide-deck', baseContext, 'quarterly review', 'compose_slide_deck');
+    const result = composeForSurface(registry, 'slide-deck', baseContext, 'quarterly review', 'compose_slide_deck', 'strict');
     expect(result.ok).toBe(true);
     if (result.ok) {
       const ids = result.data.alternatives.map((a) => a.worldTemplateId);
@@ -172,7 +175,7 @@ describe('composeForSurface', () => {
 
   it('a surface with a single template degrades to one alternative', () => {
     const registry = fakeRegistry([descriptor({ id: 'only', experienceId: 'exp-only', surface: 'dashboard' })]);
-    const result = composeForSurface(registry, 'dashboard', baseContext, 'quarterly review', 'compose_dashboard');
+    const result = composeForSurface(registry, 'dashboard', baseContext, 'quarterly review', 'compose_dashboard', 'strict');
     expect(result.ok).toBe(true);
     if (result.ok) expect(result.data.alternatives.map((a) => a.worldTemplateId)).toEqual(['only']);
   });
@@ -202,6 +205,7 @@ describe('composeForSurface', () => {
       { ...baseContext, pinTemplateId: 'loser' },
       'quarterly review',
       'compose_slide_deck',
+      'strict',
     );
     expect(result.ok).toBe(true);
     if (result.ok) {
@@ -223,7 +227,7 @@ describe('composeForSurface', () => {
       }),
     ]);
     // Unpinned, this pool is a zero-score NO_TEMPLATE_FIT…
-    const unpinned = composeForSurface(registry, 'slide-deck', baseContext, 'quarterly review', 'compose_slide_deck');
+    const unpinned = composeForSurface(registry, 'slide-deck', baseContext, 'quarterly review', 'compose_slide_deck', 'strict');
     expect(unpinned.ok).toBe(false);
     // …but an explicit pick is honoured, resolved via the experienceId form.
     const pinned = composeForSurface(
@@ -232,6 +236,7 @@ describe('composeForSurface', () => {
       { ...baseContext, pinTemplateId: 'exp-zero' },
       'quarterly review',
       'compose_slide_deck',
+      'strict',
     );
     expect(pinned.ok).toBe(true);
     if (pinned.ok) expect(pinned.data.worldTemplateId).toBe('zero');
@@ -249,6 +254,7 @@ describe('composeForSurface', () => {
       { ...baseContext, pinTemplateId: 'no-such-template' },
       'quarterly review',
       'compose_slide_deck',
+      'strict',
     );
     expect(unknown.ok).toBe(false);
     if (!unknown.ok) expect(unknown.error.code).toBe('UNKNOWN_TEMPLATE');
@@ -260,6 +266,7 @@ describe('composeForSurface', () => {
       { ...baseContext, pinTemplateId: 'dash-1' },
       'quarterly review',
       'compose_slide_deck',
+      'strict',
     );
     expect(crossSurface.ok).toBe(false);
     if (!crossSurface.ok) expect(crossSurface.error.code).toBe('UNKNOWN_TEMPLATE');

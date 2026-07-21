@@ -211,6 +211,35 @@ const surfaceContext = <S extends string>(surface: S) =>
       ),
   });
 
+// ---- templateFidelity + reference manifest ---------------------------------
+
+/**
+ * How faithful the consuming skill must be to the selected template.
+ * 'strict' (the DEFAULT, applied in code): reproduce the template's real
+ * design - the response carries a reference manifest of source-file resource
+ * URIs to port from. 'free': contract only - the client designs the visuals.
+ * Named for direction-clarity: high fidelity = faithful to the template
+ * ("creativity level" was rejected as inverted).
+ */
+export const TemplateFidelity = z.enum(['strict', 'free']);
+export type TemplateFidelity = z.infer<typeof TemplateFidelity>;
+
+/** One reference source file - a pointer, NEVER inline content. */
+export const ReferenceFile = z.object({
+  uri: z.string().describe('opendesign:// resource URI - fetch via resources/read.'),
+  path: z.string().describe('Path relative to the experience source dir.'),
+  bytes: z.number().int(),
+});
+export type ReferenceFile = z.infer<typeof ReferenceFile>;
+
+/** The strict-fidelity reference manifest for the selected template. */
+export const TemplateReference = z.object({
+  templateId: z.string(),
+  sourceFiles: z.array(ReferenceFile),
+  note: z.string(),
+});
+export type TemplateReference = z.infer<typeof TemplateReference>;
+
 /** Slide-deck context: `surfaceContext('slide-deck')`. Retained as a named export the compose core reuses. */
 export const SlideDeckContext = surfaceContext('slide-deck');
 export type SlideDeckContext = z.infer<typeof SlideDeckContext>;
@@ -222,6 +251,9 @@ export const ComposeSlideDeckInput = z.object({
     .string()
     .min(1)
     .describe('A free-text brief of the deck content; its keywords add to the intent match score.'),
+  templateFidelity: TemplateFidelity.optional().describe(
+    "How faithful the consumer must be to the template. Default 'strict': the response includes a reference manifest of source resource URIs to port from. 'free': contract only.",
+  ),
 });
 export type ComposeSlideDeckInput = z.infer<typeof ComposeSlideDeckInput>;
 
@@ -233,6 +265,9 @@ export type ComposeSlideDeckInput = z.infer<typeof ComposeSlideDeckInput>;
 export const ComposeDashboardInput = z.object({
   context: surfaceContext('dashboard').describe('The dashboard DesignContext-lite driving template selection.'),
   contentBrief: z.string().min(1).describe('A free-text brief of the dashboard content; its keywords add to the intent match score.'),
+  templateFidelity: TemplateFidelity.optional().describe(
+    "How faithful the consumer must be to the template. Default 'strict': the response includes a reference manifest of source resource URIs to port from. 'free': contract only.",
+  ),
 });
 export type ComposeDashboardInput = z.infer<typeof ComposeDashboardInput>;
 
@@ -240,6 +275,9 @@ export type ComposeDashboardInput = z.infer<typeof ComposeDashboardInput>;
 export const ComposeProjectPageInput = z.object({
   context: surfaceContext('project-page').describe('The project-page DesignContext-lite driving template selection.'),
   contentBrief: z.string().min(1).describe('A free-text brief of the project-page content; its keywords add to the intent match score.'),
+  templateFidelity: TemplateFidelity.optional().describe(
+    "How faithful the consumer must be to the template. Default 'strict': the response includes a reference manifest of source resource URIs to port from. 'free': contract only.",
+  ),
 });
 export type ComposeProjectPageInput = z.infer<typeof ComposeProjectPageInput>;
 
@@ -247,6 +285,9 @@ export type ComposeProjectPageInput = z.infer<typeof ComposeProjectPageInput>;
 export const ComposePersonalPageInput = z.object({
   context: surfaceContext('personal-page').describe('The personal-page DesignContext-lite driving template selection.'),
   contentBrief: z.string().min(1).describe('A free-text brief of the personal-page content; its keywords add to the intent match score.'),
+  templateFidelity: TemplateFidelity.optional().describe(
+    "How faithful the consumer must be to the template. Default 'strict': the response includes a reference manifest of source resource URIs to port from. 'free': contract only.",
+  ),
 });
 export type ComposePersonalPageInput = z.infer<typeof ComposePersonalPageInput>;
 
@@ -254,6 +295,9 @@ export type ComposePersonalPageInput = z.infer<typeof ComposePersonalPageInput>;
 export const ComposeExplainerInput = z.object({
   context: surfaceContext('technical-explainer').describe('The technical-explainer DesignContext-lite driving template selection.'),
   contentBrief: z.string().min(1).describe('A free-text brief of the explainer content; its keywords add to the intent match score.'),
+  templateFidelity: TemplateFidelity.optional().describe(
+    "How faithful the consumer must be to the template. Default 'strict': the response includes a reference manifest of source resource URIs to port from. 'free': contract only.",
+  ),
 });
 export type ComposeExplainerInput = z.infer<typeof ComposeExplainerInput>;
 
@@ -310,6 +354,8 @@ export const ComposeSlideDeckOutput = z.object({
   /** Top-ranked candidates (≤3, winner first, zero-score excluded; exactly the pin when pinned). */
   alternatives: z.array(ComposeAlternative),
   fillSkeleton: FillSkeleton,
+  /** Present at templateFidelity 'strict' (the default): source pointers for the winner. */
+  reference: TemplateReference.optional(),
 });
 export type ComposeSlideDeckOutput = z.infer<typeof ComposeSlideDeckOutput>;
 

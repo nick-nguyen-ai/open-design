@@ -617,6 +617,35 @@ describe('mcp-server tools', () => {
     expect(out.worldTemplateId).toBe('the-line');
     expect(out.experienceId).toBe('home-career-project-timeline');
   });
+
+  describe('templateFidelity', () => {
+    it('compose_slide_deck defaults to strict and returns a reference manifest of URIs only', async () => {
+      const result = (await h.client.callTool({
+        name: 'compose_slide_deck',
+        arguments: { context: deckContext(), contentBrief: 'quarterly business review' },
+      })) as CallToolResult;
+      expect(result.isError).toBeFalsy();
+      const out = ComposeSlideDeckOutput.parse(result.structuredContent);
+      expect(out.reference).toBeDefined();
+      expect(out.reference!.templateId).toBe(out.worldTemplateId);
+      expect(out.reference!.sourceFiles.length).toBeGreaterThan(0);
+      for (const f of out.reference!.sourceFiles) {
+        expect(f.uri).toBe(`opendesign://templates/${out.worldTemplateId}/source/${f.path}`);
+        expect(f.bytes).toBeGreaterThan(0);
+      }
+      // by-reference contract: no file content anywhere in the payload
+      expect(JSON.stringify(out)).not.toContain('import ');
+    });
+
+    it("templateFidelity 'free' omits the reference manifest", async () => {
+      const result = (await h.client.callTool({
+        name: 'compose_slide_deck',
+        arguments: { context: deckContext(), contentBrief: 'quarterly business review', templateFidelity: 'free' },
+      })) as CallToolResult;
+      const out = ComposeSlideDeckOutput.parse(result.structuredContent);
+      expect(out.reference).toBeUndefined();
+    });
+  });
 });
 
 describe('stdio protocol hygiene', () => {
