@@ -8,7 +8,21 @@ import { RenderExperienceInput, type RenderExperienceOutput } from '../schemas.j
 import { makeError, newRequestId, type ToolOutcome } from '../errors.js';
 import type { RegistryData } from '../registry-data.js';
 import { validateFillTool } from './validate-fill.js';
-import { listRenderFiles, runRender } from '../render-store.js';
+import { BUILD_TIMEOUT_MS, listRenderFiles, runRender } from '../render-store.js';
+
+/** The bundle's entry document - always present in `files`, whatever the cap. */
+const ENTRY_FILE = 'index.html';
+
+/**
+ * Cap on the `files` pointer list.
+ *
+ * 50 covers a current bundle's ENTIRE non-font asset graph (1 html + 20 js +
+ * 19 css = 40 today) with headroom for a template or two more, so the truncated
+ * tail is fonts - the part of the artifact a caller never addresses
+ * individually. That keeps the result around 5 kB of JSON instead of 13 kB,
+ * and any caller that wants the complete artifact copies `outDir`.
+ */
+const MAX_LISTED_FILES = 50;
 
 export async function renderExperienceTool(
   registry: RegistryData,
@@ -80,15 +94,28 @@ export async function renderExperienceTool(
     };
   }
   if (!built.ok) {
+    // A timeout and a build failure need DIFFERENT remediation: telling a
+    // caller whose cold build ran long to go look for a template-map gap sends
+    // them after a bug that is not there.
     return {
       ok: false,
-      error: makeError('INTERNAL_ERROR', 'Render failed; no bundle was kept.', {
-        requestId,
-        details: [built.logTail],
-        remediation: [
-          'Inspect the build log tail; a template map gap in render-host/src/templates.ts is the most common cause.',
-        ],
-      }),
+      error: makeError(
+        'INTERNAL_ERROR',
+        built.timedOut ? 'Render timed out; no bundle was kept.' : 'Render failed; no bundle was kept.',
+        {
+          requestId,
+          details: [built.logTail],
+          remediation: built.timedOut
+            ? [
+                `The build exceeded ${BUILD_TIMEOUT_MS}ms and was killed - nothing in the log tail need be wrong.`,
+                'A cold build (fresh install, cold Vite cache, Windows) is far slower than a warm ~2s one; retry, since the second build reuses the cache.',
+                'If it keeps timing out, raise the ceiling with OPENDESIGN_RENDER_BUILD_TIMEOUT_MS (milliseconds) on the server process.',
+              ]
+            : [
+                'Inspect the build log tail; a template map gap in render-host/src/templates.ts is the most common cause.',
+              ],
+        },
+      ),
     };
   }
 
@@ -108,16 +135,31 @@ export async function renderExperienceTool(
       }),
     };
   }
+  // Cap the pointer list. A bundle is ~117 files today (12 lazy template
+  // chunks + 19 css + 77 fonts), and the design's own constraint is "pointers
+  // + small metadata" - an uncapped list scales with the font set, not with
+  // anything the caller can act on. The entry is pinned first so it survives
+  // any cap, and `fileCount` / `filesTruncated` make the truncation visible
+  // rather than silent. The whole artifact is still retrievable: that is what
+  // `outDir` is for.
+  const ranked = [...files].sort((a, b) => {
+    if (a.path === ENTRY_FILE) return -1;
+    if (b.path === ENTRY_FILE) return 1;
+    return a.path < b.path ? -1 : a.path > b.path ? 1 : 0;
+  });
   return {
     ok: true,
     data: {
       renderId: built.renderId,
-      entryUri: `opendesign://renders/${built.renderId}/index.html`,
-      files: files.map((f) => ({
+      entryUri: `opendesign://renders/${built.renderId}/${ENTRY_FILE}`,
+      outDir: built.outDir,
+      files: ranked.slice(0, MAX_LISTED_FILES).map((f) => ({
         uri: `opendesign://renders/${built.renderId}/${f.path}`,
         path: f.path,
         bytes: f.bytes,
       })),
+      fileCount: files.length,
+      filesTruncated: files.length > MAX_LISTED_FILES,
       totalBytes: files.reduce((n, f) => n + f.bytes, 0),
       buildMs: built.buildMs,
     },

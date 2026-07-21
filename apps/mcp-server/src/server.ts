@@ -398,7 +398,7 @@ export function createServer(registry: RegistryData, logger: Logger): McpServer 
     {
       title: 'Render experience bundle',
       description:
-        'Build a standalone static bundle (Vite) for a world template + validated fill. Returns render resource URIs + sizes - fetch content via resources/read. Builds are serialized; the 5 most recent renders are kept.',
+        'Build a standalone static bundle (Vite) for a world template + validated fill. Returns the absolute `outDir` of the built bundle (copy that directory when the client shares the server filesystem - the cheapest way to obtain the artifact) plus a capped list of render resource URIs + sizes for fetching individual files via resources/read. The 5 most recent renders are kept.',
       inputSchema: RenderExperienceInput.shape,
       outputSchema: RenderExperienceOutput.shape,
       annotations: {
@@ -414,7 +414,7 @@ export function createServer(registry: RegistryData, logger: Logger): McpServer 
       const outcome = await renderExperienceTool(registry, args);
       const durationMs = Math.round(performance.now() - startedAt);
       if (outcome.ok) {
-        logger.audit({ tool: 'render_experience', status: 'ok', durationMs, count: outcome.data.files.length });
+        logger.audit({ tool: 'render_experience', status: 'ok', durationMs, count: outcome.data.fileCount });
       } else {
         logger.audit({ tool: 'render_experience', status: 'error', durationMs, code: outcome.error.code });
       }

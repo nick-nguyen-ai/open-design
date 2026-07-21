@@ -441,8 +441,19 @@ export type RenderExperienceInput = z.infer<typeof RenderExperienceInput>;
 export const RenderExperienceOutput = z.object({
   renderId: z.string(),
   entryUri: z.string().describe('opendesign://renders/<renderId>/index.html'),
-  files: z.array(ReferenceFile),
-  totalBytes: z.number().int(),
+  outDir: z
+    .string()
+    .describe(
+      'Absolute path of the built bundle directory on the SERVER filesystem. Usable only when the client shares a filesystem with the server (always true over stdio): copy this directory with your own file tools instead of fetching each file over resources/read. The bundle is built with relative asset URLs, so a copied directory opens straight from file://.',
+    ),
+  files: z
+    .array(ReferenceFile)
+    .describe(
+      'Pointers to emitted files, capped at MAX_LISTED_FILES. `index.html` is always included. When fileCount exceeds the cap, filesTruncated is true and the full artifact is only available via outDir.',
+    ),
+  fileCount: z.number().int().describe('Total number of files emitted, whether or not `files` lists them all.'),
+  filesTruncated: z.boolean().describe('True when `files` is a capped subset of the emitted files.'),
+  totalBytes: z.number().int().describe('Total bytes of ALL emitted files, not just the listed ones.'),
   buildMs: z.number().int(),
 });
 export type RenderExperienceOutput = z.infer<typeof RenderExperienceOutput>;

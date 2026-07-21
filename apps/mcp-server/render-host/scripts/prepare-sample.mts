@@ -1,9 +1,11 @@
 /**
  * Writes generated/{render-config,fill}.json from the cockpit shipped fill.
  *
- * This is the build-smoke input: it puts render-host in exactly the state
- * `render_experience` will leave it in before shelling out to `vite build`.
- * Run from anywhere:
+ * This is the build-smoke input: `generated/` is the COMMITTED sample that
+ * `@render-input/*` resolves to when OPENDESIGN_RENDER_INPUT is unset, i.e.
+ * when render-host is built standalone rather than by `render_experience`
+ * (which writes its own private input directory per render and never touches
+ * these files). Run from anywhere:
  *   node --import tsx apps/mcp-server/render-host/scripts/prepare-sample.mts
  */
 import { writeFileSync } from 'node:fs';

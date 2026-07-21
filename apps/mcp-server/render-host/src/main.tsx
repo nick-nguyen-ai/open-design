@@ -1,8 +1,13 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { MemoryRouter } from 'react-router-dom';
-import config from '../generated/render-config.json';
-import fill from '../generated/fill.json';
+// `@render-input/*` is a Vite alias, NOT a package: it resolves to
+// $OPENDESIGN_RENDER_INPUT when the MCP server sets it (one private input
+// directory per render, so two server processes can never read each other's
+// inputs), and to the committed `render-host/generated/` sample otherwise, so
+// this app still builds standalone. See vite.config.ts.
+import config from '@render-input/render-config.json';
+import fill from '@render-input/fill.json';
 import { TEMPLATES } from './templates.js';
 import './index.css';
 

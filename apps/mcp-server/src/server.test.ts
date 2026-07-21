@@ -6,7 +6,7 @@
  * JSON-RPC frames while logs go to stderr — the classic stdio-MCP bug.
  */
 import { spawn } from 'node:child_process';
-import { mkdirSync, readdirSync, readFileSync, rmSync, utimesSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, utimesSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
@@ -39,6 +39,25 @@ import {
 } from './schemas.js';
 import { quarterFill } from '../../../experiences/slide-decks/deck-quarterly-business-review/content.js';
 import { cockpitFill } from '../../../experiences/dashboards/db-model-monitoring-cockpit/content.js';
+
+/**
+ * The longest plain-ASCII string value in a fill - a marker that survives
+ * minification verbatim (string literal contents are preserved) and that no
+ * other fill in this repo carries. Restricted to characters a minifier never
+ * has to escape, so the search is a straight substring match.
+ */
+function fillMarker(fill: unknown): string {
+  let best = '';
+  const visit = (node: unknown): void => {
+    if (typeof node === 'string') {
+      if (node.length > best.length && /^[A-Za-z0-9 ,.:%()-]+$/.test(node)) best = node;
+    } else if (Array.isArray(node)) node.forEach(visit);
+    else if (node && typeof node === 'object') Object.values(node).forEach(visit);
+  };
+  visit(fill);
+  if (best.length < 20) throw new Error('no usable fill marker found');
+  return best;
+}
 
 /** A slide-deck DesignContext-lite for compose_slide_deck. */
 function deckContext(overrides: Record<string, unknown> = {}): Record<string, unknown> {
@@ -658,6 +677,17 @@ describe('mcp-server tools', () => {
         expect(f.uri).toBe(`opendesign://templates/${out.worldTemplateId}/source/${f.path}`);
         expect(f.bytes).toBeGreaterThan(0);
       }
+      // BORROW invariant: the manifest points at DESIGN, never at shipped
+      // editorial content. Listing content.ts / *fill.ts under a note that
+      // says "port this design faithfully" told the porter to reproduce the
+      // words too. Registry manifests carry no design either.
+      const paths = out.reference!.sourceFiles.map((f) => f.path);
+      expect(paths.some((p) => /\.(tsx|css)$/.test(p))).toBe(true);
+      for (const p of paths) {
+        expect(p).toMatch(/\.(tsx|ts|css)$/);
+        expect(p).not.toMatch(/(^|\/)(content\.ts|[^/]*fill\.ts|[^/]*\.manifest\.ts)$/);
+      }
+
       // by-reference contract: no file content anywhere in the payload
       expect(JSON.stringify(out)).not.toContain('import ');
     });
@@ -782,6 +812,31 @@ describe('mcp-server tools', () => {
         expect(out.totalBytes).toBeGreaterThan(10_000);
         expect(out.buildMs).toBeGreaterThan(0);
 
+        // The pointer list is capped, so `fileCount` is the honest total and
+        // the truncation is declared rather than silent. The entry survives
+        // the cap unconditionally.
+        expect(out.fileCount).toBeGreaterThanOrEqual(out.files.length);
+        expect(out.files.length).toBeLessThanOrEqual(50);
+        expect(out.filesTruncated).toBe(out.fileCount > out.files.length);
+        expect(out.files[0]!.path).toBe('index.html');
+
+        // outDir is the whole point of item 2: a local client copies the
+        // directory instead of issuing one resources/read per emitted file.
+        expect(path.isAbsolute(out.outDir)).toBe(true);
+        expect(out.outDir).toBe(path.join(appRoot, 'render-out', out.renderId, 'bundle'));
+        expect(readFileSync(path.join(out.outDir, 'index.html'), 'utf8')).toContain('<div id="root">');
+
+        // The build's OWN inputs live beside the bundle, never inside it: not
+        // listed, not fetchable, not copied along with the artifact.
+        const inputDir = path.join(appRoot, 'render-out', out.renderId, 'input');
+        expect(readFileSync(path.join(inputDir, 'render-config.json'), 'utf8')).toContain('cockpit');
+        expect(listRenderFiles(out.renderId)!.some((f) => f.path.includes('input/'))).toBe(false);
+        expect(readdirSync(out.outDir)).not.toContain('input');
+        expect(readRenderFile(out.renderId, '../input/fill.json')).toBeUndefined();
+        await expect(
+          h.client.readResource({ uri: `opendesign://renders/${out.renderId}/../input/fill.json` }),
+        ).rejects.toThrow();
+
         const entry = await h.client.readResource({ uri: out.entryUri });
         expect(resourceText(entry)).toContain('<div id="root">');
 
@@ -791,8 +846,9 @@ describe('mcp-server tools', () => {
         const assetRead = await h.client.readResource({ uri: asset.uri });
         expect(Buffer.byteLength(resourceText(assetRead), 'utf8')).toBe(asset.bytes);
 
-        // Contract: a render NEVER leaves the tracked render-host inputs dirty
-        // (no client-supplied fill sitting in the working tree).
+        // Contract: the committed render-host sample is STATIC - no build
+        // writes it, so no render can dirty the working tree or leave a
+        // client's fill sitting in a tracked file.
         const generated = path.join(appRoot, 'render-host', 'generated');
         expect(readFileSync(path.join(generated, 'render-config.json'), 'utf8')).toBe(
           '{\n  "templateId": "cockpit"\n}\n',
@@ -847,8 +903,8 @@ describe('mcp-server tools', () => {
             // shape the store will touch (see the traversal guard).
             const id = `00000000-0000-4000-8000-00000000000${i}`;
             const dir = path.join(outRoot, id);
-            mkdirSync(dir, { recursive: true });
-            writeFileSync(path.join(dir, 'index.html'), '<div id="root"></div>');
+            mkdirSync(path.join(dir, 'bundle'), { recursive: true });
+            writeFileSync(path.join(dir, 'bundle', 'index.html'), '<div id="root"></div>');
             const aged = new Date(Date.now() - (MAX_RENDERS + 2 - i) * 60_000);
             utimesSync(dir, aged, aged);
             planted.push(id);
@@ -897,9 +953,18 @@ describe('mcp-server tools', () => {
         expect(listRenderFiles(id)).toBeUndefined();
       }
       // ...and no traversal URI can reach content through resources/read.
+      //
+      // The BACKSLASH form is the one that matters. `opendesign://renders/../package.json`
+      // is normalised by URL parsing BEFORE the template matcher sees it, so
+      // it never reaches the handler with a traversal id at all and would pass
+      // with the guard deleted - a vacuous test. `opendesign:` is not a
+      // special scheme, so backslashes survive parsing verbatim and the id
+      // `..\..\apps\mcp-server` reaches renderDir intact (on win32 that is a
+      // real escape). Asserting the handler's own message proves the request
+      // got there and was refused, rather than dying somewhere upstream.
       await expect(
-        h.client.readResource({ uri: 'opendesign://renders/../package.json' }),
-      ).rejects.toThrow();
+        h.client.readResource({ uri: 'opendesign://renders/..\\..\\apps\\mcp-server/package.json' }),
+      ).rejects.toThrow(/re-run render_experience/);
     });
 
     it('refuses a traversal experienceId on the parts resource', async () => {
@@ -907,25 +972,31 @@ describe('mcp-server tools', () => {
       // parsing intact and reach experienceDir verbatim - on win32 that id
       // resolves to apps/mcp-server and served its package.json before the
       // guard. (The store-level proof lives in reference-files.test.ts.)
-      for (const uri of [
-        'opendesign://parts/..\\..\\apps\\mcp-server/package.json',
-        'opendesign://parts/../../apps/mcp-server/package.json',
-      ]) {
-        await expect(h.client.readResource({ uri })).rejects.toThrow();
-      }
+      //
+      // Only the backslash form is asserted. The forward-slash sibling
+      // (`opendesign://parts/../../apps/mcp-server/package.json`) is
+      // normalised away by URL parsing before the template matcher runs, so it
+      // never reaches the handler and passed even with the guard removed.
+      await expect(
+        h.client.readResource({ uri: 'opendesign://parts/..\\..\\apps\\mcp-server/package.json' }),
+      ).rejects.toThrow(/Unknown experience/);
     });
 
-    it('reports an fs failure as a structured McpError and still restores the tracked inputs', async () => {
-      // No vite build: the injected failure fires at the second generated
-      // write, so this exercises the FAILURE-path restore (and the
+    it('reports an fs failure as a structured McpError and leaves no render dir behind', async () => {
+      // No vite build: the injected failure fires at the second per-render
+      // input write, so this exercises the total-failure path (and the
       // structured-error contract) in milliseconds.
-      const generated = path.join(appRoot, 'render-host', 'generated');
+      const outRoot = path.join(appRoot, 'render-out');
+      const dirsBefore = () =>
+        new Set(
+          existsSync(outRoot)
+            ? readdirSync(outRoot, { withFileTypes: true }).filter((e) => e.isDirectory()).map((e) => e.name)
+            : [],
+        );
+      const before = dirsBefore();
       const realWrite = renderFs.writeFileSync;
-      writeFileSync(path.join(generated, 'render-config.json'), '{"templateId":"DIRTY"}');
       renderFs.writeFileSync = ((file: string, data: string, ...rest: unknown[]) => {
-        // Only the client-fill write fails; the restore's default write (which
-        // is byte-identical to the committed default) goes through.
-        if (String(file).endsWith('fill.json') && String(data) !== '{}\n') {
+        if (String(file).endsWith('fill.json')) {
           throw Object.assign(new Error('EPERM: operation not permitted, open fill.json'), { code: 'EPERM' });
         }
         return (realWrite as (...a: unknown[]) => unknown)(file, data, ...rest);
@@ -942,11 +1013,64 @@ describe('mcp-server tools', () => {
       } finally {
         renderFs.writeFileSync = realWrite;
       }
-      expect(readFileSync(path.join(generated, 'render-config.json'), 'utf8')).toBe(
-        '{\n  "templateId": "cockpit"\n}\n',
-      );
-      expect(readFileSync(path.join(generated, 'fill.json'), 'utf8')).toBe('{}\n');
+      // A failed render leaves NOTHING: the half-written input directory is
+      // removed along with the (never created) bundle.
+      expect([...dirsBefore()]).toEqual([...before]);
     });
+
+    it(
+      'gives concurrent renders of different templates their own inputs (cross-process race)',
+      async () => {
+        // The bug this closes: both builds used to write the caller's template
+        // id and fill into the SHARED tracked render-host/generated/*.json,
+        // then shell out. Interleaved, one caller got a green build of the
+        // other caller's template and fill. Inputs are now per-render, so each
+        // bundle can only contain its own.
+        //
+        // The proof is the FILL, not the template id: vite inlines the imported
+        // fill JSON into the entry chunk, so an interleaved render would show
+        // up as bundle A carrying B's editorial strings.
+        const [cockpitRes, quarterRes] = await Promise.all([
+          h.client.callTool({
+            name: 'render_experience',
+            arguments: { worldTemplateId: 'cockpit', fill: cockpitFill },
+          }) as Promise<CallToolResult>,
+          h.client.callTool({
+            name: 'render_experience',
+            arguments: { worldTemplateId: 'quarter', fill: quarterFill },
+          }) as Promise<CallToolResult>,
+        ]);
+        expect(cockpitRes.isError).toBeFalsy();
+        expect(quarterRes.isError).toBeFalsy();
+        const a = RenderExperienceOutput.parse(cockpitRes.structuredContent);
+        const b = RenderExperienceOutput.parse(quarterRes.structuredContent);
+        expect(a.renderId).not.toBe(b.renderId);
+
+        // Each render's own input file names its own template.
+        const configOf = (out: { outDir: string }) =>
+          JSON.parse(readFileSync(path.join(path.dirname(out.outDir), 'input', 'render-config.json'), 'utf8'));
+        expect(configOf(a).templateId).toBe('cockpit');
+        expect(configOf(b).templateId).toBe('quarter');
+
+        // ...and each BUNDLE carries its own fill and not the other's. The
+        // marker strings are pulled from the real fills so they cannot drift.
+        const jsOf = (out: { renderId: string }) =>
+          listRenderFiles(out.renderId)!
+            .filter((f) => f.path.endsWith('.js'))
+            .map((f) => readRenderFile(out.renderId, f.path)!.toString('utf8'))
+            .join('\n');
+        const cockpitMarker = fillMarker(cockpitFill);
+        const quarterMarker = fillMarker(quarterFill);
+        expect(cockpitMarker).not.toBe(quarterMarker);
+        const jsA = jsOf(a);
+        const jsB = jsOf(b);
+        expect(jsA).toContain(cockpitMarker);
+        expect(jsA).not.toContain(quarterMarker);
+        expect(jsB).toContain(quarterMarker);
+        expect(jsB).not.toContain(cockpitMarker);
+      },
+      480_000,
+    );
   });
 });
 

@@ -1,16 +1,30 @@
 // apps/mcp-server/src/render-store.ts
 /**
- * Render builds and their on-disk store. Builds are SERIALIZED (one vite
- * build at a time - they share render-host/generated). The store keeps the
- * MAX_RENDERS most recent bundles under apps/mcp-server/render-out/ and
- * evicts older ones; an evicted read returns undefined (NOT_FOUND upstream).
+ * Render builds and their on-disk store. The store keeps the MAX_RENDERS most
+ * recent renders under apps/mcp-server/render-out/ and evicts older ones; an
+ * evicted read returns undefined (NOT_FOUND upstream).
  *
- * Working-tree hygiene: `render-host/generated/render-config.json` and
- * `generated/fill.json` are TRACKED files with committed defaults. A build
- * overwrites them with the caller's template id and fill, so both are restored
- * to those defaults in a `finally` - on success AND on failure. A render must
- * never leave the working tree dirty, and client-supplied content must never
- * linger in a tracked file.
+ * On-disk shape - one directory per render, with the build's INPUTS and its
+ * OUTPUT kept apart:
+ *
+ *   render-out/<renderId>/input/{render-config,fill}.json   <- what vite reads
+ *   render-out/<renderId>/bundle/                           <- what is served
+ *
+ * Nothing a build reads is shared, so two MCP server processes on the same
+ * checkout cannot interfere. (They used to: both wrote the caller's template
+ * id and fill into the TRACKED `render-host/generated/*.json` before shelling
+ * out, so an interleaving handed one caller a green build of the other
+ * caller's template. Per-render inputs make that structurally impossible.) The
+ * committed `render-host/generated/*.json` are now a static sample that no
+ * build ever mutates - they are what `render-host` builds from when
+ * OPENDESIGN_RENDER_INPUT is unset.
+ *
+ * `input/` sits OUTSIDE `bundle/`, so it is never emitted into the served
+ * output, never listed in `files`, and never fetchable as a render resource -
+ * but it is inside the render directory, so eviction reclaims it with the rest.
+ *
+ * Builds are still serialized in-process (one vite build at a time) to bound
+ * CPU, not for correctness.
  *
  * Security: `renderId` reaches this module straight from a client-supplied
  * `opendesign://renders/{renderId}/{+file}` URI, and the SDK does NOT
@@ -27,19 +41,21 @@ import { repoRoot } from './reference-files.js';
 
 export const MAX_RENDERS = 5;
 
-/** One build's wall-clock ceiling. A healthy build is ~2s; 60s means something is wrong. */
-export const BUILD_TIMEOUT_MS = 60_000;
-
 /**
- * The committed contents of the two tracked generated inputs, byte for byte
- * (trailing newline included). Restored after every build. Kept as literals
- * rather than snapshotted at startup so a crashed previous run cannot make a
- * dirty file the "default".
+ * One build's wall-clock ceiling, overridable with OPENDESIGN_RENDER_BUILD_TIMEOUT_MS.
+ *
+ * A WARM build is ~2s, which is what the old 60s ceiling was sized against -
+ * but a COLD one is a different animal: the React and Tailwind plugins scan
+ * all of `experiences/` plus six package trees, and on Windows right after a
+ * fresh install that can run for minutes. Killing a healthy-but-slow first
+ * build and blaming a template-map gap is worse than waiting, so the default
+ * is generous and the ceiling exists only to stop a truly stuck build from
+ * hanging the client forever.
  */
-const GENERATED_DEFAULTS: Record<string, string> = {
-  'render-config.json': '{\n  "templateId": "cockpit"\n}\n',
-  'fill.json': '{}\n',
-};
+export const BUILD_TIMEOUT_MS = ((): number => {
+  const raw = Number(process.env.OPENDESIGN_RENDER_BUILD_TIMEOUT_MS);
+  return Number.isFinite(raw) && raw > 0 ? raw : 600_000;
+})();
 
 const renderHost = (): string => path.join(repoRoot(), 'apps', 'mcp-server', 'render-host');
 const renderOut = (): string => path.join(repoRoot(), 'apps', 'mcp-server', 'render-out');
@@ -58,6 +74,12 @@ export function renderDir(renderId: string): string | undefined {
   const dir = path.join(root, renderId);
   if (path.dirname(dir) !== root) return undefined;
   return dir;
+}
+
+/** The SERVED half of a render: everything vite emitted, and nothing else. */
+export function bundleDir(renderId: string): string | undefined {
+  const dir = renderDir(renderId);
+  return dir === undefined ? undefined : path.join(dir, 'bundle');
 }
 
 /**
@@ -84,7 +106,7 @@ function killTree(child: ChildProcess): void {
   child.kill();
 }
 
-function viteBuild(outDir: string): Promise<{ code: number; logTail: string }> {
+function viteBuild(outDir: string, inputDir: string): Promise<{ code: number; logTail: string; timedOut: boolean }> {
   return new Promise((resolve) => {
     const child = spawn(
       'corepack',
@@ -99,7 +121,12 @@ function viteBuild(outDir: string): Promise<{ code: number; logTail: string }> {
         outDir,
         '--emptyOutDir',
       ],
-      { cwd: repoRoot(), shell: process.platform === 'win32' },
+      {
+        cwd: repoRoot(),
+        shell: process.platform === 'win32',
+        // The ONE thing that tells this build which inputs are its own.
+        env: { ...process.env, OPENDESIGN_RENDER_INPUT: inputDir },
+      },
     );
     let log = '';
     let timedOut = false;
@@ -111,23 +138,14 @@ function viteBuild(outDir: string): Promise<{ code: number; logTail: string }> {
     child.stderr.on('data', (d: Buffer) => (log += d.toString()));
     child.on('error', (err) => {
       clearTimeout(timer);
-      resolve({ code: 1, logTail: `${log}\nspawn failed: ${err.message}`.slice(-2000) });
+      resolve({ code: 1, logTail: `${log}\nspawn failed: ${err.message}`.slice(-2000), timedOut: false });
     });
     child.on('close', (code) => {
       clearTimeout(timer);
       if (timedOut) log += `\nbuild exceeded ${BUILD_TIMEOUT_MS}ms and was killed.`;
-      resolve({ code: timedOut ? 1 : (code ?? 1), logTail: log.slice(-2000) });
+      resolve({ code: timedOut ? 1 : (code ?? 1), logTail: log.slice(-2000), timedOut });
     });
   });
-}
-
-/** Restore the tracked render-host inputs to their committed defaults. */
-function restoreGeneratedDefaults(): void {
-  const dir = path.join(renderHost(), 'generated');
-  renderFs.mkdirSync(dir, { recursive: true });
-  for (const [name, contents] of Object.entries(GENERATED_DEFAULTS)) {
-    renderFs.writeFileSync(path.join(dir, name), contents);
-  }
 }
 
 /**
@@ -144,14 +162,28 @@ function removeQuietly(dir: string): string | undefined {
   }
 }
 
+/**
+ * Best-effort housekeeping: keep the MAX_RENDERS most recent render dirs.
+ *
+ * TOTAL by construction. It runs after a build has already succeeded, so a
+ * transient readdir/stat failure (a concurrent evict from a second server
+ * process removing a directory between the listing and the stat is the
+ * realistic one) must not turn a good render into an INTERNAL_ERROR and take
+ * its bundle down with it. Losing an eviction pass costs disk; losing the
+ * render costs the caller a rebuild.
+ */
 function evictOld(): void {
-  if (!existsSync(renderOut())) return;
-  const dirs = readdirSync(renderOut(), { withFileTypes: true })
-    .filter((e) => e.isDirectory())
-    .map((e) => ({ name: e.name, mtime: statSync(path.join(renderOut(), e.name)).mtimeMs }))
-    .sort((a, b) => b.mtime - a.mtime);
-  for (const stale of dirs.slice(MAX_RENDERS)) {
-    removeQuietly(path.join(renderOut(), stale.name));
+  try {
+    if (!existsSync(renderOut())) return;
+    const dirs = readdirSync(renderOut(), { withFileTypes: true })
+      .filter((e) => e.isDirectory())
+      .map((e) => ({ name: e.name, mtime: statSync(path.join(renderOut(), e.name)).mtimeMs }))
+      .sort((a, b) => b.mtime - a.mtime);
+    for (const stale of dirs.slice(MAX_RENDERS)) {
+      removeQuietly(path.join(renderOut(), stale.name));
+    }
+  } catch {
+    // Housekeeping only - never fail a completed render over it.
   }
 }
 
@@ -177,44 +209,48 @@ function entryLooksRenderable(outDir: string): string | undefined {
 }
 
 export type RenderResult =
-  | { ok: true; renderId: string; buildMs: number }
-  | { ok: false; logTail: string };
+  | { ok: true; renderId: string; outDir: string; buildMs: number }
+  | { ok: false; logTail: string; timedOut: boolean };
 
 export function runRender(templateId: string, fill: Record<string, unknown>): Promise<RenderResult> {
   const job = queue.then(async (): Promise<RenderResult> => {
     const renderId = randomUUID();
-    const outDir = path.join(renderOut(), renderId);
-    const generated = path.join(renderHost(), 'generated');
+    const dir = path.join(renderOut(), renderId);
+    const inputDir = path.join(dir, 'input');
+    const outDir = path.join(dir, 'bundle');
     const started = Date.now();
-    // Total failure path: ANY throw in the body (or in the restore) becomes a
-    // structured `ok: false`, never a rejection - an unstructured rejection
-    // would reach the SDK as a bare Error.message and break the invariant that
-    // every isError result carries a serialized McpError. Cleanup still runs.
+    // Total failure path: ANY throw in the body becomes a structured
+    // `ok: false`, never a rejection - an unstructured rejection would reach
+    // the SDK as a bare Error.message and break the invariant that every
+    // isError result carries a serialized McpError. Cleanup still runs, and it
+    // removes the WHOLE render dir (inputs included), so a failed render
+    // leaves nothing behind.
     try {
-      try {
-        renderFs.mkdirSync(generated, { recursive: true });
-        renderFs.writeFileSync(path.join(generated, 'render-config.json'), JSON.stringify({ templateId }));
-        renderFs.writeFileSync(path.join(generated, 'fill.json'), JSON.stringify(fill));
-        const { code, logTail } = await viteBuild(outDir);
-        if (code !== 0) {
-          const cleanupNote = removeQuietly(outDir); // never a partial bundle
-          return { ok: false, logTail: cleanupNote ? `${logTail}\n${cleanupNote}` : logTail };
-        }
-        const unrenderable = entryLooksRenderable(outDir);
-        if (unrenderable) {
-          const cleanupNote = removeQuietly(outDir);
-          return { ok: false, logTail: [unrenderable, logTail, cleanupNote].filter(Boolean).join('\n') };
-        }
-        evictOld();
-        return { ok: true, renderId, buildMs: Date.now() - started };
-      } finally {
-        restoreGeneratedDefaults();
+      renderFs.mkdirSync(inputDir, { recursive: true });
+      renderFs.writeFileSync(path.join(inputDir, 'render-config.json'), JSON.stringify({ templateId }));
+      renderFs.writeFileSync(path.join(inputDir, 'fill.json'), JSON.stringify(fill));
+      const { code, logTail, timedOut } = await viteBuild(outDir, inputDir);
+      if (code !== 0) {
+        const cleanupNote = removeQuietly(dir); // never a partial bundle
+        return { ok: false, timedOut, logTail: cleanupNote ? `${logTail}\n${cleanupNote}` : logTail };
       }
+      const unrenderable = entryLooksRenderable(outDir);
+      if (unrenderable) {
+        const cleanupNote = removeQuietly(dir);
+        return {
+          ok: false,
+          timedOut: false,
+          logTail: [unrenderable, logTail, cleanupNote].filter(Boolean).join('\n'),
+        };
+      }
+      evictOld();
+      return { ok: true, renderId, outDir, buildMs: Date.now() - started };
     } catch (err) {
-      const cleanupNote = removeQuietly(outDir);
+      const cleanupNote = removeQuietly(dir);
       const message = err instanceof Error ? err.message : String(err);
       return {
         ok: false,
+        timedOut: false,
         logTail: [`render job failed before a bundle could be kept: ${message}`, cleanupNote]
           .filter(Boolean)
           .join('\n'),
@@ -225,9 +261,12 @@ export function runRender(templateId: string, fill: Record<string, unknown>): Pr
   return job;
 }
 
-/** Recursive listing of one render's emitted files (posix-relative, sorted). */
+/**
+ * Recursive listing of one render's EMITTED files (posix-relative, sorted).
+ * Scoped to `bundle/`, so the build's own inputs are never listed.
+ */
 export function listRenderFiles(renderId: string): Array<{ path: string; bytes: number }> | undefined {
-  const dir = renderDir(renderId);
+  const dir = bundleDir(renderId);
   if (!dir || !existsSync(dir)) return undefined;
   const out: Array<{ path: string; bytes: number }> = [];
   const walk = (d: string): void => {
@@ -241,9 +280,13 @@ export function listRenderFiles(renderId: string): Array<{ path: string; bytes: 
   return out.sort((a, b) => (a.path < b.path ? -1 : a.path > b.path ? 1 : 0));
 }
 
-/** Traversal-safe read of one file from a render bundle; undefined if evicted or absent. */
+/**
+ * Traversal-safe read of one file from a render BUNDLE; undefined if evicted
+ * or absent. Rooted at `bundle/`, so `input/` is unreachable through the
+ * renders resource even by an explicit `../input/fill.json`.
+ */
 export function readRenderFile(renderId: string, relPath: string): Buffer | undefined {
-  const dir = renderDir(renderId);
+  const dir = bundleDir(renderId);
   if (!dir) return undefined;
   const abs = path.resolve(dir, relPath);
   if (!abs.startsWith(dir + path.sep) || !existsSync(abs) || !statSync(abs).isFile()) return undefined;
