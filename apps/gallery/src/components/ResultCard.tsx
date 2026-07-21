@@ -4,7 +4,7 @@ import type { ApprovalState } from '@enterprise-design/contracts';
 import type { SearchResult } from '@enterprise-design/search';
 import { useMotionPreference } from '@enterprise-design/motion';
 import { Badge, Card, type BadgeTone } from '@enterprise-design/primitives';
-import { componentById, experienceById } from '../data/registry.js';
+import { componentById, experienceById, grammarById } from '../data/registry.js';
 import { liveRoute } from '../data/live.js';
 import {
   APPROVAL_LABEL,
@@ -17,7 +17,9 @@ import {
   motionLevelLabel,
   SURFACE_LABEL,
 } from '../data/labels.js';
+import { ComponentPreviewFrame } from './ComponentPreviewFrame.js';
 import { PreviewImage } from './PreviewImage.js';
+import { GrammarSpecimen } from './GrammarSpecimen.js';
 
 const APPROVAL_TONE: Record<ApprovalState, BadgeTone> = {
   approved: 'success',
@@ -84,9 +86,14 @@ function CardFooter({ result }: { result: SearchResult }) {
   }
 
   // grammar
+  const grammar = grammarById.get(result.id);
+  const exampleCount =
+    grammar?.exampleExperienceIds.filter((id) => experienceById.has(id)).length ?? 0;
   return (
     <div className="text-xs text-text-secondary">
-      <span className="font-medium">Design grammar</span>
+      <span className="font-medium">
+        {exampleCount} example {exampleCount === 1 ? 'template' : 'templates'}
+      </span>
     </div>
   );
 }
@@ -223,6 +230,13 @@ export function ResultCard({ result, onOpen }: ResultCardProps) {
         <div className="flex h-full flex-col gap-3">
           <div className="relative aspect-[16/10] shrink-0 overflow-hidden border border-border-subtle bg-surface-sunken">
             <PreviewPlate result={result} accent={accent} live={liveHref !== null} />
+            {result.entityType === 'grammar' && (
+              <GrammarSpecimen
+                grammarId={result.id}
+                alt=""
+                className="absolute inset-0 h-full w-full object-cover object-top"
+              />
+            )}
             {liveHref && (
               <PreviewImage
                 id={result.id}
@@ -230,6 +244,7 @@ export function ResultCard({ result, onOpen }: ResultCardProps) {
                 className="absolute inset-0 h-full w-full object-cover object-top"
               />
             )}
+            {result.entityType === 'component' && <ComponentPreviewFrame componentId={result.id} />}
             {liveHref && liveHover && <LiveHoverFrame href={liveHref} />}
           </div>
 
