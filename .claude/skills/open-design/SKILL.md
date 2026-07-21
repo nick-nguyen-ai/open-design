@@ -1,15 +1,16 @@
 ---
 name: open-design
-description: Use for any design work in this repo. Three routes — (a) COMPOSE, turning source content (docs, notes, URLs, briefs) into a finished rendered experience (slide deck, dashboard, project page, personal page, technical explainer) via the enterprise-design MCP server; (b) BORROW, reusing the UI or animation of a part of a live world identified by a data-part-id from the gallery's part inspector; (c) AUDIT, grading an existing experience or route for design quality. Triggers on "create/make/build a slide deck / presentation / dashboard / project page / profile page / explainer from …", "Borrow part <experienceId>/<section>[/<part>] …", "audit/review the design of …", and any request naming the retired experience-composer, deck-composer, or design-borrow skills (this skill replaced all three).
+description: Use for any design work in this repo. Four routes — (a) COMPOSE, turning source content (docs, notes, URLs, briefs) into a finished rendered experience (slide deck, dashboard, project page, personal page, technical explainer) via the enterprise-design MCP server; (b) BORROW, reusing the UI or animation of a part of a live world identified by a data-part-id from the gallery's part inspector; (c) AUDIT, grading an existing experience or route for design quality; (d) ADAPT, restyling a user's existing artifact (deck, page, document) with an OpenDesign template, whole or partial. Triggers on "create/make/build a slide deck / presentation / dashboard / project page / profile page / explainer from …", "Borrow part <experienceId>/<section>[/<part>] …", "audit/review the design of …", "restyle/redesign my existing deck/page with …", "apply this template to my slides", and any request naming the retired experience-composer, deck-composer, or design-borrow skills (this skill replaced all three).
 ---
 
 # Open Design
 
-One skill, three workflows. Read the ONE workflow file that matches the request and follow it exactly — the workflow files are the skill; this page only routes.
+One skill, four workflows. Read the ONE workflow file that matches the request and follow it exactly — the workflow files are the skill; this page only routes.
 
 ## Route
 
 - **COMPOSE** — the request turns source content into a NEW experience ("make a deck from these notes", "build a dashboard from this doc") → read and follow `workflows/compose.md`.
+- **ADAPT** - the request restyles an EXISTING artifact (the user's own deck, page, …) with OpenDesign, whole or partial ("restyle my deck with …", "apply this template to slides 3–5") → read and follow `workflows/adapt.md`.
 - **BORROW** — the request reuses an identified part of an existing world (a part ID like `deck-cloud-migration/waves/swimlanes`, or "that diagram / animation / treatment from <world>") → read and follow `workflows/borrow.md`.
 - **AUDIT** — the request grades existing design without changing it ("audit / review / check the quality of <route or experience>") → read and follow `workflows/audit.md`.
 
