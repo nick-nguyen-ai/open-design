@@ -8,7 +8,13 @@
  */
 import { GetPartReferenceInput, type GetPartReferenceOutput } from '../schemas.js';
 import { makeError, newRequestId, type ToolOutcome } from '../errors.js';
-import { experienceDir, listExperienceFiles, partFileUri, readExperienceFile } from '../reference-files.js';
+import {
+  experienceDir,
+  isDesignBearingFile,
+  listExperienceFiles,
+  partFileUri,
+  readExperienceFile,
+} from '../reference-files.js';
 
 const SOURCE_EXT = /\.(tsx|ts)$/;
 const MAX_SUGGESTIONS = 10;
@@ -41,13 +47,23 @@ export function getPartReferenceTool(rawInput: unknown): ToolOutcome<GetPartRefe
   }
 
   const tail = segments[segments.length - 1]!;
-  const files = listExperienceFiles(experienceId)!;
+  const files = listExperienceFiles(experienceId) ?? [];
   const matching: string[] = [];
   const seenPartIds = new Set<string>();
   for (const f of files) {
     if (!SOURCE_EXT.test(f.path)) continue;
-    const text = readExperienceFile(experienceId, f.path)!;
+    // A file can vanish or turn unreadable between the listing and the read
+    // (eviction, an editor's atomic rename, EPERM). A non-null assertion here
+    // would throw an UNSTRUCTURED error out of a registered tool handler and
+    // break the invariant that every isError result carries a serialized
+    // McpError; skipping the file is the honest degradation.
+    const text = readExperienceFile(experienceId, f.path);
+    if (!text) continue;
     for (const m of text.matchAll(/data-part-id="([^"]+)"/g)) seenPartIds.add(m[1]!);
+    // Scan every source file for known part ids (so the NOT_FOUND suggestions
+    // stay complete), but only ever RETURN design-bearing files - the same
+    // rule the compose reference manifest applies.
+    if (!isDesignBearingFile(f.path)) continue;
     if (text.includes(partId) || text.includes(`/${tail}`)) matching.push(f.path);
   }
 

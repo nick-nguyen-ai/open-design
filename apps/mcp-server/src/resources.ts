@@ -7,19 +7,8 @@
  */
 import { McpServer, ResourceTemplate } from '@modelcontextprotocol/sdk/server/mcp.js';
 import type { RegistryData } from './registry-data.js';
-import { experienceDir, readExperienceFile } from './reference-files.js';
+import { experienceDir, readExperienceFileBytes } from './reference-files.js';
 import { readRenderFile } from './render-store.js';
-
-function textContents(uri: string, text: string) {
-  return { contents: [{ uri, mimeType: 'text/plain', text }] };
-}
-
-// Exported so tests can assert the RFC 6570 reserved-expansion ({+file})
-// nested-path matching behaviour directly against the real templates, rather
-// than a copy that could silently drift from what the server registers.
-export const TEMPLATE_SOURCE_URI_TEMPLATE = 'opendesign://templates/{templateId}/source/{+file}';
-export const PART_SOURCE_URI_TEMPLATE = 'opendesign://parts/{experienceId}/{+file}';
-export const RENDER_FILE_URI_TEMPLATE = 'opendesign://renders/{renderId}/{+file}';
 
 /** Extensions served as `text`; anything else (fonts, images) goes back as a base64 blob. */
 const TEXT_MIME_TYPES: Record<string, string> = {
@@ -29,7 +18,31 @@ const TEXT_MIME_TYPES: Record<string, string> = {
   '.json': 'application/json',
   '.svg': 'image/svg+xml',
   '.txt': 'text/plain',
+  '.ts': 'text/plain',
+  '.tsx': 'text/plain',
+  '.md': 'text/markdown',
 };
+
+/**
+ * The one place file bytes become resource contents, shared by all three
+ * handlers. Text-typed extensions go back as `text`; everything else as a
+ * base64 `blob`. Every handler needs the blob branch, not just the renders
+ * one: the day a template ships a `.woff2` or a `.png`, decoding it as UTF-8
+ * and labelling it `text/plain` would hand the client mojibake.
+ */
+function fileContents(uri: string, file: string, data: Buffer) {
+  const mime = TEXT_MIME_TYPES[file.slice(file.lastIndexOf('.')).toLowerCase()];
+  return mime
+    ? { contents: [{ uri, mimeType: mime, text: data.toString('utf8') }] }
+    : { contents: [{ uri, mimeType: 'application/octet-stream', blob: data.toString('base64') }] };
+}
+
+// Exported so tests can assert the RFC 6570 reserved-expansion ({+file})
+// nested-path matching behaviour directly against the real templates, rather
+// than a copy that could silently drift from what the server registers.
+export const TEMPLATE_SOURCE_URI_TEMPLATE = 'opendesign://templates/{templateId}/source/{+file}';
+export const PART_SOURCE_URI_TEMPLATE = 'opendesign://parts/{experienceId}/{+file}';
+export const RENDER_FILE_URI_TEMPLATE = 'opendesign://renders/{renderId}/{+file}';
 
 export function registerReferenceResources(server: McpServer, registry: RegistryData): void {
   server.registerResource(
@@ -48,9 +61,9 @@ export function registerReferenceResources(server: McpServer, registry: Registry
       // here - an experienceId in this slot must be rejected as unknown.
       const descriptor = registry.worldTemplates.find((template) => template.id === templateId);
       if (!descriptor) throw new Error(`Unknown world template '${templateId}'.`);
-      const text = readExperienceFile(descriptor.experienceId, file);
-      if (text === undefined) throw new Error(`No source file '${file}' in template '${templateId}'.`);
-      return textContents(uri.href, text);
+      const data = readExperienceFileBytes(descriptor.experienceId, file);
+      if (data === undefined) throw new Error(`No source file '${file}' in template '${templateId}'.`);
+      return fileContents(uri.href, file, data);
     },
   );
 
@@ -65,9 +78,9 @@ export function registerReferenceResources(server: McpServer, registry: Registry
       const experienceId = String(variables.experienceId);
       const file = String(variables.file);
       if (!experienceDir(experienceId)) throw new Error(`Unknown experience '${experienceId}'.`);
-      const text = readExperienceFile(experienceId, file);
-      if (text === undefined) throw new Error(`No source file '${file}' in experience '${experienceId}'.`);
-      return textContents(uri.href, text);
+      const data = readExperienceFileBytes(experienceId, file);
+      if (data === undefined) throw new Error(`No source file '${file}' in experience '${experienceId}'.`);
+      return fileContents(uri.href, file, data);
     },
   );
 
@@ -87,10 +100,7 @@ export function registerReferenceResources(server: McpServer, registry: Registry
           `No render file '${file}' for '${renderId}' - evicted or never built; re-run render_experience.`,
         );
       }
-      const mime = TEXT_MIME_TYPES[file.slice(file.lastIndexOf('.'))];
-      return mime
-        ? { contents: [{ uri: uri.href, mimeType: mime, text: data.toString('utf8') }] }
-        : { contents: [{ uri: uri.href, mimeType: 'application/octet-stream', blob: data.toString('base64') }] };
+      return fileContents(uri.href, file, data);
     },
   );
 }

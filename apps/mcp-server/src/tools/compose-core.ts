@@ -39,7 +39,7 @@ import {
 } from '../schemas.js';
 import { makeError, newRequestId, type ToolOutcome } from '../errors.js';
 import type { RegistryData } from '../registry-data.js';
-import { listExperienceFiles, templateSourceUri } from '../reference-files.js';
+import { isDesignBearingFile, listExperienceFiles, templateSourceUri } from '../reference-files.js';
 
 /**
  * The selection-driving facets, surface-neutral: everything a `compose_<surface>`
@@ -167,15 +167,23 @@ function buildFillSkeleton(descriptor: WorldTemplateDescriptor): FillSkeleton {
   return { sections, craftGuarantees: descriptor.guidance };
 }
 
-/** Build the strict-fidelity reference manifest: source-file URIs + byte sizes, never content. */
+/**
+ * Build the strict-fidelity reference manifest: source-file URIs + byte sizes, never content.
+ *
+ * DESIGN-BEARING files only (the same `isDesignBearingFile` rule
+ * `get_part_reference` applies). Listing the experience's `content.ts` and
+ * `*fill.ts` under a note that says "port this design faithfully" told the
+ * porter to reproduce shipped editorial copy, which contradicts the BORROW
+ * invariant and doubled the bytes for zero design value.
+ */
 function buildReference(descriptor: WorldTemplateDescriptor): TemplateReference | undefined {
-  const files = listExperienceFiles(descriptor.experienceId);
+  const files = listExperienceFiles(descriptor.experienceId)?.filter((f) => isDesignBearingFile(f.path));
   if (!files) return undefined;
   return {
     templateId: descriptor.id,
     sourceFiles: files.map((f) => ({ uri: templateSourceUri(descriptor.id, f.path), path: f.path, bytes: f.bytes })),
     note:
-      'Strict fidelity: port this design faithfully - adjust only for content and consistency with the existing design. Fetch files individually via resources/read; do NOT load them into the orchestrating agent context (dispatch a subagent to read and port).',
+      'Strict fidelity: port this design faithfully - its structure, layout, motion and treatment. These are the design-bearing files only; the experience\'s own content and fill files are deliberately withheld, so write your own copy rather than reproducing theirs. Fetch files individually via resources/read; do NOT load them into the orchestrating agent context (dispatch a subagent to read and port).',
   };
 }
 
